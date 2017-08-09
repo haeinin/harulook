@@ -1,5 +1,5 @@
 package com.ksmart.harulook.point;
 
-public class Dao {
+public class pointDao {
 
 }

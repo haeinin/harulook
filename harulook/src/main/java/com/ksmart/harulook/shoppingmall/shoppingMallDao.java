@@ -1,5 +1,5 @@
 package com.ksmart.harulook.shoppingmall;
 
-public class Dao {
+public class shoppingMallDao {
 
 }

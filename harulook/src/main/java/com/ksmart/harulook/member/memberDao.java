@@ -1,5 +1,5 @@
 package com.ksmart.harulook.member;
 
-public class Dao {
+public class memberDao {
 
 }

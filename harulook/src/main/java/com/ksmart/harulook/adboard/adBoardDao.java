@@ -1,5 +1,5 @@
 package com.ksmart.harulook.adboard;
 
-public class Dao {
+public class adBoardDao {
 
 }

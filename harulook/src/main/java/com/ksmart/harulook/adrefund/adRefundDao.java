@@ -1,5 +1,5 @@
 package com.ksmart.harulook.adrefund;
 
-public class Dao {
+public class adRefundDao {
 
 }

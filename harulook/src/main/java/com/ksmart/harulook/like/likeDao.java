@@ -1,5 +1,5 @@
 package com.ksmart.harulook.like;
 
-public class Dao {
+public class likeDao {
 
 }

@@ -1,5 +1,5 @@
 package com.ksmart.harulook.adcontract;
 
-public class Dao {
+public class adContractDao {
 
 }
