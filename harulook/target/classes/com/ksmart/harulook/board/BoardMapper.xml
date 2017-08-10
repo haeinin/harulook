@@ -1,3 +1,34 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ksmart.harulook.board.BoardMapper">
+	<insert id="boardInsert" parameterType="com.ksmart.harulook.dto.BoardDto">
+		INSERT INTO sns_board(
+			sns_board_no
+			,user_id
+			,sns_board_img
+			,sns_board_content
+			,sns_board_weather
+			,sns_board_tall
+	 		,sns_board_size
+	 		,sns_board_loc
+	 		,sns_board_date
+	 		,sns_board_gender
+	 		,sns_board_age
+	 	)
+	 	VALUES(
+	 		#{snsBoardNo}
+	 		,#{userId}
+	 		,#{snsBoardImg}
+	 		,#{snsBoardContent}
+		 	,#{snsBoardWeather}
+		 	,#{snsBoardTall}
+		 	,#{snsBoardSize}
+		 	,#{snsBoardLoc}
+		 	,date(now())
+		 	,#{snsBoardGender}
+		 	,#{snsBoardAge}
+	 	)
+	</insert>
+</mapper>

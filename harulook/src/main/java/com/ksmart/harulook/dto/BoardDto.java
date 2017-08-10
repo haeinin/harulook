@@ -1,8 +1,9 @@
 package com.ksmart.harulook.dto;
 
 public class BoardDto {
-	private String snsBoardNO;
+	private String snsBoardNo;
 	private String userId;
+	private String snsBoardImg;
 	private String snsBoardContent;
 	private String snsBoardWeather;
 	private String snsBoardTall;
@@ -11,11 +12,17 @@ public class BoardDto {
 	private String snsBoardDate;
 	private String snsBoardGender;
 	private String snsBoardAge;
-	public String getSnsBoardNO() {
-		return snsBoardNO;
+	public String getSnsBoardNo() {
+		return snsBoardNo;
 	}
-	public void setSnsBoardNO(String snsBoardNO) {
-		this.snsBoardNO = snsBoardNO;
+	public void setSnsBoardNo(String snsBoardNO) {
+		this.snsBoardNo = snsBoardNO;
+	}
+	public String getSnsBoardImg() {
+		return snsBoardImg;
+	}
+	public void setSnsBoardImg(String snsBoardImg) {
+		this.snsBoardImg = snsBoardImg;
 	}
 	public String getUserId() {
 		return userId;
@@ -73,10 +80,10 @@ public class BoardDto {
 	}
 	@Override
 	public String toString() {
-		return "BoardDto [snsBoardNO=" + snsBoardNO + ", userId=" + userId + ", snsBoardContent=" + snsBoardContent
-				+ ", snsBoardWeather=" + snsBoardWeather + ", snsBoardTall=" + snsBoardTall + ", snsBoardSize="
-				+ snsBoardSize + ", snsBoardLoc=" + snsBoardLoc + ", snsBoardDate=" + snsBoardDate + ", snsBoardGender="
-				+ snsBoardGender + ", snsBoardAge=" + snsBoardAge + "]";
+		return "BoardDto [snsBoardNo=" + snsBoardNo + ", userId=" + userId + ", snsBoardImg=" + snsBoardImg
+				+ ", snsBoardContent=" + snsBoardContent + ", snsBoardWeather=" + snsBoardWeather + ", snsBoardTall="
+				+ snsBoardTall + ", snsBoardSize=" + snsBoardSize + ", snsBoardLoc=" + snsBoardLoc + ", snsBoardDate="
+				+ snsBoardDate + ", snsBoardGender=" + snsBoardGender + ", snsBoardAge=" + snsBoardAge + "]";
 	}
 	
 }

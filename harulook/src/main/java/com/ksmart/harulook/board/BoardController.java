@@ -9,17 +9,20 @@ import com.ksmart.harulook.dto.BoardDto;
 
 @Controller
 public class BoardController {
-	/*
-	// 입력(액션) 요청
-    @RequestMapping(value="/boardAdd", method = RequestMethod.POST)
-    public String boardAdd(BoardDto board) {
+	
+	@Autowired
+	private BoardDao boardDao;
+	
+	 /* sns게시물 입력 처리 요청 */
+    @RequestMapping(value="/boardInsert", method = RequestMethod.POST)
+    public void boardInsert(BoardDto board) {
         System.out.println(board);
         boardDao.boardInsert(board);
-        return "redirect:/boardList"; // 글입력후 "/boardList"로 리다이렉트(재요청)
-    }*/
+    }
     
+    /* sns게시물 입력 화면 요청 */
 	@RequestMapping(value="/boardInsert", method = RequestMethod.GET)
-    public String boardAdd() {
+    public String boardInsert() {
         System.out.println("boardInsert 폼 요청");
         return "sns/board/sns_board_insert";
     }
