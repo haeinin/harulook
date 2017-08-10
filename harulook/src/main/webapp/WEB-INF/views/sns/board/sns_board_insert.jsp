@@ -20,6 +20,7 @@
 </head>
 <body>
 게시물 입력 화면
+	
 	<form id="insertForm" action="${pageContext.request.contextPath}/boardInsert" method="post">
         <div class="form-group">
             <label for="snsBoardNo">snsBoardNo :</label>

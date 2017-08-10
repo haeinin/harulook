@@ -1,9 +1,13 @@
 package com.ksmart.harulook.board;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ksmart.harulook.dto.BoardDto;
 
@@ -13,10 +17,31 @@ public class BoardController {
 	@Autowired
 	private BoardDao boardDao;
 	
+	/* sns게시물 상세 보기 */
+	@RequestMapping(value="/boardDetail", method = RequestMethod.GET)
+	public String boardDetail(Model model
+            , @RequestParam(value="boardNo", required=true) String boardNo) {
+		System.out.println("boardDeatil 화면 요청");
+		BoardDto board = boardDao.boardDetail(boardNo);
+		model.addAttribute("board", board);
+		System.out.println(model);
+		return "sns/board/sns_board_detail";
+	}
+	
 	/* sns게시물 목록 요청 */
 	@RequestMapping(value="/boardList", method = RequestMethod.GET)
-	public String boardList() {
+	public String boardList(Model model
+            , @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		System.out.println("boardList 폼 요청");
+		int boardCount = boardDao.getBoardCount();
+        int pagePerRow = 10;
+        int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
+		List<BoardDto> list = boardDao.boardList(currentPage, pagePerRow);
+		model.addAttribute("currentPage", currentPage);
+        model.addAttribute("boardCount", boardCount);
+        model.addAttribute("lastPage", lastPage);
+        model.addAttribute("list", list);
+		System.out.println(model);
 		return "sns/board/sns_board_list";
 	}
 	

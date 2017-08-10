@@ -13,10 +13,12 @@ public class BoardDto {
 	private String snsBoardGender;
 	private String snsBoardAge;
 	public String getSnsBoardNo() {
+		System.out.println(snsBoardNo);
 		return snsBoardNo;
 	}
 	public void setSnsBoardNo(String snsBoardNO) {
 		this.snsBoardNo = snsBoardNO;
+		System.out.println(snsBoardNo);
 	}
 	public String getSnsBoardImg() {
 		return snsBoardImg;
