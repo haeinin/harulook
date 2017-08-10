@@ -17,6 +17,19 @@ public class BoardController {
 	@Autowired
 	private BoardDao boardDao;
 	
+	
+	
+	/* sns게시물 수정 화면 요청 */
+	@RequestMapping(value="/boardUpdate", method = RequestMethod.GET)
+	public String boardUpdate(Model model
+            , @RequestParam(value="boardNo", required=true) String boardNo) {
+		System.out.println("boardUpdate 화면 요청");
+		BoardDto board = boardDao.boardDetail(boardNo);
+		model.addAttribute("board", board);
+		System.out.println(model);
+		return "sns/board/sns_board_update";
+	}
+	
 	/* sns게시물 상세 보기 */
 	@RequestMapping(value="/boardDetail", method = RequestMethod.GET)
 	public String boardDetail(Model model

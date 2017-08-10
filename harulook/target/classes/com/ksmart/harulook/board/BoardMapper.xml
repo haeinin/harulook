@@ -17,6 +17,20 @@
 		<result property="snsBoardAge" column="sns_board_age"/>
 	</resultMap>
 	
+	<!-- sns게시물 정보 수정 -->
+	<update id="boardUpdate" parameterType="com.ksmart.harulook.dto.BoardDto">
+		UPDATE sns_board
+		SET
+			sns_board_content = #{snsBoardContent}
+			,sns_board_weather = #{snsBoardWeather}
+			,sns_board_tall = #{snsBoardTall}
+			,sns_board_size = #{snsBoardSize}
+			,sns_board_loc = #{snsBoardLoc}
+			,sns_board_gender = #{snsBoardGender}
+			,sns_board_age = #{snsBoardAge}
+		WHERE sns_board_no = #{snsBoardNo}
+	</update>
+	
 	<!-- sns게시물 상세 보기 -->
 	<select id="boardDetail" parameterType="String" resultMap="board">
 		SELECT 

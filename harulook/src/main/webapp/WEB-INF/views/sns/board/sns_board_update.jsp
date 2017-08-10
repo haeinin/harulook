@@ -14,57 +14,71 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-게시물 상세보기 화면
+게시물 수정 화면
 <div class="container">
+	<form id="UdpateForm" action="${pageContext.request.contextPath}/boardUpdate" method="post">
      <table class="table">
          <tbody>
              <tr>
-                <td>sns_board_no :</td>
+             	<td>sns_board_no :</td>
                 <td>${board.snsBoardNo}</td>
-               </tr>
+                <td>
+					<input class="form-control" name="snsBoardNo" id="snsBoardNo" type="text"/>
+				</td>
+             </tr>
             <tr>
-                   <td>user_id :</td>
-                   <td>${board.userId}</td>
-            </tr>
-            <tr>
-                   <td>sns_board_img :</td>
-                   <td>${board.snsBoardImg}</td>
-            </tr>
-            <tr>
-                   <td>sns_board_content :</td>
-                   <td>${board.snsBoardContent}</td>
+				<td>sns_board_content :</td>
+				<td>${board.snsBoardContent}</td>
+				<td>
+					<input class="form-control" name="snsBoardContent" id="snsBoardContent" type="text"/>
+				</td>
             </tr>
             <tr>
                    <td>sns_board_weather :</td>
                    <td>${board.snsBoardWeather}</td>
+                   <td>
+					<input class="form-control" name="snsBoardWeather" id="snsBoardWeather" type="text"/>
+				</td>
             </tr>
             <tr>
-                   <td>sns_board_tall :</td>
-                   <td>${board.snsBoardTall}</td>
+				<td>sns_board_tall :</td>
+				<td>${board.snsBoardTall}</td>
+				<td>
+					<input class="form-control" name="snsBoardTall" id="snsBoardTall" type="text"/>
+				</td>
             </tr>
             <tr>
-                   <td>sns_board_size :</td>
-                   <td>${board.snsBoardSize}</td>
+				<td>sns_board_size :</td>
+				<td>${board.snsBoardSize}</td>
+				<td>
+					<input class="form-control" name="snsBoardSize" id="snsBoardSize" type="text"/>
+				</td>
             </tr>
             <tr>
-                   <td>sns_board_loc :</td>
-                   <td>${board.snsBoardLoc}</td>
+				<td>sns_board_loc :</td>
+				<td>${board.snsBoardLoc}</td>
+				<td>
+					<input class="form-control" name="snsBoardLoc" id="snsBoardLoc" type="text"/>
+				</td>
             </tr>
             <tr>
-                   <td>sns_board_date :</td>
-                   <td>${board.snsBoardDate}</td>
+				<td>sns_board_gender :</td>
+				<td>${board.snsBoardGender}</td>
+				<td>
+					<input class="form-control" name="snsBoardGender" id="snsBoardGender" type="text"/>
+				</td>
             </tr>
             <tr>
-                   <td>sns_board_gender :</td>
-                   <td>${board.snsBoardGender}</td>
-            </tr>
-            <tr>
-                   <td>sns_board_age :</td>
-                   <td>${board.snsBoardAge}</td>
+				<td>sns_board_age :</td>
+				<td>${board.snsBoardAge}</td>
+				<td>
+					<input class="form-control" name="snsBoardAge" id="snsBoardAge" type="text"/>
+				</td>
             </tr>
         </tbody>
     </table>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/boardUpdate?boardNo=${board.snsBoardNo}">수정</a>
+    </form>
+    <a class="btn btn-default" href="${pageContext.request.contextPath}/boardModify?boardNo=${board.snsBoardNo}">수정</a>
     <a class="btn btn-default" href="${pageContext.request.contextPath}/boardRemove?boardNo=${board.snsBoardNo}">삭제</a>
     <a class="btn btn-default" href="${pageContext.request.contextPath}/boardList">글목록</a>
 </div>
