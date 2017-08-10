@@ -42,7 +42,7 @@
         <!-- mybatis 세션생성후 쿼리를 실행시킬때 사용할 쿼리위치(메퍼)설정 -->
         <beans:property name="mapperLocations">
             <beans:list>
-                <beans:value>classpath:com/ksmart/harulook/board/test.xml</beans:value>
+               <beans:value>classpath:com/ksmart/harulook/member/MemberMapper.xml</beans:value>
             </beans:list>
         </beans:property>
     </beans:bean>
