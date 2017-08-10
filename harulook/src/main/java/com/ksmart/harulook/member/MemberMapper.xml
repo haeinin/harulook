@@ -1,0 +1,48 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.ksmart.harulook.member.MemberMapper">
+     
+	<insert id="userinsert" parameterType="com.ksmart.harulook.dto.MemberDto">
+		insert into user(
+			user_id
+			,user_pw
+			,user_nick
+			,user_name
+			,user_tel
+			,user_email
+			,user_addr
+			,user_gender
+			,user_age
+			,user_tall
+			,user_size
+			,user_q
+			,user_a
+			,user_level
+			,user_point
+			,user_date
+		) 
+		values(
+			#{user_id}
+			,#{user_pw}
+			,#{user_nick}
+			,#{user_name}
+			,#{user_tel}
+			,#{user_email}
+			,#{user_addr}
+			,#{user_gender}
+			,#{user_age}
+			,#{user_tall}
+			,#{user_size}
+			,#{user_q}
+			,#{user_a}
+			,'일반회원'
+			,0
+			,date(now())
+		)
+	</insert>
+      
+</mapper>
+
+
