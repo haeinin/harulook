@@ -16,7 +16,7 @@ public class MallDao{
 	public MallDto getMallPro(String mallProNo) {
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.mall.MallMapper.mallProDetail", mallProNo);
     }
-	
+	/*쇼핑몰 상품 목록*/
 	public List<MallDto> getMallProList(){
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.mall.MallMapper.mallProList");
 	}

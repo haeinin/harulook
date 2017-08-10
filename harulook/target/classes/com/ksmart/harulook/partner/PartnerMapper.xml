@@ -60,6 +60,26 @@
 	)
  </insert>
  
+ <select id="cooContractList" resultMap="partner" >
+ SELECT 
+ coo_contract_no
+ ,user_id
+ ,manager_id
+ ,coo_contract_dc
+ ,coo_contract_fee
+ ,coo_contract_start
+ ,coo_contract_end
+ ,coo_contract_date
+ ,coo_contract_pay_date
+ ,coo_contract_code
+ ,coo_contract_img
+ ,coo_contract_link
+ ,coo_contract_stat
+ ,coo_contract_pay_stat
+	FROM coo_contract
+ 
+ </select>
+ 
  
  
 

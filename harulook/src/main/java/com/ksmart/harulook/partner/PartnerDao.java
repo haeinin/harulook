@@ -1,5 +1,7 @@
 package com.ksmart.harulook.partner;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,5 +18,8 @@ public class PartnerDao {
 	 public int insertCooContract(PartnerDto dto) {
 	        return sqlSessionTemplate.insert("com.ksmart.harulook.partner.PartnerMapper.cooContractInsert", dto);
 	    }
-	
+	 /*제휴계약목록조회*/
+	 public List<PartnerDto> getCooContractList(){
+			return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.PartnerMapper.cooContractList");
+		}
 }
