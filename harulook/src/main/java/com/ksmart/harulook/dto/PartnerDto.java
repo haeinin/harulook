@@ -16,9 +16,6 @@ public class PartnerDto {
 	private String cooContractLink;
 	private String cooContractStat;
 	private String cooContractPayStat;
-	private String cooContractAccount;
-	private String cooContractAccountName;
-	private String cooContractAccountBank;
 	
 	public String getCooContractNo() {
 		return cooContractNo;
@@ -104,24 +101,7 @@ public class PartnerDto {
 	public void setCooContractPayStat(String cooContractPayStat) {
 		this.cooContractPayStat = cooContractPayStat;
 	}
-	public String getCooContractAccount() {
-		return cooContractAccount;
-	}
-	public void setCooContractAccount(String cooContractAccount) {
-		this.cooContractAccount = cooContractAccount;
-	}
-	public String getCooContractAccountName() {
-		return cooContractAccountName;
-	}
-	public void setCooContractAccountName(String cooContractAccountName) {
-		this.cooContractAccountName = cooContractAccountName;
-	}
-	public String getCooContractAccountBank() {
-		return cooContractAccountBank;
-	}
-	public void setCooContractAccountBank(String cooContractAccountBank) {
-		this.cooContractAccountBank = cooContractAccountBank;
-	}
+
 	
 	
 	

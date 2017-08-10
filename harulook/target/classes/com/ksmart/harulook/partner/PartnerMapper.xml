@@ -19,9 +19,7 @@
 	<result property="cooContractLink" column="coo_contract_link"></result>
 	<result property="cooContractStat" column="coo_contract_stat"></result>
 	<result property="cooContractPayStat" column="coo_contract_pay_stat"></result>
-	<result property="cooContractAccount" column="coo_contract_account"></result>
-	<result property="cooContractAccountName" column="coo_contract_account_name"></result>
-	<result property="cooContractAccountBank" column="coo_contract_account_bank"></result>
+
 
 </resultMap>
  
@@ -42,9 +40,6 @@
 	,coo_contract_link
 	,coo_contract_stat
 	,coo_contract_pay_stat
-	,coo_contract_account
-	,coo_contract_account_name
-	,coo_contract_account_bank
 	)
 	VALUES (
 	#{cooContractNo}
@@ -59,11 +54,9 @@
 	,#{cooContractCode}
 	,#{cooContractImg}
 	,#{cooContractLink}
-	,#{cooContractStat}
-	,#{cooContractPayStat}
-	,#{cooContractAccount}
-	,#{cooContractAccountName}
-	,#{cooContractAccountBank}
+	,'제휴신청'
+	,'결제대기'
+
 	)
  </insert>
  
