@@ -1,0 +1,73 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ksmart.harulook.partner.PartnerMapper">
+
+<resultMap type="com.ksmart.harulook.dto.PartnerDto" id="partner">
+	<result property="cooContractNo" column="coo_contract_no"></result>
+	<result property="userId" column="user_id"></result>
+	<result property="managerId" column="manager_id"></result>
+	<result property="cooContractDc" column="coo_contract_dc"></result>
+	<result property="cooContractFee" column="coo_contract_fee"></result>
+	<result property="cooContractStart" column="coo_contract_start"></result>
+	<result property="cooContractEnd" column="coo_contract_end"></result>
+	<result property="cooContractDate" column="coo_contract_date"></result>
+	<result property="cooContractPayDay" column="coo_contract_pay_date"></result>
+	<result property="cooContractCode" column="coo_contract_code"></result>
+	<result property="cooContractImg" column="coo_contract_img"></result>
+	<result property="cooContractLink" column="coo_contract_link"></result>
+	<result property="cooContractStat" column="coo_contract_stat"></result>
+	<result property="cooContractPayStat" column="coo_contract_pay_stat"></result>
+	<result property="cooContractAccount" column="coo_contract_account"></result>
+	<result property="cooContractAccountName" column="coo_contract_account_name"></result>
+	<result property="cooContractAccountBank" column="coo_contract_account_bank"></result>
+
+</resultMap>
+ 
+ <!-- 제휴계약신청 -->
+ <insert id="cooContractInsert" parameterType="com.ksmart.harulook.dto.PartnerDto">
+ INSERT INTO coo_contract(
+ 	coo_contract_no
+	,user_id
+	,manager_id
+	,coo_contract_dc
+	,coo_contract_fee
+	,coo_contract_start
+	,coo_contract_end
+	,coo_contract_date
+	,coo_contract_pay_date
+	,coo_contract_code
+	,coo_contract_img
+	,coo_contract_link
+	,coo_contract_stat
+	,coo_contract_pay_stat
+	,coo_contract_account
+	,coo_contract_account_name
+	,coo_contract_account_bank
+	)
+	VALUES (
+	#{cooContractNo}
+	,#{userId}
+	,#{managerId}
+	,#{cooContractDc}
+	,#{cooContractFee}
+	,'2017-09-01'
+	,'2017-10-01'
+	,date(now())
+	,#{cooContractPayDay}
+	,#{cooContractCode}
+	,#{cooContractImg}
+	,#{cooContractLink}
+	,#{cooContractStat}
+	,#{cooContractPayStat}
+	,#{cooContractAccount}
+	,#{cooContractAccountName}
+	,#{cooContractAccountBank}
+	)
+ </insert>
+ 
+ 
+ 
+
+</mapper>

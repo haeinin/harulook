@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ksmart.harulook.mall.MallMapper">
+
+<resultMap type="com.ksmart.harulook.dto.MallDto" id="mallPro">
+	<result property="mallProNo" column="mall_pro_no"></result>
+	<result property="partnerNo" column="partner_no"></result>
+	<result property="mallProName" column="mall_pro_name"></result>
+	<result property="mallProPrice" column="mall_pro_price"></result>
+	<result property="mallProCate" column="mall_pro_cate"></result>
+	<result property="mallProImg" column="mall_pro_img"></result>
+</resultMap>
+
+	<select id="mallProDetail" resultMap="mallPro">
+		SELECT mall_pro_no, partner_no, mall_pro_name, mall_pro_price, mall_pro_cate, mall_pro_img
+		FROM mall_pro
+		WHERE partner_no = 'partner_02';
+	</select>
+	
+	<select id="mallProList" parameterType="java.util.Map" resultMap="mallPro">
+	SELECT mall_pro_no
+	, mall_pro_name
+	, mall_pro_price
+	, mall_pro_img
+	FROM mall_pro
+	</select>
+
+
+</mapper>
