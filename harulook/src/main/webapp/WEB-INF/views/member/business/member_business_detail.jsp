@@ -27,33 +27,28 @@
 		
     });
 </script>
-<title>일반회원정보보기</title>
+<title>사업자회원정보보기</title>
 </head>
 <body>
 	
-	    <h1>일반회원정보보기</h1>
+	    <h1>사업자회원정보보기</h1>
 	    
-	    	아이디 : <a>${userDetail.userId}</a><br>
-	       	닉네임 : <a>${userDetail.userNick}</a><br>
-	       	이름: <a>${userDetail.userName}</a><br>
-	       	성별: <a>${userDetail.userGender}</a><br>
-	       	이메일: <a>${userDetail.userEmail}</a><br>
-	       	전화번호: <a>${userDetail.userTel}</a><br>
-	       	주소: <a>${userDetail.userAddr}</a><br>
-	       	나이: <a>${userDetail.userAge}</a><br>
-	       	키: <a>${userDetail.userTall}</a><br>
-	       	체형: <a>${userDetail.userSize}</a><br>
-	       	권한: <a>${userDetail.userLevel}</a><br>
-	       	가입날짜: <a>${userDetail.userDate}</a><br>
+	    	아이디 : <a>${businessDetail.userId}</a><br>
+	       	닉네임 : <a>${businessDetail.userNick}</a><br>
+	       	이름: <a>${businessDetail.userName}</a><br>
+	       	이메일: <a>${businessDetail.userEmail}</a><br>
+	       	전화번호: <a>${businessDetail.userTel}</a><br>
+	       	주소: <a>${businessDetail.userAddr}</a><br>
+	       	권한: <a>${businessDetail.userLevel}</a><br>
+	       	사업자번호: <a>${businessDetail.userBsNo}</a><br>
+	       	업종: <a>${businessDetail.userBsType}</a><br>
+	       	업태: <a>${businessDetail.userBsStatus}</a><br>
+	       	업체명: <a>${businessDetail.userBsName}</a><br>
+	       	업체홈페이지: <a>${businessDetail.userUrl}</a><br>
+	       	가입날짜: <a>${businessDetail.userDate}</a><br>
 	       	
 	                    	
-	                    
-              
-          <%--  <c:forEach var="b" items="${list}">
-               		선호색: <a>${userDetail.userDate}</a><br>
-                   	스타일: <a>${userDetail.userDate}</a><br>
-              
-           </c:forEach> --%>
+	  
      
 
 </body>

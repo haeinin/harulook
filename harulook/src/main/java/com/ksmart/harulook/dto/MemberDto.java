@@ -23,21 +23,13 @@ public class MemberDto {
 	private int userPoint;
 	private String userDate;
 	
-	@Override
-	public String toString() {
-		return "MemberDto [userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick + ", userName="
-				+ userName + ", userTel=" + userTel + ", userEmail=" + userEmail + ", userAddr=" + userAddr
-				+ ", userGender=" + userGender + ", userAge=" + userAge + ", userTall=" + userTall + ", userSize="
-				+ userSize + ", userQ=" + userQ + ", userA=" + userA + ", userLevel=" + userLevel + ", userBsNo="
-				+ userBsNo + ", userBsType=" + userBsType + ", userBsStatus=" + userBsStatus + ", userBsName="
-				+ userBsName + ", userUrl=" + userUrl + ", userPoint=" + userPoint + ", userDate=" + userDate + "]";
-	}
+	private String colorValue;
+	private String styleValue;
 	
 	public String getUserId() {
 		return userId;
 	}
 	public void setUserId(String userId) {
-		System.out.println("setUserId   "+ userId);
 		this.userId = userId;
 	}
 	public String getUserPw() {
@@ -160,10 +152,38 @@ public class MemberDto {
 	public void setUserDate(String userDate) {
 		this.userDate = userDate;
 	}
-	
-	
-	
-	
+	public String getColorValue() {
+		return colorValue;
+	}
+	public void setColorValue(String colorValue) {
+		this.colorValue = colorValue;
+	}
+	public String getStyleValue() {
+		return styleValue;
+	}
+	public void setStyleValue(String styleValue) {
+		this.styleValue = styleValue;
+	}
+	@Override
+	public String toString() {
+		return "MemberDto [userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick + ", userName="
+				+ userName + ", userTel=" + userTel + ", userEmail=" + userEmail + ", userAddr=" + userAddr
+				+ ", userGender=" + userGender + ", userAge=" + userAge + ", userTall=" + userTall + ", userSize="
+				+ userSize + ", userQ=" + userQ + ", userA=" + userA + ", userLevel=" + userLevel + ", userBsNo="
+				+ userBsNo + ", userBsType=" + userBsType + ", userBsStatus=" + userBsStatus + ", userBsName="
+				+ userBsName + ", userUrl=" + userUrl + ", userPoint=" + userPoint + ", userDate=" + userDate
+				+ ", colorValue=" + colorValue + ", styleValue=" + styleValue + ", getUserId()=" + getUserId()
+				+ ", getUserPw()=" + getUserPw() + ", getUserNick()=" + getUserNick() + ", getUserName()="
+				+ getUserName() + ", getUserTel()=" + getUserTel() + ", getUserEmail()=" + getUserEmail()
+				+ ", getUserAddr()=" + getUserAddr() + ", getUserGender()=" + getUserGender() + ", getUserAge()="
+				+ getUserAge() + ", getUserTall()=" + getUserTall() + ", getUserSize()=" + getUserSize()
+				+ ", getUserQ()=" + getUserQ() + ", getUserA()=" + getUserA() + ", getUserLevel()=" + getUserLevel()
+				+ ", getUserBsNo()=" + getUserBsNo() + ", getUserBsType()=" + getUserBsType() + ", getUserBsStatus()="
+				+ getUserBsStatus() + ", getUserBsName()=" + getUserBsName() + ", getUserUrl()=" + getUserUrl()
+				+ ", getUserPoint()=" + getUserPoint() + ", getUserDate()=" + getUserDate() + ", getColorValue()="
+				+ getColorValue() + ", getStyleValue()=" + getStyleValue() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
 	
 	
 	

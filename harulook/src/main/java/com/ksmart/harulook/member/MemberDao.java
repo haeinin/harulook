@@ -15,18 +15,39 @@ public class MemberDao {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
     
+    /*사업자회원정보보기 + 관리자 회원정보 */
+    public MemberDto businessDetail(String userId) {
+		Map<String, String> map = new HashMap<String, String>();
+    	map.put("userId", userId);
+        return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.MemberMapper.businessDetail", map);
+    }
+    
+	/*일반회원 스타일 */
+	public List<MemberDto> userStyle(String userId) {
+		Map<String, String> map = new HashMap<String, String>();
+	    map.put("userId", userId);
+	    return sqlSessionTemplate.selectList("com.ksmart.harulook.member.MemberMapper.userStyle", map);
+	}
+
+
+    /*일반회원 색상 */
+    public List<MemberDto> userColor(String userId) {
+    	System.out.println("색상고를때");
+		Map<String, String> map = new HashMap<String, String>();
+        map.put("userId", userId);
+        return sqlSessionTemplate.selectList("com.ksmart.harulook.member.MemberMapper.userColor", map);
+    }
+    
     /*일반회원정보보기 */
     public MemberDto userDetail(String userId) {
-		
-        Map<String, String> map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<String, String>();
     	map.put("userId", userId);
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.MemberMapper.userDetail", map);
     }
     
     /*관리자회원리스트 */
     public List<MemberDto> managerList(int currentPage, int pagePerRow, String level) {
-		
-        Map<Object, Object> map = new HashMap<Object, Object>();
+		Map<Object, Object> map = new HashMap<Object, Object>();
         map.put("beginRow", (currentPage-1)*pagePerRow);
         map.put("pagePerRow", pagePerRow);
         map.put("level", level);

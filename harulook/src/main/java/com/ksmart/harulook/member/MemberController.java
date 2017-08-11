@@ -27,6 +27,28 @@ public class MemberController {
 	@Autowired
     private MemberDao memberDao;
 	
+	/*사업자회원정보보기 + 관리자회원정보*/
+	@RequestMapping(value="/member_manager_detail", method = RequestMethod.GET)
+	public String managerDetail(Model model,
+			@RequestParam(value="userId", required=true) String userId) {
+			System.out.println("member_user_detail 일반회원정보보기할때 받아온 아이디 == " + userId);
+			MemberDto businessDetail = memberDao.businessDetail(userId);
+			model.addAttribute("businessDetail", businessDetail);
+				System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
+		return "member/manager/member_manager_detail"; //일반회원가입폼화면
+	}
+	
+	/*사업자회원정보보기 + 관리자회원정보*/
+	@RequestMapping(value="/member_business_detail", method = RequestMethod.GET)
+	public String businessDetail(Model model,
+			@RequestParam(value="userId", required=true) String userId) {
+			System.out.println("member_user_detail 일반회원정보보기할때 받아온 아이디 == " + userId);
+			MemberDto businessDetail = memberDao.businessDetail(userId);
+			model.addAttribute("businessDetail", businessDetail);
+				System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
+		return "member/business/member_business_detail"; //일반회원가입폼화면
+	}
+	
 	/*일반회원정보보기*/
 	@RequestMapping(value="/member_user_detail", method = RequestMethod.GET)
 	public String userDetail(Model model,
@@ -35,8 +57,17 @@ public class MemberController {
 			MemberDto userDetail = memberDao.userDetail(userId);
 			model.addAttribute("userDetail", userDetail);
 				System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
-		return "member/member_user_detail"; //일반회원가입폼화면
+				
+			List<MemberDto> userColor = memberDao.userColor(userId);	
+			model.addAttribute("userColor", userColor);
+			
+			List<MemberDto> userStyle = memberDao.userStyle(userId);	
+			model.addAttribute("userStyle", userStyle);
+				System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러와스타일 model==" + model);
+				
+		return "member/user/member_user_detail"; //일반회원가입폼화면
 	}
+	
 	///////////////////////////////////////////////////////////////////////////하나로 합칠수있음
 	/*사업자회원목록*/
 	@RequestMapping(value={"member_manager_list"}, method = RequestMethod.GET)
@@ -55,7 +86,7 @@ public class MemberController {
         
         model.addAttribute("list", list);
         	System.out.println("MemeberController 셀렉트해서 받아온 일반 회원 리스트 model값 == "+model);
-        return "member/member_manager_list";  //아이디중복체크후 화면 그대로
+        return "member/manager/member_manager_list";  //아이디중복체크후 화면 그대로
     }
 	
 	/*사업자회원목록*/
@@ -75,7 +106,7 @@ public class MemberController {
         
         model.addAttribute("list", list);
         	System.out.println("MemeberController 셀렉트해서 받아온 일반 회원 리스트 model값 == "+model);
-        return "member/member_business_list";  //아이디중복체크후 화면 그대로
+        return "member/business/member_business_list";  //아이디중복체크후 화면 그대로
     }
 	
 	/*일반회원목록*/
@@ -94,7 +125,7 @@ public class MemberController {
         
         model.addAttribute("list", list);
         	System.out.println("MemeberController 셀렉트해서 받아온 일반 회원 리스트 model값 == "+model);
-        return "member/member_user_list";  //아이디중복체크후 화면 그대로
+        return "member/user/member_user_list";  //아이디중복체크후 화면 그대로
     }
 	///////////////////////////////////////////////////////////////////////////하나로 합칠수있음
 	
@@ -110,7 +141,7 @@ public class MemberController {
 	    	System.out.println("MemberController 아이디검색후 받은 값 userid== " + userid);
 	        System.out.println("MemberController 아이디검색후 받은 값 model== " + model);
 	            
-        return "member/member_user_insert";  //아이디중복체크후 화면 그대로
+        return "member/user/member_user_insert";  //아이디중복체크후 화면 그대로
     }
 	
 	/*일반회원가입액션*/
@@ -125,7 +156,7 @@ public class MemberController {
 	@RequestMapping(value="/member_user_insert", method = RequestMethod.GET)
 	public String userAdd() {
 		System.out.println("member_user_insert 일반회원가입홈화면");
-		return "member/member_user_insert"; //일반회원가입폼화면
+		return "member/user/member_user_insert"; //일반회원가입폼화면
 	}
 		
 }
