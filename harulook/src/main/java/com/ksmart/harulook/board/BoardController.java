@@ -17,11 +17,25 @@ public class BoardController {
 	@Autowired
 	private BoardDao boardDao;
 	
+	/* sns게시물 삭제 처리 요청 */
+	@RequestMapping(value="/boardDelete", method = RequestMethod.GET)
+	public String boardDelete(String boardNo) {
+		System.out.println("sns게시물 삭제 요청");
+		boardDao.boardDelete(boardNo);
+		return "redirect:/boardList";
+	}
 	
+	/* sns게시물 수정 처리 요청 */
+	@RequestMapping(value="/boardUpdate", method = RequestMethod.POST)
+	public String boardUpdate(BoardDto board) {
+		System.out.println("boardUpdate 처리 요청");
+		boardDao.boardUpdate(board);
+		return "redirect:/boardDetail?boardNo="+board.getSnsBoardNo();
+	}
 	
 	/* sns게시물 수정 화면 요청 */
 	@RequestMapping(value="/boardUpdate", method = RequestMethod.GET)
-	public String boardUpdate(Model model
+	public String boardUpdateForm(Model model
             , @RequestParam(value="boardNo", required=true) String boardNo) {
 		System.out.println("boardUpdate 화면 요청");
 		BoardDto board = boardDao.boardDetail(boardNo);

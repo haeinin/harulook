@@ -17,6 +17,13 @@
 		<result property="snsBoardAge" column="sns_board_age"/>
 	</resultMap>
 	
+	<!-- sns게시물 삭제 -->
+	<delete id="boardDelete" parameterType="String">
+		DELETE 
+		FROM sns_board 
+		WHERE sns_board_no = #{snsBoardNo}
+	</delete>
+	
 	<!-- sns게시물 정보 수정 -->
 	<update id="boardUpdate" parameterType="com.ksmart.harulook.dto.BoardDto">
 		UPDATE sns_board

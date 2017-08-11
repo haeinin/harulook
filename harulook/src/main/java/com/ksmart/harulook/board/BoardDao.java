@@ -16,9 +16,14 @@ public class BoardDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	/* sns게시물 삭제 */
+	public int boardDelete(String boardNo) {
+		return sqlSessionTemplate.delete("com.ksmart.harulook.board.BoardMapper.boardDelete", boardNo);
+	}
+	
 	/* sns게시물 정보 수정 */
-	public int boardUpdate(String boardNo) {
-		return sqlSessionTemplate.update("com.ksmart.harulook.board.BoardMapper.boardUpdate", boardNo);
+	public int boardUpdate(BoardDto board) {
+		return sqlSessionTemplate.update("com.ksmart.harulook.board.BoardMapper.boardUpdate", board);
 	}
 	
 	/* sns게시물 상세 보기 */
@@ -31,7 +36,7 @@ public class BoardDao {
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.board.BoardMapper.boardCount");
     }
 	
-	/* sns게시물 목록 보기 처리 메서드 */
+	/* sns게시물 목록 조회 메서드 */
 	public List<BoardDto> boardList(int currentPage, int pagePerRow) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("beginRow", (currentPage-1)*pagePerRow);

@@ -17,70 +17,62 @@
 게시물 수정 화면
 <div class="container">
 	<form id="UdpateForm" action="${pageContext.request.contextPath}/boardUpdate" method="post">
-     <table class="table">
-         <tbody>
-             <tr>
-             	<td>sns_board_no :</td>
-                <td>${board.snsBoardNo}</td>
-                <td>
-					<input class="form-control" name="snsBoardNo" id="snsBoardNo" type="text"/>
-				</td>
-             </tr>
-            <tr>
-				<td>sns_board_content :</td>
-				<td>${board.snsBoardContent}</td>
-				<td>
-					<input class="form-control" name="snsBoardContent" id="snsBoardContent" type="text"/>
-				</td>
-            </tr>
-            <tr>
-                   <td>sns_board_weather :</td>
-                   <td>${board.snsBoardWeather}</td>
-                   <td>
-					<input class="form-control" name="snsBoardWeather" id="snsBoardWeather" type="text"/>
-				</td>
-            </tr>
-            <tr>
-				<td>sns_board_tall :</td>
-				<td>${board.snsBoardTall}</td>
-				<td>
-					<input class="form-control" name="snsBoardTall" id="snsBoardTall" type="text"/>
-				</td>
-            </tr>
-            <tr>
-				<td>sns_board_size :</td>
-				<td>${board.snsBoardSize}</td>
-				<td>
-					<input class="form-control" name="snsBoardSize" id="snsBoardSize" type="text"/>
-				</td>
-            </tr>
-            <tr>
-				<td>sns_board_loc :</td>
-				<td>${board.snsBoardLoc}</td>
-				<td>
-					<input class="form-control" name="snsBoardLoc" id="snsBoardLoc" type="text"/>
-				</td>
-            </tr>
-            <tr>
-				<td>sns_board_gender :</td>
-				<td>${board.snsBoardGender}</td>
-				<td>
-					<input class="form-control" name="snsBoardGender" id="snsBoardGender" type="text"/>
-				</td>
-            </tr>
-            <tr>
-				<td>sns_board_age :</td>
-				<td>${board.snsBoardAge}</td>
-				<td>
-					<input class="form-control" name="snsBoardAge" id="snsBoardAge" type="text"/>
-				</td>
-            </tr>
-        </tbody>
-    </table>
+		<table class="table">
+			<tbody>
+            	<tr>
+             		<td>sns_board_no :</td>
+	                <td>
+						<input class="form-control" name="snsBoardNo" id="snsBoardNo" type="text" value="${board.snsBoardNo}" readonly="readonly"/>
+					</td>
+	            </tr>
+            	<tr>
+					<td>sns_board_content :</td>
+					<td>
+						<input class="form-control" name="snsBoardContent" id="snsBoardContent" type="text" value="${board.snsBoardContent}"/>
+					</td>
+            	</tr>
+            	<tr>
+					<td>sns_board_weather :</td>
+                  	<td>
+						<input class="form-control" name="snsBoardWeather" id="snsBoardWeather" type="text" value="${board.snsBoardWeather}"/>
+					</td>
+	            </tr>
+	            <tr>
+					<td>sns_board_tall :</td>
+					<td>
+						<input class="form-control" name="snsBoardTall" id="snsBoardTall" type="text" value="${board.snsBoardTall}"/>
+					</td>
+	            </tr>
+	            <tr>
+					<td>sns_board_size :</td>
+					<td>
+						<input class="form-control" name="snsBoardSize" id="snsBoardSize" type="text" value="${board.snsBoardSize}"/>
+					</td>
+	            </tr>
+	            <tr>
+					<td>sns_board_loc :</td>
+					<td>
+						<input class="form-control" name="snsBoardLoc" id="snsBoardLoc" type="text" value="${board.snsBoardLoc}"/>
+					</td>
+	            </tr>
+	            <tr>
+					<td>sns_board_gender :</td>
+					<td>
+						<input class="form-control" name="snsBoardGender" id="snsBoardGender" type="text" value="${board.snsBoardGender}"/>
+					</td>
+	            </tr>
+	            <tr>
+					<td>sns_board_age :</td>
+					<td>
+						<input class="form-control" name="snsBoardAge" id="snsBoardAge" type="text" value="${board.snsBoardAge}"/>
+					</td>
+	            </tr>
+	        </tbody>
+	    </table>
+    	<input class="btn btn-default" type="submit" value="수정">
+    	<a class="btn btn-default" href="${pageContext.request.contextPath}/boardDetail?boardNo=${board.snsBoardNo}">취소</a>
+    	<a class="btn btn-default" href="${pageContext.request.contextPath}/boardList">글목록</a>
     </form>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/boardModify?boardNo=${board.snsBoardNo}">수정</a>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/boardRemove?boardNo=${board.snsBoardNo}">삭제</a>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/boardList">글목록</a>
 </div>
 </body>
 </html>
