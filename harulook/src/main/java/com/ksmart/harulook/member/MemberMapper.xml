@@ -4,44 +4,118 @@
  
 <mapper namespace="com.ksmart.harulook.member.MemberMapper">
      
-	<insert id="userinsert" parameterType="com.ksmart.harulook.dto.MemberDto">
-		insert into user(
-			user_id
-			,user_pw
-			,user_nick
-			,user_name
-			,user_tel
-			,user_email
-			,user_addr
-			,user_gender
-			,user_age
-			,user_tall
-			,user_size
-			,user_q
-			,user_a
-			,user_level
-			,user_point
-			,user_date
-		) 
-		values(
-			#{user_id}
-			,#{user_pw}
-			,#{user_nick}
-			,#{user_name}
-			,#{user_tel}
-			,#{user_email}
-			,#{user_addr}
-			,#{user_gender}
-			,#{user_age}
-			,#{user_tall}
-			,#{user_size}
-			,#{user_q}
-			,#{user_a}
-			,'일반회원'
-			,0
-			,date(now())
-		)
-	</insert>
+    <resultMap type="com.ksmart.harulook.dto.MemberDto" id="member">
+		<result property="userId" column="user_id"/>
+		<result property="userPw" column="user_pw"/>
+		<result property="userNick" column="user_nick"/>
+		<result property="userName" column="user_name"/>
+		<result property="userTel" column="user_tel"/>
+		<result property="userEmail" column="user_email"/>
+		<result property="userAddr" column="user_addr"/>
+		<result property="userGender" column="user_gender"/>
+		<result property="userAge" column="user_age"/>
+		<result property="userTall" column="user_tall"/>
+		<result property="userSize" column="user_size"/>
+		<result property="userQ" column="user_q"/>
+		<result property="userA" column="user_a"/>
+		<result property="userLevel" column="user_level"/>
+		
+		<result property="userBsNo" column="user_bs_no"/>
+		<result property="userBsType" column="user_bs_type"/>
+		<result property="userBsStatus" column="user_bs_status"/>
+		<result property="userBsName" column="user_bs_name"/>
+		<result property="userUrl" column="user_url"/>
+		
+		<result property="userPoint" column="user_point"/>
+		<result property="userDate" column="user_date"/>
+	</resultMap>
+		
+		<!-- 회원상세정보보기 -->
+     	<select id="userDetail" parameterType="java.util.Map" resultMap="member">
+			select user_id
+				,user_nick
+				,user_name
+				,user_gender
+				,user_email
+				,user_tel
+				,user_addr
+				,user_age
+				,user_tall
+				,user_size
+				,user_level
+				,user_date 
+			from user
+			where user_id = #{userId};
+
+    	</select>
+		
+		<!-- 회원리스트 카운트 조회 -->
+     	<select id="getBoardCount" parameterType="com.ksmart.harulook.dto.MemberDto" resultType="int">
+			SELECT COUNT(*) FROM user WHERE user_level = #{level}
+    	</select>
+		
+		<!-- 전체회원리스트쿼리 -->
+     	<select id="userList" parameterType="java.util.Map" resultMap="member">
+			select user_id
+					,user_nick
+					,user_name
+					,user_point
+					,user_date
+					,user_bs_name
+					,user_tel 
+			from user
+			where user_level = #{level}
+			ORDER BY user_date DESC 
+       		LIMIT #{beginRow}, #{pagePerRow}
+
+    	</select>
+
+		<!-- 아이디중복체크 -->
+     	<select id="idcheck" parameterType="java.util.Map" resultType="String">
+			select user_id
+			from user
+			where user_id = #{idcheck};
+    	</select>
+
+		<!-- 일반회원가입입력폼 -->
+     	<insert id="userinsert" parameterType="com.ksmart.harulook.dto.MemberDto">
+			insert into user(
+				user_id
+				,user_pw
+				,user_nick
+				,user_name
+				,user_tel
+				,user_email
+				,user_addr
+				,user_gender
+				,user_age
+				,user_tall
+				,user_size
+				,user_q
+				,user_a
+				,user_level
+				,user_point
+				,user_date
+			) 
+			values(
+				#{userId}
+				,#{userPw}
+				,#{userNick}
+				,#{userName}
+				,#{userTel}
+				,#{userEmail}
+				,#{userAddr}
+				,#{userGender}
+				,#{userAge}
+				,#{userTall}
+				,#{userSize}
+				,#{userQ}
+				,#{userA}
+				,'일반회원'
+				,0
+				,date(now())
+			)
+		</insert>
       
 </mapper>
 
