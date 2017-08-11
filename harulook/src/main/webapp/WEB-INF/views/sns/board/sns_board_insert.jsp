@@ -23,10 +23,6 @@
 	
 	<form id="insertForm" action="${pageContext.request.contextPath}/boardInsert" method="post">
         <div class="form-group">
-            <label for="snsBoardNo">snsBoardNo :</label>
-            <input class="form-control" name="snsBoardNo" id="snsBoardNo" type="text"/>
-        </div>
-        <div class="form-group">
             <label for="userId">userId :</label>
             <input class="form-control" name="userId" id="userId" type="text"/>
         </div>

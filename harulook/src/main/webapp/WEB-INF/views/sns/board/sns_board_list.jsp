@@ -25,6 +25,8 @@ sns 게시물 목록
 	            <tr>
 	                <th>snsBoardNo</th>
 	                <th>snsBoardImg</th>
+	                <th>댓글수</th>
+	                <th>추천수</th>
 	                <th>snsBoardDate</th>
 	            </tr>
 	        </thead>
@@ -33,6 +35,8 @@ sns 게시물 목록
 	                <tr>
 	                    <td><a href="${pageContext.request.contextPath}/boardDetail?boardNo=${b.snsBoardNo}">${b.snsBoardNo}</a></td>
 	                    <td>${b.snsBoardImg}</td>
+	                    <td>${b.snsCommentCount}</td>
+	                    <td>${b.snsLikeCount}</td>
 	                    <td>${b.snsBoardDate}</td>
 	                </tr>
 	            </c:forEach>

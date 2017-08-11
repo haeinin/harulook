@@ -50,4 +50,11 @@ public class BoardDao {
 		return sqlSessionTemplate.insert("com.ksmart.harulook.board.BoardMapper.boardInsert", board);
 	}
 	
+	/* 가장 최근에 등록된 게시물번호 */
+	public int getLastBoardNo() {
+		int lastBoardNo = 0;
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.board.BoardMapper.getLastBoardNo", lastBoardNo);
+	}
+	
+	
 }

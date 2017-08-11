@@ -76,6 +76,9 @@ public class BoardController {
     @RequestMapping(value="/boardInsert", method = RequestMethod.POST)
     public String boardInsert(BoardDto board) {
         System.out.println(board);
+        int lastBoardNo = boardDao.getLastBoardNo();
+        int insertBoardNo = lastBoardNo+1;
+        board.setSnsBoardNo("sns_board_"+insertBoardNo);
         boardDao.boardInsert(board);
         return "redirect:/boardList";
     }

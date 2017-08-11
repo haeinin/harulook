@@ -1,5 +1,7 @@
 package com.ksmart.harulook.dto;
 
+import java.util.List;
+
 public class BoardDto {
 	private String snsBoardNo;
 	private String userId;
@@ -12,6 +14,14 @@ public class BoardDto {
 	private String snsBoardDate;
 	private String snsBoardGender;
 	private String snsBoardAge;
+	private int snsCommentCount;
+	private int snsLikeCount;
+	public int getSnsCommentCount() {
+		return snsCommentCount;
+	}
+	public void setSnsCommentCount(int snsCommentCount) {
+		this.snsCommentCount = snsCommentCount;
+	}
 	public String getSnsBoardNo() {
 		System.out.println(snsBoardNo);
 		return snsBoardNo;
@@ -40,6 +50,12 @@ public class BoardDto {
 	}
 	public String getSnsBoardWeather() {
 		return snsBoardWeather;
+	}
+	public int getSnsLikeCount() {
+		return snsLikeCount;
+	}
+	public void setSnsLikeCount(int snsLikeCount) {
+		this.snsLikeCount = snsLikeCount;
 	}
 	public void setSnsBoardWeather(String snsBoardWeather) {
 		this.snsBoardWeather = snsBoardWeather;
@@ -85,7 +101,8 @@ public class BoardDto {
 		return "BoardDto [snsBoardNo=" + snsBoardNo + ", userId=" + userId + ", snsBoardImg=" + snsBoardImg
 				+ ", snsBoardContent=" + snsBoardContent + ", snsBoardWeather=" + snsBoardWeather + ", snsBoardTall="
 				+ snsBoardTall + ", snsBoardSize=" + snsBoardSize + ", snsBoardLoc=" + snsBoardLoc + ", snsBoardDate="
-				+ snsBoardDate + ", snsBoardGender=" + snsBoardGender + ", snsBoardAge=" + snsBoardAge + "]";
+				+ snsBoardDate + ", snsBoardGender=" + snsBoardGender + ", snsBoardAge=" + snsBoardAge
+				+ ", snsCommentCount=" + snsCommentCount + ", snsLikeCount=" + snsLikeCount + "]";
 	}
 	
 }

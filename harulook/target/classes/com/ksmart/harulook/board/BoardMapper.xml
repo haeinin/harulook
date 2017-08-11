@@ -63,12 +63,34 @@
 	
 	<!-- sns게시물 목록 조회 -->
 	<select id="boardList" parameterType="java.util.Map" resultMap="board">
-		SELECT 
-			sns_board_no
-			,sns_board_img
-			,sns_board_date
+		SELECT
+			sns_board.sns_board_no
+			,sns_board.sns_board_img
+			,sns_board.sns_board_date
+			,댓글수 AS snsCommentCount
+			,추천수 AS snsLikeCount
 		FROM sns_board
-        ORDER BY sns_board_date DESC 
+			,(
+			SELECT 
+				b.sns_board_no
+				,count(c.sns_comment_no) 댓글수
+			FROM sns_board b
+			LEFT JOIN sns_comment c
+			ON c.sns_board_no = b.sns_board_no
+			GROUP BY b.sns_board_no
+			) AS cc
+			,(
+			SELECT
+				b.sns_board_no
+				,count(l.sns_like_no) 추천수
+			FROM sns_board b
+			LEFT JOIN sns_like l
+			ON l.sns_board_no = b.sns_board_no
+			GROUP BY b.sns_board_no
+			) AS lc
+		WHERE sns_board.sns_board_no = cc.sns_board_no 
+			AND sns_board.sns_board_no = lc.sns_board_no
+        ORDER BY sns_board.sns_board_date DESC 
         LIMIT #{beginRow}, #{pagePerRow}
 	</select>
 
@@ -101,4 +123,12 @@
 		 	,#{snsBoardAge}
 	 	)
 	</insert>
+	
+	<!-- 가장 최근에 입력된 게시물 번호 가져오기 -->
+	<select id="getLastBoardNo" resultType="int">
+		SELECT
+			max(CAST(substring(sns_board_no,11) AS DECIMAL))  
+		FROM sns_board
+	</select>
+	
 </mapper>
