@@ -51,8 +51,8 @@ public class BoardDao {
 	}
 	
 	/* 가장 최근에 등록된 게시물번호 */
-	public int getLastBoardNo() {
-		int lastBoardNo = 0;
+	public String getLastBoardNo() {
+		String lastBoardNo = "";
 		return sqlSessionTemplate.selectOne("com.ksmart.harulook.board.BoardMapper.getLastBoardNo", lastBoardNo);
 	}
 	

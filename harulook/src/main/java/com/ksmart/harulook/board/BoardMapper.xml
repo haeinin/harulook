@@ -90,7 +90,7 @@
 			) AS lc
 		WHERE sns_board.sns_board_no = cc.sns_board_no 
 			AND sns_board.sns_board_no = lc.sns_board_no
-        ORDER BY sns_board.sns_board_date DESC 
+        ORDER BY sns_board.sns_board_no DESC 
         LIMIT #{beginRow}, #{pagePerRow}
 	</select>
 
@@ -125,7 +125,7 @@
 	</insert>
 	
 	<!-- 가장 최근에 입력된 게시물 번호 가져오기 -->
-	<select id="getLastBoardNo" resultType="int">
+	<select id="getLastBoardNo" resultType="String">
 		SELECT
 			max(CAST(substring(sns_board_no,11) AS DECIMAL))  
 		FROM sns_board

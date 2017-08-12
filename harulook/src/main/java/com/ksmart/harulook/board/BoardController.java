@@ -76,9 +76,17 @@ public class BoardController {
     @RequestMapping(value="/boardInsert", method = RequestMethod.POST)
     public String boardInsert(BoardDto board) {
         System.out.println(board);
-        int lastBoardNo = boardDao.getLastBoardNo();
-        int insertBoardNo = lastBoardNo+1;
+
+        /******** sns_board_no의 끝 숫자 자동 입력 *****************/
+        String lastBoardNo = boardDao.getLastBoardNo();
+        System.out.println("lastBoardNo: "+lastBoardNo);
+        int insertBoardNo = 1;	//DB에 등록된 게시물이 없을 때 번호의 초기값
+        if(lastBoardNo != null) {
+        	insertBoardNo = Integer.parseInt(lastBoardNo)+1;
+        }
         board.setSnsBoardNo("sns_board_"+insertBoardNo);
+        /*************************************************/
+        
         boardDao.boardInsert(board);
         return "redirect:/boardList";
     }

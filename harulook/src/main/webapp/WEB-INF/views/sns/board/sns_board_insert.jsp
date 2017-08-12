@@ -20,7 +20,7 @@
 </head>
 <body>
 게시물 입력 화면
-	
+	<div class="container">
 	<form id="insertForm" action="${pageContext.request.contextPath}/boardInsert" method="post">
         <div class="form-group">
             <label for="userId">userId :</label>
@@ -36,27 +36,60 @@
         </div>
         <div class="form-group">
             <label for="snsBoardWeather">snsBoardWeather :</label>
-            <input class="form-control" name="snsBoardWeather" id="snsBoardWeather" type="text"/>
+            <select class="form-control" name="snsBoardWeather" id="snsBoardWeather">
+            	<option>맑음</option>
+            	<option>구름조금</option>
+            	<option>흐림</option>
+            	<option>비</option>
+            	<option>눈</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="snsBoardTall">snsBoardTall :</label>
-            <input class="form-control" name="snsBoardTall" id="snsBoardTall" type="text"/>
+            <select class="form-control" name="snsBoardTall" id="snsBoardTall">
+            	<option>큰키</option>
+            	<option>보통키</option>
+            	<option>작은키</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="snsBoardSize">snsBoardSize :</label>
-            <input class="form-control" name="snsBoardSize" id="snsBoardSize" type="text"/>
+            <select class="form-control" name="snsBoardSize" id="snsBoardSize">
+            	<option>마른</option>
+            	<option>보통</option>
+            	<option>뚱뚱</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="snsBoardLoc">snsBoardLoc :</label>
-            <input class="form-control" name="snsBoardLoc" id="snsBoardLoc" type="text"/>
+            <select class="form-control" name="snsBoardLoc" id="snsBoardLoc">
+            	<option>서울</option>
+            	<option>경기</option>
+            	<option>강원</option>
+            	<option>충남</option>
+            	<option>충북</option>
+            	<option>전북</option>
+            	<option>전남</option>
+            	<option>경북</option>
+            	<option>경남</option>
+            	<option>제주</option>
+            	<option>세종</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="snsBoardGender">snsBoardGender :</label>
-            <input class="form-control" name="snsBoardGender" id="snsBoardGender" type="text"/>
+            <input name="snsBoardGender" id="snsBoardGender" type="radio" value="남">남
+            <input name="snsBoardGender" id="snsBoardGender" type="radio" value="여">여
         </div>
         <div class="form-group">
             <label for="snsBoardAge">snsBoardAge :</label>
-            <input class="form-control" name="snsBoardAge" id="snsBoardAge" type="text"/>
+            <select class="form-control" name="snsBoardAge" id="snsBoardAge">
+            	<option>10</option>
+            	<option>20</option>
+            	<option>30</option>
+            	<option>40</option>
+            	<option>50</option>
+            </select>
         </div>
         <div>
             <input class="btn btn-default" id="addButton" type="submit" value="글입력"/>
@@ -64,5 +97,6 @@
             <a class="btn btn-default" href="${pageContext.request.contextPath}/boardList">글목록</a>
         </div>
     </form>
+    </div>
 </body>
 </html>
