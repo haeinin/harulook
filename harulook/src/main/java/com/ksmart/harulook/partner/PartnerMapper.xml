@@ -25,7 +25,8 @@
 
 	<!-- 제휴계약신청 -->
 	<insert id="cooContractInsert" parameterType="com.ksmart.harulook.dto.PartnerDto">
-		INSERT INTO coo_contract(
+		INSERT INTO
+		coo_contract(
 		coo_contract_no
 		,user_id
 		,manager_id
@@ -72,7 +73,7 @@
 		,coo_contract_end
 		,coo_contract_date
 		,coo_contract_pay_date
-		,coo_contract_code 
+		,coo_contract_code
 		,coo_contract_img
 		,coo_contract_link
 		,coo_contract_stat
@@ -84,26 +85,30 @@
 
 	<!-- 제휴계약 상세보기 -->
 	<select id="cooContractDetail" parameterType="String" resultMap="partner">
-	SELECT coo_contract_no
-	, user_id
-	, manager_id
-	, coo_contract_dc
-	, coo_contract_fee
-	, coo_contract_start
-	, coo_contract_end
-	, coo_contract_date
-	, coo_contract_pay_date
-	, coo_contract_code
-	, coo_contract_img
-	, coo_contract_link
-	, coo_contract_stat
-	, coo_contract_pay_stat
-	FROM coo_contract
-	WHERE coo_contract_no =#{cooContractNo}
+		SELECT 
+		coo_contract_no
+		, user_id
+		, manager_id
+		, coo_contract_dc
+		, coo_contract_fee
+		, coo_contract_start
+		, coo_contract_end
+		, coo_contract_date
+		, coo_contract_pay_date
+		, coo_contract_code
+		, coo_contract_img
+		, coo_contract_link
+		, coo_contract_stat
+		, coo_contract_pay_stat
+		FROM 
+		coo_contract
+		WHERE 
+		coo_contract_no =#{cooContractNo}
 	</select>
 	<!-- 제휴계약 수정 -->
 	<update id="cooContractUpdate" parameterType="com.ksmart.harulook.dto.PartnerDto">
-		UPDATE coo_contract
+		UPDATE 
+		coo_contract
 		SET
 		coo_contract_dc=#{cooContractDc}
 		,coo_contract_fee=#{cooContractFee}
@@ -113,12 +118,24 @@
 		,coo_contract_img=#{cooContractImg}
 		,coo_contract_link=#{cooContractLink}
 		,coo_contract_stat='수정신청'
-		WHERE coo_contract_no=#{cooContractNo}
+		WHERE 
+		coo_contract_no=#{cooContractNo}
 	</update>
-	
+
 	<!-- 제휴 결제상태 변경 -->
 	<!-- 제휴 업체 상세보기 -->
 	<!-- 제휴 결제예정금액 조회 -->
+	<!-- 제휴신청 승인 -->
+	<update id="cooContractAdmit" parameterType="com.ksmart.harulook.dto.PartnerDto">
+		UPDATE 
+		coo_contract
+		SET
+		manager_id=#{managerId}
+		,coo_contract_stat='제휴승인'
+		WHERE 
+		coo_contract_no = #{cooContractNo}
+
+	</update>
 
 
 

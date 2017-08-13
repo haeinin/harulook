@@ -44,7 +44,6 @@
             <beans:list>
                 <beans:value>classpath:com/ksmart/harulook/partner/PartnerMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/mall/MallMapper.xml</beans:value>
-                <beans:value>classpath:com/ksmart/harulook/partner/PartnerMapper.xml</beans:value>
             </beans:list>
         </beans:property>
     </beans:bean>
