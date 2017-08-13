@@ -14,12 +14,21 @@ public class PartnerDao {
 	 @Autowired
 	 private SqlSessionTemplate sqlSessionTemplate;
 	
-	 /*제휴계약신청처리 메서드*/
+	 /*제휴계약신청처리*/
 	 public int insertCooContract(PartnerDto dto) {
 	        return sqlSessionTemplate.insert("com.ksmart.harulook.partner.PartnerMapper.cooContractInsert", dto);
 	    }
+	 /*제휴계약상세보기*/
+	 public PartnerDto getCooContractDetail(String cooContractNo){
+			return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.PartnerMapper.cooContractDetail",cooContractNo);
+		}
 	 /*제휴계약목록조회*/
 	 public List<PartnerDto> getCooContractList(){
 			return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.PartnerMapper.cooContractList");
 		}
+	 /*제휴계약 수정처리*/
+	 public int updateCooCOntract(PartnerDto dto){
+			return sqlSessionTemplate.update("com.ksmart.harulook.partner.PartnerMapper.cooContractUpdate", dto);
+		}
+
 }

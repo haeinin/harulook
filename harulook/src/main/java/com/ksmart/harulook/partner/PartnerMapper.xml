@@ -4,83 +4,123 @@
 
 <mapper namespace="com.ksmart.harulook.partner.PartnerMapper">
 
-<resultMap type="com.ksmart.harulook.dto.PartnerDto" id="partner">
-	<result property="cooContractNo" column="coo_contract_no"></result>
-	<result property="userId" column="user_id"></result>
-	<result property="managerId" column="manager_id"></result>
-	<result property="cooContractDc" column="coo_contract_dc"></result>
-	<result property="cooContractFee" column="coo_contract_fee"></result>
-	<result property="cooContractStart" column="coo_contract_start"></result>
-	<result property="cooContractEnd" column="coo_contract_end"></result>
-	<result property="cooContractDate" column="coo_contract_date"></result>
-	<result property="cooContractPayDay" column="coo_contract_pay_date"></result>
-	<result property="cooContractCode" column="coo_contract_code"></result>
-	<result property="cooContractImg" column="coo_contract_img"></result>
-	<result property="cooContractLink" column="coo_contract_link"></result>
-	<result property="cooContractStat" column="coo_contract_stat"></result>
-	<result property="cooContractPayStat" column="coo_contract_pay_stat"></result>
+	<resultMap type="com.ksmart.harulook.dto.PartnerDto" id="partner">
+		<result property="cooContractNo" column="coo_contract_no"></result>
+		<result property="userId" column="user_id"></result>
+		<result property="managerId" column="manager_id"></result>
+		<result property="cooContractDc" column="coo_contract_dc"></result>
+		<result property="cooContractFee" column="coo_contract_fee"></result>
+		<result property="cooContractStart" column="coo_contract_start"></result>
+		<result property="cooContractEnd" column="coo_contract_end"></result>
+		<result property="cooContractDate" column="coo_contract_date"></result>
+		<result property="cooContractPayDay" column="coo_contract_pay_date"></result>
+		<result property="cooContractCode" column="coo_contract_code"></result>
+		<result property="cooContractImg" column="coo_contract_img"></result>
+		<result property="cooContractLink" column="coo_contract_link"></result>
+		<result property="cooContractStat" column="coo_contract_stat"></result>
+		<result property="cooContractPayStat" column="coo_contract_pay_stat"></result>
 
 
-</resultMap>
- 
- <!-- 제휴계약신청 -->
- <insert id="cooContractInsert" parameterType="com.ksmart.harulook.dto.PartnerDto">
- INSERT INTO coo_contract(
- 	coo_contract_no
-	,user_id
-	,manager_id
-	,coo_contract_dc
-	,coo_contract_fee
-	,coo_contract_start
-	,coo_contract_end
-	,coo_contract_date
-	,coo_contract_pay_date
-	,coo_contract_code
-	,coo_contract_img
-	,coo_contract_link
-	,coo_contract_stat
-	,coo_contract_pay_stat
-	)
-	VALUES (
-	#{cooContractNo}
-	,#{userId}
-	,#{managerId}
-	,#{cooContractDc}
-	,#{cooContractFee}
-	,'2017-09-01'
-	,'2017-10-01'
-	,date(now())
-	,#{cooContractPayDay}
-	,#{cooContractCode}
-	,#{cooContractImg}
-	,#{cooContractLink}
-	,'제휴신청'
-	,'결제대기'
+	</resultMap>
 
-	)
- </insert>
- 
- <select id="cooContractList" resultMap="partner" >
- SELECT 
- coo_contract_no
- ,user_id
- ,manager_id
- ,coo_contract_dc
- ,coo_contract_fee
- ,coo_contract_start
- ,coo_contract_end
- ,coo_contract_date
- ,coo_contract_pay_date
- ,coo_contract_code
- ,coo_contract_img
- ,coo_contract_link
- ,coo_contract_stat
- ,coo_contract_pay_stat
+	<!-- 제휴계약신청 -->
+	<insert id="cooContractInsert" parameterType="com.ksmart.harulook.dto.PartnerDto">
+		INSERT INTO coo_contract(
+		coo_contract_no
+		,user_id
+		,manager_id
+		,coo_contract_dc
+		,coo_contract_fee
+		,coo_contract_start
+		,coo_contract_end
+		,coo_contract_date
+		,coo_contract_pay_date
+		,coo_contract_code
+		,coo_contract_img
+		,coo_contract_link
+		,coo_contract_stat
+		,coo_contract_pay_stat
+		)
+		VALUES (
+		#{cooContractNo}
+		,#{userId}
+		,#{managerId}
+		,#{cooContractDc}
+		,#{cooContractFee}
+		,#{cooContractStart}
+		,#{cooContractEnd}
+		,date(now())
+		,#{cooContractPayDay}
+		,#{cooContractCode}
+		,#{cooContractImg}
+		,#{cooContractLink}
+		,'제휴신청'
+		,'결제대기'
+
+		)
+	</insert>
+
+	<!-- 제휴계약 목록보기 -->
+	<select id="cooContractList" resultMap="partner">
+		SELECT
+		coo_contract_no
+		,user_id
+		,manager_id
+		,coo_contract_dc
+		,coo_contract_fee
+		,coo_contract_start
+		,coo_contract_end
+		,coo_contract_date
+		,coo_contract_pay_date
+		,coo_contract_code 
+		,coo_contract_img
+		,coo_contract_link
+		,coo_contract_stat
+		,coo_contract_pay_stat
+		FROM
+		coo_contract
+
+	</select>
+
+	<!-- 제휴계약 상세보기 -->
+	<select id="cooContractDetail" parameterType="String" resultMap="partner">
+	SELECT coo_contract_no
+	, user_id
+	, manager_id
+	, coo_contract_dc
+	, coo_contract_fee
+	, coo_contract_start
+	, coo_contract_end
+	, coo_contract_date
+	, coo_contract_pay_date
+	, coo_contract_code
+	, coo_contract_img
+	, coo_contract_link
+	, coo_contract_stat
+	, coo_contract_pay_stat
 	FROM coo_contract
- 
- </select>
- 
- 
- 
+	WHERE coo_contract_no =#{cooContractNo}
+	</select>
+	<!-- 제휴계약 수정 -->
+	<update id="cooContractUpdate" parameterType="com.ksmart.harulook.dto.PartnerDto">
+		UPDATE coo_contract
+		SET
+		coo_contract_dc=#{cooContractDc}
+		,coo_contract_fee=#{cooContractFee}
+		,coo_contract_start=#{cooContractStart}
+		,coo_contract_end=#{cooContractEnd}
+		,coo_contract_pay_date=#{cooContractPayDay}
+		,coo_contract_img=#{cooContractImg}
+		,coo_contract_link=#{cooContractLink}
+		,coo_contract_stat='수정신청'
+		WHERE coo_contract_no=#{cooContractNo}
+	</update>
+	
+	<!-- 제휴 결제상태 변경 -->
+	<!-- 제휴 업체 상세보기 -->
+	<!-- 제휴 결제예정금액 조회 -->
+
+
+
 
 </mapper>

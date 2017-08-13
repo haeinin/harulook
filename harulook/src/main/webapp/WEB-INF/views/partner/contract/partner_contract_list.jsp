@@ -10,7 +10,7 @@
 </head>
 <body>
 
- <table>
+ <table border="1px">
         <thead>
             <tr>
                 <th>제휴계약번호</th>
@@ -25,28 +25,31 @@
                 <th>쿠폰 코드</th>
                 <th>쇼핑몰 배너</th>
                 <th>배너URL</th>
+                <th>제휴상태</th>
+                <th>결제상태</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach var="b" items="${list}">
                 <tr>
-                    <td><a href="${pageContext.request.contextPath}/mallDetail?cooContractNo=${b.cooContractNo}">${b.cooContractNo}</a></td>
+                    <td><a href="${pageContext.request.contextPath}/partnerContractDetail?cooContractNo=${b.cooContractNo}">${b.cooContractNo}</a></td>
                     <td>${b.userId}</td>
-                    <td>${b.cooContractDc}</td>
-                    <td>${b.cooContractFee}</td>
+                    <td>${b.managerId}</td>
                     <td>${b.cooContractStart}</td>
                     <td>${b.cooContractEnd}</td>
                     <td>${b.cooContractDate}</td>
+                    <td>${b.cooContractDc}</td>
+                    <td>${b.cooContractFee}</td>
                     <td>${b.cooContractPayDay}</td>
+                    <td>${b.cooContractCode}</td>
                     <td>${b.cooContractImg}</td>
                     <td>${b.cooContractLink}</td>
                     <td>${b.cooContractStat}</td>
                     <td>${b.cooContractPayStat}</td>
-                    
-                    
-
+ 
                 </tr>
             </c:forEach>
         </tbody>
+        </table>
 </body>
 </html>

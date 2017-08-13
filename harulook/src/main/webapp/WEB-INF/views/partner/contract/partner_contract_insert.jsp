@@ -30,6 +30,14 @@ Insert화면입니다.
             <input class="form-control" name="cooContractFee" id="cooContractFee" type="text"/>
         </div>
         <div class="form-group">
+            <label for="cooContractFee">계약 시작 날짜 </label>
+            <input class="form-control" name="cooContractStart" id="cooContractFee" type="text"/>
+        </div>
+        <div class="form-group">
+            <label for="cooContractFee">계약 종료 날짜 </label>
+            <input class="form-control" name="cooContractEnd" id="cooContractFee" type="text"/>
+        </div>
+        <div class="form-group">
             <label for="cooContractPayDay">수수료 지급 날짜 (매월 ?일) </label>
             <input class="form-control" name="cooContractPayDay" id="cooContractPayDay" type="text"/>
         </div>
@@ -45,6 +53,7 @@ Insert화면입니다.
             <label for="cooContractLink">배너 클릭시 이동할 URL</label>
             <input class="form-control" name="cooContractLink" id="cooContractLink" type="text"/>
         </div>
+        <div>
         	 <input class="btn btn-default" id="addButton" type="submit" value="글입력"/>
             <a class="btn btn-default" href="${pageContext.request.contextPath}/partnerContractList">계약목록</a>
         </div>
