@@ -18,15 +18,9 @@
                 <th>하루룩 담당자 아이디</th>
                 <th>제휴 시작 날짜</th>
                 <th>제휴 종료 날짜</th>
-                <th>제휴 계약 날짜</th>
-                <th>제공할 쿠폰 할인율</th>
-                <th>수수료 정책</th>
-                <th>수수료 결제 날짜</th>
-                <th>쿠폰 코드</th>
-                <th>쇼핑몰 배너</th>
-                <th>배너URL</th>
                 <th>제휴상태</th>
                 <th>결제상태</th>
+                <th>관리자승인</th>
             </tr>
         </thead>
         <tbody>
@@ -37,15 +31,11 @@
                     <td>${b.managerId}</td>
                     <td>${b.cooContractStart}</td>
                     <td>${b.cooContractEnd}</td>
-                    <td>${b.cooContractDate}</td>
-                    <td>${b.cooContractDc}</td>
-                    <td>${b.cooContractFee}</td>
                     <td>${b.cooContractPayDay}</td>
                     <td>${b.cooContractCode}</td>
-                    <td>${b.cooContractImg}</td>
-                    <td>${b.cooContractLink}</td>
                     <td>${b.cooContractStat}</td>
                     <td>${b.cooContractPayStat}</td>
+                    <td><input type="button" value="승인하기"></td>
  
                 </tr>
             </c:forEach>

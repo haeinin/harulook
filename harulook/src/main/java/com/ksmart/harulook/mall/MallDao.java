@@ -21,4 +21,12 @@ public class MallDao{
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.mall.MallMapper.mallProList");
 	}
 	
+	/*삭제할것들*/
+	public int countMallVistor(){
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.mall.MallMapper.mallVisitorId");
+	}
+	public int insertMallVisitor(String mallVistorNo){
+		System.out.println("mallVisitId="+mallVistorNo);
+		return sqlSessionTemplate.insert("com.ksmart.harulook.mall.MallMapper.mallVisit",mallVistorNo);
+	}
 }

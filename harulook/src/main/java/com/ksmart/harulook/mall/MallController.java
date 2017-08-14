@@ -2,6 +2,9 @@ package com.ksmart.harulook.mall;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,21 +29,20 @@ public class MallController {
 		return "mall/mall_detail";
     	
     }
-   /* @RequestMapping(value="/mallDetail", method = RequestMethod.GET)
-    public String mallDetail(){
-    	
-		return "mall/mall_detail";
-    	*/
-    
+
     @RequestMapping(value="/mallList", method = RequestMethod.GET)
     public String mallList(Model model){
     	List<MallDto> list = dao.getMallProList();
     	model.addAttribute("list",list);
-    	System.out.println("list이다");
-    	System.out.println(model);
+/*    	int No = dao.countMallVistor();
+    	System.out.println(No);
+    	dao.insertMallVisitor("coo_visitor_0"+(No+1));*/
 		return "mall/mall_list";
     	
     }
+
+    
+    
 
     	
 }
