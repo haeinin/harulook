@@ -80,6 +80,15 @@ public class MemberDao {
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.MemberMapper.getBoardCount", level);
     }
 
+    /*닉네임중복체크 */
+    public String userNickCheck(String nickcheck) {
+    	System.out.println("MemberDao 아이디중복체크 아이디값==" + nickcheck);
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("nickcheck", nickcheck);
+    	System.out.println("MemberDao에서 맵핑된 아이디값==  " + map);
+    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.MemberMapper.nickcheck", map);
+    }
+    
     /*아이디중복체크 */
     public String userIdCheck(String idcheck) {
     	System.out.println("MemberDao 아이디중복체크 아이디값==" + idcheck);

@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ksmart.harulook.dto.MemberDto;
 
@@ -129,19 +130,26 @@ public class MemberController {
     }
 	///////////////////////////////////////////////////////////////////////////하나로 합칠수있음
 	
+	/*닉네임중복체크*/
+	@RequestMapping(value="/nickcheck", produces = "application/text; charset=utf8", method = RequestMethod.POST)
+	public @ResponseBody String nickcheck(
+			@RequestParam(value="usernick", required=true) String nickcheck,
+			HttpServletResponse response) throws IOException {
+		System.out.println("MemberController 아이디 중복체크== " + nickcheck);
+        String usernick = memberDao.userNickCheck(nickcheck); //중복체크한 아이디 변수값
+        System.out.println("MemberController 중복체크후 받아온 닉네임 == "+usernick);
+        return usernick;  //아이디중복체크후 화면 그대로
+    }
+	
 	/*아이디중복체크*/
-	@RequestMapping(value="/idcheck", method = RequestMethod.POST)
-	public String idcheck(Model model,
+	@RequestMapping(value="/idcheck", produces = "application/text; charset=utf8", method = RequestMethod.POST)
+	public @ResponseBody String idcheck(
 			@RequestParam(value="idcheck", required=true) String idcheck,
 			HttpServletResponse response) throws IOException {
 		System.out.println("MemberController 아이디 중복체크== " + idcheck);
         String userid = memberDao.userIdCheck(idcheck); //중복체크한 아이디 변수값
-        	
-	    model.addAttribute("userid", userid);	//model에 들어가는 받아온 id값
-	    	System.out.println("MemberController 아이디검색후 받은 값 userid== " + userid);
-	        System.out.println("MemberController 아이디검색후 받은 값 model== " + model);
-	            
-        return "member/user/member_user_insert";  //아이디중복체크후 화면 그대로
+        System.out.println("MemberController 중복체크후 받아온 아이디 == "+userid);
+        return userid;  //아이디중복체크후 화면 그대로
     }
 	
 	/*일반회원가입액션*/

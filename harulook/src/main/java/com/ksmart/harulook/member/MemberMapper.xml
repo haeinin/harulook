@@ -118,6 +118,14 @@
 			;
     	</select>
 
+		<!-- 닉네임중복체크 -->
+     	<select id="nickcheck" parameterType="java.util.Map" resultType="String">
+			select user_nick
+			from user
+			where user_nick = #{nickcheck}
+			;
+    	</select>
+
 		<!-- 아이디중복체크 -->
      	<select id="idcheck" parameterType="java.util.Map" resultType="String">
 			select user_id
