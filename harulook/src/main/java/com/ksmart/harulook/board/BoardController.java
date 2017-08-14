@@ -9,13 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ksmart.harulook.comment.CommentDao;
 import com.ksmart.harulook.dto.BoardDto;
+import com.ksmart.harulook.dto.CommentDto;
 
 @Controller
 public class BoardController {
 	
 	@Autowired
 	private BoardDao boardDao;
+	
+	@Autowired
+	private CommentDao commentDao;
 	
 	/* sns게시물 삭제 처리 요청 */
 	@RequestMapping(value="/boardDelete", method = RequestMethod.GET)
@@ -40,7 +45,6 @@ public class BoardController {
 		System.out.println("boardUpdate 화면 요청");
 		BoardDto board = boardDao.boardDetail(boardNo);
 		model.addAttribute("board", board);
-		System.out.println(model);
 		return "sns/board/sns_board_update";
 	}
 	
@@ -50,8 +54,12 @@ public class BoardController {
             , @RequestParam(value="boardNo", required=true) String boardNo) {
 		System.out.println("boardDeatil 화면 요청");
 		BoardDto board = boardDao.boardDetail(boardNo);
+		System.out.println("boardNo : "+ boardNo);
+		List<CommentDto> commentList = commentDao.commentList(boardNo);
+		System.out.println("comment : "+ commentList);
 		model.addAttribute("board", board);
-		System.out.println(model);
+		model.addAttribute("commentList",commentList);
+		System.out.println("boardDetail : "+ model);
 		return "sns/board/sns_board_detail";
 	}
 	
@@ -68,18 +76,15 @@ public class BoardController {
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("lastPage", lastPage);
         model.addAttribute("list", list);
-		System.out.println(model);
 		return "sns/board/sns_board_list";
 	}
 	
 	 /* sns게시물 입력 처리 요청 */
     @RequestMapping(value="/boardInsert", method = RequestMethod.POST)
     public String boardInsert(BoardDto board) {
-        System.out.println(board);
 
         /******** sns_board_no의 끝 숫자 자동 입력 *****************/
         String lastBoardNo = boardDao.getLastBoardNo();
-        System.out.println("lastBoardNo: "+lastBoardNo);
         int insertBoardNo = 1;	//DB에 등록된 게시물이 없을 때 번호의 초기값
         if(lastBoardNo != null) {
         	insertBoardNo = Integer.parseInt(lastBoardNo)+1;

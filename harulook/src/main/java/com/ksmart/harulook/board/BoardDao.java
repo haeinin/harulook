@@ -41,7 +41,6 @@ public class BoardDao {
 		Map<String, Integer> map = new HashMap<String, Integer>();
         map.put("beginRow", (currentPage-1)*pagePerRow);
         map.put("pagePerRow", pagePerRow);
-        System.out.println(map.get("pagePerRow"));
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.board.BoardMapper.boardList", map);
 	}
 	

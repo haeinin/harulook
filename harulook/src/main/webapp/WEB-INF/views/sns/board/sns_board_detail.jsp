@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -62,6 +63,31 @@
                    <td>sns_board_age :</td>
                    <td>${board.snsBoardAge}</td>
             </tr>
+            <tr>
+                   <td></td>
+            </tr>
+            <tr>
+	                <th>sns_comment_user_id</th>
+	                <th>sns_comment_content</th>
+	                <th>sns_comment_date</th>
+	        </tr>
+            <c:forEach var="commentList" items="${commentList}">
+	            <tr>
+	                <td>${commentList.userId}</td>
+	                <td>${commentList.snsCommentContent}</td>
+	                <td>${commentList.snsCommentDate}</td>
+	                <td><a href="${pageContext.request.contextPath}/commentDelete?snsCommentNo=${commentList.snsCommentNo}&snsBoardNo=${commentList.snsBoardNo}">삭제</a></td>
+	            </tr>
+	         </c:forEach>
+	         <tr>
+	         	<form action="${pageContext.request.contextPath}/commentInsert" method="post">
+	                <td><input type="text" id="userId" name="userId"></td>
+	                <td><input type="text" id="snsCommentContent" name="snsCommentContent"></td>
+	                <input type="hidden" name="snsBoardNo" value=${board.snsBoardNo}>
+	                <td><input type="submit" value="댓글입력"></td>
+				</form>
+				</td>
+	        </tr>
         </tbody>
     </table>
     <a class="btn btn-default" href="${pageContext.request.contextPath}/boardUpdate?boardNo=${board.snsBoardNo}">수정</a>

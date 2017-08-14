@@ -29,15 +29,15 @@
 	<!-- 커넥션 풀 설정 -->
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<beans:property name="url"
+		<!-- <beans:property name="url"
 			value="jdbc:mysql://localhost/haruloook?useUnicode=true&amp;characterEncoding=utf-8" />
 		<beans:property name="username" value="root" />
-		<beans:property name="password" value="java0000" />
+		<beans:property name="password" value="java0000" /> -->
 		
-		<!-- <beans:property name="url"
+		<beans:property name="url"
 			value="jdbc:mysql://haruloook.cafe24.com/haruloook?useUnicode=true&amp;characterEncoding=euckr" />
 		<beans:property name="username" value="haruloook" />
-		<beans:property name="password" value="hanapw1!" /> -->
+		<beans:property name="password" value="hanapw1!" />
 		
 	</beans:bean>
 	
@@ -49,6 +49,7 @@
         <beans:property name="mapperLocations">
             <beans:list>
                 <beans:value>classpath:com/ksmart/harulook/board/BoardMapper.xml</beans:value>
+                <beans:value>classpath:com/ksmart/harulook/comment/CommentMapper.xml</beans:value>
             </beans:list>
         </beans:property>
     </beans:bean>
