@@ -1,13 +1,19 @@
 package com.ksmart.harulook.member;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -27,6 +33,50 @@ public class MemberController {
 	
 	@Autowired
     private MemberDao memberDao;
+	
+	/*로그아웃*/
+	@RequestMapping(value="/logoutadd", method = RequestMethod.POST)
+	public String logoutadd() {
+		System.out.println("MemberControlladd 로그아웃 ");
+		return "home"; //홈화면
+	}
+	
+	/*로그아웃액션*/
+	@RequestMapping(value="/logout", method = RequestMethod.POST)
+	public String logout() {
+		System.out.println("MemberControll 로그아웃 ");
+		return "login/logout"; //홈화면
+	}
+	
+	/*로그인*/
+	@RequestMapping(value="/login", produces = "application/text; charset=utf8", method = RequestMethod.POST)
+	public String login(Model model,
+			HttpSession session,
+			@RequestParam(value="userId", required=true) String id,
+			@RequestParam(value="userPw", required=true) String pw) {
+		System.out.println("MemberController 로그인시 == " + id);
+		
+		MemberDto loginCheck = memberDao.login(id);
+			System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 loginCheck==" + loginCheck);
+		
+		if(loginCheck == null){
+			loginCheck = null;
+			System.out.println("아이디틀림");
+			model.addAttribute("idFail", "아이디틀림");
+		}else if(id.equals(loginCheck.getUserId())) {
+			if(pw.equals(loginCheck.getUserPw())) {
+				System.out.println("로그인성공");
+				session.setAttribute("id", loginCheck.getUserId());
+				session.setAttribute("level", loginCheck.getUserLevel());
+				session.setAttribute("nick", loginCheck.getUserNick());
+				model.addAttribute("loginSucces", "로그인성공");
+			}else{
+				System.out.println("비번틀림");
+				model.addAttribute("pwFail", "비번틀림");
+			}
+		}
+		return "home"; //홈화면
+	}
 	
 	/*사업자회원정보보기 + 관리자회원정보*/
 	@RequestMapping(value="/member_manager_detail", method = RequestMethod.GET)
@@ -165,6 +215,19 @@ public class MemberController {
 	public String userAdd() {
 		System.out.println("member_user_insert 일반회원가입홈화면");
 		return "member/user/member_user_insert"; //일반회원가입폼화면
+	}
+	/*로그인화면폼*/
+	@RequestMapping(value="/loginForm", method = RequestMethod.GET)
+	public String login() {
+		System.out.println("login 로그인화면");
+		return "login/login"; //일반회원가입폼화면
+	}
+	
+	/*홈으로*/
+	@RequestMapping(value="/home", method = RequestMethod.GET)
+	public String home() {
+		System.out.println("login 로그인화면");
+		return "home"; //홈으로
 	}
 		
 }

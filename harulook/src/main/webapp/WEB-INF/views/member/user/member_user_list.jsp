@@ -64,7 +64,6 @@
             <li class="next"><a href="${pageContext.request.contextPath}/member_user_list?currentPage=${currentPage+1}">다음</a></li>
         </c:if>
     </ul>
-   
 
 	  
 	   

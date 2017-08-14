@@ -251,7 +251,7 @@
 	            <input name="userName" id="user_name" type="text"/><br>
 	        
 	        	<label for="user_tel">전화번호 :</label>
-	            <input name="userTel" id="user_tel" type="text"/> - 빼고 숫자만 입력하세요 ** 수정필요<br>
+	            <input name="userTel" id="user_tel" type="text"/>- 빼고 숫자만 입력하세요 ** 수정필요<br>
 	       		<div>전화번호 양식검사 :
 	            	<span id="telsuccess" >사용가능한 전화번호입니다</span>
 	            	<span id="telfail" >사용불가능한 전화번호입니다</span>

@@ -33,6 +33,13 @@
 		<result property="styleValue" column="style_value"/>
 	</resultMap>
 		
+		<!-- 로그인 -->
+     	<select id="login" parameterType="java.util.Map" resultMap="member">
+			select user_id, user_pw, user_level, user_nick
+			from user
+			where user_id = #{userId};
+    	</select>
+		
 		<!-- 사업자회원정보보기  + 관리자 회원정보-->
      	<select id="businessDetail" parameterType="java.util.Map" resultMap="member">
 			select user_id

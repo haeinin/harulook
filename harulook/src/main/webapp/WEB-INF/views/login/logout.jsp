@@ -22,39 +22,17 @@
 <!-- 유효성검사 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
-
-	$(document).ready(function(){
-		$('#login').click(function(){	//로그인
-			$('#loginAdd').submit();
-        
-		});
-	 });
-	
 	
 </script>
-<title>일반회원가입폼</title>
+
 </head>
 <body>
-	
-	
-	    <h1>로그인 기본 폼</h1>
-	    <form id=loginAdd action="${pageContext.request.contextPath}/login" method="post">
-	    
-	       		<!-- 아이디 -->
-	           	<label for="user_id">아이디 :</label>
-	            <input name="userId" id="user_id" type="text"/>
-	           
-	       		<!-- 비밀번호 -->
-	        	<label for="user_pw">비번 :</label>
-	            <input name="userPw" id="user_pw" type="password"/><br>
-	        
-	     	<div>
-	       		<input class="btn btn-default" id="login" type="button" value="로그인"/>
-	        </div>
-	        
-	       
-	    </form>
-	
+<%
+	// 세션에 저장된 모든 것을 지우고 세션을 초기화
+	session.invalidate();
+	response.sendRedirect("./home");
+%>
+
 
 
 </body>

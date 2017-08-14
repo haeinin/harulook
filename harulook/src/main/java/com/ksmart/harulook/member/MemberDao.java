@@ -15,6 +15,15 @@ public class MemberDao {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
     
+    /*로그인 */
+    public MemberDto login(String id) {
+	    	Map<String, String> map = new HashMap<String, String>();
+	    	map.put("userId", id);
+	    	
+			System.out.println("MemeberDao 로그인 == " + map);
+        return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.MemberMapper.login", map);
+    }
+    
     /*사업자회원정보보기 + 관리자 회원정보 */
     public MemberDto businessDetail(String userId) {
 		Map<String, String> map = new HashMap<String, String>();
