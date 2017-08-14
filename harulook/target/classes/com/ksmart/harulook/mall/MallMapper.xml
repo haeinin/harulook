@@ -26,7 +26,7 @@
 		SELECT mall_pro_no,
 		partner_no, mall_pro_name, mall_pro_price, mall_pro_cate, mall_pro_img
 		FROM mall_pro
-		WHERE partner_no = 'partner_02';
+		WHERE mall_pro_no = #{mallProNo};
 	</select>
 
 	<select id="mallProList" parameterType="java.util.Map"
@@ -48,5 +48,48 @@
 		SELECT COUNT(*)
 		FROM coo_visitor
 	</select>
+	
+	<insert id="mallSaleOneInsert" parameterType ="com.ksmart.harulook.dto.MallSaleDto">
+	INSERT INTO mall_sale
+	(
+	user_id
+	,mall_pro_no
+	,mall_sale_amount
+	,mall_sale_price
+	,mall_sale_total
+	,mall_sale_date
+	,coo_contract_code
+	)
+	VALUES 
+	(
+	'1'
+	,#{mallProNo}
+	,#{mallSaleAmount}
+	,#{mallSalePrice}
+	,#{mallSaleTotal}
+	,now()
+	,#{cooContractCode}
+	)
+	</insert>
+	
+	<!-- <insert id="mallSaleInsert" parameterType ="com.ksmart.harulook.dto.MallSaleDto">
+	INSERT INTO mall_sale
+	(
+	user_id
+	,mall_pro_no
+	,mall_sale_amount
+	,mall_sale_price
+	,mall_sale_date
+	,coo_contract_code
+	)
+	VALUES 
+	(
+	'1'
+	,#{mallProNo}
+	,1
+	,#{mallSalePrice}
+	,now()
+	,#{cooContractCode})
+	</insert> -->
 
 </mapper>

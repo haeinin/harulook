@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ksmart.harulook.dto.MallDto;
+import com.ksmart.harulook.dto.MallSaleDto;
 
 @Repository
 public class MallDao{
@@ -22,11 +23,17 @@ public class MallDao{
 	}
 	
 	/*삭제할것들*/
-	public int countMallVistor(){
+	/*public int countMallVistor(){
 		return sqlSessionTemplate.selectOne("com.ksmart.harulook.mall.MallMapper.mallVisitorId");
 	}
 	public int insertMallVisitor(String mallVistorNo){
 		System.out.println("mallVisitId="+mallVistorNo);
 		return sqlSessionTemplate.insert("com.ksmart.harulook.mall.MallMapper.mallVisit",mallVistorNo);
+	}*/
+	
+	/*상품 구입 처리*/
+	public int insertMallSale(MallSaleDto dto){
+		return sqlSessionTemplate.insert("com.ksmart.harulook.mall.MallMapper.mallSaleOneInsert",dto);
 	}
+	
 }

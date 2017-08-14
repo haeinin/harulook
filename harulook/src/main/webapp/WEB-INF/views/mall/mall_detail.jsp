@@ -29,7 +29,8 @@
             </tr>
             
         </tbody>
-        <input type="button" value="구입하기">
+        <a class="btn btn-default"
+			href="${pageContext.request.contextPath}/mallProOrder?mallProNo=${dto.mallProNo}">구입</a>
     </table>
 
 

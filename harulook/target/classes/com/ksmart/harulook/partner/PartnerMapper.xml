@@ -19,9 +19,16 @@
 		<result property="cooContractLink" column="coo_contract_link"></result>
 		<result property="cooContractStat" column="coo_contract_stat"></result>
 		<result property="cooContractPayStat" column="coo_contract_pay_stat"></result>
-
-
 	</resultMap>
+	<resultMap type="com.ksmart.harulook.dto.PartnerBillDto" id="partnerBill">
+		<result property="cooContractNo" column="coo_contract_no"></result>
+		<result property="userId" column="user_id"></result>
+		<result property="managerId" column="manager_id"></result>
+		<result property="cooContractDc" column="coo_contract_dc"></result>
+		<result property="cooContractFee" column="coo_contract_fee"></result>
+		<result property="cooContractStart" column="coo_contract_start"></result>
+	</resultMap>
+
 
 	<!-- 제휴계약신청 -->
 	<insert id="cooContractInsert" parameterType="com.ksmart.harulook.dto.PartnerDto">
@@ -90,23 +97,20 @@
 		, user_id
 		, manager_id
 		, coo_contract_dc
-		, coo_contract_fee
-		,
-		coo_contract_start
+		,coo_contract_fee
+		,coo_contract_start
 		, coo_contract_end
-		, coo_contract_date
-		,
-		coo_contract_pay_date
+		,coo_contract_date
+		,coo_contract_pay_date
 		, coo_contract_code
-		, coo_contract_img
-		,
-		coo_contract_link
+		,coo_contract_img
+		,coo_contract_link
 		, coo_contract_stat
-		, coo_contract_pay_stat
+		,coo_contract_pay_stat
 		FROM
 		coo_contract
 		WHERE
-		coo_contract_no =#{cooContractNo}
+		coo_contract_no=#{cooContractNo}
 	</select>
 	<!-- 제휴계약 수정 -->
 	<update id="cooContractUpdate" parameterType="com.ksmart.harulook.dto.PartnerDto">
@@ -128,10 +132,50 @@
 	<!-- 제휴 결제상태 변경 -->
 	<!-- 제휴 업체 상세보기 -->
 	<!-- 제휴 수수료 계산 -->
-	<insert id = "cooContractFee" >
+	<insert id="cooContractBillInsert" parameterType="com.ksmart.harulook.dto.PartnerBillDto">
+	INSERT INTO coo_bill
+	(
+	coo_bill_no
+	,coo_contract_no
+	,coo_bill_value
+	,coo_bill_month
+	,coo_bill_date
+	)
+	VALUES 
+	(
+	#{cooBillNo}
+	,#{coo}
+	, (SELECT
+		SUM(mall_sale.mall_sale_total)
+		FROM mall_sale
+		JOIN coo_contract
+		ON coo_contract.coo_contract_code = mall_sale.coo_contract_code
+		WHERE 
+		coo_contract.coo_contract_no = #{cooContractNo}
+		AND
+		MONTH(mall_sale_date)=(MONTH(NOW())-1))
+		, (MONTH(NOW())-1)
+		, (SELECT
+		DATE_ADD(DATE_SUB(DATE(NOW()) ,interval DAY(NOW()) day),interval coo_contract_pay_date day)
+		FROM coo_contract
+		WHERE coo_contract_no=#{cooContractNo}
+		)
+		);
+		</insert>
 
-	</insert>
-	<!-- 제휴 결제예정금액 조회 -->
+
+	<!-- 제휴 결제예정 금액 조회 -->
+	<select id="cooContractBill" resultMap="partnerBill">
+		SELECT
+		coo_bill_no
+		,coo_contract_no
+		,coo_bill_value
+		,coo_bill_month
+		,coo_bill_date
+		FROM
+		coo_bill
+		WHERE coo_contract_no = #{cooContractNo}
+	</select>
 
 	<!-- 제휴신청 승인 -->
 	<update id="cooContractAdmit" parameterType="com.ksmart.harulook.dto.PartnerDto">
