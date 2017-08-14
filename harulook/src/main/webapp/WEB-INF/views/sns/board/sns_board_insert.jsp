@@ -91,6 +91,45 @@
             	<option>50</option>
             </select>
         </div>
+        <div class="form-group">
+        	<label for="snsBoardColor">snsBoardColor :</label>
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">빨강
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">주황
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">노랑
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">초록
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">파랑
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">네이비
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">보라
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">핑크
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">브라운
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">베이지
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">검정
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">그레이
+        	<input type="checkbox" id="snsBoardColor" name="snsBoardColor">흰색
+        </div>
+        <div class="form-group">
+        	<label for="snsBoardSituation">snsBoardSituation :</label>
+        	<input type="checkbox" id="snsBoardSituation" name="snsBoardSituation">클래식
+        	<input type="checkbox" id="snsBoardSituation" name="snsBoardSituation">하객
+        	<input type="checkbox" id="snsBoardSituation" name="snsBoardSituation">나들이
+        	<input type="checkbox" id="snsBoardSituation" name="snsBoardSituation">운동
+        	<input type="checkbox" id="snsBoardSituation" name="snsBoardSituation">여행
+        	<input type="checkbox" id="snsBoardSituation" name="snsBoardSituation">파티
+        	<input type="checkbox" id="snsBoardSituation" name="snsBoardSituation">출근
+        </div>
+        <div class="form-group">
+        	<label for="snsBoardStyle">snsBoardStyle :</label>
+        	<input type="checkbox" id="snsBoardStyle" name="snsBoardStyle">액티브
+        	<input type="checkbox" id="snsBoardStyle" name="snsBoardStyle">심플
+        	<input type="checkbox" id="snsBoardStyle" name="snsBoardStyle">로맨틱
+        	<input type="checkbox" id="snsBoardStyle" name="snsBoardStyle">러블리
+        	<input type="checkbox" id="snsBoardStyle" name="snsBoardStyle">럭셔리
+        	<input type="checkbox" id="snsBoardStyle" name="snsBoardStyle">댄디
+        	<input type="checkbox" id="snsBoardStyle" name="snsBoardStyle">스트리트
+        	<input type="checkbox" id="snsBoardStyle" name="snsBoardStyle">빈티지
+        	<input type="checkbox" id="snsBoardStyle" name="snsBoardStyle">캐쥬얼
+        	<input type="checkbox" id="snsBoardStyle" name="snsBoardStyle">클래식
+        </div>
         <div>
             <input class="btn btn-default" id="addButton" type="submit" value="글입력"/>
             <input class="btn btn-default" type="reset" value="초기화"/>

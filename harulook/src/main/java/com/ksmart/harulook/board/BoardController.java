@@ -22,6 +22,33 @@ public class BoardController {
 	@Autowired
 	private CommentDao commentDao;
 	
+	/* sns게시물 목록 검색 */
+	@RequestMapping(value="/boardSearchList", method = RequestMethod.POST)
+	public String boardSearchList(Model model, BoardDto board) {
+		System.out.println("boardSearchList 요청");
+		System.out.println("boardSearchList --> "+board);
+		if(board.getSnsBoardAge().equals("")) {
+			board.setSnsBoardAge(null);
+		} 
+		if(board.getSnsBoardLoc().equals("")) {
+			board.setSnsBoardLoc(null);
+		} 
+		if(board.getSnsBoardSize().equals("")) {
+			board.setSnsBoardSize(null);
+		}
+		if(board.getSnsBoardTall().equals("")) {
+			board.setSnsBoardTall(null);
+		}
+		if(board.getSnsBoardWeather().equals("")) {
+			board.setSnsBoardWeather(null);
+		}
+		System.out.println("boardSearchList --> "+board);
+		List<BoardDto> list = boardDao.boardSearchList(board);
+		model.addAttribute("list", list);
+		System.out.println("boardSearchList --> "+list);
+		return "sns/board/sns_board_list";
+	}
+	
 	/* sns게시물 삭제 처리 요청 */
 	@RequestMapping(value="/boardDelete", method = RequestMethod.GET)
 	public String boardDelete(String boardNo) {

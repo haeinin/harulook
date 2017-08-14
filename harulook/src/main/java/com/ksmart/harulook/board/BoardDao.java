@@ -16,6 +16,11 @@ public class BoardDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	/* sns게시물 검색 */
+	public List<BoardDto> boardSearchList(BoardDto board) {
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.board.BoardMapper.boardSearchList", board);
+	}
+	
 	/* sns게시물 삭제 */
 	public int boardDelete(String boardNo) {
 		return sqlSessionTemplate.delete("com.ksmart.harulook.board.BoardMapper.boardDelete", boardNo);

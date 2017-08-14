@@ -18,8 +18,9 @@
 </head>
 <body>
 sns 게시물 목록
-	<div>전체행의 수 : ${boardCount}</div>
+<%-- 	<div>전체행의 수 : ${boardCount}</div> --%>
 	<div class="container">
+		<%@ include file="./sns_board_search.jsp" %>
 	    <table class="table table-striped">
 	        <thead>
 	            <tr>
@@ -42,14 +43,14 @@ sns 게시물 목록
 	            </c:forEach>
 	        </tbody>
 	    </table>
-	    <ul class="pager">
+<%-- 	    <ul class="pager">
 	        <c:if test="${currentPage > 1}">
 	            <li class="previous"><a href="${pageContext.request.contextPath}/boardList?currentPage=${currentPage-1}">이전</a></li>
 	        </c:if>
 	        <c:if test="${currentPage < lastPage}">
 	            <li class="next"><a href="${pageContext.request.contextPath}/boardList?currentPage=${currentPage+1}">다음</a></li>
 	        </c:if>
-    	</ul>
+    	</ul> --%>
 	    <div>
 	        <a class="btn btn-default" href="${pageContext.request.contextPath}/boardInsert">게시글 입력</a>
 	    </div>

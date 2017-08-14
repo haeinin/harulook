@@ -17,6 +17,57 @@
 		<result property="snsBoardAge" column="sns_board_age"/>
 	</resultMap>
 	
+	<!-- sns게시물 검색 -->
+	<select id="boardSearchList" parameterType="com.ksmart.harulook.dto.BoardDto" resultMap="board">
+		SELECT
+			sns_board.sns_board_no
+			,sns_board.sns_board_img
+			,sns_board.sns_board_date
+			,댓글수 AS snsCommentCount
+			,추천수 AS snsLikeCount
+		FROM sns_board
+			 ,(
+			 SELECT 
+			  b.sns_board_no
+			  ,count(c.sns_comment_no) 댓글수
+			 FROM sns_board b
+			 LEFT JOIN sns_comment c
+			 ON c.sns_board_no = b.sns_board_no
+			 GROUP BY b.sns_board_no
+			 ) AS cc
+			 ,(
+			 SELECT
+				  b.sns_board_no
+				  ,count(l.sns_like_no) 추천수
+			 FROM sns_board b
+			 LEFT JOIN sns_like l
+			 ON l.sns_board_no = b.sns_board_no
+			 GROUP BY b.sns_board_no
+			 ) AS lc
+		WHERE sns_board.sns_board_no = cc.sns_board_no 
+		AND sns_board.sns_board_no = lc.sns_board_no
+		<if test="snsBoardWeather != null">
+			AND sns_board.sns_board_weather = #{snsBoardWeather}
+		</if>
+		<if test="snsBoardLoc != null">
+			AND sns_board.sns_board_loc = #{snsBoardLoc}
+		</if>
+		<if test="snsBoardTall != null">
+			AND sns_board.sns_board_tall = #{snsBoardTall}
+		</if>
+		<if test="snsBoardSize != null">
+			AND sns_board.sns_board_size = #{snsBoardSize}
+		</if>
+		<if test="snsBoardGender != null">
+			AND sns_board.sns_board_gender = #{snsBoardGender}
+		</if>
+		<if test="snsBoardAge != null">
+			AND sns_board.sns_board_age = #{snsBoardAge}
+		</if>
+		GROUP BY sns_board.sns_board_no 
+		ORDER BY sns_board.sns_board_date DESC
+	</select>
+	
 	<!-- sns게시물 삭제 -->
 	<delete id="boardDelete" parameterType="String">
 		DELETE 

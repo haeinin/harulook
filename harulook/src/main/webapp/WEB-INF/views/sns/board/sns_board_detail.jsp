@@ -76,7 +76,7 @@
 	                <td>${commentList.userId}</td>
 	                <td>${commentList.snsCommentContent}</td>
 	                <td>${commentList.snsCommentDate}</td>
-	                <td><a href="${pageContext.request.contextPath}/commentDelete?snsCommentNo=${commentList.snsCommentNo}&snsBoardNo=${commentList.snsBoardNo}">삭제</a></td>
+	                <td><a class="btn btn-default" href="${pageContext.request.contextPath}/commentDelete?snsCommentNo=${commentList.snsCommentNo}&snsBoardNo=${commentList.snsBoardNo}">삭제</a></td>
 	            </tr>
 	         </c:forEach>
 	         <tr>
@@ -84,7 +84,7 @@
 	                <td><input type="text" id="userId" name="userId"></td>
 	                <td><input type="text" id="snsCommentContent" name="snsCommentContent"></td>
 	                <input type="hidden" name="snsBoardNo" value=${board.snsBoardNo}>
-	                <td><input type="submit" value="댓글입력"></td>
+	                <td><input class="btn btn-default" type="submit" value="댓글입력"></td>
 				</form>
 				</td>
 	        </tr>
