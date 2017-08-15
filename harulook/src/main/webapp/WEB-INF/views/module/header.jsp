@@ -84,22 +84,92 @@
     
       <!-- Modal content-->
       <div class="modal-content">
+     	<!-- 모달 공통내용 -->
      	<div class="modal-header" style="padding:35px 50px;">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4>마이페이지</h4>
+          <a>닉네임 : ${sessionScope.nick}</a><br>
+		  <a>권한 : ${sessionScope.level}</a><br>
+		  <!-- 내정보수정하기버튼 -->
+		  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+	  		<div>
+	  			<input class="btn btn-default" id="myModified" type="button" value="내 정보 수정 하기"/>
+	  	 	</div>	
+		  </form>	
         </div>
+        <!-- 모달 회원별 내용 -->
         <div class="modal-body" style="padding:40px 50px;">
           	<c:if test="${sessionScope.level == '관리자'}">
-				<a>닉네임 : ${sessionScope.nick}</a><br>
 				<a>관리자로 로그인</a><br>
+				<!-- 사업자용 버튼 -->
+					<!-- 일반회원검색 -->
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="myModified" type="button" value="일반회원검색"/>
+			  	 	</div>	
+				  </form>	
+				  
+				  	<!-- 사업자검색 -->
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="myModified" type="button" value="사업자검색"/>
+			  	 	</div>	
+				  </form>
+				  
+				  	<!-- 관리자검색 -->
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="myModified" type="button" value="관리자검색"/>
+			  	 	</div>	
+				  </form>
+				  
+				  	<!-- 광고 검색 및 승인 -->
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="myModified" type="button" value="광거 검색 및 승인"/>
+			  	 	</div>	
+				  </form>
+				  
+				  	<!-- 사이트 접속자수 검색 -->
+				   <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="myModified" type="button" value="사이트 접속자수 검색"/>
+			  	 	</div>	
+				  </form>
 			</c:if>
 			<c:if test="${sessionScope.level == '사업자'}">
-				<a>닉네임 : ${sessionScope.nick}</a><br>
 				<a>사업자로 로그인</a><br>
+				<!-- 사업자용 버튼 -->
+					<!-- 내 광고 보기 -->
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="myModified" type="button" value="내 광고 보기"/>
+			  	 	</div>	
+				  </form>	
+				  
+				  <!-- 사이트 접속자수 보기 -->
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="myModified" type="button" value="사이트 접속자수 보기"/>
+			  	 	</div>	
+				  </form>	
 			</c:if>
 			<c:if test="${sessionScope.level == '일반회원'}">
-				<a>닉네임 : ${sessionScope.nick}</a><br>
 				<a>일반회원 로그인</a><br>
+				<!-- 일반회원용 버튼 -->
+					<!-- 내 게시물 보기 -->
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="myModified" type="button" value="내 게시물 보기"/>
+			  	 	</div>	
+				  </form>
+				  
+				  	<!-- 내 친구 보기 -->
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="myModified" type="button" value="내 친구 보기"/>
+			  	 	</div>	
+				  </form>		
 			</c:if>
         </div>
       </div>
