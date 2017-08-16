@@ -2,16 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+
 <html>
 <head>
 	<title>Home</title>
 </head>
 <body>
 <h1>
-	Hello!
+	Hello world!  
 </h1>
 
-<P>  Your IP address is  ${clientIP}. </P>
+<P>  The time on the server is ${serverTime}. </P>
 	<c:import url="./module/header.jsp"></c:import>
 
 </body>

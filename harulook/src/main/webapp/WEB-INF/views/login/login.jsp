@@ -60,6 +60,7 @@
 	       		<!-- 비밀번호 -->
 	        	<label for="user_pw">비번 :</label>
 	            <input name="userPw" id="user_pw" type="password"/><br>
+	            <a>${login}</a><br>
 	        
 	     	<div>
 	       		<input class="btn btn-default" id="login" type="button" value="로그인"/>

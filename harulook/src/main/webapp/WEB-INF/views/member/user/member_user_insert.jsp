@@ -200,7 +200,8 @@
 		});
 		
 		$('#user_a').blur(function(){	//질문의 답
-			if($('#userAfail') == null) { // 답이없을때
+			console.log($('#user_a').val());
+			if(!$('#user_a').val()) { // 답이없을때
 				$('#userAfail').show();
 				$('#userAfail').focus();
 			}else{
@@ -208,8 +209,67 @@
 			}
         });
 		
+		
 		$('#addButton').click(function(){	//회원가입버튼
-			$('#addFormUser').submit();
+			
+			if(!$('#user_id').val()){	//아이디입력 안했을때
+				alert('아이디를입력하세요');
+				$('#user_id').focus();
+				return false;
+			}else if(!$('#user_pw').val()){	//비밀번호 입력 안했을때
+				alert('비밀번호를입력하세요');
+				$('#user_pw').focus();
+				return false;
+			}else if(!$('#user_nick').val()){	//닉네임
+				alert('닉네임입력하세요');
+				$('#user_nick').focus();
+				return false;
+			}else if(!$('#user_name').val()){	//이름
+				alert('이름을입력하세요');
+				$('#user_name').focus();
+				return false;
+			}else if(!$('#user_tel').val()){	//전화번호
+				alert('전화번호를입력하세요');
+				$('#user_tel').focus();
+				return false;
+			}else if(!$('#user_email').val()){	//이메일
+				alert('이메일을입력하세요');
+				$('#user_email').focus();
+				return false;
+			}else if(!$('#user_addr').val()){	//주소
+				alert('주소를입력하세요');
+				$('#user_addr').focus();
+				return false;
+			}else if(!($(':input[name=userGender]:radio:checked').val())){	//성별 선택안했을때
+				alert('성별입력하세요');
+				$('#user_gender').focus();
+				return false;
+			}else if(!($(':input[name=userAge]:radio:checked').val())){	//나이 선택안했을때
+				alert('나이를 입력하세요');
+				$('#user_age').focus();
+				return false;
+			}else if(!($(':input[name=userTall]:radio:checked').val())){	//키 선택안했을때
+				alert('키를 입력하세요');
+				$('#user_tall').focus();
+				return false;	
+			}else if(!($(':input[name=userSize]:radio:checked').val())){	//사이즈 선택안했을때
+				alert('사이즈를 입력하세요');
+				$('#user_size').focus();
+				return false;
+			}else if(!($(':input[name=userQ]:radio:checked').val())){	//질문 선택안했을때
+				alert('질문 입력하세요');
+				$('#user_q').focus();
+				return false;
+			}else if(!$('#user_a').val()){	//질문의 답을 입력안했을때
+				alert('답을입력하세요');
+				$('#user_a').focus();
+				return false;
+			
+			}else{
+				$('#addFormUser').submit();
+			}
+			
+			
         });
 		
     });

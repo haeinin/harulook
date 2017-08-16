@@ -224,10 +224,10 @@ public class MemberController {
 	}
 	
 	/*홈으로*/
-	@RequestMapping(value="/home", method = RequestMethod.GET)
+	/*@RequestMapping(value="/home", method = RequestMethod.GET)
 	public String home() {
 		System.out.println("login 로그인화면");
 		return "home"; //홈으로
-	}
+	}*/
 		
 }
