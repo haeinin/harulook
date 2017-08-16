@@ -39,7 +39,17 @@
 			$("#myModal").modal();
         });
 
+		$('#userlistbutton').click(function(){	//일반회원리스트 버튼
+			$('#member_user_list').submit();
+        });
 		
+		$('#businesslistbutton').click(function(){	//사업자회원리스트 버튼
+			$('#member_business_list').submit();
+        });
+		
+		$('#managerlistbutton').click(function(){	//관리자회원리스트 버튼
+			$('#member_manager_list').submit();
+        });
 	 });
 </script>
 </head>
@@ -103,23 +113,23 @@
 				<a>관리자로 로그인</a><br>
 				<!-- 사업자용 버튼 -->
 					<!-- 일반회원검색 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				  <form id="member_user_list" action="${pageContext.request.contextPath}/member_user_list" method="get">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="일반회원검색"/>
+			  			<input class="btn btn-default" id="userlistbutton" type="button" value="일반회원검색"/>
 			  	 	</div>	
 				  </form>	
 				  
 				  	<!-- 사업자검색 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				  <form id="member_business_list" action="${pageContext.request.contextPath}/member_business_list" method="get">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="사업자검색"/>
+			  			<input class="btn btn-default" id="businesslistbutton" type="button" value="사업자검색"/>
 			  	 	</div>	
 				  </form>
 				  
 				  	<!-- 관리자검색 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				  <form id="member_manager_list" action="${pageContext.request.contextPath}/member_manager_list" method="get">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="관리자검색"/>
+			  			<input class="btn btn-default" id="managerlistbutton" type="button" value="관리자검색"/>
 			  	 	</div>	
 				  </form>
 				  

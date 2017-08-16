@@ -120,7 +120,7 @@ public class MemberController {
 	}
 	
 	///////////////////////////////////////////////////////////////////////////하나로 합칠수있음
-	/*사업자회원목록*/
+	/*관리자회원목록*/
 	@RequestMapping(value={"member_manager_list"}, method = RequestMethod.GET)
     public String managerList(Model model,
              @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {

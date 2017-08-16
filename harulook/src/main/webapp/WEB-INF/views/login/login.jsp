@@ -24,10 +24,22 @@
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		$('#login').click(function(){	//로그인
+		$('#login').click(function(){	//로그인 버튼
 			$('#loginAdd').submit();
         
 		});
+		
+		$('#userinserformbutton').click(function(){	//회원가입버튼
+			$('#userinserform').submit();
+        });
+		
+		$('#idfindbutton').click(function(){	//아이디찾기
+			$('#idfind').submit();
+        });
+		
+		$('#pwfindbutton').click(function(){	//비밀번호찾기
+			$('#pwfind').submit();
+        });
 	 });
 	
 	
@@ -38,6 +50,7 @@
 	
 	
 	    <h1>로그인 기본 폼</h1>
+	    <!-- 로그인 -->
 	    <form id=loginAdd action="${pageContext.request.contextPath}/login" method="post">
 	    
 	       		<!-- 아이디 -->
@@ -54,8 +67,20 @@
 	        
 	       
 	    </form>
-	
-
-
+	    
+	    <!-- 회원가입하기 -->
+		<form id=userinserform action="${pageContext.request.contextPath}/member_user_insert" method="get">
+			<input class="btn btn-default" id="userinserformbutton" type="button" value="회원가입"/>
+		</form>
+		
+		<!-- 아이디찾기 -->
+		<form id=idfind action="${pageContext.request.contextPath}/idfind" method="get">
+			<input class="btn btn-default" id="idfindbutton" type="button" value="아이디찾기"/>
+		</form>
+		
+		<!-- 비밀번호찾기 -->
+		<form id=pwfind action="${pageContext.request.contextPath}/pwfind" method="get">
+			<input class="btn btn-default" id="pwfindbutton" type="button" value="비밀번호찾기"/>
+		</form>
 </body>
 </html>

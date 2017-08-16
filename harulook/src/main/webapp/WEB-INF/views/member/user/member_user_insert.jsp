@@ -61,9 +61,11 @@
 			$('#telsuccess').hide();
 			$('#telfail').hide();
 			
+			//질문의 답 메시지 숨김
+			$('#userAfail').hide();
+			
 		//아이디중복체크버튼
-		$('#idcheckbutton').click(function(){	
-			alert("아이디중복체크하기");
+		$('#user_id').blur(function(){	
 			var request = $.ajax({
 				  url: "./idcheck", //호출 경로
 				  method: "POST",	//전송방식
@@ -77,8 +79,6 @@
 				console.log($('#user_id').val());	//중복체크 입력한 아이디
 				
 				if (re_id.test(uid.val()) != true) { // 아이디 입력 양식이 틀렸을때
-					alert('[ID 입력 오류] 유효한 ID를 입력해 주세요.');
-					uid.focus();
 					$('#idre').show();
 					$('#idsuccess').hide();
 					$('#idfail').hide();
@@ -90,6 +90,7 @@
 						$('#idsuccess').hide();
 						$('#idre').hide();
 						$('#user_id').val("");
+						uid.focus();
 					}else if(msg == ""){	//아이디가 중복안될때 메시지
 						$('#idsuccess').show();
 						$('#idfail').hide();
@@ -99,14 +100,14 @@
 						$('#idsuccess').hide();
 						$('#idfail').hide();
 						$('#user_id').val("");
+						uid.focus();
 					}
 				}
 			});
 	  	});
 		
 		//닉네임 중복체크버튼
-		$('#nickcheckbutton').click(function(){	
-			alert("닉네임중복체크하기");
+		$('#user_nick').blur(function(){	
 			var request = $.ajax({
 				  url: "./nickcheck", //호출 경로
 				  method: "POST",	//전송방식
@@ -123,6 +124,7 @@
 					$('#nicksuccess').hide();
 					$('#nickre').hide();
 					$('#user_nick').val("");
+					$('#user_nick').focus();
 				}else if(msg == ""){	//아이디가 중복안될때 메시지
 					$('#nicksuccess').show();
 					$('#nickfail').hide();
@@ -132,16 +134,15 @@
 					$('#nicksuccess').hide();
 					$('#nickfail').hide();
 					$('#user_nick').val("");
+					$('#user_nick').focus();
 				}
 			});
 	  	});
 		
 		//비밀번호 확인
-		$('#pwcheck').click(function(){	
+		$('#user_pw_check').blur(function(){	
 			
 				if(re_pw.test(upw.val()) != true) { // 비밀번호 양식 오류
-					alert('[PW 입력 오류] 유효한 PW를 입력해 주세요.');
-					upw.focus();
 					$('#pwre').show();
 					$('#pwsuccess').hide();
 					$('#pwfail').hide();
@@ -159,12 +160,14 @@
 						$('#pwre').hide();
 						$('#user_pw').val("");
 						$('#user_pw_check').val("");
+						upw.focus();
 					}else{					//오류일때
 						$('#pwre').show();
 						$('#pwsuccess').hide();
 						$('#pwfail').hide();
 						$('#user_pw').val("");
 						$('#user_pw_check').val("");
+						upw.focus();
 					}
 				}
 	  	});
@@ -174,7 +177,7 @@
 			if(re_mail.test(mail.val()) != true) { // 이메일 검사
 				$('#emailsuccess').hide();
 				$('#emailfail').show();
-			mail.focus();
+				mail.focus();
 			return false;
 			}else{
 				$('#emailsuccess').show();
@@ -196,6 +199,15 @@
 			
 		});
 		
+		$('#user_a').blur(function(){	//질문의 답
+			if($('#userAfail') == null) { // 답이없을때
+				$('#userAfail').show();
+				$('#userAfail').focus();
+			}else{
+				$('#userAfail').hide();
+			}
+        });
+		
 		$('#addButton').click(function(){	//회원가입버튼
 			$('#addFormUser').submit();
         });
@@ -214,8 +226,8 @@
 	    
 	       		<!-- 아이디 -->
 	           	<label for="user_id">아이디 :</label>
-	            <input name="userId" id="user_id" type="text"/>
-	            <input class="btn btn-default" id="idcheckbutton" type="button" value="아이디중복검사" /> 5자~16자 이내 영문과 숫자만가능<br>
+	            <input name="userId" id="user_id" type="text"/>  5자~16자 이내 영문과 숫자만가능<br>
+	           
 	            <div>아이디중복체크결과 :
 	            	<span id="idsuccess" >사용가능한 아이디입니다</span>
 	            	<span id="idfail" >사용불가능한 아이디입니다</span>
@@ -228,9 +240,8 @@
 	            
 	            <!-- 비밀번호 확인-->
 	        	<label for="user_pw_check">비번 :</label>
-	            <input name="userPw" id="user_pw_check" type="password"/>
-	            <input class="btn btn-default" id="pwcheck" type="button" value="비밀번호확인" />6자~16자 이내 특수문자가능<br>
-				<div>비밀번호 확인결과 :
+	            <input name="userPwCheck" id="user_pw_check" type="password"/>6자~16자 이내 특수문자가능<br>
+	            <div>비밀번호 확인결과 :
 	            	<span id="pwsuccess" >비밀번호일치</span>
 	            	<span id="pwfail" >비밀번호 불일치</span>
 	            	<span id="pwre" >비밀번호 다시입력해주세요</span>
@@ -239,8 +250,7 @@
 				<!-- 닉네임 -->	        
 	       		<label for="user_nick">닉네임 :</label>
 	            <input name="userNick" id="user_nick" type="text"/>
-	            <input class="btn btn-default" id="nickcheckbutton" type="button" value="닉네임중복검사" /><br>
-        		<div>닉네임중복체크결과 :
+	            <div>닉네임중복체크결과 :
 	            	<span id="nicksuccess" >사용가능한 닉네임입니다</span>
 	            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
 	            	<span id="nickre" >닉네임 다시 입력해주세요</span>
@@ -249,42 +259,92 @@
             	<!-- 이름 -->
 	        	<label for="user_name">이름 :</label>
 	            <input name="userName" id="user_name" type="text"/><br>
-	        
+	        	
+	        	<!-- 전화번호 -->
 	        	<label for="user_tel">전화번호 :</label>
 	            <input name="userTel" id="user_tel" type="text"/>- 빼고 숫자만 입력하세요 ** 수정필요<br>
+	       		<select id="txtMobile1">
+				    <option value="">::선택::</option>
+				    <option value="011">011</option>
+				    <option value="016">016</option>
+				    <option value="017">017</option>
+				    <option value="019">019</option>
+				    <option value="010">010</option>
+				</select>
+				<input type="text" id="txtMobile2" size="4" onkeypress="onlyNumber();" />
+				<input type="text" id="txtMobile3" size="4" />
+				
 	       		<div>전화번호 양식검사 :
 	            	<span id="telsuccess" >사용가능한 전화번호입니다</span>
 	            	<span id="telfail" >사용불가능한 전화번호입니다</span>
 	            </div>
 	            
+	          	<!--  이메일 -->
 	        	<label for="user_email">이메일 :</label>
 	            <input name="userEmail" id="user_email" type="text"/><br>
 	            <div>이메일양식검사 :
 	            	<span id="emailsuccess" >사용가능한 이메일입니다</span>
 	            	<span id="emailfail" >사용불가능한 이메일입니다</span>
 	            </div>
-	        
+	        	
+	        	<!-- 주소 -->
 	        	<label for="user_addr">주소 :</label>
 	            <input name="userAddr" id="user_addr" type="text"/><br>
-	        
-	        	<label for="user_gender">성별 :</label>
-	            <input name="userGender" id="user_gender" type="text"/><br>
-	        
+	        	
+	        	
+	        	
+	        	<!-- 성별 -->
+	        	<label for="user_gender" >성별 :</label>
+	            <div class="radio">
+			      <label><input name="userGender" id="user_gender" type="radio" value="남" name="optradio">남</label>
+			      <label><input name="userGender" id="user_gender" type="radio" value="여" name="optradio">여</label>
+			    </div>
+			   
+				
+				<!-- 나이 -->	        	
 	        	<label for="user_age">나이 :</label>
-	            <input name="userAge" id="user_age" type="text"/><br>
-	        
+	            <div class="radio">
+			      <label><input name="userAge" id="user_age" type="radio" value="10" name="optradio">10대</label>
+			      <label><input name="userAge" id="user_age" type="radio" value="20" name="optradio">20대</label>
+			      <label><input name="userAge" id="user_age" type="radio" value="30" name="optradio">30대</label>
+			      <label><input name="userAge" id="user_age" type="radio" value="40" name="optradio">40대</label>
+			      <label><input name="userAge" id="user_age" type="radio" value="50" name="optradio">50대</label>
+			      <label><input name="userAge" id="user_age" type="radio" value="60" name="optradio">60대이상</label>
+			    </div>
+	        	
+	        	<!-- 키 -->
 	        	<label for="user_tall">키 :</label>
-	            <input name="userTall" id="user_tall" type="text"/><br>
-	      
+	            <div class="radio">
+			      <label><input name="userTall" id="user_tall" type="radio" value="큰키" name="optradio">큰키</label>
+			      <label><input name="userTall" id="user_tall" type="radio" value="보통" name="optradio">보통</label>
+			      <label><input name="userTall" id="user_tall" type="radio" value="작은키" name="optradio">작은키</label>
+			    </div>
+	      		
+	      		<!-- 사이즈 -->
 	        	<label for="user_size">사이즈 :</label>
-	            <input name="userSize" id="user_size" type="text"/><br>
-	        
+	            <div class="radio">
+			      <label><input name="userSize" id="user_size" type="radio" value="마른" name="optradio">마른</label>
+			      <label><input name="userSize" id="user_size" type="radio" value="보통" name="optradio">보통</label>
+			      <label><input name="userSize" id="user_size" type="radio" value="뚱뚱" name="optradio">뚱뚱</label>
+			    </div>
+			    
+			    <!-- 질문 -->
 	        	<label for="user_q">질문 :</label>
-	            <input name="userQ" id="user_q" type="text"/><br>
-	       
+	            <div class="radio">
+			      <label><input name="userQ" id="user_q" type="radio" value="나의 보물은" name="optradio">나의 보물은</label>
+			      <label><input name="userQ" id="user_q" type="radio" value="나의 고향은" name="optradio">나의 고향은</label>
+			      <label><input name="userQ" id="user_q" type="radio" value="나의 초등학교" name="optradio">나의 초등학교</label>
+			      <label><input name="userQ" id="user_q" type="radio" value="나의 고등학교" name="optradio">나의 고등학교</label>
+			      <label><input name="userQ" id="user_q" type="radio" value="나의 비밀은" name="optradio">나의 비밀은</label>
+			      <label><input name="userQ" id="user_q" type="radio" value="나의 꿈은" name="optradio">나의 꿈은</label>
+			    </div>
+	       		
+	       		<!-- 답 -->
 	        	<label for="user_a">질문의 답 :</label>
 	            <input name="userA" id="user_a" type="text"/><br>
-	        	
+        		<div>질문의 답 오류구문 :
+	            	<span id="userAfail" >답을 입력하세요</span>
+	            </div>
 	        	<!-- 색상이랑 스타일 체크박스로 넣어야한다 -->
 	        
 	     	<div>
