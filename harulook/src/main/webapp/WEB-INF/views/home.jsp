@@ -9,10 +9,10 @@
 </head>
 <body>
 <h1>
-	Hello world!  
+	Hello!
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
+<P>  Your IP address is  ${clientIP}. </P>
 	<c:import url="./module/header.jsp"></c:import>
 
 </body>

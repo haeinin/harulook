@@ -10,10 +10,6 @@
 Insert화면입니다.
 <form id="addForm" action="${pageContext.request.contextPath}/partnerContractInsert" method="post">
         <div class="form-group">
-            <label for="cooContractNo">계약번호 </label>
-            <input class="form-control" name="cooContractNo" id="cooContractNo" type="text"/>
-        </div>
-        <div class="form-group">
             <label for="userId">계약자 아이디 </label>
             <input class="form-control" name="userId" id="userId" type="text"/>
         </div>
