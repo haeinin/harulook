@@ -1,7 +1,5 @@
 package com.ksmart.harulook.dto;
 
-import java.util.List;
-
 public class BoardDto {
 	private String snsBoardNo;
 	private String userId;

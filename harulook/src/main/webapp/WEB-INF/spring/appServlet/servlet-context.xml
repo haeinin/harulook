@@ -52,10 +52,8 @@
 
                 <beans:value>classpath:com/ksmart/harulook/partner/PartnerMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/mall/MallMapper.xml</beans:value>
-
                <beans:value>classpath:com/ksmart/harulook/member/MemberMapper.xml</beans:value>
-
-
+				<beans:value>classpath:com/ksmart/harulook/adcontract/AdContractMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/board/BoardMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/comment/CommentMapper.xml</beans:value>
 
