@@ -57,5 +57,10 @@ public class MallController {
 		dao.insertMallSale(dto);
 		return "mall/mall_sale";
 	}
+	
+	@RequestMapping(value = "/mallMain", method = RequestMethod.GET)
+	public String mallMain() {
+		return "mall/mall_main";
+	}
 
 }
