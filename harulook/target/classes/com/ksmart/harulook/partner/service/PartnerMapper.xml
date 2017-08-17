@@ -21,12 +21,18 @@
 		<result property="cooContractPayStat" column="coo_contract_pay_stat"></result>
 	</resultMap>
 	<resultMap type="com.ksmart.harulook.partner.service.PartnerBillDto" id="partnerBill">
+		<result property="cooBillNo" column="coo_bill_no"></result>
 		<result property="cooContractNo" column="coo_contract_no"></result>
-		<result property="userId" column="user_id"></result>
-		<result property="managerId" column="manager_id"></result>
-		<result property="cooContractDc" column="coo_contract_dc"></result>
-		<result property="cooContractFee" column="coo_contract_fee"></result>
-		<result property="cooContractStart" column="coo_contract_start"></result>
+		<result property="cooBillValue" column="coo_bill_value"></result>
+		<result property="cooBillMonth" column="coo_bill_month"></result>
+		<result property="cooBillDate" column="coo_bill_date"></result>
+	</resultMap>
+	<resultMap type="com.ksmart.harulook.partner.service.PartnerPayDto" id="partnerPay">
+		<result property="cooPayNo" column="coo_pay_no"></result>
+		<result property="cooContractNo" column="coo_contract_no"></result>
+		<result property="cooPayDate" column="coo_pay_date"></result>
+		<result property="cooPayTotal" column="coo_pay_total"></result>
+
 	</resultMap>
 
 
@@ -135,9 +141,59 @@
 		WHERE
 		coo_contract_no=#{cooContractNo}
 	</update>
-
+	
+	<!-- 제휴 결제 처리 -->
+	<insert id="cooContractPayinsert" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
+		INSERT INTO coo_pay
+		(
+		coo_contract_no
+		, coo_pay_date
+		,coo_pay_total
+		)
+		VALUES 
+		( 
+		#{cooContractNo}
+		, DATE(NOW())
+		,	(
+			SELECT 
+				coo_bill_value
+			FROM 
+				coo_bill 
+			WHERE 
+				coo_bill_no = #{coo_bill_no}
+			)
+		)
+	</insert>
+	<!-- 제휴결제처리 후 제휴예정데이터 삭제 -->
+	<delete id="cooContractBillDelete" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
+		DELETE 
+		FROM coo_bill 
+		WHERE coo_bill_no = #{coo_bill_no}
+	</delete>
 	<!-- 제휴 결제상태 변경 -->
+	<update id="cooContractPayStatUpdate" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
+		UPDATE
+		coo_contract
+		SET 
+		coo_contract_pay_stat = '결제완료'
+		WHERE 
+		coo_contract_no = 
+					(
+					SELECT 
+						distinct coo_pay.coo_contract_no
+					FROM 
+						coo_pay
+					JOIN 
+						coo_bill
+					ON
+						coo_bill.coo_contract_no = coo_pay.coo_contract_no
+					WHERE (coo_pay.coo_pay_total - coo_bill.coo_bill_value)>=0 
+					AND coo_pay.coo_contract_no = #{cooContractNo})
+
+	</update>
+	
 	<!-- 제휴 업체 상세보기 -->
+	
 	<!-- 제휴 수수료 계산 -->
 	<insert id="cooContractBillInsert" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
 		INSERT INTO coo_bill
@@ -180,7 +236,7 @@
 
 
 	<!-- 제휴 결제예정 금액 조회 -->
-	<select id="cooContractBill" resultMap="partnerBill">
+	<select id="cooContractBill" parameterType="String" resultMap="partnerBill">
 		SELECT
 		coo_bill_no
 		,coo_contract_no
@@ -203,6 +259,18 @@
 		coo_contract_no = #{cooContractNo}
 
 	</update>
+	
+	<!-- 제휴결제내역보기 -->
+	<select id="cooContractPayList" parameterType="String" resultMap="partnerPay">
+		SELECT 
+		coo_contract_no
+		,coo_pay_date
+		,coo_pay_total
+		FROM 
+		coo_pay
+		WHERE 
+		coo_contract_no = #{cooContracNo}
+	</select>
 
 
 

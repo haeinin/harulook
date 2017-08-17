@@ -7,6 +7,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>제휴계약 현황 </title>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		$('#cooContractAdmitBtn').click(function(){	
+			$('#cooContractAdmit').submit();
+        
+		});
+	
+	 });
+	
+	
+</script>
 </head>
 <body>
 
@@ -35,7 +49,12 @@
                     <td>${b.cooContractCode}</td>
                     <td>${b.cooContractStat}</td>
                     <td>${b.cooContractPayStat}</td>
-                    <td><input type="button" value="승인하기"></td>
+                   <td>
+						<form id="cooContractAdmit"
+							action="${pageContext.request.contextPath}/partnerContractAdmit?cooContractNo=${b.cooContractNo}&managerId=${sessionScope.id}" method="post"> 
+							<input class="btn btn-default" id="cooContractAdmitBtn" type="button" value="승인하기" /> 
+						</form>
+					</td>
  
                 </tr>
             </c:forEach>

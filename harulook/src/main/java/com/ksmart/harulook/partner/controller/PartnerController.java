@@ -19,7 +19,7 @@ public class PartnerController {
 	@Autowired
 	private PartnerDao dao;
 
-	/*제휴계약 insert처리*/
+	/*제휴계약 신청처리*/
 	@RequestMapping(value = "/partnerContractInsert", method = RequestMethod.POST)
 	public String partnerContractInsert(PartnerDto dto) {
 		/*제휴계약번호 자동입력*/
@@ -34,11 +34,18 @@ public class PartnerController {
 		System.out.println("제휴계약신청완료");
 		return "redirect:/partnerContractList";
 	}
-	/*제휴계약 insert폼 요청*/
+	/*제휴계약신청 폼 요청*/
 	@RequestMapping(value = "/partnerContractInsert", method = RequestMethod.GET)
 	public String partnerContractInsert() {
 		System.out.println("제휴계약 신청 폼 요청");
 		return "partner/contract/partner_contract_insert";
+	}
+	/*제휴계약신청 승인하기*/
+	@RequestMapping(value = "/partnerContractAdmit", method = RequestMethod.POST)
+	public String cooContractAdmit(PartnerDto dto){
+		System.out.println("제휴계약신청 승인하기");
+		dao.updateCooContractAdmit(dto);
+		return "redirect:/partnerContractList";
 	}
 	/*제휴계약 리스트보기*/
 	@RequestMapping(value = "/partnerContractList", method = RequestMethod.GET)
@@ -76,7 +83,7 @@ public class PartnerController {
 		System.out.println("제휴계약 수정 폼 요청");
 		return "partner/contract/partner_contract_update";
 	}
-	/*제휴 결제예정 수수료 보기*/
+	/*제휴결제예정 수수료 보기*/
 	@RequestMapping(value = "/partnerContractBillList", method = RequestMethod.GET)
 	public String partnerContractBillList(Model model
 										/*,@RequestParam(value="cooContractNo",required=true) String cooContractNo*/){
@@ -86,6 +93,17 @@ public class PartnerController {
 		System.out.println("제휴결제예정수수료보기");
 		return "partner/pay/partner_bill_list";
 	}
+	/*제휴결제처리*/
+	@RequestMapping(value = "/partnerContractPay", method = RequestMethod.GET)
+	public String partnerContractPay(PartnerBillDto dto){
+		System.out.println("제휴결제처리(insert-update-delete)");
+		dao.insertCooContractPay(dto);
+		dao.updateCooContractPayStat(dto);
+		dao.deleteCooContractBill(dto);
+		return "partner/pay/partner_pay_list";
+	}
+
+	
 	
 }
  

@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<title>제휴계약 결제 예정 금액 현황</title>
+<title>제휴계약 수수료 결제 현황</title>
 </head>
 <body>
 
@@ -14,9 +14,9 @@
 		<thead>
 			<tr>
 				<th>제휴계약번호</th>
-				<th>단위기간</th>
-				<th>수수료</th>
-				<th>결제 예정 날짜</th>
+				<th>결제 금액</th>
+				<th>결제 날짜</th>
+				<th>결제 방법</th>
 
 			</tr>
 		</thead>
@@ -24,10 +24,8 @@
 			<c:forEach var="b" items="${list}">
 				<tr>
 					<td>${b.cooContractNo}</td>
-					<td>${b.cooBillMonth}</td>
-					<td>${b.cooBillValue}</td>
-					<td>${b.cooBillDate}</td>
-					<td><a class="btn btn-default" href="${pageContext.request.contextPath}/=${dto.cooContractNo}">결제하기</a></td>
+					
+
 				</tr>
 			</c:forEach>
 		</tbody>
