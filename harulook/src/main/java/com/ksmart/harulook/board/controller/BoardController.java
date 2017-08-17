@@ -2,6 +2,8 @@ package com.ksmart.harulook.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import com.ksmart.harulook.board.service.BoardDao;
 import com.ksmart.harulook.board.service.BoardDto;
 import com.ksmart.harulook.comment.service.CommentDao;
 import com.ksmart.harulook.comment.service.CommentDto;
+import com.ksmart.harulook.like.service.LikeDao;
 
 @Controller
 public class BoardController {
@@ -22,6 +25,9 @@ public class BoardController {
 	
 	@Autowired
 	private CommentDao commentDao;
+	
+	@Autowired
+	private LikeDao likeDao;
 	
 	/* sns게시물 목록 검색 */
 	@RequestMapping(value="/boardSearchList", method = RequestMethod.POST)
@@ -78,13 +84,24 @@ public class BoardController {
 	
 	/* sns게시물 상세 보기 */
 	@RequestMapping(value="/boardDetail", method = RequestMethod.GET)
-	public String boardDetail(Model model
+	public String boardDetail(Model model, HttpSession session
             , @RequestParam(value="boardNo", required=true) String boardNo) {
 		System.out.println("boardDeatil 화면 요청");
 		BoardDto board = boardDao.boardDetail(boardNo);
 		System.out.println("boardNo : "+ boardNo);
 		List<CommentDto> commentList = commentDao.commentList(boardNo);
 		System.out.println("comment : "+ commentList);
+		
+		String sessionId = (String)session.getAttribute("id");
+		int likeClick = likeDao.getLikeClick(boardNo, sessionId);
+		boolean likeToggle = false;
+		if(likeClick == 1) {
+			likeToggle = true;
+		} else {
+			likeToggle = false;
+		}
+		
+		model.addAttribute("likeToggle", likeToggle);
 		model.addAttribute("board", board);
 		model.addAttribute("commentList",commentList);
 		System.out.println("boardDetail : "+ model);

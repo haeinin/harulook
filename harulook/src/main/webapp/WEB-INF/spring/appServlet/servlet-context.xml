@@ -49,7 +49,7 @@
         <beans:property name="mapperLocations">
             <beans:list>
 
-
+				<beans:value>classpath:com/ksmart/harulook/like/service/LikeMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/partner/service/PartnerMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/mall/service/MallMapper.xml</beans:value>
                <beans:value>classpath:com/ksmart/harulook/member/service/MemberMapper.xml</beans:value>
