@@ -1,0 +1,104 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.ksmart.harulook.adcontract.service.AdContractMapper">
+ 
+ <resultMap type="com.ksmart.harulook.adcontract.service.AdContractDto" id="AdContractList">
+ 	<result property="adContractPlace" column="ad_contract_place"/>
+ 	<result property="userBsName" column="user_bs_name"/>
+ 	<result property="userId" column="user_id"/>
+ 	<result property="adContractStart" column="ad_contract_start"/>
+ 	<result property="adContractEnd" column="ad_contract_end"/>
+ 	<result property="adContractPrice" column="ad_contract_price"/>
+ 	<result property="adContractStat" column="ad_contract_stat"/>
+ 	
+ </resultMap>
+ <select id ="selectAdContractListAll"  resultMap="AdContractList">
+SELECT 
+	ad_contract.ad_contract_place
+	,user.user_bs_name
+	,ad_contract.user_id
+	,ad_contract.ad_contract_start
+	,ad_contract.ad_contract_end
+	,ad_contract.ad_contract_price
+	,ad_contract.ad_contract_stat
+FROM ad_contract
+JOIN user
+ON ad_contract.user_id = user.user_id
+WHERE user.user_level = '사업자' 
+	AND date(now()) > ad_contract.ad_contract_start
+	AND ad_contract.ad_contract_end > date(now()) 
+	AND ad_contract.ad_contract_stat='승인완료'
+ORDER BY ad_contract.ad_contract_place asc;
+ </select>
+ 
+ <select id ="selectAdContractByAdUserCurrent"  resultMap="AdContractList">
+SELECT 
+	ad_contract.ad_contract_place, 
+	user.user_bs_name,
+	ad_contract.user_id, 
+	ad_contract.ad_contract_start, 
+	ad_contract.ad_contract_end, 
+	ad_contract.ad_contract_price, 
+	ad_contract.ad_contract_stat
+FROM ad_contract
+JOIN user
+ON ad_contract.user_id = user.user_id
+WHERE ad_contract.user_id = ${id} AND ad_contract.ad_contract_stat = '승인완료' AND ad_contract.ad_contract_start %lt; date(now()) AND ad_contract.ad_contract_end > date(now())
+ORDER BY ad_contract.ad_contract_no asc
+ </select>
+ 
+  <select id ="selectAdBoardByAdUserOther"  resultMap="AdContractList">
+	SELECT 
+		ad_contract.ad_contract_place, 
+		user.user_bs_name,
+		ad_contract.user_id, 
+		ad_contract.ad_contract_start, 
+		ad_contract.ad_contract_end, 
+		ad_contract.ad_contract_price, 
+		ad_contract.ad_contract_stat
+	FROM ad_contract
+	JOIN user
+	ON ad_contract.user_id = user.user_id
+	WHERE ad_contract.user_id = ${id} AND ad_contract.ad_contract_start > date(now()) 
+	ORDER BY ad_contract.ad_contract_no asc
+ </select>
+ 
+ <insert id ="insertAdContract" parameterType="com.ksmart.harulook.adcontract.service.AdContractDto">
+	INSERT INTO ad_contract
+		(ad_contract_no, 
+	 	user_id, 
+	 	ad_contract_place, 
+	 	ad_contract_start, 
+	 	ad_contract_end,  
+	 	ad_contract_date, 
+	 	ad_cost_no, 
+	 	ad_dc_no, 
+	 	ad_contract_price, 
+	 	ad_contract_stat)
+	VALUES 
+		(#{adContractNo}, 
+	 	 #{userId}, 
+	 	 #{adContractPlace}, 
+	 	 #{adContractStart}, 
+	 	 #{adContractEnd}, 
+	 	 #{adContractDate}, 
+	  	 #{adCostNo}, 
+	 	 #{adDcNo}, 
+	  	 #{adContractPrice}, 
+	     #{adContractStat})
+ </insert>
+  <select id="getContractNo" resultType="String">
+        SELECT
+            max(CAST(substring(ad_contract_,12) AS DECIMAL))  
+        FROM ad_contract
+    </select>
+ <select id="selectDCRate" resultType="double">
+ 	
+ 	SELECT ad_dc_no, ad_dc_rate
+	FROM ad_dc
+	WHERE ad_dc_period &lt;= 
+	LIMIT 1	
+ 
+ </select>
+</mapper>
