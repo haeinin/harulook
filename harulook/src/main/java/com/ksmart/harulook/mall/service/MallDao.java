@@ -36,6 +36,7 @@ public class MallDao{
 	public String getCooContractCode(String cooContractCode){
 		return sqlSessionTemplate.selectOne("com.ksmart.harulook.mall.service.MallMapper.vaildCooContractCode",cooContractCode);
 	}
+	/*구매내역 보기*/
 	public List<MallSaleDto> getMallBuyList(String id){
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.mall.service.MallMapper.getMallBuyList",id);
 	}

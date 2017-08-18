@@ -16,9 +16,8 @@
 </head>
 <body>
 <div class="container">구매감사합니다!</div>
-
  <table class="table table-striped" border="1px">
-<%--         <thead>
+        <thead>
             <tr>
                 <th>mallProName</th>
                 <th>mallSaleAmount</th>
@@ -38,6 +37,7 @@
 
                 </tr>
             </c:forEach>
-        </tbody> --%>
+        </tbody>
+        </table>
 </body>
 </html>

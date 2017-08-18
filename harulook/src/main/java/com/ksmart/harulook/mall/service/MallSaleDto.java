@@ -10,6 +10,12 @@ public class MallSaleDto {
 	private String cooContractCode;
 	private String mallProName;
 	
+	@Override
+	public String toString() {
+		return "MallSaleDto [userId=" + userId + ", mallProNo=" + mallProNo + ", mallSaleAmount=" + mallSaleAmount
+				+ ", mallSalePrice=" + mallSalePrice + ", mallSaleTotal=" + mallSaleTotal + ", mallSaleDate="
+				+ mallSaleDate + ", cooContractCode=" + cooContractCode + ", mallProName=" + mallProName + "]";
+	}
 	public String getMallProName() {
 		return mallProName;
 	}
