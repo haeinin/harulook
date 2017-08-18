@@ -25,8 +25,7 @@
   cursor: pointer;
   left: 50%; 
   top: 50%; 
-  transform: translate(-50%, -50%);     
-  background-color: rgba(0,0,0,0.3);     
+  transform: translate(-50%, -50%);       
   width: 60px; 
   height: 60px;  
   border-radius: 50%;
@@ -45,33 +44,11 @@
 </style>
 <script type="text/javascript">
 $(function(){
-	$('#likeBtn').click(function(){
-		console.log($('#snsBoardNo').text());
-		var likeRequest = $.ajax({
-            url : './likeInsert',
-            method: 'POST',
-            data : { 'snsBoardNo' : $('#snsBoardNo').text()
-            		,'userId' : $('#userId').val()},
-            dataType: 'JSON',
-            success : function(data){
-            	console.log(data);
-            	$('#snsLikeCount').text(data.snsLikeCount);
-            }
-        });
-	});
-	var check_status = $('#likeToggle').val();
-	console.log('check_status : '+check_status);
 	var like_cnt = $("#like-cnt");
 	var like_parent = $(".like-container");
 	var t1 = new TimelineLite();
 	var t2 = new TimelineLite();
 	
-	if(check_status == true){
-		$('#like-cnt').css('background-color', '#FFB2F5');
-  }
-	else {
-		$('#like-cnt').css('background-color', 'rgba(0,0,0,0.3)');
-  }
 	var burst = new mojs.Burst({
 	  parent: like_parent,
 	  radius:   { 20: 60 },
@@ -87,94 +64,112 @@ $(function(){
 	});
 
 	$("#like-cnt").click(function(){
-	  if(!check_status){
-	    t1.set(like_cnt, {scale:0});
-	    t1.set('.like-btn', {scale: 0});
-	    t1.to(like_cnt, 0.6, {scale:1, background: '#FFB2F5',ease: Expo.easeOut});
-	    t2.to('.like-btn', 0.65, {scale: 1, ease: Elastic.easeOut.config(1, 0.3)}, '+=0.2');
-//	    t1.timeScale(5);
-	    check_status=true;
-	    //circleShape.replay();
-	    burst.replay();
-	  }
-	  else{
-	    t1.to(like_cnt, 1, {scale:1})
-	      .to(like_cnt, 1, {scale:1, background: 'rgba(0,0,0,0.3)', ease: Power4.easeOut});
-	    t1.timeScale(7);
-	    check_status=false;
-	  }  
+		console.log($('#snsBoardNo').text());
+		var likeRequest = $.ajax({
+            url : './likeInsert',
+            method: 'POST',
+            data : { 'snsBoardNo' : $('#snsBoardNo').text()
+            		,'userId' : $('#userId').val()},
+            dataType: 'JSON',
+            success : function(data){
+            	console.log(data);
+            	$('#snsLikeCount').text(data.snsLikeCount);
+            	if(data.likeClick === 0) {
+            		 t1.set(like_cnt, {scale:0});
+            		    t1.set('.like-btn', {scale: 0});
+            		    t1.to(like_cnt, 0.6, {scale:1, background: '#FFB2F5',ease: Expo.easeOut});
+            		    t2.to('.like-btn', 0.65, {scale: 1, ease: Elastic.easeOut.config(1, 0.3)}, '+=0.2');
+//            		    t1.timeScale(5);
+            		    //circleShape.replay();
+            		    burst.replay();
+            	} else {
+            		t1.to(like_cnt, 1, {scale:1})
+            	      .to(like_cnt, 1, {scale:1, background: 'rgba(0,0,0,0.3)', ease: Power4.easeOut});
+            	    t1.timeScale(7);
+            	}
+            }
+        });
 	})
 });
 </script>
 </head>
 <body>
 게시물 상세보기 화면
-<input id="likeToggle" type="hidden" value="${likeToggle}">
 <div class="container">
      <table class="table">
          <tbody>
-             <tr>
+            <tr>
                 <td>sns_board_no :</td>
                 <td id="snsBoardNo">${board.snsBoardNo}</td>
-               </tr>
-            <tr>
-                   <td>user_id :</td>
-                   <td>${board.userId}</td>
             </tr>
             <tr>
-                   <td>sns_board_img :</td>
-                   <td>${board.snsBoardImg}</td>
+                <td>user_id :</td>
+                <td>${board.userId}</td>
             </tr>
             <tr>
-                   <td>sns_board_content :</td>
-                   <td>${board.snsBoardContent}</td>
+				<td>sns_board_img :</td>
+				<td>${board.snsBoardImg}</td>
             </tr>
             <tr>
-                   <td>sns_board_weather :</td>
-                   <td>${board.snsBoardWeather}</td>
+                <td>sns_board_content :</td>
+                <td>${board.snsBoardContent}</td>
             </tr>
             <tr>
-                   <td>sns_board_tall :</td>
-                   <td>${board.snsBoardTall}</td>
+                <td>sns_board_weather :</td>
+                <td>${board.snsBoardWeather}</td>
             </tr>
             <tr>
-                   <td>sns_board_size :</td>
-                   <td>${board.snsBoardSize}</td>
+                <td>sns_board_tall :</td>
+                <td>${board.snsBoardTall}</td>
             </tr>
             <tr>
-                   <td>sns_board_loc :</td>
-                   <td>${board.snsBoardLoc}</td>
+                <td>sns_board_size :</td>
+                <td>${board.snsBoardSize}</td>
             </tr>
             <tr>
-                   <td>sns_board_date :</td>
-                   <td>${board.snsBoardDate}</td>
+                <td>sns_board_loc :</td>
+                <td>${board.snsBoardLoc}</td>
             </tr>
             <tr>
-                   <td>sns_board_gender :</td>
-                   <td>${board.snsBoardGender}</td>
+                <td>sns_board_date :</td>
+                <td>${board.snsBoardDate}</td>
             </tr>
             <tr>
-                   <td>sns_board_age :</td>
-                   <td>${board.snsBoardAge}</td>
+                <td>sns_board_gender :</td>
+                <td>${board.snsBoardGender}</td>
             </tr>
             <tr>
-                   <td>추천수 :</td>
-                   <td id="snsLikeCount">${board.snsLikeCount}</td>
-                   <td></td>
-	<div id="likeBtn" class="like-container">
-		<div class="like-cnt" id="like-cnt">
-			<i class="like-btn material-icons">thumb_up</i>
-		</div>
-	</div>
-<script src="//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-<script src='https://cdn.jsdelivr.net/mojs/latest/mo.min.js'></script>
-<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/DrawSVGPlugin.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js'></script>
-
-<script>
-
-</script>
+                <td>sns_board_age :</td>
+                <td>${board.snsBoardAge}</td>
+            </tr>
+            <tr>
+                <td>추천수 :</td>
+                <td id="snsLikeCount">${board.snsLikeCount}</td>
+                
+                <!-- 예뻐요 버튼  -->
+				<div class="like-container">
+				<c:if test="${likeToggle == false}">
+					<div class="like-cnt" id="like-cnt" style="background-color: rgba(0,0,0,0.3);">
+						<div class="like-cnt" id="like-cnt">
+							<i class="like-btn material-icons">thumb_up</i>
+						</div>
+					</div>
+				</c:if>
+				<c:if test="${likeToggle == true}">
+					<div class="like-cnt" id="like-cnt" style="background-color: #FFB2F5;">
+						<div class="like-cnt" id="like-cnt">
+							<i class="like-btn material-icons">thumb_up</i>
+						</div>
+					</div>
+				</c:if>
+				<script src="//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js"></script>
+				<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+				<script src='https://cdn.jsdelivr.net/mojs/latest/mo.min.js'></script>
+				<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/DrawSVGPlugin.min.js'></script>
+				<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js'></script>
+				</div>
+				<!-- 예뻐요 버튼  -->
+				
             </tr>
             <tr>
                    <td></td>
