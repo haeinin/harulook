@@ -33,6 +33,10 @@
 			$('#userinserform').submit();
         });
 		
+		$('#businessinserformbutton').click(function(){	//사업자등록버튼
+			$('#businessinserform').submit();
+        });
+		
 		$('#idfindbutton').click(function(){	//아이디찾기
 			$('#idfind').submit();
         });
@@ -72,6 +76,11 @@
 	    <!-- 회원가입하기 -->
 		<form id=userinserform action="${pageContext.request.contextPath}/member_user_insert" method="get">
 			<input class="btn btn-default" id="userinserformbutton" type="button" value="회원가입"/>
+		</form>
+		
+	 	<!-- 사업자등록하기 -->
+		<form id=businessinserform action="${pageContext.request.contextPath}/member_business_insert" method="get">
+			<input class="btn btn-default" id="businessinserformbutton" type="button" value="사업자등록하기"/>
 		</form>
 		
 		<!-- 아이디찾기 -->

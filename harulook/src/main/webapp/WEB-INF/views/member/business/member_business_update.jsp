@@ -21,6 +21,8 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <!-- 유효성검사 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- 모달을 쓰기위한 부트스트랩 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
 	$(document).ready(function(){
@@ -29,14 +31,16 @@
 			var re_mail = /^([\w\.-]+)@([a-z\d\.-]+)\.([a-z\.]{2,6})$/; // 이메일 검사식
 			var re_url = /^(https?:\/\/)?([a-z\d\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?$/; // URL 검사식
 			var re_tel = /^[0-9]{8,11}$/; // 전화번호 검사식
+			var re_bs_no = /^[0-9]{10}$/; // 사업자번호 검사식
 			
 			var 
 			form = $('.form'), 
 			uid = $('#user_id'),
 			upw = $('#user_pw'), 
 			mail = $('#user_email'), 
-			url = $('#url').val(), //다른회원가입에써야함
-			tel = $('#user_tel');
+			url = $('#user_url'), 
+			tel = $('#user_tel'),
+			bsno = $('#user_bs_no');
 			
 			//아이디 중복체크 메시지 숨김
 			$('#idsuccess').hide();
@@ -64,6 +68,16 @@
 			//질문의 답 메시지 숨김
 			$('#userAfail').hide();
 			
+			//사업자번호 확인 메시지 숨김
+			$('#BsNosuccess').hide();
+			$('#BsNofail').hide();
+			
+			//url 확인 메시지 숨김
+			$('#Urlsuccess').hide();
+			$('#Urlfail').hide();
+			
+			//회원탈퇴비밀번호오류메시지
+			$('#modalpwfail').hide();
 		//아이디중복체크버튼
 		$('#user_id').blur(function(){	
 			var request = $.ajax({
@@ -211,16 +225,34 @@
 			}
         });
 		
+		//사업자번호 검사
+		$('#user_bs_no').blur(function(){
+			if(re_bs_no.test(bsno.val()) != true) { // 사업자번호 검사
+				$('#BsNosuccess').hide();
+				$('#BsNofail').show();
+			bsno.focus();
+			return false;
+			}else{
+				$('#BsNosuccess').show();
+				$('#BsNofail').hide();
+			}
+		});
 		
-		$('#addButton').click(function(){	//회원가입버튼
-			
-			/* var checkBoxArr = [];
-
-			$("input[name=colorValue]:checked").each(function(i){
-
-			checkBoxArr.push($(this).val());
-
-			}); */
+		//url 검사
+		$('#user_url').blur(function(){
+			if(re_url.test(url.val()) != true) { // url 검사
+				$('#Urlsuccess').hide();
+				$('#Urlfail').show();
+			url.focus();
+			return false;
+			}else{
+				$('#Urlsuccess').show();
+				$('#Urlfail').hide();
+			}
+		});
+		
+		
+		$('#businessUpdate').click(function(){	//회원가입버튼
 			
 			if(!$('#user_id').val()){	//아이디입력 안했을때
 				alert('아이디를입력하세요');
@@ -250,22 +282,29 @@
 				alert('주소를입력하세요');
 				$('#sample4_jibunAddress').focus();
 				return false;
-			}else if(!($(':input[name=userGender]:radio:checked').val())){	//성별 선택안했을때
-				alert('성별입력하세요');
-				$('#user_gender').focus();
+			
+			}else if(!$('#user_bs_no').val()){	//사업자번호
+				alert('사업자번호를입력하세요');
+				$('#user_bs_no').focus();
 				return false;
-			}else if(!($(':input[name=userAge]:radio:checked').val())){	//나이 선택안했을때
-				alert('나이를 입력하세요');
-				$('#user_age').focus();
+			}else if(!$('#user_bs_type').val()){	//업종
+				alert('업종을입력하세요');
+				$('#user_bs_type').focus();
 				return false;
-			}else if(!($(':input[name=userTall]:radio:checked').val())){	//키 선택안했을때
-				alert('키를 입력하세요');
-				$('#user_tall').focus();
-				return false;	
-			}else if(!($(':input[name=userSize]:radio:checked').val())){	//사이즈 선택안했을때
-				alert('사이즈를 입력하세요');
-				$('#user_size').focus();
+			}else if(!$('#user_bs_status').val()){	//업태
+				alert('업태를입력하세요');
+				$('#user_bs_status').focus();
 				return false;
+			}else if(!$('#user_bs_name').val()){	//업체명
+				alert('업체명을입력하세요');
+				$('#user_bs_name').focus();
+				return false;
+			}else if(!$('#user_url').val()){	//업체홈페이지
+				alert('업체홈페이지를입력하세요');
+				$('#user_url').focus();
+				return false;
+				
+				
 			}else if(!($(':input[name=userQ]:radio:checked').val())){	//질문 선택안했을때
 				alert('질문 입력하세요');
 				$('#user_q').focus();
@@ -276,12 +315,42 @@
 				return false;
 			
 			}else{
-				$('#addFormUser').submit();
+				$('#addBusinessUpdate').submit();
 			}
-			
-			
-        });
+		});
 		
+		//회원탈퇴버튼모달
+		$('#userDelete').click(function(){
+			$('#userDeleteModal').modal();
+	    });
+		
+		//회원탈퇴비밀번호입력
+		$('#userDeleteAdd').click(function(){	
+			var request = $.ajax({
+				  url: "./userDeletePw", //호출 경로
+				  method: "POST",	//전송방식
+				  data: { 'pwcheck' : $('#user_id').val() }, //전송해줄값
+				  dataType: "text" //결과값 타입 (리턴)
+			});		
+			request.done(function( msg ) {
+				msg = msg.trim();
+				console.log(msg + "받아온비번"); 
+				console.log($('#user_pw_modal').val() + "입력한비번");
+				if($('#user_pw_modal').val() == msg){	//비밀번호일치하면 회원삭제
+					var request = $.ajax({
+						  url: "./userDeleteAdd", //호출 경로
+						  method: "POST",	//전송방식
+						  data: { 'deleteid' : $('#user_id').val() }, //전송해줄값
+						  dataType: "text" //결과값 타입 (리턴)
+					});
+					$('#home').submit();	//비밀번호 일치시 로그아웃처리후 홈으로
+				}else if($('#user_pw_modal').val() != msg){	//비밀번호틀리면 오류메시지
+					$('#modalpwfail').show();
+				}else{					//오류일때
+					console.log('예외');
+				}
+			});
+		});
     });
 	
 	
@@ -339,17 +408,17 @@
 	
 	
 </script>
-<title>일반회원가입폼</title>
+<title>회원수정폼</title>
 </head>
 <body>
 	
 	
-	    <h1>회원가입 기본 폼</h1>
-	    <form id="addFormUser" action="${pageContext.request.contextPath}/userAdd" method="post">
+	    <h1>내정보수정하기</h1>
+	    <form id="addBusinessUpdate" action="${pageContext.request.contextPath}/addBusinessUpdate" method="post">
 	    
 	       		<!-- 아이디 -->
 	           	<label for="user_id">아이디 :</label>
-	            <input name="userId" id="user_id" type="text"/>  5자~16자 이내 영문과 숫자만가능<br>
+	            <input name="userId" id="user_id" type="text" readonly value="${businessDetail.userId}"/>  5자~16자 이내 영문과 숫자만가능<br>
 	           
 	            <div>아이디중복체크결과 :
 	            	<span id="idsuccess" >사용가능한 아이디입니다</span>
@@ -372,7 +441,7 @@
 				
 				<!-- 닉네임 -->	        
 	       		<label for="user_nick">닉네임 :</label>
-	            <input name="userNick" id="user_nick" type="text"/>
+	            <input name="userNick" id="user_nick" type="text" value="${businessDetail.userNick}"/>
 	            <div>닉네임중복체크결과 :
 	            	<span id="nicksuccess" >사용가능한 닉네임입니다</span>
 	            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
@@ -381,22 +450,12 @@
             	
             	<!-- 이름 -->
 	        	<label for="user_name">이름 :</label>
-	            <input name="userName" id="user_name" type="text"/><br>
+	            <input name="userName" id="user_name" type="text" value="${businessDetail.userName}"/><br>
 	        	
 	        	<!-- 전화번호 -->
 	        	<label for="user_tel">전화번호 :</label>
-	            <input name="userTel" id="user_tel" type="text"/>- 빼고 숫자만 입력하세요 ** 수정필요<br>
-	       		<!-- <select id="txtMobile1">
-				    <option value="">::선택::</option>
-				    <option value="011">011</option>
-				    <option value="016">016</option>
-				    <option value="017">017</option>
-				    <option value="019">019</option>
-				    <option value="010">010</option>
-				</select>
-				<input name="userTel" type="text" id="txtMobile2" size="4" onkeypress="onlyNumber();" />
-				<input name="userTel" type="text" id="txtMobile3" size="4" /> -->
-				
+	            <input name="userTel" id="user_tel" type="text" value="${businessDetail.userTel}"/>- 빼고 숫자만 입력하세요 ** 수정필요<br>
+	       		
 	       		<div>전화번호 양식검사 :
 	            	<span id="telsuccess" >사용가능한 전화번호입니다</span>
 	            	<span id="telfail" >사용불가능한 전화번호입니다</span>
@@ -404,7 +463,7 @@
 	            
 	          	<!--  이메일 -->
 	        	<label for="user_email">이메일 :</label>
-	            <input name="userEmail" id="user_email" type="text"/><br>
+	            <input name="userEmail" id="user_email" type="text" value="${businessDetail.userEmail}"/><br>
 	            <div>이메일양식검사 :
 	            	<span id="emailsuccess" >사용가능한 이메일입니다</span>
 	            	<span id="emailfail" >사용불가능한 이메일입니다</span>
@@ -417,46 +476,10 @@
 	        	<input type="text" id="sample4_postcode" placeholder="우편번호">
 				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 				<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-				<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소"><br><br>
+				<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소" value="${businessDetail.userAddr}"><br><br>
 				<span id="guide" style="color:#999"></span>
 	        	
-	        	
-	        	<!-- 성별 -->
-	        	<label for="user_gender" >성별 :</label>
-	            <div class="radio">
-			      <label><input name="userGender" id="user_gender" type="radio" value="남" >남</label>
-			      <label><input name="userGender" id="user_gender" type="radio" value="여" >여</label>
-			    </div>
-			   
-				
-				<!-- 나이 -->	        	
-	        	<label for="user_age">나이 :</label>
-	            <div class="radio">
-			      <label><input name="userAge" id="user_age" type="radio" value="10" >10대</label>
-			      <label><input name="userAge" id="user_age" type="radio" value="20" >20대</label>
-			      <label><input name="userAge" id="user_age" type="radio" value="30" >30대</label>
-			      <label><input name="userAge" id="user_age" type="radio" value="40" >40대</label>
-			      <label><input name="userAge" id="user_age" type="radio" value="50" >50대</label>
-			      <label><input name="userAge" id="user_age" type="radio" value="60" >60대이상</label>
-			    </div>
-	        	
-	        	<!-- 키 -->
-	        	<label for="user_tall">키 :</label>
-	            <div class="radio">
-			      <label><input name="userTall" id="user_tall" type="radio" value="큰키" >큰키</label>
-			      <label><input name="userTall" id="user_tall" type="radio" value="보통" >보통</label>
-			      <label><input name="userTall" id="user_tall" type="radio" value="작은키" >작은키</label>
-			    </div>
-	      		
-	      		<!-- 사이즈 -->
-	        	<label for="user_size">사이즈 :</label>
-	            <div class="radio">
-			      <label><input name="userSize" id="user_size" type="radio" value="마른" >마른</label>
-			      <label><input name="userSize" id="user_size" type="radio" value="보통" >보통</label>
-			      <label><input name="userSize" id="user_size" type="radio" value="뚱뚱" >뚱뚱</label>
-			    </div>
-			    
-			    <!-- 질문 -->
+	        	 <!-- 질문 -->
 	        	<label for="user_q">질문 :</label>
 	            <div class="radio">
 			      <label><input name="userQ" id="user_q" type="radio" value="나의 보물은" >나의 보물은</label>
@@ -469,49 +492,69 @@
 	       		
 	       		<!-- 답 -->
 	        	<label for="user_a">질문의 답 :</label>
-	            <input name="userA" id="user_a" type="text"/><br>
+	            <input name="userA" id="user_a" type="text" value="${businessDetail.userA}"/><br>
         		<div>질문의 답 오류구문 :
 	            	<span id="userAfail" >답을 입력하세요</span>
 	            </div>
 	        	
-	        	<!-- 유저선호스타일 -->
-        		<div class="form-group">
-					<label for="userStyle">회원선호스타일 :</label>
-				  	<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
-				</div>
-				
-				<!-- 유저선호색상 -->
-				<div class="form-group">
-			       	<label for="userColor">회원선호컬러 :</label>
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01" class="checkSelectColor">빨강
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02" class="checkSelectColor">주황
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03" class="checkSelectColor">노랑
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04" class="checkSelectColor">초록
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05" class="checkSelectColor">파랑
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06" class="checkSelectColor">남색
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07" class="checkSelectColor">보라
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13" class="checkSelectColor">핑크
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11" class="checkSelectColor">갈색
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12" class="checkSelectColor">베이지
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08" class="checkSelectColor">검정
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09" class="checkSelectColor">회색
-			     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10" class="checkSelectColor">흰색
-			     </div>
+	        	<!-- 사업자번호 -->
+	        	<label for="user_bs_no">사업자번호 :</label>
+	            <input name="userBsNo" id="user_bs_no" type="text" value="${businessDetail.userBsNo}"/> 000-00-00000 -은빼고 입력하세요<br>
+	        	<div>사업자번호 양식검사 :
+	            	<span id="BsNosuccess" >사용가능한 사업자번호입니다</span>
+	            	<span id="BsNofail" >사용불가능한 사업자번호입니다</span>
+	            </div>
+	            
+	        	<!-- 업종 -->
+	        	<label for="user_bs_type">업종 :</label>
+	            <input name="userBsType" id="user_bs_type" type="text" value="${businessDetail.userBsType}"/><br>
+	            
+	            <!-- 업태 -->
+	        	<label for="user_bs_status">업태 :</label>
+	            <input name="userBsStatus" id="user_bs_status" type="text" value="${businessDetail.userBsStatus}"/><br>
+	            
+	            <!-- 업체명 -->
+	        	<label for="user_bs_name">업체명 :</label>
+	            <input name="userBsName" id="user_bs_name" type="text" value="${businessDetail.userBsName}"/><br>
+	            
+	            <!-- 업체홈페이지 -->
+	        	<label for="user_url">업체홈페이지 :</label>
+	            <input name="userUrl" id="user_url" type="text" value="${businessDetail.userUrl}"/><br>
+	     		<div>url 양식검사 :
+	            	<span id="Urlsuccess" >사용가능한 주소입니다</span>
+	            	<span id="Urlfail" >사용불가능한 주소입니다</span>
+	            </div>
 	     	
-	     	<!-- 회원가입버튼 -->
+	     	<!-- 관리자 사업자 수정버튼 -->
 	     	<div>
-	       		<input class="btn btn-default" id="addButton" type="button" value="회원가입"/>
+	       		<input class="btn btn-default" id="businessUpdate" type="button" value="수정확인"/>
 	        </div>
 	    </form>
-	
+			<!-- 회원탈퇴버튼 -->
+    	<div>
+      		<input class="btn btn-default" id="userDelete" type="button" value="탈퇴하기"/>
+        </div>	
+		
+		<!-- 탈퇴하기버튼 modal -->
+		<div class="modal fade" id="userDeleteModal" role="dialog">
+		    <div class="modal-dialog">
+		    	<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header" style="padding:35px 50px;">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						
+						<h4>비밀번호입력</h4>
+						<label for="user_pw">비번 :</label>
+		           		<input name="userPw" id="user_pw_modal" type="password"/><br>
+		           		<span id="modalpwfail" >비밀번호 불일치</span>
+						<div>
+		   					<input class="btn btn-default" id="userDeleteAdd" type="button" value="탈퇴하기"/>
+						</div>	
+						<form id="home" action="${pageContext.request.contextPath}/logout" method="post"></form>
+					</div>
+			    </div>
+		    </div>
+		</div>
+		
 </body>
 </html>

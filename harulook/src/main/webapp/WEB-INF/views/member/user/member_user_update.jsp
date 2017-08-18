@@ -21,6 +21,8 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <!-- 유효성검사 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- 모달을 쓰기위한 부트스트랩 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 
 	$(document).ready(function(){
@@ -64,6 +66,8 @@
 			//질문의 답 메시지 숨김
 			$('#userAfail').hide();
 			
+			//회원탈퇴비밀번호오류메시지
+			$('#modalpwfail').hide();
 		//아이디중복체크버튼
 		$('#user_id').blur(function(){	
 			var request = $.ajax({
@@ -211,17 +215,8 @@
 			}
         });
 		
-		
-		$('#addButton').click(function(){	//회원가입버튼
-			
-			/* var checkBoxArr = [];
-
-			$("input[name=colorValue]:checked").each(function(i){
-
-			checkBoxArr.push($(this).val());
-
-			}); */
-			
+		//회원가입버튼
+		$('#userUpdate').click(function(){	
 			if(!$('#user_id').val()){	//아이디입력 안했을때
 				alert('아이디를입력하세요');
 				$('#user_id').focus();
@@ -276,17 +271,45 @@
 				return false;
 			
 			}else{
-				$('#addFormUser').submit();
+				$('#addUserUpdate').submit();
 			}
-			
-			
-        });
+		});
 		
+		//회원탈퇴버튼모달
+		$('#userDelete').click(function(){
+			$('#userDeleteModal').modal();
+	    });
+		
+		//회원탈퇴비밀번호입력
+		$('#userDeleteAdd').click(function(){	
+			var request = $.ajax({
+				  url: "./userDeletePw", //호출 경로
+				  method: "POST",	//전송방식
+				  data: { 'pwcheck' : $('#user_id').val() }, //전송해줄값
+				  dataType: "text" //결과값 타입 (리턴)
+			});		
+			request.done(function( msg ) {
+				msg = msg.trim();
+				console.log(msg + "받아온비번"); 
+				console.log($('#user_pw_modal').val() + "입력한비번");
+				if($('#user_pw_modal').val() == msg){	//비밀번호일치하면 회원삭제
+					var request = $.ajax({
+						  url: "./userDeleteAdd", //호출 경로
+						  method: "POST",	//전송방식
+						  data: { 'deleteid' : $('#user_id').val() }, //전송해줄값
+						  dataType: "text" //결과값 타입 (리턴)
+					});
+					$('#home').submit();	//비밀번호 일치시 로그아웃처리후 홈으로
+				}else if($('#user_pw_modal').val() != msg){	//비밀번호틀리면 오류메시지
+					$('#modalpwfail').show();
+				}else{					//오류일때
+					console.log('예외');
+				}
+			});
+		});
     });
 	
-	
-	
-    //다음 주소 api
+	//다음 주소 api
     function sample4_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -337,19 +360,20 @@
         }).open();
     }
 	
+  	
 	
 </script>
-<title>일반회원가입폼</title>
+<title>회원정보수정</title>
 </head>
 <body>
 	
 	
-	    <h1>회원가입 기본 폼</h1>
-	    <form id="addFormUser" action="${pageContext.request.contextPath}/userAdd" method="post">
+	    <h1>회원정보수정</h1>
+	    <form id="addUserUpdate" action="${pageContext.request.contextPath}/addUserUpdate" method="post">
 	    
 	       		<!-- 아이디 -->
 	           	<label for="user_id">아이디 :</label>
-	            <input name="userId" id="user_id" type="text"/>  5자~16자 이내 영문과 숫자만가능<br>
+	            <input name="userId" id="user_id" type="text" readonly value="${userDetail.userId}"/>  5자~16자 이내 영문과 숫자만가능<br>
 	           
 	            <div>아이디중복체크결과 :
 	            	<span id="idsuccess" >사용가능한 아이디입니다</span>
@@ -372,7 +396,7 @@
 				
 				<!-- 닉네임 -->	        
 	       		<label for="user_nick">닉네임 :</label>
-	            <input name="userNick" id="user_nick" type="text"/>
+	            <input name="userNick" id="user_nick" type="text" value="${userDetail.userNick}"/>
 	            <div>닉네임중복체크결과 :
 	            	<span id="nicksuccess" >사용가능한 닉네임입니다</span>
 	            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
@@ -381,11 +405,11 @@
             	
             	<!-- 이름 -->
 	        	<label for="user_name">이름 :</label>
-	            <input name="userName" id="user_name" type="text"/><br>
+	            <input name="userName" id="user_name" type="text" value="${userDetail.userName}"/><br>
 	        	
 	        	<!-- 전화번호 -->
 	        	<label for="user_tel">전화번호 :</label>
-	            <input name="userTel" id="user_tel" type="text"/>- 빼고 숫자만 입력하세요 ** 수정필요<br>
+	            <input name="userTel" id="user_tel" type="text" value="${userDetail.userTel}"/>- 빼고 숫자만 입력하세요 ** 수정필요<br>
 	       		<!-- <select id="txtMobile1">
 				    <option value="">::선택::</option>
 				    <option value="011">011</option>
@@ -404,7 +428,7 @@
 	            
 	          	<!--  이메일 -->
 	        	<label for="user_email">이메일 :</label>
-	            <input name="userEmail" id="user_email" type="text"/><br>
+	            <input name="userEmail" id="user_email" type="text" value="${userDetail.userEmail}"/><br>
 	            <div>이메일양식검사 :
 	            	<span id="emailsuccess" >사용가능한 이메일입니다</span>
 	            	<span id="emailfail" >사용불가능한 이메일입니다</span>
@@ -417,7 +441,7 @@
 	        	<input type="text" id="sample4_postcode" placeholder="우편번호">
 				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 				<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-				<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소"><br><br>
+				<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소" value="${userDetail.userAddr}"><br><br>
 				<span id="guide" style="color:#999"></span>
 	        	
 	        	
@@ -469,7 +493,7 @@
 	       		
 	       		<!-- 답 -->
 	        	<label for="user_a">질문의 답 :</label>
-	            <input name="userA" id="user_a" type="text"/><br>
+	            <input name="userA" id="user_a" type="text" value="${userDetail.userA}"/><br>
         		<div>질문의 답 오류구문 :
 	            	<span id="userAfail" >답을 입력하세요</span>
 	            </div>
@@ -509,9 +533,35 @@
 	     	
 	     	<!-- 회원가입버튼 -->
 	     	<div>
-	       		<input class="btn btn-default" id="addButton" type="button" value="회원가입"/>
+	       		<input class="btn btn-default" id="userUpdate" type="button" value="수정확인"/>
 	        </div>
 	    </form>
-	
+	   
+	    <!-- 회원탈퇴버튼 -->
+    	<div>
+      		<input class="btn btn-default" id="userDelete" type="button" value="탈퇴하기"/>
+        </div>	
+		
+		<!-- 탈퇴하기버튼 modal -->
+		<div class="modal fade" id="userDeleteModal" role="dialog">
+		    <div class="modal-dialog">
+		    	<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header" style="padding:35px 50px;">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						
+						<h4>비밀번호입력</h4>
+						<label for="user_pw">비번 :</label>
+		           		<input name="userPw" id="user_pw_modal" type="password"/><br>
+		           		<span id="modalpwfail" >비밀번호 불일치</span>
+						<div>
+		   					<input class="btn btn-default" id="userDeleteAdd" type="button" value="탈퇴하기"/>
+						</div>	
+						<form id="home" action="${pageContext.request.contextPath}/logout" method="post"></form>
+					</div>
+			    </div>
+		    </div>
+		</div>
+		
 </body>
 </html>

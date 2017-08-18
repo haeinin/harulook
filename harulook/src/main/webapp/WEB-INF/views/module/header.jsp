@@ -35,8 +35,8 @@
 			$('#logoutadd').submit();
         });
 		
-		$("#mypage").click(function(){	//마이페이지보기
-			$("#myModal").modal();
+		$('#mypage').click(function(){	//마이페이지보기
+			$('#myModal').modal();
         });
 
 		$('#userlistbutton').click(function(){	//일반회원리스트 버튼
@@ -49,6 +49,18 @@
 		
 		$('#managerlistbutton').click(function(){	//관리자회원리스트 버튼
 			$('#member_manager_list').submit();
+        });
+		
+		$('#managerInsertbutton').click(function(){	//관리자회원리스트 버튼
+			$('#newManagerInsert').submit();
+        });
+		
+		$('#userUpdateButton').click(function(){	//일반회원수정하기
+			$('#userUpdate').submit();
+        });
+		
+		$('#businessUpdateButton').click(function(){	//사업자 관리자 회원 수정하기
+			$('#businessUpdate').submit();
         });
 	 });
 </script>
@@ -101,17 +113,26 @@
           <a>닉네임 : ${sessionScope.nick}</a><br>
 		  <a>권한 : ${sessionScope.level}</a><br>
 		  <!-- 내정보수정하기버튼 -->
-		  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
-	  		<div>
-	  			<input class="btn btn-default" id="myModified" type="button" value="내 정보 수정 하기"/>
-	  	 	</div>	
-		  </form>	
-        </div>
+		</div>
         <!-- 모달 회원별 내용 -->
         <div class="modal-body" style="padding:40px 50px;">
           	<c:if test="${sessionScope.level == '관리자'}">
 				<a>관리자로 로그인</a><br>
-				<!-- 사업자용 버튼 -->
+				<!-- 관리자용 버튼 -->
+					<!-- 내정보수정하기버튼 -->
+				  <form id="businessUpdate" action="${pageContext.request.contextPath}/businessUpdate?userId=${sessionScope.id}" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="businessUpdateButton" type="button" value="내 정보 수정 하기"/>
+			  	 	</div>	
+				  </form>
+				
+					<!-- 새관리자 등록하기 -->
+				  <form id="newManagerInsert" action="${pageContext.request.contextPath}/member_manager_insert" method="get">
+			  		<div>
+			  			<input class="btn btn-default" id="managerInsertbutton" type="button" value="새관리자등록하기"/>
+			  	 	</div>	
+				  </form>	
+				
 					<!-- 일반회원검색 -->
 				  <form id="member_user_list" action="${pageContext.request.contextPath}/member_user_list" method="get">
 			  		<div>
@@ -150,12 +171,33 @@
 			<c:if test="${sessionScope.level == '사업자'}">
 				<a>사업자로 로그인</a><br>
 				<!-- 사업자용 버튼 -->
+					<!-- 내정보수정하기버튼 -->
+				  <form id="businessUpdate" action="${pageContext.request.contextPath}/businessUpdate?userId=${sessionScope.id}" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="businessUpdateButton" type="button" value="내 정보 수정 하기"/>
+			  	 	</div>	
+				  </form>
+				
 					<!-- 내 광고 보기 -->
 				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
 			  		<div>
 			  			<input class="btn btn-default" id="myModified" type="button" value="내 광고 보기"/>
 			  	 	</div>	
-				  </form>	
+				  </form>
+				  
+				  <!-- 내 제휴 보기 -->
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="myModified" type="button" value="내 제휴 보기"/>
+			  	 	</div>	
+				  </form>
+				  
+				  <!-- 내 결제 예정 금액 보기-->
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="myModified" type="button" value="내 결제 예정 금액"/>
+			  	 	</div>	
+				  </form>		
 				  
 				  <!-- 사이트 접속자수 보기 -->
 				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
@@ -164,9 +206,17 @@
 			  	 	</div>	
 				  </form>	
 			</c:if>
+			
 			<c:if test="${sessionScope.level == '일반회원'}">
 				<a>일반회원 로그인</a><br>
 				<!-- 일반회원용 버튼 -->
+					<!-- 내정보수정하기버튼 -->
+				  <form id="userUpdate" action="${pageContext.request.contextPath}/userUpdate?userId=${sessionScope.id}" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="userUpdateButton" type="button" value="내 정보 수정 하기"/>
+			  	 	</div>	
+				  </form>
+				
 					<!-- 내 게시물 보기 -->
 				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
 			  		<div>
