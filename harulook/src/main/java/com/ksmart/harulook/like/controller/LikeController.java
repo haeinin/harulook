@@ -17,11 +17,11 @@ public class LikeController {
 	private LikeDao likeDao;
 	
 	/* sns게시물의 예뻐요 버튼 클릭 */
-	@RequestMapping(value="/likeInsert", method = RequestMethod.POST)
-	public @ResponseBody LikeToggleDto likeInsert(
+	@RequestMapping(value="/likeBtnClick", method = RequestMethod.POST)
+	public @ResponseBody LikeToggleDto likeBtnClick(
 			@RequestParam(value="snsBoardNo", required=true) String snsBoardNo
 			,@RequestParam(value="userId", required=true) String userId) {
-		System.out.println("likeInsert 요청");
+		System.out.println("likeBtnClick 요청");
 		int likeClick = likeDao.getLikeClick(snsBoardNo, userId);
 		System.out.println("likeClick : "+likeClick);
 		if(likeClick != 0) {

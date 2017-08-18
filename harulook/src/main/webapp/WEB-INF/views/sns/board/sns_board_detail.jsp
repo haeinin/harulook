@@ -65,8 +65,8 @@ $(function(){
 
 	$("#like-cnt").click(function(){
 		console.log($('#snsBoardNo').text());
-		var likeRequest = $.ajax({
-            url : './likeInsert',
+		$.ajax({
+            url : './likeBtnClick',
             method: 'POST',
             data : { 'snsBoardNo' : $('#snsBoardNo').text()
             		,'userId' : $('#userId').val()},
@@ -184,7 +184,9 @@ $(function(){
 	                <td>${commentList.userId}</td>
 	                <td>${commentList.snsCommentContent}</td>
 	                <td>${commentList.snsCommentDate}</td>
-	                <td><a class="btn btn-default" href="${pageContext.request.contextPath}/commentDelete?snsCommentNo=${commentList.snsCommentNo}&snsBoardNo=${commentList.snsBoardNo}">삭제</a></td>
+	                <c:if test="${sessionScope.id == commentList.userId}">
+	                	<td><a class="btn btn-default" href="${pageContext.request.contextPath}/commentDelete?snsCommentNo=${commentList.snsCommentNo}&snsBoardNo=${commentList.snsBoardNo}">삭제</a></td>
+	            	</c:if>
 	            </tr>
 	         </c:forEach>
 	         <tr>
@@ -198,8 +200,10 @@ $(function(){
 	        </tr>
         </tbody>
     </table>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/boardUpdate?boardNo=${board.snsBoardNo}">수정</a>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/boardDelete?boardNo=${board.snsBoardNo}">삭제</a>
+    <c:if test="${sessionScope.id == board.userId}">
+	    <a class="btn btn-default" href="${pageContext.request.contextPath}/boardUpdate?boardNo=${board.snsBoardNo}">수정</a>
+	    <a class="btn btn-default" href="${pageContext.request.contextPath}/boardDelete?boardNo=${board.snsBoardNo}">삭제</a>
+	</c:if>
     <a class="btn btn-default" href="${pageContext.request.contextPath}/boardList">글목록</a>
 </div>
 </body>

@@ -71,42 +71,43 @@
 	    </select>
 	</div>
 	<div class="form-group">
-		<label for="searchSnsBoardStyle">snsBoardStyle :</label>
-	  	<input type="checkbox" id="searchSnsBoardStyle" name="searchSnsBoardStyle" value="액티브">액티브
-		<input type="checkbox" id="searchSnsBoardStyle" name="searchSnsBoardStyle" value="심플">심플
-		<input type="checkbox" id="searchSnsBoardStyle" name="searchSnsBoardStyle" value="로맨틱">로맨틱
-		<input type="checkbox" id="searchSnsBoardStyle" name="searchSnsBoardStyle" value="러블리">러블리
-		<input type="checkbox" id="searchSnsBoardStyle" name="searchSnsBoardStyle" value="럭셔리">럭셔리
-		<input type="checkbox" id="searchSnsBoardStyle" name="searchSnsBoardStyle" value="댄디">댄디
-		<input type="checkbox" id="searchSnsBoardStyle" name="searchSnsBoardStyle" value="스트리트">스트리트
-		<input type="checkbox" id="searchSnsBoardStyle" name="searchSnsBoardStyle" value="빈티지">빈티지
-		<input type="checkbox" id="searchSnsBoardStyle" name="searchSnsBoardStyle" value="캐쥬얼">캐쥬얼
-		<input type="checkbox" id="searchSnsBoardStyle" name="searchSnsBoardStyle" value="클래식">클래식
+		<label for="searchSnsBoardStyle">snsBoardStyle :</label>		
+		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
+		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
+		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
+		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트
+		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디
+		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리
+		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리
+		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱
+		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플
+		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브
 	</div>
 	<div class="form-group">
        	<label for="searchSnsBoardColor">snsBoardColor :</label>
-       	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="빨강">빨강
-       	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="주황">주황
-       	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="노랑">노랑
-       	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="초록">초록
-       	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="파랑">파랑
-       	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="네이비">네이비
-       	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="보라">보라
-       	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="핑크">핑크
-       	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="브라운">브라운
-       	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="베이지">베이지
-       	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="검정">검정
-       	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="그레이">그레이
-     	<input type="checkbox" id="searchSnsBoardColor" name="searchSnsBoardColor" value="흰색">흰색
+      	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01">빨강
+       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02">주황
+       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03">노랑
+       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04">초록
+       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05">파랑
+       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06">남색
+       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07">보라
+       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08">검정
+       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09">회색
+     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10">흰색
+     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11">갈색
+     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12">베이지
+       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13">핑크       	
      </div>
      <div class="form-group">
        	<label for="searchSnsBoardSituation">snsBoardSituation :</label>
-       	<input type="checkbox" id="searchSnsBoardSituation" name="searchSnsBoardSituation" value="하객">하객
-       	<input type="checkbox" id="searchSnsBoardSituation" name="searchSnsBoardSituation" value="나들이">나들이
-       	<input type="checkbox" id="searchSnsBoardSituation" name="searchSnsBoardSituation" value="운동">운동
-       	<input type="checkbox" id="searchSnsBoardSituation" name="searchSnsBoardSituation" value="여행">여행
-       	<input type="checkbox" id="searchSnsBoardSituation" name="searchSnsBoardSituation" value="파티">파티
-       	<input type="checkbox" id="searchSnsBoardSituation" name="searchSnsBoardSituation" value="출근">출근
+       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_01">학교
+       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_02">출근
+       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_03">파티
+       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_04">여행
+       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_05">운동
+       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이
+       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객    	
      </div>
      <input type="submit" value="검색">
 </form>

@@ -12,6 +12,11 @@ public class CommentDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	/* 게시물 삭제 시 댓글 삭제 */
+	public int boardCommentDelete(String snsBoardNo) {
+		return sqlSessionTemplate.delete("com.ksmart.harulook.comment.service.CommentMapper.boardCommentDelete", snsBoardNo);
+	}
+	
 	/* 댓글 삭제 처리 */
 	public int commentDelete(String snsCommentNo) {
 		return sqlSessionTemplate.delete("com.ksmart.harulook.comment.service.CommentMapper.commentDelete", snsCommentNo);

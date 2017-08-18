@@ -1,5 +1,7 @@
 package com.ksmart.harulook.board.service;
 
+import java.util.Arrays;
+
 public class BoardDto {
 	private String snsBoardNo;
 	private String userId;
@@ -14,6 +16,28 @@ public class BoardDto {
 	private String snsBoardAge;
 	private int snsCommentCount;
 	private int snsLikeCount;
+	private String[] colorValue;
+	private String[] styleValue;
+	private String[] situationValue;
+	
+	public String[] getColorValue() {
+		return colorValue;
+	}
+	public void setColorValue(String[] colorValue) {
+		this.colorValue = colorValue;
+	}
+	public String[] getStyleValue() {
+		return styleValue;
+	}
+	public void setStyleValue(String[] styleValue) {
+		this.styleValue = styleValue;
+	}
+	public String[] getSituationValue() {
+		return situationValue;
+	}
+	public void setSituationValue(String[] situationValue) {
+		this.situationValue = situationValue;
+	}
 	public int getSnsCommentCount() {
 		return snsCommentCount;
 	}
@@ -100,7 +124,9 @@ public class BoardDto {
 				+ ", snsBoardContent=" + snsBoardContent + ", snsBoardWeather=" + snsBoardWeather + ", snsBoardTall="
 				+ snsBoardTall + ", snsBoardSize=" + snsBoardSize + ", snsBoardLoc=" + snsBoardLoc + ", snsBoardDate="
 				+ snsBoardDate + ", snsBoardGender=" + snsBoardGender + ", snsBoardAge=" + snsBoardAge
-				+ ", snsCommentCount=" + snsCommentCount + ", snsLikeCount=" + snsLikeCount + "]";
+				+ ", snsCommentCount=" + snsCommentCount + ", snsLikeCount=" + snsLikeCount + ", colorValue="
+				+ Arrays.toString(colorValue) + ", styleValue=" + Arrays.toString(styleValue) + ", situationValue="
+				+ Arrays.toString(situationValue) + "]";
 	}
 	
 }

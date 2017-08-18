@@ -44,8 +44,50 @@
 			 ON l.sns_board_no = b.sns_board_no
 			 GROUP BY b.sns_board_no
 			 ) AS lc
+			 <if test="situationValue != null">
+			  ,(
+			 SELECT sns_board_no 
+			 FROM sns_situation
+			 <trim prefix="WHERE" prefixOverrides="AND|OR">
+			 	OR situation_no IN (
+			 	<foreach collection="situationValue" item="situationValue" separator=",">#{situationValue}</foreach>
+			 	)
+			 </trim>
+			 ) AS ssit
+			 </if>
+			 <if test="styleValue != null">
+			   , (
+			 SELECT sns_board_no 
+			 FROM sns_style
+			 <trim prefix="WHERE" prefixOverrides="AND|OR">
+			 OR style_no IN (
+			 	<foreach collection="styleValue" item="styleValue" separator=",">#{styleValue}</foreach>
+			 	)
+			 </trim>
+			 ) AS ss
+			 </if>
+			 <if test="colorValue != null">
+			   , (
+			 SELECT sns_board_no 
+			 FROM sns_color
+			 <trim prefix="WHERE" prefixOverrides="AND|OR">
+			 OR color_no IN (
+			 	<foreach collection="colorValue" item="colorValue" separator=",">#{colorValue}</foreach>
+			 	)
+			 </trim>
+			 ) AS sc
+			 </if>
 		WHERE sns_board.sns_board_no = cc.sns_board_no 
 		AND sns_board.sns_board_no = lc.sns_board_no
+		<if test="situationValue != null">
+			AND sns_board.sns_board_no = ssit.sns_board_no
+		</if>
+		<if test="styleValue != null">
+			AND sns_board.sns_board_no = ss.sns_board_no
+		</if>
+		<if test="colorValue != null">
+			AND sns_board.sns_board_no = sc.sns_board_no
+		</if>
 		<if test="snsBoardWeather != null">
 			AND sns_board.sns_board_weather = #{snsBoardWeather}
 		</if>
@@ -63,6 +105,9 @@
 		</if>
 		<if test="snsBoardAge != null">
 			AND sns_board.sns_board_age = #{snsBoardAge}
+		</if>
+		<if test="userId != null">
+			AND sns_board.user_id = #{userId}
 		</if>
 		GROUP BY sns_board.sns_board_no 
 		ORDER BY sns_board.sns_board_date DESC

@@ -168,9 +168,10 @@
 				<a>일반회원 로그인</a><br>
 				<!-- 일반회원용 버튼 -->
 					<!-- 내 게시물 보기 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myBoardList" method="post">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="내 게시물 보기"/>
+			  			<input type="hidden" name="userId" value="${sessionScope.id}">
+			  			<input class="btn btn-default" id="myModified" type="submit" value="내 게시물 보기"/>
 			  	 	</div>	
 				  </form>
 				  

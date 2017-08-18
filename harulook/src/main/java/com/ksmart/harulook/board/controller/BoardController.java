@@ -2,6 +2,7 @@ package com.ksmart.harulook.board.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,28 @@ public class BoardController {
 	private LikeDao likeDao;
 	
 	/* sns게시물 목록 검색 */
-	@RequestMapping(value="/boardSearchList", method = RequestMethod.POST)
-	public String boardSearchList(Model model, BoardDto board) {
+	@RequestMapping(value="/myBoardList", method = RequestMethod.POST)
+	public String myBoardList(Model model, BoardDto board) {
 		System.out.println("boardSearchList 요청");
 		System.out.println("boardSearchList --> "+board);
+		List<BoardDto> list = boardDao.boardSearchList(board);
+		model.addAttribute("list", list);
+		System.out.println("boardSearchList --> "+list);
+		return "sns/board/sns_board_list";
+	}
+	
+	/* sns게시물 목록 검색 */
+	@RequestMapping(value="/boardSearchList", method = RequestMethod.POST)
+	public String boardSearchList(Model model, BoardDto board, HttpServletRequest request) {
+		System.out.println("boardSearchList 요청");
+		String[] colorValue = request.getParameterValues("colorValue");
+		String[] styleValue = request.getParameterValues("styleValue");
+		String[] situationValue = request.getParameterValues("situationValue");
+		board.setColorValue(colorValue);
+		board.setStyleValue(styleValue);
+		board.setSituationValue(situationValue);
+		System.out.println("boardSearchList --> "+board);
+		
 		if(board.getSnsBoardAge().equals("")) {
 			board.setSnsBoardAge(null);
 		} 
@@ -61,6 +80,8 @@ public class BoardController {
 	public String boardDelete(String boardNo) {
 		System.out.println("sns게시물 삭제 요청");
 		boardDao.boardDelete(boardNo);
+		commentDao.boardCommentDelete(boardNo);
+		likeDao.boardLikeDelete(boardNo);
 		return "redirect:/boardList";
 	}
 	

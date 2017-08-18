@@ -13,6 +13,11 @@ public class LikeDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	/* sns게시물 삭제 시 예뻐요 삭제 */
+	public int boardLikeDelete(String snsBoardNo) {
+		return sqlSessionTemplate.delete("com.ksmart.harulook.like.service.LikeMapper.boardLikeDelete", snsBoardNo);
+	}
+	
 	/* 가장 최근에 등록한 예뻐요 번호 */
 	public String getLastLikeNo() {
         String lastLikeNo = "";

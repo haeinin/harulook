@@ -42,7 +42,6 @@
         });
 	 });
 	
-	
 </script>
 <title>일반회원가입폼</title>
 </head>

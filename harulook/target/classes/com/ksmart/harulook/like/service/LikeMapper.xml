@@ -4,6 +4,13 @@
   
 <mapper namespace="com.ksmart.harulook.like.service.LikeMapper">
 
+	<!-- sns게시물 삭제 시 예뻐요 삭제 -->
+	<insert id="boardLikeDelete" parameterType="String">
+		DELETE 
+		FROM sns_like 
+		WHERE sns_board_no = #{snsBoardNo} 
+	</insert>
+	
 	<!-- 가장 최근에 등록된 예뻐요 번호 가져오기 -->
 	<select id="getLastLikeNo" resultType="String">
 		SELECT
