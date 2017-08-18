@@ -36,6 +36,28 @@
 		<result property="styleNo" column="user_style_no"/>
 	</resultMap>
 		
+		<!-- 비밀번호찾기 -->
+     	<select id="pwFindForm" parameterType="java.util.Map" resultType="String">
+			select user_level
+			from user
+			where user_id = #{userId}
+			and user_nick = #{userNick}
+			and user_q = #{userQ}
+			and user_a = #{userA}
+			;
+    	</select>
+		
+		<!-- 아이디찾기 -->
+     	<select id="idFindForm" parameterType="java.util.Map" resultType="String">
+			select user_id
+			from user
+			where user_nick = #{userNick}
+			and user_pw = #{userPw}
+			and user_q = #{userQ}
+			and user_a = #{userA}
+			;
+    	</select>
+		
 		<!-- 삭제된회원리스트입력 -->
      	<select id="deleteUserInsert" parameterType="java.util.Map">
 			INSERT INTO delete_user(

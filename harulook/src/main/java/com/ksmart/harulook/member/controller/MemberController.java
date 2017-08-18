@@ -37,6 +37,26 @@ public class MemberController {
 	@Autowired
     private MemberDao memberDao;
 	
+	/*비밀번호찾기*/
+	@RequestMapping(value="/pwFindFormAdd", produces = "application/text; charset=utf8", method = RequestMethod.POST)
+	public @ResponseBody String pwFindForm(MemberDto memberDto,
+			HttpServletResponse response) throws IOException {
+				System.out.println("MemeberController 비밀번호찾기==" + memberDto);
+			String levelFindForm = memberDao.pwFindForm(memberDto);
+				System.out.println("MemeberController 비밀번호찾기==" + levelFindForm);
+			return levelFindForm; //일반회원가입폼화면
+	}
+	
+	/*아이디찾기*/
+	@RequestMapping(value="/idFindFormAdd", produces = "application/text; charset=utf8", method = RequestMethod.POST)
+	public @ResponseBody String idFindForm(MemberDto memberDto,
+			HttpServletResponse response) throws IOException {
+				System.out.println("MemeberController 아이디찾기==" + memberDto);
+			String idFindForm = memberDao.idFindForm(memberDto);
+				System.out.println("MemeberController 아이디찾기==" + idFindForm);
+		return idFindForm; //일반회원가입폼화면
+	}
+	
 	/*회원삭제처리후 탈퇴회원리스트에입력*/
 	@RequestMapping(value="/userDeleteAdd", method = RequestMethod.POST)
 	public String userDeleteAdd(Model model,
@@ -73,7 +93,7 @@ public class MemberController {
 	}
 	
 	/*로그인*/
-	@RequestMapping(value="/login", produces = "application/text; charset=utf8", method = RequestMethod.POST)
+	@RequestMapping(value="/loginAdd", produces = "application/text; charset=utf8", method = RequestMethod.POST)
 	public String login(Model model,
 			HttpSession session,
 			@RequestParam(value="userId", required=true) String id,
@@ -86,20 +106,23 @@ public class MemberController {
 		if(loginCheck == null){
 			loginCheck = null;
 			System.out.println("아이디틀림");
-			model.addAttribute("idFail", "아이디틀림");
+			model.addAttribute("loginCheck", "아이디틀림");
+			return "login/login";
 		}else if(id.equals(loginCheck.getUserId())) {
 			if(pw.equals(loginCheck.getUserPw())) {
 				System.out.println("로그인성공");
 				session.setAttribute("id", loginCheck.getUserId());
 				session.setAttribute("level", loginCheck.getUserLevel());
 				session.setAttribute("nick", loginCheck.getUserNick());
-				model.addAttribute("loginSucces", "로그인성공");
+				model.addAttribute("loginCheck", "로그인성공");
+				return "home";
 			}else{
 				System.out.println("비번틀림");
-				model.addAttribute("pwFail", "비번틀림");
+				model.addAttribute("loginCheck", "비번틀림");
+				return "login/login";
 			}
 		}
-		return "home"; //홈화면
+		return "login/login"; //로그인화면
 	}
 	
 	/*사업자회원정보보기 + 관리자회원정보*/
@@ -258,7 +281,6 @@ public class MemberController {
 			HttpServletRequest request) {
         System.out.println("MemberController 회원정보수정하기" + memberDto);
         memberDao.userUpdate(memberDto);	//일반회원가입 기타 입력데이터
-       
         //유저컬러와 스타일 내용 삭제
         memberDao.userColorDelete(memberDto.getUserId());
         memberDao.userStyleDelete(memberDto.getUserId());

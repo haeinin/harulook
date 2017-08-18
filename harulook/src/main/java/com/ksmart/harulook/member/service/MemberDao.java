@@ -17,6 +17,29 @@ public class MemberDao {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
     
+    /*비밀번호찾기 */
+    public String pwFindForm(MemberDto memberDto) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+    	map.put("userId", memberDto.getUserId());
+    	map.put("userNick", memberDto.getUserNick());
+    	map.put("userQ", memberDto.getUserQ());
+    	map.put("userA", memberDto.getUserA());
+    		System.out.println("aaa=== " + map);
+    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.pwFindForm", map);
+      
+    }
+    
+    /*아이디찾기 */
+    public String idFindForm(MemberDto memberDto) {
+		Map<Object, Object> map = new HashMap<Object, Object>();
+    	map.put("userNick", memberDto.getUserNick());
+    	map.put("userPw", memberDto.getUserPw());
+    	map.put("userQ", memberDto.getUserQ());
+    	map.put("userA", memberDto.getUserA());
+    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.idFindForm", map);
+      
+    }
+    
     /*삭제된회원리스트입력 */
     public String deleteUserInsert(String id) {
 	    	Map<String, String> map = new HashMap<String, String>();
