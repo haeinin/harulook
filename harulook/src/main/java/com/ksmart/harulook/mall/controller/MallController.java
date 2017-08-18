@@ -8,10 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ksmart.harulook.mall.service.MallDao;
 import com.ksmart.harulook.mall.service.MallDto;
 import com.ksmart.harulook.mall.service.MallSaleDto;
+
 
 @Controller
 public class MallController {
@@ -49,18 +51,35 @@ public class MallController {
 
 	@RequestMapping(value = "/mallProOrder", method = RequestMethod.POST)
 	public String mallProSale(MallSaleDto dto) {
-		int price = dto.getMallSalePrice();
-		System.out.println("price="+price);
-		int amount = dto.getMallSaleAmount();
-		System.out.println("amount="+amount);
-		dto.setMallSaleTotal(price*amount);
 		dao.insertMallSale(dto);
+		String id = dto.getUserId();
 		return "mall/mall_sale";
 	}
+	@RequestMapping(value = "/mallSale", method = RequestMethod.GET)
+	public String mallProSale() {
+		return "mall/mall_sale";
+	}
+/*	@RequestMapping(value = "/mallSale", method = RequestMethod.POST)
+	public String mallProSale(Model model
+							,@RequestParam(value="id", required=true) String id) {
+		List<MallSaleDto> list = dao.getMallBuyList(id);
+		model.addAttribute(list);
+		return "mall/mall_sale";
+	}*/
 	
 	@RequestMapping(value = "/mallMain", method = RequestMethod.GET)
 	public String mallMain() {
 		return "mall/mall_main";
 	}
+	@RequestMapping(value="/validCooContractCode", method = RequestMethod.POST)
+	public @ResponseBody String cooContractCode(@RequestParam(value="cooContractCode", required=true) String cooContractCode){
+		System.out.println("controller 할인코드확인 => " + cooContractCode);
+		String vaildDC = dao.getCooContractCode(cooContractCode);
+		if(vaildDC == null){
+			vaildDC = "";
+		}
+        System.out.println("할인코드확인 받아온 코드 == "+vaildDC);
+        return vaildDC;  //아이디중복체크후 화면 그대로
+    }
 
 }

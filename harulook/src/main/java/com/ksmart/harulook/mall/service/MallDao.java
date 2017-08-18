@@ -32,5 +32,11 @@ public class MallDao{
 	public int insertMallSale(MallSaleDto dto){
 		return sqlSessionTemplate.insert("com.ksmart.harulook.mall.service.MallMapper.mallSaleOneInsert",dto);
 	}
-	
+	/*할인코드 확인*/
+	public String getCooContractCode(String cooContractCode){
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.mall.service.MallMapper.vaildCooContractCode",cooContractCode);
+	}
+	public List<MallSaleDto> getMallBuyList(String id){
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.mall.service.MallMapper.getMallBuyList",id);
+	}
 }

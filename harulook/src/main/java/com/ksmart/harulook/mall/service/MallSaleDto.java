@@ -8,7 +8,14 @@ public class MallSaleDto {
 	private int mallSaleTotal;
 	private String mallSaleDate;
 	private String cooContractCode;
+	private String mallProName;
 	
+	public String getMallProName() {
+		return mallProName;
+	}
+	public void setMallProName(String mallProName) {
+		this.mallProName = mallProName;
+	}
 	public String getUserId() {
 		return userId;
 	}

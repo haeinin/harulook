@@ -22,6 +22,14 @@
 		<result property="mallVistitorPrice" column="coo_visitor_price"></result>
 	</resultMap>
 	
+	<resultMap type="com.ksmart.harulook.mall.service.MallSaleDto" id="mallSale">
+		<result property="userId" column="user_id"></result>
+		<result property="mallSaleAmount" column="mall_sale_amount"></result>
+		<result property="mallSaleTotal" column="mall_sale_total"></result>
+		<result property="mallSaleDate" column="mall_sale_date"></result>
+		<result property="mallProName" column="mall_pro_no"></result>
+	</resultMap>
+	
 	<select id="mallProDetail" resultMap="mallPro">
 		SELECT mall_pro_no,
 		partner_no, mall_pro_name, mall_pro_price, mall_pro_cate, mall_pro_img
@@ -62,7 +70,7 @@
 	)
 	VALUES 
 	(
-	'1'
+	#{userId}
 	,#{mallProNo}
 	,#{mallSaleAmount}
 	,#{mallSalePrice}
@@ -91,5 +99,29 @@
 	,now()
 	,#{cooContractCode})
 	</insert> -->
-
+	<!-- 할인코드 확인 -->
+	<select id ="vaildCooContractCode"  parameterType="String" resultType="String">
+	SELECT coo_contract_dc
+	FROM coo_contract
+	WHERE coo_contract_code= #{cooContractCode}
+	</select>
+	
+	<!-- 구매목록보기 -->
+	<select id = "getMallBuyList" parameterType="String" resultMap="mallSale">
+	SELECT 
+		mall_sale.user_id
+		,mall_pro.mall_pro_name
+		,mall_sale.mall_sale_amount
+		,mall_sale.mall_sale_total
+		,DATE(mall_sale.mall_sale_date)
+	FROM 
+		mall_sale
+	JOIN 
+		mall_pro
+	ON 
+		mall_pro.mall_pro_no=mall_sale.mall_pro_no
+	WHERE 
+		mall_sale.user_id=#{userId}
+	
+	</select>
 </mapper>
