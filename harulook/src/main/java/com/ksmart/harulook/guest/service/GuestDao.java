@@ -14,6 +14,21 @@ import java.util.Map;
 public class GuestDao {
 	 @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
+	
+	/*월간방문자수조회 */
+    public String monthlyGuest() {
+    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.guest.service.GuestMapper.monthlyGuest");
+    }
+	 
+	/*주간방문자수조회 */
+    public String weeklyGuest() {
+    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.guest.service.GuestMapper.weeklyGuest");
+    }
+	 
+	 /*일일방문자수조회 */
+    public String dailyGuest() {
+    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.guest.service.GuestMapper.dailyGuest");
+    }
 	 
 	/*중복접속체크 */
     public String guestSelect(String guestIp) {

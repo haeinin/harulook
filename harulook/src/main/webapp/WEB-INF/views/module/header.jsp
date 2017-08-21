@@ -62,6 +62,10 @@
 		$('#businessUpdateButton').click(function(){	//사업자 관리자 회원 수정하기
 			$('#businessUpdate').submit();
         });
+		
+		$('#guestListButton').click(function(){	//방문자 접속자수 보기
+			$('#guestListForm').submit();
+        });
 	 });
 </script>
 </head>
@@ -162,9 +166,9 @@
 				  </form>
 				  
 				  	<!-- 사이트 접속자수 검색 -->
-				   <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				   <form id="guestListForm" action="${pageContext.request.contextPath}/guestList" method="get">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="사이트 접속자수 검색"/>
+			  			<input class="btn btn-default" id="guestListButton" type="button" value="사이트 접속자수 검색"/>
 			  	 	</div>	
 				  </form>
 			</c:if>
@@ -199,12 +203,12 @@
 			  	 	</div>	
 				  </form>		
 				  
-				  <!-- 사이트 접속자수 보기 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				  <!-- 사이트 접속자수 검색 -->
+				   <form id="guestListForm" action="${pageContext.request.contextPath}/guestList" method="get">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="사이트 접속자수 보기"/>
+			  			<input class="btn btn-default" id="guestListButton" type="button" value="사이트 접속자수 검색"/>
 			  	 	</div>	
-				  </form>	
+				  </form>
 			</c:if>
 			
 			<c:if test="${sessionScope.level == '일반회원'}">

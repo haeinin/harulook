@@ -3,6 +3,7 @@ package com.ksmart.harulook.guest.controller;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,4 +37,19 @@ public class GuestController {
     	}
         return "home";  
     }
+	
+	/*방문자 조회수 리스트*/
+	@RequestMapping(value="/guestList", method = RequestMethod.GET)
+	public String guestList(Model model) {
+		System.out.println("방문자 리스트 폼");
+		String monthlyGuest = guestDao.monthlyGuest();	//월간
+		String weeklyGuest = guestDao.weeklyGuest();	//주간
+		String dailyGuest = guestDao.dailyGuest();	//일일
+		
+		model.addAttribute("monthlyGuest", monthlyGuest);
+		model.addAttribute("weeklyGuest", weeklyGuest);
+		model.addAttribute("dailyGuest", dailyGuest);
+			System.out.println("GuestController model == " + model);
+		return "guest/guest_list"; //방문자 리스트
+	}
 }
