@@ -82,13 +82,68 @@ public class BoardController {
 		boardDao.boardDelete(boardNo);
 		commentDao.boardCommentDelete(boardNo);
 		likeDao.boardLikeDelete(boardNo);
+		boardDao.snsColorDelete(boardNo);
+		boardDao.snsSituationDelete(boardNo);
+		boardDao.snsStyleDelete(boardNo);
 		return "redirect:/boardList";
 	}
 	
 	/* sns게시물 수정 처리 요청 */
 	@RequestMapping(value="/boardUpdate", method = RequestMethod.POST)
-	public String boardUpdate(BoardDto board) {
+	public String boardUpdate(BoardDto board, HttpServletRequest request) {
 		System.out.println("boardUpdate 처리 요청");
+		
+		boardDao.snsColorDelete(board.getSnsBoardNo());
+		boardDao.snsSituationDelete(board.getSnsBoardNo());
+		boardDao.snsStyleDelete(board.getSnsBoardNo());
+		
+		String[] colorValue = request.getParameterValues("colorValue");
+		String[] styleValue = request.getParameterValues("styleValue");
+		String[] situationValue = request.getParameterValues("situationValue");
+		
+		if(situationValue != null) {
+			String lastSituationNo = boardDao.getLastSituationNo();
+			System.out.println("lastSituationNo : "+lastSituationNo);
+			for(int i = 0; i<situationValue.length; i++) {
+		        int insertSituationNo = 1;	//DB에 등록된 게시물이 없을 때 번호의 초기값
+		        if(lastSituationNo != null) {
+		        	insertSituationNo = Integer.parseInt(lastSituationNo)+1+i;
+		        }
+		        String snsBoardNo = board.getSnsBoardNo();
+		        String snsSituationNo = "sns_situation_"+insertSituationNo;
+		        System.out.println("snsSituationNo : "+snsSituationNo);
+		        System.out.println("snsBoardNo : "+snsBoardNo);
+		        System.out.println("situationValue["+i+"] : "+situationValue[i]);
+		        boardDao.SnsSituationInsert(snsSituationNo, snsBoardNo, situationValue[i]);
+			}
+		}
+		
+		if(styleValue != null) {
+			String lastStyleNo = boardDao.getLastStyleNo();
+			for(int i = 0; i<styleValue.length; i++) {
+		        int insertStyleNo = 1;	//DB에 등록된 게시물이 없을 때 번호의 초기값
+		        if(lastStyleNo != null) {
+		        	insertStyleNo = Integer.parseInt(lastStyleNo)+1+i;
+		        }
+		        String snsBoardNo = board.getSnsBoardNo();
+		        String snsStyleNo = "sns_style_"+insertStyleNo;
+		        boardDao.SnsStyleInsert(snsStyleNo, snsBoardNo, styleValue[i]);
+			}
+		}
+		
+		if(colorValue != null) {
+			String lastColorNo = boardDao.getLastColorNo();
+			for(int i = 0; i<colorValue.length; i++) {
+		        int insertColorNo = 1;	//DB에 등록된 게시물이 없을 때 번호의 초기값
+		        if(lastColorNo != null) {
+		        	insertColorNo = Integer.parseInt(lastColorNo)+1+i;
+		        }
+		        String snsBoardNo = board.getSnsBoardNo();
+		        String snsColorNo = "sns_color_"+insertColorNo;
+		        boardDao.SnsColorInsert(snsColorNo, snsBoardNo, colorValue[i]);
+			}
+		}
+		
 		boardDao.boardUpdate(board);
 		return "redirect:/boardDetail?boardNo="+board.getSnsBoardNo();
 	}
@@ -98,7 +153,15 @@ public class BoardController {
 	public String boardUpdateForm(Model model
             , @RequestParam(value="boardNo", required=true) String boardNo) {
 		System.out.println("boardUpdate 화면 요청");
+		
+		List<String> snsStyle = boardDao.boardStyleSelect(boardNo);
+		List<String> snsColor = boardDao.boardColorSelect(boardNo);
+		List<String> snsSituation = boardDao.boardSituationSelect(boardNo);
+		
 		BoardDto board = boardDao.boardDetail(boardNo);
+		model.addAttribute("snsColor", snsColor);
+		model.addAttribute("snsSituation", snsSituation);
+		model.addAttribute("snsStyle", snsStyle);
 		model.addAttribute("board", board);
 		return "sns/board/sns_board_update";
 	}
@@ -113,6 +176,10 @@ public class BoardController {
 		List<CommentDto> commentList = commentDao.commentList(boardNo);
 		System.out.println("comment : "+ commentList);
 		
+		List<String> snsStyle = boardDao.boardStyleSelect(boardNo);
+		List<String> snsColor = boardDao.boardColorSelect(boardNo);
+		List<String> snsSituation = boardDao.boardSituationSelect(boardNo);
+		
 		String sessionId = (String)session.getAttribute("id");
 		int likeClick = likeDao.getLikeClick(boardNo, sessionId);
 		boolean likeToggle = false;
@@ -122,6 +189,9 @@ public class BoardController {
 			likeToggle = false;
 		}
 		
+		model.addAttribute("snsColor", snsColor);
+		model.addAttribute("snsSituation", snsSituation);
+		model.addAttribute("snsStyle", snsStyle);
 		model.addAttribute("likeToggle", likeToggle);
 		model.addAttribute("board", board);
 		model.addAttribute("commentList",commentList);
@@ -147,9 +217,14 @@ public class BoardController {
 	
 	 /* sns게시물 입력 처리 요청 */
     @RequestMapping(value="/boardInsert", method = RequestMethod.POST)
-    public String boardInsert(BoardDto board) {
-
-        /******** sns_board_no의 끝 숫자 자동 입력 *****************/
+    public String boardInsert(BoardDto board, HttpServletRequest request) {
+    	System.out.println("boardInsert 처리 요청");
+    	
+    	String[] colorValue = request.getParameterValues("colorValue");
+		String[] styleValue = request.getParameterValues("styleValue");
+		String[] situationValue = request.getParameterValues("situationValue");
+    	
+		 /******** sns_board_no의 끝 숫자 자동 입력 *****************/
         String lastBoardNo = boardDao.getLastBoardNo();
         int insertBoardNo = 1;	//DB에 등록된 게시물이 없을 때 번호의 초기값
         if(lastBoardNo != null) {
@@ -157,7 +232,60 @@ public class BoardController {
         }
         board.setSnsBoardNo("sns_board_"+insertBoardNo);
         /*************************************************/
+		
+        if(board.getSnsBoardAge().equals("")) {
+			board.setSnsBoardAge(null);
+		} 
+		if(board.getSnsBoardSize().equals("")) {
+			board.setSnsBoardSize(null);
+		}
+		if(board.getSnsBoardTall().equals("")) {
+			board.setSnsBoardTall(null);
+		}
         
+		if(situationValue != null) {
+			String lastSituationNo = boardDao.getLastSituationNo();
+			System.out.println("lastSituationNo : "+lastSituationNo);
+			for(int i = 0; i<situationValue.length; i++) {
+		        int insertSituationNo = 1;	//DB에 등록된 게시물이 없을 때 번호의 초기값
+		        if(lastSituationNo != null) {
+		        	insertSituationNo = Integer.parseInt(lastSituationNo)+1+i;
+		        }
+		        String snsBoardNo = board.getSnsBoardNo();
+		        String snsSituationNo = "sns_situation_"+insertSituationNo;
+		        System.out.println("snsSituationNo : "+snsSituationNo);
+		        System.out.println("snsBoardNo : "+snsBoardNo);
+		        System.out.println("situationValue["+i+"] : "+situationValue[i]);
+		        boardDao.SnsSituationInsert(snsSituationNo, snsBoardNo, situationValue[i]);
+			}
+		}
+		
+		if(styleValue != null) {
+			String lastStyleNo = boardDao.getLastStyleNo();
+			for(int i = 0; i<styleValue.length; i++) {
+		        int insertStyleNo = 1;	//DB에 등록된 게시물이 없을 때 번호의 초기값
+		        if(lastStyleNo != null) {
+		        	insertStyleNo = Integer.parseInt(lastStyleNo)+1+i;
+		        }
+		        String snsBoardNo = board.getSnsBoardNo();
+		        String snsStyleNo = "sns_style_"+insertStyleNo;
+		        boardDao.SnsStyleInsert(snsStyleNo, snsBoardNo, styleValue[i]);
+			}
+		}
+		
+		if(colorValue != null) {
+			String lastColorNo = boardDao.getLastColorNo();
+			for(int i = 0; i<colorValue.length; i++) {
+		        int insertColorNo = 1;	//DB에 등록된 게시물이 없을 때 번호의 초기값
+		        if(lastColorNo != null) {
+		        	insertColorNo = Integer.parseInt(lastColorNo)+1+i;
+		        }
+		        String snsBoardNo = board.getSnsBoardNo();
+		        String snsColorNo = "sns_color_"+insertColorNo;
+		        boardDao.SnsColorInsert(snsColorNo, snsBoardNo, colorValue[i]);
+			}
+		}
+		
         boardDao.boardInsert(board);
         return "redirect:/boardList";
     }

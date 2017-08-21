@@ -34,6 +34,7 @@
         <div class="form-group">
             <label for="snsBoardWeather">snsBoardWeather :</label>
             <select class="form-control" name="snsBoardWeather" id="snsBoardWeather">
+            	<option></option>
             	<option>맑음</option>
             	<option>구름조금</option>
             	<option>흐림</option>
@@ -44,6 +45,7 @@
         <div class="form-group">
             <label for="snsBoardTall">snsBoardTall :</label>
             <select class="form-control" name="snsBoardTall" id="snsBoardTall">
+            	<option></option>
             	<option>큰키</option>
             	<option>보통키</option>
             	<option>작은키</option>
@@ -52,6 +54,7 @@
         <div class="form-group">
             <label for="snsBoardSize">snsBoardSize :</label>
             <select class="form-control" name="snsBoardSize" id="snsBoardSize">
+            	<option></option>
             	<option>마른</option>
             	<option>보통</option>
             	<option>뚱뚱</option>
@@ -60,6 +63,7 @@
         <div class="form-group">
             <label for="snsBoardLoc">snsBoardLoc :</label>
             <select class="form-control" name="snsBoardLoc" id="snsBoardLoc">
+            	<option></option>
             	<option>서울</option>
             	<option>경기</option>
             	<option>강원</option>
@@ -81,6 +85,7 @@
         <div class="form-group">
             <label for="snsBoardAge">snsBoardAge :</label>
             <select class="form-control" name="snsBoardAge" id="snsBoardAge">
+            	<option></option>
             	<option>10</option>
             	<option>20</option>
             	<option>30</option>

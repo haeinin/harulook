@@ -113,6 +113,27 @@
 		ORDER BY sns_board.sns_board_date DESC
 	</select>
 	
+	<!-- sns게시물 상황별 분류 삭제 -->
+	<delete id="snsSituationDelete" parameterType="String">
+		DELETE 
+		FROM sns_situation 
+		WHERE sns_board_no = #{snsBoardNo};
+	</delete>
+	
+	<!-- sns게시물 스타일 삭제 -->
+	<delete id="snsStyleDelete" parameterType="String">
+		DELETE 
+		FROM sns_style 
+		WHERE sns_board_no = #{snsBoardNo};
+	</delete>
+	
+	<!-- sns게시물 색상 삭제 -->
+	<delete id="snsColorDelete" parameterType="String">
+		DELETE 
+		FROM sns_color 
+		WHERE sns_board_no = #{snsBoardNo};
+	</delete>
+	
 	<!-- sns게시물 삭제 -->
 	<delete id="boardDelete" parameterType="String">
 		DELETE 
@@ -133,6 +154,39 @@
 			,sns_board_age = #{snsBoardAge}
 		WHERE sns_board_no = #{snsBoardNo}
 	</update>
+	
+	<!-- sns게시물 상황별 분류 조회 -->
+	<select id="boardSituationSelect" parameterType="String" resultType="String">
+		SELECT situation.situation_value
+		FROM sns_board
+		JOIN sns_situation
+		ON sns_board.sns_board_no = sns_situation.sns_board_no
+		JOIN situation
+		ON situation.situation_no = sns_situation.situation_no 
+		WHERE sns_board.sns_board_no = #{snsBoardNo}
+	</select>
+	
+	<!-- sns게시물 색상 조회 -->
+	<select id="boardColorSelect" parameterType="String" resultType="String">
+		SELECT color.color_value
+		FROM sns_board
+		JOIN sns_color
+		ON sns_board.sns_board_no = sns_color.sns_board_no
+		JOIN color
+		ON color.color_no = sns_color.color_no 
+		WHERE sns_board.sns_board_no = #{snsBoardNo}
+	</select>
+	
+	<!-- sns게시물 스타일 조회 -->
+	<select id="boardStyleSelect" parameterType="String" resultType="String">
+		SELECT style.style_value
+		FROM sns_board
+		JOIN sns_style
+		ON sns_board.sns_board_no = sns_style.sns_board_no
+		JOIN style
+		ON style.style_no = sns_style.style_no 
+		WHERE sns_board.sns_board_no = #{snsBoardNo}
+	</select>
 	
 	<!-- sns게시물 상세 보기 -->
 	<select id="boardDetail" parameterType="String" resultMap="board">
@@ -210,6 +264,69 @@
 		 AND sns_board.sns_board_no = lc.sns_board_no 
 		 ORDER BY sns_board.sns_board_no 
 		 DESC LIMIT #{beginRow}, #{pagePerRow}
+	</select>
+
+	<!-- sns게시물 상황별 분류 입력 -->
+	<insert id="SnsSituationInsert" parameterType="java.util.Map">
+		INSERT INTO sns_situation(
+ 		sns_situation_no
+ 		,sns_board_no
+ 		,situation_no
+ 		)
+ 		VALUES(
+ 		#{snsSituationNo}
+ 		,#{snsBoardNo}
+ 		,#{situationNo}
+ 		)
+	</insert>
+
+	<!-- sns게시물 스타일 입력 -->
+	<insert id="SnsStyleInsert" parameterType="java.util.Map">
+		INSERT INTO sns_style(
+ 		sns_style_no
+ 		,sns_board_no
+ 		,style_no
+ 		)
+ 		VALUES(
+ 		#{snsStyleNo}
+ 		,#{snsBoardNo}
+ 		,#{styleNo}
+ 		)
+	</insert>
+
+	<!-- sns게시물 색상 입력 -->
+	<insert id="SnsColorInsert" parameterType="java.util.Map">
+		INSERT INTO sns_color(
+ 		sns_color_no
+ 		,sns_board_no
+ 		,color_no
+ 		)
+ 		VALUES(
+ 		#{snsColorNo}
+ 		,#{snsBoardNo}
+ 		,#{colorNo}
+ 		)
+	</insert>
+
+	<!-- 가장 최근에 입력된 게시물 상황별 분류 번호 가져오기 -->
+	<select id="getLastSituationNo" resultType="String">
+		SELECT
+			max(CAST(substring(sns_situation_no,15) AS DECIMAL))  
+		FROM sns_situation
+	</select>
+
+	<!-- 가장 최근에 입력된 게시물 스타일 번호 가져오기 -->
+	<select id="getLastStyleNo" resultType="String">
+		SELECT
+			max(CAST(substring(sns_style_no,11) AS DECIMAL))  
+		FROM sns_style
+	</select>
+
+	<!-- 가장 최근에 입력된 게시물 색상 번호 가져오기 -->
+	<select id="getLastColorNo" resultType="String">
+		SELECT
+			max(CAST(substring(sns_color_no,11) AS DECIMAL))  
+		FROM sns_color
 	</select>
 
 	<!-- sns게시물 등록 -->

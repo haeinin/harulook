@@ -147,6 +147,7 @@ $(function(){
                 <td id="snsLikeCount">${board.snsLikeCount}</td>
                 
                 <!-- 예뻐요 버튼  -->
+                <c:if test="${sessionScope.id != null}">
 				<div class="like-container">
 				<c:if test="${likeToggle == false}">
 					<div class="like-cnt" id="like-cnt" style="background-color: rgba(0,0,0,0.3);">
@@ -168,8 +169,37 @@ $(function(){
 				<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/DrawSVGPlugin.min.js'></script>
 				<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js'></script>
 				</div>
+				</c:if>
 				<!-- 예뻐요 버튼  -->
 				
+            </tr>
+            <tr>
+                <td>댓글수 :</td>
+                <td>${board.snsCommentCount}</td>
+            </tr>
+            <tr>
+                <td>sns_board_style :</td>
+                <td>
+                	<c:if test="${snsColor.size() > 0}">
+                		<c:forEach var="i" begin="0" end="${snsStyle.size()-1}">${snsStyle.get(i)}&nbsp;&nbsp;</c:forEach>
+                	</c:if>
+                </td> 
+            </tr>
+            <tr>
+                <td>sns_board_color :</td>
+                <td>
+                	<c:if test="${snsColor.size() > 0}">
+                		<c:forEach var="i" begin="0" end="${snsColor.size()-1}">${snsColor.get(i)}&nbsp;&nbsp;</c:forEach>
+                	</c:if>
+                </td>
+            </tr>
+            <tr>
+                <td>sns_board_situation :</td>
+                <td>
+                	<c:if test="${snsSituation.size() > 0}">
+                		<c:forEach var="i" begin="0" end="${snsSituation.size()-1}">${snsSituation.get(i)}&nbsp;&nbsp;</c:forEach>
+                	</c:if>
+                </td>
             </tr>
             <tr>
                    <td></td>
@@ -190,6 +220,7 @@ $(function(){
 	            </tr>
 	         </c:forEach>
 	         <tr>
+	         <c:if test="${sessionScope.id != null}">
 	         	<form action="${pageContext.request.contextPath}/commentInsert" method="post">
 	                <td>${sessionScope.id}<input type="hidden" id="userId" name="userId" value="${sessionScope.id}" readonly="readonly"></td>
 	                <td><input type="text" id="snsCommentContent" name="snsCommentContent"></td>
@@ -197,6 +228,7 @@ $(function(){
 	                <td><input class="btn btn-default" type="submit" value="댓글입력"></td>
 				</form>
 				</td>
+			</c:if>
 	        </tr>
         </tbody>
     </table>

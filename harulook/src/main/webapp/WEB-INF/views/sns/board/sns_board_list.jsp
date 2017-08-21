@@ -34,8 +34,8 @@ sns 게시물 목록
 	        <tbody>
 	            <c:forEach var="b" items="${list}">
 	                <tr>
-	                    <td><a href="${pageContext.request.contextPath}/boardDetail?boardNo=${b.snsBoardNo}">${b.snsBoardNo}</a></td>
-	                    <td>${b.snsBoardImg}</td>
+	                    <td>${b.snsBoardNo}</td>
+	                    <td><a href="${pageContext.request.contextPath}/boardDetail?boardNo=${b.snsBoardNo}">${b.snsBoardImg}</a></td>
 	                    <td>${b.snsCommentCount}</td>
 	                    <td>${b.snsLikeCount}</td>
 	                    <td>${b.snsBoardDate}</td>
