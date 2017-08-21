@@ -1,10 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- bootstrap을 사용하기 위한 CDN주소 -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- jquery를 사용하기위한 CDN주소 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#searchBtn').click(function(){
+		$.ajax({
+			url : './boardSearchList',
+			method : 'POST',
+			data : { 'snsBoardWeather'	: $('#snsBoardWeather').val()
+					 ,'snsBoardTall'	: $('#snsBoardTall').val()
+					 ,'snsBoardSize'	: $('#snsBoardSize').val()
+					 ,'snsBoardLoc'		: $('#snsBoard')
+					},
+			}
+			
+		});	
+	});
+});
+</script>
 </head>
 <body>
 <form action="${pageContext.request.contextPath}/boardSearchList" method="post">
@@ -109,7 +135,7 @@
        	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이
        	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객    	
      </div>
-     <input type="submit" value="검색">
+     <button type="button" id="searchBtn">검색</button>
 </form>
 </body>
 </html>

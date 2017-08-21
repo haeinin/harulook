@@ -285,7 +285,6 @@ public class BoardController {
 		        boardDao.SnsColorInsert(snsColorNo, snsBoardNo, colorValue[i]);
 			}
 		}
-		
         boardDao.boardInsert(board);
         return "redirect:/boardList";
     }

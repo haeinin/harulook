@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -18,7 +18,7 @@
 </head>
 <body>
 sns 게시물 목록
-<%-- 	<div>전체행의 수 : ${boardCount}</div> --%>
+	<div>현재 페이지 : ${currentPage}</div>
 	<div class="container">
 		<%@ include file="./sns_board_search.jsp" %>
 	    <table class="table table-striped">
@@ -43,14 +43,14 @@ sns 게시물 목록
 	            </c:forEach>
 	        </tbody>
 	    </table>
-<%-- 	    <ul class="pager">
+	    <ul class="pager">
 	        <c:if test="${currentPage > 1}">
 	            <li class="previous"><a href="${pageContext.request.contextPath}/boardList?currentPage=${currentPage-1}">이전</a></li>
 	        </c:if>
-	        <c:if test="${currentPage < lastPage}">
+	        <c:if test="${currentPage < lastPage+1}">
 	            <li class="next"><a href="${pageContext.request.contextPath}/boardList?currentPage=${currentPage+1}">다음</a></li>
 	        </c:if>
-    	</ul> --%>
+    	</ul>
 	    <div>
 	        <a class="btn btn-default" href="${pageContext.request.contextPath}/boardInsert">게시글 입력</a>
 	    </div>
