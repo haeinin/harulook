@@ -152,7 +152,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#myPage">HOME</a></li>
+        <li><a href="${pageContext.request.contextPath}/mallMain">HOME</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">CATEGORY
           <span class="caret"></span></a>
@@ -162,7 +162,7 @@
             <li><a href="#">ONE-PIECE</a></li> 
           </ul>
         </li>
-        <li><a href="#">BUY</a></li>
+        <li><a href="${pageContext.request.contextPath}/mallOrderList">MY PAGE</a></li>
         <li><a href="#contact">CONTACT</a></li>
         
         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>

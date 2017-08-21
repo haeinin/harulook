@@ -32,7 +32,14 @@
 		<result property="cooContractNo" column="coo_contract_no"></result>
 		<result property="cooPayDate" column="coo_pay_date"></result>
 		<result property="cooPayTotal" column="coo_pay_total"></result>
-
+	</resultMap>
+	
+	<resultMap type="com.ksmart.harulook.member.service.MemberDto" id="partnerCompany">
+		<result property="userBsNo" column="user_bs_no"></result>
+		<result property="userBsType" column="user_bs_type"></result>
+		<result property="userBsStatus" column="user_bs_status"></result>
+		<result property="userBsName" column="user_bs_name"></result>
+		<result property="userUrl" column="user_url"></result>
 	</resultMap>
 
 
@@ -228,6 +235,16 @@
 	</update>
 	
 	<!-- 제휴 업체 상세보기 -->
+	<select id = "cooContractCompany" parameterType="String" resultMap="partnerCompany">
+	SELECT 
+	user_bs_no
+	,user_bs_type
+	,user_bs_status
+	,user_bs_name
+	,user_url
+	FROM user
+	WHERE user_id=#{userId}
+	</select>
 	
 	<!-- 제휴 수수료 계산 -->
 	<insert id="cooContractBillInsert" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">

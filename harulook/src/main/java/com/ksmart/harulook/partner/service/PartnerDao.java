@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ksmart.harulook.member.service.MemberDto;
+
 @Repository
 public class PartnerDao {
 
@@ -65,6 +67,9 @@ public class PartnerDao {
 	 public PartnerBillDto cooContractPayForm(String cooContractNo){
 		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.cooContractPayForm", cooContractNo);
 	 }
-
+	 /*제휴계약업체 상세보기*/
+	 public MemberDto getCooContractCompany(String userId){
+		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.cooContractCompany", userId);
+	 }
 
 }

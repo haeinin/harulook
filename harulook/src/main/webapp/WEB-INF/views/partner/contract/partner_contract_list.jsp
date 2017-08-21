@@ -45,8 +45,6 @@
                     <td>${b.managerId}</td>
                     <td>${b.cooContractStart}</td>
                     <td>${b.cooContractEnd}</td>
-                    <td>${b.cooContractPayDay}</td>
-                    <td>${b.cooContractCode}</td>
                     <td>${b.cooContractStat}</td>
                     <td>${b.cooContractPayStat}</td>
                     <c:if test="${sessionScope.level == '관리자'}">

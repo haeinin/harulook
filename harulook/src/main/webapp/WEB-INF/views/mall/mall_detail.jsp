@@ -93,7 +93,7 @@ body{
 						<li><a href="#">BOTTOM</a></li>
 						<li><a href="#">ONE-PIECE</a></li>
 					</ul></li>
-				<li><a href="#">BUY</a></li>
+				<li><a href="${pageContext.request.contextPath}/mallOrderList">MY PAGE</a></li>
 				<li><a href="#contact">CONTACT</a></li>
 
 				<li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>

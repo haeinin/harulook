@@ -6,11 +6,11 @@
 
 	<resultMap type="com.ksmart.harulook.mall.service.MallDto" id="mallPro">
 		<result property="mallProNo" column="mall_pro_no"></result>
-		<result property="partnerNo" column="partner_no"></result>
 		<result property="mallProName" column="mall_pro_name"></result>
 		<result property="mallProPrice" column="mall_pro_price"></result>
 		<result property="mallProCate" column="mall_pro_cate"></result>
 		<result property="mallProImg" column="mall_pro_img"></result>
+		<result property="cooContractNo" column="coo_contract_no"></result>
 	</resultMap>
 
 	<resultMap type="com.ksmart.harulook.mall.service.MallVisitorDto" id="mallVisitor">
@@ -34,7 +34,7 @@
 	<!-- 상품 상세보기 -->
 	<select id="mallProDetail" resultMap="mallPro">
 		SELECT mall_pro_no,
-		partner_no, mall_pro_name, mall_pro_price, mall_pro_cate, mall_pro_img
+		mall_pro_name, mall_pro_price, mall_pro_cate, mall_pro_img
 		FROM mall_pro
 		WHERE mall_pro_no = #{mallProNo};
 	</select>
@@ -61,7 +61,7 @@
 	,mall_sale_price
 	,mall_sale_total
 	,mall_sale_date
-	,coo_contract_code
+	,coo_contract_no
 	)
 	VALUES 
 	(
@@ -71,7 +71,11 @@
 	,#{mallSalePrice}
 	,#{mallSaleTotal}
 	,now()
-	,#{cooContractCode}
+	,(
+		SELECT coo_contract_no 
+		FROM coo_contract 
+		WHERE coo_contract_code =#{cooContractCode}
+		)
 	)
 	</insert>
 	
@@ -84,7 +88,7 @@
 	,mall_sale_price
 	,mall_sale_total
 	,mall_sale_date
-	,coo_contract_code
+	,coo_contract_no
 	)
 	VALUES 
 	(
@@ -93,7 +97,11 @@
 	,#{mallSalePrice}
 	,#{mallSaleTotal}
 	,now()
-	,#{cooContractCode}
+	,(
+		SELECT coo_contract_no 
+		FROM coo_contract 
+		WHERE coo_contract_code =#{cooContractCode}
+		)
 	)
 	</insert>
 
@@ -137,4 +145,31 @@
 	WHERE 
 		mall_sale.user_id=#{userId} 
 	</select>
+	
+	<!-- 일별 접속자 수 조회 -->
+	<select id="dailyMallVistor">
+	SELECT coo_visitor_date, count(coo_visitor_no)
+	FROM coo_visitor
+	GROUP BY coo_visitor_date
+	</select>
+	
+	<!-- 주별 접속자 수 조회 -->
+	<select id="weeklyMallVisitor">
+	SELECT DATE_FORMAT(DATE_SUB(`coo_visitor_date`, INTERVAL (DAYOFWEEK(`coo_visitor_date`)-1) DAY), '%Y/%m/%d') as start,
+       DATE_FORMAT(DATE_SUB(`coo_visitor_date`, INTERVAL (DAYOFWEEK(`coo_visitor_date`)-7) DAY), '%Y/%m/%d') as end,
+       DATE_FORMAT(`coo_visitor_date`, '%Y%U') as 'date',
+       count(coo_visitor_no)
+ 	FROM coo_visitor
+ 	GROUP BY date; 
+	
+	</select>
+	<!-- 월별 접속자 수 조회 -->
+	<select id="monthlyMallVisitor">
+	select month(coo_visitor_date) as 'month', count(coo_visitor_no)
+	from coo_visitor
+	group by month
+	
+	</select>
+	
+	
 </mapper>

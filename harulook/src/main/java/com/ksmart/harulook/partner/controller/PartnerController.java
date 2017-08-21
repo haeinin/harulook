@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ksmart.harulook.member.service.MemberDto;
 import com.ksmart.harulook.partner.service.PartnerBillDto;
 import com.ksmart.harulook.partner.service.PartnerDao;
 import com.ksmart.harulook.partner.service.PartnerDto;
@@ -73,6 +74,10 @@ public class PartnerController {
                             , @RequestParam(value="cooContractNo", required=true) String cooContractNo) {
 		PartnerDto dto = dao.getCooContractDetail(cooContractNo);
         model.addAttribute("dto", dto);
+        String userId=dto.getUserId();
+        System.out.println("userId 상세보기"+userId);
+        MemberDto Mdto = dao.getCooContractCompany(userId);
+        model.addAttribute("Mdto", Mdto);
         System.out.println("제휴계약컨트롤러 상세보기");
         return "partner/contract/partner_contract_detail";
     }
