@@ -47,7 +47,6 @@
 			  url: "./guestAdd", //호출 경로
 			  method: "POST",	//전송방식
 			  data: { 'ip' : ip() }, //전송해줄값
-			 
 			  dataType: "text" //결과값 타입 (리턴)
 		});
 	});
