@@ -25,17 +25,21 @@ public class PartnerDao {
 	 public PartnerDto getCooContractDetail(String cooContractNo){
 			return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.cooContractDetail",cooContractNo);
 		}
-	 /*제휴계약 목록조회*/
+	 /*제휴계약 전체목록보기(관리자)*/
 	 public List<PartnerDto> getCooContractList(){
-			return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.cooContractList");
+			return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.cooContractAllList");
+		}
+	 /*제휴계약 목록보기(개인)*/
+	 public List<PartnerDto> getCooContractList(String id){
+			return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.cooContractList",id);
 		}
 	 /*제휴계약 수정처리*/
 	 public int updateCooContract(PartnerDto dto){
 			return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.cooContractUpdate", dto);
 		}
 	 /*제휴결제예정금액 보기*/
-	 public List<PartnerBillDto> getCooContractBill(String cooContractNo){
-			return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.cooContractBill", cooContractNo);
+	 public List<PartnerBillDto> getCooContractBill(String userId){
+			return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.cooContractBill", userId);
 		}
 	 /*제휴결제 처리*/
 	 public int insertCooContractPay(PartnerBillDto dto){
@@ -56,6 +60,10 @@ public class PartnerDao {
 	 /*제휴계약 승인처리*/
 	 public int updateCooContractAdmit(PartnerDto dto){
 		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.cooContractAdmit", dto);
+	 }
+	 /*제휴결제 폼 요청*/
+	 public PartnerBillDto cooContractPayForm(String cooContractNo){
+		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.cooContractPayForm", cooContractNo);
 	 }
 
 

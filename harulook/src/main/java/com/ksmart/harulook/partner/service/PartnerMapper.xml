@@ -80,9 +80,8 @@
 		FROM coo_contract
 	</select>
 
-
-	<!-- 제휴계약 목록보기 -->
-	<select id="cooContractList" resultMap="partner">
+	<!-- 제휴계약 전체목록보기 -->
+	<select id="cooContractAllList" resultMap="partner">
 		SELECT
 		coo_contract_no
 		,user_id
@@ -101,8 +100,30 @@
 		FROM
 		coo_contract
 
-	</select>
+		</select>
 
+	<!-- 제휴계약 목록보기(개인) -->
+	<select id="cooContractList" parameterType="String" resultMap="partner">
+		SELECT
+		coo_contract_no
+		,user_id
+		,manager_id
+		,coo_contract_dc
+		,coo_contract_fee
+		,coo_contract_start
+		,coo_contract_end
+		,coo_contract_date
+		,coo_contract_pay_date
+		,coo_contract_code
+		,coo_contract_img
+		,coo_contract_link
+		,coo_contract_stat
+		,coo_contract_pay_stat
+		FROM
+		coo_contract
+		WHERE user_id=#{userID}
+
+	</select>
 	<!-- 제휴계약 상세보기 -->
 	<select id="cooContractDetail" parameterType="String" resultMap="partner">
 		SELECT
@@ -142,6 +163,19 @@
 		coo_contract_no=#{cooContractNo}
 	</update>
 	
+	<!-- 제휴 결제 폼 -->
+	<select id="cooContractPayForm" parameterType="String" resultMap="partnerBill">
+		SELECT
+		coo_bill_no
+		,coo_contract_no
+		,coo_bill_value
+		,coo_bill_month
+		,coo_bill_date
+		FROM
+		coo_bill
+		WHERE coo_contract_no = #{cooContractNo}
+	</select>
+	
 	<!-- 제휴 결제 처리 -->
 	<insert id="cooContractPayinsert" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
 		INSERT INTO coo_pay
@@ -153,14 +187,14 @@
 		VALUES 
 		( 
 		#{cooContractNo}
-		, DATE(NOW())
-		,	(
+		,DATE(NOW())
+		,(
 			SELECT 
 				coo_bill_value
 			FROM 
 				coo_bill 
 			WHERE 
-				coo_bill_no = #{coo_bill_no}
+				coo_bill_no = #{cooBillNo}
 			)
 		)
 	</insert>
@@ -168,8 +202,9 @@
 	<delete id="cooContractBillDelete" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
 		DELETE 
 		FROM coo_bill 
-		WHERE coo_bill_no = #{coo_bill_no}
+		WHERE coo_bill_no = #{cooBillNo}
 	</delete>
+	
 	<!-- 제휴 결제상태 변경 -->
 	<update id="cooContractPayStatUpdate" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
 		UPDATE
@@ -245,7 +280,9 @@
 		,coo_bill_date
 		FROM
 		coo_bill
-		WHERE coo_contract_no = #{cooContractNo}
+		WHERE coo_contract_no = (SELECT coo_contract_no
+								FROM coo_contract
+								WHERE user_id=#{userId})
 	</select>
 
 	<!-- 제휴신청 승인 -->

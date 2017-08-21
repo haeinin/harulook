@@ -14,12 +14,10 @@
 	$(document).ready(function(){
 		$('#cooContractAdmitBtn').click(function(){	
 			$('#cooContractAdmit').submit();
-        
 		});
-	
+
 	 });
-	
-	
+
 </script>
 </head>
 <body>
@@ -34,7 +32,9 @@
                 <th>제휴 종료 날짜</th>
                 <th>제휴상태</th>
                 <th>결제상태</th>
+                <c:if test="${sessionScope.level == '관리자'}">
                 <th>관리자승인</th>
+                </c:if>
             </tr>
         </thead>
         <tbody>
@@ -49,12 +49,14 @@
                     <td>${b.cooContractCode}</td>
                     <td>${b.cooContractStat}</td>
                     <td>${b.cooContractPayStat}</td>
+                    <c:if test="${sessionScope.level == '관리자'}">
                    <td>
 						<form id="cooContractAdmit"
 							action="${pageContext.request.contextPath}/partnerContractAdmit?cooContractNo=${b.cooContractNo}&managerId=${sessionScope.id}" method="post"> 
 							<input class="btn btn-default" id="cooContractAdmitBtn" type="button" value="승인하기" /> 
 						</form>
 					</td>
+					</c:if>
  
                 </tr>
             </c:forEach>

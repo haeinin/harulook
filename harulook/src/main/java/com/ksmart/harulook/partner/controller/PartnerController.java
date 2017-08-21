@@ -2,6 +2,8 @@ package com.ksmart.harulook.partner.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,12 +47,22 @@ public class PartnerController {
 	public String cooContractAdmit(PartnerDto dto){
 		System.out.println("제휴계약신청 승인하기");
 		dao.updateCooContractAdmit(dto);
-		return "redirect:/partnerContractList";
+		return "redirect:/partnerContractAllList";
 	}
-	/*제휴계약 리스트보기*/
-	@RequestMapping(value = "/partnerContractList", method = RequestMethod.GET)
-	public String partnerContractList(Model model) {
+	/*제휴계약 전체목록보기(관리자)*/
+	@RequestMapping(value = "/partnerContractAllList", method = RequestMethod.GET)
+	public String partnerContractAllList(Model model) {
 		List<PartnerDto> list = dao.getCooContractList();
+		model.addAttribute("list",list);
+		System.out.println("제휴계약컨트롤러 리스트보기");
+		return "partner/contract/partner_contract_list";
+	}
+	/*제휴계약 목록보기(개인)*/
+	@RequestMapping(value = "/partnerContractList", method = RequestMethod.GET)
+	public String partnerContractList(Model model
+									,HttpSession session) {
+		String id = (String) session.getAttribute("id");
+		List<PartnerDto> list = dao.getCooContractList(id);
 		model.addAttribute("list",list);
 		System.out.println("제휴계약컨트롤러 리스트보기");
 		return "partner/contract/partner_contract_list";
@@ -86,23 +98,34 @@ public class PartnerController {
 	/*제휴결제예정 수수료 보기*/
 	@RequestMapping(value = "/partnerContractBillList", method = RequestMethod.GET)
 	public String partnerContractBillList(Model model
+										,HttpSession session
 										/*,@RequestParam(value="cooContractNo",required=true) String cooContractNo*/){
-		String s = "coo_contract_02";
-		List<PartnerBillDto> list = dao.getCooContractBill(s);
+		String id = (String) session.getAttribute("id");
+		List<PartnerBillDto> list = dao.getCooContractBill(id);
 		model.addAttribute("list",list);
 		System.out.println("제휴결제예정수수료보기");
 		return "partner/pay/partner_bill_list";
 	}
 	/*제휴결제처리*/
-	@RequestMapping(value = "/partnerContractPay", method = RequestMethod.GET)
+	@RequestMapping(value = "/partnerContractPay", method = RequestMethod.POST)
 	public String partnerContractPay(PartnerBillDto dto){
 		System.out.println("제휴결제처리(insert-update-delete)");
+		System.out.println(dto.toString());
 		dao.insertCooContractPay(dto);
 		dao.updateCooContractPayStat(dto);
 		dao.deleteCooContractBill(dto);
 		return "partner/pay/partner_pay_list";
 	}
 
+	/*제휴결제 폼 요청*/
+	@RequestMapping(value = "/partnerContractPayInsert", method = RequestMethod.GET)
+	public String partnerContractPayInsert(Model model
+											,@RequestParam(value="cooContractNo",required=true) String cooContractNo){
+		PartnerBillDto dto = dao.cooContractPayForm(cooContractNo);
+		model.addAttribute("dto",dto);
+		return "partner/pay/partner_pay_insert";
+		
+	}
 	
 	
 }
