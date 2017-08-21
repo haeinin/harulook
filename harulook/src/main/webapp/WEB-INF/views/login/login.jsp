@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -105,22 +106,22 @@
         });
 		
 		$('#userUpdateButton').click(function(){	//일반회원수정하기
+			sessionStorage.setItem('id', $('#user_id_modal').val());
 			$('#userUpdate').submit();
-        });
+		});
 		
 		$('#businessUpdateButton').click(function(){	//사업자 관리자 회원 수정하기
-			$('#businessUpdate').submit();	
-        });
+			$('#businessUpdate').submit();
+		});
 		
-		$('#user_id_modal').blur(function(){	//	아이디값저장
+		$('#pwFindAdd').click(function(){	//	아이디값저장
 			sessionStorage.setItem('id', $('#user_id_modal').val());
 			var position = sessionStorage.getItem('id');
 			console.log(position + " == 세션");
 			console.log(sessionStorage.getItem('id') + " == 세션");
 		});
-		
-		
-	 });
+			
+	});
 	
 	
 </script>
@@ -245,20 +246,23 @@
 		        				
         				<!-- 관리자와 사업자 수정하기버튼 -->
 					    <form id="businessUpdate" action="${pageContext.request.contextPath}/businessUpdate?userId=${sessionScope.id}" method="post">
-				  		<div>
-				  			<input class="btn btn-default" id="businessUpdateButton" type="button" value="내 정보 수정 하기(관리자운영자)"/>
-				  	 	</div>	
+				  			<div>
+				  				<input class="btn btn-default" id="businessUpdateButton" type="button" value="내 정보 수정 하기(관리자운영자)"/>
+				  	 		</div>	
 					    </form>
         			
         				<!-- 일반회원수정하기버튼 -->
         			    <form id="userUpdate" action="${pageContext.request.contextPath}/userUpdate?userId=${sessionScope.id}" method="post">
-				  		<div>
-				  			<input class="btn btn-default" id="userUpdateButton" type="button" value="내 정보 수정 하기(일반회원)"/>
-				  	 	</div>	
+				  			<div>
+				  				<input class="btn btn-default" id="userUpdateButton" type="button" value="내 정보 수정 하기(일반회원)"/>
+				  	 		</div>	
 					    </form>
 						  
 		        		<!-- 비밀번호찾기버튼 -->
 		        		<input class="btn btn-default" id="pwFindAdd" type="button" value="비밀번호찾기"/>
+		        		<input id="afasdf" type="text" value="${sessionScope.id}"/>
+		        		<a>닉네임 : ${sessionScope.id}</a><br>
+		        		<a>닉네임자바코드로 : <%= session.getAttribute("id")%></a><br>
 			            </form>      
 					</div>
 		       	</div>

@@ -24,7 +24,6 @@ public class MemberDao {
     	map.put("userNick", memberDto.getUserNick());
     	map.put("userQ", memberDto.getUserQ());
     	map.put("userA", memberDto.getUserA());
-    		System.out.println("aaa=== " + map);
     	return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.pwFindForm", map);
       
     }
