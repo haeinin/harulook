@@ -24,12 +24,14 @@
 	
 	<resultMap type="com.ksmart.harulook.mall.service.MallSaleDto" id="mallSale">
 		<result property="userId" column="user_id"></result>
+		<result property="mallProName" column="mall_pro_name"></result>
 		<result property="mallSaleAmount" column="mall_sale_amount"></result>
 		<result property="mallSaleTotal" column="mall_sale_total"></result>
 		<result property="mallSaleDate" column="mall_sale_date"></result>
-		<result property="mallProName" column="mall_pro_no"></result>
+		
 	</resultMap>
 	
+	<!-- 상품 상세보기 -->
 	<select id="mallProDetail" resultMap="mallPro">
 		SELECT mall_pro_no,
 		partner_no, mall_pro_name, mall_pro_price, mall_pro_cate, mall_pro_img
@@ -37,15 +39,7 @@
 		WHERE mall_pro_no = #{mallProNo};
 	</select>
 
-	<select id="mallProList" parameterType="java.util.Map"
-		resultMap="mallPro">
-		SELECT mall_pro_no
-		, mall_pro_name
-		, mall_pro_price
-		, mall_pro_img
-		FROM mall_pro
-	</select>
-
+	
 	<insert id="mallVisit" parameterType="com.ksmart.harulook.mall.service.MallVisitorDto">
 		INSERT INTO coo_visitor
 		(coo_visitor_no, mall_pro_no, coo_visitor_date, coo_visitor_time, coo_visitor_check)
@@ -57,7 +51,8 @@
 		FROM coo_visitor
 	</select>
 	
-	<insert id="mallSaleOneInsert" parameterType ="com.ksmart.harulook.mall.service.MallSaleDto">
+	<!-- 구매한 상품 입력 -->
+	<insert id="mallSaleUserInsert" parameterType ="com.ksmart.harulook.mall.service.MallSaleDto">
 	INSERT INTO mall_sale
 	(
 	user_id
@@ -80,25 +75,28 @@
 	)
 	</insert>
 	
-	<!-- <insert id="mallSaleInsert" parameterType ="com.ksmart.harulook.dto.MallSaleDto">
+	<!-- 비회원 상품 구매 -->
+	<insert id="mallSaleNonInsert" parameterType ="com.ksmart.harulook.mall.service.MallSaleDto">
 	INSERT INTO mall_sale
 	(
-	user_id
-	,mall_pro_no
+	mall_pro_no
 	,mall_sale_amount
 	,mall_sale_price
+	,mall_sale_total
 	,mall_sale_date
 	,coo_contract_code
 	)
 	VALUES 
 	(
-	'1'
-	,#{mallProNo}
-	,1
+	#{mallProNo}
+	,#{mallSaleAmount}
 	,#{mallSalePrice}
+	,#{mallSaleTotal}
 	,now()
-	,#{cooContractCode})
-	</insert> -->
+	,#{cooContractCode}
+	)
+	</insert>
+
 	<!-- 할인코드 확인 -->
 	<select id ="vaildCooContractCode"  parameterType="String" resultType="String">
 	SELECT coo_contract_dc
@@ -106,14 +104,30 @@
 	WHERE coo_contract_code= #{cooContractCode}
 	</select>
 	
-	<!-- 구매목록보기 -->
+	<!-- 방금 구매한 내역 보기 -->
+	<select id = "getMallBuyNow" resultMap="mallSale">
+	SELECT 
+		mall_pro.mall_pro_name
+		,mall_sale.mall_sale_amount
+		,mall_sale.mall_sale_total
+		,mall_sale.mall_sale_date
+	FROM 
+		mall_sale
+	JOIN 
+		mall_pro
+	ON 
+		mall_pro.mall_pro_no=mall_sale.mall_pro_no 
+	ORDER BY mall_sale.mall_sale_date DESC LIMIT 0,1
+	</select>
+	
+	<!-- 내 주문내역 전체보기 -->
 	<select id = "getMallBuyList" parameterType="String" resultMap="mallSale">
 	SELECT 
 		mall_sale.user_id
 		,mall_pro.mall_pro_name
 		,mall_sale.mall_sale_amount
 		,mall_sale.mall_sale_total
-		,DATE(mall_sale.mall_sale_date)
+		,mall_sale.mall_sale_date
 	FROM 
 		mall_sale
 	JOIN 
@@ -121,7 +135,6 @@
 	ON 
 		mall_pro.mall_pro_no=mall_sale.mall_pro_no
 	WHERE 
-		mall_sale.user_id=#{userId}
-	
+		mall_sale.user_id=#{userId} 
 	</select>
 </mapper>

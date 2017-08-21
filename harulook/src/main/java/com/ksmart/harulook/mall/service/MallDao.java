@@ -28,15 +28,23 @@ public class MallDao{
 		return sqlSessionTemplate.insert("com.ksmart.harulook.mall.service.MallMapper.mallVisit",mallVistorNo);
 	}*/
 	
-	/*상품 구입 처리*/
+	/*회원 상품 구입 처리*/
 	public int insertMallSale(MallSaleDto dto){
-		return sqlSessionTemplate.insert("com.ksmart.harulook.mall.service.MallMapper.mallSaleOneInsert",dto);
+		return sqlSessionTemplate.insert("com.ksmart.harulook.mall.service.MallMapper.mallSaleUserInsert",dto);
+	}
+	/*비회원 상품 구입 처리*/
+	public int insertMallSaleNon(MallSaleDto dto){
+		return sqlSessionTemplate.insert("com.ksmart.harulook.mall.service.MallMapper.mallSaleNonInsert",dto);
 	}
 	/*할인코드 확인*/
 	public String getCooContractCode(String cooContractCode){
 		return sqlSessionTemplate.selectOne("com.ksmart.harulook.mall.service.MallMapper.vaildCooContractCode",cooContractCode);
 	}
-	/*구매내역 보기*/
+	/*방금 구매한 정보 보기*/
+	public MallSaleDto getMallBuyNow(){
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.mall.service.MallMapper.getMallBuyNow");
+	}
+	/*내 구매내역 전체보기*/
 	public List<MallSaleDto> getMallBuyList(String id){
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.mall.service.MallMapper.getMallBuyList",id);
 	}

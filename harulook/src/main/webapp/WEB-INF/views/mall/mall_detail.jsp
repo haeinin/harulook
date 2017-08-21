@@ -8,16 +8,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Beautiful Closet</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link href="https://fonts.googleapis.com/css?family=Lato"
-	rel="stylesheet" type="text/css">
-<link href="https://fonts.googleapis.com/css?family=Montserrat"
-	rel="stylesheet" type="text/css">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
 
 
 <style>
+body{
+	font-family: 'Jeju Gothic',	sans-serif;
+}
 .nav-tabs li a {
 	color: #777;
 }
@@ -65,7 +64,10 @@
 .container {
 	padding: 80px 100px;
 	margin-top: 100px;
+	
 }
+	
+
 </style>
 
 </head>
@@ -79,7 +81,7 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#myPage">Beautiful Closet</a>
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/mallMain">Beautiful Closet</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
@@ -128,6 +130,9 @@
 
 				<a class="btn btn-default"
 					href="${pageContext.request.contextPath}/mallProOrder?mallProNo=${dto.mallProNo}">주문하기</a>
+			</div>
+		</div>
+	</div>
 </body>
 
 </html>

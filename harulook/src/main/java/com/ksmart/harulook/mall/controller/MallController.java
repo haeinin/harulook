@@ -23,6 +23,7 @@ public class MallController {
 	@Autowired
 	private MallDao dao;
 
+	/*상품상세보기*/
 	@RequestMapping(value = "/mallDetail", method = RequestMethod.GET)
 	public String mallDetail(Model model, @RequestParam(value = "mallProNo", required = true) String mallProNo) {
 		MallDto dto = dao.getMallPro(mallProNo);
@@ -31,34 +32,56 @@ public class MallController {
 		return "mall/mall_detail";
 
 	}
-
-	@RequestMapping(value = "/mallList", method = RequestMethod.GET)
-	public String mallList(Model model) {
-		List<MallDto> list = dao.getMallProList();
-		model.addAttribute("list", list);
-		return "mall/mall_list";
-
-	}
-
+	/*상품주문 폼 요청*/
 	@RequestMapping(value = "/mallProOrder", method = RequestMethod.GET)
 	public String mallProOrder(Model model, @RequestParam(value = "mallProNo", required = true) String mallProNo) {
 		MallDto dto = dao.getMallPro(mallProNo);
 		model.addAttribute("dto", dto);
 		return "mall/mall_order";
 	}
-
+	/*상품구매처리 와 구매한 내역보기*/
 	@RequestMapping(value = "/mallProOrder", method = RequestMethod.POST)
-	public String mallProSale(MallSaleDto dto
+	public String mallProOrder(MallSaleDto dto
 				,HttpSession session
 				,Model model) {
-		dao.insertMallSale(dto);
 		String id = (String) session.getAttribute("id");
 		System.out.println("id=>"+id);
-		List<MallSaleDto> list = dao.getMallBuyList(id);
-		model.addAttribute("list",list);
+		
+		if(id == null){
+			System.out.println("if문실행");
+			System.out.println(dto.getMallProNo());
+			dao.insertMallSaleNon(dto);
+			
+		}else{
+			System.out.println("else문실행");
+			dto.toString();
+			dto.setUserId(id);
+			dto.toString();
+			dao.insertMallSale(dto);
+		}
+		MallSaleDto getDto = dao.getMallBuyNow();
+		model.addAttribute("getDto",getDto);
+		
+		
 		System.out.println("model=>"+model.toString());
 		return "mall/mall_sale";
 	}
+	
+
+	/*아이디별 상품 구매 내역보기*/
+	@RequestMapping(value = "/mallOrderList", method = RequestMethod.GET)
+	public String mallOrderList(HttpSession session,Model model) {
+
+		String id = (String) session.getAttribute("id");
+		System.out.println("id=>"+id);
+		
+		List<MallSaleDto> list = dao.getMallBuyList(id);
+		model.addAttribute("list",list);
+		
+		return "mall/mall_order_list";
+	}
+
+
 	@RequestMapping(value = "/mallSale", method = RequestMethod.GET)
 	public String mallProSale() {
 		return "mall/mall_sale";

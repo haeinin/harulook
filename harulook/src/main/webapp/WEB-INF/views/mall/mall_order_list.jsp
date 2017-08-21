@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,12 +9,8 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
-<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
 <title>Beautiful Closet</title>
 <style>
-body{
-	font-family: 'Jeju Gothic',	sans-serif;
-}
 .nav-tabs li a {
 	color: #777;
 }
@@ -58,6 +54,7 @@ body{
 .dropdown-menu li a:hover {
 	background-color: red !important;
 }
+
 .container {
 	padding: 80px 100px;
 	margin-top: 100px;
@@ -73,7 +70,9 @@ body{
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<<a class="navbar-brand" href="${pageContext.request.contextPath}/mallMain">Beautiful Closet</a>
+			<<a class="navbar-brand"
+				href="${pageContext.request.contextPath}/mallMain">Beautiful
+				Closet</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
@@ -93,30 +92,31 @@ body{
 		</div>
 	</div>
 	</nav>
-<div class="container">
-구매감사합니다!<br><br>
+	<div class="container">
 
- <table class="table">
-        <thead>
-            <tr>
-                <th>상품명</th>
-                <th>상품갯수</th>
-                <th>총금액</th>
-                <th>구매날짜</th>
-            </tr>
-        </thead>
-        <tbody>
-                <tr>
-                    
-                    <td>${getDto.mallProName}</td>
-                    <td>${getDto.mallSaleAmount}</td>
-                    <td>${getDto.mallSaleTotal}</td>
-                    <td>${getDto.mallSaleDate}</td>
-                    
+		<table class="table">
+			<thead>
+				<tr>
+					<th>상품명</th>
+					<th>상품갯수</th>
+					<th>총금액</th>
+					<th>구매날짜</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="b" items="${list}">
+					<tr>
 
-                </tr>
-        </tbody>
-        </table>
-        </div>
+						<td>${b.mallProName}</td>
+						<td>${b.mallSaleAmount}</td>
+						<td>${b.mallSaleTotal}</td>
+						<td>${b.mallSaleDate}</td>
+
+
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

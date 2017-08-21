@@ -15,9 +15,12 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
+
   <style>
   body {
       font: 400 15px/1.8 Lato, sans-serif;
+      font-family: 'Jeju Gothic';
       color: #777;
   }
   h3, h4 {
@@ -216,7 +219,7 @@
         <a href="${pageContext.request.contextPath}/mallDetail?mallProNo=mall_pro_01" target="_top">
           <img src="resources/mall_pro_1.jpg" alt="Lights" style="width:100%">
           <div class="caption">
-            <p>상품이름</p>
+            <p>스키니진</p>
           </div>
         </a>
       </div>
@@ -226,7 +229,7 @@
         <a href="${pageContext.request.contextPath}/mallDetail?mallProNo=mall_pro_02" target="_top">
           <img src="resources/mall_pro_2.jpg" alt="Lights" style="width:100%">
           <div class="caption">
-            <p>상품이름</p>
+            <p>러블리 원피스</p>
           </div>
         </a>
       </div>
@@ -236,7 +239,7 @@
         <a href="${pageContext.request.contextPath}/mallDetail?mallProNo=mall_pro_03" target="_top">
           <img src="resources/mall_pro_3.jpg" alt="Lights" style="width:100%">
           <div class="caption">
-            <p>상품이름</p>
+            <p>체크 남방</p>
           </div>
         </a>
       </div>
@@ -249,7 +252,7 @@
         <a href="${pageContext.request.contextPath}/mallDetail?mallProNo=mall_pro_04" target="_top">
           <img src="resources/mall_pro_4.jpg" alt="Lights" style="width:100%">
           <div class="caption">
-            <p>상품이름</p>
+            <p>그린 체크 남방</p>
           </div>
         </a>
       </div>
@@ -259,7 +262,7 @@
         <a href="${pageContext.request.contextPath}/mallDetail?mallProNo=mall_pro_05" target="_top">
           <img src="resources/mall_pro_5.jpg" alt="Lights" style="width:100%">
           <div class="caption">
-            <p>상품이름</p>
+            <p>블랙 슬랙스</p>
           </div>
         </a>
       </div>
@@ -269,7 +272,7 @@
         <a href="${pageContext.request.contextPath}/mallDetail?mallProNo=mall_pro_06" target="_top">
           <img src="resources/mall_pro_6.jpg" alt="Lights" style="width:100%">
           <div class="caption">
-            <p>상품이름</p>
+            <p>핏좋은 티셔츠</p>
           </div>
         </a>
       </div>
