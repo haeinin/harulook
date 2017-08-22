@@ -1,12 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<!-- bootstrap을 사용하기 위한 CDN주소 -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+ 
+<!-- jquery를 사용하기위한 CDN주소 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 
+<!-- bootstrap javascript소스를 사용하기 위한 CDN주소 -->
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- 주소 api --> 
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script> 
+<!-- 유효성검사 -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- 모달을 쓰기위한 부트스트랩 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$('.deleteButton').click(function(){	//팔로우삭제
+			//console.log($(this).val());
+			var request = $.ajax({
+				  url: "./followDelete", //호출 경로
+				  method: "POST",	//전송방식
+				  data: { 'followId' : $(this).val() }, //전송해줄값
+				  dataType: "text", //결과값 타입 (리턴)
+			});
+			location.reload(true); 
+		});
+		
+		////////////////////////////////////////////////////////  친구게시물 보기 만들어야함
+		/* $('.followBoard').click(function(){	//팔로우삭제
+			//console.log($(this).val());
+			var request = $.ajax({
+				  url: "./followBoard", //호출 경로
+				  method: "POST",	//전송방식
+				  data: { 'followId' : $(this).val() }, //전송해줄값
+				  dataType: "text", //결과값 타입 (리턴)
+			});
+			location.reload(true); 
+		}); */
+		
+	});
+</script>
 </head>
 <body>
 
+	<!-- 친구 리스트 -->
+	<table>
+		
+	</table>
+		<div class="container" id="list">
+		  <h2>친구 목록</h2>
+		 <table class="table">
+		    <thead>
+		      <tr>
+		        <th>친구</th>
+		        <th>친구등록한날짜</th>
+		        <th>친구삭제</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		    <c:forEach var="f" items="${followList}">
+		      <tr>
+		      	<td><a type="button" class="followBoard" id="친구의 게시물" value="${f.followId}">${f.followId}</A></td>
+		      	<td>${f.followDate}</td>
+		        <td><button type="button" class="btn btn-default deleteButton" value="${f.followId}">삭제하기</button></td>
+		      </tr>
+		      </c:forEach>
+		    </tbody>
+		  </table>
+		</div>
+	
 </body>
 </html>

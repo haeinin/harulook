@@ -29,6 +29,11 @@
 		console.log(ip());
 		var addr;
 		
+		/* 세션 입력 */
+		sessionStorage.setItem('influx', 'haruloook');
+		var position = sessionStorage.getItem('influx');
+		console.log(position + " == 세션sadfsadlkfasjlkfjasdflkj");
+		
 		/* function ipv(){
 		  return -1 !=ip().indexOf(":")?6:4
 		}

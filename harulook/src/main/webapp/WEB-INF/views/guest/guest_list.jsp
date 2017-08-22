@@ -30,8 +30,36 @@
 </script>
 </head>
 <body>
-아이디 : <c:out value='${monthlyGuest}'/><br>
-권한 : <c:out value='${weeklyGuest}'/><br>
-닉네임 : <c:out value='${dailyGuest}'/><br>
+
+	<!-- 일일게스트수 -->
+	<table>
+		<c:forEach var="d" items="${dailyGuest}">
+			<tr>
+				<td>일일날짜 : ${d.dailyDate}</td>
+				<td>게시트수 : ${d.guestCount}</td>
+			</tr>
+		</c:forEach>
+	</table>
+	
+	<!-- 주간게스트수 -->
+	<table>
+		<c:forEach var="w" items="${weeklyGuest}">
+			<tr>
+				<td>주간날짜 : ${w.weeklyStart}</td>
+				<td>주간날짜 : ${w.weeklyEnd}</td>
+				<td>게시트수 : ${w.guestCount}</td>
+			</tr>
+		</c:forEach>
+	</table>
+	
+	<!-- 월간게스트수 -->
+	<table>
+		<c:forEach var="m" items="${monthlyGuest}">
+			<tr>
+				<td>월간날짜 : ${m.monthlyDate}</td>
+				<td>게시트수 : ${m.guestCount}</td>
+			</tr>
+		</c:forEach>
+	</table>	
 </body>
 </html>

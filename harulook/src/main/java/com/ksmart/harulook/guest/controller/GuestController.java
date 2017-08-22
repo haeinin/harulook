@@ -1,5 +1,7 @@
 package com.ksmart.harulook.guest.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ksmart.harulook.guest.service.GuestDao;
+import com.ksmart.harulook.guest.service.GuestDto;
 
 @Controller
 public class GuestController {
@@ -42,9 +45,10 @@ public class GuestController {
 	@RequestMapping(value="/guestList", method = RequestMethod.GET)
 	public String guestList(Model model) {
 		System.out.println("방문자 리스트 폼");
-		String monthlyGuest = guestDao.monthlyGuest();	//월간
-		String weeklyGuest = guestDao.weeklyGuest();	//주간
-		String dailyGuest = guestDao.dailyGuest();	//일일
+		List<GuestDto> monthlyGuest = guestDao.monthlyGuest();	//월간
+		List<GuestDto> weeklyGuest = guestDao.weeklyGuest();	//주간
+		List<GuestDto> dailyGuest = guestDao.dailyGuest();	//일일
+			System.out.println("GuestController dailyGuest == " + dailyGuest);
 		
 		model.addAttribute("monthlyGuest", monthlyGuest);
 		model.addAttribute("weeklyGuest", weeklyGuest);

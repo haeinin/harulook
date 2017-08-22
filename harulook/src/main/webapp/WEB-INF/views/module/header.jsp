@@ -66,6 +66,10 @@
 		$('#guestListButton').click(function(){	//방문자 접속자수 보기
 			$('#guestListForm').submit();
         });
+		
+		$('#followListButton').click(function(){	//팔로우 리스트 보기
+			$('#followList').submit();
+        });
 	 });
 </script>
 </head>
@@ -229,9 +233,16 @@
 				  </form>
 				  
 				  	<!-- 내 친구 보기 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				  <form id="followList" action="${pageContext.request.contextPath}/followList?userId=${sessionScope.id}" method="post">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="내 친구 보기"/>
+			  			<input class="btn btn-default" id="followListButton" type="button" value="내 친구 보기"/>
+			  	 	</div>	
+				  </form>
+				  
+				  <!-- 나를 등록한 친구목록 -->
+				  <form id="fㅁㄴㅇㄻㄴㅇㄹ" action="${pageContext.request.contextPath}/followList?userId=${sessionScope.id}" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="fㅁㄴㅇㄻㄴㅇㄹ" type="button" value="나를 등록한 친구 목록"/>
 			  	 	</div>	
 				  </form>		
 			</c:if>

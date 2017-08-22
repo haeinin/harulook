@@ -16,18 +16,18 @@ public class GuestDao {
     private SqlSessionTemplate sqlSessionTemplate;
 	
 	/*월간방문자수조회 */
-    public String monthlyGuest() {
-    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.guest.service.GuestMapper.monthlyGuest");
+    public List<GuestDto> monthlyGuest() {
+    	return sqlSessionTemplate.selectList("com.ksmart.harulook.guest.service.GuestMapper.monthlyGuest");
     }
 	 
 	/*주간방문자수조회 */
-    public String weeklyGuest() {
-    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.guest.service.GuestMapper.weeklyGuest");
+    public List<GuestDto> weeklyGuest() {
+    	return sqlSessionTemplate.selectList("com.ksmart.harulook.guest.service.GuestMapper.weeklyGuest");
     }
 	 
 	 /*일일방문자수조회 */
-    public String dailyGuest() {
-    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.guest.service.GuestMapper.dailyGuest");
+    public List<GuestDto> dailyGuest() {
+    	return sqlSessionTemplate.selectList("com.ksmart.harulook.guest.service.GuestMapper.dailyGuest");
     }
 	 
 	/*중복접속체크 */
