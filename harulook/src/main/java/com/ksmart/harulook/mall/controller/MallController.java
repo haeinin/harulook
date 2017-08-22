@@ -88,7 +88,7 @@ public class MallController {
 	public String mallMain() {
 		return "mall/mall_main";
 	}
-	
+
 	@RequestMapping(value="/insertMallVisitor", produces = "application/text; charset=utf8", method = RequestMethod.POST)
 	public String insertMallVisitor(HttpServletRequest request
 									,HttpSession session
