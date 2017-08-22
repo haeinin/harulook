@@ -103,8 +103,7 @@ public class PartnerController {
 	/*제휴결제예정 수수료 보기*/
 	@RequestMapping(value = "/partnerContractBillList", method = RequestMethod.GET)
 	public String partnerContractBillList(Model model
-										,HttpSession session
-										/*,@RequestParam(value="cooContractNo",required=true) String cooContractNo*/){
+										,HttpSession session){
 		String id = (String) session.getAttribute("id");
 		List<PartnerBillDto> list = dao.getCooContractBill(id);
 		model.addAttribute("list",list);

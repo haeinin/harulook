@@ -135,8 +135,8 @@
 						<h4>결제 방법</h4>
 						<input type="button" id="payCard" name="payWay" value="카드결제">&nbsp;&nbsp;&nbsp;
 						<input type="button" id="payAccount" name="payWay" value="무통장입금"><br>
-						<c:import url="./pay_account.jsp"></c:import>
-						<c:import url="./pay_card.jsp"></c:import>
+						<c:import url="../../module/pay_account.jsp"></c:import>
+						<c:import url="../../module/pay_card.jsp"></c:import>
 
 						<div class="btnPayEnd">
 							<input class="btn btn-danger btn-md" id="payComplete"
