@@ -70,6 +70,14 @@
 		$('#followListButton').click(function(){	//팔로우 리스트 보기
 			$('#followList').submit();
         });
+		
+		$('#followMeListButton').click(function(){	//나를 등록한 팔로우 리스트 보기
+			$('#followMeList').submit();
+        });
+		
+		$('#followCheckButton').click(function(){	//팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식
+			$('#followCheck').submit();
+        });
 	 });
 </script>
 </head>
@@ -99,6 +107,14 @@
 		<form id="logoutadd" action="${pageContext.request.contextPath}/logout" method="post">
 	  		<div>
 	  			<input class="btn btn-default" id="logout" type="button" value="로그아웃"/>
+	  	 	</div>	
+		</form>
+		
+		<!--------팔로우등록 테스트양식------------------------------------------------------------------------------------  -->
+		<form id="followCheck" action="${pageContext.request.contextPath}/followCheck" method="post">
+	  		<div>
+	  			<input id="followId" name="followId" type="text" />
+	  			<input class="btn btn-default" id="followCheckButton" type="button" value="입력"/>
 	  	 	</div>	
 		</form>		
 	</c:if>
@@ -240,9 +256,9 @@
 				  </form>
 				  
 				  <!-- 나를 등록한 친구목록 -->
-				  <form id="fㅁㄴㅇㄻㄴㅇㄹ" action="${pageContext.request.contextPath}/followList?userId=${sessionScope.id}" method="post">
+				  <form id="followMeList" action="${pageContext.request.contextPath}/followMeList?userId=${sessionScope.id}" method="post">
 			  		<div>
-			  			<input class="btn btn-default" id="fㅁㄴㅇㄻㄴㅇㄹ" type="button" value="나를 등록한 친구 목록"/>
+			  			<input class="btn btn-default" id="followMeListButton" type="button" value="나를 등록한 친구 목록"/>
 			  	 	</div>	
 				  </form>		
 			</c:if>

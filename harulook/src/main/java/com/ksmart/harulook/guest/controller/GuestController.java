@@ -34,8 +34,8 @@ public class GuestController {
 	        int guestInsertNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
 	    	if(guestSelectNo != null) {
 	    		guestInsertNo = Integer.parseInt(guestSelectNo)+1;	//마지막no +1
-    		guestDao.guestInsert(ip, "guest_"+guestInsertNo );	//게스트입력 ip, no
-    		return "home";
+	    		guestDao.guestInsert(ip, "guest_"+guestInsertNo );	//게스트입력 ip, no
+	    		return "home";
 	    	}	
     	}
         return "home";  

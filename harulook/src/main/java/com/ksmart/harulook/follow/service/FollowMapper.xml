@@ -19,6 +19,14 @@
 		;
    	</select>
 	
+	<!-- 나를 팔로우한 리스트 -->
+   	<select id="followMeSeach" parameterType="java.util.Map" resultMap="Follow">
+		select follow_no, user_id, follow_id, follow_date
+		from follow
+		where follow_id = #{followId}
+		;
+   	</select>
+	
 	<!-- 팔로우리스트 -->
    	<select id="followSeach" parameterType="java.util.Map" resultMap="Follow">
 		select follow_no, user_id, follow_id, follow_date
@@ -26,7 +34,37 @@
 		where user_id = #{followId}
 		;
    	</select>
-
+	
+	<!-- 팔로우입력 -->
+   	<select id="followInsert" parameterType="java.util.Map" >
+		INSERT INTO follow(
+			follow_no
+			,user_id
+			,follow_id
+			,follow_date
+			)
+		VALUES (
+			#{followNo}
+			,#{userId}
+			,#{followId}
+			,date(now())
+			);
+   	</select>
+	
+	<!-- 팔로우중복체크 -->
+   	<select id="followCheck" parameterType="java.util.Map" resultType="String">
+		select follow_no
+		from follow
+		where user_id = #{userId} and follow_id = #{followId}
+		;
+   	</select>
+	
+	<!-- 팔로우넘버 검색 -->
+   	<select id="followNo" resultType="String">
+		select MAX(CAST(substring(follow_no, 8) AS DECIMAL))
+		from follow
+		;
+   	</select>
 </mapper>
 
 
