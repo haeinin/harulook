@@ -95,6 +95,7 @@ $(function(){
 </head>
 <body>
 게시물 상세보기 화면
+${b.snsBoardImg}
 <div class="container">
      <table class="table">
          <tbody>
@@ -108,7 +109,7 @@ $(function(){
             </tr>
             <tr>
 				<td>sns_board_img :</td>
-				<td>${board.snsBoardImg}</td>
+				<td><img alt="no image" src="${board.snsBoardImg}"></td>
             </tr>
             <tr>
                 <td>sns_board_content :</td>

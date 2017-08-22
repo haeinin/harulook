@@ -5,6 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<!-- jquery를 사용하기위한 CDN주소 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -12,24 +14,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<!-- jquery를 사용하기위한 CDN주소 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
-$(function(){
-	$('#searchBtn').click(function(){
-		$.ajax({
-			url : './boardSearchList',
-			method : 'POST',
-			data : { 'snsBoardWeather'	: $('#snsBoardWeather').val()
-					 ,'snsBoardTall'	: $('#snsBoardTall').val()
-					 ,'snsBoardSize'	: $('#snsBoardSize').val()
-					 ,'snsBoardLoc'		: $('#snsBoard')
-					},
-			}
-			
-		});	
-	});
-});
 </script>
 </head>
 <body>
@@ -40,7 +25,7 @@ $(function(){
 	    	<option></option>
 	    	<option>맑음</option>
 	    	<option>구름조금</option>
-	    	<option>흐림</option>
+		   	<option>흐림</option>
 	    	<option>비</option>
 	    	<option>눈</option>
 	    </select>
@@ -135,7 +120,7 @@ $(function(){
        	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이
        	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객    	
      </div>
-     <button type="button" id="searchBtn">검색</button>
+     <button type="submit" id="searchBtn">검색</button>
 </form>
 </body>
 </html>

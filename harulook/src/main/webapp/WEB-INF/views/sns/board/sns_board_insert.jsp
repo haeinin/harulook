@@ -21,11 +21,11 @@
 <body>
 게시물 입력 화면
 	<div class="container">
-	<form id="insertForm" action="${pageContext.request.contextPath}/boardInsert" method="post">
+	<form id="insertForm" action="${pageContext.request.contextPath}/boardInsert" method="post" enctype="multipart/form-data">
         <input class="form-control" name="userId" id="userId" type="hidden" value="${sessionScope.id}"/>
         <div class="form-group">
-            <label for="snsBoardImg">snsBoardImg :</label>
-            <input class="form-control" name="snsBoardImg" id="snsBoardImg" type="text"/>
+            <label for="uploadFile">snsBoardImg :</label>
+            <input class="form-control" name="uploadFile" id="uploadFile" type="file"/>
         </div>
         <div class="form-group">
             <label for="snsBoardContent">snsBoardContent :</label>

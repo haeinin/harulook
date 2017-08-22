@@ -11,12 +11,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ksmart.harulook.board.service.BoardDao;
 import com.ksmart.harulook.board.service.BoardDto;
 import com.ksmart.harulook.comment.service.CommentDao;
 import com.ksmart.harulook.comment.service.CommentDto;
 import com.ksmart.harulook.like.service.LikeDao;
+import com.ksmart.harulook.util.UtilFile;
 
 @Controller
 public class BoardController {
@@ -217,9 +220,22 @@ public class BoardController {
 	
 	 /* sns게시물 입력 처리 요청 */
     @RequestMapping(value="/boardInsert", method = RequestMethod.POST)
-    public String boardInsert(BoardDto board, HttpServletRequest request) {
+    public String boardInsert(BoardDto board, HttpServletRequest request,
+    		@RequestParam("uploadFile") MultipartFile uploadFile,
+            MultipartHttpServletRequest multipartRequest) {
     	System.out.println("boardInsert 처리 요청");
     	
+    	System.out.println("RewardController reAddProCtrl uploadFile : " + uploadFile);
+    	
+//      UtilFile 객체 생성
+        UtilFile utilFile = new UtilFile();
+        
+//      파일 업로드 결과값을 path로 받아온다(이미 fileUpload() 메소드에서 해당 경로에 업로드는 끝났음)
+        String uploadPath = utilFile.fileUpload(multipartRequest, uploadFile);
+        
+        System.out.println("RewardController reAddProCtrl uploadPath : " + uploadPath);
+    	board.setSnsBoardImg(uploadPath.substring(61));
+        
     	String[] colorValue = request.getParameterValues("colorValue");
 		String[] styleValue = request.getParameterValues("styleValue");
 		String[] situationValue = request.getParameterValues("situationValue");
