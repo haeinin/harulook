@@ -1,6 +1,8 @@
 package com.ksmart.harulook.mall.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,24 +12,10 @@ import org.springframework.stereotype.Repository;
 public class MallDao{
 	@Autowired
     private SqlSessionTemplate sqlSessionTemplate;
-	
+	/*쇼핑몰 상품 상세보기*/
 	public MallDto getMallPro(String mallProNo) {
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.mall.service.MallMapper.mallProDetail", mallProNo);
     }
-	/*쇼핑몰 상품 목록*/
-	public List<MallDto> getMallProList(){
-		return sqlSessionTemplate.selectList("com.ksmart.harulook.mall.service.MallMapper.mallProList");
-	}
-	
-	/*삭제할것들*/
-	/*public int countMallVistor(){
-		return sqlSessionTemplate.selectOne("com.ksmart.harulook.mall.service.MallMapper.mallVisitorId");
-	}
-	public int insertMallVisitor(String mallVistorNo){
-		System.out.println("mallVisitId="+mallVistorNo);
-		return sqlSessionTemplate.insert("com.ksmart.harulook.mall.service.MallMapper.mallVisit",mallVistorNo);
-	}*/
-	
 	/*회원 상품 구입 처리*/
 	public int insertMallSale(MallSaleDto dto){
 		return sqlSessionTemplate.insert("com.ksmart.harulook.mall.service.MallMapper.mallSaleUserInsert",dto);
@@ -48,4 +36,13 @@ public class MallDao{
 	public List<MallSaleDto> getMallBuyList(String id){
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.mall.service.MallMapper.getMallBuyList",id);
 	}
+	/*쇼핑몰 방문자 번호 가져오기*/
+	public String getLastMallVisitor(){
+		String lastMallVisitor = "";
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.mall.service.MallMapper.getLastMallVisitor",lastMallVisitor);
+	}
+	/*쇼핑몰 방문자 입력 처리*/
+	 public int insertMallVisitor(MallVisitorDto dto) {
+	        return sqlSessionTemplate.insert("com.ksmart.harulook.mall.service.MallMapper.insertMallVitor", dto);
+	    }
 }

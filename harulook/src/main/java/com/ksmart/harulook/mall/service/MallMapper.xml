@@ -15,11 +15,9 @@
 
 	<resultMap type="com.ksmart.harulook.mall.service.MallVisitorDto" id="mallVisitor">
 		<result property="mallVistorNo" column="coo_visitor_no"></result>
-		<result property="mallProNo" column="mall_pro_no"></result>
-		<result property="mallVistorDate" column="coo_visitor_date"></result>
-		<result property="mallVistorTime" column="coo_visitor_time"></result>
-		<result property="mallVistitorCheck" column="coo_visitor_check"></result>
-		<result property="mallVistitorPrice" column="coo_visitor_price"></result>
+		<result property="mallVisitorIp" column="coo_visitor_ip"></result>
+		<result property="mallVistorDatetime" column="coo_visitor_datetime"></result>
+		<result property="mallVisitorInflux" column="coo_visitor_influx"></result>
 	</resultMap>
 	
 	<resultMap type="com.ksmart.harulook.mall.service.MallSaleDto" id="mallSale">
@@ -39,18 +37,6 @@
 		WHERE mall_pro_no = #{mallProNo};
 	</select>
 
-	
-	<insert id="mallVisit" parameterType="com.ksmart.harulook.mall.service.MallVisitorDto">
-		INSERT INTO coo_visitor
-		(coo_visitor_no, mall_pro_no, coo_visitor_date, coo_visitor_time, coo_visitor_check)
-		VALUES (#{mallVistorNo}, '01', DATE(NOW()), TIME(NOW()), 0 )
-	</insert>
-
-	<select id="mallVisitorId" resultType="int">
-		SELECT COUNT(*)
-		FROM coo_visitor
-	</select>
-	
 	<!-- 구매한 상품 입력 -->
 	<insert id="mallSaleUserInsert" parameterType ="com.ksmart.harulook.mall.service.MallSaleDto">
 	INSERT INTO mall_sale
@@ -165,11 +151,40 @@
 	</select>
 	<!-- 월별 접속자 수 조회 -->
 	<select id="monthlyMallVisitor">
-	select month(coo_visitor_date) as 'month', count(coo_visitor_no)
-	from coo_visitor
-	group by month
+	SELECT 
+		month(coo_visitor_date) as 'month', count(coo_visitor_no)
+	FROM 
+		coo_visitor
+	GROUP BY 
+		month
 	
 	</select>
+	
+	<!-- 쇼핑몰 방문자 번호 가져오기 -->
+	<select id="getLastMallVisitor" resultType="String">
+		SELECT
+			max(CAST(substring(coo_visitor_no,13) AS DECIMAL))
+		FROM 
+			coo_visitor
+	</select>
+	
+	<!-- 쇼핑몰방문자 입력처리 -->
+	<insert id="insertMallVitor" parameterType="com.ksmart.harulook.mall.service.MallVisitorDto">
+	INSERT INTO coo_visitor
+	(
+	coo_visitor_no
+	,coo_visitor_ip
+	,coo_visitor_datetime
+	,coo_visitor_influx
+	)
+	VALUES 
+	(
+	#{mallVisitorNo}
+	,#{mallVisitorIp}
+	,NOW()
+	,#{mallVisitorInflux}
+	)
+	</insert>
 	
 	
 </mapper>

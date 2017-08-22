@@ -8,7 +8,6 @@
 
   <!-- Theme Made By www.w3schools.com - No Copyright -->
   <title>Beautiful Closet</title>
-  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
@@ -16,7 +15,21 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
+  <!-- ip받아오는 CDN -->
+<script type="text/javascript" src="http://jsgetip.appspot.com"></script>
+<script type="text/javascript">
+		
+	$(document).ready(function(){
+		console.log(ip());
 
+		var request = $.ajax({
+			  url: "./insertMallVisitor", //호출 경로
+			  method: "POST",	//전송방식
+			  data: { 'ip' : ip() }, //전송해줄값
+			  dataType: "text" //결과값 타입 (리턴)
+		});
+	});
+</script>
   <style>
   body {
       font: 400 15px/1.8 Lato, sans-serif;

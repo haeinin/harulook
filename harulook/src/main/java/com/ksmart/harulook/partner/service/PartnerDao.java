@@ -18,7 +18,7 @@ public class PartnerDao {
 	 public int insertCooContract(PartnerDto dto) {
 	        return sqlSessionTemplate.insert("com.ksmart.harulook.partner.service.PartnerMapper.cooContractInsert", dto);
 	    }
-	 /*제휴계약번호 갯수세기*/
+	 /*제휴계약번호 번호 가져오기*/
 	 public String getLastCooContractNo(){
 		 String lastCooContractNo = "";
 		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.getLastCooContractNo",lastCooContractNo);

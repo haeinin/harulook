@@ -2,6 +2,7 @@ package com.ksmart.harulook.mall.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ksmart.harulook.mall.service.MallDao;
 import com.ksmart.harulook.mall.service.MallDto;
 import com.ksmart.harulook.mall.service.MallSaleDto;
+import com.ksmart.harulook.mall.service.MallVisitorDto;
 
 
 @Controller
@@ -37,7 +39,7 @@ public class MallController {
 	public String mallProOrder(Model model, @RequestParam(value = "mallProNo", required = true) String mallProNo) {
 		MallDto dto = dao.getMallPro(mallProNo);
 		model.addAttribute("dto", dto);
-		return "mall/mall_order";
+		return "mall/mall_order_insert";
 	}
 	/*상품구매처리 와 구매한 내역보기*/
 	@RequestMapping(value = "/mallProOrder", method = RequestMethod.POST)
@@ -81,23 +83,37 @@ public class MallController {
 		return "mall/mall_order_list";
 	}
 
-
-	@RequestMapping(value = "/mallSale", method = RequestMethod.GET)
-	public String mallProSale() {
-		return "mall/mall_sale";
-	}
-/*	@RequestMapping(value = "/mallSale", method = RequestMethod.POST)
-	public String mallProSale(Model model
-							,@RequestParam(value="id", required=true) String id) {
-		List<MallSaleDto> list = dao.getMallBuyList(id);
-		model.addAttribute(list);
-		return "mall/mall_sale";
-	}*/
-	
+	/*쇼핑몰 메인화면*/
 	@RequestMapping(value = "/mallMain", method = RequestMethod.GET)
 	public String mallMain() {
 		return "mall/mall_main";
 	}
+	
+	@RequestMapping(value="/insertMallVisitor", produces = "application/text; charset=utf8", method = RequestMethod.POST)
+	public String insertMallVisitor(HttpServletRequest request
+									,HttpSession session
+									,@RequestParam("ip") String ip ) {
+		
+        System.out.println("컨트롤러:방문자 IP => " + ip);
+        
+        /*제휴계약번호 자동입력*/
+		String lastMallVisitor = dao.getLastMallVisitor();
+		int setNo = 1;
+		if(lastMallVisitor != null){
+			setNo = Integer.parseInt(lastMallVisitor)+1;
+		}
+		MallVisitorDto dto = new MallVisitorDto();	
+		dto.setMallVisitorNo("coo_visitor_"+setNo);
+		/***********************/
+		dto.setMallVisitorIp(ip);
+		String influx = (String)session.getAttribute("influx");
+		dto.setMallVisitorInflux(influx);
+		dao.insertMallVisitor(dto);
+		
+        return "mall/mall_main";
+	}
+	
+	/*할인 코드 유효한지 검사*/
 	@RequestMapping(value="/validCooContractCode", method = RequestMethod.POST)
 	public @ResponseBody String cooContractCode(@RequestParam(value="cooContractCode", required=true) String cooContractCode){
 		System.out.println("controller 할인코드확인 => " + cooContractCode);
