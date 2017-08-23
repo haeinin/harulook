@@ -24,7 +24,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- 모달을 쓰기위한 부트스트랩 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet" href="resources/css/cartoony_weather.css" type="text/css">
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#loginbutton').click(function(){	//로그인버튼
@@ -50,10 +50,99 @@
 		$('#managerlistbutton').click(function(){	//관리자회원리스트 버튼
 			$('#member_manager_list').submit();
         });
+		
+		var d = new Date();
+		var year = d.getFullYear();
+		var month = d.getMonth() + 1;
+		if(month < 10) {
+			month = '0'+month;
+		}
+		console.log(month);
+		var day = d.getDate();
+		if(day < 10) {
+			day = '0'+day;
+		}
+		var date = year+month+day+'';
+		console.log(date);
+		var hour = d.getHours();
+		var minute = d.getMinutes(); 
+		if(minute < 40) {
+			if(hour > 0) {
+				hour = hour - 1;
+			} else {
+				hour = 23;
+			}
+		}
+		if(hour < 10) {
+			hour = '0'+hour;
+		}
+		hour = hour+'00';
+		console.log(hour);
+		
+		var allData = { "date": date, "hour": hour };
+		
+		var weatherRequest = $.ajax({
+			url : './currentWeather',
+			method : 'get',
+			data : allData,
+			datatype : 'json',
+			success : function(data){
+				console.log(data);
+				$('#tempur').text('현재 기온 : '+data.temp1hour+'℃');
+				
+				switch(data.sky) {
+				case '1' : 
+					$('#weaterIcon').attr('class','sunny');
+					break;
+				case '2' : 
+					$('#weaterIcon').attr('class','partly_cloudy');
+					$('#sun').attr('class','partly_cloudy__sun');
+					$('#cloud').attr('class','partly_cloudy__cloud');
+					break;
+				case '3' :
+					$('#weaterIcon').attr('class','cloudy');
+					break;
+				case '4' :
+					$('#weaterIcon').attr('class','rainy');
+					$('#cloud').attr('class','rainy__cloud');
+					break;
+				default :
+					$('#weaterIcon').attr('class','');
+					break;
+				
+				}
+				
+				switch(data.rainStat) {
+				case '1' :
+					$('#rain').attr('class','rainy__rain');
+					break;
+				case '2' :
+					$('#rain').attr('class','thundery__rain');
+					break;
+				default :
+					$('#rain').removeAttr('class');
+					break;
+				}
+				
+			},
+			error : function(){
+				alert('fail');
+			}
+		});
 	 });
 </script>
 </head>
 <body>
+
+<!-- 현재 날씨  -->
+<div class="weather_body" >
+	<div id="weaterIcon">
+		<div id="sun"></div>
+		<div id="cloud"></div>
+		<div id="rain"></div>
+	</div> 
+</div>
+<div id="tempur"></div>
 <!-- 세션에 있는 아이디 권한 받기 -->
 아이디 : <c:out value='${sessionScope.id}'/><br>
 권한 : <c:out value='${sessionScope.level}'/><br>
