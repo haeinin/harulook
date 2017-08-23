@@ -29,8 +29,11 @@ public class MemberController {
 	/*비밀번호찾기*/
 	@RequestMapping(value="/pwFindFormAdd", produces = "application/text; charset=utf8", method = RequestMethod.POST)
 	public @ResponseBody String pwFindForm(MemberDto memberDto,
+			HttpSession session,
 			HttpServletResponse response) throws IOException {
 				System.out.println("MemeberController 비밀번호찾기==" + memberDto);
+			session.setAttribute("id", memberDto.getUserId());
+				System.out.println("MemeberController 비밀번호찾기 세션아이디==" + session);
 			String levelFindForm = memberDao.pwFindForm(memberDto);
 				System.out.println("MemeberController 비밀번호찾기==" + levelFindForm);
 			return levelFindForm; //일반회원가입폼화면
@@ -354,27 +357,40 @@ public class MemberController {
 	/*member_business_update(사업자+관리자 수정폼)*/
 	@RequestMapping(value="/businessUpdate", method = RequestMethod.POST)
 	public String businessUpdate(Model model,
+			HttpSession session,
 			@RequestParam(value="userId", required=true) String userId) {
+		System.out.println("MemeberController 관리자 사업자수정폼 받아온 아이디 == " + userId);
+		if(userId == "") {	//비밀번호찾기에서 회원수정으로 넘어올때 세션에 있는 아이디를 넣기 위한 if문
+			String sessionId = (String) session.getAttribute("id");
+			userId = sessionId;
+		}
 		MemberDto businessDetail = memberDao.businessDetail(userId);
 		model.addAttribute("businessDetail", businessDetail);
 		return "member/business/member_business_update"; //사업자 관리자 수정폼
 	}
 	
+	
 	/*member_user_update(일반회원수정폼)*/
 	@RequestMapping(value="/userUpdate", method = RequestMethod.POST)
 	public String userUpdate(Model model,
+			HttpSession session,
 			@RequestParam(value="userId", required=true) String userId) {
-		System.out.println("member_user_detail 일반회원정보보기할때 받아온 아이디 == " + userId);
+		System.out.println("MemeberController 일반회원수정폼 받아온 아이디 == " + userId);
+		if(userId == "") {	//비밀번호찾기에서 회원수정으로 넘어올때 세션에 있는 아이디를 넣기 위한 if문
+			String sessionId = (String) session.getAttribute("id");
+			userId = sessionId;
+		}
+		
 		MemberDto userDetail = memberDao.userDetail(userId);
 		model.addAttribute("userDetail", userDetail);
-			System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
+			System.out.println("MemeberController 일반회원수정폼 받아온 회원상세데이터들 model==" + model);
 			
 		List<MemberDto> userColor = memberDao.userColor(userId);	
 		model.addAttribute("userColor", userColor);
 		
 		List<MemberDto> userStyle = memberDao.userStyle(userId);	
 		model.addAttribute("userStyle", userStyle);
-			System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러와스타일 model==" + model);
+			System.out.println("MemeberController 일반회원수정폼 받아온 회원의컬러와스타일 model==" + model);
 			
 		System.out.println("member_user_update 일반회원수정홈화면");
 		return "member/user/member_user_update"; //일반회원가입폼화면

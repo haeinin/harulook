@@ -77,24 +77,28 @@
 				msg = msg.trim();
 				console.log(msg);	//비밀번호찾기
 				if(!msg){	//비밀번호찾기 실패
-					$('#findPw').html('다시입력하세요');
+					$('#findPw').html('정보가 맞지 않습니다 다시입력하세요');
 					$('#businessUpdateButton').hide();
 					$('#userUpdateButton').hide();
 				}else if(msg == "관리자"){	//비밀번호찾기 성공
 					$('#findPw').html('');
-					$('#businessUpdateButton').show();	
+					$('#businessUpdateButton').show();
+					$('#userUpdateButton').hide();
 				}else if(msg == "사업자"){	//비밀번호찾기 성공
 					$('#findPw').html('');
-					$('#businessUpdateButton').show();	
+					$('#businessUpdateButton').show();
+					$('#userUpdateButton').hide();
 				}else if(msg == "일반회원"){	//비밀번호찾기 성공
 					$('#findPw').html('');
-					$('#userUpdateButton').show();	
+					$('#userUpdateButton').show();
+					$('#businessUpdateButton').hide();
 				}else{	//에러
 					$('#findPw').html('다시입력하세요');
 					$('#businessUpdateButton').hide();
 					$('#userUpdateButton').hide();
 				}
-			});	
+			});
+			console.log(sessionStorage.getItem('id') + ' == 세션아이디');
         });
 		
 		$('#idfindbutton').click(function(){	//아이디찾기모달띄우기
@@ -106,21 +110,20 @@
         });
 		
 		$('#userUpdateButton').click(function(){	//일반회원수정하기
-			sessionStorage.setItem('id', $('#user_id_modal').val());
-			$('#userUpdate').submit();
+			/* var request = $.ajax({
+				  url: "./userUpdate", //호출 경로
+				  method: "POST",	//전송방식
+				  data: { 'userId' : sessionStorage.getItem('id') } , //전송해줄값
+				  dataType: "text" //결과값 타입 (리턴)
+				  
+			});*/
+			 $('#userUpdate').submit();
 		});
 		
 		$('#businessUpdateButton').click(function(){	//사업자 관리자 회원 수정하기
 			$('#businessUpdate').submit();
 		});
 		
-		$('#pwFindAdd').click(function(){	//	아이디값저장
-			sessionStorage.setItem('id', $('#user_id_modal').val());
-			var position = sessionStorage.getItem('id');
-			console.log(position + " == 세션");
-			console.log(sessionStorage.getItem('id') + " == 세션");
-		});
-			
 	});
 	
 	
@@ -244,7 +247,11 @@
 		        		<!-- 비밀번호찾기경고문 -->
 		        		<span id="findPw"></span><br>
 		        				
-        				<!-- 관리자와 사업자 수정하기버튼 -->
+        				<!-- 비밀번호찾기버튼 -->
+		        		<input class="btn btn-default" id="pwFindAdd" type="button" value="비밀번호찾기"/>
+		        		</form> 
+		        		
+			            <!-- 관리자와 사업자 수정하기버튼 -->
 					    <form id="businessUpdate" action="${pageContext.request.contextPath}/businessUpdate?userId=${sessionScope.id}" method="post">
 				  			<div>
 				  				<input class="btn btn-default" id="businessUpdateButton" type="button" value="내 정보 수정 하기(관리자운영자)"/>
@@ -256,14 +263,9 @@
 				  			<div>
 				  				<input class="btn btn-default" id="userUpdateButton" type="button" value="내 정보 수정 하기(일반회원)"/>
 				  	 		</div>	
-					    </form>
-						  
-		        		<!-- 비밀번호찾기버튼 -->
-		        		<input class="btn btn-default" id="pwFindAdd" type="button" value="비밀번호찾기"/>
-		        		<input id="afasdf" type="text" value="${sessionScope.id}"/>
-		        		<a>닉네임 : ${sessionScope.id}</a><br>
-		        		<a>닉네임자바코드로 : <%= session.getAttribute("id")%></a><br>
-			            </form>      
+					    </form> 
+					    
+					       
 					</div>
 		       	</div>
 		 	 </div>
