@@ -51,7 +51,8 @@
 	CROSS JOIN (select @Rank := 0 ,@prev :=  NULL) sub2
 	;
 	</select>
-	<!-- 이번달 명예의 전당 입력처리 -->
+	
+	<!-- 이번달 명예의전당 입력처리 -->
 	<insert id="insertHof" parameterType="com.ksmart.harulook.hof.service.HofDto">
 	INSERT INTO hof
 	(
@@ -70,6 +71,17 @@
 	,#{pointPolicyNo}
 	)
 	</insert>
+	
+	<!-- 명예의전당 중복체크 -->
+	<select id="dupliacteHof" resultType="int">
+	SELECT 
+		COUNT(sns_board_no)
+	FROM 
+		hof
+	WHERE 
+		sns_board_no=#{boardNo}
+	
+	</select>
 	
 	
 	

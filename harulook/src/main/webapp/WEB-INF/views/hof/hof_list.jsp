@@ -8,12 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <table>
-<c:forEach var="b" items="${list}" >
 					<tr>
-						<td>${b.hofMonth}</td>
+						<td>월</td>
+						<td>랭크</td>
+						<td>게시물번호</td>
+					</tr>
+				<c:forEach var="b" items="${list}" >
+					<tr>
+						<td>${b.hofMonth}월</td>
 						<td>${b.hofRank}</td>
-						<td>${b.boardNo}</td>
+						<td><a href="${pageContext.request.contextPath}/boardDetail?boardNo=${b.boardNo}">${b.boardNo}</a></td>
 					</tr>
 				</c:forEach>
 </table>
