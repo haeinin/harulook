@@ -83,7 +83,7 @@
 	<!-- 제휴계약번호 가져오기 -->
 	<select id="getLastCooContractNo" resultType="String">
 		SELECT
-		max(CAST(substring(coo_contract_no,13) AS DECIMAL))
+		max(CAST(substring(coo_contract_no,14) AS DECIMAL))
 		FROM coo_contract
 	</select>
 
@@ -247,7 +247,8 @@
 	</select>
 	
 	<!-- 제휴 수수료 계산 -->
-	<insert id="cooContractBillInsert" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
+	<insert id="cooContractBillInsert" parameterType="java.util.Map">
+	
 		INSERT INTO coo_bill
 		(
 		coo_bill_no
@@ -261,18 +262,9 @@
 		#{cooBillNo}
 		,#{cooContractNo}
 		,(
-			SELECT
-				SUM(mall_sale.mall_sale_total)
-			FROM 
-				mall_sale
-			JOIN 
-				coo_contract
-			ON 
-				coo_contract.coo_contract_code = mall_sale.coo_contract_code
-			WHERE
-				coo_contract.coo_contract_no = #{cooContractNo}
-			AND
-				MONTH(mall_sale_date)=(MONTH(NOW())-1)
+			SELECT sum(mall_sale_total)
+			FROM mall_sale
+			WHERE coo_contract_no= #{cooContractNo}
 		)
 		,(MONTH(NOW())-1)
 		,(
@@ -324,6 +316,19 @@
 		coo_pay
 		WHERE 
 		coo_contract_no = #{cooContracNo}
+	</select>
+	
+	<!-- 제휴계약 이름 가져오기 -->
+	<select id="getCooContractNo" resultType="String">
+	SELECT coo_contract_no
+	FROM coo_contract
+	</select>
+	
+	<!-- 제휴결제예정 번호 가져오기 -->
+	<select id="getLastCooBillNo" resultType="String">
+		SELECT
+		max(CAST(substring(coo_bill_no,10) AS DECIMAL))
+		FROM coo_bill
 	</select>
 
 

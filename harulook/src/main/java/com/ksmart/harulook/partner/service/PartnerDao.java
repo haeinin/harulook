@@ -1,6 +1,8 @@
 package com.ksmart.harulook.partner.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,8 @@ public class PartnerDao {
 	    }
 	 /*제휴계약번호 번호 가져오기*/
 	 public String getLastCooContractNo(){
-		 String lastCooContractNo = "";
-		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.getLastCooContractNo",lastCooContractNo);
+		 String LastCooContractNo="";
+		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.getLastCooContractNo",LastCooContractNo);
 	 }
 	 /*제휴계약 상세보기*/
 	 public PartnerDto getCooContractDetail(String cooContractNo){
@@ -71,5 +73,22 @@ public class PartnerDao {
 	 public MemberDto getCooContractCompany(String userId){
 		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.cooContractCompany", userId);
 	 }
+	 /*제휴계약 수수료 입력처리*/
+	 public int cooContractBillInsert(String cooBillNo,String cooContractNo){
+		 Map<String,String> map = new HashMap<String,String>();
+		 map.put("cooBillNo", cooBillNo);
+		 map.put("cooContractNo", cooContractNo);
+		 return sqlSessionTemplate.insert("com.ksmart.harulook.partner.service.PartnerMapper.cooContractBillInsert", map);
+	 }
+	 /*제휴계약이름 전체불러오기*/
+	 public List<String> getCooContractNo(){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getCooContractNo");
+	 }
+	 /*제휴계약예정 번호 가져오기*/
+	 public String getLastCooBillNo(){
+		 String LastCooBillNo="";
+		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.getLastCooBillNo",LastCooBillNo);
+	 }
+	 
 
 }

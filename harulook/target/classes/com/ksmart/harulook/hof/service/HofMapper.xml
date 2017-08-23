@@ -83,6 +83,14 @@
 	
 	</select>
 	
+	<insert id="test" parameterType="String">
+	INSERT INTO hof
+	(hof_month, hof_rank, sns_board_no, hof_date)
+	VALUES (1, 1, '1', date(NOW()))
+	
+	</insert>
+	
+	
 	
 	
 	</mapper>

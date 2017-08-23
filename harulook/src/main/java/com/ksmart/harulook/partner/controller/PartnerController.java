@@ -27,6 +27,7 @@ public class PartnerController {
 	public String partnerContractInsert(PartnerDto dto) {
 		/*제휴계약번호 자동입력*/
 		String lastCooContractNo = dao.getLastCooContractNo();
+		System.out.println("컨트롤러"+lastCooContractNo);
 		int setNo = 1;
 		if(lastCooContractNo != null){
 			setNo = Integer.parseInt(lastCooContractNo)+1;
