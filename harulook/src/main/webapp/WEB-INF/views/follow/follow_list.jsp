@@ -80,6 +80,7 @@
 	            </c:forEach>
 	        </tbody>
 	   </table>
+	</div>
     <ul class="pager" >
         <c:if test="${currentPage > 1}">
             <li class="previous"><a href="${pageContext.request.contextPath}/followList?currentPage=${currentPage-1}" >이전</a></li>

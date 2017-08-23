@@ -58,6 +58,7 @@
                 <beans:value>classpath:com/ksmart/harulook/comment/service/CommentMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/guest/service/GuestMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/follow/service/FollowMapper.xml</beans:value>
+                <beans:value>classpath:com/ksmart/harulook/point/service/PointMapper.xml</beans:value>
 
             </beans:list>
         </beans:property>
