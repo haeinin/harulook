@@ -6,11 +6,30 @@ public class AdPayDto {
 	private String adPayName;
 	private int adPayPrice;
 	private String adPayDate;
+	private String adPayBank;
+	private String adPayNo;
+	
+	
+	
 	
 	@Override
 	public String toString() {
 		return "AdPayDto [adContractNo=" + adContractNo + ", adPayWay=" + adPayWay + ", adPayName=" + adPayName
-				+ ", adPayPrice=" + adPayPrice + ", adPayDate=" + adPayDate + "]";
+				+ ", adPayPrice=" + adPayPrice + ", adPayDate=" + adPayDate + ", adPayBank=" + adPayBank + ", adPayNo="
+				+ adPayNo + "]";
+	}
+	public String getAdPayNo() {
+		return adPayNo;
+	}
+	public void setAdPayNo(String adPayNo) {
+		this.adPayNo = adPayNo;
+	}
+	
+	public String getAdPayBank() {
+		return adPayBank;
+	}
+	public void setAdPayBank(String adPayBank) {
+		this.adPayBank = adPayBank;
 	}
 	public String getAdContractNo() {
 		return adContractNo;
