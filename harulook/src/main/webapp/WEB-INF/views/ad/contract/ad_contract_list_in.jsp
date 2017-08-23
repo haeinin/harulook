@@ -24,8 +24,8 @@
 </head>
 <body>
 <div class="container">
-	<a href="./adContractListAdmin">관리자 모드로 접속</a><br>
-	<a href="./adContractListAdUser">광고주 모드로 접속</a>
+    <h1>현재 광고 목록</h1>
+	<a href="./adContractList_in">들어가기</a>
   </div>
 </body>
 </html>

@@ -1,84 +1,68 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<!-- bootstrapÀ» »ç¿ëÇÏ±â À§ÇÑ CDNÁÖ¼Ò -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <!-- jqueryë¥¼ ì‚¬ìš©í•˜ê¸°ìœ„í•œ CDNì£¼ì†Œ -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- bootstrapì„ ì‚¬ìš©í•˜ê¸° ìœ„í•œ CDNì£¼ì†Œ -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
- 
-<!-- jquery¸¦ »ç¿ëÇÏ±âÀ§ÇÑ CDNÁÖ¼Ò -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- 
-<!-- bootstrap javascript¼Ò½º¸¦ »ç¿ëÇÏ±â À§ÇÑ CDNÁÖ¼Ò -->
-<!-- Latest compiled and minified JavaScript -->
-<!-- jQuery UI CSSÆÄÀÏ  -->
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
-<!-- jQuery ±âº» jsÆÄÀÏ -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
-<!-- jQuery UI ¶óÀÌºê·¯¸® jsÆÄÀÏ -->
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
- 
 <script>
-    $(function() {
-    	var selectedday;
-    	$("#date").change(function(){
-    		selectedday = this.value;
-    		alert(selectedday);
-    		document.getElementById('total').innerHTML = selectedday*50000;
-    	});
-        $("#testDatepicker" ).datepicker({
-        	minDate: +0,
-        });
-    
-    });
-    	
-</script>
-<title>BOARD ADD(spring mvc + mybatis ¹æ½Ä)</title>
-</head>
-<body>
-<div class="container">
-    <h1>±¤°í °áÁ¦(spring mvc + mybatis ¹æ½Ä)</h1>
-    <form id="addForm" action="${pageContext.request.contextPath}/boardAdd" method="post">
-    <div class="form-group">
-            <label for="boardPw">±¤°íÀ§Ä¡</label>
-            <select id="adPlace3">
-            <option value=""></option>
-            <option value="1">Ã¹¹øÂ°</option>
-            <option value="2">µÎ¹øÂ°</option>
-            <option value="3">¼¼¹øÂ°</option>
-            </select> 
-        </div>
-    <div class="form-group">
-            <label for="boardPw">°è¾àÀÏ¼ö</label>
-            <select id="date">
-            <option value=""></option>
-            <option value="3">3ÀÏ</option>
-            <option value="7">7ÀÏ</option>
-            <option value="30">30ÀÏ</option>
-            </select> 
-        </div>
-        <div class="form-group">
-            <label for="boardPw">½ÃÀÛÀÏÀÚ</label>
-            <input type="text" id="testDatepicker">  
-        </div>
-        
-        <div class="form-group">
-            <label for="boardContent">ÇÏ·ç´ç ±¤°í±İ¾× :</label>
-            50000
-        </div>
-        <div class="form-group">
-            <label for="boardName">ÃÑ ±İ¾× :</label>
-            <span id="total"></span>
-        </div>
-        <div>
-            <input class="btn btn-default" id="addButton" type="button" value="±ÛÀÔ·Â"/>
-            <input class="btn btn-default" type="reset" value="ÃÊ±âÈ­"/>
-            <a class="btn btn-default" href="${pageContext.request.contextPath}/boardList">±Û¸ñ·Ï</a>
-        </div>
-    </form>
-</div>
-</body>
-</html>
+   $(document).ready(function(){
+    	 
+	   	/* ë§¨ ì²˜ìŒì— í™”ë©´ì´ ì¶œë ¥ë¬ì„ë–„ í™”ë©´ì„ ìˆ¨ê¹€ */
+	     $('#account').hide();
+         $('#card').hide();
+       /****************************/ 
+      	/* ê²°ì œ ë°©ë²•ì„ ì„ íƒí•˜ì—¬ ì›í•˜ëŠ” í™”ë©´ì„ ì¶œë ¥ */  
+       $('#payCard').click(function(){
+ 				$('#card').show();
+ 				$('#account').hide();
+ 				/* ìˆ¨ê²¨ì§„ payWay inputì— ê²°ì œë°©ì‹ ì…ë ¥ */
+ 				$('#payWay').val("ì¹´ë“œê²°ì œ");
+ 				/*****************************/
+         })
+          $('#payAccount').click(function(){
+ 				$('#account').show();
+ 				$('#card').hide();
+ 				$('#payWay').val("ë¬´í†µì¥ì…ê¸ˆ")
+ 			})
+ 			/******************************/
+ 		/* ë¬´í†µì¥ì…ê¸ˆì„ í´ë¦­í•œ ìƒí™©ì—ì„œ ì€í–‰ ì¢…ë¥˜ë¥¼ ì„ íƒí–ˆì„ë•Œ ì…ê¸ˆí•´ì•¼í•  ê³„ì¢Œë²ˆí˜¸ ì¶œë ¥ */
+		$('#accountbankselect').change(function(){
+    	   if($('#accountbankselect').val() == 'ì‹ í•œ'){
+    		   $('#inaccount').val('ì‹ í•œ 110-393-395662 í•˜ë£¨ë£©');
+    	   }else if($('#accountbankselect').val() == 'ë†í˜‘'){
+				$('#inaccount').val('ë†í˜‘ 351-0549-3314-43 í•˜ë£¨ë£©');
+			}else if($('#accountbankselect').val() == 'ì¹´ì¹´ì˜¤'){
+				$('#inaccount').val('ì¹´ì¹´ì˜¤ 3333-0549-3314-43 í•˜ë£¨ë£©');
+			}
+    	  /************************************************/
+       })
+       /* ì™„ë£Œ ë²„íŠ¼ì„ ëˆŒë €ì„ë•Œ DBì— ì…ë ¥ */
+   	$('#payComplete').click(function(){
+		alert('ê²°ì œê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.')	
+		$('#payInsert').submit();
+	});
+	});
+   </script>
+  
+  <div align="center">
+		 <form action="./adPayInsert" action="post" id="payInsert" method="POST">
+          	<table border="1" width="70%" align="center">
+          	<tr><td height="10%">ê²°ì œê¸ˆì•¡ :  </td><td><input type="text" id="pricePayTotal" width="100%" name="adPayPrice" value="${priceTotal}" readonly></td></tr>
+          	</table>
+          	<h4>ê²°ì œ ë°©ë²•</h4>
+          	<input type="hidden" name="adContractNo" value="${contractNo}">
+          	<input type="hidden" name="adPayWay" id="payWay">
+          	<input type="button" id="payCard" name="payWay" value="ì¹´ë“œê²°ì œ" > &nbsp;&nbsp;&nbsp;
+          	<input type="button" id="payAccount" name="payWay" value="ë¬´í†µì¥ì…ê¸ˆ" ><br>
+          	<c:import url="../../module/ad_pay_account.jsp"></c:import>
+          	<c:import url="../../module/ad_pay_card.jsp"></c:import>
+          </form>
+
+            <input class="btn btn-default" id="payComplete" type="button" value="ì™„ë£Œ"/>
+            <input class="btn btn-default" type="reset" value="ì´ˆê¸°í™”"/>
+
+          <button type="button" class="btn btn-default" data-dismiss="payModal">ë‹«ê¸°</button>
+ </div>
