@@ -2,55 +2,40 @@ package com.ksmart.harulook.mall.service;
 
 public class MallVisitorDto {
 
-	private String mallVistorNo;
-	private String mallProNo;
-	private String mallVistorDate;
-	private String mallVistorTime;
-	private int mallVistitorCheck;
-	private int mallVistitorPrice;
-	
-	public String getMallVistorNo() {
-		return mallVistorNo;
+	private String mallVisitorNo;
+	private String mallVisitorIp;
+	private String mallVistorDatetime;
+	private String mallVisitorInflux;
+	public String getMallVisitorNo() {
+		return mallVisitorNo;
 	}
-	public void setMallVistorNo(String mallVistorNo) {
-		this.mallVistorNo = mallVistorNo;
+	public void setMallVisitorNo(String mallVisitorNo) {
+		this.mallVisitorNo = mallVisitorNo;
 	}
-	public String getMallProNo() {
-		return mallProNo;
+	public String getMallVisitorIp() {
+		return mallVisitorIp;
 	}
-	public void setMallProNo(String mallProNo) {
-		this.mallProNo = mallProNo;
+	public void setMallVisitorIp(String mallVisitorIp) {
+		this.mallVisitorIp = mallVisitorIp;
 	}
-	public String getMallVistorDate() {
-		return mallVistorDate;
+	public String getMallVistorDatetime() {
+		return mallVistorDatetime;
 	}
-	public void setMallVistorDate(String mallVistorDate) {
-		this.mallVistorDate = mallVistorDate;
+	public void setMallVistorDatetime(String mallVistorDatetime) {
+		this.mallVistorDatetime = mallVistorDatetime;
 	}
-	public String getMallVistorTime() {
-		return mallVistorTime;
+	public String getMallVisitorInflux() {
+		return mallVisitorInflux;
 	}
-	public void setMallVistorTime(String mallVistorTime) {
-		this.mallVistorTime = mallVistorTime;
-	}
-	public int getMallVistitorCheck() {
-		return mallVistitorCheck;
-	}
-	public void setMallVistitorCheck(int mallVistitorCheck) {
-		this.mallVistitorCheck = mallVistitorCheck;
-	}
-	public int getMallVistitorPrice() {
-		return mallVistitorPrice;
-	}
-	public void setMallVistitorPrice(int mallVistitorPrice) {
-		this.mallVistitorPrice = mallVistitorPrice;
+	public void setMallVisitorInflux(String mallVisitorInflux) {
+		this.mallVisitorInflux = mallVisitorInflux;
 	}
 	@Override
 	public String toString() {
-		return "MallVisitorDto [mallVistorNo=" + mallVistorNo + ", mallProNo=" + mallProNo + ", mallVistorDate="
-				+ mallVistorDate + ", mallVistorTime=" + mallVistorTime + ", mallVistitorCheck=" + mallVistitorCheck
-				+ ", mallVistitorPrice=" + mallVistitorPrice + "]";
+		return "MallVisitorDto [mallVisitorNo=" + mallVisitorNo + ", mallVisitorIp=" + mallVisitorIp
+				+ ", mallVistorDatetime=" + mallVistorDatetime + ", mallVisitorInflux=" + mallVisitorInflux + "]";
 	}
+	
 	
 	
 	

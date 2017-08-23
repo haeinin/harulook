@@ -1,22 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
 <title>Beautiful Closet</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
-
-
 <style>
-body{
-	font-family: 'Jeju Gothic',	sans-serif;
-}
 .nav-tabs li a {
 	color: #777;
 }
@@ -64,14 +58,9 @@ body{
 .container {
 	padding: 80px 100px;
 	margin-top: 100px;
-	
 }
-	
-
 </style>
-
 </head>
-
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
@@ -81,7 +70,9 @@ body{
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/mallMain">Beautiful Closet</a>
+			<<a class="navbar-brand"
+				href="${pageContext.request.contextPath}/mallMain">Beautiful
+				Closet</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
@@ -102,37 +93,30 @@ body{
 	</div>
 	</nav>
 	<div class="container">
-		<div class="row">
-			<div class="col-sm-6">
-				<img src="resources/${dto.mallProImg}" alt="Lights"
-					style="width: 100%">
-			</div>
-			<div class="col-sm-6">
-				<table class="table">
-					<tbody>
-						<tr>
-							<td>상품이름 :</td>
-							<td>${dto.mallProName}</td>
-						</tr>
-						<tr>
-							<td>상품 카테고리 :</td>
-							<td>${dto.mallProCate}</td>
-						</tr>
-						<tr>
-							<td>상품가격 :</td>
-							<td>${dto.mallProPrice}</td>
-						</tr>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>상품명</th>
+					<th>상품갯수</th>
+					<th>총금액</th>
+					<th>구매날짜</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="b" items="${list}">
+					<tr>
+
+						<td>${b.mallProName}</td>
+						<td>${b.mallSaleAmount}</td>
+						<td>${b.mallSaleTotal}</td>
+						<td>${b.mallSaleDate}</td>
 
 
-					</tbody>
-
-				</table>
-
-				<a class="btn btn-default"
-					href="${pageContext.request.contextPath}/mallProOrder?mallProNo=${dto.mallProNo}">주문하기</a>
-			</div>
-		</div>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 </body>
-
 </html>

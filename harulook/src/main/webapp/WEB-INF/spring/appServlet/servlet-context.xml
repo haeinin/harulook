@@ -2,9 +2,12 @@
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task 
+		http://www.springframework.org/schema/task/spring-task.xsd">
 
 	<!-- MultipartResolver -->
     <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -32,30 +35,30 @@
 	</beans:bean>
 
 	<context:component-scan base-package="com.ksmart.harulook" />
-	
+
 	<!-- 커넥션 풀 설정 -->
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<!-- <beans:property name="url"
-			value="jdbc:mysql://localhost/haruloook?useUnicode=true&amp;characterEncoding=utf-8" />
-		<beans:property name="username" value="root" />
-		<beans:property name="password" value="java0000" /> -->
-		
+		<!-- <beans:property name="url" value="jdbc:mysql://localhost/haruloook?useUnicode=true&amp;characterEncoding=utf-8" 
+			/> <beans:property name="username" value="root" /> <beans:property name="password" 
+			value="java0000" /> -->
+
 		<beans:property name="url"
 			value="jdbc:mysql://haruloook.cafe24.com/haruloook?useUnicode=true&amp;characterEncoding=euckr" />
 		<beans:property name="username" value="haruloook" />
 		<beans:property name="password" value="hanapw1!" />
-		
-	</beans:bean>
-	
-	<!-- mybatis설정 1. SqlSessionFactory -->
-    <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <!-- mybatis 세션생성시 사용할 dataSource주입 -->
-        <beans:property name="dataSource" ref="dataSource" />
-        <!-- mybatis 세션생성후 쿼리를 실행시킬때 사용할 쿼리위치(메퍼)설정 -->
-        <beans:property name="mapperLocations">
-            <beans:list>
 
+	</beans:bean>
+
+	<!-- mybatis설정 1. SqlSessionFactory -->
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- mybatis 세션생성시 사용할 dataSource주입 -->
+		<beans:property name="dataSource" ref="dataSource" />
+		<!-- mybatis 세션생성후 쿼리를 실행시킬때 사용할 쿼리위치(메퍼)설정 -->
+		<beans:property name="mapperLocations">
+			<beans:list>
+
+				<beans:value>classpath:com/ksmart/harulook/hof/service/HofMapper.xml</beans:value>
 				<beans:value>classpath:com/ksmart/harulook/like/service/LikeMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/partner/service/PartnerMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/mall/service/MallMapper.xml</beans:value>
@@ -66,14 +69,21 @@
                 <beans:value>classpath:com/ksmart/harulook/guest/service/GuestMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/follow/service/FollowMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/point/service/PointMapper.xml</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- mybatis설정 2. SqlSessionTemplate -->
+	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
+	</beans:bean>
 
-            </beans:list>
-        </beans:property>
-    </beans:bean>
-    <!-- mybatis설정 2. SqlSessionTemplate-->
-    <beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-        <beans:constructor-arg index="0" ref="sqlSessionFactory" />
-    </beans:bean>
+	<context:component-scan base-package="com.ksmart.harulook.hof.service" />
+	<context:component-scan base-package="com.ksmart.harulook.partner.service" />
+	<task:scheduler id="jobScheduler" pool-size="10" />
+	<task:annotation-driven scheduler="jobScheduler" />
+
+
 
 
 </beans:beans>

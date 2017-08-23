@@ -8,7 +8,7 @@ public class MallSaleDto {
 	private int mallSaleTotal;
 	private String mallSaleDate;
 	private String cooContractCode;
-	
+	private String mallProName;
 	public String getUserId() {
 		return userId;
 	}
@@ -50,6 +50,18 @@ public class MallSaleDto {
 	}
 	public void setCooContractCode(String cooContractCode) {
 		this.cooContractCode = cooContractCode;
+	}
+	public String getMallProName() {
+		return mallProName;
+	}
+	public void setMallProName(String mallProName) {
+		this.mallProName = mallProName;
+	}
+	@Override
+	public String toString() {
+		return "MallSaleDto [userId=" + userId + ", mallProNo=" + mallProNo + ", mallSaleAmount=" + mallSaleAmount
+				+ ", mallSalePrice=" + mallSalePrice + ", mallSaleTotal=" + mallSaleTotal + ", mallSaleDate="
+				+ mallSaleDate + ", cooContractCode=" + cooContractCode + ", mallProName=" + mallProName + "]";
 	}
 	
 	

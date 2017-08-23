@@ -6,6 +6,12 @@ public class PartnerBillDto {
 	private int cooBillValue;
 	private int cooBillMonth;
 	private String cooBillDate;
+	
+	@Override
+	public String toString() {
+		return "PartnerBillDto [cooBillNo=" + cooBillNo + ", cooContractNo=" + cooContractNo + ", cooBillValue="
+				+ cooBillValue + ", cooBillMonth=" + cooBillMonth + ", cooBillDate=" + cooBillDate + "]";
+	}
 	public String getCooBillNo() {
 		return cooBillNo;
 	}
