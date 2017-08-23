@@ -1,0 +1,39 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.ksmart.harulook.adrefund.service.AdRefundMapper">
+ <resultMap type="com.ksmart.harulook.adrefund.service.AdRefundDto" id="refundList">
+ 	<result property="refundNo" column="refund_no"/>
+ 	<result property="adContractNo" column="ad_contract_no"/>
+ 	<result property="refundPrice" column="refund_price"/>
+ 	<result property="refundDate" column="refund_date"/>
+ </resultMap>
+ <select id="selectRefundList" resultMap="refundList">
+ 		SELECT refund_no
+ 			  ,ad_contract_no
+ 			  ,refund_price
+ 			  ,refund_date
+		FROM refund
+		WHERE refund_stat = '환불신청'
+ </select>
+ <select id="getRefundNo">
+ 		 SELECT
+            max(CAST(substring(refund_no,8) AS DECIMAL))  
+        FROM refund 
+ 
+ </select>
+ 
+ <insert id="insertRefund">
+ 		INSERT INTO refund
+			(refund_no
+			,ad_contract_no
+			,refund_price
+			,refund_date
+			,refund_stat)
+			VALUES (#{refundNo}
+				   ,#{adContractNo}
+				   ,#{refundPrice}
+				   ,NOW()
+				   ,'결제정보입력대기') 
+ </insert>
+</mapper>		
