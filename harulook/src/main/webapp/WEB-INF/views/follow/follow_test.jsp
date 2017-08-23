@@ -24,42 +24,41 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- 모달을 쓰기위한 부트스트랩 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
 
-	
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<script type="text/javascript">
+	$(document).ready(function(){
+		//친구인지아닌지 판별
+		console.log($('#checkFollow').val());
+		$($('#followInsert')).hide();
+		$($('#bbbb')).hide();
+		if(!$('#checkFollow').val()){
+			$($('#followInsert')).show();
+			$($('#bbbb')).hide();
+		}else{
+			$($('#bbbb')).show();
+			$($('#followInsert')).hide();
+		}
+		//친구등록버튼
+		$('#followInsert').click(function(){
+			var request = $.ajax({
+				  url: "./followInsert", //호출 경로
+				  method: "POST",	//전송방식
+				  data:  { 'followId' : $('#checkFollowVal').val() } , //전송해줄값
+				  dataType: "text" //결과값 타입 (리턴)
+			});		//친구등록 성공여부에 따라서 버튼 체인지나 쇼 하이드 필요할듯
+		});
+	});
 </script>
 </head>
 <body>
-
-	<!-- 일일게스트수 -->
-	<table>
-		<c:forEach var="d" items="${dailyGuest}">
-			<tr>
-				<td>일일날짜 : ${d.dailyDate}</td>
-				<td>게시트수 : ${d.guestCount}</td>
-			</tr>
-		</c:forEach>
-	</table>
 	
-	<!-- 주간게스트수 -->
-	<table>
-		<c:forEach var="w" items="${weeklyGuest}">
-			<tr>
-				<td>주간날짜 : ${w.weeklyStart}</td>
-				<td>주간날짜 : ${w.weeklyEnd}</td>
-				<td>게시트수 : ${w.guestCount}</td>
-			</tr>
-		</c:forEach>
-	</table>
+	<input class="checkFollow" id="checkFollow" name="checkFollow" value="${checkFollow}">팔로우 되있는지체크 : ${checkFollow}</input>
+	<button type="button" id="followInsert" class="btn">중복없으니친구등록하기버튼활성화</button>
+	<button type="button" id="bbbb" class="btn">이미있는친구친구등록버튼비활성화</button><br>
 	
-	<!-- 월간게스트수 -->
-	<table>
-		<c:forEach var="m" items="${monthlyGuest}">
-			<tr>
-				<td>월간날짜 : ${m.monthlyDate}</td>
-				<td>게시트수 : ${m.guestCount}</td>
-			</tr>
-		</c:forEach>
-	</table>	
+	<a>친구등록할아이디 임시등록 : </a><!-- 월래는 게시판 상세보기의 게시판 아이디가 입력되어야한다 -->
+	<input class="checkFollow" id="checkFollowVal" name="checkFollowVal" type="text"></input>
 </body>
 </html>

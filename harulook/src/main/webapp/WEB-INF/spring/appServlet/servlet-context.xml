@@ -59,10 +59,13 @@
 				<beans:value>classpath:com/ksmart/harulook/like/service/LikeMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/partner/service/PartnerMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/mall/service/MallMapper.xml</beans:value>
-               <beans:value>classpath:com/ksmart/harulook/member/service/MemberMapper.xml</beans:value>
+                <beans:value>classpath:com/ksmart/harulook/member/service/MemberMapper.xml</beans:value>
 				<beans:value>classpath:com/ksmart/harulook/adcontract/service/AdContractMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/board/service/BoardMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/comment/service/CommentMapper.xml</beans:value>
+                <beans:value>classpath:com/ksmart/harulook/guest/service/GuestMapper.xml</beans:value>
+                <beans:value>classpath:com/ksmart/harulook/follow/service/FollowMapper.xml</beans:value>
+                <beans:value>classpath:com/ksmart/harulook/point/service/PointMapper.xml</beans:value>
 
             </beans:list>
         </beans:property>

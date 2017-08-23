@@ -33,7 +33,7 @@
 		$('.deleteButton').click(function(){	//팔로우삭제
 			//console.log($(this).val());
 			var request = $.ajax({
-				  url: "./followDelete", //호출 경로
+				  url: "./followMeDelete", //호출 경로
 				  method: "POST",	//전송방식
 				  data: { 'followId' : $(this).val() }, //전송해줄값
 				  dataType: "text", //결과값 타입 (리턴)
@@ -41,7 +41,7 @@
 			location.reload(true); 
 		});
 		
-		////////////////////////////////////////////////////////  친구게시물 보기 만들어야함
+		////////////////////////////////////////////////////////  팔로우입력만들어야함
 		/* $('.followBoard').click(function(){	//팔로우삭제
 			//console.log($(this).val());
 			var request = $.ajax({
@@ -58,7 +58,7 @@
 </head>
 <body>
 
-	<!-- 친구 리스트 -->
+	<!-- 나를 등록한 친구 리스트 -->
 	<div class="container">
 	    <h1>친구 목록</h1>
 	    <div>전체행의 수 : ${followListCount}</div>
@@ -71,11 +71,11 @@
             	  </tr>
 	        </thead>
 	        <tbody>
-	            <c:forEach var="f" items="${followList}">
+	            <c:forEach var="f" items="${followMeList}">
 	                <tr>
-		                <td><a type="button" class="followBoard" id="친구의 게시물" value="${f.followId}">${f.followId}</A></td>
+		                <td><a type="button" class="followBoard" id="친구의 게시물" value="${f.userId}">${f.userId}</A></td>
 				      	<td>${f.followDate}</td>
-				        <td><button type="button" class="btn btn-default deleteButton" value="${f.followId}">삭제하기</button></td>
+				        <td><button type="button" class="btn btn-default deleteButton" value="${f.userId}">삭제하기</button></td>
                     </tr>
 	            </c:forEach>
 	        </tbody>
@@ -83,10 +83,10 @@
 	</div>
     <ul class="pager" >
         <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/followList?currentPage=${currentPage-1}" >이전</a></li>
+            <li class="previous"><a href="${pageContext.request.contextPath}/followMeList?currentPage=${currentPage-1}" >이전</a></li>
         </c:if>
         <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/followList?currentPage=${currentPage+1}" >다음</a></li>
+            <li class="next"><a href="${pageContext.request.contextPath}/followMeList?currentPage=${currentPage+1}" >다음</a></li>
         </c:if>
     </ul>
 </body>

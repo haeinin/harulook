@@ -26,6 +26,8 @@ public class MemberDto {
 	private String colorValue;
 	private String styleValue;
 	
+	private String colorNo;
+	private String styleNo;
 	public String getUserId() {
 		return userId;
 	}
@@ -164,6 +166,18 @@ public class MemberDto {
 	public void setStyleValue(String styleValue) {
 		this.styleValue = styleValue;
 	}
+	public String getColorNo() {
+		return colorNo;
+	}
+	public void setColorNo(String colorNo) {
+		this.colorNo = colorNo;
+	}
+	public String getStyleNo() {
+		return styleNo;
+	}
+	public void setStyleNo(String styleNo) {
+		this.styleNo = styleNo;
+	}
 	@Override
 	public String toString() {
 		return "MemberDto [userId=" + userId + ", userPw=" + userPw + ", userNick=" + userNick + ", userName="
@@ -172,20 +186,9 @@ public class MemberDto {
 				+ userSize + ", userQ=" + userQ + ", userA=" + userA + ", userLevel=" + userLevel + ", userBsNo="
 				+ userBsNo + ", userBsType=" + userBsType + ", userBsStatus=" + userBsStatus + ", userBsName="
 				+ userBsName + ", userUrl=" + userUrl + ", userPoint=" + userPoint + ", userDate=" + userDate
-				+ ", colorValue=" + colorValue + ", styleValue=" + styleValue + ", getUserId()=" + getUserId()
-				+ ", getUserPw()=" + getUserPw() + ", getUserNick()=" + getUserNick() + ", getUserName()="
-				+ getUserName() + ", getUserTel()=" + getUserTel() + ", getUserEmail()=" + getUserEmail()
-				+ ", getUserAddr()=" + getUserAddr() + ", getUserGender()=" + getUserGender() + ", getUserAge()="
-				+ getUserAge() + ", getUserTall()=" + getUserTall() + ", getUserSize()=" + getUserSize()
-				+ ", getUserQ()=" + getUserQ() + ", getUserA()=" + getUserA() + ", getUserLevel()=" + getUserLevel()
-				+ ", getUserBsNo()=" + getUserBsNo() + ", getUserBsType()=" + getUserBsType() + ", getUserBsStatus()="
-				+ getUserBsStatus() + ", getUserBsName()=" + getUserBsName() + ", getUserUrl()=" + getUserUrl()
-				+ ", getUserPoint()=" + getUserPoint() + ", getUserDate()=" + getUserDate() + ", getColorValue()="
-				+ getColorValue() + ", getStyleValue()=" + getStyleValue() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", colorValue=" + colorValue + ", styleValue=" + styleValue + ", colorNo=" + colorNo + ", styleNo="
+				+ styleNo + "]";
 	}
-	
-	
 	
 	
 	

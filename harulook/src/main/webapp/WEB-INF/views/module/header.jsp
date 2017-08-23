@@ -25,7 +25,9 @@
 <!-- 모달을 쓰기위한 부트스트랩 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="resources/css/cartoony_weather.css" type="text/css">
+
 <script type="text/javascript">
+
 	$(document).ready(function(){
 		$('#loginbutton').click(function(){	//로그인버튼
 			$('#login').submit();
@@ -35,8 +37,8 @@
 			$('#logoutadd').submit();
         });
 		
-		$("#mypage").click(function(){	//마이페이지보기
-			$("#myModal").modal();
+		$('#mypage').click(function(){	//마이페이지보기
+			$('#myModal').modal();
         });
 
 		$('#userlistbutton').click(function(){	//일반회원리스트 버튼
@@ -49,6 +51,34 @@
 		
 		$('#managerlistbutton').click(function(){	//관리자회원리스트 버튼
 			$('#member_manager_list').submit();
+        });
+		
+		$('#managerInsertbutton').click(function(){	//관리자회원리스트 버튼
+			$('#newManagerInsert').submit();
+        });
+		
+		$('#userUpdateButton').click(function(){	//일반회원수정하기
+			$('#userUpdate').submit();
+        });
+		
+		$('#businessUpdateButton').click(function(){	//사업자 관리자 회원 수정하기
+			$('#businessUpdate').submit();
+        });
+		
+		$('#guestListButton').click(function(){	//방문자 접속자수 보기
+			$('#guestListForm').submit();
+        });
+		
+		$('#followListButton').click(function(){	//팔로우 리스트 보기
+			$('#followList').submit();
+        });
+		
+		$('#followMeListButton').click(function(){	//나를 등록한 팔로우 리스트 보기
+			$('#followMeList').submit();
+        });
+		
+		$('#followCheckButton').click(function(){	//팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식
+			$('#followCheck').submit();
         });
 		
 		var d = new Date();
@@ -169,6 +199,14 @@
 	  		<div>
 	  			<input class="btn btn-default" id="logout" type="button" value="로그아웃"/>
 	  	 	</div>	
+		</form>
+		
+		<!--------팔로우등록 테스트양식------------------------------------------------------------------------------------  -->
+		<form id="followCheck" action="${pageContext.request.contextPath}/followCheck" method="post">
+	  		<div>
+	  			<input id="followId" name="followId" type="text" />
+	  			<input class="btn btn-default" id="followCheckButton" type="button" value="입력"/>
+	  	 	</div>	
 		</form>		
 	</c:if>
 	
@@ -190,17 +228,26 @@
           <a>닉네임 : ${sessionScope.nick}</a><br>
 		  <a>권한 : ${sessionScope.level}</a><br>
 		  <!-- 내정보수정하기버튼 -->
-		  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
-	  		<div>
-	  			<input class="btn btn-default" id="myModified" type="button" value="내 정보 수정 하기"/>
-	  	 	</div>	
-		  </form>	
-        </div>
+		</div>
         <!-- 모달 회원별 내용 -->
         <div class="modal-body" style="padding:40px 50px;">
           	<c:if test="${sessionScope.level == '관리자'}">
 				<a>관리자로 로그인</a><br>
-				<!-- 사업자용 버튼 -->
+				<!-- 관리자용 버튼 -->
+					<!-- 내정보수정하기버튼 -->
+				  <form id="businessUpdate" action="${pageContext.request.contextPath}/businessUpdate?userId=${sessionScope.id}" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="businessUpdateButton" type="button" value="내 정보 수정 하기"/>
+			  	 	</div>	
+				  </form>
+				
+					<!-- 새관리자 등록하기 -->
+				  <form id="newManagerInsert" action="${pageContext.request.contextPath}/member_manager_insert" method="get">
+			  		<div>
+			  			<input class="btn btn-default" id="managerInsertbutton" type="button" value="새관리자등록하기"/>
+			  	 	</div>	
+				  </form>	
+				
 					<!-- 일반회원검색 -->
 				  <form id="member_user_list" action="${pageContext.request.contextPath}/member_user_list" method="get">
 			  		<div>
@@ -230,32 +277,61 @@
 				  </form>
 				  
 				  	<!-- 사이트 접속자수 검색 -->
-				   <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				   <form id="guestListForm" action="${pageContext.request.contextPath}/guestList" method="get">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="사이트 접속자수 검색"/>
+			  			<input class="btn btn-default" id="guestListButton" type="button" value="사이트 접속자수 검색"/>
 			  	 	</div>	
 				  </form>
 			</c:if>
 			<c:if test="${sessionScope.level == '사업자'}">
 				<a>사업자로 로그인</a><br>
 				<!-- 사업자용 버튼 -->
+					<!-- 내정보수정하기버튼 -->
+				  <form id="businessUpdate" action="${pageContext.request.contextPath}/businessUpdate?userId=${sessionScope.id}" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="businessUpdateButton" type="button" value="내 정보 수정 하기"/>
+			  	 	</div>	
+				  </form>
+				
 					<!-- 내 광고 보기 -->
 				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
 			  		<div>
 			  			<input class="btn btn-default" id="myModified" type="button" value="내 광고 보기"/>
 			  	 	</div>	
-				  </form>	
+				  </form>
 				  
-				  <!-- 사이트 접속자수 보기 -->
+				  <!-- 내 제휴 보기 -->
 				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="사이트 접속자수 보기"/>
+			  			<input class="btn btn-default" id="myModified" type="button" value="내 제휴 보기"/>
 			  	 	</div>	
-				  </form>	
+				  </form>
+				  
+				  <!-- 내 결제 예정 금액 보기-->
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="myModified" type="button" value="내 결제 예정 금액"/>
+			  	 	</div>	
+				  </form>		
+				  
+				  <!-- 사이트 접속자수 검색 -->
+				   <form id="guestListForm" action="${pageContext.request.contextPath}/guestList" method="get">
+			  		<div>
+			  			<input class="btn btn-default" id="guestListButton" type="button" value="사이트 접속자수 검색"/>
+			  	 	</div>	
+				  </form>
 			</c:if>
+			
 			<c:if test="${sessionScope.level == '일반회원'}">
 				<a>일반회원 로그인</a><br>
 				<!-- 일반회원용 버튼 -->
+					<!-- 내정보수정하기버튼 -->
+				  <form id="userUpdate" action="${pageContext.request.contextPath}/userUpdate?userId=${sessionScope.id}" method="post">
+			  		<div>
+			  			<input class="btn btn-default" id="userUpdateButton" type="button" value="내 정보 수정 하기"/>
+			  	 	</div>	
+				  </form>
+				
 					<!-- 내 게시물 보기 -->
 				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myBoardList" method="post">
 			  		<div>
@@ -264,10 +340,17 @@
 			  	 	</div>	
 				  </form>
 				  
-				  	<!-- 내 친구 보기 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+					<!-- 내 친구 보기 -->
+				  <form id="followList" action="${pageContext.request.contextPath}/followList" method="get">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="내 친구 보기"/>
+			  			<input class="btn btn-default" id="followListButton" type="button" value="내 친구 보기"/>
+			  	 	</div>	
+				  </form>
+				  
+				  <!-- 나를 등록한 친구목록 -->
+				  <form id="followMeList" action="${pageContext.request.contextPath}/followMeList" method="get">
+			  		<div>
+			  			<input class="btn btn-default" id="followMeListButton" type="button" value="나를 등록한 친구 목록"/>
 			  	 	</div>	
 				  </form>		
 			</c:if>
