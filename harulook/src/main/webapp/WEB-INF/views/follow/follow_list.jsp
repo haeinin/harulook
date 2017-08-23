@@ -59,30 +59,34 @@
 <body>
 
 	<!-- 친구 리스트 -->
-	<table>
-		
-	</table>
-		<div class="container" id="list">
-		  <h2>친구 목록</h2>
-		 <table class="table">
-		    <thead>
-		      <tr>
-		        <th>친구</th>
-		        <th>친구등록한날짜</th>
-		        <th>친구삭제</th>
-		      </tr>
-		    </thead>
-		    <tbody>
-		    <c:forEach var="f" items="${followList}">
-		      <tr>
-		      	<td><a type="button" class="followBoard" id="친구의 게시물" value="${f.followId}">${f.followId}</A></td>
-		      	<td>${f.followDate}</td>
-		        <td><button type="button" class="btn btn-default deleteButton" value="${f.followId}">삭제하기</button></td>
-		      </tr>
-		      </c:forEach>
-		    </tbody>
-		  </table>
-		</div>
-	
+	<div class="container">
+	    <h1>친구 목록</h1>
+	    <div>전체행의 수 : ${followListCount}</div>
+	    <table class="table table-striped">
+	        <thead>
+	            <tr>
+	                <th>아이디</th>
+	                <th>닉네임</th>
+	                <th>이름</th>
+            	  </tr>
+	        </thead>
+	        <tbody>
+	            <c:forEach var="f" items="${followList}">
+	                <tr>
+		                <td><a type="button" class="followBoard" id="친구의 게시물" value="${f.followId}">${f.followId}</A></td>
+				      	<td>${f.followDate}</td>
+				        <td><button type="button" class="btn btn-default deleteButton" value="${f.followId}">삭제하기</button></td>
+                    </tr>
+	            </c:forEach>
+	        </tbody>
+	   </table>
+    <ul class="pager" >
+        <c:if test="${currentPage > 1}">
+            <li class="previous"><a href="${pageContext.request.contextPath}/followList?currentPage=${currentPage-1}" >이전</a></li>
+        </c:if>
+        <c:if test="${currentPage < lastPage}">
+            <li class="next"><a href="${pageContext.request.contextPath}/followList?currentPage=${currentPage+1}" >다음</a></li>
+        </c:if>
+    </ul>
 </body>
 </html>

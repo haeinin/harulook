@@ -51,24 +51,44 @@ public class FollowController {
     }
 	
 	/*팔로우 미  리스트*/
-	@RequestMapping(value="/followMeList", method = RequestMethod.POST)
+	@RequestMapping(value="/followMeList", method = RequestMethod.GET)
 	public String followMeList(Model model,
-				HttpServletRequest request,
-				@RequestParam("userId") String followId ) {
+			HttpSession session,
+			HttpServletRequest request,
+			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		System.out.println("팔로우 미 리스트");
-		List<FollowDto> followMeList = followDao.followMeList(followId);	//팔로우 리스트
+		String userId = (String) session.getAttribute("id");
+		int followListCount = followDao.followMeListCount(userId);
+		int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
+        int lastPage = (int)(Math.ceil(followListCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
+        
+		List<FollowDto> followMeList = followDao.followMeList(currentPage, pagePerRow, userId);	//팔로우 리스트
+		model.addAttribute("currentPage", currentPage);
+        model.addAttribute("followListCount", followListCount);
+        model.addAttribute("lastPage", lastPage);
+		
 		model.addAttribute("followMeList", followMeList);
 		System.out.println("FollowMeController model == " + model);
 		return "follow/follow_me_list"; //방문자 리스트
 	}
 	
 	/*팔로우 리스트*/
-	@RequestMapping(value="/followList", method = RequestMethod.POST)
+	@RequestMapping(value="/followList", method = RequestMethod.GET)
 	public String followList(Model model,
+				HttpSession session,
 				HttpServletRequest request,
-				@RequestParam("userId") String followId ) {
+				@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		System.out.println("팔로우 리스트");
-		List<FollowDto> followList = followDao.followList(followId);	//팔로우 리스트
+		String userId = (String) session.getAttribute("id");
+		int followListCount = followDao.followListCount(userId);
+		int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
+        int lastPage = (int)(Math.ceil(followListCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
+		
+		List<FollowDto> followList = followDao.followList(currentPage, pagePerRow, userId);	//팔로우 리스트
+		model.addAttribute("currentPage", currentPage);
+        model.addAttribute("followListCount", followListCount);
+        model.addAttribute("lastPage", lastPage);
+		
 		model.addAttribute("followList", followList);
 		System.out.println("FollowController model == " + model);
 		return "follow/follow_list"; //방문자 리스트

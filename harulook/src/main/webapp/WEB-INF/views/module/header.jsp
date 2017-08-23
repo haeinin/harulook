@@ -248,15 +248,15 @@
 			  	 	</div>	
 				  </form>
 				  
-				  	<!-- 내 친구 보기 -->
-				  <form id="followList" action="${pageContext.request.contextPath}/followList?userId=${sessionScope.id}" method="post">
+					<!-- 내 친구 보기 -->
+				  <form id="followList" action="${pageContext.request.contextPath}/followList" method="get">
 			  		<div>
 			  			<input class="btn btn-default" id="followListButton" type="button" value="내 친구 보기"/>
 			  	 	</div>	
 				  </form>
 				  
 				  <!-- 나를 등록한 친구목록 -->
-				  <form id="followMeList" action="${pageContext.request.contextPath}/followMeList?userId=${sessionScope.id}" method="post">
+				  <form id="followMeList" action="${pageContext.request.contextPath}/followMeList" method="get">
 			  		<div>
 			  			<input class="btn btn-default" id="followMeListButton" type="button" value="나를 등록한 친구 목록"/>
 			  	 	</div>	

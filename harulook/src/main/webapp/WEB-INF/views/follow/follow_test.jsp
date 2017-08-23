@@ -47,7 +47,7 @@
 				  method: "POST",	//전송방식
 				  data:  { 'followId' : $('#checkFollowVal').val() } , //전송해줄값
 				  dataType: "text" //결과값 타입 (리턴)
-			});
+			});		//친구등록 성공여부에 따라서 버튼 체인지나 쇼 하이드 필요할듯
 		});
 	});
 </script>
