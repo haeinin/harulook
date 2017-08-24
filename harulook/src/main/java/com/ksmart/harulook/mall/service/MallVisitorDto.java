@@ -6,6 +6,9 @@ public class MallVisitorDto {
 	private String mallVisitorIp;
 	private String mallVistorDatetime;
 	private String mallVisitorInflux;
+	private String cooContractNo;
+	
+	
 	public String getMallVisitorNo() {
 		return mallVisitorNo;
 	}
@@ -30,13 +33,13 @@ public class MallVisitorDto {
 	public void setMallVisitorInflux(String mallVisitorInflux) {
 		this.mallVisitorInflux = mallVisitorInflux;
 	}
-	@Override
-	public String toString() {
-		return "MallVisitorDto [mallVisitorNo=" + mallVisitorNo + ", mallVisitorIp=" + mallVisitorIp
-				+ ", mallVistorDatetime=" + mallVistorDatetime + ", mallVisitorInflux=" + mallVisitorInflux + "]";
+	
+	public String getCooContractNo() {
+		return cooContractNo;
 	}
-	
-	
+	public void setCooContractNo(String cooContractNo) {
+		this.cooContractNo = cooContractNo;
+	}
 	
 	
 }

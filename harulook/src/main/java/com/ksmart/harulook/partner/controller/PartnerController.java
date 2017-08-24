@@ -10,11 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.ksmart.harulook.member.service.MemberDto;
 import com.ksmart.harulook.partner.service.PartnerBillDto;
 import com.ksmart.harulook.partner.service.PartnerDao;
 import com.ksmart.harulook.partner.service.PartnerDto;
+import com.ksmart.harulook.partner.service.PartnerStatsDto;
 
 @Controller
 public class PartnerController {
@@ -60,7 +63,7 @@ public class PartnerController {
 		return "partner/contract/partner_contract_list";
 	}
 	/*제휴계약 목록보기(개인)*/
-	@RequestMapping(value = "/partnerContractList", method = RequestMethod.GET)
+	@RequestMapping(value = "/pa rtnerContractList", method = RequestMethod.GET)
 	public String partnerContractList(Model model
 									,HttpSession session) {
 		String id = (String) session.getAttribute("id");
@@ -132,6 +135,55 @@ public class PartnerController {
 		
 	}
 	
+	/*통계를 볼 제휴업체 리스트*/
+	@RequestMapping(value = "/partnerStatsMain", method = RequestMethod.GET)
+	public String partnerStatsMain(Model model
+			, HttpSession session) {
+		
+		String id = (String) session.getAttribute("id");
+		List<PartnerDto> list = dao.getCooContractList(id);
+		model.addAttribute("list", list);
+		
+		return "partner/statistics/partner_statistics_list";
+
+	}
+	/*제휴업체 통계보기 메인화면*/
+	@RequestMapping(value = "/StatsView", method = RequestMethod.GET)
+	public String StatsView() {
+		
+		return "partner/statistics/statistics_daily";
+
+	}
+	
+/*	제휴업체사이트 일별 방문자 조회
+	@RequestMapping(value = "/getDailyVisitor", method = RequestMethod.POST)
+	public @ResponseBody String getDailyVisitor(Model model,String cooContractNo, String month){
+
+		Gson gson = new Gson();
+		
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("cooContractNo", "coo_contract_1");
+		map.put("month", "8");
+		
+		System.out.println("map==>"+map);
+		List<HashMap<String,String>> list= dao.getDailyVisitor(map);
+		System.out.println("list==>"+list);
+		
+		return gson.toJson(list);
+
+	}*/
+	
+	/*제휴업체사이트 월별 방문자 조회*/
+	@RequestMapping(value = "/getMonthlyVisitor", method = RequestMethod.GET)
+	public @ResponseBody String getMonthlyVisitor() {
+		Gson gson = new Gson();
+		List<PartnerStatsDto> list= dao.getMonthlyVisitor("coo_contract_1");
+		System.out.println(list.toString());
+		return gson.toJson(list);
+
+	}
+	
+
 	
 }
  

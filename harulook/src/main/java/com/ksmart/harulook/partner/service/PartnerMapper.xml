@@ -41,6 +41,11 @@
 		<result property="userBsName" column="user_bs_name"></result>
 		<result property="userUrl" column="user_url"></result>
 	</resultMap>
+	
+	<resultMap type="com.ksmart.harulook.partner.service.PartnerStatsDto" id="statistics">
+		<result property="statsDate" column="date" ></result>
+		<result property="statsAmount" column="amount" ></result>		
+	</resultMap>
 
 
 	<!-- 제휴계약신청 -->
@@ -331,6 +336,34 @@
 		FROM coo_bill
 	</select>
 
+	<!-- 제휴업체 일별 방문자 수 가져오기 -->
+	<select id="getcooContractVisitor" parameterType="java.util.Map" resultMap="statistics">
+	SELECT 
+		DATE(coo_visitor_datetime)AS date, count(coo_visitor_no)AS amount
+	FROM 
+		coo_visitor
+	WHERE 
+		coo_contract_no = #{cooContractNo}
+		AND 
+		MONTH(coo_visitor_datetime) = #{month}
+	GROUP BY 
+		date
+
+	</select>
+	
+	<!-- 제휴업체 월별 방문자 수 가져오기 -->
+	<select id="getMonthlyVisitor" parameterType="String" resultMap="statistics" >
+	SELECT 
+		month(coo_visitor_datetime) as date
+		,count(coo_visitor_no)as amount
+	FROM 
+		coo_visitor
+	WHERE 
+	coo_contract_no = #{cooContractNo}
+	GROUP BY 
+		date
+	
+	</select>
 
 
 

@@ -15,7 +15,7 @@ public class PartnerDao {
 
 	 @Autowired
 	 private SqlSessionTemplate sqlSessionTemplate;
-	
+	 
 	 /*제휴계약 신청처리*/
 	 public int insertCooContract(PartnerDto dto) {
 	        return sqlSessionTemplate.insert("com.ksmart.harulook.partner.service.PartnerMapper.cooContractInsert", dto);
@@ -89,6 +89,9 @@ public class PartnerDao {
 		 String LastCooBillNo="";
 		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.getLastCooBillNo",LastCooBillNo);
 	 }
-	 
+	 /*제휴업체 월별 방문자 수 가져오기*/
+	 public List<PartnerStatsDto> getMonthlyVisitor(String cooContractNo){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getMonthlyVisitor",cooContractNo);
+	 }
 
 }

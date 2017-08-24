@@ -106,8 +106,10 @@ public class MallController {
 		dto.setMallVisitorNo("coo_visitor_"+setNo);
 		/***********************/
 		dto.setMallVisitorIp(ip);
-		String influx = (String)session.getAttribute("influx");
+		String influx = (String)session.getAttribute("influx");//유입경로를 체크
 		dto.setMallVisitorInflux(influx);
+		
+		dto.setCooContractNo("coo_contract_1");
 		dao.insertMallVisitor(dto);
 		
         return "mall/mall_main";

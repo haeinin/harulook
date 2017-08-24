@@ -18,6 +18,8 @@
 		<result property="mallVisitorIp" column="coo_visitor_ip"></result>
 		<result property="mallVistorDatetime" column="coo_visitor_datetime"></result>
 		<result property="mallVisitorInflux" column="coo_visitor_influx"></result>
+		<result property="cooContractNo" column="coo_contract_no"></result>
+
 	</resultMap>
 	
 	<resultMap type="com.ksmart.harulook.mall.service.MallSaleDto" id="mallSale">
@@ -176,6 +178,7 @@
 	,coo_visitor_ip
 	,coo_visitor_datetime
 	,coo_visitor_influx
+	,coo_contract_no
 	)
 	VALUES 
 	(
@@ -183,6 +186,7 @@
 	,#{mallVisitorIp}
 	,NOW()
 	,#{mallVisitorInflux}
+	,#{cooContractNo}
 	)
 	</insert>
 	
