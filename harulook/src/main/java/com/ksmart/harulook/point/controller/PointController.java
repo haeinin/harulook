@@ -23,8 +23,8 @@ public class PointController {
     private PointDao PointDao;
 	
 	/*포인트 정책 리스트*/
-	@RequestMapping(value="/pointPolicy", method = RequestMethod.GET)
-	public String pointPolicy(Model model,
+	@RequestMapping(value="/myPoint", method = RequestMethod.GET)
+	public String myPoint(Model model,
 				HttpSession session,
 				HttpServletRequest request,
 				@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
@@ -32,9 +32,19 @@ public class PointController {
 		
 		List<PointDto> pointPolicy = PointDao.pointPolicy();	//포인트 정책 리스트
 		model.addAttribute("pointPolicy", pointPolicy);
+			System.out.println("PointController 1 포인트정책 " + pointPolicy);
 		
-		List<PointDto> pointUsePolicy = PointDao.pointUsePolicy();	//포인트 사용 리스트
+		List<PointDto> pointUsePolicy = PointDao.pointUsePolicy();	//포인트 쿠폰 정책
+			System.out.println("PointController 2 쿠폰 정책 " + pointPolicy);
 		model.addAttribute("pointUsePolicy", pointUsePolicy);
+		
+		List<PointDto> pointUse = PointDao.pointUse(userId);	//포인트 사용 내역
+			System.out.println("PointController 3 포인트 사용 내역 " + pointUse);
+		model.addAttribute("pointUse", pointUse);
+		
+		List<PointDto> pointGet = PointDao.pointGet(userId);	//포인트 취득 내역
+			System.out.println("PointController 4 포인트 취득 내역 " + pointGet);
+		model.addAttribute("pointGet", pointGet);
 		
 		/*int followListCount = followDao.followListCount(userId);
 		int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개

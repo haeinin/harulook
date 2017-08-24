@@ -77,6 +77,10 @@
 			$('#followMeList').submit();
         });
 		
+		$('#myPointButton').click(function(){	//나의 포인트 보기
+			$('#myPoint').submit();
+        });
+		
 		$('#followCheckButton').click(function(){	//팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식
 			$('#followCheck').submit();
         });
@@ -351,6 +355,13 @@
 				  <form id="followMeList" action="${pageContext.request.contextPath}/followMeList" method="get">
 			  		<div>
 			  			<input class="btn btn-default" id="followMeListButton" type="button" value="나를 등록한 친구 목록"/>
+			  	 	</div>	
+				  </form>
+				  
+				  <!-- 포인트 보러 가기 -->
+				  <form id="myPoint" action="${pageContext.request.contextPath}/myPoint" method="get">
+			  		<div>
+			  			<input class="btn btn-default" id="myPointButton" type="button" value="내 포인트"/>
 			  	 	</div>	
 				  </form>		
 			</c:if>

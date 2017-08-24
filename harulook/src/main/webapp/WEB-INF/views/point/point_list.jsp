@@ -29,12 +29,43 @@
 <meta http-equiv="Expires" content="-1">
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('#pointUse').hide();//포인트 사용 내역 리스트
+		$('#pointGet').hide();//포인트 취득 내역 리스트
 		
+		$('#pointUseButton').click(function(){	//포인트 사용 내역
+			$('#loginAdd').submit();
+			$('#pointUse').show();
+			$('#pointGet').hide();
+		});
+		
+		$('#pointGetButton').click(function(){	//포인트 취득 내역
+			$('#loginAdd').submit();
+			$('#pointUse').hide();
+			$('#pointGet').show();
+		});
 		
 	});
 </script>
 </head>
 <body>
+	<input class="btn btn-default" id="pointPolicyButton" type="button" value="포인트정책"/>
+	<input class="btn btn-default" id="pointUsePolicyButton" type="button" value="포인트사용정책"/>
+	<input class="btn btn-default" id="pointUseButton" type="button" value="포인트 사용 내역"/>
+	<input class="btn btn-default" id="pointGetButton" type="button" value="포인트 취득 내역"/>
+	
+	<!-- 아이디찾기 modal-->
+	<div class="modal fade" id="idFindModal" role="dialog">
+	  	<div class="modal-dialog">
+	 			<!-- Modal content-->
+			<div class="modal-content">
+				
+				<div class="modal-header" style="padding:35px 50px;">
+				   
+				</div>
+	       	</div>
+	 	 </div>
+	</div>
+	
 	<!-- 포인트 정책-->
 	<div class="container">
 	    <h1>포인트 정책</h1>
@@ -78,5 +109,54 @@
 	        </tbody>
 	   </table>
 	</div>
+	
+	<!-- 포인트 사용 내역-->
+	<div class="container" id="pointUse">
+	    <h1>포인트 사용 내역</h1>
+	    <table class="table table-striped">
+	        <thead>
+	            <tr>
+	                <th>쿠폰</th>
+	                <th>포인트</th>
+	                <th>날짜</th>
+            	  </tr>
+	        </thead>
+	        <tbody>
+	            <c:forEach var="u" items="${pointUse}">
+	                <tr>
+		                <td>${u.pointPolicyReason}</td>
+				      	<td>${u.pointPolicyValue}</td>
+				      	<td>${u.pointDate}</td>
+				    </tr>
+	            </c:forEach>
+	        </tbody>
+	   </table>
+	</div>
+	
+	<!-- 포인트 취득내역 정책-->
+	<div class="container" id="pointGet">
+	    <h1>포인트 취득내역 정책</h1>
+	    <table class="table table-striped">
+	        <thead>
+	            <tr>
+	                <th>쿠폰</th>
+	                <th>포인트</th>
+	                <th>날짜</th>
+            	  </tr>
+	        </thead>
+	        <tbody>
+	            <c:forEach var="g" items="${pointGet}">
+	                <tr>
+		                <td>${g.pointPolicyReason}</td>
+				      	<td>${g.pointPolicyValue}</td>
+				      	<td>${g.pointDate}</td>
+				    </tr>
+	            </c:forEach>
+	        </tbody>
+	   </table>
+	</div>
+	
+	
+	
 </body>
 </html>
