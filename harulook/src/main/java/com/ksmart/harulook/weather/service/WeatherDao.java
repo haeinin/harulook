@@ -22,17 +22,22 @@ import org.xml.sax.SAXException;
 @Repository
 public class WeatherDao {
 
-	public String xmlDownload(String date, String hour) throws IOException {
+	public String xmlDownload(String date, String hour, String nx, String ny) throws IOException {
    	 
+		System.out.println("date : "+date);
+		System.out.println("hour : "+hour);
+		System.out.println("nx : "+nx);
+		System.out.println("ny : "+ny);
+		
 	    String host = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib?"
 	            +URLEncoder.encode("base_date","UTF-8")+"="
 	            +URLEncoder.encode(date,"UTF-8")+"&"
 	            +URLEncoder.encode("base_time","UTF-8")+"="
 	            +URLEncoder.encode(hour,"UTF-8")+"&"
 	            + URLEncoder.encode("nx","UTF-8")+"="
-	            +URLEncoder.encode("63","UTF-8")+"&"
+	            + URLEncoder.encode(nx,"UTF-8")+"&"
 	            + URLEncoder.encode("ny","UTF-8")+"="
-	            + URLEncoder.encode("89","UTF-8")+"&"
+	            + URLEncoder.encode(ny,"UTF-8")+"&"
 	    		+ URLEncoder.encode("numOfRows","UTF-8")+"="
 	            + URLEncoder.encode("10","UTF-8")+"&"
 				+ URLEncoder.encode("pageNo","UTF-8")+"="
@@ -68,8 +73,8 @@ public class WeatherDao {
 	 
 	    }
 	
-	public WeatherDto getItemList(String date, String hour) throws IOException, ParserConfigurationException, SAXException {
-        String xml = this.xmlDownload(date, hour);
+	public WeatherDto getItemList(String date, String hour, String nx, String ny) throws IOException, ParserConfigurationException, SAXException {
+        String xml = this.xmlDownload(date, hour, nx, ny);
         WeatherDto weather = new WeatherDto();
         // xml 을-> List<Item>
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();

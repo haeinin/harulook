@@ -23,7 +23,7 @@
 <!-- 아이피받아오기 -->
 <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
 <script type="text/javascript">
-		
+
 	$(document).ready(function(){
 		/* 받아온 아이피 */
 		console.log(ip());
@@ -47,7 +47,7 @@
 	    
 	    console.log('longitude: ', position.coords.longitude);
 	    });
-
+		
 		var request = $.ajax({
 			  url: "./guestAdd", //호출 경로
 			  method: "POST",	//전송방식

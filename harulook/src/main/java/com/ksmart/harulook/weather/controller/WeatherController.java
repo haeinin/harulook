@@ -24,9 +24,15 @@ public class WeatherController {
 	@RequestMapping(value="/currentWeather", method = RequestMethod.GET)
 	public @ResponseBody WeatherDto currentWeather(
 			@RequestParam(value="date", required=true) String date
-			,@RequestParam(value="hour", required=true) String hour) throws IOException, ParserConfigurationException, SAXException {
+			,@RequestParam(value="hour", required=true) String hour
+			,@RequestParam(value="nx", required=true) String nx
+			,@RequestParam(value="ny", required=true) String ny) throws IOException, ParserConfigurationException, SAXException {
 		WeatherDto weather = null;
-		weather = weatherDao.getItemList(date, hour);
+		System.out.println("date : "+date);
+		System.out.println("hour : "+hour);
+		System.out.println("nx : "+nx);
+		System.out.println("ny : "+ny);
+		weather = weatherDao.getItemList(date, hour, nx, ny);
 		System.out.println("weather : "+weather+" in currentWeather");
 		
 		return weather;

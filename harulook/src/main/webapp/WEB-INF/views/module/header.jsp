@@ -28,6 +28,82 @@
 
 <script type="text/javascript">
 
+//<!--
+//
+// LCC DFS 좌표변환을 위한 기초 자료
+//
+var RE = 6371.00877; // 지구 반경(km)
+var GRID = 5.0; // 격자 간격(km)
+var SLAT1 = 30.0; // 투영 위도1(degree)
+var SLAT2 = 60.0; // 투영 위도2(degree)
+var OLON = 126.0; // 기준점 경도(degree)
+var OLAT = 38.0; // 기준점 위도(degree)
+var XO = 43; // 기준점 X좌표(GRID)
+var YO = 136; // 기1준점 Y좌표(GRID)
+//
+// LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도,v1:x, v2:y) )
+//
+
+
+function dfs_xy_conv(code, v1, v2) {
+    var DEGRAD = Math.PI / 180.0;
+    var RADDEG = 180.0 / Math.PI;
+
+    var re = RE / GRID;
+    var slat1 = SLAT1 * DEGRAD;
+    var slat2 = SLAT2 * DEGRAD;
+    var olon = OLON * DEGRAD;
+    var olat = OLAT * DEGRAD;
+
+    var sn = Math.tan(Math.PI * 0.25 + slat2 * 0.5) / Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+    sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn);
+    var sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+    sf = Math.pow(sf, sn) * Math.cos(slat1) / sn;
+    var ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
+    ro = re * sf / Math.pow(ro, sn);
+    var rs = {};
+    if (code == "toXY") {
+        rs['lat'] = v1;
+        rs['lng'] = v2;
+        var ra = Math.tan(Math.PI * 0.25 + (v1) * DEGRAD * 0.5);
+        ra = re * sf / Math.pow(ra, sn);
+        var theta = v2 * DEGRAD - olon;
+        if (theta > Math.PI) theta -= 2.0 * Math.PI;
+        if (theta < -Math.PI) theta += 2.0 * Math.PI;
+        theta *= sn;
+        rs['x'] = Math.floor(ra * Math.sin(theta) + XO + 0.5);
+        console.log(rs['x']);
+        rs['y'] = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
+        console.log(rs['y']);
+    }
+    else {
+        rs['x'] = v1;
+        rs['y'] = v2;
+        var xn = v1 - XO;
+        var yn = ro - v2 + YO;
+        ra = Math.sqrt(xn * xn + yn * yn);
+        if (sn < 0.0) - ra;
+        var alat = Math.pow((re * sf / ra), (1.0 / sn));
+        alat = 2.0 * Math.atan(alat) - Math.PI * 0.5;
+
+        if (Math.abs(xn) <= 0.0) {
+            theta = 0.0;
+        }
+        else {
+            if (Math.abs(yn) <= 0.0) {
+                theta = Math.PI * 0.5;
+                if (xn < 0.0) - theta;
+            }
+            else theta = Math.atan2(xn, yn);
+        }
+        var alon = theta / sn + olon;
+        rs['lat'] = alat * RADDEG;
+        rs['lng'] = alon * RADDEG;
+    }
+    console.log("rs : ",rs);
+    return rs;
+}
+//-->		
 	$(document).ready(function(){
 		$('#loginbutton').click(function(){	//로그인버튼
 			$('#login').submit();
@@ -81,7 +157,9 @@
 			$('#followCheck').submit();
         });
 		
-		var d = new Date();
+		
+		/* 오늘 날짜를 날씨 api의 입력 양식에 맞게 변환 */
+	    var d = new Date();
 		var year = d.getFullYear();
 		var month = d.getMonth() + 1;
 		if(month < 10) {
@@ -94,6 +172,9 @@
 		}
 		var date = year+month+day+'';
 		console.log(date);
+		/********************************/
+		
+		/* 현재 시간을 날씨api 입력 양식에 맞게 변환 */
 		var hour = d.getHours();
 		var minute = d.getMinutes(); 
 		if(minute < 40) {
@@ -108,8 +189,21 @@
 		}
 		hour = hour+'00';
 		console.log(hour);
+		/********************************/
 		
-		var allData = { "date": date, "hour": hour };
+		var position = sessionStorage.getItem('influx');
+		
+		navigator.geolocation.getCurrentPosition(function(position){
+			
+			 var lat = position.coords.latitude;	// 현재 접속 위치의 위도
+			 var lng = position.coords.longitude; 	// 현재 접속 위치의 경도
+			
+			var rs = dfs_xy_conv("toXY",lat,lng); // 위도경도 값을 xy격자 값으로 변환
+			console.log(rs.x, rs.y);
+	    
+			
+		/**************** 날씨 초단기 실황 api 실행 ***************/
+		var allData = { 'date': date, 'hour': hour, 'nx': rs.x, 'ny': rs.y };	// api에 입력할 데이터 
 		
 		var weatherRequest = $.ajax({
 			url : './currentWeather',
@@ -118,21 +212,22 @@
 			datatype : 'json',
 			success : function(data){
 				console.log(data);
-				$('#tempur').text('현재 기온 : '+data.temp1hour+'℃');
+				$('#tempur').text('현재 기온 : '+data.temp1hour+'℃');	// 현재 기온 표시
 				
+				// 하늘 상태 
 				switch(data.sky) {
-				case '1' : 
+				case '1' : 	// 맑음
 					$('#weaterIcon').attr('class','sunny');
 					break;
-				case '2' : 
+				case '2' : 	// 구름 조금
 					$('#weaterIcon').attr('class','partly_cloudy');
 					$('#sun').attr('class','partly_cloudy__sun');
 					$('#cloud').attr('class','partly_cloudy__cloud');
 					break;
-				case '3' :
+				case '3' :	// 구름 많음
 					$('#weaterIcon').attr('class','cloudy');
 					break;
-				case '4' :
+				case '4' :	// 흐림
 					$('#weaterIcon').attr('class','rainy');
 					$('#cloud').attr('class','rainy__cloud');
 					break;
@@ -142,14 +237,15 @@
 				
 				}
 				
-				switch(data.rainStat) {
-				case '1' :
+				// 강수형태 - 비나 눈
+				switch(data.rainStat) {	
+				case '1' :	// 비
 					$('#rain').attr('class','rainy__rain');
 					break;
-				case '2' :
+				case '2' :	// 눈 (가져온 날씨 css에 눈 그림이 없어서 폭우 그림으로 대체. 눈 그림은 추후에 추가 예정)
 					$('#rain').attr('class','thundery__rain');
 					break;
-				default :
+				default :	//없음
 					$('#rain').removeAttr('class');
 					break;
 				}
@@ -159,7 +255,9 @@
 				alert('fail');
 			}
 		});
+		/***********************************************************/
 	 });
+	});
 </script>
 </head>
 <body>
