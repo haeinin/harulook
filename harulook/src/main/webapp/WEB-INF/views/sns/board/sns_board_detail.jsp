@@ -15,33 +15,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!-- jquery를 사용하기위한 CDN주소 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
-<style>
-
-.like-container{filter: url('#filter');}
-
-.like-cnt{  
-  position: absolute; 
-  cursor: pointer;
-  left: 50%; 
-  top: 50%; 
-  transform: translate(-50%, -50%);       
-  width: 60px; 
-  height: 60px;  
-  border-radius: 50%;
-  text-align: center;
-  line-height: 75px;
-  z-index: 10;
-}
-
-.like-btn{
-  color: #fff;
-}
-
-
-::-moz-selection { background: transparent;}
-::selection {background: transparent;}
-</style>
+<link rel="stylesheet prefetch" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="<c:url value="resources/css/like-btn.css" />" type="text/css">
 <script type="text/javascript">
 $(function(){
 	var like_cnt = $("#like-cnt");

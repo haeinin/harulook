@@ -14,7 +14,7 @@
  
 <!-- jquery를 사용하기위한 CDN주소 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- 
+
 <!-- bootstrap javascript소스를 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
@@ -24,7 +24,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- 모달을 쓰기위한 부트스트랩 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="resources/css/cartoony_weather.css" type="text/css">
+<link rel="stylesheet" href="<c:url value="/resources/css/cartoony-weather.css" />" type="text/css">
 
 <script type="text/javascript">
 
@@ -172,7 +172,7 @@
 		<div id="rain"></div>
 	</div> 
 </div>
-<div id="tempur"></div>
+<h2 id="tempur"></h2>
 <!-- 세션에 있는 아이디 권한 받기 -->
 아이디 : <c:out value='${sessionScope.id}'/><br>
 권한 : <c:out value='${sessionScope.level}'/><br>
