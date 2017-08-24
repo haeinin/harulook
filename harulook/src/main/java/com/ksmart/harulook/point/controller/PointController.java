@@ -23,6 +23,16 @@ public class PointController {
 	@Autowired
     private PointDao pointDao;
 	
+	
+	/*쿠폰입력*/
+	@RequestMapping(value="/couponUse", produces = "application/text; charset=utf8", method = RequestMethod.POST)
+	public String couponUse(
+					) {
+		String pointNo = pointDao.pointNo();	//포인트번호 검색 후 마지막 +1 입력
+		System.out.println("PointController pointNo" + pointNo);
+        return "point/point_list";  
+    }
+	
 	/*마이페이지 포인트확인*/
 	@RequestMapping(value="/myPagePoint", method = {RequestMethod.GET, RequestMethod.POST})
 	public @ResponseBody int myPagePoint(

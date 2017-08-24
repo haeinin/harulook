@@ -13,6 +13,29 @@
 		<result property="pointDate" column="point_date"/>
 	</resultMap>
 	
+	<!-- 포인트 사용 취득 내역 번호 -->
+   	<select id="pointNo" resultType="String">
+		select MAX(CAST(substring(point_no, 7) AS DECIMAL))
+		from point
+		;
+   	</select>
+	
+	<!-- 쿠폰 사용 -->
+   	<select id="couponUse" parameterType="java.util.Map">
+		INSERT INTO point (
+			point_no
+			, user_id
+			, point_date
+			, point_policy_no
+			)
+			VALUES 
+			(#{pointNo}
+			,#{userId}
+			,DATE(NOW())
+			,#{pointPolicyNo}
+		);
+	</select>
+	
 	<!-- 나의 포인트 -->
    	<select id="myPoint" parameterType="java.util.Map" resultType="int">
 		select sum(point_policy.point_policy_value) point_policy_value

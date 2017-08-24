@@ -13,7 +13,23 @@ public class PointDao {
 	@Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 	
-     /*나의 포인트*/
+	/*팔로우no검색*/
+    public String pointNo() {
+    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.point.service.PointMapper.pointNo");
+    	
+    }
+	
+	/*쿠폰사용 */
+    public int couponUse(String pointNo, String userId, String pointPolicyNo) {
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("pointNo", pointNo);
+    	map.put("userId", userId);
+    	map.put("pointPolicyNo", pointPolicyNo);
+    	System.out.println("couponUse map" + map);
+        return sqlSessionTemplate.insert("com.ksmart.harulook.point.service.PointMapper.couponUse", map);
+    }
+	
+    /*나의 포인트*/
     public int myPoint(String userId) {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("userId", userId);
