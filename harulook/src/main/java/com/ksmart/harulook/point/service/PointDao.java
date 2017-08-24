@@ -13,6 +13,13 @@ public class PointDao {
 	@Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 	
+     /*나의 포인트*/
+    public int myPoint(String userId) {
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("userId", userId);
+    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.point.service.PointMapper.myPoint", map);
+    }
+	
 	/*포인트 정책 리스트*/
     public List<PointDto> pointPolicy() {
     	return sqlSessionTemplate.selectList("com.ksmart.harulook.point.service.PointMapper.pointPolicy");

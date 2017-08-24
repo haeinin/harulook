@@ -13,6 +13,16 @@
 		<result property="pointDate" column="point_date"/>
 	</resultMap>
 	
+	<!-- 나의 포인트 -->
+   	<select id="myPoint" parameterType="java.util.Map" resultType="int">
+		select sum(point_policy.point_policy_value) point_policy_value
+		from point
+		join point_policy
+		on point.point_policy_no = point_policy.point_policy_no
+		where point.user_id = #{userId}
+		;
+	</select>	
+	
 	<!-- 포인트 사용 내역 -->
    	<select id="pointUse" parameterType="java.util.Map" resultMap="Point">
 		select point.point_no

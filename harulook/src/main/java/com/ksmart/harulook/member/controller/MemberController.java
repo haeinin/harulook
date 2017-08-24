@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ksmart.harulook.member.service.MemberDao;
 import com.ksmart.harulook.member.service.MemberDto;
+import com.ksmart.harulook.point.service.PointDao;
 
 @Controller
 public class MemberController {
