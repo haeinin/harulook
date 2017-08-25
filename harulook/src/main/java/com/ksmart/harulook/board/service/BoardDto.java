@@ -5,6 +5,7 @@ import java.util.Arrays;
 public class BoardDto {
 	private String snsBoardNo;
 	private String userId;
+	private String userNick;
 	private String snsBoardImg;
 	private String snsBoardContent;
 	private String snsBoardWeather;
@@ -20,6 +21,12 @@ public class BoardDto {
 	private String[] styleValue;
 	private String[] situationValue;
 	
+	public String getUserNick() {
+		return userNick;
+	}
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
 	public String[] getColorValue() {
 		return colorValue;
 	}
@@ -120,13 +127,13 @@ public class BoardDto {
 	}
 	@Override
 	public String toString() {
-		return "BoardDto [snsBoardNo=" + snsBoardNo + ", userId=" + userId + ", snsBoardImg=" + snsBoardImg
-				+ ", snsBoardContent=" + snsBoardContent + ", snsBoardWeather=" + snsBoardWeather + ", snsBoardTall="
-				+ snsBoardTall + ", snsBoardSize=" + snsBoardSize + ", snsBoardLoc=" + snsBoardLoc + ", snsBoardDate="
-				+ snsBoardDate + ", snsBoardGender=" + snsBoardGender + ", snsBoardAge=" + snsBoardAge
-				+ ", snsCommentCount=" + snsCommentCount + ", snsLikeCount=" + snsLikeCount + ", colorValue="
-				+ Arrays.toString(colorValue) + ", styleValue=" + Arrays.toString(styleValue) + ", situationValue="
-				+ Arrays.toString(situationValue) + "]";
+		return "BoardDto [snsBoardNo=" + snsBoardNo + ", userId=" + userId + ", userNick=" + userNick + ", snsBoardImg="
+				+ snsBoardImg + ", snsBoardContent=" + snsBoardContent + ", snsBoardWeather=" + snsBoardWeather
+				+ ", snsBoardTall=" + snsBoardTall + ", snsBoardSize=" + snsBoardSize + ", snsBoardLoc=" + snsBoardLoc
+				+ ", snsBoardDate=" + snsBoardDate + ", snsBoardGender=" + snsBoardGender + ", snsBoardAge="
+				+ snsBoardAge + ", snsCommentCount=" + snsCommentCount + ", snsLikeCount=" + snsLikeCount
+				+ ", colorValue=" + Arrays.toString(colorValue) + ", styleValue=" + Arrays.toString(styleValue)
+				+ ", situationValue=" + Arrays.toString(situationValue) + "]";
 	}
 	
 }

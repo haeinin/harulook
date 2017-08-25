@@ -83,28 +83,30 @@ public class WeatherDao {
 		NodeList nodeList = doc.getElementsByTagName("item");
 		for(int i=0; i<nodeList.getLength(); i++) {
     
-    String category = "";
-    String obsrValue = "";
-    Node node = nodeList.item(i);
-    Element e = (Element)node;
-    category = e.getElementsByTagName("category").item(0).getTextContent();
-    obsrValue = e.getElementsByTagName("obsrValue").item(0).getTextContent();
-    if(category.equals("T1H")) {
-    	weather.setTemp1hour(obsrValue);
-    } else if(category.equals("SKY")) {
-    	weather.setSky(obsrValue);
-    } else if(category.equals("PTY")) {
-    	weather.setRainStat(obsrValue);
-    } else if(category.equals("REH")) {
-    	weather.setHumidity(obsrValue);
-    } else if(category.equals("RN1")) {
-    	weather.setPrecipitation(obsrValue);
-    } else {
-    	continue;
-    }
-    }
+		    String category = "";
+		    String obsrValue = "";
+		    Node node = nodeList.item(i);
+		    Element e = (Element)node;
+		    category = e.getElementsByTagName("category").item(0).getTextContent();
+		    obsrValue = e.getElementsByTagName("obsrValue").item(0).getTextContent();
+		    
+		    if(category.equals("T1H")) {
+		    	weather.setTemp1hour(obsrValue);
+		    } else if(category.equals("SKY")) {
+		    	weather.setSky(obsrValue);
+		    } else if(category.equals("PTY")) {
+		    	weather.setRainStat(obsrValue);
+		    } else if(category.equals("REH")) {
+		    	weather.setHumidity(obsrValue);
+		    } else if(category.equals("RN1")) {
+		    	weather.setPrecipitation(obsrValue);
+		    } else if(category.equals("LGT")) {
+		        weather.setThunder(obsrValue);
+		    } else {
+		        continue;
+		    }
+		}
 		System.out.println("getItemList : "+weather);
-		
-  return weather;
-}
+		return weather;
+	}
 }

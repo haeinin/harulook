@@ -25,6 +25,10 @@
 <!-- 모달을 쓰기위한 부트스트랩 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="<c:url value="/resources/css/cartoony-weather.css" />" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+
+<script type="text/javascript" src="resources/js/modernizr.js"></script>
 
 <script type="text/javascript">
 
@@ -215,39 +219,47 @@ function dfs_xy_conv(code, v1, v2) {
 				$('#tempur').text('현재 기온 : '+data.temp1hour+'℃');	// 현재 기온 표시
 				
 				// 하늘 상태 
-				switch(data.sky) {
-				case '1' : 	// 맑음
-					$('#weaterIcon').attr('class','sunny');
-					break;
-				case '2' : 	// 구름 조금
-					$('#weaterIcon').attr('class','partly_cloudy');
-					$('#sun').attr('class','partly_cloudy__sun');
-					$('#cloud').attr('class','partly_cloudy__cloud');
-					break;
-				case '3' :	// 구름 많음
-					$('#weaterIcon').attr('class','cloudy');
-					break;
-				case '4' :	// 흐림
-					$('#weaterIcon').attr('class','rainy');
-					$('#cloud').attr('class','rainy__cloud');
-					break;
-				default :
-					$('#weaterIcon').attr('class','');
-					break;
-				
+				if(data.thunder == '1') {    // 낙뢰가 있는 경우
+				    $('#weaterIcon').attr('class','thundery');
+				    $('#cloud').attr('class','thundery__cloud');    //먹구름
+				}else {
+				    switch(data.sky) {
+				    case '1' :     // 맑음
+				        $('#weaterIcon').attr('class','sunny');
+				        break;
+				    case '2' :     // 구름 조금
+				        $('#weaterIcon').attr('class','partly_cloudy');
+				        $('#sun').attr('class','partly_cloudy__sun');
+				        $('#cloud').attr('class','partly_cloudy__cloud');
+				        break;
+				    case '3' :    // 구름 많음
+				        $('#weaterIcon').attr('class','cloudy');
+				        break;
+				    case '4' :    // 흐림
+				        $('#weaterIcon').attr('class','rainy');
+				        $('#cloud').attr('class','rainy__cloud');
+				        break;
+				    default :
+				        $('#weaterIcon').attr('class','');
+				        break;
+				    }
 				}
-				
+				 
 				// 강수형태 - 비나 눈
-				switch(data.rainStat) {	
-				case '1' :	// 비
-					$('#rain').attr('class','rainy__rain');
-					break;
-				case '2' :	// 눈 (가져온 날씨 css에 눈 그림이 없어서 폭우 그림으로 대체. 눈 그림은 추후에 추가 예정)
-					$('#rain').attr('class','thundery__rain');
-					break;
-				default :	//없음
-					$('#rain').removeAttr('class');
-					break;
+				switch(data.rainStat) {    
+				case '1' :    // 비
+				    if(data.precipitation > 5) { // 강수량이 5 이상일 때, 폭우 
+				        $('#rain').attr('class','thundery__rain');
+				    } else {
+				        $('#rain').attr('class','rainy__rain');
+				    }
+				    break;
+				case '2' :    // 눈 (가져온 날씨 css에 눈 그림이 없어서 폭우 그림으로 대체. 눈 그림은 추후에 추가 예정)
+				    $('#rain').attr('class','thundery__rain');
+				    break;
+				default :    //없음
+				    $('#rain').removeAttr('class');
+				    break;
 				}
 				
 			},
@@ -261,9 +273,17 @@ function dfs_xy_conv(code, v1, v2) {
 </script>
 </head>
 <body>
-
+<header>
+	<img src="resources/files/images/mountains.jpg" alt="Mountains">
+	<div class="name fancy-font">
+	    Hanamichi
+	</div>
+	<div class="titles">
+	    <h1>Welcome to <span>Harulook!</span></h1>
+	</div>
+</header>
 <!-- 현재 날씨  -->
-<div class="weather_body" >
+<div class="weather_body">
 	<div id="weaterIcon">
 		<div id="sun"></div>
 		<div id="cloud"></div>
@@ -301,10 +321,8 @@ function dfs_xy_conv(code, v1, v2) {
 		
 		<!--------팔로우등록 테스트양식------------------------------------------------------------------------------------  -->
 		<form id="followCheck" action="${pageContext.request.contextPath}/followCheck" method="post">
-	  		<div>
 	  			<input id="followId" name="followId" type="text" />
-	  			<input class="btn btn-default" id="followCheckButton" type="button" value="입력"/>
-	  	 	</div>	
+	  			<input id="followCheckButton" type="button" value="입력"/>
 		</form>		
 	</c:if>
 	
@@ -456,6 +474,5 @@ function dfs_xy_conv(code, v1, v2) {
       </div>
     </div>
   </div> 
-
 </body>
 </html>

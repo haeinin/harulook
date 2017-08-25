@@ -75,12 +75,14 @@ ${b.snsBoardImg}
      <table class="table">
          <tbody>
             <tr>
+            	<!-- 게시물 번호(시험용, 나중에 삭제해야 함) -->
                 <td>sns_board_no :</td>
                 <td id="snsBoardNo">${board.snsBoardNo}</td>
             </tr>
             <tr>
-                <td>user_id :</td>
-                <td>${board.userId}</td>
+            	<!-- 게시물 등록자 닉네임과 아이디, 클릭시 팔로우 -->
+                <td>user :</td>
+                <td>${board.userNick} (${board.userId})</td>
             </tr>
             <tr>
 				<td>sns_board_img :</td>

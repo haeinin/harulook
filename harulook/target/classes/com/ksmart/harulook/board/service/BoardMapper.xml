@@ -15,6 +15,7 @@
 		<result property="snsBoardDate" column="sns_board_date"/>
 		<result property="snsBoardGender" column="sns_board_gender"/>
 		<result property="snsBoardAge" column="sns_board_age"/>
+		<result property="userNick" column="nick"/>
 	</resultMap>
 	
 	<!-- sns게시물 검색 -->
@@ -192,7 +193,8 @@
 	<select id="boardDetail" parameterType="String" resultMap="board">
 		SELECT 
 			sns_board.sns_board_no 
-			,sns_board.user_id 
+			,sns_board.user_id
+			,nick
 			,sns_board.sns_board_img 
 			,sns_board.sns_board_content 
 			,sns_board.sns_board_weather 
@@ -223,9 +225,16 @@
 			ON l.sns_board_no = b.sns_board_no 
 			GROUP BY b.sns_board_no 
 			) AS lc 
+			,(
+			SELECT user.user_nick as nick, s.sns_board_no
+			FROM user
+			RIGHT JOIN sns_board s
+			ON user.user_id = s.user_id
+			) AS u
 		WHERE sns_board.sns_board_no = #{snsBoardNo} 
 		AND sns_board.sns_board_no = cc.sns_board_no 
 		AND sns_board.sns_board_no = lc.sns_board_no
+		AND sns_board.sns_board_no = u.sns_board_no
 	</select>
 	
 	<!-- sns게시물 수 조회 -->
