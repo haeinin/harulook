@@ -55,8 +55,19 @@ public class PointController {
 	        }
 	    }
 	    String pointGoodsCode = randomGoodsCode.toString();	//StringBuffer로 생성된 쿠폰 코드를 데이터베이스에 들어갈수 있도록 String으로 변환
-			
+	    String couponCheck = pointDao.couponCheck(pointGoodsCode);	//랜덤생성코드 중복검사
+			System.out.println(couponCheck + "  == PointController 랜덤생성코드 중복검사");
 		
+		while(pointGoodsCode.equals(couponCheck)){	//랜덤생성코드가 중복되면 중복안될때까지 재생성
+			for(int i = 0; i < 10; i++){
+		        if(rnd.nextBoolean()){
+		        	randomGoodsCode.append((char)((int)(rnd.nextInt(26))+65));
+		        }else{
+		        	randomGoodsCode.append((rnd.nextInt(10)));
+		        }
+		    }
+			couponCheck = pointDao.couponCheck(pointGoodsCode);
+		}
 		
 		String pointNo = pointDao.pointNo();	//쿠폰번호 검색 후 마지막 +1 입력
 		System.out.println("PointController pointNo = " + pointNo);
