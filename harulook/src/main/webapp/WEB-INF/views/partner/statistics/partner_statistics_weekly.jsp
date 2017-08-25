@@ -11,12 +11,32 @@ canvas {
     -ms-user-select: none;
 }
 </style>
-
-<div id="monthly" style="width: 80%">
+<c:import url="../statistics/statistics_header.jsp"></c:import>
+<div style="width: 80%">
     <div>
         <canvas id="canvas" height="350" width="600"></canvas>
     </div>
 </div>
+<div>
+	<table>
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<c:forEach var="b" items="${list}" >
+	<tr>
+		<td>${b.statsDate}</td>
+		<td>${b.statsAmount}</td>
+		<td>${b.statsStartDate}</td>
+		<td>${b.statsEndDate}</td>
+	</tr>
+	</c:forEach>
+	</table>
+
+</div>
+
 <c:set value="${cooContractNo}" var="no"/>
 <script>
 var chartLabels = [];// 받아올 데이터를 저장할 배열 선언
@@ -33,7 +53,7 @@ console.log(cooContractNo);
  var lineChartData = {
 		    labels : chartLabels,
 		    datasets : [ {
-		        label : "월별 PC 판매량",
+		        label : "주별 방문자 수",
 		        fillColor : "rgba(220,220,220,0.2)",
 		        strokeColor : "rgba(220,220,220,1)",
 		        pointColor : "rgba(220,220,220,1)",
@@ -60,32 +80,16 @@ console.log(cooContractNo);
 		        }
 		    });
 		}
-$.getJSON("./getMonthlyVisitor"
+$.getJSON("./getWeeklyInflux"
 		,{cooContractNo:cooContractNo}
 		, function (data) {
 	 $.each(data, function (key, value) {
-		 
+
 		 chartLabels.push(value.statsDate);
 		 chartData.push(value.statsAmount);
 		 
-	
 	 });
 	 createChart();
 	 });
-
-
- /*   var ctx = document.getElementById("canvas").getContext("2d");
-    LineChartDemo = Chart.Line(ctx, {
-        data : lineChartData,
-        options : {
-            scales : {
-                yAxes : [ {
-                    ticks : {
-                        beginAtZero : true
-                    }
-                } ]
-            }
-        }
-    }); */
 
 </script>

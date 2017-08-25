@@ -25,6 +25,7 @@
 <div class="container">
 <input type="button" id="dailyBtn" name="btn" value="일별보기" onclick="location.href='././daily?cooContractNo=${cooContractNo}'">
 <input type="button" id="monthlyBtn" name="btn" value="월별보기" onclick="location.href='././monthly?cooContractNo=${cooContractNo}'">
+<input type="button" id="weeklyBtn" name="btn" value="주별보기" onclick="location.href='././getWeeklyVisitorTable?cooContractNo=${cooContractNo}'">
 
 
 </div>

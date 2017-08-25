@@ -154,20 +154,22 @@ public class PartnerController {
 	@RequestMapping(value = "/StatsView", method = RequestMethod.GET)
 	public String StatsView(Model model,String cooContractNo) {
 		model.addAttribute("cooContractNo",cooContractNo);
-		return "partner/statistics/partner_statistics_visit";
+		return "partner/statistics/statistics_header";
 
 	}
 	
+	/*제휴업체사이트 일별 방문자 그래프*/
 	@RequestMapping(value = "/daily", method = RequestMethod.GET)
 	public String daily(Model model,String cooContractNo) {
 		model.addAttribute("cooContractNo",cooContractNo);
-		return "partner/statistics/statistics_daily";
+		return "partner/statistics/partner_statistics_daily";
 
 	}
+	/*제휴업체사이트 월별 방문자 그래프*/
 	@RequestMapping(value = "/monthly", method = RequestMethod.GET)
 	public String monthly(Model model,String cooContractNo) {
 		model.addAttribute("cooContractNo",cooContractNo);
-		return "partner/statistics/statistics_monthly";
+		return "partner/statistics/partner_statistics_monthly";
 
 	}
 
@@ -198,6 +200,44 @@ public class PartnerController {
 		List<PartnerStatsDto> list= dao.getMonthlyVisitor(cooContractNo);
 		System.out.println(list.toString());
 		return gson.toJson(list);
+
+	}
+	/*제휴업체사이트 월별 유입방문자 조회*/
+	@RequestMapping(value = "/getMonthlyInflux", method = RequestMethod.GET)
+	public @ResponseBody String getMonthlyInflux(String cooContractNo) {
+		Gson gson = new Gson();
+		List<PartnerStatsDto> list= dao.getMonthlyInflux(cooContractNo);
+		System.out.println(list.toString());
+		return gson.toJson(list);
+
+	}
+	
+	/*제휴업체사이트 주별 방문자 조회*/
+	@RequestMapping(value = "/getWeeklyVisitor", method = RequestMethod.GET)
+	public @ResponseBody String getWeeklyVisitor(String cooContractNo) {
+		Gson gson = new Gson();
+		List<PartnerStatsDto> list= dao.getWeeklyVisitor(cooContractNo);
+		System.out.println("그래프"+list.toString());
+		return gson.toJson(list);
+
+	}
+	/*제휴업체사이트 주별 방문자 조회*/
+	@RequestMapping(value = "/getWeeklyInflux", method = RequestMethod.GET)
+	public @ResponseBody String getWeeklyInflux(String cooContractNo) {
+		Gson gson = new Gson();
+		List<PartnerStatsDto> list= dao.getWeeklyInflux(cooContractNo);
+		System.out.println("그래프"+list.toString());
+		return gson.toJson(list);
+
+	}
+	/*제휴업체사이트 주별 방문자 조회(테이블)*/
+	@RequestMapping(value = "/getWeeklyVisitorTable", method = RequestMethod.GET)
+	public String getWeeklyVisitorTable(Model model,String cooContractNo) {
+		List<PartnerStatsDto> list= dao.getWeeklyVisitor(cooContractNo);
+		model.addAttribute("list",list);
+		model.addAttribute("cooContractNo",cooContractNo);
+		System.out.println("table"+list.toString());
+		return "partner/statistics/partner_statistics_weekly";
 
 	}
 	

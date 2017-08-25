@@ -97,5 +97,17 @@ public class PartnerDao {
 	 public List<PartnerStatsDto> getMonthlyVisitor(String cooContractNo){
 		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getMonthlyVisitor",cooContractNo);
 	 }
+	 /*제휴업체 월별 유입방문자 수 가져오기*/
+	 public List<PartnerStatsDto> getMonthlyInflux(String cooContractNo){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getMonthlyInflux",cooContractNo);
+	 }
+	 /*제휴업체 주별 방문자 수 가져오기*/
+	 public List<PartnerStatsDto> getWeeklyVisitor(String cooContractNo){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getWeeklyVisitor",cooContractNo);
+	 }
+	 /*제휴업체 주별 유입 방문자 수 가져오기*/
+	 public List<PartnerStatsDto> getWeeklyInflux(String cooContractNo){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getWeeklyInflux",cooContractNo);
+	 }
 
 }

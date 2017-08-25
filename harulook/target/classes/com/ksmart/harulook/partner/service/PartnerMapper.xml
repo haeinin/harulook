@@ -44,7 +44,10 @@
 	
 	<resultMap type="com.ksmart.harulook.partner.service.PartnerStatsDto" id="statistics">
 		<result property="statsDate" column="date" ></result>
-		<result property="statsAmount" column="amount" ></result>		
+		<result property="statsAmount" column="amount" ></result>	
+		<result property="statsStartDate" column="start" ></result>
+		<result property="statsEndDate" column="end" ></result>
+
 	</resultMap>
 
 
@@ -363,6 +366,50 @@
 	coo_contract_no = #{cooContractNo}
 	GROUP BY 
 		date
+	</select>
+	<!-- 제휴업체 월별 유입 방문자 수 가져오기 -->
+	<select id="getMonthlyInflux" parameterType="String" resultMap="statistics" >
+	SELECT 
+		month(coo_visitor_datetime) as date
+		,count(coo_visitor_no)as amount
+	FROM 
+		coo_visitor
+	WHERE 
+	coo_contract_no = #{cooContractNo} and coo_visitor_influx ='harulook'
+	GROUP BY 
+		date
+	</select>
+	
+	<!-- 제휴업체 주별 방문자 수 가져오기 -->
+	<select id="getWeeklyVisitor" parameterType="String" resultMap="statistics" >
+	SELECT
+		DATE_FORMAT(DATE_SUB(`coo_visitor_datetime`, INTERVAL (DAYOFWEEK(`coo_visitor_datetime`)-1) DAY), '%Y/%m/%d') as start
+		,DATE_FORMAT(DATE_SUB(`coo_visitor_datetime`, INTERVAL (DAYOFWEEK(`coo_visitor_datetime`)-7) DAY), '%Y/%m/%d') as end
+		,DATE_FORMAT(`coo_visitor_datetime`, '%Y%U') as 'date'
+		,COUNT(coo_visitor_no) as amount
+	FROM 
+		coo_visitor
+	WHERE
+		coo_contract_no = #{cooContractNo}
+	GROUP BY 
+		date; 
+	
+	</select>
+	<!-- 제휴업체 주별 유입 방문자 수 가져오기 -->
+	<select id="getWeeklyInflux" parameterType="String" resultMap="statistics" >
+	SELECT
+		DATE_FORMAT(DATE_SUB(`coo_visitor_datetime`, INTERVAL (DAYOFWEEK(`coo_visitor_datetime`)-1) DAY), '%Y/%m/%d') as start
+		,DATE_FORMAT(DATE_SUB(`coo_visitor_datetime`, INTERVAL (DAYOFWEEK(`coo_visitor_datetime`)-7) DAY), '%Y/%m/%d') as end
+		,DATE_FORMAT(`coo_visitor_datetime`, '%Y%U') as 'date'
+		,COUNT(coo_visitor_no) as amount
+	FROM 
+		coo_visitor
+	WHERE
+		coo_contract_no = #{cooContractNo} 
+		AND 
+		coo_visitor_influx ='harulook'
+	GROUP BY 
+		date; 
 	
 	</select>
 
