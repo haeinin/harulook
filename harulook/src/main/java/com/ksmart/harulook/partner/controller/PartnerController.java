@@ -1,5 +1,6 @@
 package com.ksmart.harulook.partner.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -63,7 +64,7 @@ public class PartnerController {
 		return "partner/contract/partner_contract_list";
 	}
 	/*제휴계약 목록보기(개인)*/
-	@RequestMapping(value = "/pa rtnerContractList", method = RequestMethod.GET)
+	@RequestMapping(value = "/partnerContractList", method = RequestMethod.GET)
 	public String partnerContractList(Model model
 									,HttpSession session) {
 		String id = (String) session.getAttribute("id");
@@ -145,39 +146,56 @@ public class PartnerController {
 		model.addAttribute("list", list);
 		
 		return "partner/statistics/partner_statistics_list";
-
 	}
+
+	
+	
 	/*제휴업체 통계보기 메인화면*/
 	@RequestMapping(value = "/StatsView", method = RequestMethod.GET)
-	public String StatsView() {
-		
-		return "partner/statistics/statistics_daily";
+	public String StatsView(Model model,String cooContractNo) {
+		model.addAttribute("cooContractNo",cooContractNo);
+		return "partner/statistics/partner_statistics_visit";
 
 	}
 	
-/*	제휴업체사이트 일별 방문자 조회
-	@RequestMapping(value = "/getDailyVisitor", method = RequestMethod.POST)
-	public @ResponseBody String getDailyVisitor(Model model,String cooContractNo, String month){
+	@RequestMapping(value = "/daily", method = RequestMethod.GET)
+	public String daily(Model model,String cooContractNo) {
+		model.addAttribute("cooContractNo",cooContractNo);
+		return "partner/statistics/statistics_daily";
+
+	}
+	@RequestMapping(value = "/monthly", method = RequestMethod.GET)
+	public String monthly(Model model,String cooContractNo) {
+		model.addAttribute("cooContractNo",cooContractNo);
+		return "partner/statistics/statistics_monthly";
+
+	}
+
+	
+	/*제휴업체사이트 일별 방문자 조회*/
+	@RequestMapping(value = "/getDailyVisitor", method = RequestMethod.GET)
+	public @ResponseBody String getDailyVisitor(String cooContractNo, String month){
 
 		Gson gson = new Gson();
-		
 		HashMap<String,String> map = new HashMap<String,String>();
-		map.put("cooContractNo", "coo_contract_1");
-		map.put("month", "8");
+		System.out.println("cooContractNo==>"+cooContractNo);
+		System.out.println("month==>"+month);
 		
-		System.out.println("map==>"+map);
-		List<HashMap<String,String>> list= dao.getDailyVisitor(map);
+		map.put("cooContractNo",cooContractNo);
+		map.put("month", month);
+		List<PartnerStatsDto> list= dao.getDailyVisitor(map);
+		
 		System.out.println("list==>"+list);
 		
 		return gson.toJson(list);
 
-	}*/
+	}
 	
 	/*제휴업체사이트 월별 방문자 조회*/
 	@RequestMapping(value = "/getMonthlyVisitor", method = RequestMethod.GET)
-	public @ResponseBody String getMonthlyVisitor() {
+	public @ResponseBody String getMonthlyVisitor(String cooContractNo) {
 		Gson gson = new Gson();
-		List<PartnerStatsDto> list= dao.getMonthlyVisitor("coo_contract_1");
+		List<PartnerStatsDto> list= dao.getMonthlyVisitor(cooContractNo);
 		System.out.println(list.toString());
 		return gson.toJson(list);
 

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
@@ -12,28 +12,22 @@ canvas {
 }
 </style>
 
-<div style="width: 80%">
+<div id="daily" style="width: 80%">
     <div>
         <canvas id="canvas" height="350" width="600"></canvas>
     </div>
 </div>
- 
+<c:import url="../statistics/partner_statistics_visit.jsp"></c:import>
+<c:set value="${cooContractNo}" var="no"/>
 <script>
 var chartLabels = [];// 받아올 데이터를 저장할 배열 선언
-var chartData1 = [];
+var chartData = [];
 
-/* $.getJSON("http://localhost:8007/harulook/getMonthlyVisitor",
-		  function(data) {
-		    $.each(data, function(inx, obj) {
-		        chartLabels.push(statsDate);
-		        chartData1.push(statsAmount);
-		         
-		    });
- */
 
+var cooContractNo = '<c:out value="${no}"/>';
 
  console.log(chartLabels);
- console.log(chartData1);
+ console.log(chartData);
 var lineChartData = {
     labels : chartLabels,
     datasets : [ {
@@ -44,7 +38,7 @@ var lineChartData = {
         pointStrokeColor : "#fff",
         pointHighlightFill : "#fff",
         pointHighlightStroke : "rgba(220,220,220,1)",
-        data : chartData1
+        data : chartData
     } ]
  
 }
@@ -64,30 +58,17 @@ function createChart() {
         }
     });
 }
-$.getJSON("./getMonthlyVisitor", function (data) {
+$.getJSON("./getDailyVisitor"
+		,{cooContractNo:cooContractNo,month:"8"}
+		,function (data) {
 	 $.each(data, function (key, value) {
 		 
 		 chartLabels.push(value.statsDate);
-		 chartData1.push(value.statsAmount);
+		 chartData.push(value.statsAmount);
 		 
 	
 	 });
 	 createChart();
 	 });
-
-
- /*   var ctx = document.getElementById("canvas").getContext("2d");
-    LineChartDemo = Chart.Line(ctx, {
-        data : lineChartData,
-        options : {
-            scales : {
-                yAxes : [ {
-                    ticks : {
-                        beginAtZero : true
-                    }
-                } ]
-            }
-        }
-    }); */
 
 </script>

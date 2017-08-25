@@ -25,7 +25,7 @@
         <tbody>
             <c:forEach var="b" items="${list}">
                 <tr>
-                    <td><a href="${pageContext.request.contextPath}/partnerStatsMain?cooContractNo=${b.cooContractNo}">${b.cooContractNo}</a></td>
+                    <td><a href="${pageContext.request.contextPath}/StatsView?cooContractNo=${b.cooContractNo}">${b.cooContractNo}</a></td>
                     <td>${b.cooContractStart}</td>
                     <td>${b.cooContractEnd}</td>
                     <td>${b.cooContractStat}</td>

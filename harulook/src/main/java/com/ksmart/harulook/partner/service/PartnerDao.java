@@ -89,6 +89,10 @@ public class PartnerDao {
 		 String LastCooBillNo="";
 		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.getLastCooBillNo",LastCooBillNo);
 	 }
+	 /*제휴업체 일별 방문자 수 가져오기*/
+	 public List<PartnerStatsDto> getDailyVisitor(HashMap<String,String> map){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getDailyVisitor",map);
+	 }
 	 /*제휴업체 월별 방문자 수 가져오기*/
 	 public List<PartnerStatsDto> getMonthlyVisitor(String cooContractNo){
 		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getMonthlyVisitor",cooContractNo);

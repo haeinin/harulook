@@ -337,9 +337,10 @@
 	</select>
 
 	<!-- 제휴업체 일별 방문자 수 가져오기 -->
-	<select id="getcooContractVisitor" parameterType="java.util.Map" resultMap="statistics">
+	<select id="getDailyVisitor" parameterType="java.util.Map" resultMap="statistics">
 	SELECT 
-		DATE(coo_visitor_datetime)AS date, count(coo_visitor_no)AS amount
+		DATE(coo_visitor_datetime)AS date
+		,count(coo_visitor_no)AS amount
 	FROM 
 		coo_visitor
 	WHERE 
