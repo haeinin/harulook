@@ -47,7 +47,8 @@
 			request.done(function( msg ) {
 				msg = msg.trim();
 				console.log(msg);	//아이디찾기
-				$('#myPointMsg').html('나의 보유 포인트 = ' + msg);	
+				$('#myPointMsg').html('나의 보유 포인트 = ' + msg);
+				sessionStorage.setItem('myPointSession', msg);
 			});	
 			$('#myModal').modal();	//마이페이지모달
         });

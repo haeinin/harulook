@@ -7,6 +7,7 @@ public class PointDto {
 	private String pointNo;
 	private String userId;
 	private String pointDate;
+	private String pointGoodsCode;
 	public String getPointPolicyNo() {
 		return pointPolicyNo;
 	}
@@ -43,12 +44,19 @@ public class PointDto {
 	public void setPointDate(String pointDate) {
 		this.pointDate = pointDate;
 	}
+	public String getPointGoodsCode() {
+		return pointGoodsCode;
+	}
+	public void setPointGoodsCode(String pointGoodsCode) {
+		this.pointGoodsCode = pointGoodsCode;
+	}
 	@Override
 	public String toString() {
 		return "PointDto [pointPolicyNo=" + pointPolicyNo + ", pointPolicyValue=" + pointPolicyValue
 				+ ", pointPolicyReason=" + pointPolicyReason + ", pointNo=" + pointNo + ", userId=" + userId
-				+ ", pointDate=" + pointDate + "]";
+				+ ", pointDate=" + pointDate + ", pointGoodsCode=" + pointGoodsCode + "]";
 	}
+	
 	
 	
 }

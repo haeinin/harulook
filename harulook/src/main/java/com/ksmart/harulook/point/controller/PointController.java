@@ -1,6 +1,7 @@
 package com.ksmart.harulook.point.controller;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,14 +23,49 @@ public class PointController {
 
 	@Autowired
     private PointDao pointDao;
+	/*
+	쿠폰 사용
+	@RequestMapping(value="/kuponUse", method = RequestMethod.POST)
+	public String kuponUse(
+			HttpSession session,
+			HttpServletRequest request,
+			@RequestParam("pointPolicyValue") int pointPolicyValue ) {
+		String userId = (String) session.getAttribute("id");
+			System.out.println("PointController kuponUse 세션아이디 == "+ userId);
+			
+        return "home";  
+    }*/
 	
-	
-	/*쿠폰입력*/
+	/*쿠폰 입력*/
 	@RequestMapping(value="/couponUse", produces = "application/text; charset=utf8", method = RequestMethod.POST)
 	public String couponUse(
-					) {
-		String pointNo = pointDao.pointNo();	//포인트번호 검색 후 마지막 +1 입력
-		System.out.println("PointController pointNo" + pointNo);
+			HttpSession session,
+			HttpServletRequest request,
+			@RequestParam("pointPolicyValue") int pointPolicyValue ) {
+		String userId = (String) session.getAttribute("id");
+		System.out.println("PointController kuponUse 세션아이디 == "+ userId);
+		
+		Random rnd = new Random();	//쿠폰번호생성기
+	    StringBuffer randomGoodsCode = new StringBuffer();
+	    for(int i = 0; i < 10; i++){
+	        if(rnd.nextBoolean()){
+	        	randomGoodsCode.append((char)((int)(rnd.nextInt(26))+65));
+	        }else{
+	        	randomGoodsCode.append((rnd.nextInt(10)));
+	        }
+	    }
+	    String pointGoodsCode = randomGoodsCode.toString();	//StringBuffer로 생성된 쿠폰 코드를 데이터베이스에 들어갈수 있도록 String으로 변환
+			
+		
+		
+		String pointNo = pointDao.pointNo();	//쿠폰번호 검색 후 마지막 +1 입력
+		System.out.println("PointController pointNo = " + pointNo);
+		int pointInserNO = 1;    //DB에 등록된 쿠폰 없을 때 번호의 초기값
+    	if(pointNo != null) {
+    		pointInserNO = Integer.parseInt(pointNo)+1;	//마지막no +1
+    		pointDao.couponInset("point_"+pointInserNO, userId, pointPolicyValue, pointGoodsCode);	//쿠폰사용입력 
+    		return "point/point_list";
+    	}
         return "point/point_list";  
     }
 	

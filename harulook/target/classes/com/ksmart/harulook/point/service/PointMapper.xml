@@ -11,7 +11,36 @@
 		<result property="pointNo" column="point_no"/>
 		<result property="userId" column="user_id"/>
 		<result property="pointDate" column="point_date"/>
+		<result property="pointGoodsCode" column="point_goods_code"/>
 	</resultMap>
+	
+	<!-- 쿠폰 중복 검사 -->
+   	<select id="couponCheck" parameterType="java.util.Map" resultType="String">
+		select point_goods_code
+		from point
+		where point_goods_code = #{pointGoodsCode}
+		;
+	</select>
+	
+	<!-- 쿠폰 사용 -->
+   	<select id="couponInset" parameterType="java.util.Map" >
+		INSERT INTO point (
+			point_no
+			,user_id
+			,point_date
+			,point_policy_no
+			,point_goods_code
+			)
+		VALUES (
+			#{pointNo}
+			,#{userId}
+			,DATE(NOW())
+			,(select point_policy_no
+			from point_policy
+			where point_policy_value = #{pointPolicyValue})
+			,#{pointGoodsCode}
+		);
+   	</select>
 	
 	<!-- 포인트 사용 취득 내역 번호 -->
    	<select id="pointNo" resultType="String">
@@ -20,21 +49,6 @@
 		;
    	</select>
 	
-	<!-- 쿠폰 사용 -->
-   	<select id="couponUse" parameterType="java.util.Map">
-		INSERT INTO point (
-			point_no
-			, user_id
-			, point_date
-			, point_policy_no
-			)
-			VALUES 
-			(#{pointNo}
-			,#{userId}
-			,DATE(NOW())
-			,#{pointPolicyNo}
-		);
-	</select>
 	
 	<!-- 나의 포인트 -->
    	<select id="myPoint" parameterType="java.util.Map" resultType="int">
@@ -51,6 +65,7 @@
 		select point.point_no
 			, point.point_date
 			, point.point_policy_no
+			, point.point_goods_code
 			, point_policy.point_policy_reason
 			, point_policy.point_policy_value
 		from point
