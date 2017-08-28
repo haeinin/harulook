@@ -185,16 +185,16 @@
 			        	<label for="user_pw">비번 :</label>
 			            <input name="userPw" id="user_pw" type="password"/><br>  
 			            
-					      <!-- 질문 -->
+					    <!-- 질문 -->
 			        	<label for="user_q">질문 :</label>
-			            <div class="radio">
-					      <label><input name="userQ" id="user_q" type="radio" value="나의 보물은" >나의 보물은</label>
-					      <label><input name="userQ" id="user_q" type="radio" value="나의 고향은" >나의 고향은</label>
-					      <label><input name="userQ" id="user_q" type="radio" value="나의 초등학교" >나의 초등학교</label>
-					      <label><input name="userQ" id="user_q" type="radio" value="나의 고등학교" >나의 고등학교</label>
-					      <label><input name="userQ" id="user_q" type="radio" value="나의 비밀은" >나의 비밀은</label>
-					      <label><input name="userQ" id="user_q" type="radio" value="나의 꿈은" >나의 꿈은</label>
-					    </div>
+			            <select class="form-control" name="userQ" id="user_q">
+							<option>나의 보물은</option>
+			            	<option>나의 고향은</option>
+			            	<option>나의 초등학교</option>
+			            	<option>나의 고등학교</option>
+			            	<option>나의 비밀은</option>
+			            	<option>나의 꿈은</option>
+		            	</select>
 			       		
 			       		<!-- 답 -->
 			        	<label for="user_a">질문의 답 :</label>
@@ -228,16 +228,16 @@
 			       		<label for="user_nick">닉네임 :</label>
 			            <input name="userNick" id="user_nick" type="text"/> 
 					     
-					      <!-- 질문 -->
+					    <!-- 질문 -->
 			        	<label for="user_q">질문 :</label>
-			            <div class="radio">
-					      <label><input name="userQ" id="user_q" type="radio" value="나의 보물은" >나의 보물은</label>
-					      <label><input name="userQ" id="user_q" type="radio" value="나의 고향은" >나의 고향은</label>
-					      <label><input name="userQ" id="user_q" type="radio" value="나의 초등학교" >나의 초등학교</label>
-					      <label><input name="userQ" id="user_q" type="radio" value="나의 고등학교" >나의 고등학교</label>
-					      <label><input name="userQ" id="user_q" type="radio" value="나의 비밀은" >나의 비밀은</label>
-					      <label><input name="userQ" id="user_q" type="radio" value="나의 꿈은" >나의 꿈은</label>
-					    </div>
+			            <select class="form-control" name="userQ" id="user_q">
+							<option>나의 보물은</option>
+			            	<option>나의 고향은</option>
+			            	<option>나의 초등학교</option>
+			            	<option>나의 고등학교</option>
+			            	<option>나의 비밀은</option>
+			            	<option>나의 꿈은</option>
+		            	</select>
 			       		
 			       		<!-- 답 -->
 			        	<label for="user_a">질문의 답 :</label>

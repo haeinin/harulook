@@ -278,30 +278,36 @@ public class MemberController {
         memberDao.userColorDelete(memberDto.getUserId());
         memberDao.userStyleDelete(memberDto.getUserId());
         
-        //체크박스 컬러 배열로 받음
-        String[] colorValue = request.getParameterValues("colorValue");
-        for( int i = 0; i < colorValue.length; i++ ){	//컬러 체크 리스트 갯수만큼 for문 실행
-        	
-        	String lastColorNo = memberDao.colorSelect(colorValue[i]);	//for문 갯수만큼 마지막 no찾아오기
-        	int insertColorNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
-        	if(lastColorNo != null) {
-        		insertColorNo = Integer.parseInt(lastColorNo)+1;	//마지막no +1
-    		}
-        	memberDao.userColorInsert("user_color_"+insertColorNo, colorValue[i], memberDto.getUserId());
-        	System.out.println(colorValue[i] + " == 컬러배열");
+        	System.out.println(memberDto.getColorValue() + " == sadlkjfaslkdfjlaskdfjlsakfjlksadfjlkasjflksajdflkasjflksajkfd");
+        
+        if(memberDto.getColorValue() != null){	//체크박스에 값이 있을때만 실행
+	        //체크박스 컬러 배열로 받음
+	        String[] colorValue = request.getParameterValues("colorValue");
+	        for( int i = 0; i < colorValue.length; i++ ){	//컬러 체크 리스트 갯수만큼 for문 실행
+	        	
+	        	String lastColorNo = memberDao.colorSelect(colorValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	int insertColorNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
+	        	if(lastColorNo != null) {
+	        		insertColorNo = Integer.parseInt(lastColorNo)+1;	//마지막no +1
+	    		}
+	        	memberDao.userColorInsert("user_color_"+insertColorNo, colorValue[i], memberDto.getUserId());
+	        	System.out.println(colorValue[i] + " == 컬러배열");
+	        }
         }
         
-        //체크박스 스타일 배열로 받음
-        String[] styleValue = request.getParameterValues("styleValue");
-        for( int i = 0; i < styleValue.length; i++ ){
-        	
-        	String lastStyleNo = memberDao.styleSelct(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
-        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
-        	if(lastStyleNo != null) {
-        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
-    		}
-        	memberDao.userStyleInsert("user_style_"+insertStyleNo, styleValue[i], memberDto.getUserId());
-        	System.out.println(styleValue[i] + " == 스타일배열");
+        if(memberDto.getStyleValue() != null){	//체크박스에 값이 있을때만 실행
+	        //체크박스 스타일 배열로 받음
+	        String[] styleValue = request.getParameterValues("styleValue");
+	        for( int i = 0; i < styleValue.length; i++ ){
+	        	
+	        	String lastStyleNo = memberDao.styleSelct(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
+	        	if(lastStyleNo != null) {
+	        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
+	    		}
+	        	memberDao.userStyleInsert("user_style_"+insertStyleNo, styleValue[i], memberDto.getUserId());
+	        	System.out.println(styleValue[i] + " == 스타일배열");
+	        }
         }
         return "home";  //회원가입후 홈화면으로
     }
@@ -313,32 +319,36 @@ public class MemberController {
         System.out.println("MemberController 회원가입시 받아오는 데이터" + memberDto);
         memberDao.userInsert(memberDto);	//일반회원가입 기타 입력데이터
        
-        //체크박스 컬러 배열로 받음
-        String[] colorValue = request.getParameterValues("colorValue");
-        for( int i = 0; i < colorValue.length; i++ ){	//컬러 체크 리스트 갯수만큼 for문 실행
-        	
-        	String lastColorNo = memberDao.colorSelect(colorValue[i]);	//for문 갯수만큼 마지막 no찾아오기
-        	int insertColorNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
-        	if(lastColorNo != null) {
-        		insertColorNo = Integer.parseInt(lastColorNo)+1;	//마지막no +1
-    		}
-        	memberDao.userColorInsert("user_color_"+insertColorNo, colorValue[i], memberDto.getUserId());
-        	System.out.println(colorValue[i] + " == 컬러배열");
+        if(memberDto.getColorValue() != null){	//체크박스에 값이 있을때만 실행
+	        //체크박스 컬러 배열로 받음
+	        String[] colorValue = request.getParameterValues("colorValue");
+	        for( int i = 0; i < colorValue.length; i++ ){	//컬러 체크 리스트 갯수만큼 for문 실행
+	        	
+	        	String lastColorNo = memberDao.colorSelect(colorValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	int insertColorNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
+	        	if(lastColorNo != null) {
+	        		insertColorNo = Integer.parseInt(lastColorNo)+1;	//마지막no +1
+	    		}
+	        	memberDao.userColorInsert("user_color_"+insertColorNo, colorValue[i], memberDto.getUserId());
+	        	System.out.println(colorValue[i] + " == 컬러배열");
+	        }
         }
         
-        //체크박스 스타일 배열로 받음
-        String[] styleValue = request.getParameterValues("styleValue");
-        for( int i = 0; i < styleValue.length; i++ ){
-        	
-        	String lastStyleNo = memberDao.styleSelct(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
-        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
-        	if(lastStyleNo != null) {
-        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
-    		}
-        	memberDao.userStyleInsert("user_style_"+insertStyleNo, styleValue[i], memberDto.getUserId());
-        	System.out.println(styleValue[i] + " == 스타일배열");
-        }
-        return "home";  //회원가입후 홈화면으로
+        if(memberDto.getStyleValue() != null){	//체크박스에 값이 있을때만 실행
+	        //체크박스 스타일 배열로 받음
+	        String[] styleValue = request.getParameterValues("styleValue");
+	        for( int i = 0; i < styleValue.length; i++ ){
+	        	
+	        	String lastStyleNo = memberDao.styleSelct(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
+	        	if(lastStyleNo != null) {
+	        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
+	    		}
+	        	memberDao.userStyleInsert("user_style_"+insertStyleNo, styleValue[i], memberDto.getUserId());
+	        	System.out.println(styleValue[i] + " == 스타일배열");
+	        }
+        }    
+	        return "home";  //회원가입후 홈화면으로
     }
 	
 	/*member_manager_insert(관리자등록 폼)*/
