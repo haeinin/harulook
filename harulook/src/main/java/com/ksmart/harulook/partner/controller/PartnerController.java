@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.google.gson.Gson;
 import com.ksmart.harulook.member.service.MemberDto;
@@ -20,6 +23,7 @@ import com.ksmart.harulook.partner.service.PartnerBillDto;
 import com.ksmart.harulook.partner.service.PartnerDao;
 import com.ksmart.harulook.partner.service.PartnerDto;
 import com.ksmart.harulook.partner.service.PartnerStatsDto;
+import com.ksmart.harulook.util.UtilFile;
 
 @Controller
 public class PartnerController {
@@ -30,7 +34,11 @@ public class PartnerController {
 	/*제휴계약 신청처리*/
 	@RequestMapping(value = "/partnerContractInsert", method = RequestMethod.POST)
 	public String partnerContractInsert(PartnerDto dto
-										,HttpSession session) {
+										,HttpSession session
+										,HttpServletRequest request
+										,@RequestParam("uploadFile") MultipartFile uploadFile
+										,MultipartHttpServletRequest multipartRequest) {
+		
 		/*로그인한 아이디*/
 		String id = (String)session.getAttribute("id");
 		dto.setUserId(id);
@@ -48,6 +56,12 @@ public class PartnerController {
 		while(dao.duplicateCode(cooContractCode) > 0){
 			cooContractCode = getRandomCode();
 		}
+		/*이미지파일 업로드*/
+		System.out.println("1번 : " + uploadFile);
+		UtilFile util = new UtilFile();
+		String uploadPath = util.fileUpload(multipartRequest, uploadFile);
+		dto.setCooContractImg(uploadPath.substring(61));
+		System.out.println("2번 : " + uploadFile);
 		/*---------------------*/
 		dto.setCooContractCode(cooContractCode);
 		dao.insertCooContract(dto);
@@ -174,14 +188,14 @@ public class PartnerController {
 	@RequestMapping(value = "/daily", method = RequestMethod.GET)
 	public String daily(Model model,String cooContractNo) {
 		model.addAttribute("cooContractNo",cooContractNo);
-		return "partner/statistics/partner_statistics_daily";
+		return "partner/statistics/partner_statistics_daily2";
 
 	}
 	/*제휴업체사이트 월별 방문자 그래프*/
 	@RequestMapping(value = "/monthly", method = RequestMethod.GET)
 	public String monthly(Model model,String cooContractNo) {
 		model.addAttribute("cooContractNo",cooContractNo);
-		return "partner/statistics/partner_statistics_monthly";
+		return "partner/statistics/partner_statistics_monthly2";
 
 	}
 
@@ -233,7 +247,7 @@ public class PartnerController {
 		return gson.toJson(list);
 
 	}
-	/*제휴업체사이트 주별 방문자 조회*/
+	/*제휴업체사이트 주별 유입방문자 조회*/
 	@RequestMapping(value = "/getWeeklyInflux", method = RequestMethod.GET)
 	public @ResponseBody String getWeeklyInflux(String cooContractNo) {
 		Gson gson = new Gson();

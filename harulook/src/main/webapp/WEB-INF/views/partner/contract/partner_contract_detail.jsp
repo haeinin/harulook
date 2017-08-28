@@ -75,7 +75,7 @@
 			</tr>
 			<tr>
 				<td>쇼핑몰 배너 이미지</td>
-				<td>${dto.cooContractImg}</td>
+				<td><img alt="no image" src="${dto.cooContractImg}"  width="200px" height="200px"></td>
 			</tr>
 			<tr>
 				<td>배너URL</td>

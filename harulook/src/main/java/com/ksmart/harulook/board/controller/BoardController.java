@@ -220,9 +220,10 @@ public class BoardController {
 	
 	 /* sns게시물 입력 처리 요청 */
     @RequestMapping(value="/boardInsert", method = RequestMethod.POST)
-    public String boardInsert(BoardDto board, HttpServletRequest request,
-    		@RequestParam("uploadFile") MultipartFile uploadFile,
-            MultipartHttpServletRequest multipartRequest) {
+    public String boardInsert(BoardDto board
+    		,HttpServletRequest request
+    		,@RequestParam("uploadFile") MultipartFile uploadFile
+    		,MultipartHttpServletRequest multipartRequest) {
     	System.out.println("boardInsert 처리 요청");
     	
     	System.out.println("RewardController reAddProCtrl uploadFile : " + uploadFile);

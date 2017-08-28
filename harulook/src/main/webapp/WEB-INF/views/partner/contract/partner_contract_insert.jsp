@@ -38,7 +38,7 @@ $(function(){
 </head>
 <body>
 Insert화면입니다.
-<form id="addForm" action="${pageContext.request.contextPath}/partnerContractInsert" method="post">
+<form id="addForm" action="${pageContext.request.contextPath}/partnerContractInsert" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="cooContractDc">제공할 쿠폰 할인율 </label>
             <input class="form-control" name="cooContractDc" id="cooContractDc" type="text"/>
@@ -61,7 +61,7 @@ Insert화면입니다.
         </div>
         <div class="form-group">
             <label for="cooContractImg">쇼핑몰 배너 이미지</label>
-            <input class="form-control" name="cooContractImg" id="cooContractImg" type="text"/>
+            <input name="uploadFile" id="uploadFile" type="file"/>
         </div>
         <div class="form-group">
             <label for="cooContractLink">배너 클릭시 이동할 URL</label>

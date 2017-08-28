@@ -361,7 +361,7 @@
 	FROM 
 		coo_visitor
 	WHERE 
-	coo_contract_no = #{cooContractNo}
+	coo_contract_no = #{cooContractNo} AND YEAR(NOW())
 	GROUP BY 
 		date
 	</select>
@@ -373,7 +373,7 @@
 	FROM 
 		coo_visitor
 	WHERE 
-	coo_contract_no = #{cooContractNo} and coo_visitor_influx ='harulook'
+	coo_contract_no = #{cooContractNo} AND coo_visitor_influx ='harulook' AND YEAR(NOW())
 	GROUP BY 
 		date
 	</select>

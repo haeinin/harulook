@@ -78,8 +78,7 @@
 		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
 	</beans:bean>
 
-	<context:component-scan base-package="com.ksmart.harulook.hof.service" />
-	<context:component-scan base-package="com.ksmart.harulook.partner.service" />
+	<context:component-scan base-package="com.ksmart.harulook.scheduler" />
 	<task:scheduler id="jobScheduler" pool-size="10" />
 	<task:annotation-driven scheduler="jobScheduler" />
 

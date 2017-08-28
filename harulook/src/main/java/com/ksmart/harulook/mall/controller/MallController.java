@@ -126,5 +126,7 @@ public class MallController {
         System.out.println("할인코드확인 받아온 코드 == "+vaildDC);
         return vaildDC;  //아이디중복체크후 화면 그대로
     }
+	
+
 
 }

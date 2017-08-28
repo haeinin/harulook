@@ -16,46 +16,48 @@ canvas {
 
 <c:set value="${cooContractNo}" var="no" />
 <script>
-	var chartLabels = [];// 받아올 데이터를 저장할 배열 선언
-	var chartData = [];
-	var month="";
-	var cooContractNo = '<c:out value="${no}"/>';
+	
 
-	var lineChartData = {
-		labels : chartLabels,
-		datasets : [ {
-			label : "월별 PC 판매량",
-			fillColor : "rgba(220,220,220,0.2)",
-			strokeColor : "rgba(220,220,220,1)",
-			pointColor : "rgba(220,220,220,1)",
-			pointStrokeColor : "#fff",
-			pointHighlightFill : "#fff",
-			pointHighlightStroke : "rgba(220,220,220,1)",
-			data : chartData
-		} ]
+	
 
-	}
-
-	function createChart() {
-		console.log('chartLabels 차트:'+chartLabels);
-		console.log('chartData 차트:'+chartData);
-		
-		var ctx = document.getElementById("canvas").getContext("2d");
-		LineChartDemo = Chart.Line(ctx, {
-			data : lineChartData,
-			options : {
-				scales : {
-					yAxes : [ {
-						ticks : {
-							beginAtZero : true
-						}
-					} ]
-				}
-			}
-		});
-	}
 
 	$(document).ready(function() {
+		var chartLabels = [];// 받아올 데이터를 저장할 배열 선언
+		var chartData = [];
+		var month="";
+		var lineChartData = {
+				labels : chartLabels,
+				datasets : [ {
+					label : "월별 PC 판매량",
+					fillColor : "rgba(220,220,220,0.2)",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(220,220,220,1)",
+					data : chartData
+				} ]
+
+			}
+		var cooContractNo = '<c:out value="${no}"/>';
+		
+		function createChart() {
+			
+			var ctx = document.getElementById("canvas").getContext("2d");
+			LineChartDemo = Chart.Line(ctx, {
+				data : lineChartData,
+				options : {
+					scales : {
+						yAxes : [ {
+							ticks : {
+								beginAtZero : true
+							}
+						} ]
+					}
+				}
+			});
+		}
+
 
 		
 		
@@ -63,33 +65,43 @@ canvas {
 			var changeMonth = $('#selectMonth option:selected').val();
 			month = changeMonth;
 			console.log('month:'+month);
-			chartLabels = [];
-			console.log('chartLabels:'+chartLabels);
-			chartData=[];
-			console.log('chartData:'+chartData); 
+			
 			
 			 
 		});
-
+		
 		
 		$('#btn').click(function(){
 			
+			chartLabels = [];
+			chartData=[];
+
 			$.getJSON("./getDailyVisitor", {
 				cooContractNo : cooContractNo,
 				month : month
 			}, function(data) {
 				$.each(data, function(key, value) {
-
+					
 					chartLabels.push(value.statsDate);
 					chartData.push(value.statsAmount);
-
 				});
+				
+				lineChartData = {
+						labels : chartLabels,
+						datasets : [ {
+							label : "일별 방문자 수",
+							data : chartData
+						} ]
+
+					}
 				createChart();
+				
 			});
 		})
 
 		
 	})
+	
 </script>
 <div>
 	<select name="selectMonth" id="selectMonth">

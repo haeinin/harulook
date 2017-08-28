@@ -25,30 +25,35 @@ canvas {
 <c:set value="${cooContractNo}" var="no" />
 <script>
 var chartLabels = [];// 받아올 데이터를 저장할 배열 선언
-var chartData = [];
+var chartData1 = [];
+var chartData2 = [];
 
 var cooContractNo = '<c:out value="${no}"/>';
 
 console.log(cooContractNo);
 
 
- console.log(chartLabels);
- console.log(chartData);
- 
  var lineChartData = {
 		    labels : chartLabels,
 		    datasets : [ {
-		        label : "월별 방문자 수 조회",
+		        label : "월별 유입 수 조회",
 		        fillColor : "rgba(220,220,220,0.2)",
 		        strokeColor : "rgba(220,220,220,1)",
 		        pointColor : "rgba(220,220,220,1)",
 		        pointStrokeColor : "#fff",
 		        pointHighlightFill : "#fff",
 		        pointHighlightStroke : "rgba(220,220,220,1)",
-		        data : chartData
-		    }
-
-		    ]
+		        data : chartData1
+		    }, {
+		        label : "월별 방문자 수 조회",
+		        fillColor : "rgba(100,100,100,0.2)",
+		        strokeColor : "rgba(151,187,205,1)",
+		        pointColor : "rgba(151,187,205,1)",
+		        pointStrokeColor : "#fff",
+		        pointHighlightFill : "#fff",
+		        pointHighlightStroke : "rgba(151,187,205,1)",
+		        data : chartData2
+		    }]
 		 
 		}
 		 
@@ -68,19 +73,31 @@ console.log(cooContractNo);
 		    });
 		    }
  
-$.getJSON("./getMonthlyInflux"
+$.getJSON("./getMonthlyVisitor"
 		,{cooContractNo:cooContractNo}
 		, function (data) {
 	 $.each(data, function (key, value) {
 		 
 		 chartLabels.push(value.statsDate);
-		 chartData.push(value.statsAmount);
+		 chartData1.push(value.statsAmount);
 		 
 	
 	 });
+});
+$.getJSON("./getMonthlyInflux"
+		,{cooContractNo:cooContractNo}
+		, function (data) {
+	 $.each(data, function (key, value) {
+		 chartData2.push(value.statsAmount);
+		 
+	
 	 });
-	 
+	 createChart();
+});
 
+console.log(chartLabels);
+console.log(chartData1);
+console.log(chartData2);
 
 
  /*   var ctx = document.getElementById("canvas").getContext("2d");
