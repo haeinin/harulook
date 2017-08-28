@@ -45,7 +45,7 @@ public class BoardController {
 	}
 	
 	/* sns게시물 목록 검색 */
-	@RequestMapping(value="/boardSearchList", method = RequestMethod.POST)
+	@RequestMapping(value="/oardSearchList", method = RequestMethod.POST)
 	public String boardSearchList(Model model, BoardDto board, HttpServletRequest request) {
 		System.out.println("boardSearchList 요청");
 		String[] colorValue = request.getParameterValues("colorValue");
@@ -166,6 +166,7 @@ public class BoardController {
 		model.addAttribute("snsSituation", snsSituation);
 		model.addAttribute("snsStyle", snsStyle);
 		model.addAttribute("board", board);
+		System.out.println("snsStyle : "+snsStyle);
 		return "sns/board/sns_board_update";
 	}
 	

@@ -18,7 +18,7 @@
 </script>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/boardSearchList" method="post">
+<form action="${pageContext.request.contextPath}/boardSearchList" method="get">
 	<div class="form-group">
 	    <label for="snsBoardWeather">날씨 :</label>
 	    <select name="snsBoardWeather" id="snsBoardWeather">

@@ -5,24 +5,23 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.xml.sax.SAXException;
 
 import com.ksmart.harulook.weather.service.WeatherDao;
 import com.ksmart.harulook.weather.service.WeatherDto;
 
-@Controller
+@RestController
 public class WeatherController {
 
 	@Autowired
 	private WeatherDao weatherDao; 
 	
 	@RequestMapping(value="/currentWeather", method = RequestMethod.GET)
-	public @ResponseBody WeatherDto currentWeather(
+	public WeatherDto currentWeather(
 			@RequestParam(value="date", required=true) String date
 			,@RequestParam(value="hour", required=true) String hour
 			,@RequestParam(value="nx", required=true) String nx
