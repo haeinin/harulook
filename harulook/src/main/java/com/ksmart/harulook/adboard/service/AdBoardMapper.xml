@@ -14,9 +14,43 @@
  	<result property="adBoardContent" column="ad_board_content"/>
  	<result property="adBoardDate" column="ad_board_date"/> 	
  </resultMap>
-  <select id="getGoodsNo" resultType="String">
+  <insert id="insertGoods">
+  INSERT INTO ad_goods
+ (ad_goods_no, ad_goods_img, ad_board_link)
+ VALUES (#{adGoodsNo}
+ 		,#{adGoodsImg}
+ 		,#{adGoodsLink});
+  </insert>
+   <select id="getGoodsNo" resultType="String">
         SELECT
             max(CAST(substring(ad_goods_no,10) AS DECIMAL))  
         FROM ad_goods
     </select>
+   <select id="getBoardNo" resultType="String">
+       SELECT
+           max(CAST(substring(ad_board_no,10) AS DECIMAL))  
+       FROM ad_board
+   </select>
+  <insert id="insertAdBoard">
+  INSERT INTO ad_board
+	(ad_board_no
+	,ad_contract_no
+	,ad_board_goods_1
+	,ad_board_goods_2
+	,ad_board_temp_min
+	,ad_board_temp_max
+	,ad_board_img
+	,ad_board_content
+	,ad_board_date)
+	VALUES 
+	(''
+	,''
+	,''
+	,''
+	,0
+	,0
+	,''
+	,''
+	,NOW())
+  </insert>
 </mapper>

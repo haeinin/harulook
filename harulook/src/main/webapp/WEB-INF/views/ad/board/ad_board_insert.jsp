@@ -14,16 +14,16 @@ pageEncoding="UTF-8"%>
     <script>
     $(document).ready(function(){
     	/*처음에 광고 한개만 빼고 모두 숨김 */
-    	var i = 0;
-    	var ad1GoodsCount = 0 , ad2GoodsCount = 0;
+    	var i = 1;
 	    	$('#ad-2').hide();
 	    	$('#ad-3').hide();
 	    	$('#ad-4').hide();
 	    	$('#ad-5').hide();
 	    	$('#ad-6').hide();
+	    /* 등록버튼을 눌렀을 경우 i에 담겨있는 게시물의 값을 adBoardCount를 아이디로 가지는 input에 옮긴다 
+	    그리고 서브밋을 한다. */
 	    	$('#ok').click(function(){
 	    		$('#adBoardCount').val(i);
-	    		alert($('#adBoardCount').val(i));
 	    		$('#insert').submit();
 	    		
 	    		
@@ -66,9 +66,9 @@ pageEncoding="UTF-8"%>
         	   id = id + "View";
         	   console.log(id);
                 readURL(this , id);
+                ad2GoodsCount = 1;
                 $('#ad2GoodsCount').val(ad2GoodsCount);
-                ad1GoodsCount = 1;
-                console.log('ad-2광고 갯수 : ' + ad2GoodsCount);
+                console.log('ad-2 광고 갯수 : ' + ad2GoodsCount);
             });
            $('#ad-2adGoods2Img').on('change', function(){
         	   var id = $(this).attr('id');
@@ -77,30 +77,31 @@ pageEncoding="UTF-8"%>
                 readURL(this , id);
                 ad2GoodsCount = 2;
                 $('#ad2GoodsCount').val(ad2GoodsCount);
-                console.log('ad-2광고 갯수 : ' + ad2GoodsCount);
+                console.log('ad-2 광고 갯수 : ' + ad2GoodsCount);
             });
            
            /* 추가버튼을 눌렀을때 온도별 광고 한개씩 늘어나게 해주는 기능 */
  			$('#adAdd').click(function(){
- 				++i;
+ 				i++;
+ 				console.log('게시물의 갯수 :' + i);
  				
             	switch(i){
-            	case 0:
+            	case 1:
             		$('#ad-1').show();
             		break;
-            	case 1 :
+            	case 2 :
             		$('#ad-2').show();
             		break;
-            	case 2 :
+            	case 3 :
             		$('#ad-3').show();
             		break;
-            	case 3 :
+            	case 4 :
             		$('#ad-4').show();
             		break;
-            	case 4 :
+            	case 5 :
             		$('#ad-5').show();
             		break;
-            	case 5 :
+            	case 6 :
             		$('#ad-6').show();
             		break;	
             	}
