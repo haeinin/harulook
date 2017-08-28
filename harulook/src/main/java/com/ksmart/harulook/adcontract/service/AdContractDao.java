@@ -13,6 +13,7 @@ public class AdContractDao {
 	
 	@Autowired
     private SqlSessionTemplate sqlSessionTemplate;
+	@Autowired
 	private AdRefundDao adrefunddao;
 	/*광고 계약 등록 메서드*/
 	 public int insertAdContract(AdContractDto adcontract) {
@@ -36,9 +37,6 @@ public class AdContractDao {
 		 	System.out.println("모든 ID에 해당하는 광고 계약 리스트 출력 메서드 실행");
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractList");		 
 	 }	 
-	 public String getContract(String contractNo){
-		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.adcontract.service.AdContractMapper.", contractNo);
-	 }
 	 public String getContractNo(){
 		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.adcontract.service.AdContractMapper.getContractNo");
 	 }
