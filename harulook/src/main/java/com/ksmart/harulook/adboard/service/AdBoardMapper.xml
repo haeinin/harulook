@@ -43,14 +43,14 @@
 	,ad_board_content
 	,ad_board_date)
 	VALUES 
-	(''
-	,''
-	,''
-	,''
-	,0
-	,0
-	,''
-	,''
+	(#{adBoardNo}
+	,#{adContractNo}
+	,#{adBoardGoods1}
+	,#{adBoardGoods2}
+	,#{adBoardTempMin}
+	,#{adBoardTempMax}
+	,#{adBoardImage}
+	,#{adBoardContent}
 	,NOW())
   </insert>
 </mapper>

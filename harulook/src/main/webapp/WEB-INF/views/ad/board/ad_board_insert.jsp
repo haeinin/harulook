@@ -108,29 +108,65 @@ pageEncoding="UTF-8"%>
             });
            /*****************************************/
            /* 온도선택에서 온도를 골랐을때 숨겨진 input상자에다가 최저온도 최고온도를 셋팅 */
- 			$('#ad-1tempselect').change(function(){
+ 			$('#ad-1tempselect').on('change',function(){
+ 				if($('#ad-1tempselect').val()=='temp-5') {
+ 					$('#ad-1adBoardTempMax').val('-5');
+ 					$('#ad-1adBoardTempMin').val('-100');
+ 					}else if($('#ad-1tempselect').val()=='temp-55') {
+					$('#ad-1adBoardTempMax').val('5');
+					$('#ad-1adBoardTempMin').val('-5');	
+ 					}else if($('#ad-1tempselect').val()=='temp515') {
+					$('#ad-1adBoardTempMax').val('15');
+					$('#ad-1adBoardTempMin').val('5');	
+ 					}else if($('#ad-1tempselect').val()=='temp1524') {
+					$('#ad-1adBoardTempMax').val('24');
+					$('#ad-1adBoardTempMin').val('15');	
+ 					}else if($('#ad-1tempselect').val()=='temp2430') {
+					$('#ad-1adBoardTempMax').val('30');
+					$('#ad-1adBoardTempMin').val('24');	
+ 					}else if($('#ad-1tempselect').val()=='temp30') {
+					$('#ad-1adBoardTempMax').val('1000');
+					$('#ad-1adBoardTempMin').val('30');	
+ 					}
+ 					console.log('최고온도1: ' + $('#ad-1adBoardTempMax').val());
+ 					console.log('최저온도 : ' + $('#ad-1adBoardTempMin').val());
+ 			});
+
+ 			/* 	case 'temp-55':
+					
+			    case 'temp515':
+					
+ 				case 'temp1524':
+					
+ 				case 'temp2430':
+					
+ 				case 'temp30':
+					
+ 				}
+					
+ 			}); */
+ 			$('#ad-2tempselect').change(function(){
  				switch($(this).val()){
  				case 'temp-5':
- 					$('#ad-1adBoardTempMax').val(-5);
- 					$('#ad-1adBoardTempMin').val("");
-
+ 					$('#ad-2adBoardTempMax').val(-5);
+ 					$('#ad-2adBoardTempMin').val(-100);
  				case 'temp-55':
-					$('#ad-1adBoardTempMax').val(5);
-					$('#ad-1adBoardTempMin').val(-5);
+					$('#ad-2adBoardTempMax').val(5);
+					$('#ad-2adBoardTempMin').val(-5);
 			    case 'temp515':
-					$('#ad-1adBoardTempMax').val(15);
-					$('#ad-1adBoardTempMin').val(5);
+					$('#ad-2adBoardTempMax').val(15);
+					$('#ad-2adBoardTempMin').val(5);
  				case 'temp1524':
-					$('#ad-1adBoardTempMax').val(24);
-					$('#ad-1adBoardTempMin').val(15);
+					$('#ad-2adBoardTempMax').val(24);
+					$('#ad-2adBoardTempMin').val(15);
  				case 'temp2430':
-					$('#ad-1adBoardTempMax').val(30);
-					$('#ad-1adBoardTempMin').val(24);
+					$('#ad-2adBoardTempMax').val(30);
+					$('#ad-2adBoardTempMin').val(24);
  				case 'temp30':
-					$('#ad-1adBoardTempMax').val("");
-					$('#ad-1adBoardTempMin').val(30);
+					$('#ad-2adBoardTempMax').val(1000);
+					$('#ad-2adBoardTempMin').val(30);
  				}
- 			})
+ 			});
  			/***************************************************/
  			/* 취소 버튼을 눌렀을때 광고 숨김 및 내용 삭제 */
             $('#ad-1cancel').click(function(){
@@ -183,7 +219,7 @@ pageEncoding="UTF-8"%>
 <form id='insert' action="./insertAdBoard" enctype="multipart/form-data" method="post">
 <div id='ad-1'>
 온도 : 온도선택
-<select  id="ad-1tempselect">
+<select id="ad-1tempselect">
 	<option></option>
 	<option value="temp-5">-5도 이하</option>
 	<option value="temp-55">-5도~5도</option>
@@ -210,8 +246,8 @@ pageEncoding="UTF-8"%>
         <input type='file' id="ad-1adGoods2Img" class="ad-1" name="adGoodsImage"/><br><br>
 상세제품2에 해당하는 링크<br><br>
 		<input type="text" id="ad-1adGoods2Link" class="ad-1" name="adGoodsLink"><br><br>
-		<input type="hidden" value="-5" name="adBoardTempMax" id="ad-1adBoardTempMax">
-		<input type="hidden" value="" name="acBoardTempMin" id="ad-1adBoardTempMin">
+		<input type="hidden"  name="adBoardTempMax" id="ad-1adBoardTempMax">
+		<input type="hidden"  name="adBoardTempMin" id="ad-1adBoardTempMin">
 		<input type="hidden" value="" name='adGoodsCount' id='ad1GoodsCount'>
 		<br>
 게시물 설명<br><br>
@@ -249,8 +285,8 @@ pageEncoding="UTF-8"%>
         <input type='file' id="ad-2adGoods2Img" class="ad-2" name="adGoodsImage"/><br><br>
 상세제품2에 해당하는 링크<br><br>
 		<input type="text" class="ad-2" name="adGoodsLink"><br><br>
-		<input type="hidden" value="5" name="adBoardTempMax" id="ad-2adBoardTempMax">
-		<input type="hidden" value="-5" name="acBoardTempMin" id="ad-2adBoardTempMin">
+		<input type="hidden"  name="adBoardTempMax" id="ad-2adBoardTempMax">
+		<input type="hidden"  name="adBoardTempMin" id="ad-2adBoardTempMin">
 		<input type="hidden" value="" name='adGoodsCount' id='ad2GoodsCount'>
 		<br>
 게시물 설명<br><br>
@@ -287,8 +323,8 @@ pageEncoding="UTF-8"%>
         <input type='file' id="ad-3adGoods1Link" class="ad-3" name="adGoodsImage"/><br><br>
 상세제품2에 해당하는 링크<br><br>
 		<input type="text" class="ad-3" name="adGoodsLink"><br><br>
-		<input type="hidden" value="15" name="adBoardTempMax" id="ad-3adBoardTempMax">
-		<input type="hidden" value="5" name="acBoardTempMin" id="ad-3adBoardTempMin">
+		<input type="hidden"  name="adBoardTempMax" id="ad-3adBoardTempMax">
+		<input type="hidden"  name="adBoardTempMin" id="ad-3adBoardTempMin">
 		<br>
 게시물 설명<br><br>
 		<input type="text" id="ad-3adBoardContent" name="adBoardContent" class="ad-3"><br><br>
@@ -324,8 +360,8 @@ pageEncoding="UTF-8"%>
         <input type='file' id="ad-4adGoods2Image" class="ad-4" name="adGoodsImage"/><br><br>
 상세제품2에 해당하는 링크<br><br>
 		<input type="text" id="ad-4adGoods2Link" class="ad-4" name="adGoodsLink"><br><br>
-		<input type="hidden" value="24" name="adBoardTempMax" id="ad-4adBoardTempMax">
-		<input type="hidden" value="15" name="acBoardTempMin" id="ad-4adBoardTempMin">
+		<input type="hidden"  name="adBoardTempMax" id="ad-4adBoardTempMax">
+		<input type="hidden"  name="adBoardTempMin" id="ad-4adBoardTempMin">
 		<br>
 게시물 설명<br><br>
 		<input type="text" id="ad-4adBoardContent" name="adBoardContent" class="ad-4"><br><br>
@@ -361,8 +397,8 @@ pageEncoding="UTF-8"%>
         <input type='file' id="imgInp" class="ad-5" name="adGoodsImage"/><br><br>
 상세제품2에 해당하는 링크<br><br>
 		<input type="text" class="ad-5" name="adGoodsLink"><br><br>
-		<input type="hidden" value="30" name="adBoardTempMax" id="ad-5adBoardTempMax">
-		<input type="hidden" value="24" name="acBoardTempMin" id="ad-5adBoardTempMin">
+		<input type="hidden"  name="adBoardTempMax" id="ad-5adBoardTempMax">
+		<input type="hidden" name="adBoardTempMin" id="ad-5adBoardTempMin">
 		<br>
 게시물 설명<br><br>
 		<input type="text" id="ad-5adBoardContent" name="adBoardContent" class="ad-5"><br><br>
@@ -398,8 +434,8 @@ pageEncoding="UTF-8"%>
         <input type='file' id="imgInp" class="ad-6" name="adGoodsImage"/><br><br>
 상세제품2에 해당하는 링크<br><br>
 		<input type="text" class="ad-6" name="adGoodsLink"><br><br>
-		<input type="hidden" value="30" name="adBoardTempMax" id="ad-6adBoardTempMax" class="ad-6">
-		<input type="hidden" value="" name="acBoardTempMin" id="ad-6adBoardTempMin" class="ad-6">
+		<input type="hidden"  name="adBoardTempMax" id="ad-6adBoardTempMax" class="ad-6">
+		<input type="hidden"  name="adBoardTempMin" id="ad-6adBoardTempMin" class="ad-6">
 		<br>
 게시물 설명<br><br>
 		<input type="text" id="ad-6adBoardContent" name="adBoardContent" class="ad-6"><br><br>

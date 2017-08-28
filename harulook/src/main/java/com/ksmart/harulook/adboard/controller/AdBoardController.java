@@ -44,14 +44,17 @@ public class AdBoardController {
 		String adGoodsCount[] = request.getParameterValues("adGoodsCount");
 		String minTemp[] = request.getParameterValues("adBoardTempMin");
 		String maxTemp[] = request.getParameterValues("adBoardTempMax");
+		String content[] = request.getParameterValues("adBoardContent");
 		if(adGoodsCount[1].equals(null)){
 			adGoodsCount[1] = "0";
 		}
 		System.out.println("게시물의 갯수 : " + adBoardCount);
-/*		System.out.println("첫번째 광고 게시물의 최저온도/최고온도 : " + minTemp[0] +"/"+maxTemp[0]);
-		System.out.println("두번째 광고 게시물의 최저온도/최고온도 : " + minTemp[1] +"/"+maxTemp[1]);*/
+		System.out.println("첫번째 광고 게시물의 최저온도/최고온도 : " + minTemp[0] +"/"+maxTemp[0]);
+		System.out.println("두번째 광고 게시물의 최저온도/최고온도 : " + minTemp[1] +"/"+maxTemp[1]);
 		System.out.println("첫번째 광고 게시물의 광고의 갯수 : " + adGoodsCount[0]);
 		System.out.println("두번째 광고 게시물의 광고의 갯수 : " + adGoodsCount[1]);
+		System.out.println("첫번째 광고 게시물의 내용 : " +  content[0]);
+		System.out.println("두번째 광고 게시물의 내용 : " +  content[1]);
 		String[] links = request.getParameterValues("adGoodsLink");
 		List<MultipartFile> adGoodsImages = multipartRequest.getFiles("adGoodsImage");
 		List<MultipartFile> adBoardImages = multipartRequest.getFiles("adBoardImage");
@@ -74,8 +77,9 @@ public class AdBoardController {
 			adboard.setAdBoardNo("ad_board_" + initBoardno);
 			adboard.setAdBoardImage(utilfile.fileUpload(multipartRequest, adGoodsImages.get(i)));
 			adboard.setAdContractNo(adcontractno);
-/*			adboard.setAdBoardTempMax(maxTemp[i]);
-			adboard.setAdBoardTempMin(minTemp[i]);*/
+			adboard.setAdBoardTempMax(maxTemp[i]);
+			adboard.setAdBoardTempMin(minTemp[i]);
+			adboard.setAdBoardContent(content[i]);
 			for(int j = k; j < k+Integer.parseInt(adGoodsCount[i]); j++){
 				int initGoodsno = 1;
 				AdGoodsDto adgoods = new AdGoodsDto();
@@ -91,19 +95,23 @@ public class AdBoardController {
 					adGoodsImages.set(j, adBoardImages.get(j+1));
 					k=k+1;
 					System.out.println("한개 더함");
+					adboard.setAdBoardGoods1("ad_goods_"+initGoodsno);
+					adboard.setAdBoardGoods2(null);
 				}else{
 				System.out.println("링크 : " + links[j]);
 				System.out.println("이미지 : "+ adGoodsImages.get(j) );
 				adgoods.setAdGoodsNo("ad_goods_"+initGoodsno);
 				adgoods.setAdGoodsLink(links[j]);
 				adgoods.setAdGoodsImg(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j)));
+				adboard.setAdBoardGoods1("ad_goods_"+(initGoodsno-1));
+				adboard.setAdBoardGoods2("ad_goods_"+(initGoodsno));
 				adboarddao.insertAdGoods(adgoods);
 				}
 			}
 			k = k + Integer.parseInt(adGoodsCount[i]);
-/*			
-			adboard.setAdBoardGoods2(adBoardGoods2);
-			adboarddao.insertAdBoard(adboard);*/
+			
+			System.out.println(adboard.toString());
+			adboarddao.insertAdBoard(adboard);
 		}
 		System.out.println(adBoardImages.get(0));
 		return "redirect:/home";	

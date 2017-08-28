@@ -28,7 +28,7 @@ public class AdBoardDao {
 	}
 	public int insertAdBoard(AdBoardDto adBoard){
 		System.out.println("DAO에서 입력되는 adBoardDto : " + adBoard.toString());
-		return sqlSessionTemplate.insert("com.ksmart.harulook.adboard.service.AdBoardMapper.insertBoard", adBoard);
+		return sqlSessionTemplate.insert("com.ksmart.harulook.adboard.service.AdBoardMapper.insertAdBoard", adBoard);
 	}
 
 }
