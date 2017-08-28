@@ -109,5 +109,9 @@ public class PartnerDao {
 	 public List<PartnerStatsDto> getWeeklyInflux(String cooContractNo){
 		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getWeeklyInflux",cooContractNo);
 	 }
+	 /*제휴업체 쿠폰 번호 중복체크*/
+	 public int duplicateCode(String cooContractCode){
+		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.duplicateCode",cooContractCode);
+	 }
 
 }

@@ -2,6 +2,7 @@ package com.ksmart.harulook.partner.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -28,7 +29,11 @@ public class PartnerController {
 
 	/*제휴계약 신청처리*/
 	@RequestMapping(value = "/partnerContractInsert", method = RequestMethod.POST)
-	public String partnerContractInsert(PartnerDto dto) {
+	public String partnerContractInsert(PartnerDto dto
+										,HttpSession session) {
+		/*로그인한 아이디*/
+		String id = (String)session.getAttribute("id");
+		dto.setUserId(id);
 		/*제휴계약번호 자동입력*/
 		String lastCooContractNo = dao.getLastCooContractNo();
 		System.out.println("컨트롤러"+lastCooContractNo);
@@ -37,7 +42,14 @@ public class PartnerController {
 			setNo = Integer.parseInt(lastCooContractNo)+1;
 		}
 		dto.setCooContractNo("coo_contract_"+setNo);
-		/********************************************************/
+		/*제휴쿠폰코드 랜덤생성*/
+		String cooContractCode = getRandomCode();
+		/*제휴쿠폰코드 중복체크*/
+		while(dao.duplicateCode(cooContractCode) > 0){
+			cooContractCode = getRandomCode();
+		}
+		/*---------------------*/
+		dto.setCooContractCode(cooContractCode);
 		dao.insertCooContract(dto);
 		System.out.println("제휴계약신청완료");
 		return "redirect:/partnerContractList";
@@ -240,7 +252,16 @@ public class PartnerController {
 		return "partner/statistics/partner_statistics_weekly";
 
 	}
-	
+	/*제휴업체계약시 쿠폰랜덤생성기(소문자 10자리)*/
+	public String getRandomCode(){
+		Random random = new Random();
+		StringBuffer randomCode = new StringBuffer();
+		for (int i = 1; i <= 10; i++) {
+			randomCode.append((char)((int)(random.nextInt(26))+97));
+		    }
+		String cooContractCode=randomCode.toString();
+		return cooContractCode;
+	}
 
 	
 }
