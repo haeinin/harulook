@@ -6830,7 +6830,7 @@ header .social a.instagram {
 }
 .instagram-content .photo-box .image-wrap img {
   width: 100%;
-  max-height: 345px;
+  height: 345px;
 }
 .instagram-content .photo-box .image-wrap .likes {
       position: absolute;

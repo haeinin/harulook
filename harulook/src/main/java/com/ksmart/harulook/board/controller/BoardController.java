@@ -41,7 +41,7 @@ public class BoardController {
 		List<BoardDto> list = boardDao.boardSearchList(board);
 		model.addAttribute("list", list);
 		System.out.println("boardSearchList --> "+list);
-		return "sns/board/sns_board_list";
+		return "redirect:/boardSearchList";
 	}
 	
 	/* sns게시물 목록 검색 */

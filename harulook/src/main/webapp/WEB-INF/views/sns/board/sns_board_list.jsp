@@ -67,7 +67,7 @@ $(function(){
 						boardHtml += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">';
 						boardHtml += '<div class="photo-box">';
 						boardHtml += '<div class="image-wrap">';
-						boardHtml += '<img alt="no image" src="'+data[i].snsBoardImg+'">';
+						boardHtml += '<img alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
 						boardHtml += '<div class="likes">';
 						boardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
 						boardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
@@ -205,7 +205,10 @@ sns 게시물 목록
 			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이
 			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객    	
 			    </div>
-			    <button type="button" id="searchBtn">검색</button>
+			    <div class="form-group">
+			    	<input type="text" id="userId" name="userId">
+			    	<button type="button" id="searchBtn">검색</button>
+			    </div>
        
             <div class="row">
                 <div class="col-xs-12">
