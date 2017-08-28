@@ -31,20 +31,32 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var myPointMsg;
-		$('#pointUse').show();//포인트 사용 내역 리스트
-		$('#pointGet').hide();//포인트 취득 내역 리스트
+		
+		console.log(sessionStorage.getItem('get'));	//포인트 취득 내역리스트를 보기 위한 세션 값
+		if(sessionStorage.getItem('get') != "get"){	//취득내역 다음이전버튼 클릭 안했을때
+			$('#pointUse').show();//포인트 사용 내역 리스트
+			$('#pointGet').hide();//포인트 취득 내역 리스트
+		}else if(sessionStorage.getItem('get') == "get"){	//취득내역 다음이전버튼 클릭 했을때
+			$('#pointUse').hide();//포인트 사용 내역 리스트
+			$('#pointGet').show();//포인트 취득 내역 리스트	
+		}
 		
 		$('#pointUseButton').click(function(){	//포인트 사용 내역
-			$('#loginAdd').submit();
+			sessionStorage.removeItem('get');
 			$('#pointUse').show();
 			$('#pointGet').hide();
 		});
 		
 		$('#pointGetButton').click(function(){	//포인트 취득 내역
-			$('#loginAdd').submit();
+			sessionStorage.setItem('get', 'get');	//포인트취득내열 다음 이전 버튼 눌렀을때 세션 입력(취득내역리스트 유지하기 위함)
 			$('#pointUse').hide();
 			$('#pointGet').show();
 		});
+		
+		$('.get').click(function(){	//포인트취득내열 다음 이전 버튼 눌렀을때 세션 입력(취득내역리스트 유지하기 위함)	오류있을수 있으니 다음이전버튼 누를때도 세션 저장
+			sessionStorage.setItem('get', 'get');
+        });
+		
 		
 		$('#pointPolicyButton').click(function(){	//포인트 정책 사용 버튼 보기 
 			
@@ -87,6 +99,7 @@
 				alert('오류');
 			}
 		});
+		
 		
 	});
 </script>
@@ -166,6 +179,7 @@
 	<!-- 포인트 사용 내역-->
 	<div class="container" id="pointUse">
 	    <h1>포인트 사용 내역</h1>
+	    <div>전체행의 수 : ${pointUseCount}</div>
 	    <table class="table table-striped">
 	        <thead>
 	            <tr>
@@ -185,12 +199,21 @@
 				    </tr>
 	            </c:forEach>
 	        </tbody>
-	   </table>
+	    </table>
+	    <ul class="pager">
+	        <c:if test="${currentPageUse > 1}">
+	            <li class="previous"><a href="${pageContext.request.contextPath}/myPoint?currentPageUse=${currentPageUse-1}">이전</a></li>
+	        </c:if>
+	        <c:if test="${currentPageUse < lastPageUse}">
+	            <li class="next"><a href="${pageContext.request.contextPath}/myPoint?currentPageUse=${currentPageUse+1}">다음</a></li>
+	        </c:if>
+		</ul>
 	</div>
 	
 	<!-- 포인트 취득내역 정책-->
 	<div class="container" id="pointGet">
 	    <h1>포인트 취득 내역</h1>
+	    <div>전체행의 수 : ${pointGetCount}</div>
 	    <table class="table table-striped">
 	        <thead>
 	            <tr>
@@ -208,7 +231,15 @@
 				    </tr>
 	            </c:forEach>
 	        </tbody>
-	   </table>
+	    </table>
+	    <ul class="pager">
+	        <c:if test="${currentPageGet > 1}">
+	            <li class="previous get"><a  href="${pageContext.request.contextPath}/myPoint?currentPageGet=${currentPageGet-1}">이전</a></li>
+	        </c:if>
+	        <c:if test="${currentPageGet < lastPageGet}">
+	            <li class="next get"><a  href="${pageContext.request.contextPath}/myPoint?currentPageGet=${currentPageGet+1}">다음</a></li>
+	        </c:if>
+		</ul>
 	</div>
 	
 	

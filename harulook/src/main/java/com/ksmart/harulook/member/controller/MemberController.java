@@ -191,8 +191,8 @@ public class MemberController {
         int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
         List<MemberDto> list = memberDao.userList(currentPage, pagePerRow, level);
-		model.addAttribute("currentPage", currentPage);
-        model.addAttribute("boardCount", boardCount);
+		model.addAttribute("currentPageUse", currentPage);
+        model.addAttribute("boardCountUse", boardCount);
         model.addAttribute("lastPage", lastPage);
         
         model.addAttribute("list", list);

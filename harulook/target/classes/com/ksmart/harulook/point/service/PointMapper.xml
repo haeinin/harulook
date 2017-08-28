@@ -60,6 +60,18 @@
 		;
 	</select>	
 	
+	<!-- 포인트 사용 내역 카운트 조회 -->
+   	<select id="pointUseCount" parameterType="java.util.Map" resultType="int">
+		select count(*) 
+		from point
+		join point_policy
+		on point.point_policy_no = point_policy.point_policy_no
+		where point.user_id = #{userId}
+		and point_policy.point_policy_value &lt; 0 
+		order by point.point_date desc
+		;
+   	</select>
+	
 	<!-- 포인트 사용 내역 -->
    	<select id="pointUse" parameterType="java.util.Map" resultMap="Point">
 		select point.point_no
@@ -74,9 +86,22 @@
 		where point.user_id = #{userId} 
 		and point_policy.point_policy_value &lt; 0 
 		order by point.point_date desc
+		LIMIT #{beginRow}, #{pagePerRow}
 		;
 	</select>
 	
+	<!-- 포인트 취득내역 카운트 조회 -->
+   	<select id="pointGetCount" parameterType="java.util.Map" resultType="int">
+		select count(*) 
+		from point
+		join point_policy
+		on point.point_policy_no = point_policy.point_policy_no
+		where point.user_id = #{userId}
+		and point_policy.point_policy_value > 0 
+		order by point.point_date desc
+		;
+   	</select>
+    	
 	<!-- 포인트 취득 내역 -->
    	<select id="pointGet" parameterType="java.util.Map" resultMap="Point">
 		select point.point_no
@@ -90,6 +115,7 @@
 		where point.user_id = #{userId} 
 		and point_policy.point_policy_value > 0 
 		order by point.point_date desc
+		LIMIT #{beginRow}, #{pagePerRow}
 		;
 	</select>
 	

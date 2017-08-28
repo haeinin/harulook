@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ksmart.harulook.follow.service.FollowDto;
+import com.ksmart.harulook.member.service.MemberDto;
 import com.ksmart.harulook.point.service.PointDao;
 import com.ksmart.harulook.point.service.PointDto;
 
@@ -101,9 +102,9 @@ public class PointController {
 	public String myPoint(Model model,
 				HttpSession session,
 				HttpServletRequest request,
-				@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+				@RequestParam(value="currentPageUse", required=false, defaultValue="1") int currentPageUse,
+				@RequestParam(value="currentPageGet", required=false, defaultValue="1") int currentPageGet) {
 		String userId = (String) session.getAttribute("id");
-		
 		List<PointDto> pointPolicy = pointDao.pointPolicy();	//포인트 정책 리스트
 		model.addAttribute("pointPolicy", pointPolicy);
 			System.out.println("PointController 1 포인트정책 " + pointPolicy);
@@ -112,25 +113,25 @@ public class PointController {
 			System.out.println("PointController 2 쿠폰 정책 " + pointPolicy);
 		model.addAttribute("pointUsePolicy", pointUsePolicy);
 		
-		List<PointDto> pointUse = pointDao.pointUse(userId);	//포인트 사용 내역
+		int pointUseCount = pointDao.pointUseCount(userId);	// 포인트사용내역 게시물 수
+		int pagePerRow = 10;
+		int lastPageUse = (int)(Math.ceil(pointUseCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
+        List<PointDto> pointUse = pointDao.pointUse(currentPageUse, pagePerRow, userId);	//포인트 사용 내역
+		model.addAttribute("currentPageUse", currentPageUse);
+        model.addAttribute("pointUseCount", pointUseCount);
+        model.addAttribute("lastPageUse", lastPageUse);
+        model.addAttribute("pointUse", pointUse);
 			System.out.println("PointController 3 포인트 사용 내역 " + pointUse);
-		model.addAttribute("pointUse", pointUse);
 		
-		List<PointDto> pointGet = pointDao.pointGet(userId);	//포인트 취득 내역
-			System.out.println("PointController 4 포인트 취득 내역 " + pointGet);
-		model.addAttribute("pointGet", pointGet);
+		int pointGetCount = pointDao.pointGetCount(userId);	// 포인트취득내역 게시물 수
+		int lastPageGet = (int)(Math.ceil(pointGetCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
+        List<PointDto> pointGet = pointDao.pointGet(currentPageGet, pagePerRow, userId);	//포인트 취득내역
+		model.addAttribute("currentPageGet", currentPageGet);
+        model.addAttribute("pointGetCount", pointGetCount);
+        model.addAttribute("lastPageGet", lastPageGet);
+        model.addAttribute("pointGet", pointGet);
+			System.out.println("PointController 3 포인트 사용 내역 " + pointGet);	
 		
-		/*int followListCount = followDao.followListCount(userId);
-		int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
-        int lastPage = (int)(Math.ceil(followListCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
-		
-		List<FollowDto> followList = followDao.followList(currentPage, pagePerRow, userId);	//팔로우 리스트
-		model.addAttribute("currentPage", currentPage);
-        model.addAttribute("followListCount", followListCount);
-        model.addAttribute("lastPage", lastPage);
-		
-		model.addAttribute("followList", followList);
-		System.out.println("FollowController model == " + model);*/
-		return "point/point_list"; //방문자 리스트
+		return "point/point_list"; //포인트 리스트
 	}
 }
