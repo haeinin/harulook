@@ -214,14 +214,6 @@
 		
 		$('#addButton').click(function(){	//회원가입버튼
 			
-			/* var checkBoxArr = [];
-
-			$("input[name=colorValue]:checked").each(function(i){
-
-			checkBoxArr.push($(this).val());
-
-			}); */
-			
 			if(!$('#user_id').val()){	//아이디입력 안했을때
 				alert('아이디를입력하세요');
 				$('#user_id').focus();
@@ -250,23 +242,23 @@
 				alert('주소를입력하세요');
 				$('#sample4_jibunAddress').focus();
 				return false;
-			}else if(!($(':input[name=userGender]:radio:checked').val())){	//성별 선택안했을때
+			}else if(!($('#user_gender').val())){	//성별 선택안했을때
 				alert('성별입력하세요');
 				$('#user_gender').focus();
 				return false;
-			}else if(!($(':input[name=userAge]:radio:checked').val())){	//나이 선택안했을때
+			}else if(!($('#user_age').val())){	//나이 선택안했을때
 				alert('나이를 입력하세요');
 				$('#user_age').focus();
 				return false;
-			}else if(!($(':input[name=userTall]:radio:checked').val())){	//키 선택안했을때
+			}else if(!($('#user_tall').val())){	//키 선택안했을때
 				alert('키를 입력하세요');
 				$('#user_tall').focus();
 				return false;	
-			}else if(!($(':input[name=userSize]:radio:checked').val())){	//사이즈 선택안했을때
+			}else if(!($('#user_size').val())){	//사이즈 선택안했을때
 				alert('사이즈를 입력하세요');
 				$('#user_size').focus();
 				return false;
-			}else if(!($(':input[name=userQ]:radio:checked').val())){	//질문 선택안했을때
+			}else if(!($('#user_q').val())){	//질문 선택안했을때
 				alert('질문 입력하세요');
 				$('#user_q').focus();
 				return false;
@@ -420,52 +412,56 @@
 				<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소"><br><br>
 				<span id="guide" style="color:#999"></span>
 	        	
-	        	
 	        	<!-- 성별 -->
 	        	<label for="user_gender" >성별 :</label>
-	            <div class="radio">
-			      <label><input name="userGender" id="user_gender" type="radio" value="남" >남</label>
-			      <label><input name="userGender" id="user_gender" type="radio" value="여" >여</label>
-			    </div>
-			   
+	            <select class="form-control" name="userGender" id="user_gender">
+					<option>${userDetail.userGender}</option>
+	            	<option>남</option>
+	            	<option>여</option>
+	            </select>
 				
 				<!-- 나이 -->	        	
 	        	<label for="user_age">나이 :</label>
-	            <div class="radio">
-			      <label><input name="userAge" id="user_age" type="radio" value="10" >10대</label>
-			      <label><input name="userAge" id="user_age" type="radio" value="20" >20대</label>
-			      <label><input name="userAge" id="user_age" type="radio" value="30" >30대</label>
-			      <label><input name="userAge" id="user_age" type="radio" value="40" >40대</label>
-			      <label><input name="userAge" id="user_age" type="radio" value="50" >50대</label>
-			      <label><input name="userAge" id="user_age" type="radio" value="60" >60대이상</label>
-			    </div>
+	            <select class="form-control" name="userAge" id="user_age">
+					<option>${userDetail.userAge}</option>
+	            	<option>10</option>
+	            	<option>20</option>
+	            	<option>30</option>
+	            	<option>40</option>
+	            	<option>50</option>
+	            	<option>60</option>
+	            </select>
 	        	
 	        	<!-- 키 -->
 	        	<label for="user_tall">키 :</label>
-	            <div class="radio">
-			      <label><input name="userTall" id="user_tall" type="radio" value="큰키" >큰키</label>
-			      <label><input name="userTall" id="user_tall" type="radio" value="보통" >보통</label>
-			      <label><input name="userTall" id="user_tall" type="radio" value="작은키" >작은키</label>
-			    </div>
+	            <select class="form-control" name="userTall" id="user_tall">
+					<option>${userDetail.userTall}</option>
+	            	<option>큰키</option>
+	            	<option>보통</option>
+	            	<option>작은키</option>
+            	</select>
 	      		
 	      		<!-- 사이즈 -->
 	        	<label for="user_size">사이즈 :</label>
-	            <div class="radio">
-			      <label><input name="userSize" id="user_size" type="radio" value="마른" >마른</label>
-			      <label><input name="userSize" id="user_size" type="radio" value="보통" >보통</label>
-			      <label><input name="userSize" id="user_size" type="radio" value="뚱뚱" >뚱뚱</label>
-			    </div>
+	            <select class="form-control" name="userSize" id="user_size">
+					<option>${userDetail.userSize}</option>
+	            	<option>마른</option>
+	            	<option>보통</option>
+	            	<option>뚱뚱</option>
+            	</select>
 			    
 			    <!-- 질문 -->
 	        	<label for="user_q">질문 :</label>
-	            <div class="radio">
-			      <label><input name="userQ" id="user_q" type="radio" value="나의 보물은" >나의 보물은</label>
-			      <label><input name="userQ" id="user_q" type="radio" value="나의 고향은" >나의 고향은</label>
-			      <label><input name="userQ" id="user_q" type="radio" value="나의 초등학교" >나의 초등학교</label>
-			      <label><input name="userQ" id="user_q" type="radio" value="나의 고등학교" >나의 고등학교</label>
-			      <label><input name="userQ" id="user_q" type="radio" value="나의 비밀은" >나의 비밀은</label>
-			      <label><input name="userQ" id="user_q" type="radio" value="나의 꿈은" >나의 꿈은</label>
-			    </div>
+	            <select class="form-control" name="userQ" id="user_q">
+					<option>${userDetail.userQ}</option>
+	            	<option>나의 보물은</option>
+	            	<option>나의 고향은</option>
+	            	<option>나의 초등학교</option>
+	            	<option>나의 고등학교</option>
+	            	<option>나의 비밀은</option>
+	            	<option>나의 꿈은</option>
+            	</select>
+	        	
 	       		
 	       		<!-- 답 -->
 	        	<label for="user_a">질문의 답 :</label>
@@ -477,16 +473,16 @@
 	        	<!-- 유저선호스타일 -->
         		<div class="form-group">
 					<label for="userStyle">회원선호스타일 :</label>
+				  	<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
+				  	<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
+				  	<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
+				  	<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트
+				  	<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디
+				  	<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리
+				  	<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리
+				  	<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱
+				  	<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플
 				  	<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
-					<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
 				</div>
 				
 				<!-- 유저선호색상 -->
@@ -499,12 +495,12 @@
 			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05" class="checkSelectColor">파랑
 			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06" class="checkSelectColor">남색
 			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07" class="checkSelectColor">보라
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13" class="checkSelectColor">핑크
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11" class="checkSelectColor">갈색
-			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12" class="checkSelectColor">베이지
 			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08" class="checkSelectColor">검정
 			       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09" class="checkSelectColor">회색
 			     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10" class="checkSelectColor">흰색
+			     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11" class="checkSelectColor">갈색
+			     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12" class="checkSelectColor">베이지
+			     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13" class="checkSelectColor">핑크
 			     </div>
 	     	
 	     	<!-- 회원가입버튼 -->

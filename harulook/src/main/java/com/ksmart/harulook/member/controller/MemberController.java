@@ -149,10 +149,10 @@ public class MemberController {
 			model.addAttribute("userDetail", userDetail);
 				System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
 				
-			List<MemberDto> userColor = memberDao.userColor(userId);	
+			List<String> userColor = memberDao.userColor(userId);	
 			model.addAttribute("userColor", userColor);
 			
-			List<MemberDto> userStyle = memberDao.userStyle(userId);	
+			List<String> userStyle = memberDao.userStyle(userId);	
 			model.addAttribute("userStyle", userStyle);
 				System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러와스타일 model==" + model);
 				
@@ -367,6 +367,7 @@ public class MemberController {
 		}
 		MemberDto businessDetail = memberDao.businessDetail(userId);
 		model.addAttribute("businessDetail", businessDetail);
+			System.out.println(businessDetail + " == 1280937120398109238102938109381209381093810923089");
 		return "member/business/member_business_update"; //사업자 관리자 수정폼
 	}
 	
@@ -386,14 +387,13 @@ public class MemberController {
 		model.addAttribute("userDetail", userDetail);
 			System.out.println("MemeberController 일반회원수정폼 받아온 회원상세데이터들 model==" + model);
 			
-		List<MemberDto> userColor = memberDao.userColor(userId);	
+		List<String> userColor = memberDao.userColor(userId);	
 		model.addAttribute("userColor", userColor);
 		
-		List<MemberDto> userStyle = memberDao.userStyle(userId);	
+		List<String> userStyle = memberDao.userStyle(userId);	
 		model.addAttribute("userStyle", userStyle);
 			System.out.println("MemeberController 일반회원수정폼 받아온 회원의컬러와스타일 model==" + model);
-			
-		System.out.println("member_user_update 일반회원수정홈화면");
+			System.out.println("member_user_update 일반회원수정홈화면");
 		return "member/user/member_user_update"; //일반회원가입폼화면
 	}
 	

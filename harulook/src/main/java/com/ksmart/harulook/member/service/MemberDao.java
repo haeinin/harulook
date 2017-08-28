@@ -79,7 +79,7 @@ public class MemberDao {
     }
     
 	/*일반회원 스타일 */
-	public List<MemberDto> userStyle(String userId) {
+	public List<String> userStyle(String userId) {
 		Map<String, String> map = new HashMap<String, String>();
 	    map.put("userId", userId);
 	    return sqlSessionTemplate.selectList("com.ksmart.harulook.member.service.MemberMapper.userStyle", map);
@@ -87,7 +87,7 @@ public class MemberDao {
 
 
     /*일반회원 색상 */
-    public List<MemberDto> userColor(String userId) {
+    public List<String> userColor(String userId) {
     	System.out.println("색상고를때");
 		Map<String, String> map = new HashMap<String, String>();
         map.put("userId", userId);
