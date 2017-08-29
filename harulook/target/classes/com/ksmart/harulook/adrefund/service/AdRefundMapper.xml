@@ -29,11 +29,13 @@
 			,ad_contract_no
 			,refund_price
 			,refund_date
-			,refund_stat)
+			,refund_stat
+			,refund_request_date)
 			VALUES (#{refundNo}
 				   ,#{adContractNo}
 				   ,#{refundPrice}
-				   ,NOW()
-				   ,'결제정보입력대기') 
+				   ,''
+				   ,'결제정보입력대기'
+				   ,NOW()) 
  </insert>
 </mapper>		
