@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>~하루룩~</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->

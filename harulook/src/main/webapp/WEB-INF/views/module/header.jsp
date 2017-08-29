@@ -378,7 +378,7 @@ function dfs_xy_conv(code, v1, v2) {
 	<form id="homeForm" action="${pageContext.request.contextPath}/home" method="get">
 	 		<div>
 	 			<button class="btn btn-default" id="home" value="메인버튼">
-				<img src="./resources/harulook.png" class="img-rounded" alt="Cinque Terre" ></button>
+				<img src="./resources/logo.jpg" class="img-rounded" alt="Cinque Terre" ></button>
 	 	 	</div>	
     </form>
 
