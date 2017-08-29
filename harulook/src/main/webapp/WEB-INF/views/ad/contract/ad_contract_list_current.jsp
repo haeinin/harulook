@@ -9,55 +9,52 @@
                 <th>광고주 아이디</th>
                 <th>시작 날짜</th>
                 <th>종료 날짜</th>
-                <th>계약 금액</th>
                 <th>계약 상태</th>
-                <th>수정</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="b" items="${adcontractcurrentlist}">
-            <c:choose>
-            <c:when test="${b.adContractPlace=='1'}">
             <tr>
+            		
                     <td>1</td>
-                    <td>${b.userBsName}</td>
-                    <td>${b.userId}</td>
-                    <td>${b.adContractStart}</td>
-                    <td>${b.adContractEnd}</td>
-                    <td>${b.adContractPrice}</td>
-                    <td>${b.adContractStat}</td>
-                    <td><a>광고 수정</a></td>
+                    <c:if test="${adContractPlace1==null}">
+                    <td colspan="5" align="center"><a class="btn btn-info">비었음</a></td>
+                    </c:if>
+                    <c:if test="${adContractPlace1!=null}">                
+                    <td>${adContractPlace1.userBsName}</td>
+                    <td>${adContractPlace1.userId}</td>
+                    <td>${adContractPlace1.adContractStart}</td>
+                    <td>${adContractPlace1.adContractEnd}</td>
+                    <td>${adContractPlace1.adContractStat}</td>
+                    </c:if>
                 </tr>
-            </c:when>
-            </c:choose>
-            <c:choose>
-            <c:when test="${b.adContractPlace=='2'}">
             <tr>
                     <td>2</td>
-                    <td>${b.userBsName}</td>
-                    <td>${b.userId}</td>
-                    <td>${b.adContractStart}</td>
-                    <td>${b.adContractEnd}</td>
-                    <td>${b.adContractPrice}</td>
-                    <td>${b.adContractStat}</td>
-                    <td><a>광고 수정</a></td>
+                    <c:if test="${adContractPlace2==null}">
+                    <td colspan="5" align="center"><a class="btn btn-info">비었음</a></td>
+                    </c:if>
+                    <c:if test="${adContractPlace2!=null}">
+                    <td>${adContractPlace2.userBsName}</td>
+                    <td>${adContractPlace2.userId}</td>
+                    <td>${adContractPlace2.adContractStart}</td>
+                    <td>${adContractPlace2.adContractEnd}</td>
+                    <td>${adContractPlace2.adContractStat}</td>
+                    </c:if>
+                    
                 </tr>
-            </c:when>
-            </c:choose>
-            <c:choose>
-            <c:when test="${b.adContractPlace=='3'}">
+
+
             <tr>
                     <td>3</td>
-                    <td>${b.userBsName}</td>
-                    <td>${b.userId}</td>
-                    <td>${b.adContractStart}</td>
-                    <td>${b.adContractEnd}</td>
-                    <td>${b.adContractPrice}</td>
-                    <td>${b.adContractStat}</td>
-                    <td><a>광고 수정</a></td>
+                    <c:if test="${adContractPlace3==null}">
+                    <td colspan="5" align="center"><a class="btn btn-info">비었음</a></td>
+                    </c:if>
+                    <c:if test="${adContractPlace3!=null}">
+                    <td>${adContractPlace3.userBsName}</td>
+                    <td>${adContractPlace3.userId}</td>
+                    <td>${adContractPlace3.adContractStart}</td>
+                    <td>${adContractPlace3.adContractEnd}</td>
+                    <td>${adContractPlace3.adContractStat}</td>
+                    </c:if>
                 </tr>
-            </c:when>
-            </c:choose>
-                </c:forEach>
         </tbody>
     </table>

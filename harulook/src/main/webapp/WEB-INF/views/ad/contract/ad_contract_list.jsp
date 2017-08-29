@@ -21,11 +21,70 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <!-- jQuery UI 라이브러리 js파일 -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<script>
+    $(function() {
+    	var selectedday;
+    	var price;
+    	var dc;
+    	/* 총 합계를 계산해 놓으면 텍스트박스에 NaN이라는 값이 출력되서 날짜를 선택해야 총 합계가 나오게 만듬 */
+    	$('#date').change(function(){
+			if($('#date').val() == 'ad_dc_01'){
+				selectedday = 1;
+			}else if($('#date').val() == 'ad_dc_02'){
+				selectedday = 5;
+			}else if($('#date').val() == 'ad_dc_03'){
+				selectedday = 7;
+			}
+			$.ajax({
+    			type : "POST",
+    			url : "./getDc",
+    			data : { adCostNo : $('#date').val()},
+    			success : function(data){
+    				console.log("수수료 : " + data);
+    				dc = data;
+    				$('#dcForPrice').val(data);
+    				$('#priceTotal').val((selectedday*$('#pricePerDay').val())*(1-data/100));
+    			}
+    		})
+    		
+    	})
+    	/*****************************************************************/
+    	/* 광고종류를 선택했을때 ajax를 이용하여 광고에 해당하는 하루 금액을 전송받음 */
+    	$("#adType").change(function(){
+    		$.ajax({
+    			type : "POST",
+    			url : "./getPrice",
+    			data : { adtype : $('#adType').val()},
+    			success : function(data){
+    				console.log("하루당 광고비용 : " + data);
+    				price = data;
+    				$('#pricePerDay').val(data);
+    			}
+    		})	
+    	});
+    	/***********************************************/
+    	
+    	/* 날짜 선택시 옵션 지정 (선택가능한 최소날짜 오늘부터, 날짜 형식 지정)*/
+        $('#Datepicker').datepicker({
+        	minDate: +0,
+        	dateFormat: 'yy-mm-dd'
+        });
+    	/**********************************************/
+    	/* 광고 계약 취소 시 환불테이블과 계약 상태를 바꿔줌 */
+    			
+    	});
+   
+    	
+</script> 
 </head>
 <body>
 <div class="container">
-	<a href="./adContractListAdmin">관리자 모드로 접속</a><br>
-	<a href="./adContractListAdUser">광고주 모드로 접속</a>
+    <h1>현재 광고 목록</h1>
+   <c:import url="../contract/ad_contract_list_current.jsp"></c:import>
+   	<h1>광고예정 목록</h1>
+   <c:import url="../contract/ad_contract_list_not_current.jsp"></c:import>
+   <h1>광고 등록하기</h1>
+   <c:import url="../contract/ad_contract_insert.jsp"></c:import>
   </div>
 </body>
 </html>

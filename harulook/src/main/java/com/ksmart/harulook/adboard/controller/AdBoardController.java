@@ -17,6 +17,8 @@ import com.ksmart.harulook.adgoods.AdGoodsDto;
 import com.ksmart.harulook.util.UtilFile;
 import com.ksmart.harulook.adboard.service.AdBoardDao;
 import com.ksmart.harulook.adboard.service.AdBoardDto;
+import com.ksmart.harulook.adcontract.service.AdContractDao;
+import com.ksmart.harulook.adcontract.service.AdContractDto;
 
 @Controller
 public class AdBoardController {
@@ -24,7 +26,8 @@ public class AdBoardController {
 	private AdBoardDao adboarddao;
 	@Autowired
 	private UtilFile utilfile;
-	
+	@Autowired
+	private AdContractDao adcontractdao;
 	@RequestMapping(value="/insertAdBoard",method = RequestMethod.GET)
 	public String insertAdBoardView(@RequestParam("adContractNo") String adcontractno
 								 ,HttpSession session) {
@@ -112,6 +115,7 @@ public class AdBoardController {
 			
 			System.out.println(adboard.toString());
 			adboarddao.insertAdBoard(adboard);
+			adcontractdao.adWait(adcontractno);
 		}
 		System.out.println(adBoardImages.get(0));
 		return "redirect:/home";	

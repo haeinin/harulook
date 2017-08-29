@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1">
-<title> LIST(spring mvc + mybatis 방식)</title>
+<title>Insert title here</title>
  <!-- jquery를 사용하기위한 CDN주소 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
@@ -23,9 +22,29 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 </head>
 <body>
-<div class="container">
-    <h1>현재 광고 목록</h1>
-	<a href="./adContractList_in">들어가기</a>
-  </div>
+	<div id="container">
+		  <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>계약번호</th>
+                <th>환불금액</th>
+                <th>환불신청일자</th>
+                <th>환불상태</th>
+                <th>환불일자</th>
+            </tr>
+        </thead>
+        <tbody>
+        <c:forEach var="b" items="${adrefundlist}">
+            <tr>
+                    <td>${b.adContractNo}</td>
+                    <td>${b.refundPrice}</td>
+                    <td>${b.refundRequestDate}</td>
+                    <td>${b.refundStat}</td>
+                </tr>
+                </c:forEach>
+        </tbody>
+    </table>
+	</div>
+	
 </body>
 </html>

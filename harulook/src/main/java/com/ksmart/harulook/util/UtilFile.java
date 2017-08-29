@@ -31,9 +31,7 @@ public class UtilFile {
             //배포할때에
             //path = getSaveLocation(request);
             //로컬에서 테스트할때에
-
             path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/resources/files/";
-
 
             System.out.println("UtilFile fileUpload fileName : " + fileName);
             System.out.println("UtilFile fileUpload uploadPath : " + path);

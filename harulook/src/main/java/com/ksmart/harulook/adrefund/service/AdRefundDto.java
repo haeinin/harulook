@@ -6,11 +6,19 @@ public class AdRefundDto {
 	private int refundPrice;
 	private String refundDate;
 	private String refundStat;
-		
+	private String refundRequestDate;
+
 	@Override
 	public String toString() {
 		return "AdRefundDto [refundNo=" + refundNo + ", adContractNo=" + adContractNo + ", refundPrice=" + refundPrice
-				+ ", refundDate=" + refundDate + ", refundStat=" + refundStat + "]";
+				+ ", refundDate=" + refundDate + ", refundStat=" + refundStat + ", refundRequestDate="
+				+ refundRequestDate + "]";
+	}
+	public String getRefundRequestDate() {
+		return refundRequestDate;
+	}
+	public void setRefundRequestDate(String refundRequestDate) {
+		this.refundRequestDate = refundRequestDate;
 	}
 	public String getRefundNo() {
 		return refundNo;
