@@ -7,6 +7,47 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<div id="container">
+		<table class="table table-striped">
+        <thead>
+            <tr>
+                <th>위치</th>
+                <th>쇼핑몰</th>
+                <th>광고주 아이디</th>
+                <th>시작 날짜</th>
+                <th>종료 날짜</th>
+                <th>계약 금액</th>
+                <th>계약 상태</th>
+                <th>수정</th>
+                <th>취소</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="b" items="${adcontractlist}">
+            <tr>
+                    <td>${b.adContractPlace}</td>
+                    <td>${b.userBsName}</td>
+                    <td>${b.userId}</td>
+                    <td>${b.adContractStart}</td>
+                    <td>${b.adContractEnd}</td>
+                    <td>${b.adContractPrice}</td>
+                    <td>${b.adContractStat}</td>
+                    <td><a>광고 계약 수정</a>
+                    <td>
+                    <c:if test="${sessionScope.SA=='관리자'}">
+                    	 <c:if test="${b.adContractStat=='승인대기'}"><a class="btn btn-info" href="./approveContract?adContractNo=${b.adContractNo}">계약 승인</a></c:if>
+                    	 <c:if test="${b.adContractStat=='취소요청'}"><a class="btn btn-info" href="./approveCancel?adContractNo=${b.adContractNo}&adConTractPrice=${b.adContractPrice}">취소 승인</a></c:if>
+                    </c:if>
+                     <c:if test="${sessionScope.SA=='광고주'}">
+                    	<c:if test="${b.adContractStat=='승인대기'}"><a class="btn btn-info" href="./deleteContract?adContractNo=${b.adContractNo}}">계약 취소</a></c:if>
+                    	<c:if test="${b.adContractStat=='광고등록대기'}"><a class="btn btn-info" href="./insertAdBoard?adContractNo=${b.adContractNo}">광고&nbsp;등록</a></c:if>
+                    </c:if>
+                    </td>
+                    
+                </tr>
+                </c:forEach>
+        </tbody>
+    </table>
+	</div>
 </body>
 </html>

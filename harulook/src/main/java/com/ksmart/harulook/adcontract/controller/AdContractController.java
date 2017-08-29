@@ -29,14 +29,16 @@ public class AdContractController {
 	@Autowired
 	private AdRefundDao adrefunddao;
 	
-	
+	/*광고 계약 폼 호출*/
 	@RequestMapping(value="/adContractInsertForm",method = RequestMethod.GET)
 	public String adContractInsertForm() {
 		System.out.println("광고 계약 입력 폼 요청");
 		return "ad/contract/ad_contract_insert";
 	}
+	/************/
 	
-	@RequestMapping(value="/adContractListAdmin",method = RequestMethod.GET)
+/* 세션 적용전 사용하던 코드
+ * 	@RequestMapping(value="/adContractListAdmin",method = RequestMethod.GET)
 	public String adContractListAdmin(HttpSession session) {
 		session.setAttribute("SA", "관리자");
 		System.out.println("SA : " + session.getAttribute("SA"));
@@ -50,16 +52,19 @@ public class AdContractController {
 		System.out.println("SID : " + session.getAttribute("SID"));
 		return "ad/contract/ad_contract_list_in";
 	} 
-	
-/*	@RequestMapping(value="/adContractList",method = RequestMethod.GET)
+	@RequestMapping(value="/adContractList",method = RequestMethod.GET)
 	public String adContractList() {
 		return "ad/contract/ad_contract_list";
 	} */
+	/*광고리스트 요청*/
 	@RequestMapping(value="/adContractList",method = RequestMethod.GET)
 	public String adContractList(Model model, HttpSession session) {
 		System.out.println("광고 계약 현황 리스트 요청");
 		List<AdContractDto> adcontractlist = null;
-		List<AdContractDto> adcontractcurrentlist = adcontractdao.getAdContractListCurrent();
+		AdContractDto adContractPlace1 = adcontractdao.getAdContractListCurrentPlace1();
+		AdContractDto adContractPlace2 = adcontractdao.getAdContractListCurrentPlace2();
+		AdContractDto adContractPlace3 = adcontractdao.getAdContractListCurrentPlace3();
+		
 		System.out.println("현재 진행중인 광고 리스트 요청");
 		String SA = (String)session.getAttribute("level");
 		String SID = (String)session.getAttribute(("id"));
@@ -70,11 +75,14 @@ public class AdContractController {
 			adcontractlist = adcontractdao.getAdContractList(SID);
 			System.out.println("권한 : " + SA + "광고주 ID에 해당하는 계약 리스트 출력");
 		}
-		model.addAttribute("adcontractcurrentlist",adcontractcurrentlist);
 		model.addAttribute("adcontractlist", adcontractlist);
+		model.addAttribute("adContractPlace1",  adContractPlace1);
+		model.addAttribute("adContractPlace2",  adContractPlace2);
+		model.addAttribute("adContractPlace3",  adContractPlace3);
 		System.out.println(model.toString());
 		return "ad/contract/ad_contract_list";
 	}
+	/*광고 계약 입력 요청*/
 	@RequestMapping(value="/adContractInsert",method = RequestMethod.POST)
 	public String adContractInsert(AdContractDto adcontract,@RequestParam("adDcNo") String adDcNo, Model model) throws ParseException {
 		String lastContractNo=adcontractdao.getContractNo();
@@ -113,7 +121,7 @@ public class AdContractController {
 		return "ad/pay/ad_pay";
 	}
 
-	
+	/*광고 종류를 선택했을때 해당광고별 금액 산출(AJAX)*/
 	@RequestMapping(value="/getPrice",method = RequestMethod.POST)
 	@ResponseBody
 	public String getPrice(@RequestParam("adtype") String adtype) {
@@ -122,6 +130,7 @@ public class AdContractController {
 		String price = adcontractdao.getPrice(adtype);
 		return price;
 	}
+	/*계약기간을 선택헀을때 기간별 할인율 산출(AJAX)*/
 	@RequestMapping(value="/getDc",method = RequestMethod.POST)
 	@ResponseBody
 	public String getDc(@RequestParam("adCostNo") String dc) {
@@ -130,6 +139,7 @@ public class AdContractController {
 		String dcrate = adcontractdao.getDc(dc);
 		return dcrate;
 	}
+	/*광고주가 광고 승인전 계약 취소를 요청했을때*/
 	@RequestMapping(value="/deleteContract", method = RequestMethod.GET)
 	@ResponseBody
 	public String modifyContractStat(@RequestParam("adContractNo") String adcontractno) {
@@ -140,6 +150,7 @@ public class AdContractController {
 		
 		return "ad/contract/ad_contract_list";
 	}
+	/*광고주가 요청한 광고를 관리자가 승인할때*/
 	@RequestMapping(value="/approveContract",method = RequestMethod.GET)
 	public String approveContract(@RequestParam("adContractNo") String adcontractno) {
 		System.out.println("adContractNo : " + adcontractno);
@@ -147,6 +158,7 @@ public class AdContractController {
 		System.out.println("광고 승인 완료");
 		return "ad/contract/ad_contract_list";	
 	} 
+	/*광고주가 계약취소를 요청하고 관리자가 계약취소를 승인할때*/
 	@RequestMapping(value="/approveCancel",method = RequestMethod.GET)
 	public String approveCancel(@RequestParam("adContractNo") String adcontractno
 							   ,@RequestParam("adConTractPrice") int adcontractprice) {

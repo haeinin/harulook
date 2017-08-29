@@ -21,7 +21,6 @@
                 <th>종료 날짜</th>
                 <th>계약 금액</th>
                 <th>계약 상태</th>
-                <th>수정</th>
                 <th>취소</th>
             </tr>
         </thead>
@@ -35,7 +34,6 @@
                     <td>${b.adContractEnd}</td>
                     <td>${b.adContractPrice}</td>
                     <td>${b.adContractStat}</td>
-                    <td><a>광고 계약 수정</a>
                     <td>
                     <c:if test="${sessionScope.SA=='관리자'}">
                     	 <c:if test="${b.adContractStat=='승인대기'}"><a class="btn btn-info" href="./approveContract?adContractNo=${b.adContractNo}">계약 승인</a></c:if>
