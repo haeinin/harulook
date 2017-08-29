@@ -84,6 +84,9 @@
 		$('#followCheckButton').click(function(){	//팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식
 			$('#followCheck').submit();
         });
+		$('#adContractListButton').click(function(){
+			$('#adContract').submit();
+		})
 		
 		var d = new Date();
 		var year = d.getFullYear();
@@ -298,9 +301,9 @@
 				  </form>
 				
 					<!-- 내 광고 보기 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				  <form id="adContract" action="${pageContext.request.contextPath}/adContractList" method="get">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="내 광고 보기"/>
+			  			<input class="btn btn-default" id="adContractListButton" type="button" value="내 광고 보기"/>
 			  	 	</div>	
 				  </form>
 				  

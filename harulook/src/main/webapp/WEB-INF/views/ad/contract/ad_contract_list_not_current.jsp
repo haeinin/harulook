@@ -8,7 +8,7 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js""></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  
 </head>
     <table class="table table-striped">
@@ -21,7 +21,7 @@
                 <th>종료 날짜</th>
                 <th>계약 금액</th>
                 <th>계약 상태</th>
-                <th>취소</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -35,11 +35,11 @@
                     <td>${b.adContractPrice}</td>
                     <td>${b.adContractStat}</td>
                     <td>
-                    <c:if test="${sessionScope.SA=='관리자'}">
+                    <c:if test="${sessionScope.level=='관리자'}">
                     	 <c:if test="${b.adContractStat=='승인대기'}"><a class="btn btn-info" href="./approveContract?adContractNo=${b.adContractNo}">계약 승인</a></c:if>
                     	 <c:if test="${b.adContractStat=='취소요청'}"><a class="btn btn-info" href="./approveCancel?adContractNo=${b.adContractNo}&adConTractPrice=${b.adContractPrice}">취소 승인</a></c:if>
                     </c:if>
-                     <c:if test="${sessionScope.SA=='광고주'}">
+                     <c:if test="${sessionScope.level=='사업자'}">
                     	<c:if test="${b.adContractStat=='승인대기'}"><a class="btn btn-info" href="./deleteContract?adContractNo=${b.adContractNo}}">계약 취소</a></c:if>
                     	<c:if test="${b.adContractStat=='광고등록대기'}"><a class="btn btn-info" href="./insertAdBoard?adContractNo=${b.adContractNo}">광고&nbsp;등록</a></c:if>
                     </c:if>

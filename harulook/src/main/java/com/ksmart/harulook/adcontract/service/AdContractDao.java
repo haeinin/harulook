@@ -28,11 +28,11 @@ public class AdContractDao {
 		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListCurrentPlace1");
 	 }
 	 public AdContractDto getAdContractListCurrentPlace2(){
-		 System.out.println("위치 1에 해당하는 계약 리스트 출력");
+		 System.out.println("위치 2에 해당하는 계약 리스트 출력");
 		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListCurrentPlace2");
 	 }
 	 public AdContractDto getAdContractListCurrentPlace3(){
-		 System.out.println("위치 1에 해당하는 계약 리스트 출력");
+		 System.out.println("위치 3에 해당하는 계약 리스트 출력");
 		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListCurrentPlace3");
 	 }
 	 public List<AdContractDto> getAdContractListCurrent() {

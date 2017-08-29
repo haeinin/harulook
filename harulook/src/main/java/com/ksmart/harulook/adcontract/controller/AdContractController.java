@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.ksmart.harulook.adcontract.service.AdContractDao;
 import com.ksmart.harulook.adcontract.service.AdContractDto;
@@ -84,7 +85,8 @@ public class AdContractController {
 	}
 	/*광고 계약 입력 요청*/
 	@RequestMapping(value="/adContractInsert",method = RequestMethod.POST)
-	public String adContractInsert(AdContractDto adcontract,@RequestParam("adDcNo") String adDcNo, Model model) throws ParseException {
+	public String adContractInsert(AdContractDto adcontract,@RequestParam("adDcNo") String adDcNo, Model model, HttpSession session) throws ParseException {
+		System.out.println("세션에 담긴 아이디 : " + (String)session.getAttribute("id"));
 		String lastContractNo=adcontractdao.getContractNo();
 		int initContractNo=1;
 		int date = 0;
@@ -99,7 +101,8 @@ public class AdContractController {
 			date = 30;
 		}
 		/*세션을 아직 쓰지 못하므로 임시로 문자열 입력*/
-		adcontract.setUserId("id001");
+		adcontract.setUserId((String)session.getAttribute("id"));
+		System.out.println(adcontract.getUserId());
 		adcontract.setAdContractNo("ad_contract_"+initContractNo);
 		/*날씨 더하는 코드 시작*/
 		SimpleDateFormat dateformat = new SimpleDateFormat ("yy-mm-dd");
