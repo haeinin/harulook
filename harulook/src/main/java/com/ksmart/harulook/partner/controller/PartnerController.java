@@ -1,5 +1,6 @@
 package com.ksmart.harulook.partner.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -276,7 +277,36 @@ public class PartnerController {
 		String cooContractCode=randomCode.toString();
 		return cooContractCode;
 	}
+	
+	
+	@RequestMapping(value = "/getBuyRate", method = RequestMethod.GET)
+	public String getBuyRate(Model model) {
+		List<String> proList = dao.getMallProNo();
+		List<HashMap<String, Integer>> m = new ArrayList<HashMap<String, Integer>>();
+		
+		for (int i = 0; i < proList.size(); i++) {
+			String mallProNo = proList.get(i);
+			System.out.println("mallPro=" + mallProNo);
+			HashMap<String, Integer> map = dao.getCountBuy(mallProNo);
+			float total = map.get("total");
+			float influx = map.get("influx");
+			int rate = 0;
+			if (total != 0 || influx != 0) {
+				System.out.println("if문실행");
+				rate = (int)((influx / total) * 100);
 
+				System.out.println("map의 rate값=" + rate);
+			}
+			map.put("rate", rate);
+			System.out.println("map의 total값=" + map.get("total"));
+			System.out.println("map의 influx값=" + map.get("influx"));
+			m.add(map);
+
+		}
+		model.addAttribute("m", m);
+		model.addAttribute("proList",proList);
+		return "partner/statistics/partner_statistics_rate";
+	}
 	
 }
  

@@ -113,5 +113,13 @@ public class PartnerDao {
 	 public int duplicateCode(String cooContractCode){
 		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.duplicateCode",cooContractCode);
 	 }
+	 /*상품별 구매량 가져오기*/
+	 public HashMap<String,Integer> getCountBuy(String mallProNo){
+		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.getBuyStats",mallProNo);
+	 }
+	 /*전체 상품번호 가져오기*/
+	 public List<String> getMallProNo(){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getMallProNo");
+	 }
 
 }

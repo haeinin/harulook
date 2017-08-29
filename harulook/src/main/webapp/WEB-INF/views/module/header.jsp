@@ -287,6 +287,18 @@ function dfs_xy_conv(code, v1, v2) {
 	 });
 	});
 </script>
+<style>
+h2{
+padding-left:50px; 
+}
+.weather_body{
+	padding:100px;
+}
+.btn{
+	padding: 20px;
+}
+
+</style>
 </head>
 <body>
 <header>
@@ -316,7 +328,7 @@ function dfs_xy_conv(code, v1, v2) {
 		<a>	로그인이 안됬을때</a>
 		<!-- 로그인버튼 -->
 		<form id="login" action="${pageContext.request.contextPath}/loginForm" method="get">
-  		<div>
+  		<div class="btn"> 
 			<input class="btn btn-default" id="loginbutton" type="button" value="로그인하기"/>
 		</div>	
 	</form>
@@ -431,7 +443,7 @@ function dfs_xy_conv(code, v1, v2) {
 				  </form>
 				  
 				  <!-- 내 제휴 보기 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/partnerContractList" method="post">
 			  		<div>
 			  			<input class="btn btn-default" id="myModified" type="button" value="내 제휴 보기"/>
 			  	 	</div>	
