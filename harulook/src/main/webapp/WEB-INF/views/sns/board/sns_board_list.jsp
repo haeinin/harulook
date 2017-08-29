@@ -49,8 +49,6 @@ $(function(){
 					boardHtml += '<span class="center">&nbsp;'+data[i].snsCommentCount+'</span>';
 					boardHtml += '</div>';
 					boardHtml += '</div>';
-					boardHtml += '<div class="description">';
-					boardHtml += '<div class="date">'+data[i].snsBoardDate+'</div>';
 					boardHtml += '</div>';
 					boardHtml += '</div>';
 					boardHtml += '</div>';
@@ -114,7 +112,7 @@ $(function(){
 					success : function(data) {
 						console.log('boardDatil : ',data);
 						var snsDetailImg = '';
-						snsDetailImg += '<img alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.snsBoardImg+'">';
+						snsDetailImg += '<img alt="no image" style="width: 450px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.board.snsBoardImg+'">';
 						$('#snsDetailImg').html(snsDetailImg);
 						
 					},
@@ -244,8 +242,13 @@ $(function(){
 						success : function(data) {
 							console.log('boardDatil : ',data);
 							var snsDetailImg = '';
-							snsDetailImg += '<img alt="no image" style="width: 450px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.snsBoardImg+'">';
+							snsDetailImg += '<img alt="no image" style="width: 580px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.snsBoardImg+'">';
 							$('#snsDetailImg').html(snsDetailImg);
+							
+							var snsDetailContent = '';
+							snsDetailContent += '<h2>'+data.board.userNick+'('+data.board.userId+')</h2>';
+							snsDetailContent += '<hr></hr>';
+							$('#snsDetailContent').html(snsDetailContent);
 							
 							$('#snsDetailImg img').each(function() {
 						        var maxWidth = 400; // Max width for the image
@@ -274,7 +277,6 @@ $(function(){
 						            width = width * ratio;    // Reset width to match scaled image
 								}
 						    });
-							
 						},
 						error : function(){
 							alert('fail');
@@ -415,15 +417,14 @@ sns 게시물 목록
 <div class="modal fade" id="snsModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div id="snsDetail" class="modal-content">
-     	<div class="modal-header">
-     	head
-     	</div>
         	
         <div class="row">
-	        <div class="modal-body col-xs-6">
+	        <div class="modal-body col-xs-8" style="padding-bottom: 0; padding-top: 0;">
 				<div id="snsDetailImg"></div>
 	        </div>
-	        <div id="snsDetailContent" class="modal-body col-xs-6"> 내용</div>
+	        <div id="snsDetailContent" class="modal-body col-xs-4">
+	        	<div id="snsDetailContent"></div>
+	        </div>
       </div>
       </div>
     </div>

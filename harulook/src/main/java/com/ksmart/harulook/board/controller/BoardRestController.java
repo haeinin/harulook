@@ -1,6 +1,9 @@
 package com.ksmart.harulook.board.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -31,7 +34,7 @@ public class BoardRestController {
 	
 	/* sns 게시물  상세보기 */
 	@RequestMapping(value="/boardDetail", method = RequestMethod.GET)
-	public BoardDto boardDetail(HttpSession session
+	public HashMap<String,Object> boardDetail(HttpSession session
             , @RequestParam(value="boardNo", required=true) String boardNo) {
 		System.out.println("boardDeatil 화면 요청");
 		BoardDto board = boardDao.boardDetail(boardNo);
@@ -52,6 +55,13 @@ public class BoardRestController {
 			likeToggle = false;
 		}
 		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("snsColor", snsColor);
+		map.put("snsSituation", snsSituation);
+		map.put("snsStyle", snsStyle);
+		map.put("likeToggle", likeToggle);
+		map.put("board", board);
+		map.put("commentList", commentList);
 /*		model.addAttribute("snsColor", snsColor);
 		model.addAttribute("snsSituation", snsSituation);
 		model.addAttribute("snsStyle", snsStyle);
@@ -59,7 +69,7 @@ public class BoardRestController {
 		model.addAttribute("board", board);
 		model.addAttribute("commentList",commentList);
 		System.out.println("boardDetail : "+ model);*/
-		return board;
+		return (HashMap<String, Object>) map;
 	}
 	
 	/* sns 게시물 검색 ajax 처리 */
