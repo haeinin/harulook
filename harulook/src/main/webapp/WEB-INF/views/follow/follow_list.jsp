@@ -40,19 +40,7 @@
 			});
 			location.reload(true); 
 		});
-		
-		////////////////////////////////////////////////////////  친구게시물 보기 만들어야함
-		/* $('.followBoard').click(function(){	//팔로우삭제
-			//console.log($(this).val());
-			var request = $.ajax({
-				  url: "./followBoard", //호출 경로
-				  method: "POST",	//전송방식
-				  data: { 'followId' : $(this).val() }, //전송해줄값
-				  dataType: "text", //결과값 타입 (리턴)
-			});
-			location.reload(true); 
-		}); */
-		
+						
 	});
 </script>
 </head>

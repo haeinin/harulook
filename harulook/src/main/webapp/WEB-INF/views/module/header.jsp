@@ -109,6 +109,7 @@ function dfs_xy_conv(code, v1, v2) {
 }
 //-->		
 	$(document).ready(function(){
+		
 		$('#loginbutton').click(function(){	//로그인버튼
 			$('#login').submit();
         });
@@ -118,7 +119,18 @@ function dfs_xy_conv(code, v1, v2) {
         });
 		
 		$('#mypage').click(function(){	//마이페이지보기
-			$('#myModal').modal();
+			var request = $.ajax({	//일반회원의 포인트를 받아오기 
+				  url: "./myPagePoint", //호출 경로
+				  method: "POST",	//전송방식
+				  dataType: "text" //결과값 타입 (리턴)
+			});  
+			request.done(function( msg ) {
+				msg = msg.trim();
+				console.log(msg);	//아이디찾기
+				$('#myPointMsg').html('나의 보유 포인트 = ' + msg);
+				sessionStorage.setItem('myPointSession', msg);
+			});	
+			$('#myModal').modal();	//마이페이지모달
         });
 
 		$('#userlistbutton').click(function(){	//일반회원리스트 버튼
@@ -309,19 +321,17 @@ function dfs_xy_conv(code, v1, v2) {
 		</div>	
 	</form>
 	</c:if><br>
+	
 	<c:if test="${sessionScope.level != null}">
 		<!-- 마이페이지 -->
-		<form id="logoutadd" action="${pageContext.request.contextPath}/logout" method="post">
-	  		<div>
-				<input class="btn btn-default" id="mypage" type="button" value="마이페이지"/>
-			</div>	
-		</form>
+		<input class="btn btn-default" id="mypage" type="button" value="마이페이지"/>
+		
 		<!-- 로그아웃 -->
 		<form id="logoutadd" action="${pageContext.request.contextPath}/logout" method="post">
 	  		<div>
-	  			<input class="btn btn-default" id="logout" type="button" value="로그아웃"/>
+				<input class="btn btn-default" id="logout" type="button" value="로그아웃"/>
 	  	 	</div>	
-		</form>
+		</form>	
 		
 		<!--------팔로우등록 테스트양식------------------------------------------------------------------------------------  -->
 		<form id="followCheck" action="${pageContext.request.contextPath}/followCheck" method="post">
@@ -445,6 +455,17 @@ function dfs_xy_conv(code, v1, v2) {
 			<c:if test="${sessionScope.level == '일반회원'}">
 				<a>일반회원 로그인</a><br>
 				<!-- 일반회원용 버튼 -->
+					
+					<!-- 보유포인트-->
+				  <span id="myPointMsg"></span><br>
+				  
+				  <!-- 포인트 보러 가기 -->
+				  <form id="myPoint" action="${pageContext.request.contextPath}/myPoint" method="get">
+			  		<div>
+			  			<input class="btn btn-default" id="myPointButton" type="button" value="내 포인트 쓰러가기"/>
+			  	 	</div>	
+				  </form>	
+					
 					<!-- 내정보수정하기버튼 -->
 				  <form id="userUpdate" action="${pageContext.request.contextPath}/userUpdate?userId=${sessionScope.id}" method="post">
 			  		<div>
@@ -474,12 +495,7 @@ function dfs_xy_conv(code, v1, v2) {
 			  	 	</div>	
 				  </form>
 				  
-				  <!-- 포인트 보러 가기 -->
-				  <form id="myPoint" action="${pageContext.request.contextPath}/myPoint" method="get">
-			  		<div>
-			  			<input class="btn btn-default" id="myPointButton" type="button" value="내 포인트"/>
-			  	 	</div>	
-				  </form>		
+				  	
 			</c:if>
         </div>
       </div>

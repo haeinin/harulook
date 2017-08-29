@@ -303,9 +303,7 @@
 				alert('업체홈페이지를입력하세요');
 				$('#user_url').focus();
 				return false;
-				
-				
-			}else if(!($(':input[name=userQ]:radio:checked').val())){	//질문 선택안했을때
+			}else if(!($('#user_q').val())){	//질문 선택안했을때
 				alert('질문 입력하세요');
 				$('#user_q').focus();
 				return false;
@@ -479,16 +477,17 @@
 				<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소" value="${businessDetail.userAddr}"><br><br>
 				<span id="guide" style="color:#999"></span>
 	        	
-	        	 <!-- 질문 -->
+	        	<!-- 질문 -->
 	        	<label for="user_q">질문 :</label>
-	            <div class="radio">
-			      <label><input name="userQ" id="user_q" type="radio" value="나의 보물은" >나의 보물은</label>
-			      <label><input name="userQ" id="user_q" type="radio" value="나의 고향은" >나의 고향은</label>
-			      <label><input name="userQ" id="user_q" type="radio" value="나의 초등학교" >나의 초등학교</label>
-			      <label><input name="userQ" id="user_q" type="radio" value="나의 고등학교" >나의 고등학교</label>
-			      <label><input name="userQ" id="user_q" type="radio" value="나의 비밀은" >나의 비밀은</label>
-			      <label><input name="userQ" id="user_q" type="radio" value="나의 꿈은" >나의 꿈은</label>
-			    </div>
+	            <select class="form-control" name="userQ" id="user_q">
+					<option>${businessDetail.userQ}</option>
+	            	<option>나의 보물은</option>
+	            	<option>나의 고향은</option>
+	            	<option>나의 초등학교</option>
+	            	<option>나의 고등학교</option>
+	            	<option>나의 비밀은</option>
+	            	<option>나의 꿈은</option>
+            	</select>
 	       		
 	       		<!-- 답 -->
 	        	<label for="user_a">질문의 답 :</label>

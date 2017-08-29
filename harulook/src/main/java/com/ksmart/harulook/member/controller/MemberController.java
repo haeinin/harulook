@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ksmart.harulook.member.service.MemberDao;
 import com.ksmart.harulook.member.service.MemberDto;
+import com.ksmart.harulook.point.service.PointDao;
 
 @Controller
 public class MemberController {
@@ -148,10 +149,10 @@ public class MemberController {
 			model.addAttribute("userDetail", userDetail);
 				System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
 				
-			List<MemberDto> userColor = memberDao.userColor(userId);	
+			List<String> userColor = memberDao.userColor(userId);	
 			model.addAttribute("userColor", userColor);
 			
-			List<MemberDto> userStyle = memberDao.userStyle(userId);	
+			List<String> userStyle = memberDao.userStyle(userId);	
 			model.addAttribute("userStyle", userStyle);
 				System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러와스타일 model==" + model);
 				
@@ -190,8 +191,8 @@ public class MemberController {
         int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
         List<MemberDto> list = memberDao.userList(currentPage, pagePerRow, level);
-		model.addAttribute("currentPage", currentPage);
-        model.addAttribute("boardCount", boardCount);
+		model.addAttribute("currentPageUse", currentPage);
+        model.addAttribute("boardCountUse", boardCount);
         model.addAttribute("lastPage", lastPage);
         
         model.addAttribute("list", list);
@@ -277,30 +278,36 @@ public class MemberController {
         memberDao.userColorDelete(memberDto.getUserId());
         memberDao.userStyleDelete(memberDto.getUserId());
         
-        //체크박스 컬러 배열로 받음
-        String[] colorValue = request.getParameterValues("colorValue");
-        for( int i = 0; i < colorValue.length; i++ ){	//컬러 체크 리스트 갯수만큼 for문 실행
-        	
-        	String lastColorNo = memberDao.colorSelect(colorValue[i]);	//for문 갯수만큼 마지막 no찾아오기
-        	int insertColorNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
-        	if(lastColorNo != null) {
-        		insertColorNo = Integer.parseInt(lastColorNo)+1;	//마지막no +1
-    		}
-        	memberDao.userColorInsert("user_color_"+insertColorNo, colorValue[i], memberDto.getUserId());
-        	System.out.println(colorValue[i] + " == 컬러배열");
+        	System.out.println(memberDto.getColorValue() + " == sadlkjfaslkdfjlaskdfjlsakfjlksadfjlkasjflksajdflkasjflksajkfd");
+        
+        if(memberDto.getColorValue() != null){	//체크박스에 값이 있을때만 실행
+	        //체크박스 컬러 배열로 받음
+	        String[] colorValue = request.getParameterValues("colorValue");
+	        for( int i = 0; i < colorValue.length; i++ ){	//컬러 체크 리스트 갯수만큼 for문 실행
+	        	
+	        	String lastColorNo = memberDao.colorSelect(colorValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	int insertColorNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
+	        	if(lastColorNo != null) {
+	        		insertColorNo = Integer.parseInt(lastColorNo)+1;	//마지막no +1
+	    		}
+	        	memberDao.userColorInsert("user_color_"+insertColorNo, colorValue[i], memberDto.getUserId());
+	        	System.out.println(colorValue[i] + " == 컬러배열");
+	        }
         }
         
-        //체크박스 스타일 배열로 받음
-        String[] styleValue = request.getParameterValues("styleValue");
-        for( int i = 0; i < styleValue.length; i++ ){
-        	
-        	String lastStyleNo = memberDao.styleSelct(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
-        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
-        	if(lastStyleNo != null) {
-        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
-    		}
-        	memberDao.userStyleInsert("user_style_"+insertStyleNo, styleValue[i], memberDto.getUserId());
-        	System.out.println(styleValue[i] + " == 스타일배열");
+        if(memberDto.getStyleValue() != null){	//체크박스에 값이 있을때만 실행
+	        //체크박스 스타일 배열로 받음
+	        String[] styleValue = request.getParameterValues("styleValue");
+	        for( int i = 0; i < styleValue.length; i++ ){
+	        	
+	        	String lastStyleNo = memberDao.styleSelct(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
+	        	if(lastStyleNo != null) {
+	        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
+	    		}
+	        	memberDao.userStyleInsert("user_style_"+insertStyleNo, styleValue[i], memberDto.getUserId());
+	        	System.out.println(styleValue[i] + " == 스타일배열");
+	        }
         }
         return "home";  //회원가입후 홈화면으로
     }
@@ -312,32 +319,36 @@ public class MemberController {
         System.out.println("MemberController 회원가입시 받아오는 데이터" + memberDto);
         memberDao.userInsert(memberDto);	//일반회원가입 기타 입력데이터
        
-        //체크박스 컬러 배열로 받음
-        String[] colorValue = request.getParameterValues("colorValue");
-        for( int i = 0; i < colorValue.length; i++ ){	//컬러 체크 리스트 갯수만큼 for문 실행
-        	
-        	String lastColorNo = memberDao.colorSelect(colorValue[i]);	//for문 갯수만큼 마지막 no찾아오기
-        	int insertColorNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
-        	if(lastColorNo != null) {
-        		insertColorNo = Integer.parseInt(lastColorNo)+1;	//마지막no +1
-    		}
-        	memberDao.userColorInsert("user_color_"+insertColorNo, colorValue[i], memberDto.getUserId());
-        	System.out.println(colorValue[i] + " == 컬러배열");
+        if(memberDto.getColorValue() != null){	//체크박스에 값이 있을때만 실행
+	        //체크박스 컬러 배열로 받음
+	        String[] colorValue = request.getParameterValues("colorValue");
+	        for( int i = 0; i < colorValue.length; i++ ){	//컬러 체크 리스트 갯수만큼 for문 실행
+	        	
+	        	String lastColorNo = memberDao.colorSelect(colorValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	int insertColorNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
+	        	if(lastColorNo != null) {
+	        		insertColorNo = Integer.parseInt(lastColorNo)+1;	//마지막no +1
+	    		}
+	        	memberDao.userColorInsert("user_color_"+insertColorNo, colorValue[i], memberDto.getUserId());
+	        	System.out.println(colorValue[i] + " == 컬러배열");
+	        }
         }
         
-        //체크박스 스타일 배열로 받음
-        String[] styleValue = request.getParameterValues("styleValue");
-        for( int i = 0; i < styleValue.length; i++ ){
-        	
-        	String lastStyleNo = memberDao.styleSelct(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
-        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
-        	if(lastStyleNo != null) {
-        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
-    		}
-        	memberDao.userStyleInsert("user_style_"+insertStyleNo, styleValue[i], memberDto.getUserId());
-        	System.out.println(styleValue[i] + " == 스타일배열");
-        }
-        return "home";  //회원가입후 홈화면으로
+        if(memberDto.getStyleValue() != null){	//체크박스에 값이 있을때만 실행
+	        //체크박스 스타일 배열로 받음
+	        String[] styleValue = request.getParameterValues("styleValue");
+	        for( int i = 0; i < styleValue.length; i++ ){
+	        	
+	        	String lastStyleNo = memberDao.styleSelct(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
+	        	if(lastStyleNo != null) {
+	        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
+	    		}
+	        	memberDao.userStyleInsert("user_style_"+insertStyleNo, styleValue[i], memberDto.getUserId());
+	        	System.out.println(styleValue[i] + " == 스타일배열");
+	        }
+        }    
+	        return "home";  //회원가입후 홈화면으로
     }
 	
 	/*member_manager_insert(관리자등록 폼)*/
@@ -366,6 +377,7 @@ public class MemberController {
 		}
 		MemberDto businessDetail = memberDao.businessDetail(userId);
 		model.addAttribute("businessDetail", businessDetail);
+			System.out.println(businessDetail + " == 1280937120398109238102938109381209381093810923089");
 		return "member/business/member_business_update"; //사업자 관리자 수정폼
 	}
 	
@@ -385,14 +397,13 @@ public class MemberController {
 		model.addAttribute("userDetail", userDetail);
 			System.out.println("MemeberController 일반회원수정폼 받아온 회원상세데이터들 model==" + model);
 			
-		List<MemberDto> userColor = memberDao.userColor(userId);	
+		List<String> userColor = memberDao.userColor(userId);	
 		model.addAttribute("userColor", userColor);
 		
-		List<MemberDto> userStyle = memberDao.userStyle(userId);	
+		List<String> userStyle = memberDao.userStyle(userId);	
 		model.addAttribute("userStyle", userStyle);
 			System.out.println("MemeberController 일반회원수정폼 받아온 회원의컬러와스타일 model==" + model);
-			
-		System.out.println("member_user_update 일반회원수정홈화면");
+			System.out.println("member_user_update 일반회원수정홈화면");
 		return "member/user/member_user_update"; //일반회원가입폼화면
 	}
 	
