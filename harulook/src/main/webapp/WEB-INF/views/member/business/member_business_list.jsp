@@ -30,41 +30,53 @@
 <title>사업자목록리스트</title>
 </head>
 <body>
-	<div class="container">
-	    <h1>사업자목록리스트</h1>
-	    <div>전체행의 수 : ${boardCount}</div>
-	    <table class="table table-striped">
-	        <thead>
-	            <tr>
-	                <th>아이디</th>
-	                <th>닉네임</th>
-	                <th>이름</th>
-	                <th>사업체</th>
-	                <th>가입날짜</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <c:forEach var="b" items="${list}">
-	                <tr>
-	                    <td><a href="${pageContext.request.contextPath}/member_business_detail?userId=${b.userId}">${b.userId}</a></td> <!-- 연결되는주소 수정하여라 -->
-	                    <td>${b.userNick}</td>
-	                    <td>${b.userName}</td>
-	                    <td>${b.userBsName}</td>	
-	                    <td>${b.userDate}</td>
-	                   
-	                </tr>
-	            </c:forEach>
-	        </tbody>
-	   </table>
-    <ul class="pager">
-        <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/member_business_list?currentPage=${currentPage-1}">이전</a></li>
-        </c:if>
-        <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/member_business_list?currentPage=${currentPage+1}">다음</a></li>
-        </c:if>
-    </ul>
-   
+	<!-- 해더인클루드 -->
+	<c:import url="../../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">	
+			<div class="container">
+			    <h1>사업자목록리스트</h1>
+			    <div>전체행의 수 : ${boardCount}</div>
+			    <table class="table table-striped">
+			        <thead>
+			            <tr>
+			                <th>아이디</th>
+			                <th>닉네임</th>
+			                <th>이름</th>
+			                <th>사업체</th>
+			                <th>가입날짜</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <c:forEach var="b" items="${list}">
+			                <tr>
+			                    <td><a href="${pageContext.request.contextPath}/member_business_detail?userId=${b.userId}">${b.userId}</a></td> <!-- 연결되는주소 수정하여라 -->
+			                    <td>${b.userNick}</td>
+			                    <td>${b.userName}</td>
+			                    <td>${b.userBsName}</td>	
+			                    <td>${b.userDate}</td>
+			                   
+			                </tr>
+			            </c:forEach>
+			        </tbody>
+			    </table>
+			    <ul class="pager">
+			        <c:if test="${currentPage > 1}">
+			            <li class="previous"><a href="${pageContext.request.contextPath}/member_business_list?currentPage=${currentPage-1}">이전</a></li>
+			        </c:if>
+			        <c:if test="${currentPage < lastPage}">
+			            <li class="next"><a href="${pageContext.request.contextPath}/member_business_list?currentPage=${currentPage+1}">다음</a></li>
+			        </c:if>
+			    </ul>
+   			</div>
+		</div>
+		<!-- 우측 베너 인클루드 -->
+	    <c:import url="../../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../../module/footer.jsp"></c:import>
 
 	  
 	   

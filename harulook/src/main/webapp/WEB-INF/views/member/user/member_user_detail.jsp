@@ -5,6 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+
+<!-- div 바디 높이 크기 지정 -->
+<link rel="stylesheet" type="text/css" href="resources/css/member-list-size.css">
+
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -24,7 +28,13 @@
 <title>일반회원정보보기</title>
 </head>
 <body>
-	
+	<!-- 해더인클루드 -->
+	<c:import url="../../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
+	    
 	    <h1>일반회원정보보기</h1>
 	    
 	    	아이디 : <a>${userDetail.userId}</a><br>
@@ -51,6 +61,13 @@
            <c:forEach var="s" items="${userStyle}">
                		<a>${s.styleValue}</a><br>
            </c:forEach>
+        </div>  
+        
+        <!-- 우측 베너 인클루드 -->
+	    <c:import url="../../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../../module/footer.jsp"></c:import>
      
 
 </body>

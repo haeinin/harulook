@@ -7,6 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                <h4>Get in touch</h4>
+                <p class="about-text">하단 바</p>
+                <a class="contact-now-btn" href="#">Contact Now</a>
+                </div>
+            </div>
+        </div>
+    
 </body>
 </html>

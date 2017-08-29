@@ -51,29 +51,31 @@ public class AdContractController {
 		return "ad/contract/ad_contract_list_in";
 	} 
 	
-	@RequestMapping(value="/adContractList",method = RequestMethod.GET)
+	/*@RequestMapping(value="/adContractList",method = RequestMethod.GET)
 	public String adContractList() {
 		return "ad/contract/ad_contract_list";
-	} 
-	@RequestMapping(value="/adContractList_in",method = RequestMethod.GET)
+	} */
+	@RequestMapping(value="/adContractList",method = RequestMethod.GET)
 	public String adContractList(Model model, HttpSession session) {
 		System.out.println("광고 계약 현황 리스트 요청");
 		List<AdContractDto> adcontractlist = null;
 		List<AdContractDto> adcontractcurrentlist = adcontractdao.getAdContractListCurrent();
 		System.out.println("현재 진행중인 광고 리스트 요청");
-		String SA = (String)session.getAttribute("SA");
-		String SID = (String)session.getAttribute(("SID"));
+		String SA = (String)session.getAttribute("level");
+		String SID = (String)session.getAttribute(("id"));
+			System.out.println(SA);
+			System.out.println(SID);
 		if(SA.equals("관리자")){
 			adcontractlist = adcontractdao.getAdContractList();
 			System.out.println("권한 : " + SA + "모든광고 계약 리스트 출력");
-		}else if(SA.equals("광고주")){
+		}else if(SA.equals("사업자")){
 			adcontractlist = adcontractdao.getAdContractList(SID);
 			System.out.println("권한 : " + SA + "광고주 ID에 해당하는 계약 리스트 출력");
 		}
 		model.addAttribute("adcontractcurrentlist",adcontractcurrentlist);
 		model.addAttribute("adcontractlist", adcontractlist);
 		System.out.println(model.toString());
-		return "ad/contract/ad_contract_list_in2";
+		return "ad/contract/ad_contract_list";
 	}
 	@RequestMapping(value="/adContractInsert",method = RequestMethod.POST)
 	public String adContractInsert(AdContractDto adcontract,@RequestParam("adDcNo") String adDcNo, Model model) throws ParseException {

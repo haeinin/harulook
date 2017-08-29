@@ -375,125 +375,136 @@
 <title>사업자등록 폼</title>
 </head>
 <body>
+	<!-- 해더인클루드 -->
+	<c:import url="../../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
 	
-	
-	    <h1>사업자 등록 폼</h1>
-	    <form id="addFormBusiness" action="${pageContext.request.contextPath}/businessAdd" method="post">
+		    <h1>사업자 등록 폼</h1>
+		    <form id="addFormBusiness" action="${pageContext.request.contextPath}/businessAdd" method="post">
+		    
+		       		<!-- 아이디 -->
+		           	<label for="user_id">아이디 :</label>
+		            <input name="userId" id="user_id" type="text"/>  5자~16자 이내 영문과 숫자만가능<br>
+		           
+		            <div>아이디중복체크결과 :
+		            	<span id="idsuccess" >사용가능한 아이디입니다</span>
+		            	<span id="idfail" >사용불가능한 아이디입니다</span>
+		            	<span id="idre" >아이디 다시 입력해주세요</span>
+		            </div>
+		       		
+		       		<!-- 비밀번호 -->
+		        	<label for="user_pw">비번 :</label>
+		            <input name="userPw" id="user_pw" type="password"/><br>
+		            
+		            <!-- 비밀번호 확인-->
+		        	<label for="user_pw_check">비번 :</label>
+		            <input name="userPwCheck" id="user_pw_check" type="password"/>6자~16자 이내 특수문자가능<br>
+		            <div>비밀번호 확인결과 :
+		            	<span id="pwsuccess" >비밀번호일치</span>
+		            	<span id="pwfail" >비밀번호 불일치</span>
+		            	<span id="pwre" >비밀번호 다시입력해주세요</span>
+		            </div>
+					
+					<!-- 닉네임 -->	        
+		       		<label for="user_nick">닉네임 :</label>
+		            <input name="userNick" id="user_nick" type="text"/>
+		            <div>닉네임중복체크결과 :
+		            	<span id="nicksuccess" >사용가능한 닉네임입니다</span>
+		            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
+		            	<span id="nickre" >닉네임 다시 입력해주세요</span>
+	            	</div>
+	            	
+	            	<!-- 이름 -->
+		        	<label for="user_name">이름 :</label>
+		            <input name="userName" id="user_name" type="text"/><br>
+		        	
+		        	<!-- 전화번호 -->
+		        	<label for="user_tel">전화번호 :</label>
+		            <input name="userTel" id="user_tel" type="text"/>- 빼고 숫자만 입력하세요 ** 수정필요<br>
+		       		<div>전화번호 양식검사 :
+		            	<span id="telsuccess" >사용가능한 전화번호입니다</span>
+		            	<span id="telfail" >사용불가능한 전화번호입니다</span>
+		            </div>
+		            
+		          	<!--  이메일 -->
+		        	<label for="user_email">이메일 :</label>
+		            <input name="userEmail" id="user_email" type="text"/><br>
+		            <div>이메일양식검사 :
+		            	<span id="emailsuccess" >사용가능한 이메일입니다</span>
+		            	<span id="emailfail" >사용불가능한 이메일입니다</span>
+		            </div>
+		        	
+		        	<!-- 주소 -->
+		        	<label for="user_addr">주소 :</label>
+		            <!-- <input name="userAddr" id="user_addr" type="text"/><br> -->
+		        	
+		        	<input type="text" id="sample4_postcode" placeholder="우편번호">
+					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
+					<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소"><br><br>
+					<span id="guide" style="color:#999"></span>
+		        	
+		        	<!-- 질문 -->
+		        	<label for="user_q">질문 :</label>
+		            <select class="form-control" name="userQ" id="user_q">
+						<option>${userDetail.userQ}</option>
+		            	<option>나의 보물은</option>
+		            	<option>나의 고향은</option>
+		            	<option>나의 초등학교</option>
+		            	<option>나의 고등학교</option>
+		            	<option>나의 비밀은</option>
+		            	<option>나의 꿈은</option>
+	            	</select>
+		       		
+		       		<!-- 답 -->
+		        	<label for="user_a">질문의 답 :</label>
+		            <input name="userA" id="user_a" type="text"/><br>
+	        		<div>질문의 답 오류구문 :
+		            	<span id="userAfail" >답을 입력하세요</span>
+		            </div>
+		        	
+		        	<!-- 사업자번호 -->
+		        	<label for="user_bs_no">사업자번호 :</label>
+		            <input name="userBsNo" id="user_bs_no" type="text"/> 000-00-00000 -은빼고 입력하세요<br>
+		        	<div>사업자번호 양식검사 :
+		            	<span id="BsNosuccess" >사용가능한 사업자번호입니다</span>
+		            	<span id="BsNofail" >사용불가능한 사업자번호입니다</span>
+		            </div>
+		            
+		        	<!-- 업종 -->
+		        	<label for="user_bs_type">업종 :</label>
+		            <input name="userBsType" id="user_bs_type" type="text"/><br>
+		            
+		            <!-- 업태 -->
+		        	<label for="user_bs_status">업태 :</label>
+		            <input name="userBsStatus" id="user_bs_status" type="text"/><br>
+		            
+		            <!-- 업체명 -->
+		        	<label for="user_bs_name">업체명 :</label>
+		            <input name="userBsName" id="user_bs_name" type="text"/><br>
+		            
+		            <!-- 업체홈페이지 -->
+		        	<label for="user_url">업체홈페이지 :</label>
+		            <input name="userUrl" id="user_url" type="text"/><br>
+		     		<div>url 양식검사 :
+		            	<span id="Urlsuccess" >사용가능한 주소입니다</span>
+		            	<span id="Urlfail" >사용불가능한 주소입니다</span>
+		            </div>
+		            
+		     	<!-- 사업자등록버튼 -->
+		     	<div>
+		       		<input class="btn btn-default" id="addButton" type="button" value="사업자등록"/>
+		        </div>
+		    </form>
+	    </div>
 	    
-	       		<!-- 아이디 -->
-	           	<label for="user_id">아이디 :</label>
-	            <input name="userId" id="user_id" type="text"/>  5자~16자 이내 영문과 숫자만가능<br>
-	           
-	            <div>아이디중복체크결과 :
-	            	<span id="idsuccess" >사용가능한 아이디입니다</span>
-	            	<span id="idfail" >사용불가능한 아이디입니다</span>
-	            	<span id="idre" >아이디 다시 입력해주세요</span>
-	            </div>
-	       		
-	       		<!-- 비밀번호 -->
-	        	<label for="user_pw">비번 :</label>
-	            <input name="userPw" id="user_pw" type="password"/><br>
-	            
-	            <!-- 비밀번호 확인-->
-	        	<label for="user_pw_check">비번 :</label>
-	            <input name="userPwCheck" id="user_pw_check" type="password"/>6자~16자 이내 특수문자가능<br>
-	            <div>비밀번호 확인결과 :
-	            	<span id="pwsuccess" >비밀번호일치</span>
-	            	<span id="pwfail" >비밀번호 불일치</span>
-	            	<span id="pwre" >비밀번호 다시입력해주세요</span>
-	            </div>
-				
-				<!-- 닉네임 -->	        
-	       		<label for="user_nick">닉네임 :</label>
-	            <input name="userNick" id="user_nick" type="text"/>
-	            <div>닉네임중복체크결과 :
-	            	<span id="nicksuccess" >사용가능한 닉네임입니다</span>
-	            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
-	            	<span id="nickre" >닉네임 다시 입력해주세요</span>
-            	</div>
-            	
-            	<!-- 이름 -->
-	        	<label for="user_name">이름 :</label>
-	            <input name="userName" id="user_name" type="text"/><br>
-	        	
-	        	<!-- 전화번호 -->
-	        	<label for="user_tel">전화번호 :</label>
-	            <input name="userTel" id="user_tel" type="text"/>- 빼고 숫자만 입력하세요 ** 수정필요<br>
-	       		<div>전화번호 양식검사 :
-	            	<span id="telsuccess" >사용가능한 전화번호입니다</span>
-	            	<span id="telfail" >사용불가능한 전화번호입니다</span>
-	            </div>
-	            
-	          	<!--  이메일 -->
-	        	<label for="user_email">이메일 :</label>
-	            <input name="userEmail" id="user_email" type="text"/><br>
-	            <div>이메일양식검사 :
-	            	<span id="emailsuccess" >사용가능한 이메일입니다</span>
-	            	<span id="emailfail" >사용불가능한 이메일입니다</span>
-	            </div>
-	        	
-	        	<!-- 주소 -->
-	        	<label for="user_addr">주소 :</label>
-	            <!-- <input name="userAddr" id="user_addr" type="text"/><br> -->
-	        	
-	        	<input type="text" id="sample4_postcode" placeholder="우편번호">
-				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-				<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소"><br><br>
-				<span id="guide" style="color:#999"></span>
-	        	
-	        	<!-- 질문 -->
-	        	<label for="user_q">질문 :</label>
-	            <select class="form-control" name="userQ" id="user_q">
-					<option>${userDetail.userQ}</option>
-	            	<option>나의 보물은</option>
-	            	<option>나의 고향은</option>
-	            	<option>나의 초등학교</option>
-	            	<option>나의 고등학교</option>
-	            	<option>나의 비밀은</option>
-	            	<option>나의 꿈은</option>
-            	</select>
-	       		
-	       		<!-- 답 -->
-	        	<label for="user_a">질문의 답 :</label>
-	            <input name="userA" id="user_a" type="text"/><br>
-        		<div>질문의 답 오류구문 :
-	            	<span id="userAfail" >답을 입력하세요</span>
-	            </div>
-	        	
-	        	<!-- 사업자번호 -->
-	        	<label for="user_bs_no">사업자번호 :</label>
-	            <input name="userBsNo" id="user_bs_no" type="text"/> 000-00-00000 -은빼고 입력하세요<br>
-	        	<div>사업자번호 양식검사 :
-	            	<span id="BsNosuccess" >사용가능한 사업자번호입니다</span>
-	            	<span id="BsNofail" >사용불가능한 사업자번호입니다</span>
-	            </div>
-	            
-	        	<!-- 업종 -->
-	        	<label for="user_bs_type">업종 :</label>
-	            <input name="userBsType" id="user_bs_type" type="text"/><br>
-	            
-	            <!-- 업태 -->
-	        	<label for="user_bs_status">업태 :</label>
-	            <input name="userBsStatus" id="user_bs_status" type="text"/><br>
-	            
-	            <!-- 업체명 -->
-	        	<label for="user_bs_name">업체명 :</label>
-	            <input name="userBsName" id="user_bs_name" type="text"/><br>
-	            
-	            <!-- 업체홈페이지 -->
-	        	<label for="user_url">업체홈페이지 :</label>
-	            <input name="userUrl" id="user_url" type="text"/><br>
-	     		<div>url 양식검사 :
-	            	<span id="Urlsuccess" >사용가능한 주소입니다</span>
-	            	<span id="Urlfail" >사용불가능한 주소입니다</span>
-	            </div>
-	            
-	     	<!-- 사업자등록버튼 -->
-	     	<div>
-	       		<input class="btn btn-default" id="addButton" type="button" value="사업자등록"/>
-	        </div>
-	    </form>
-	
+		<!-- 우측 베너 인클루드 -->
+	    <c:import url="../../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../../module/footer.jsp"></c:import>
 </body>
 </html>

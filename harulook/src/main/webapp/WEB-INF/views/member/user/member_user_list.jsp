@@ -5,6 +5,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+
+<!-- div 바디 높이 크기 지정 -->
+<link rel="stylesheet" type="text/css" href="resources/css/member-list-size.css">
+
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -30,41 +34,55 @@
 <title>일반회원가입폼</title>
 </head>
 <body>
-	<div class="container">
-	    <h1>일반회원리스트</h1>
-	    <div>전체행의 수 : ${boardCount}</div>
-	    <table class="table table-striped">
-	        <thead>
-	            <tr>
-	                <th>아이디</th>
-	                <th>닉네임</th>
-	                <th>이름</th>
-	                <th>포인트</th>
-	                <th>가입날짜</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <c:forEach var="b" items="${list}">
-	                <tr>
-	                    <td><a href="${pageContext.request.contextPath}/member_user_detail?userId=${b.userId}">${b.userId}</a></td>
-	                    <td>${b.userNick}</td>
-	                    <td>${b.userName}</td>
-	                    <td>${b.userPoint}</td>
-	                    <td>${b.userDate}</td>
-	                   
-	                </tr>
-	            </c:forEach>
-	        </tbody>
-	   </table>
-    <ul class="pager">
-        <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/member_user_list?currentPage=${currentPage-1}">이전</a></li>
-        </c:if>
-        <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/member_user_list?currentPage=${currentPage+1}">다음</a></li>
-        </c:if>
-    </ul>
-
+	<!-- 해더인클루드 -->
+	<c:import url="../../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
+	
+		<div class="container">
+		    <h1>일반회원리스트</h1>
+		    <div>전체행의 수 : ${boardCount}</div>
+		    <table class="table table-striped">
+		        <thead>
+		            <tr>
+		                <th>아이디</th>
+		                <th>닉네임</th>
+		                <th>이름</th>
+		                <th>포인트</th>
+		                <th>가입날짜</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <c:forEach var="b" items="${list}">
+		                <tr>
+		                    <td><a href="${pageContext.request.contextPath}/member_user_detail?userId=${b.userId}">${b.userId}</a></td>
+		                    <td>${b.userNick}</td>
+		                    <td>${b.userName}</td>
+		                    <td>${b.userPoint}</td>
+		                    <td>${b.userDate}</td>
+		                   
+		                </tr>
+		            </c:forEach>
+		       </tbody>
+			   </table>
+			    <ul class="pager">
+			        <c:if test="${currentPage > 1}">
+			            <li class="previous"><a href="${pageContext.request.contextPath}/member_user_list?currentPage=${currentPage-1}">이전</a></li>
+			        </c:if>
+			        <c:if test="${currentPage < lastPage}">
+			            <li class="next"><a href="${pageContext.request.contextPath}/member_user_list?currentPage=${currentPage+1}">다음</a></li>
+			        </c:if>
+			    </ul>
+			</div>
+		</div>
+		
+		<!-- 우측 베너 인클루드 -->
+	    <c:import url="../../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../../module/footer.jsp"></c:import>
 	  
 	   
 

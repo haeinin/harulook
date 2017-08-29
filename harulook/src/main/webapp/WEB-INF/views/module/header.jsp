@@ -6,6 +6,47 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!-- 버튼 위치 조정 -->
+<style type="text/css">
+       /* 로그인버튼 */
+       #loginbutton {
+          position: relative;
+          top: -180px;
+          left: 1400px;
+       }
+       /* 마이페이지 */
+       #mypage {
+          position: relative;
+          top: -200px;
+          left: 1300px;
+       }
+       /* 로그아웃 */
+       #logout {
+          position: relative;
+          top: -233px;
+          left: 1400px;
+       }
+       /* 게시물등록하기 */
+       #snsInsertButton {
+          position: relative;
+          top: 0px;
+          left: 20px;
+       }
+       /* 홈으로 */
+       #home {
+          position: relative;
+          top: -110px;
+          left: 200px;
+       }
+       /* 해더위치조정 */
+       #head {
+		  position: relative;
+		  height: 150px;
+	   }
+</style>
+
+
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -173,6 +214,22 @@ function dfs_xy_conv(code, v1, v2) {
 			$('#myPoint').submit();
         });
 		
+		$('#adcontractlistButton').click(function(){	//내 광고 보기
+			$('#adcontractlistForm').submit();
+        });
+		
+		$('#adcontractlistButtonManager').click(function(){	//사업자가 광고 리스트 보기
+			$('#adcontractlistFormManager').submit();
+        });
+		
+		$('#partnerContractListButton').click(function(){	//내 제휴 보기
+			$('#partnerContractListForm').submit();
+        });
+		
+		$('#snsInsertButton').click(function(){	//sns게시물등록하기
+			$('#snsInsertForm').submit();
+        });
+		
 		$('#followCheckButton').click(function(){	//팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식
 			$('#followCheck').submit();
         });
@@ -287,81 +344,100 @@ function dfs_xy_conv(code, v1, v2) {
 	 });
 	});
 </script>
+
 </head>
 <body>
-<header>
-	<img src="resources/files/images/mountains.jpg" alt="Mountains">
-	<div class="name fancy-font">
-	    Hanamichi
-	</div>
-	<div class="titles">
-	    <h1>Welcome to <span>Harulook!</span></h1>
-	</div>
-</header>
-<!-- 현재 날씨  -->
-<div class="weather_body">
-	<div id="weaterIcon">
-		<div id="sun"></div>
-		<div id="cloud"></div>
-		<div id="rain"></div>
-	</div> 
-</div>
-<h2 id="tempur"></h2>
-<!-- 세션에 있는 아이디 권한 받기 -->
-아이디 : <c:out value='${sessionScope.id}'/><br>
-권한 : <c:out value='${sessionScope.level}'/><br>
-닉네임 : <c:out value='${sessionScope.nick}'/><br>
-
-	<c:if test="${sessionScope.level == null}">
-		<a>	로그인이 안됬을때</a>
-		<!-- 로그인버튼 -->
-		<form id="login" action="${pageContext.request.contextPath}/loginForm" method="get">
-  		<div>
-			<input class="btn btn-default" id="loginbutton" type="button" value="로그인하기"/>
-		</div>	
-	</form>
-	</c:if><br>
-	
-	<c:if test="${sessionScope.level != null}">
-		<!-- 마이페이지 -->
-		<input class="btn btn-default" id="mypage" type="button" value="마이페이지"/>
+	<div id="head">
+		<header>
+			<!-- <img src="resources/files/images/mountains.jpg" alt="Mountains">
+			 --><div class="name fancy-font">
+			    Hanamichi
+			</div>
+			<div class="titles">
+			    <h1>Welcome to <span>Harulook!</span></h1>
+			</div>
+		</header>
+		<!-- 현재 날씨  -->
+		<div class="weather_body">
+			<div id="weaterIcon">
+				<div id="sun"></div>
+				<div id="cloud"></div>
+				<div id="rain"></div>
+			</div> 
+		</div>
+		<h2 id="tempur"></h2>
+		<!-- 세션에 있는 아이디 권한 받기 -->
+		<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
+		<%-- 권한 : <c:out value='${sessionScope.level}'/><br> --%>
+		<%-- 닉네임 : <c:out value='${sessionScope.nick}'/><br> --%>
 		
-		<!-- 로그아웃 -->
-		<form id="logoutadd" action="${pageContext.request.contextPath}/logout" method="post">
-	  		<div>
-				<input class="btn btn-default" id="logout" type="button" value="로그아웃"/>
-	  	 	</div>	
-		</form>	
+		<form id="homeForm" action="${pageContext.request.contextPath}/home" method="get">
+	 		<div>
+	 			<button class="btn btn-default" id="home" value="메인버튼">
+				<img src="./resources/harulook.png" class="img-rounded" alt="Cinque Terre" ></button>
+	 	 	</div>	
+        </form>
 		
-		<!--------팔로우등록 테스트양식------------------------------------------------------------------------------------  -->
-		<form id="followCheck" action="${pageContext.request.contextPath}/followCheck" method="post">
-	  			<input id="followId" name="followId" type="text" />
-	  			<input id="followCheckButton" type="button" value="입력"/>
-		</form>		
-	</c:if>
+			<c:if test="${sessionScope.level == null}">
+				<!-- <a>	로그인이 안됬을때</a> -->
+				<!-- 로그인버튼 -->
+				<form id="login" action="${pageContext.request.contextPath}/loginForm" method="get">
+		  		<div>
+					<input class="btn btn-default" id="loginbutton" type="button" value="로그인하기"/>
+				</div>	
+			</form>
+			</c:if><br>
+			
+			<c:if test="${sessionScope.level != null}">
+				<!-- 마이페이지 -->
+				<input class="btn btn-default" id="mypage" type="button" value="마이페이지"/>
+				
+				<!-- 로그아웃 -->
+				<form id="logoutadd" action="${pageContext.request.contextPath}/logout" method="post">
+			  		<div>
+						<input class="btn btn-default" id="logout" type="button" value="로그아웃"/>
+			  	 	</div>	
+				</form>	
+				
+				<!--------팔로우등록 테스트양식------------------------------------------------------------------------------------  -->
+				<%-- <form id="followCheck" action="${pageContext.request.contextPath}/followCheck" method="post">
+			  			<input id="followId" name="followId" type="text" />
+			  			<input id="followCheckButton" type="button" value="입력"/>
+				</form>	 --%>	
+			</c:if>
+			
+			<!-- 게시물등록하기버튼 -->
+			<c:if test="${sessionScope.level == '일반회원'}">
+			  <form id="snsInsertForm" action="${pageContext.request.contextPath}/boardInsert" method="get">
+			 		<div>
+			 			<button class="btn btn-default" id="snsInsertButton" value="sns게시물등록하기">
+						<img src="./resources/sns_Insert.png" class="img-rounded" alt="Cinque Terre" width="50" height="40"></button>
+			 	 	</div>	
+			  </form>
+			</c:if>
+	</div>
+		
 	
-	
-	
-	
-
-
 	<!-- 마이페이지 Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-     	<!-- 모달 공통내용 -->
-     	<div class="modal-header" style="padding:35px 50px;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4>마이페이지</h4>
-          <a>닉네임 : ${sessionScope.nick}</a><br>
+	 <div class="modal fade" id="myModal" role="dialog">
+	   <div class="modal-dialog">
+	   
+	     <!-- Modal content-->
+	     <div class="modal-content">
+	    	<!-- 모달 공통내용 -->
+	    	<div class="modal-header" style="padding:35px 50px;">
+	         <button type="button" class="close" data-dismiss="modal">&times;</button>
+	         <h4>마이페이지</h4>
+	         <a>닉네임 : ${sessionScope.nick}</a><br>
 		  <a>권한 : ${sessionScope.level}</a><br>
 		  <!-- 내정보수정하기버튼 -->
 		</div>
-        <!-- 모달 회원별 내용 -->
-        <div class="modal-body" style="padding:40px 50px;">
-          	<c:if test="${sessionScope.level == '관리자'}">
+		
+		
+		
+	       <!-- 모달 회원별 내용 -->
+	       <div class="modal-body" style="padding:40px 50px;">
+	         	<c:if test="${sessionScope.level == '관리자'}">
 				<a>관리자로 로그인</a><br>
 				<!-- 관리자용 버튼 -->
 					<!-- 내정보수정하기버튼 -->
@@ -400,9 +476,9 @@ function dfs_xy_conv(code, v1, v2) {
 				  </form>
 				  
 				  	<!-- 광고 검색 및 승인 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				  <form id="adcontractlistFormManager" action="${pageContext.request.contextPath}/adContractList" method="get">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="광거 검색 및 승인"/>
+			  			<input class="btn btn-default" id="adcontractlistButtonManager" type="button" value="광거 검색 및 승인"/>
 			  	 	</div>	
 				  </form>
 				  
@@ -424,16 +500,16 @@ function dfs_xy_conv(code, v1, v2) {
 				  </form>
 				
 					<!-- 내 광고 보기 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				  <form id="adcontractlistForm" action="${pageContext.request.contextPath}/adContractList" method="get">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="내 광고 보기"/>
+			  			<input class="btn btn-default" id="adcontractlistButton" type="button" value="내 광고 보기"/>
 			  	 	</div>	
 				  </form>
 				  
 				  <!-- 내 제휴 보기 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
+				  <form id="partnerContractListForm" action="${pageContext.request.contextPath}/partnerContractList" method="get">
 			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="내 제휴 보기"/>
+			  			<input class="btn btn-default" id="partnerContractListButton" type="button" value="내 제휴 보기"/>
 			  	 	</div>	
 				  </form>
 				  
@@ -495,11 +571,13 @@ function dfs_xy_conv(code, v1, v2) {
 			  	 	</div>	
 				  </form>
 				  
+				 
+				  
 				  	
 			</c:if>
-        </div>
-      </div>
-    </div>
-  </div> 
+	       </div>
+	     </div>
+	   </div>
+	 </div> 
 </body>
 </html>

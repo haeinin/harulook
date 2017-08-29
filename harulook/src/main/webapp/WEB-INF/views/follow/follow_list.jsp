@@ -45,37 +45,49 @@
 </script>
 </head>
 <body>
-
-	<!-- 친구 리스트 -->
-	<div class="container">
-	    <h1>친구 목록</h1>
-	    <div>전체행의 수 : ${followListCount}</div>
-	    <table class="table table-striped">
-	        <thead>
-	            <tr>
-	                <th>아이디</th>
-	                <th>닉네임</th>
-	                <th>이름</th>
-            	  </tr>
-	        </thead>
-	        <tbody>
-	            <c:forEach var="f" items="${followList}">
-	                <tr>
-		                <td><a type="button" class="followBoard" id="친구의 게시물" value="${f.followId}">${f.followId}</A></td>
-				      	<td>${f.followDate}</td>
-				        <td><button type="button" class="btn btn-default deleteButton" value="${f.followId}">삭제하기</button></td>
-                    </tr>
-	            </c:forEach>
-	        </tbody>
-	   </table>
-	</div>
-    <ul class="pager" >
-        <c:if test="${currentPage > 1}">
-            <li class="previous"><a href="${pageContext.request.contextPath}/followList?currentPage=${currentPage-1}" >이전</a></li>
-        </c:if>
-        <c:if test="${currentPage < lastPage}">
-            <li class="next"><a href="${pageContext.request.contextPath}/followList?currentPage=${currentPage+1}" >다음</a></li>
-        </c:if>
-    </ul>
+	<!-- 해더인클루드 -->
+	<c:import url="../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
+			<!-- 친구 리스트 -->
+			<div class="container">
+			    <h1>친구 목록</h1>
+			    <div>전체행의 수 : ${followListCount}</div>
+			    <table class="table table-striped">
+			        <thead>
+			            <tr>
+			                <th>아이디</th>
+			                <th>닉네임</th>
+			                <th>이름</th>
+		            	  </tr>
+			        </thead>
+			        <tbody>
+			            <c:forEach var="f" items="${followList}">
+			                <tr>
+				                <td><a type="button" class="followBoard" id="친구의 게시물" value="${f.followId}">${f.followId}</A></td>
+						      	<td>${f.followDate}</td>
+						        <td><button type="button" class="btn btn-default deleteButton" value="${f.followId}">삭제하기</button></td>
+		                    </tr>
+			            </c:forEach>
+			        </tbody>
+			   </table>
+			</div>
+		    <ul class="pager" >
+		        <c:if test="${currentPage > 1}">
+		            <li class="previous"><a href="${pageContext.request.contextPath}/followList?currentPage=${currentPage-1}" >이전</a></li>
+		        </c:if>
+		        <c:if test="${currentPage < lastPage}">
+		            <li class="next"><a href="${pageContext.request.contextPath}/followList?currentPage=${currentPage+1}" >다음</a></li>
+		        </c:if>
+		    </ul>
+		</div>	
+	    
+		<!-- 우측 베너 인클루드 -->
+	    <c:import url="../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../module/footer.jsp"></c:import>   	
 </body>
 </html>
