@@ -65,6 +65,7 @@
                 <beans:value>classpath:com/ksmart/harulook/member/service/MemberMapper.xml</beans:value>
 				<beans:value>classpath:com/ksmart/harulook/adcontract/service/AdContractMapper.xml</beans:value>
 				<beans:value>classpath:com/ksmart/harulook/adboard/service/AdBoardMapper.xml</beans:value>
+				<beans:value>classpath:com/ksmart/harulook/adrefund/service/AdRefundMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/board/service/BoardMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/comment/service/CommentMapper.xml</beans:value>
                 <beans:value>classpath:com/ksmart/harulook/guest/service/GuestMapper.xml</beans:value>

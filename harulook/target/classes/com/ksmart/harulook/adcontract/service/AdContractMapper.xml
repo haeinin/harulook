@@ -147,4 +147,9 @@ ORDER BY ad_contract.ad_contract_place asc;
 	SET ad_contract_stat='계약만료'
 	WHERE ad_contract_no = #{contractno}
  </update>
+ <update id="adWait">
+ 	UPDATE ad_contract
+	SET ad_contract_stat='광고대기'
+	WHERE ad_contract_no = #{contractno}
+ </update>
 </mapper>

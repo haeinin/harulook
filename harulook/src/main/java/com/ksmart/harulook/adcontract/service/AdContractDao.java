@@ -80,5 +80,12 @@ public class AdContractDao {
 		
 		
 	}
+	public int adWait(String adcontractno) {
+		System.out.println("광고 대기 요청 in Dao");
+		 System.out.println(adcontractno);
+		return sqlSessionTemplate.update("com.ksmart.harulook.adcontract.service.AdContractMapper.adWait", adcontractno);
+		
+		
+	}
 	
 }

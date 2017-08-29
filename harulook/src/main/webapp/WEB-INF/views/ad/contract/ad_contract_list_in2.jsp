@@ -87,7 +87,6 @@
    <c:import url="../contract/ad_contract_list_not_current.jsp"></c:import>
    <h1>광고 등록하기</h1>
    <c:import url="../contract/ad_contract_insert.jsp"></c:import>
-   <c:import url="../contract/ad_contract_cancel.jsp"></c:import>
   </div>
 </body>
 </html>
