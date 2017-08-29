@@ -18,9 +18,9 @@
 </script>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/boardSearchList" method="post">
+<form action="${pageContext.request.contextPath}/boardSearchList" method="get">
 	<div class="form-group">
-	    <label for="snsBoardWeather">snsBoardWeather :</label>
+	    <label for="snsBoardWeather">날씨 :</label>
 	    <select name="snsBoardWeather" id="snsBoardWeather">
 	    	<option></option>
 	    	<option>맑음</option>
@@ -29,27 +29,24 @@
 	    	<option>비</option>
 	    	<option>눈</option>
 	    </select>
-	</div>
-	<div class="form-group">
-	    <label for="snsBoardTall">snsBoardTall :</label>
+	    
+	    <label for="snsBoardTall">키 :</label>
 	    <select name="snsBoardTall" id="snsBoardTall">
 	    	<option></option>
 	    	<option>큰키</option>
 	    	<option>보통키</option>
 	    	<option>작은키</option>
 	    </select>
-	</div>
-	<div class="form-group">
-	    <label for="snsBoardSize">snsBoardSize :</label>
+	    
+	    <label for="snsBoardSize">체형 :</label>
 	    <select name="snsBoardSize" id="snsBoardSize">
 	    	<option></option>
 	    	<option>마른</option>
 	    	<option>보통</option>
 	    	<option>뚱뚱</option>
 	    </select>
-	</div>
-	<div class="form-group">
-	    <label for="snsBoardLoc">snsBoardLoc :</label>
+
+	    <label for="snsBoardLoc">지역 :</label>
 	    <select name="snsBoardLoc" id="snsBoardLoc">
 	    	<option></option>
 	    	<option>서울</option>
@@ -64,14 +61,12 @@
 	    	<option>제주</option>
 	    	<option>세종</option>
 	    </select>
-	</div>
-	<div class="form-group">
-	    <label for="snsBoardGender">snsBoardGender :</label>
+
+	    <label for="snsBoardGender">성별 :</label>
 	    <input name="snsBoardGender" id="snsBoardGender" type="radio" value="남">남
 	    <input name="snsBoardGender" id="snsBoardGender" type="radio" value="여">여
-	</div>
-	<div class="form-group">
-	    <label for="snsBoardAge">snsBoardAge :</label>
+
+	    <label for="snsBoardAge">나이 :</label>
 	    <select name="snsBoardAge" id="snsBoardAge">
 	    	<option></option>
 	    	<option>10</option>
@@ -82,7 +77,7 @@
 	    </select>
 	</div>
 	<div class="form-group">
-		<label for="searchSnsBoardStyle">snsBoardStyle :</label>		
+		<label for="searchSnsBoardStyle">스타일 :</label>		
 		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
 		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
 		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
@@ -95,7 +90,7 @@
 		<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브
 	</div>
 	<div class="form-group">
-       	<label for="searchSnsBoardColor">snsBoardColor :</label>
+       	<label for="searchSnsBoardColor">색상 :</label>
       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01">빨강
        	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02">주황
        	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03">노랑
@@ -111,7 +106,7 @@
        	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13">핑크       	
      </div>
      <div class="form-group">
-       	<label for="searchSnsBoardSituation">snsBoardSituation :</label>
+       	<label for="searchSnsBoardSituation">상황 :</label>
        	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_01">학교
        	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_02">출근
        	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_03">파티

@@ -22,17 +22,22 @@ import org.xml.sax.SAXException;
 @Repository
 public class WeatherDao {
 
-	public String xmlDownload(String date, String hour) throws IOException {
+	public String xmlDownload(String date, String hour, String nx, String ny) throws IOException {
    	 
+		System.out.println("date : "+date);
+		System.out.println("hour : "+hour);
+		System.out.println("nx : "+nx);
+		System.out.println("ny : "+ny);
+		
 	    String host = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib?"
 	            +URLEncoder.encode("base_date","UTF-8")+"="
 	            +URLEncoder.encode(date,"UTF-8")+"&"
 	            +URLEncoder.encode("base_time","UTF-8")+"="
 	            +URLEncoder.encode(hour,"UTF-8")+"&"
 	            + URLEncoder.encode("nx","UTF-8")+"="
-	            +URLEncoder.encode("63","UTF-8")+"&"
+	            + URLEncoder.encode(nx,"UTF-8")+"&"
 	            + URLEncoder.encode("ny","UTF-8")+"="
-	            + URLEncoder.encode("89","UTF-8")+"&"
+	            + URLEncoder.encode(ny,"UTF-8")+"&"
 	    		+ URLEncoder.encode("numOfRows","UTF-8")+"="
 	            + URLEncoder.encode("10","UTF-8")+"&"
 				+ URLEncoder.encode("pageNo","UTF-8")+"="
@@ -68,8 +73,8 @@ public class WeatherDao {
 	 
 	    }
 	
-	public WeatherDto getItemList(String date, String hour) throws IOException, ParserConfigurationException, SAXException {
-        String xml = this.xmlDownload(date, hour);
+	public WeatherDto getItemList(String date, String hour, String nx, String ny) throws IOException, ParserConfigurationException, SAXException {
+        String xml = this.xmlDownload(date, hour, nx, ny);
         WeatherDto weather = new WeatherDto();
         // xml 을-> List<Item>
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -78,28 +83,30 @@ public class WeatherDao {
 		NodeList nodeList = doc.getElementsByTagName("item");
 		for(int i=0; i<nodeList.getLength(); i++) {
     
-    String category = "";
-    String obsrValue = "";
-    Node node = nodeList.item(i);
-    Element e = (Element)node;
-    category = e.getElementsByTagName("category").item(0).getTextContent();
-    obsrValue = e.getElementsByTagName("obsrValue").item(0).getTextContent();
-    if(category.equals("T1H")) {
-    	weather.setTemp1hour(obsrValue);
-    } else if(category.equals("SKY")) {
-    	weather.setSky(obsrValue);
-    } else if(category.equals("PTY")) {
-    	weather.setRainStat(obsrValue);
-    } else if(category.equals("REH")) {
-    	weather.setHumidity(obsrValue);
-    } else if(category.equals("RN1")) {
-    	weather.setPrecipitation(obsrValue);
-    } else {
-    	continue;
-    }
-    }
+		    String category = "";
+		    String obsrValue = "";
+		    Node node = nodeList.item(i);
+		    Element e = (Element)node;
+		    category = e.getElementsByTagName("category").item(0).getTextContent();
+		    obsrValue = e.getElementsByTagName("obsrValue").item(0).getTextContent();
+		    
+		    if(category.equals("T1H")) {
+		    	weather.setTemp1hour(obsrValue);
+		    } else if(category.equals("SKY")) {
+		    	weather.setSky(obsrValue);
+		    } else if(category.equals("PTY")) {
+		    	weather.setRainStat(obsrValue);
+		    } else if(category.equals("REH")) {
+		    	weather.setHumidity(obsrValue);
+		    } else if(category.equals("RN1")) {
+		    	weather.setPrecipitation(obsrValue);
+		    } else if(category.equals("LGT")) {
+		        weather.setThunder(obsrValue);
+		    } else {
+		        continue;
+		    }
+		}
 		System.out.println("getItemList : "+weather);
-		
-  return weather;
-}
+		return weather;
+	}
 }

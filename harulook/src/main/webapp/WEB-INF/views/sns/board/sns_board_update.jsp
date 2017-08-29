@@ -105,6 +105,7 @@
 					<td>sns_board_age :</td>
 					<td>
 						<select class="form-control" name="snsBoardAge" id="snsBoardAge">
+							<option>${board.snsBoardAge}</option>
 			            	<option></option>
 			            	<option>10</option>
 			            	<option>20</option>
