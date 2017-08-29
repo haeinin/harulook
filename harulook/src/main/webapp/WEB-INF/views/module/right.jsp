@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<div class="col-xs-2">
+                오른쪽 베너    
+     </div>
 </body>
 </html>

@@ -28,6 +28,7 @@
     	var dc;
     	/* 총 합계를 계산해 놓으면 텍스트박스에 NaN이라는 값이 출력되서 날짜를 선택해야 총 합계가 나오게 만듬 */
     	$('#date').change(function(){
+
 			if($('#date').val() == 'ad_dc_01'){
 				selectedday = 1;
 			}else if($('#date').val() == 'ad_dc_02'){
@@ -71,13 +72,16 @@
         });
     	/**********************************************/
     	/* 광고 계약 취소 시 환불테이블과 계약 상태를 바꿔줌 */
+
     			
-    	});
+   	});
+>>>>>>> refs/remotes/origin/kmg880311
    
     	
 </script> 
 </head>
 <body>
+<<<<<<< HEAD
 <div class="container">
     <h1>현재 광고 목록</h1>
    <c:import url="../contract/ad_contract_list_current.jsp"></c:import>
@@ -86,5 +90,30 @@
    <h1>광고 등록하기</h1>
    <c:import url="../contract/ad_contract_insert.jsp"></c:import>
   </div>
+=======
+	<%-- <!-- 해더인클루드 -->
+	<c:import url="../../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
+	     --%>
+			<div class="container">
+			   <h1>현재 광고 목록</h1>
+			   <c:import url="../contract/ad_contract_list_current.jsp"></c:import>
+			   <h1>광고예정 목록</h1>
+			   <c:import url="../contract/ad_contract_list_not_current.jsp"></c:import>
+			   <h1>광고 등록하기</h1>
+			   <c:import url="../contract/ad_contract_insert.jsp"></c:import>
+			</div>
+			
+		<%-- </div>	
+		 
+		<!-- 우측 베너 인클루드 -->
+	    <c:import url="../../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../../module/footer.jsp"></c:import> --%> 
+>>>>>>> refs/remotes/origin/kmg880311
 </body>
 </html>

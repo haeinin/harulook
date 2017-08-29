@@ -375,7 +375,12 @@
 <title>관리자등록 폼</title>
 </head>
 <body>
-	
+	<!-- 해더인클루드 -->
+	<c:import url="../../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
 	
 	    <h1>관리자 등록 폼</h1>
 	    <form id="addFormManager" action="${pageContext.request.contextPath}/managerAdd" method="post">
@@ -489,11 +494,16 @@
 	            	<span id="Urlfail" >사용불가능한 주소입니다</span>
 	            </div>
 	            
-	     	<!-- 사업자등록버튼 -->
-	     	<div>
-	       		<input class="btn btn-default" id="addButton" type="button" value="관리자등록"/>
-	        </div>
-	    </form>
-	
+		     	<!-- 사업자등록버튼 -->
+		     	<div>
+		       		<input class="btn btn-default" id="addButton" type="button" value="관리자등록"/>
+		        </div>
+		    </form>
+		</div>
+		<!-- 우측 베너 인클루드 -->
+	    <c:import url="../../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../../module/footer.jsp"></c:import>
 </body>
 </html>

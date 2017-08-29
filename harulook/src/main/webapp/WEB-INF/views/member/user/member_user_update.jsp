@@ -366,9 +366,14 @@
 <title>회원정보수정</title>
 </head>
 <body>
-	
-	
-	    <h1>회원정보수정</h1>
+	<!-- 해더인클루드 -->
+	<c:import url="../../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
+		
+		<h1>회원정보수정</h1>
 	    <form id="addUserUpdate" action="${pageContext.request.contextPath}/addUserUpdate" method="post">
 	    
 	       		<!-- 아이디 -->
@@ -721,37 +726,43 @@
 				
 				</div>
 	     	
-	     	<!-- 회원가입버튼 -->
-	     	<div>
-	       		<input class="btn btn-default" id="userUpdate" type="button" value="수정확인"/>
-	        </div>
-	    </form>
-	   
-	    <!-- 회원탈퇴버튼 -->
-    	<div>
-      		<input class="btn btn-default" id="userDelete" type="button" value="탈퇴하기"/>
-        </div>	
-		
-		<!-- 탈퇴하기버튼 modal -->
-		<div class="modal fade" id="userDeleteModal" role="dialog">
-		    <div class="modal-dialog">
-		    	<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header" style="padding:35px 50px;">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						
-						<h4>비밀번호입력</h4>
-						<label for="user_pw">비번 :</label>
-		           		<input name="userPw" id="user_pw_modal" type="password"/><br>
-		           		<span id="modalpwfail" >비밀번호 불일치</span>
-						<div>
-		   					<input class="btn btn-default" id="userDeleteAdd" type="button" value="탈퇴하기"/>
-						</div>	
-						<form id="home" action="${pageContext.request.contextPath}/logout" method="post"></form>
-					</div>
+		     	<!-- 회원수정 -->
+		     	<div>
+		       		<input class="btn btn-default" id="userUpdate" type="button" value="수정확인"/>
+		        </div>
+		    </form>
+		   
+		    <!-- 회원탈퇴버튼 -->
+	    	<div>
+	      		<input class="btn btn-default" id="userDelete" type="button" value="탈퇴하기"/>
+	        </div>	
+			
+			<!-- 탈퇴하기버튼 modal -->
+			<div class="modal fade" id="userDeleteModal" role="dialog">
+			    <div class="modal-dialog">
+			    	<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header" style="padding:35px 50px;">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							
+							<h4>비밀번호입력</h4>
+							<label for="user_pw">비번 :</label>
+			           		<input name="userPw" id="user_pw_modal" type="password"/><br>
+			           		<span id="modalpwfail" >비밀번호 불일치</span>
+							<div>
+			   					<input class="btn btn-default" id="userDeleteAdd" type="button" value="탈퇴하기"/>
+							</div>	
+							<form id="home" action="${pageContext.request.contextPath}/logout" method="post"></form>
+						</div>
+				    </div>
 			    </div>
-		    </div>
+			</div>
 		</div>
-		
+		<!-- 우측 베너 인클루드 -->
+	    <c:import url="../../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../../module/footer.jsp"></c:import>
+    	
 </body>
 </html>

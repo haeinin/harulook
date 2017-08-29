@@ -6,6 +6,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!-- div 바디 높이 크기 지정 -->
+<link rel="stylesheet" type="text/css" href="resources/css/member-list-size.css">
+
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -105,143 +109,155 @@
 </script>
 </head>
 <body>
-	
-    <form id="couponUse" action="${pageContext.request.contextPath}/couponUse" method="post">
-		<div>
-			<input class="btn btn-default" id="couponUseButton" type="button" value="포인트입력 테스트버튼"/>
-		</div>
-	</form>
-	
-	<input class="btn btn-default" id="pointPolicyButton" type="button" value="포인트사용하기"/>
-	<input class="btn btn-default" id="pointUseButton" type="button" value="포인트 사용 내역"/>
-	<input class="btn btn-default" id="pointGetButton" type="button" value="포인트 취득 내역"/>
-	
-	<!-- 포인트 정책 쓰기-->
-	<div class="modal fade" id="pointPolicyModal" role="dialog">
-	  	<div class="modal-dialog">
-	 			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header" style="padding:35px 50px;">
-				   <!-- 포인트 정책-->
-					<div class="container">
-					    <h1>포인트 정책</h1>
-					    <table class="table">
-					        <thead>
-					            <tr>
-					                <th>포인트</th>
-					                <th>제도</th>
-					            </tr>
-					        </thead>
-					        <tbody>
-					            <c:forEach var="p" items="${pointPolicy}">
-					                <tr>
-						                <td>${p.pointPolicyValue}</td>
-								      	<td>${p.pointPolicyReason}</td>
-								    </tr>
-					            </c:forEach>
-					        </tbody>
-					   </table>
-					</div>
-					
-					<!-- 포인트 사용 쿠폰-->
-					<div class="container">
-					    <h1>포인트 사용 쿠폰</h1>
-					    <!-- 보유포인트-->
-						<h5><span id="myPointMsg"></span><br></h5>
-					    <table class="table">
-					        <thead>
-					            <tr>
-					                <th>포인트</th>
-					                <th>쿠폰</th>
-					                <th>사용하기</th>
-				                </tr>
-					        </thead>
-					        <tbody>
-					            <c:forEach var="pu" items="${pointUsePolicy}">
-					                <tr>
-					                	<td><input class="pointPolicyValue" id="pointPolicyValue" value="${pu.pointPolicyValue}"/></td>
-								      	<td>${pu.pointPolicyReason}</td>
-								      	<td><button class="btn btn-default kuponButton" id="kuponButton" type="button" value="${pu.pointPolicyValue}" >사용하기</button></td>
-							      	</tr>
-							    </c:forEach>
-					        			
-								      
-					        </tbody>
-					   </table>
-					</div>
+
+	<!-- 해더인클루드 -->
+	<c:import url="../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
+		    <%-- <form id="couponUse" action="${pageContext.request.contextPath}/couponUse" method="post">
+				<div>
+					<input class="btn btn-default" id="couponUseButton" type="button" value="포인트입력 테스트버튼"/>
 				</div>
-	       	</div>
-	 	 </div>
-	</div>
-	
-	
-	
-	<!-- 포인트 사용 내역-->
-	<div class="container" id="pointUse">
-	    <h1>포인트 사용 내역</h1>
-	    <div>전체행의 수 : ${pointUseCount}</div>
-	    <table class="table table-striped">
-	        <thead>
-	            <tr>
-	                <th>쿠폰</th>
-	                <th>쿠폰번호</th>	<!-- ///////////////////////////////////////////////////////////////랜덤생성만들자///// -->
-	                <th>포인트</th>
-	                <th>날짜</th>
-            	  </tr>
-	        </thead>
-	        <tbody>
-	            <c:forEach var="u" items="${pointUse}">
-	                <tr>
-		                <td>${u.pointPolicyReason}</td>
-		                <th>${u.pointGoodsCode}</th>	<!-- ///////////////////////////////////////////////////////////////랜덤생성만들자///// -->
-				      	<td>${u.pointPolicyValue}</td>
-				      	<td>${u.pointDate}</td>
-				    </tr>
-	            </c:forEach>
-	        </tbody>
-	    </table>
-	    <ul class="pager">
-	        <c:if test="${currentPageUse > 1}">
-	            <li class="previous"><a href="${pageContext.request.contextPath}/myPoint?currentPageUse=${currentPageUse-1}">이전</a></li>
-	        </c:if>
-	        <c:if test="${currentPageUse < lastPageUse}">
-	            <li class="next"><a href="${pageContext.request.contextPath}/myPoint?currentPageUse=${currentPageUse+1}">다음</a></li>
-	        </c:if>
-		</ul>
-	</div>
-	
-	<!-- 포인트 취득내역 정책-->
-	<div class="container" id="pointGet">
-	    <h1>포인트 취득 내역</h1>
-	    <div>전체행의 수 : ${pointGetCount}</div>
-	    <table class="table table-striped">
-	        <thead>
-	            <tr>
-	                <th>쿠폰</th>
-	                <th>포인트</th>
-	                <th>날짜</th>
-            	  </tr>
-	        </thead>
-	        <tbody>
-	            <c:forEach var="g" items="${pointGet}">
-	                <tr>
-		                <td>${g.pointPolicyReason}</td>
-				      	<td>${g.pointPolicyValue}</td>
-				      	<td>${g.pointDate}</td>
-				    </tr>
-	            </c:forEach>
-	        </tbody>
-	    </table>
-	    <ul class="pager">
-	        <c:if test="${currentPageGet > 1}">
-	            <li class="previous get"><a  href="${pageContext.request.contextPath}/myPoint?currentPageGet=${currentPageGet-1}">이전</a></li>
-	        </c:if>
-	        <c:if test="${currentPageGet < lastPageGet}">
-	            <li class="next get"><a  href="${pageContext.request.contextPath}/myPoint?currentPageGet=${currentPageGet+1}">다음</a></li>
-	        </c:if>
-		</ul>
-	</div>
-	
+			</form> --%>
+			
+			<input class="btn btn-default" id="pointPolicyButton" type="button" value="포인트사용하기"/>
+			<input class="btn btn-default" id="pointUseButton" type="button" value="포인트 사용 내역"/>
+			<input class="btn btn-default" id="pointGetButton" type="button" value="포인트 취득 내역"/>
+			
+			<!-- 포인트 정책 쓰기-->
+			<div class="modal fade" id="pointPolicyModal" role="dialog">
+			  	<div class="modal-dialog">
+			 			<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header" style="padding:35px 50px;">
+						   <!-- 포인트 정책-->
+							<div class="container">
+							    <h1>포인트 정책</h1>
+							    <table class="table">
+							        <thead>
+							            <tr>
+							                <th>포인트</th>
+							                <th>제도</th>
+							            </tr>
+							        </thead>
+							        <tbody>
+							            <c:forEach var="p" items="${pointPolicy}">
+							                <tr>
+								                <td>${p.pointPolicyValue}</td>
+										      	<td>${p.pointPolicyReason}</td>
+										    </tr>
+							            </c:forEach>
+							        </tbody>
+							   </table>
+							</div>
+							
+							<!-- 포인트 사용 쿠폰-->
+							<div class="container">
+							    <h1>포인트 사용 쿠폰</h1>
+							    <!-- 보유포인트-->
+								<h5><span id="myPointMsg"></span><br></h5>
+							    <table class="table">
+							        <thead>
+							            <tr>
+							                <th>포인트</th>
+							                <th>쿠폰</th>
+							                <th>사용하기</th>
+						                </tr>
+							        </thead>
+							        <tbody>
+							            <c:forEach var="pu" items="${pointUsePolicy}">
+							                <tr>
+							                	<td><input class="pointPolicyValue" id="pointPolicyValue" value="${pu.pointPolicyValue}"/></td>
+										      	<td>${pu.pointPolicyReason}</td>
+										      	<td><button class="btn btn-default kuponButton" id="kuponButton" type="button" value="${pu.pointPolicyValue}" >사용하기</button></td>
+									      	</tr>
+									    </c:forEach>
+							        			
+										      
+							        </tbody>
+							   </table>
+							</div>
+						</div>
+			       	</div>
+			 	 </div>
+			</div>
+			
+			
+			
+			<!-- 포인트 사용 내역-->
+			<div class="container" id="pointUse">
+			    <h1>포인트 사용 내역</h1>
+			    <div>전체행의 수 : ${pointUseCount}</div>
+			    <table class="table table-striped">
+			        <thead>
+			            <tr>
+			                <th>쿠폰</th>
+			                <th>쿠폰번호</th>	<!-- ///////////////////////////////////////////////////////////////랜덤생성만들자///// -->
+			                <th>포인트</th>
+			                <th>날짜</th>
+		            	  </tr>
+			        </thead>
+			        <tbody>
+			            <c:forEach var="u" items="${pointUse}">
+			                <tr>
+				                <td>${u.pointPolicyReason}</td>
+				                <th>${u.pointGoodsCode}</th>	<!-- ///////////////////////////////////////////////////////////////랜덤생성만들자///// -->
+						      	<td>${u.pointPolicyValue}</td>
+						      	<td>${u.pointDate}</td>
+						    </tr>
+			            </c:forEach>
+			        </tbody>
+			    </table>
+			    <ul class="pager">
+			        <c:if test="${currentPageUse > 1}">
+			            <li class="previous"><a href="${pageContext.request.contextPath}/myPoint?currentPageUse=${currentPageUse-1}">이전</a></li>
+			        </c:if>
+			        <c:if test="${currentPageUse < lastPageUse}">
+			            <li class="next"><a href="${pageContext.request.contextPath}/myPoint?currentPageUse=${currentPageUse+1}">다음</a></li>
+			        </c:if>
+				</ul>
+			</div>
+			
+			<!-- 포인트 취득내역 정책-->
+			<div class="container" id="pointGet">
+			    <h1>포인트 취득 내역</h1>
+			    <div>전체행의 수 : ${pointGetCount}</div>
+			    <table class="table table-striped">
+			        <thead>
+			            <tr>
+			                <th>쿠폰</th>
+			                <th>포인트</th>
+			                <th>날짜</th>
+		            	  </tr>
+			        </thead>
+			        <tbody>
+			            <c:forEach var="g" items="${pointGet}">
+			                <tr>
+				                <td>${g.pointPolicyReason}</td>
+						      	<td>${g.pointPolicyValue}</td>
+						      	<td>${g.pointDate}</td>
+						    </tr>
+			            </c:forEach>
+			        </tbody>
+			    </table>
+			    <ul class="pager">
+			        <c:if test="${currentPageGet > 1}">
+			            <li class="previous get"><a  href="${pageContext.request.contextPath}/myPoint?currentPageGet=${currentPageGet-1}">이전</a></li>
+			        </c:if>
+			        <c:if test="${currentPageGet < lastPageGet}">
+			            <li class="next get"><a  href="${pageContext.request.contextPath}/myPoint?currentPageGet=${currentPageGet+1}">다음</a></li>
+			        </c:if>
+				</ul>
+			</div>	
+	    </div>
+	    
+		<!-- 우측 베너 인클루드 -->
+	    <c:import url="../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../module/footer.jsp"></c:import>   
 	
 	
 </body>

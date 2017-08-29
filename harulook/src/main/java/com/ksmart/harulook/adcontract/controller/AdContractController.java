@@ -53,11 +53,18 @@ public class AdContractController {
 		System.out.println("SID : " + session.getAttribute("SID"));
 		return "ad/contract/ad_contract_list_in";
 	} 
+<<<<<<< HEAD
 	@RequestMapping(value="/adContractList",method = RequestMethod.GET)
+=======
+	
+	/*@RequestMapping(value="/adContractList",method = RequestMethod.GET)
+>>>>>>> refs/remotes/origin/kmg880311
 	public String adContractList() {
 		return "ad/contract/ad_contract_list";
 	} */
+
 	/*광고리스트 요청*/
+
 	@RequestMapping(value="/adContractList",method = RequestMethod.GET)
 	public String adContractList(Model model, HttpSession session) {
 		System.out.println("광고 계약 현황 리스트 요청");
@@ -69,6 +76,10 @@ public class AdContractController {
 		System.out.println("현재 진행중인 광고 리스트 요청");
 		String SA = (String)session.getAttribute("level");
 		String SID = (String)session.getAttribute(("id"));
+
+			System.out.println(SA);
+			System.out.println(SID);
+
 		if(SA.equals("관리자")){
 			adcontractlist = adcontractdao.getAdContractList();
 			System.out.println("권한 : " + SA + "모든광고 계약 리스트 출력");

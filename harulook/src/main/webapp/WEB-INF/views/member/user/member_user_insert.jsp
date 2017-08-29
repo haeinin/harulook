@@ -334,7 +334,12 @@
 <title>일반회원가입폼</title>
 </head>
 <body>
-	
+	<!-- 해더인클루드 -->
+	<c:import url="../../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
 	
 	    <h1>회원가입 기본 폼</h1>
 	    <form id="addFormUser" action="${pageContext.request.contextPath}/userAdd" method="post">
@@ -502,12 +507,19 @@
 			     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12" class="checkSelectColor">베이지
 			     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13" class="checkSelectColor">핑크
 			     </div>
-	     	
-	     	<!-- 회원가입버튼 -->
-	     	<div>
-	       		<input class="btn btn-default" id="addButton" type="button" value="회원가입"/>
-	        </div>
-	    </form>
+		     	
+		     	<!-- 회원가입버튼 -->
+		     	<div>
+		       		<input class="btn btn-default" id="addButton" type="button" value="회원가입"/>
+		        </div>
+		    </form>
+		</div>
+	
+		<!-- 우측 베너 인클루드 -->
+	    <c:import url="../../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../../module/footer.jsp"></c:import>
 	
 </body>
 </html>

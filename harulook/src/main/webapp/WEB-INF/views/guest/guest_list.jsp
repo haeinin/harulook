@@ -67,37 +67,53 @@
 </script>
 </head>
 <body>
-	<div id="chart_div" style="width: 100%; height: 500px;"></div>
+	<!-- 해더인클루드 -->
+	<c:import url="../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
 	
-	<!-- 일일게스트수 -->
-	<table>
-		<c:forEach var="d" items="${dailyGuest}">
-			<tr>
-				일일날짜 : <td><input name="1" id="1" value="${d.dailyDate}"/></td>
-				게시트수 : <td><input name="2" id="2" value="${d.guestCount}"/></td>
-			</tr>
-		</c:forEach>
-	</table>
-	
-	<!-- 주간게스트수 -->
-	<table>
-		<c:forEach var="w" items="${weeklyGuest}">
-			<tr>
-				<td>주간날짜 : ${w.weeklyStart}</td>
-				<td>주간날짜 : ${w.weeklyEnd}</td>
-				<td>게시트수 : ${w.guestCount}</td>
-			</tr>
-		</c:forEach>
-	</table>
-	
-	<!-- 월간게스트수 -->
-	<table>
-		<c:forEach var="m" items="${monthlyGuest}">
-			<tr>
-				<td>월간날짜 : ${m.monthlyDate}</td>
-				<td>게시트수 : ${m.guestCount}</td>
-			</tr>
-		</c:forEach>
-	</table>	
+			<div id="chart_div" style="width: 100%; height: 500px;"></div>
+			
+			<!-- 일일게스트수 -->
+			<table>
+				<c:forEach var="d" items="${dailyGuest}">
+					<tr>
+						<td><input name="1" id="1" value="${d.dailyDate}"/> : 일일날짜  </td>
+						<td><input name="2" id="2" value="${d.guestCount}"/>: 게스트수  </td>
+					</tr>
+				</c:forEach>
+			</table>
+			
+			<!-- 주간게스트수 -->
+			<table>
+				<c:forEach var="w" items="${weeklyGuest}">
+					<tr>
+						<td>주간날짜 : ${w.weeklyStart}</td>
+						<td>주간날짜 : ${w.weeklyEnd}</td>
+						<td>게시트수 : ${w.guestCount}</td>
+					</tr>
+				</c:forEach>
+			</table>
+			
+			<!-- 월간게스트수 -->
+			<table>
+				<c:forEach var="m" items="${monthlyGuest}">
+					<tr>
+						<td>월간날짜 : ${m.monthlyDate}</td>
+						<td>게시트수 : ${m.guestCount}</td>
+					</tr>
+				</c:forEach>
+			</table>
+			
+		</div>
+		
+		<!-- 우측 베너 인클루드 -->
+	    <c:import url="../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../module/footer.jsp"></c:import>	
+    
 </body>
 </html>

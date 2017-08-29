@@ -30,7 +30,13 @@
 <title>사업자회원정보보기</title>
 </head>
 <body>
-	
+	<!-- 해더인클루드 -->
+	<c:import url="../../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
+	    
 	    <h1>사업자회원정보보기</h1>
 	    
 	    	아이디 : <a>${businessDetail.userId}</a><br>
@@ -47,7 +53,13 @@
 	       	업체홈페이지: <a>${businessDetail.userUrl}</a><br>
 	       	가입날짜: <a>${businessDetail.userDate}</a><br>
 	       	
-	                    	
+	    </div>
+		
+		<!-- 우측 베너 인클루드 -->
+	    <c:import url="../../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../../module/footer.jsp"></c:import>                	
 	  
      
 
