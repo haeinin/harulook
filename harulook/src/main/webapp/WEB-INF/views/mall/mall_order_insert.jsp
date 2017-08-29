@@ -7,18 +7,9 @@
 <head>
 <title>Beautiful Closet</title>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-<!-- Optional theme -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-<link rel="stylesheet" type="text/css"
-	href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="<c:url value="resources/css/mall-style.css" />" type="text/css">
+
 <!-- jquery를 사용하기위한 CDN주소 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
@@ -88,85 +79,6 @@
 
 	});
 </script>
-
-<style>
-body {
-	font-family: 'Jeju Gothic', sans-serif;
-}
-
-.nav-tabs li a {
-	color: #777;
-}
-
-.navbar {
-	font-family: Montserrat, sans-serif;
-	margin-bottom: 0;
-	background-color: #2d2d30;
-	border: 0;
-	font-size: 11px !important;
-	letter-spacing: 4px;
-	opacity: 0.9;
-}
-
-.navbar li a, .navbar .navbar-brand {
-	color: #d5d5d5 !important;
-}
-
-.navbar-nav li a:hover {
-	color: #fff !important;
-}
-
-.navbar-nav li.active a {
-	color: #fff !important;
-	background-color: #29292c !important;
-}
-
-.navbar-default .navbar-toggle {
-	border-color: transparent;
-}
-
-.open .dropdown-toggle {
-	color: #fff;
-	background-color: #555 !important;
-}
-
-.dropdown-menu li a {
-	color: #000 !important;
-}
-
-.dropdown-menu li a:hover {
-	background-color: red !important;
-}
-
-.container {
-	padding: 80px 100px;
-}
-
-.reset {
-	margin-top: 20px;
-}
-
-.alert {
-	margin: 20px;
-}
-
-.orderform {
-	margin: 10px;
-}
-
-.btnPay {
-	margin-top: 100px;
-}
-
-.modal-body {
-	padding: 20px;
-}
-
-.btnPayEnd {
-	padding: 20px;
-	margin-left: 400px;
-}
-</style>
 </head>
 
 <body>

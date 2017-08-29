@@ -9,14 +9,9 @@
 <title>Beautiful Closet</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
-
-
+<link rel="stylesheet" href="<c:url value="resources/css/mall-style.css" />" type="text/css">
 <style>
-body{
-	font-family: 'Jeju Gothic',	sans-serif;
-}
+
 .nav-tabs li a {
 	color: #777;
 }
@@ -66,41 +61,40 @@ body{
 	margin-top: 100px;
 	
 }
-	
-
 </style>
-
 </head>
 
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top">
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#myNavbar">
-				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="${pageContext.request.contextPath}/mallMain">Beautiful Closet</a>
-		</div>
-		<div class="collapse navbar-collapse" id="myNavbar">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#myPage">HOME</a></li>
-				<li class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#">CATEGORY <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">TOP</a></li>
-						<li><a href="#">BOTTOM</a></li>
-						<li><a href="#">ONE-PIECE</a></li>
-					</ul></li>
-				<li><a href="${pageContext.request.contextPath}/mallOrderList">MY PAGE</a></li>
-				<li><a href="#contact">CONTACT</a></li>
-
-				<li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
-			</ul>
-		</div>
-	</div>
-	</nav>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/mallMain">Beautiful Closet</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="${pageContext.request.contextPath}/mallMain">HOME</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">CATEGORY
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">TOP</a></li>
+            <li><a href="#">BOTTOM</a></li>
+            <li><a href="#">ONE-PIECE</a></li> 
+          </ul>
+        </li>
+        <li><a href="${pageContext.request.contextPath}/mallOrderList">MY PAGE</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+        
+        <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-6">
