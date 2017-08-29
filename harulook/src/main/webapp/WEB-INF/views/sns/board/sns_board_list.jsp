@@ -15,12 +15,117 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <!-- jquery를 사용하기위한 CDN주소 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- 모달을 쓰기위한 부트스트랩 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Insert title here</title>
 <script type="text/javascript">
 $(function(){
-	
+	$.ajax({
+		url : './boardSearchList',
+		method : 'get',
+		data : { 'snsBoardWeather'	: $('#snsBoardWeather').val()
+				,'snsBoardTall'		: $('#snsBoardTall').val()
+				,'snsBoardSize'		: $('#snsBoardSize').val()
+				,'snsBoardLoc'		: $('#snsBoardLoc').val()
+				,'snsBoardGender'	: $(":input:radio[name=snsBoardGender]:checked").val()
+				,'snsBoardAge'		: $('#snsBoardAge').val()
+				},
+		datatype : 'json',
+		success : function(data){
+			console.log(data);
+			var boardHtml = '';
+			if(data.length > 0) {
+				for(var i=0; i<data.length; i++) {
+					boardHtml += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >';
+					boardHtml += '<div class="photo-box" value="'+data[i].snsBoardNo+'">';
+					boardHtml += '<div class="image-wrap">';
+					boardHtml += '<img style="height: 100%;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
+					boardHtml += '<div class="likes">';
+					boardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
+					boardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
+					boardHtml += '<i class="fa fa-commenting center" style="font-size:24px"></i>';
+					boardHtml += '<span class="center">&nbsp;'+data[i].snsCommentCount+'</span>';
+					boardHtml += '</div>';
+					boardHtml += '</div>';
+					boardHtml += '<div class="description">';
+					boardHtml += '<div class="date">'+data[i].snsBoardDate+'</div>';
+					boardHtml += '</div>';
+					boardHtml += '</div>';
+					boardHtml += '</div>';
+				}
+			} else {
+				boardHtml += '<span>일치하는 결과가 없습니다.</span>';
+			}	
+			$('#boardOutput').html(boardHtml);
+
+		    $('.image-wrap img').each(function() {
+		        var maxWidth = 345; // Max width for the image
+		        var maxHeight = 345;    // Max height for the image
+		        var ratio = 0;  // Used for aspect ratio
+		        var width = $(this).width();    // Current image width
+		        var height = $(this).height();  // Current image height
+
+		        // Check if the current width is larger than the max
+				if(width > maxWidth){
+		            ratio = maxWidth / width;   // get ratio for scaling image
+		            $(this).css("width", maxWidth); // Set new width
+		            $(this).css("height", height * ratio);  // Scale height based on ratio
+		            height = height * ratio;    // Reset height to match scaled image
+				}	
+
+		       width = $(this).width();    // Current image width
+		       height = $(this).height();  // Current image height
+
+		        // Check if current height is larger than max
+				if(height > maxHeight){
+		            ratio = maxHeight / height; // get ratio for scaling image
+		            $(this).css("height", maxHeight);   // Set new height
+		            $(this).css("width", width * ratio);    // Scale width based on ratio
+		            width = width * ratio;    // Reset width to match scaled image
+				}
+		    });
+		            
+			/* 게시글 추천수, 댓글수 보이기 및 감추기 ***************/
+			
+			$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
+			$('.photo-box').mouseenter(function(){
+				$(this).find('.likes').show();
+			});
+			$('.photo-box').mouseleave(function(){
+				$(this).find('.likes').hide();
+			});
+			
+			/*  게시물 상세보기  */
+			$('.photo-box').click(function(){
+				var index = $('.photo-box').index(this);
+				var boardNo = data[index].snsBoardNo;
+				
+				console.log('index : ',index);
+				console.log('data[',index,'].snsBoardNo : ',boardNo);
+				
+				
+				$.ajax({
+					url : './boardDetail',
+					method : 'get',
+					data :{'boardNo' : boardNo},
+					datatype : 'json',
+					success : function(data) {
+						console.log('boardDatil : ',data);
+						var snsDetailImg = '';
+						snsDetailImg += '<img alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.snsBoardImg+'">';
+						$('#snsDetailImg').html(snsDetailImg);
+						
+					},
+					error : function(){
+						alert('fail');
+					}
+				});
+				$('#snsModal').modal();
+			});
+		}
+	});
 	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
 	$('.searchCategory').change(function(){
 		
@@ -63,11 +168,10 @@ $(function(){
 				var boardHtml = '';
 				if(data.length > 0) {
 					for(var i=0; i<data.length; i++) {
-						boardHtml += '<a href="${pageContext.request.contextPath}/boardDetail?boardNo='+data[i].snsBoardNo+'">';
-						boardHtml += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4">';
-						boardHtml += '<div class="photo-box">';
+						boardHtml += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >';
+						boardHtml += '<div class="photo-box" value="'+data[i].snsBoardNo+'">';
 						boardHtml += '<div class="image-wrap">';
-						boardHtml += '<img alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
+						boardHtml += '<img style="height: 100%;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
 						boardHtml += '<div class="likes">';
 						boardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
 						boardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
@@ -80,13 +184,39 @@ $(function(){
 						boardHtml += '</div>';
 						boardHtml += '</div>';
 						boardHtml += '</div>';
-						boardHtml += '</a>';
 					}
 				} else {
 					boardHtml += '<span>일치하는 결과가 없습니다.</span>';
 				}	
 				$('#boardOutput').html(boardHtml);
-				
+
+			    $('.image-wrap img').each(function() {
+			        var maxWidth = 345; // Max width for the image
+			        var maxHeight = 345;    // Max height for the image
+			        var ratio = 0;  // Used for aspect ratio
+			        var width = $(this).width();    // Current image width
+			        var height = $(this).height();  // Current image height
+
+			        // Check if the current width is larger than the max
+					if(width > maxWidth){
+			            ratio = maxWidth / width;   // get ratio for scaling image
+			            $(this).css("width", maxWidth); // Set new width
+			            $(this).css("height", height * ratio);  // Scale height based on ratio
+			            height = height * ratio;    // Reset height to match scaled image
+					}	
+
+			       width = $(this).width();    // Current image width
+			       height = $(this).height();  // Current image height
+
+			        // Check if current height is larger than max
+					if(height > maxHeight){
+			            ratio = maxHeight / height; // get ratio for scaling image
+			            $(this).css("height", maxHeight);   // Set new height
+			            $(this).css("width", width * ratio);    // Scale width based on ratio
+			            width = width * ratio;    // Reset width to match scaled image
+					}
+			    });
+			            
 				/* 게시글 추천수, 댓글수 보이기 및 감추기 ***************/
 				
 				$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
@@ -95,6 +225,62 @@ $(function(){
 				});
 				$('.photo-box').mouseleave(function(){
 					$(this).find('.likes').hide();
+				});
+				
+				/*  게시물 상세보기  */
+				$('.photo-box').click(function(){
+					var index = $('.photo-box').index(this);
+					var boardNo = data[index].snsBoardNo;
+					
+					console.log('index : ',index);
+					console.log('data[',index,'].snsBoardNo : ',boardNo);
+					
+					
+					$.ajax({
+						url : './boardDetail',
+						method : 'get',
+						data :{'boardNo' : boardNo},
+						datatype : 'json',
+						success : function(data) {
+							console.log('boardDatil : ',data);
+							var snsDetailImg = '';
+							snsDetailImg += '<img alt="no image" style="width: 450px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.snsBoardImg+'">';
+							$('#snsDetailImg').html(snsDetailImg);
+							
+							$('#snsDetailImg img').each(function() {
+						        var maxWidth = 400; // Max width for the image
+						        var maxHeight = 400;    // Max height for the image
+						        var ratio = 0;  // Used for aspect ratio
+						        var width = $(this).width();    // Current image width
+						        var height = $(this).height();  // Current image height
+								console.log(width);
+								console.log(height);
+						        // Check if the current width is larger than the max
+								if(width > maxWidth){
+						            ratio = maxWidth / width;   // get ratio for scaling image
+						            $(this).css("width", maxWidth); // Set new width
+						            $(this).css("height", height * ratio);  // Scale height based on ratio
+						            height = height * ratio;    // Reset height to match scaled image
+								}	
+
+						       width = $(this).width();    // Current image width
+						       height = $(this).height();  // Current image height
+
+						        // Check if current height is larger than max
+								if(height > maxHeight){
+						            ratio = maxHeight / height; // get ratio for scaling image
+						            $(this).css("height", maxHeight);   // Set new height
+						            $(this).css("width", width * ratio);    // Scale width based on ratio
+						            width = width * ratio;    // Reset width to match scaled image
+								}
+						    });
+							
+						},
+						error : function(){
+							alert('fail');
+						}
+					});
+					$('#snsModal').modal();
 				});
 			}
 		});
@@ -220,39 +406,27 @@ sns 게시물 목록
                 </div>
             </div>
         </div>
-<%-- 	    <table class="table table-striped">
-	        <thead>
-	            <tr>
-	                <th>snsBoardNo</th>
-	                <th>snsBoardImg</th>
-	                <th>댓글수</th>
-	                <th>추천수</th>
-	                <th>snsBoardDate</th>
-	            </tr>
-	        </thead>
-	        <tbody>
-	            <c:forEach var="b" items="${list}">
-	                <tr>
-	                    <td>${b.snsBoardNo}</td>
-	                    <td><a href="${pageContext.request.contextPath}/boardDetail?boardNo=${b.snsBoardNo}"><img alt="no image" src="${b.snsBoardImg}"  width="200px" height="200px"></a></td>
-	                    <td>${b.snsCommentCount}</td>
-	                    <td>${b.snsLikeCount}</td>
-	                    <td>${b.snsBoardDate}</td>
-	                </tr>
-	            </c:forEach>
-	        </tbody>
-	    </table>
-	    <ul class="pager">
-	        <c:if test="${currentPage > 1}">
-	            <li class="previous"><a href="${pageContext.request.contextPath}/boardList?currentPage=${currentPage-1}">이전</a></li>
-	        </c:if>
-	        <c:if test="${currentPage < lastPage+1}">
-	            <li class="next"><a href="${pageContext.request.contextPath}/boardList?currentPage=${currentPage+1}">다음</a></li>
-	        </c:if>
-    	</ul> --%>
 	    <div>
 	        <a class="btn btn-default" href="${pageContext.request.contextPath}/boardInsert">게시글 입력</a>
 	    </div>
 	</section>
+	
+	
+<div class="modal fade" id="snsModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div id="snsDetail" class="modal-content">
+     	<div class="modal-header">
+     	head
+     	</div>
+        	
+        <div class="row">
+	        <div class="modal-body col-xs-6">
+				<div id="snsDetailImg"></div>
+	        </div>
+	        <div id="snsDetailContent" class="modal-body col-xs-6"> 내용</div>
+      </div>
+      </div>
+    </div>
+    </div>
 </body>
 </html>

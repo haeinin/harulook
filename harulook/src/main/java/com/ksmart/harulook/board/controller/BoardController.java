@@ -41,11 +41,11 @@ public class BoardController {
 		List<BoardDto> list = boardDao.boardSearchList(board);
 		model.addAttribute("list", list);
 		System.out.println("boardSearchList --> "+list);
-		return "redirect:/boardSearchList";
+		return "redirect:/oardSearchList";
 	}
 	
 	/* sns게시물 목록 검색 */
-	@RequestMapping(value="/oardSearchList", method = RequestMethod.POST)
+	@RequestMapping(value="/boardSearchList", method = RequestMethod.POST)
 	public String boardSearchList(Model model, BoardDto board, HttpServletRequest request) {
 		System.out.println("boardSearchList 요청");
 		String[] colorValue = request.getParameterValues("colorValue");
@@ -171,7 +171,7 @@ public class BoardController {
 	}
 	
 	/* sns게시물 상세 보기 */
-	@RequestMapping(value="/boardDetail", method = RequestMethod.GET)
+	@RequestMapping(value="/boardDetail", method = RequestMethod.POST)
 	public String boardDetail(Model model, HttpSession session
             , @RequestParam(value="boardNo", required=true) String boardNo) {
 		System.out.println("boardDeatil 화면 요청");
