@@ -350,6 +350,7 @@ function dfs_xy_conv(code, v1, v2) {
 
 </head>
 <body>
+
 	<div id="head">
 		<header>
 			<!-- <img src="resources/files/images/mountains.jpg" alt="Mountains">
@@ -373,24 +374,24 @@ function dfs_xy_conv(code, v1, v2) {
 		<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
 		<%-- 권한 : <c:out value='${sessionScope.level}'/><br> --%>
 		<%-- 닉네임 : <c:out value='${sessionScope.nick}'/><br> --%>
-		
-		<form id="homeForm" action="${pageContext.request.contextPath}/home" method="get">
+
+	<form id="homeForm" action="${pageContext.request.contextPath}/home" method="get">
 	 		<div>
 	 			<button class="btn btn-default" id="home" value="메인버튼">
 				<img src="./resources/harulook.png" class="img-rounded" alt="Cinque Terre" ></button>
 	 	 	</div>	
-        </form>
-		
-			<c:if test="${sessionScope.level == null}">
-				<!-- <a>	로그인이 안됬을때</a> -->
-				<!-- 로그인버튼 -->
-				<form id="login" action="${pageContext.request.contextPath}/loginForm" method="get">
-		  		<div>
-					<input class="btn btn-default" id="loginbutton" type="button" value="로그인하기"/>
-				</div>	
-			</form>
-			</c:if><br>
-			
+    </form>
+
+	<c:if test="${sessionScope.level == null}">
+		<a>	로그인이 안됬을때</a>
+		<!-- 로그인버튼 -->
+		<form id="login" action="${pageContext.request.contextPath}/loginForm" method="get">
+  		<div class="btn"> 
+			<input class="btn btn-default" id="loginbutton" type="button" value="로그인하기"/>
+		</div>	
+	</form>
+	</c:if><br>
+	
 			<c:if test="${sessionScope.level != null}">
 				<!-- 마이페이지 -->
 				<input class="btn btn-default" id="mypage" type="button" value="마이페이지"/>
@@ -515,7 +516,9 @@ function dfs_xy_conv(code, v1, v2) {
 				  </form>
 				  
 				  <!-- 내 제휴 보기 -->
-				  <form id="partnerContractListForm" action="${pageContext.request.contextPath}/partnerContractList" method="get">
+
+				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/partnerContractList" method="post">
+
 			  		<div>
 			  			<input class="btn btn-default" id="partnerContractListButton" type="button" value="내 제휴 보기"/>
 			  	 	</div>	

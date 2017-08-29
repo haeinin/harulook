@@ -49,6 +49,10 @@
 		<result property="statsEndDate" column="end" ></result>
 
 	</resultMap>
+	<resultMap type="java.util.HashMap" id="rate">
+        <result javaType="java.lang.Integer" property="total" column="total" />
+        <result javaType="java.lang.Integer" property="influx" column="influx"/>
+    </resultMap>
 
 
 	<!-- 제휴계약신청 -->
@@ -418,7 +422,17 @@
 		coo_contract
 	WHERE 
 		coo_contract_code = #{cooContractCode}
-</select>
+	</select>
+	<!-- 상품별 구매량 불러오기 -->
+	<select id="getBuyStats" parameterType="String" resultMap="rate">
+	SELECT COUNT(mall_sale_no)as total,(SELECT COUNT(mall_sale_no) FROM mall_sale WHERE coo_contract_no='coo_contract_1' AND MONTH(mall_sale_date)=8 AND mall_pro_no =#{mallProNo})as influx
+	FROM mall_sale
+	WHERE MONTH(mall_sale_date)=8 AND mall_pro_no =#{mallProNo}
+	</select>
+	<select id="getMallProNo" resultType="String">
+	SELECT mall_pro_no
+	FROM mall_pro
+	</select>
 
 
 
