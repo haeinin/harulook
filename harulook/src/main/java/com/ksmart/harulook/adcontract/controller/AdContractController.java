@@ -17,12 +17,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ksmart.harulook.adcontract.service.AdContractDao;
 import com.ksmart.harulook.adcontract.service.AdContractDto;
+import com.ksmart.harulook.adrefund.service.AdRefundDao;
+import com.ksmart.harulook.adrefund.service.AdRefundDto;
 
 
 @Controller
 public class AdContractController {
 	@Autowired
 	private AdContractDao adcontractdao;
+	
+	@Autowired
+	private AdRefundDao adrefunddao;
+	
+	
 	@RequestMapping(value="/adContractInsertForm",method = RequestMethod.GET)
 	public String adContractInsertForm() {
 		System.out.println("광고 계약 입력 폼 요청");
@@ -86,6 +93,7 @@ public class AdContractController {
 		/*세션을 아직 쓰지 못하므로 임시로 문자열 입력*/
 		adcontract.setUserId("id001");
 		adcontract.setAdContractNo("ad_contract_"+initContractNo);
+		/*날씨 더하는 코드 시작*/
 		SimpleDateFormat dateformat = new SimpleDateFormat ("yy-mm-dd");
 		System.out.println(adcontract.getAdContractStart());
 		Date startdate = dateformat.parse(adcontract.getAdContractStart());
@@ -124,26 +132,30 @@ public class AdContractController {
 	}
 	@RequestMapping(value="/deleteContract",method = RequestMethod.GET)
 	@ResponseBody
-	public String modifyContractStat(@RequestParam("adConTractNo") String adcontractno
-									,HttpSession session) {
+	public String modifyContractStat(@RequestParam("adContractNo") String adcontractno
+									,@RequestParam("adConTractPrice") int adcontractprice) {
+		
 		System.out.println("adContractNo : " + adcontractno );
 		adcontractdao.modifyContractStat(adcontractno);
 		System.out.println("수정 완료");
-		
+		AdRefundDto adrefund = new AdRefundDto();
+		adrefund.setRefundStat(adcontractno);
+		adrefund.setRefundPrice(adcontractprice);
+		adrefunddao.insertRefund(adrefund);
 		return "ad/contract/ad_contract_list";
 	}
 	@RequestMapping(value="/approveContract",method = RequestMethod.GET)
-	public String approveContract(@RequestParam("adConTractNo") String adcontractno) {
+	public String approveContract(@RequestParam("adContractNo") String adcontractno) {
 		System.out.println("adContractNo : " + adcontractno);
 		adcontractdao.approveContractStat(adcontractno);
 		System.out.println("광고 승인 완료");
 		return "ad/contract/ad_contract_list";	
 	} 
 	@RequestMapping(value="/approveCancel",method = RequestMethod.GET)
-	public String approveCancel(@RequestParam("adConTractNo") String adcontractno) {
+	public String approveCancel(@RequestParam("adContractNo") String adcontractno) {
 		System.out.println("adContractNo : " + adcontractno);
 		adcontractdao.approveCancel(adcontractno);
-		System.out.println("계약 승인 완료");
+		System.out.println("계약 취소 승인 완료");
 		return "ad/contract/ad_contract_list";	
 	} 
 

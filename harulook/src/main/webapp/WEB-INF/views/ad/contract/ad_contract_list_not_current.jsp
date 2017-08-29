@@ -38,12 +38,12 @@
                     <td><a>광고 계약 수정</a>
                     <td>
                     <c:if test="${sessionScope.SA=='관리자'}">
-                    	 <c:if test="${b.adContractStat=='승인대기'}"><a href="./approveContract?adConTractNo=${b.adContractNo}">계약 승인</a></c:if>
-                    	 <c:if test="${b.adContractStat=='취소요청'}"><a href="./approveCancel?adConTractNo=${b.adContractNo}">취소 승인</a></c:if>
+                    	 <c:if test="${b.adContractStat=='승인대기'}"><a class="btn btn-info" href="./approveContract?adContractNo=${b.adContractNo}">계약 승인</a></c:if>
+                    	 <c:if test="${b.adContractStat=='취소요청'}"><a class="btn btn-info" href="./approveCancel?adContractNo=${b.adContractNo}">취소 승인</a></c:if>
                     </c:if>
                      <c:if test="${sessionScope.SA=='광고주'}">
-                    	<c:if test="${b.adContractStat=='승인대기'}"><a href="./deleteContract?adConTractNo=${b.adContractNo}&adConTractPrice=${b.adContractPrice}">계약 취소</a></c:if>
-                    	<c:if test="${b.adContractStat=='광고등록대기'}"><a href="#">광고&nbsp;등록</a></c:if>
+                    	<c:if test="${b.adContractStat=='승인대기'}"><a class="btn btn-info" href="./deleteContract?adContractNo=${b.adContractNo}&adConTractPrice=${b.adContractPrice}">계약 취소</a></c:if>
+                    	<c:if test="${b.adContractStat=='광고등록대기'}"><a class="btn btn-info" href="./insertAdBoard?adContractNo=${b.adContractNo}">광고&nbsp;등록</a></c:if>
                     </c:if>
                     </td>
                     
