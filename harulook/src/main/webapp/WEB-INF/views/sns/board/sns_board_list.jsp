@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
@@ -17,7 +18,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- 모달을 쓰기위한 부트스트랩 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 댓글 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- sns스타일 탬플릿 css-->
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+<!-- 예뻐요 아이콘 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Insert title here</title>
 <script type="text/javascript">
@@ -25,10 +30,10 @@ $(function(){
 	/* 게시글 추천수, 댓글수 보이기 및 감추기 ***************/
 	
 	$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
-	$('.photo-box').mouseenter(function(){
+	$('.sns-photo-box').mouseenter(function(){
 		$(this).find('.likes').show();
 	});
-	$('.photo-box').mouseleave(function(){
+	$('.sns-photo-box').mouseleave(function(){
 		$(this).find('.likes').hide();
 	});
 	
@@ -60,8 +65,8 @@ $(function(){
     });
 	
 	/*  게시물 상세보기  */
-	$('.photo-box').click(function(){
-		var index = $('.photo-box').index(this);
+	$('.sns-photo-box').click(function(){
+		var index = $('.sns-photo-box').index(this);
 		var boardNo = $(this).children().eq(0).val();
 		
 		console.log('index : ',index);
@@ -262,7 +267,7 @@ $(function(){
 				if(data.length > 0) {
 					for(var i=0; i<data.length; i++) {
 						boardHtml += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >';
-						boardHtml += '<div class="photo-box" value="'+data[i].snsBoardNo+'">';
+						boardHtml += '<div class="sns-photo-box" value="'+data[i].snsBoardNo+'">';
 						boardHtml += '<div class="image-wrap">';
 						boardHtml += '<img style="height: 100%;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
 						boardHtml += '<div class="likes">';
@@ -283,7 +288,17 @@ $(function(){
 				}	
 				$('#boardOutput').html(boardHtml);
 
-			    $('.image-wrap img').each(function() {
+				/* 게시글 추천수, 댓글수 보이기 및 감추기 ***************/
+				
+				$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
+				$('.sns-photo-box').mouseenter(function(){
+					$(this).find('.likes').show();
+				});
+				$('.sns-photo-box').mouseleave(function(){
+					$(this).find('.likes').hide();
+				});
+				
+				$('.image-wrap img').each(function() {
 			        var maxWidth = 345; // Max width for the image
 			        var maxHeight = 345;    // Max height for the image
 			        var ratio = 0;  // Used for aspect ratio
@@ -309,20 +324,10 @@ $(function(){
 			            width = width * ratio;    // Reset width to match scaled image
 					}
 			    });
-			            
-				/* 게시글 추천수, 댓글수 보이기 및 감추기 ***************/
-				
-				$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
-				$('.photo-box').mouseenter(function(){
-					$(this).find('.likes').show();
-				});
-				$('.photo-box').mouseleave(function(){
-					$(this).find('.likes').hide();
-				});
 				
 				/*  게시물 상세보기  */
-				$('.photo-box').click(function(){
-					var index = $('.photo-box').index(this);
+				$('.sns-photo-box').click(function(){
+					var index = $('.sns-photo-box').index(this);
 					var boardNo = data[index].snsBoardNo;
 					
 					console.log('index : ',index);
@@ -342,20 +347,128 @@ $(function(){
 							
 							var snsDetailContent = '';
 							snsDetailContent += '<div style="float: left;">';
-							snsDetailContent += '<h4>'+data.board.userNick+'(<a atction="#">'+data.board.userId+'</a>)</h4>';
+							snsDetailContent += '<h4>'+data.board.userNick+'(<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+data.board.userId+'">'+data.board.userId+'</a>)</h4>';
 							snsDetailContent += '</div>';
 							snsDetailContent += '<button>팔로우</button>';
 							snsDetailContent += '<hr></hr>';
 							snsDetailContent += '<div>';
 							snsDetailContent += '<span>'+data.board.snsBoardContent+'</span><br>';
 							for(var i=0; i<data.snsStyle.length; i++) {
-								snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&styleValue='+data.snsStyle[i]+'">#'+data.snsStyle[i]+'</a>&nbsp';
+								var snsStyleValue = '';
+								switch(data.snsStyle[i]) {
+								case '클래식' :
+									snsStyleValue = 'style_01';
+									break;
+								case '캐쥬얼' :
+									snsStyleValue = 'style_02';
+									break;
+								case '빈티지' :
+									snsStyleValue = 'style_03';
+									break;
+								case '스트리트' :
+									snsStyleValue = 'style_04';
+									break;
+								case '댄디' :
+									snsStyleValue = 'style_05';
+									break;
+								case '럭셔리' :
+									snsStyleValue = 'style_06';
+									break;
+								case '러블리' :
+									snsStyleValue = 'style_07';
+									break;
+								case '로맨틱' :
+									snsStyleValue = 'style_08';
+									break;
+								case '심플' :
+									snsStyleValue = 'style_09';
+									break;
+								case '액티브' :
+									snsStyleValue = 'style_10';
+									break;
+								default :
+									snsStyleValue = '';
+								break;
+								}
+								snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&styleValue='+snsStyleValue+'">#'+data.snsStyle[i]+'</a>&nbsp';
 							}
 							for(var i=0; i<data.snsColor.length; i++) {
-								snsDetailContent += '<a>#'+data.snsColor[i]+'</a>&nbsp';
+								var snsColorValue = '';
+								switch(data.snsColor[i]) {
+								case '빨강' :
+									snsColorValue = 'color_01';
+									break;
+								case '주황' :
+									snsColorValue = 'color_02';
+									break;
+								case '노랑' :
+									snsColorValue = 'color_03';
+									break;
+								case '초록' :
+									snsColorValue = 'color_04';
+									break;
+								case '파랑' :
+									snsColorValue = 'color_05';
+									break;
+								case '남색' :
+									snsColorValue = 'color_06';
+									break;
+								case '보라' :
+									snsColorValue = 'color_07';
+									break;
+								case '검정' :
+									snsColorValue = 'color_08';
+									break;
+								case '회색' :
+									snsColorValue = 'color_09';
+									break;
+								case '흰색' :
+									snsColorValue = 'color_10';
+									break;
+								case '갈색' :
+									snsColorValue = 'color_11';
+									break;
+								case '베이지' :
+									snsColorValue = 'color_12';
+									break;
+								case '분홍' :
+									snsColorValue = 'color_13';
+									break;
+								default :
+									snsColorValue = '';
+								break;
+								}
+								snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&colorValue='+snsColorValue+'">#'+data.snsColor[i]+'</a>&nbsp';
 							}
 							for(var i=0; i<data.snsSituation.length; i++) {
-								snsDetailContent += '<a>#'+data.snsSituation[i]+'</a>&nbsp';
+								var snsSituationValue = '';
+								switch(data.snsSituation[i]) {
+								case '학교' :
+									snsSituationValue = 'situation_01';
+									break;
+								case '출근' :
+									snsSituationValue = 'situation_02';
+									break;
+								case '파티' :
+									snsSituationValue = 'situation_03';
+									break;
+								case '여행' :
+									snsSituationValue = 'situation_04';
+									break;
+								case '운동' :
+									snsSituationValue = 'situation_05';
+									break;
+								case '나들이' :
+									snsSituationValue = 'situation_06';
+									break;
+								case '하객' :
+									snsSituationValue = 'situation_07';
+									break;
+								default :
+									snsSituationValue = '';
+								break;
+								}
+								snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&situationValue='+snsSituationValue+'">#'+data.snsSituation[i]+'</a>&nbsp';
 							}
 							snsDetailContent += '</div>';
 							snsDetailContent += '<hr></hr>';
@@ -379,12 +492,11 @@ $(function(){
 </script>
 </head>
 <body>
-<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
     <section class="instagram-wrap">
-sns 게시물 목록
-	<div>현재 페이지 : ${currentPage}</div>
 		<div class="container">
-			<div class="searchGroup">
+			<a href="#demo" class="btn btn-default" data-toggle="collapse">게시물 검색</a>
+			<div id="demo" class="collapse">
+			  <div class="searchGroup">
 			    <label for="snsBoardWeather">날씨 :</label>
 			    <select class="searchCategory" name="snsBoardWeather" id="snsBoardWeather">
 			    	<option></option>
@@ -485,16 +597,20 @@ sns 게시물 목록
 			    	<input type="text" id="userId" name="userId">
 			    	<button type="button" id="searchBtn">검색</button>
 			    </div>
+			</div>
+		</div>
+		<div class="container">
+			
        
             <div class="row">
                 <div class="col-xs-12">
                     <div class="instagram-content">
-                        <h3>Latest Photos</h3>
+                        <h3>최근 게시물</h3>
                         <!-- The following HTML will be our template inside instafeed -->
 						<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
 							<c:forEach items="${list}" var="b">
 							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >
-								<div class="photo-box">
+								<div class="sns-photo-box">
 									<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
 									<div class="image-wrap">
 										<img style="height: 100%;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">

@@ -89,13 +89,14 @@
                                 </div>
                             </div>
                         </div>
-
+					
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <c:import url="/boardList"></c:import>
     <footer>
         <div class="container">
             <div class="row">
