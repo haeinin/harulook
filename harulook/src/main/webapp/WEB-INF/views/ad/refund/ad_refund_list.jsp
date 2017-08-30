@@ -29,8 +29,8 @@
                 <th>계약번호</th>
                 <th>환불금액</th>
                 <th>환불신청일자</th>
-                <th>환불상태</th>
-                <th>환불일자</th>
+                <th>환불상태 </th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -40,11 +40,14 @@
                     <td>${b.refundPrice}</td>
                     <td>${b.refundRequestDate}</td>
                     <td>${b.refundStat}</td>
+                    <td><button>환불정보입력</button></td>
                 </tr>
                 </c:forEach>
         </tbody>
     </table>
 	</div>
+	
+	
 	
 </body>
 </html>

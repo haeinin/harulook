@@ -23,8 +23,8 @@ public class Scheduler {
 	@Autowired
 	private AdContractDao adcontractdao;
 	
-	/*매일 0시 1분에 광고 상태 갱신*/
-	@Scheduled(cron="0 56 15 * * *")
+	/*매일 0시 0분 5초에 광고 상태 갱신*/
+	@Scheduled(cron="5 0 0 * * *")
 	public void ContractScheduler() {
 		try{
 			List<AdContractDto> adContractEndList = adcontractdao.getUpdateEndContract();
