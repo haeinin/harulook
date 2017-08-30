@@ -25,5 +25,9 @@ public class AdRefundDao {
 		System.out.println("환불 목록 요청");
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.adrefund.service.AdRefundMapper.selectRefundList");
 	}
+	public List<AdRefundDto> getRefundList(String SID){
+		System.out.println("환불 목록 요청 SID : " + SID);
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adrefund.service.AdRefundMapper.selectRefundListAdUser" , SID);
+	}
 
 }

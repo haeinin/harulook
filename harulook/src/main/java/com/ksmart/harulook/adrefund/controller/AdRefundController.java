@@ -2,6 +2,8 @@ package com.ksmart.harulook.adrefund.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.ksmart.harulook.adrefund.service.AdRefundDao;
 import com.ksmart.harulook.adrefund.service.AdRefundDto;
@@ -37,9 +40,17 @@ public class AdRefundController {
 	}
 	
 	@RequestMapping(value="/selectRefund", method = RequestMethod.GET)
-	public String getRefundList(Model model){
-		List<AdRefundDto> adrefundlist = adrefunddao.getRefundList();
+	public String getRefundList(Model model, HttpSession session){
+		String SLEVEL = (String)session.getAttribute("level");
+		String SID = (String)session.getAttribute("id");
+		List<AdRefundDto> adrefundlist = null;
+		if(SLEVEL.equals("관리자")){
+			adrefundlist = adrefunddao.getRefundList();
+		}else if(SLEVEL.equals("사업자")){
+			adrefundlist = adrefunddao.getRefundList(SID);
+		}
 		model.addAttribute("adrefundlist", adrefundlist);
+		System.out.println(adrefundlist);
 		return "ad/refund/ad_refund_list";
 	}
 }
