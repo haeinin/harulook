@@ -6827,11 +6827,17 @@ header .social a.instagram {
 }
 .instagram-content .photo-box {
   margin: 0 0 30px 0;
+  width: 345px;
 }
-.instagram-content .photo-box .image-wrap img {
-  width: 100%;
+
+.instagram-content .photo-box .image-wrap {
+  width: 345px;
   height: 345px;
+  display: table-cell;
+  vertical-align: middle;
+  background-color: white;
 }
+
 .instagram-content .photo-box .image-wrap .likes {
       position: absolute;
     bottom: 0;
@@ -6856,7 +6862,48 @@ header .social a.instagram {
   color: #9b9b9b;
   letter-spacing: 1px;
   padding: 15px;
-  height: 75px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.instagram-content .sns-photo-box {
+  margin: 0 0 30px 0;
+  width: 345px;
+}
+
+.instagram-content .sns-photo-box .image-wrap {
+  width: 345px;
+  height: 345px;
+  display: table-cell;
+  vertical-align: middle;
+  background-color: white;
+}
+
+.instagram-content .sns-photo-box .image-wrap .likes {
+      position: absolute;
+    bottom: 0;
+    padding: 5px;
+    background: black;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.instagram-content .sns-photo-box .image-wrap .likes .center {
+	vertical-align: text-bottom;
+    position: relative;
+    top: 50%;
+}
+.instagram-content .sns-photo-box .description {
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+  background: white;
+  color: #9b9b9b;
+  letter-spacing: 1px;
+  padding: 15px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

@@ -369,7 +369,7 @@ function dfs_xy_conv(code, v1, v2) {
 				<div id="rain"></div>
 			</div> 
 		</div>
-		<h2 id="tempur"></h2>
+		<h2 style="margin-left: 20px;" id="tempur"></h2>
 		<!-- 세션에 있는 아이디 권한 받기 -->
 		<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
 		<%-- 권한 : <c:out value='${sessionScope.level}'/><br> --%>
@@ -383,7 +383,6 @@ function dfs_xy_conv(code, v1, v2) {
     </form>
 
 	<c:if test="${sessionScope.level == null}">
-		<a>	로그인이 안됬을때</a>
 		<!-- 로그인버튼 -->
 		<form id="login" action="${pageContext.request.contextPath}/loginForm" method="get">
   		<div class="btn"> 
@@ -561,12 +560,7 @@ function dfs_xy_conv(code, v1, v2) {
 				  </form>
 				
 					<!-- 내 게시물 보기 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myBoardList" method="post">
-			  		<div>
-			  			<input type="hidden" name="userId" value="${sessionScope.id}">
-			  			<input class="btn btn-default" id="myModified" type="submit" value="내 게시물 보기"/>
-			  	 	</div>	
-				  </form>
+				  <a class="btn btn-default" id="myModifiedFrom" href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId=${sessionScope.id}">내 게시물 보기</a>
 				  
 					<!-- 내 친구 보기 -->
 				  <form id="followList" action="${pageContext.request.contextPath}/followList" method="get">

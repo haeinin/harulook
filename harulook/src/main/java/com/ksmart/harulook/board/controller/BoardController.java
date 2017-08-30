@@ -36,25 +36,25 @@ public class BoardController {
 	/* sns게시물 목록 검색 */
 	@RequestMapping(value="/myBoardList", method = RequestMethod.POST)
 	public String myBoardList(Model model, BoardDto board) {
-		System.out.println("boardSearchList 요청");
-		System.out.println("boardSearchList --> "+board);
+		System.out.println("bboardTagSearch 요청");
+		System.out.println("bboardTagSearch --> "+board);
 		List<BoardDto> list = boardDao.boardSearchList(board);
 		model.addAttribute("list", list);
-		System.out.println("boardSearchList --> "+list);
-		return "redirect:/boardSearchList";
+		System.out.println("bboardTagSearch --> "+list);
+		return "redirect:/boardTagSearch";
 	}
 	
 	/* sns게시물 목록 검색 */
-	@RequestMapping(value="/oardSearchList", method = RequestMethod.POST)
-	public String boardSearchList(Model model, BoardDto board, HttpServletRequest request) {
-		System.out.println("boardSearchList 요청");
+	@RequestMapping(value="/boardTagSearch", method = RequestMethod.GET)
+	public String bboardTagSearch(Model model, BoardDto board, HttpServletRequest request) {
+		System.out.println("boardTagSearch 요청");
 		String[] colorValue = request.getParameterValues("colorValue");
 		String[] styleValue = request.getParameterValues("styleValue");
 		String[] situationValue = request.getParameterValues("situationValue");
 		board.setColorValue(colorValue);
 		board.setStyleValue(styleValue);
 		board.setSituationValue(situationValue);
-		System.out.println("boardSearchList --> "+board);
+		System.out.println("boardTagSearch --> "+board);
 		
 		if(board.getSnsBoardAge().equals("")) {
 			board.setSnsBoardAge(null);
@@ -71,11 +71,11 @@ public class BoardController {
 		if(board.getSnsBoardWeather().equals("")) {
 			board.setSnsBoardWeather(null);
 		}
-		System.out.println("boardSearchList --> "+board);
+		System.out.println("boardTagSearch --> "+board);
 		List<BoardDto> list = boardDao.boardSearchList(board);
 		model.addAttribute("list", list);
-		System.out.println("boardSearchList --> "+list);
-		return "sns/board/sns_board_list";
+		System.out.println("boardTagSearch --> "+list);
+		return "sns/board/sns_board_list2";
 	}
 	
 	/* sns게시물 삭제 처리 요청 */
@@ -171,7 +171,7 @@ public class BoardController {
 	}
 	
 	/* sns게시물 상세 보기 */
-	@RequestMapping(value="/boardDetail", method = RequestMethod.GET)
+	@RequestMapping(value="/boardDetail", method = RequestMethod.POST)
 	public String boardDetail(Model model, HttpSession session
             , @RequestParam(value="boardNo", required=true) String boardNo) {
 		System.out.println("boardDeatil 화면 요청");
@@ -209,13 +209,14 @@ public class BoardController {
             , @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		System.out.println("boardList 폼 요청");
 		int boardCount = boardDao.getBoardCount();
-        int pagePerRow = 10;
+        int pagePerRow = 9;
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
 		List<BoardDto> list = boardDao.boardList(currentPage, pagePerRow);
 		model.addAttribute("currentPage", currentPage);
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("lastPage", lastPage);
         model.addAttribute("list", list);
+        System.out.println("boardList : "+list);
 		return "sns/board/sns_board_list";
 	}
 	

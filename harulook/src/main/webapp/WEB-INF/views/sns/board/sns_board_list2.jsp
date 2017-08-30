@@ -489,6 +489,7 @@ $(function(){
 </script>
 </head>
 <body>
+<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
 		<div class="container">
 			<a href="#demo" class="btn btn-default" data-toggle="collapse">게시물 검색</a>
 			<div id="demo" class="collapse">
