@@ -83,12 +83,18 @@
 	
 	</select>
 	
-	<insert id="test" parameterType="String">
-	INSERT INTO hof
-	(hof_month, hof_rank, sns_board_no, hof_date)
-	VALUES (1, 1, '1', date(NOW()))
-	
+	<!-- 명예의전당 포인트 입력 -->
+	<insert id="insertHofPoint" parameterType="com.ksmart.harulook.hof.service.HofDto">
+	INSERT INTO point
+	(user_id, point_date, point_policy_no)
+	VALUES (
+	(SELECT user_id
+	FROM sns_board
+	WHERE sns_board_no=#{boardNo})
+	, DATE(NOW())
+	, #{pointPolicyNo})
 	</insert>
+	
 	
 	
 	
