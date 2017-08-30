@@ -32,10 +32,37 @@ $(function(){
 		$(this).find('.likes').hide();
 	});
 	
+	$('.image-wrap img').each(function() {
+        var maxWidth = 345; // Max width for the image
+        var maxHeight = 345;    // Max height for the image
+        var ratio = 0;  // Used for aspect ratio
+        var width = $(this).width();    // Current image width
+        var height = $(this).height();  // Current image height
+
+        // Check if the current width is larger than the max
+		if(width > maxWidth){
+            ratio = maxWidth / width;   // get ratio for scaling image
+            $(this).css("width", maxWidth); // Set new width
+            $(this).css("height", height * ratio);  // Scale height based on ratio
+            height = height * ratio;    // Reset height to match scaled image
+		}	
+
+       width = $(this).width();    // Current image width
+       height = $(this).height();  // Current image height
+
+        // Check if current height is larger than max
+		if(height > maxHeight){
+            ratio = maxHeight / height; // get ratio for scaling image
+            $(this).css("height", maxHeight);   // Set new height
+            $(this).css("width", width * ratio);    // Scale width based on ratio
+            width = width * ratio;    // Reset width to match scaled image
+		}
+    });
+	
 	/*  게시물 상세보기  */
 	$('.photo-box').click(function(){
 		var index = $('.photo-box').index(this);
-		var boardNo = data[index].snsBoardNo;
+		var boardNo = $(this).children().eq(0).val();
 		
 		console.log('index : ',index);
 		console.log('data[',index,'].snsBoardNo : ',boardNo);
@@ -54,20 +81,128 @@ $(function(){
 				
 				var snsDetailContent = '';
 				snsDetailContent += '<div style="float: left;">';
-				snsDetailContent += '<h4>'+data.board.userNick+'(<a atction="#">'+data.board.userId+'</a>)</h4>';
+				snsDetailContent += '<h4>'+data.board.userNick+'(<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+data.board.userId+'">'+data.board.userId+'</a>)</h4>';
 				snsDetailContent += '</div>';
 				snsDetailContent += '<button>팔로우</button>';
 				snsDetailContent += '<hr></hr>';
 				snsDetailContent += '<div>';
 				snsDetailContent += '<span>'+data.board.snsBoardContent+'</span><br>';
 				for(var i=0; i<data.snsStyle.length; i++) {
-					snsDetailContent += '<a href="./oardSearchList?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&styleValue='+data.snsStyle[i]+'">#'+data.snsStyle[i]+'</a>&nbsp';
+					var snsStyleValue = '';
+					switch(data.snsStyle[i]) {
+					case '클래식' :
+						snsStyleValue = 'style_01';
+						break;
+					case '캐쥬얼' :
+						snsStyleValue = 'style_02';
+						break;
+					case '빈티지' :
+						snsStyleValue = 'style_03';
+						break;
+					case '스트리트' :
+						snsStyleValue = 'style_04';
+						break;
+					case '댄디' :
+						snsStyleValue = 'style_05';
+						break;
+					case '럭셔리' :
+						snsStyleValue = 'style_06';
+						break;
+					case '러블리' :
+						snsStyleValue = 'style_07';
+						break;
+					case '로맨틱' :
+						snsStyleValue = 'style_08';
+						break;
+					case '심플' :
+						snsStyleValue = 'style_09';
+						break;
+					case '액티브' :
+						snsStyleValue = 'style_10';
+						break;
+					default :
+						snsStyleValue = '';
+					break;
+					}
+					snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&styleValue='+snsStyleValue+'">#'+data.snsStyle[i]+'</a>&nbsp';
 				}
 				for(var i=0; i<data.snsColor.length; i++) {
-					snsDetailContent += '<a>#'+data.snsColor[i]+'</a>&nbsp';
+					var snsColorValue = '';
+					switch(data.snsColor[i]) {
+					case '빨강' :
+						snsColorValue = 'color_01';
+						break;
+					case '주황' :
+						snsColorValue = 'color_02';
+						break;
+					case '노랑' :
+						snsColorValue = 'color_03';
+						break;
+					case '초록' :
+						snsColorValue = 'color_04';
+						break;
+					case '파랑' :
+						snsColorValue = 'color_05';
+						break;
+					case '남색' :
+						snsColorValue = 'color_06';
+						break;
+					case '보라' :
+						snsColorValue = 'color_07';
+						break;
+					case '검정' :
+						snsColorValue = 'color_08';
+						break;
+					case '회색' :
+						snsColorValue = 'color_09';
+						break;
+					case '흰색' :
+						snsColorValue = 'color_10';
+						break;
+					case '갈색' :
+						snsColorValue = 'color_11';
+						break;
+					case '베이지' :
+						snsColorValue = 'color_12';
+						break;
+					case '분홍' :
+						snsColorValue = 'color_13';
+						break;
+					default :
+						snsColorValue = '';
+					break;
+					}
+					snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&colorValue='+snsColorValue+'">#'+data.snsColor[i]+'</a>&nbsp';
 				}
 				for(var i=0; i<data.snsSituation.length; i++) {
-					snsDetailContent += '<a>#'+data.snsSituation[i]+'</a>&nbsp';
+					var snsSituationValue = '';
+					switch(data.snsSituation[i]) {
+					case '학교' :
+						snsSituationValue = 'situation_01';
+						break;
+					case '출근' :
+						snsSituationValue = 'situation_02';
+						break;
+					case '파티' :
+						snsSituationValue = 'situation_03';
+						break;
+					case '여행' :
+						snsSituationValue = 'situation_04';
+						break;
+					case '운동' :
+						snsSituationValue = 'situation_05';
+						break;
+					case '나들이' :
+						snsSituationValue = 'situation_06';
+						break;
+					case '하객' :
+						snsSituationValue = 'situation_07';
+						break;
+					default :
+						snsSituationValue = '';
+					break;
+					}
+					snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&situationValue='+snsSituationValue+'">#'+data.snsSituation[i]+'</a>&nbsp';
 				}
 				snsDetailContent += '</div>';
 				snsDetailContent += '<hr></hr>';
@@ -206,37 +341,30 @@ $(function(){
 							$('#snsDetailImg').html(snsDetailImg);
 							
 							var snsDetailContent = '';
-							snsDetailContent += '<h2>'+data.board.userNick+'('+data.board.userId+')</h2>';
+							snsDetailContent += '<div style="float: left;">';
+							snsDetailContent += '<h4>'+data.board.userNick+'(<a atction="#">'+data.board.userId+'</a>)</h4>';
+							snsDetailContent += '</div>';
+							snsDetailContent += '<button>팔로우</button>';
 							snsDetailContent += '<hr></hr>';
+							snsDetailContent += '<div>';
+							snsDetailContent += '<span>'+data.board.snsBoardContent+'</span><br>';
+							for(var i=0; i<data.snsStyle.length; i++) {
+								snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&styleValue='+data.snsStyle[i]+'">#'+data.snsStyle[i]+'</a>&nbsp';
+							}
+							for(var i=0; i<data.snsColor.length; i++) {
+								snsDetailContent += '<a>#'+data.snsColor[i]+'</a>&nbsp';
+							}
+							for(var i=0; i<data.snsSituation.length; i++) {
+								snsDetailContent += '<a>#'+data.snsSituation[i]+'</a>&nbsp';
+							}
+							snsDetailContent += '</div>';
+							snsDetailContent += '<hr></hr>';
+							snsDetailContent += '<div>';
+							for(var i=0; i<data.commentList.length; i++) {
+								snsDetailContent += '<span>'+data.commentList[i].userId+': '+data.commentList[i].snsCommentContent+'</span><br>';
+							}
+							snsDetailContent += '</div>';
 							$('#snsDetailContent').html(snsDetailContent);
-							
-							$('#snsDetailImg img').each(function() {
-						        var maxWidth = 400; // Max width for the image
-						        var maxHeight = 400;    // Max height for the image
-						        var ratio = 0;  // Used for aspect ratio
-						        var width = $(this).width();    // Current image width
-						        var height = $(this).height();  // Current image height
-								console.log(width);
-								console.log(height);
-						        // Check if the current width is larger than the max
-								if(width > maxWidth){
-						            ratio = maxWidth / width;   // get ratio for scaling image
-						            $(this).css("width", maxWidth); // Set new width
-						            $(this).css("height", height * ratio);  // Scale height based on ratio
-						            height = height * ratio;    // Reset height to match scaled image
-								}	
-
-						       width = $(this).width();    // Current image width
-						       height = $(this).height();  // Current image height
-
-						        // Check if current height is larger than max
-								if(height > maxHeight){
-						            ratio = maxHeight / height; // get ratio for scaling image
-						            $(this).css("height", maxHeight);   // Set new height
-						            $(this).css("width", width * ratio);    // Scale width based on ratio
-						            width = width * ratio;    // Reset width to match scaled image
-								}
-						    });
 						},
 						error : function(){
 							alert('fail');
@@ -363,7 +491,24 @@ sns 게시물 목록
                     <div class="instagram-content">
                         <h3>Latest Photos</h3>
                         <!-- The following HTML will be our template inside instafeed -->
-						<div id="boardOutput" class="row photos-wrap"  style="text-align: center;"></div>
+						<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
+							<c:forEach items="${list}" var="b">
+							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >
+								<div class="photo-box">
+									<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
+									<div class="image-wrap">
+										<img style="height: 100%;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
+										<div class="likes">
+											<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>
+											<span class="center">&nbsp;${b.snsLikeCount}&nbsp;&nbsp;&nbsp;</span>
+											<i class="fa fa-commenting center" style="font-size:24px"></i>
+											<span class="center">&nbsp;${b.snsCommentCount}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							</c:forEach>
+						</div>
                     </div>
                 </div>
             </div>
@@ -381,21 +526,7 @@ sns 게시물 목록
         <div class="row">
 	        <div class="modal-body col-xs-8" style="padding-bottom: 0; padding-top: 0;">
 				<div id="snsDetailImg">
-					<c:forEach items="list" var="list">
-					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >
-						<div class="photo-box">
-							<div class="image-wrap">
-								<img style="height: 100%;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="${list.snsBoardImg}">
-								<div class="likes">
-									<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>
-									<span class="center">&nbsp;${list.snsLikeCount}&nbsp;&nbsp;&nbsp;</span>
-									<i class="fa fa-commenting center" style="font-size:24px"></i>
-									<span class="center">&nbsp;${list.snsCommentCount}</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					</c:forEach>
+					
 				</div>
 	        </div>
 	        <div id="snsDetailContent" class="modal-body col-xs-4">

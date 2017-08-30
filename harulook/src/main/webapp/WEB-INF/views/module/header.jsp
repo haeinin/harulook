@@ -474,12 +474,7 @@ function dfs_xy_conv(code, v1, v2) {
 				  </form>
 				
 					<!-- 내 게시물 보기 -->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myBoardList" method="post">
-			  		<div>
-			  			<input type="hidden" name="userId" value="${sessionScope.id}">
-			  			<input class="btn btn-default" id="myModified" type="submit" value="내 게시물 보기"/>
-			  	 	</div>	
-				  </form>
+				  <a class="btn btn-default" id="myModifiedFrom" href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId=${sessionScope.id}">내 게시물 보기</a>
 				  
 					<!-- 내 친구 보기 -->
 				  <form id="followList" action="${pageContext.request.contextPath}/followList" method="get">
