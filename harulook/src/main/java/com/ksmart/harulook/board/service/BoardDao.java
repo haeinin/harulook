@@ -14,6 +14,13 @@ public class BoardDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	/* 포인트등록 게시물 검색  */
+	public int boardPointCheck(String userId) {
+		Map<String, String> map = new HashMap<String, String>();
+        map.put("userId", userId);
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.board.service.BoardMapper.boardPointCheck", map);
+	}
+	
 	/* sns게시물 상황별 분류 조회 */
 	public List<String> boardSituationSelect(String snsBoardNo) {
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.board.service.BoardMapper.boardSituationSelect", snsBoardNo);

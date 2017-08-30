@@ -383,7 +383,6 @@ function dfs_xy_conv(code, v1, v2) {
     </form>
 
 	<c:if test="${sessionScope.level == null}">
-		<a>	로그인이 안됬을때</a>
 		<!-- 로그인버튼 -->
 		<form id="login" action="${pageContext.request.contextPath}/loginForm" method="get">
   		<div class="btn"> 

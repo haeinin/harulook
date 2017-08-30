@@ -42,8 +42,8 @@
 		$('#businessUpdateButton').hide();
 		$('#userUpdateButton').hide();
 		
-		$('#login').click(function(){	//로그인 버튼
-			$('#loginAdd').submit();	
+		$('#loginButton').click(function(){	//로그인 버튼
+			$('#loginAddR').submit();	
 		});
 		
 		$('#loginUser').click(function(){	//일반회원 로그인
@@ -185,7 +185,7 @@
 	       
 		    <h1>로그인 기본 폼</h1>
 		    <!-- 로그인 -->
-		    <form id=loginAdd action="${pageContext.request.contextPath}/loginAdd" method="post">
+		    <form id=loginAddR action="${pageContext.request.contextPath}/loginAdd" method="post">
 		    
 	       		<!-- 아이디 -->
 	           	<label for="user_id">아이디 :</label>
@@ -196,7 +196,7 @@
 	            <input name="userPw" id="user_pw" type="password"/> <span>${loginCheck}</span><br>
 	            <!-- 로그인버튼 -->
 		        <div>
-		       		<input class="btn btn-default" id="login" type="button" value="로그인"/>
+		       		<input class="btn btn-default" id="loginButton" type="button" value="로그인"/>
 		        </div>
 		     </form>
 		    

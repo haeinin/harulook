@@ -27,6 +27,9 @@ public class MemberController {
 	@Autowired
     private MemberDao memberDao;
 	
+	@Autowired
+    private PointDao pointDao;
+	
 	/*비밀번호찾기*/
 	@RequestMapping(value="/pwFindFormAdd", produces = "application/text; charset=utf8", method = RequestMethod.POST)
 	public @ResponseBody String pwFindForm(MemberDto memberDto,
@@ -94,7 +97,7 @@ public class MemberController {
 		System.out.println("MemberController 로그인시 == " + id);
 		
 		MemberDto loginCheck = memberDao.login(id);
-			System.out.println("MemeberController 로그인시 체크되어 받은 아이디loginCheck==" + loginCheck);
+			System.out.println("MemeberController 로그인시 체크되어 받은 아이디loginCheck== " + loginCheck);
 		
 		if(loginCheck == null){
 			loginCheck = null;
@@ -108,6 +111,24 @@ public class MemberController {
 				session.setAttribute("level", loginCheck.getUserLevel());
 				session.setAttribute("nick", loginCheck.getUserNick());
 				model.addAttribute("loginCheck", "로그인성공");
+				
+				if(loginCheck.getUserLevel().equals("일반회원")){
+					String pointAttendDay = "point_ex_3";
+					String pointAttendMonth = "point_ex_2";
+					//일반회원일경우에만
+					String attenCheckSelect = pointDao.attenCheckSelect(loginCheck.getUserId());	
+						System.out.println("MemeberController 출석체크 중복검사== " + attenCheckSelect);
+					int attenCheckSelectMonth = pointDao.attenCheckSelectMonth(loginCheck.getUserId());
+						System.out.println("MemeberController 출석체크 한달== " + attenCheckSelectMonth);
+						
+					if(attenCheckSelect == null){	//하루출석
+						pointDao.attenCheckInsert(loginCheck.getUserId());	//출석체크 입력
+						pointDao.pointGetInsert(loginCheck.getUserId(), pointAttendDay);	//출석체크 포인트입력
+					}else if(attenCheckSelectMonth > 29){	//30일출석
+						pointDao.attenCheckDelete(loginCheck.getUserId());	//한달출석 기존 출석내용 삭제	
+						pointDao.pointGetInsert(loginCheck.getUserId(), pointAttendMonth);	//한달출석 포인트 입력
+					}
+				}
 				return "home";
 			}else{
 				System.out.println("비번틀림");

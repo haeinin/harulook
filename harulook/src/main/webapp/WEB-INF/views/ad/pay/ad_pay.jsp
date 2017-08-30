@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<!-- div 바디 높이 크기 지정 -->
+<link rel="stylesheet" type="text/css" href="resources/css/member-list-size.css">
  <!-- jquery를 사용하기위한 CDN주소 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
@@ -45,26 +51,46 @@
 		$('#payInsert').submit();
 	});
 	});
-   </script>
+</script>
   
-  <div align="center">
-		 <form action="./adPayInsert" action="post" id="payInsert" method="POST">
-          	<table border="1" width="70%" align="center">
-          	<tr><td height="10%">결제금액 :  </td><td><input type="text" id="pricePayTotal" width="100%" name="adPayPrice" value="${priceTotal}" readonly></td></tr>
-          	</table>
-          	<h4>결제 방법</h4>
-          	<input type="hidden" name="adContractNo" value="${contractNo}">
-          	<input type="hidden" name="adPayWay" id="payWay">
-          	<input type="button" id="payCard" name="payWay" value="카드결제" > &nbsp;&nbsp;&nbsp;
-          	<input type="button" id="payAccount" name="payWay" value="무통장입금" ><br>
-          	<h4>결제자 이름</h4>
-          	<input name="adPayName" type="text">
-          	<c:import url="../../module/pay_account.jsp"></c:import>
-          	<c:import url="../../module/pay_card.jsp"></c:import>
-          </form>
+</head>
+<body>
 
-            <input class="btn btn-default" id="payComplete" type="button" value="완료"/>
-            <input class="btn btn-default" type="reset" value="초기화"/>
-
-          <button type="button" class="btn btn-default" data-dismiss="payModal">닫기</button>
- </div>
+	<!-- 해더인클루드 -->
+	<c:import url="../../module/header.jsp"></c:import>	
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
+			 <div align="center">
+			 <form action="./adPayInsert" action="post" id="payInsert" method="POST">
+	          	<table border="1" width="70%" align="center">
+	          	<tr><td height="10%">결제금액 :  </td><td><input type="text" id="pricePayTotal" width="100%" name="adPayPrice" value="${priceTotal}" readonly></td></tr>
+	          	</table>
+	          	<h4>결제 방법</h4>
+	          	<input type="hidden" name="adContractNo" value="${contractNo}">
+	          	<input type="hidden" name="adPayWay" id="payWay">
+	          	<input type="button" id="payCard" name="payWay" value="카드결제" > &nbsp;&nbsp;&nbsp;
+	          	<input type="button" id="payAccount" name="payWay" value="무통장입금" ><br>
+	          	<h4>결제자 이름</h4>
+	          	<input name="adPayName" type="text">
+	          	<c:import url="../../module/pay_account.jsp"></c:import>
+	          	<c:import url="../../module/pay_card.jsp"></c:import>
+	          </form>
+	
+	            <input class="btn btn-default" id="payComplete" type="button" value="완료"/>
+	            <input class="btn btn-default" type="reset" value="초기화"/>
+	
+	          <button type="button" class="btn btn-default" data-dismiss="payModal">닫기</button>
+			  </div>
+	    </div>
+	    
+		<!-- 우측 베너 인클루드 -->
+	    <c:import url="../../module/right.jsp"></c:import>
+    </div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../../module/footer.jsp"></c:import>   
+	
+	
+</body>
+</html>
