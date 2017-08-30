@@ -28,11 +28,12 @@ public class HofDao {
 	public int selectDuplicateHof(String boardNo){
 		return sqlSessionTemplate.selectOne("com.ksmart.harulook.hof.service.HofMapper.dupliacteHof",boardNo);
 	}
-	public int test(){
-		return sqlSessionTemplate.insert("com.ksmart.harulook.hof.service.HofMapper.test");
+	public int insertHofPoint(HofDto dto){
+		return sqlSessionTemplate.insert("com.ksmart.harulook.hof.service.HofMapper.insertHofPoint",dto);
 	}
 	
-	/*이번 달 명예의전당 등록*/
+	
+	/*이번 달 명예의전당 선정방법*/
 	public void insertHof(){
 		HofDto dto = new HofDto();
 		List<HofRankDto> list = getBoardLikeRank();
@@ -53,6 +54,7 @@ public class HofDao {
 				default : break;
 				}
 				insertHof(dto);
+				insertHofPoint(dto);
 				if(r!=nextr){//이번게시물과 다음게시물이 같은등수가 아닐때만 등수를 증가시킨다.
 					rank++;
 				}
