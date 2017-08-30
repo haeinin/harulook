@@ -21,108 +21,68 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Insert title here</title>
 <script type="text/javascript">
-$(function(){
-	$.ajax({
-		url : './boardSearchList',
-		method : 'get',
-		data : { 'snsBoardWeather'	: $('#snsBoardWeather').val()
-				,'snsBoardTall'		: $('#snsBoardTall').val()
-				,'snsBoardSize'		: $('#snsBoardSize').val()
-				,'snsBoardLoc'		: $('#snsBoardLoc').val()
-				,'snsBoardGender'	: $(":input:radio[name=snsBoardGender]:checked").val()
-				,'snsBoardAge'		: $('#snsBoardAge').val()
-				},
-		datatype : 'json',
-		success : function(data){
-			console.log(data);
-			var boardHtml = '';
-			if(data.length > 0) {
-				for(var i=0; i<data.length; i++) {
-					boardHtml += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >';
-					boardHtml += '<div class="photo-box" value="'+data[i].snsBoardNo+'">';
-					boardHtml += '<div class="image-wrap">';
-					boardHtml += '<img style="height: 100%;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
-					boardHtml += '<div class="likes">';
-					boardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
-					boardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
-					boardHtml += '<i class="fa fa-commenting center" style="font-size:24px"></i>';
-					boardHtml += '<span class="center">&nbsp;'+data[i].snsCommentCount+'</span>';
-					boardHtml += '</div>';
-					boardHtml += '</div>';
-					boardHtml += '</div>';
-					boardHtml += '</div>';
-					boardHtml += '</div>';
+$(function(){     
+	/* 게시글 추천수, 댓글수 보이기 및 감추기 ***************/
+	
+	$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
+	$('.photo-box').mouseenter(function(){
+		$(this).find('.likes').show();
+	});
+	$('.photo-box').mouseleave(function(){
+		$(this).find('.likes').hide();
+	});
+	
+	/*  게시물 상세보기  */
+	$('.photo-box').click(function(){
+		var index = $('.photo-box').index(this);
+		var boardNo = data[index].snsBoardNo;
+		
+		console.log('index : ',index);
+		console.log('data[',index,'].snsBoardNo : ',boardNo);
+		
+		
+		$.ajax({
+			url : './boardDetail',
+			method : 'get',
+			data :{'boardNo' : boardNo},
+			datatype : 'json',
+			success : function(data) {
+				console.log('boardDatil : ',data);
+				var snsDetailImg = '';
+				snsDetailImg += '<img alt="no image" style="width: 580px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.board.snsBoardImg+'">';
+				$('#snsDetailImg').html(snsDetailImg);
+				
+				var snsDetailContent = '';
+				snsDetailContent += '<div style="float: left;">';
+				snsDetailContent += '<h4>'+data.board.userNick+'(<a atction="#">'+data.board.userId+'</a>)</h4>';
+				snsDetailContent += '</div>';
+				snsDetailContent += '<button>팔로우</button>';
+				snsDetailContent += '<hr></hr>';
+				snsDetailContent += '<div>';
+				snsDetailContent += '<span>'+data.board.snsBoardContent+'</span><br>';
+				for(var i=0; i<data.snsStyle.length; i++) {
+					snsDetailContent += '<a href="./oardSearchList?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&styleValue='+data.snsStyle[i]+'">#'+data.snsStyle[i]+'</a>&nbsp';
 				}
-			} else {
-				boardHtml += '<span>일치하는 결과가 없습니다.</span>';
-			}	
-			$('#boardOutput').html(boardHtml);
-
-		    $('.image-wrap img').each(function() {
-		        var maxWidth = 345; // Max width for the image
-		        var maxHeight = 345;    // Max height for the image
-		        var ratio = 0;  // Used for aspect ratio
-		        var width = $(this).width();    // Current image width
-		        var height = $(this).height();  // Current image height
-
-		        // Check if the current width is larger than the max
-				if(width > maxWidth){
-		            ratio = maxWidth / width;   // get ratio for scaling image
-		            $(this).css("width", maxWidth); // Set new width
-		            $(this).css("height", height * ratio);  // Scale height based on ratio
-		            height = height * ratio;    // Reset height to match scaled image
-				}	
-
-		       width = $(this).width();    // Current image width
-		       height = $(this).height();  // Current image height
-
-		        // Check if current height is larger than max
-				if(height > maxHeight){
-		            ratio = maxHeight / height; // get ratio for scaling image
-		            $(this).css("height", maxHeight);   // Set new height
-		            $(this).css("width", width * ratio);    // Scale width based on ratio
-		            width = width * ratio;    // Reset width to match scaled image
+				for(var i=0; i<data.snsColor.length; i++) {
+					snsDetailContent += '<a>#'+data.snsColor[i]+'</a>&nbsp';
 				}
-		    });
-		            
-			/* 게시글 추천수, 댓글수 보이기 및 감추기 ***************/
-			
-			$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
-			$('.photo-box').mouseenter(function(){
-				$(this).find('.likes').show();
-			});
-			$('.photo-box').mouseleave(function(){
-				$(this).find('.likes').hide();
-			});
-			
-			/*  게시물 상세보기  */
-			$('.photo-box').click(function(){
-				var index = $('.photo-box').index(this);
-				var boardNo = data[index].snsBoardNo;
-				
-				console.log('index : ',index);
-				console.log('data[',index,'].snsBoardNo : ',boardNo);
-				
-				
-				$.ajax({
-					url : './boardDetail',
-					method : 'get',
-					data :{'boardNo' : boardNo},
-					datatype : 'json',
-					success : function(data) {
-						console.log('boardDatil : ',data);
-						var snsDetailImg = '';
-						snsDetailImg += '<img alt="no image" style="width: 450px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.board.snsBoardImg+'">';
-						$('#snsDetailImg').html(snsDetailImg);
-						
-					},
-					error : function(){
-						alert('fail');
-					}
-				});
-				$('#snsModal').modal();
-			});
-		}
+				for(var i=0; i<data.snsSituation.length; i++) {
+					snsDetailContent += '<a>#'+data.snsSituation[i]+'</a>&nbsp';
+				}
+				snsDetailContent += '</div>';
+				snsDetailContent += '<hr></hr>';
+				snsDetailContent += '<div>';
+				for(var i=0; i<data.commentList.length; i++) {
+					snsDetailContent += '<span>'+data.commentList[i].userId+': '+data.commentList[i].snsCommentContent+'</span><br>';
+				}
+				snsDetailContent += '</div>';
+				$('#snsDetailContent').html(snsDetailContent);
+			},
+			error : function(){
+				alert('fail');
+			}
+		});
+		$('#snsModal').modal();
 	});
 	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
 	$('.searchCategory').change(function(){
@@ -242,7 +202,7 @@ $(function(){
 						success : function(data) {
 							console.log('boardDatil : ',data);
 							var snsDetailImg = '';
-							snsDetailImg += '<img alt="no image" style="width: 580px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.snsBoardImg+'">';
+							snsDetailImg += '<img alt="no image" style="width: 580px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.board.snsBoardImg+'">';
 							$('#snsDetailImg').html(snsDetailImg);
 							
 							var snsDetailContent = '';
@@ -415,17 +375,33 @@ sns 게시물 목록
 	
 	
 <div class="modal fade" id="snsModal" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lg" >
       <div id="snsDetail" class="modal-content">
         	
         <div class="row">
 	        <div class="modal-body col-xs-8" style="padding-bottom: 0; padding-top: 0;">
-				<div id="snsDetailImg"></div>
+				<div id="snsDetailImg">
+					<c:forEach items="list" var="list">
+					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >
+						<div class="photo-box">
+							<div class="image-wrap">
+								<img style="height: 100%;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="${list.snsBoardImg}">
+								<div class="likes">
+									<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>
+									<span class="center">&nbsp;${list.snsLikeCount}&nbsp;&nbsp;&nbsp;</span>
+									<i class="fa fa-commenting center" style="font-size:24px"></i>
+									<span class="center">&nbsp;${list.snsCommentCount}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					</c:forEach>
+				</div>
 	        </div>
 	        <div id="snsDetailContent" class="modal-body col-xs-4">
 	        	<div id="snsDetailContent"></div>
 	        </div>
-      </div>
+      	</div>
       </div>
     </div>
     </div>

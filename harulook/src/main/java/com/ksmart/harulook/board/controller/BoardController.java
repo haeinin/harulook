@@ -45,16 +45,16 @@ public class BoardController {
 	}
 	
 	/* sns게시물 목록 검색 */
-	@RequestMapping(value="/boardSearchList", method = RequestMethod.POST)
+	@RequestMapping(value="/oardSearchList", method = RequestMethod.GET)
 	public String boardSearchList(Model model, BoardDto board, HttpServletRequest request) {
-		System.out.println("boardSearchList 요청");
+		System.out.println("oardSearchList 요청");
 		String[] colorValue = request.getParameterValues("colorValue");
 		String[] styleValue = request.getParameterValues("styleValue");
 		String[] situationValue = request.getParameterValues("situationValue");
 		board.setColorValue(colorValue);
 		board.setStyleValue(styleValue);
 		board.setSituationValue(situationValue);
-		System.out.println("boardSearchList --> "+board);
+		System.out.println("oardSearchList --> "+board);
 		
 		if(board.getSnsBoardAge().equals("")) {
 			board.setSnsBoardAge(null);
@@ -71,10 +71,10 @@ public class BoardController {
 		if(board.getSnsBoardWeather().equals("")) {
 			board.setSnsBoardWeather(null);
 		}
-		System.out.println("boardSearchList --> "+board);
+		System.out.println("oardSearchList --> "+board);
 		List<BoardDto> list = boardDao.boardSearchList(board);
 		model.addAttribute("list", list);
-		System.out.println("boardSearchList --> "+list);
+		System.out.println("oardSearchList --> "+list);
 		return "sns/board/sns_board_list";
 	}
 	
@@ -204,7 +204,7 @@ public class BoardController {
 	}
 	
 	/* sns게시물 목록 요청 */
-	@RequestMapping(value="/boardList", method = RequestMethod.GET)
+	@RequestMapping(value="/oardList", method = RequestMethod.GET)
 	public String boardList(Model model
             , @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		System.out.println("boardList 폼 요청");
@@ -216,6 +216,7 @@ public class BoardController {
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("lastPage", lastPage);
         model.addAttribute("list", list);
+        System.out.println("oardList : "+list);
 		return "sns/board/sns_board_list";
 	}
 	

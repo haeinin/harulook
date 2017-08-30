@@ -82,13 +82,11 @@ public class BoardRestController {
 		String[] styleValue = request.getParameterValues("styleValue");
 		String[] situationValue = request.getParameterValues("situationValue");
 		
+		System.out.println("board : "+board);
 		System.out.println("colorValue : "+colorValue);
 		System.out.println("styleValue : "+styleValue);
 		System.out.println("situationValue : "+situationValue);
 		
-		board.setColorValue(colorValue);
-		board.setStyleValue(styleValue);
-		board.setSituationValue(situationValue);
 		if(board.getSnsBoardAge().equals("")) {
 			board.setSnsBoardAge(null);
 		} 
