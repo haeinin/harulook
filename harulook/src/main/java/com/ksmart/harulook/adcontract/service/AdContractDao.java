@@ -13,17 +13,36 @@ public class AdContractDao {
 	
 	@Autowired
     private SqlSessionTemplate sqlSessionTemplate;
-	@Autowired
-	private AdRefundDao adrefunddao;
+	
+	public int updateEndContract(String adContractNo){
+		System.out.print("광고상태 변경(광고진행중 -> 계약만료)메서드 실행");
+		return sqlSessionTemplate.update("com.ksmart.harulook.adcontract.service.AdContractMapper.UpdateEndContract", adContractNo);
+	}
+	
+	public int updateIngContract(String adContractNo){
+		System.out.print("광고상태 변경(광고대기 -> 광고진행중)메서드 실행");
+		return sqlSessionTemplate.update("com.ksmart.harulook.adcontract.service.AdContractMapper.UpdateIngContract", adContractNo);
+	}
+	/*광고상태 변경메서드(광고중->계약만료 으로 바꿔야할 계약번호 조회)*/
+	public List<AdContractDto> getUpdateEndContract(){
+		System.out.println("(진행중->계약만료) 갱신될 계약번호 조회 메서드 실행");
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectUpdateEndContract");
+	}
+	/*광고상태 변경메서드(광고대기 -> 광고중으로 바꿔야 할 계약번호 조회)*/
+	public List<AdContractDto> getUpdateIngContract(){
+		System.out.println("(광고대기->진행중) 갱신될 계약번호 조회 메서드 실행");
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectUpdateIngContract");
+	}
+	
 	/*광고 계약 등록 메서드*/
 	 public int insertAdContract(AdContractDto adcontract) {
-			 System.out.println("in DAO");	
-			 System.out.println(adcontract);
-	        return sqlSessionTemplate.insert("com.ksmart.harulook.adcontract.service.AdContractMapper.insertAdContract", adcontract);	    
-	        }
-
+		 System.out.println("in DAO");	
+		 System.out.println(adcontract);
+	     return sqlSessionTemplate.insert("com.ksmart.harulook.adcontract.service.AdContractMapper.insertAdContract", adcontract);	    
+	 }
 	 /*현재진행중인 광고 계약 출력 메서드*/
 	 public AdContractDto getAdContractListCurrentPlace1(){
+		 
 		 System.out.println("위치 1에 해당하는 계약 리스트 출력");
 		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListCurrentPlace1");
 	 }

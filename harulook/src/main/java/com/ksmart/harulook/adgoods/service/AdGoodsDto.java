@@ -1,4 +1,4 @@
-package com.ksmart.harulook.adgoods;
+package com.ksmart.harulook.adgoods.service;
 
 public class AdGoodsDto {
 	private String adGoodsNo;

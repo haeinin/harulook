@@ -22,6 +22,6 @@ public class AdPayController {
 		adpay.setAdPayNo("ad_pay_"+initPayNo);
 		System.out.println("광고 결제 요청");
 		adpaydao.insertAdPay(adpay);
-		return "ad/contract/ad_contract_list";
+		return "redirect:/adContractList";
 	}
 }

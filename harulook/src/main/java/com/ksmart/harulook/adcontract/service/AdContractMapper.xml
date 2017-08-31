@@ -13,6 +13,38 @@
  	<result property="adContractPrice" column="ad_contract_price"/>
  	<result property="adContractStat" column="ad_contract_stat"/> 	
  </resultMap>
+ <!-- 광고 상태 변경(광고중 -> 계약만료)해야하는 변경 -->
+ <update id="UpdateIngContract">
+	UPDATE ad_contract
+	SET
+		ad_contract_stat='광고진행중'
+	WHERE 
+		ad_contract_no=#{adContractNo}
+ </update>
+  <!-- 광고 상태 변경(광고중 -> 계약만료)해야하는 계약번호 조회 -->
+ <select id ="selectUpdateEndContract" resultMap="AdContractList">
+	SELECT ad_contract_no
+	FROM ad_contract
+	WHERE ad_contract.ad_contract_stat='광고진행중'
+	  AND (ad_contract.ad_contract_start >= now()
+	   OR ad_contract.ad_contract_end &lt;= now())
+ </select>
+  <!-- 광고 상태 변경(광고중 -> 계약만료)해야하는 계약번호 조회 -->
+ <update id="UpdateEndContract">
+	UPDATE ad_contract
+	SET
+		ad_contract_stat='계약만료'
+	WHERE 
+		ad_contract_no=#{adContractNo}
+ </update>
+ <!-- 광고 상태 변경(광고대기 -> 광고중)해야되는 계약번호 조회 -->
+ <select id ="selectUpdateIngContract" resultMap="AdContractList">
+	SELECT ad_contract_no
+	FROM ad_contract
+	WHERE ad_contract.ad_contract_start &lt;= now()
+	  AND ad_contract.ad_contract_end >= now()
+	  AND ad_contract.ad_contract_stat='진행대기'
+ </select>
  <!-- 위치1에 해당하는 현재진행중인 광고 목록 조회 -->
  <select id ="selectAdContractListCurrentPlace1"  resultMap="AdContractList">
 	SELECT ad_contract.ad_contract_place

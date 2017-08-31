@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ksmart.harulook.adrefundpay.service.AdRefundPayDto;
+
 @Repository
 public class AdRefundDao {
 	
@@ -24,6 +26,18 @@ public class AdRefundDao {
 	public List<AdRefundDto> getRefundList(){
 		System.out.println("환불 목록 요청");
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.adrefund.service.AdRefundMapper.selectRefundList");
+	}
+	public List<AdRefundDto> getRefundList(String SID){
+		System.out.println("환불 목록 요청 SID : " + SID);
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adrefund.service.AdRefundMapper.selectRefundListAdUser" , SID);
+	}
+	public int updateRefund(String refundNo){
+		System.out.println("환불 상태변경 =>환불정보입력완료");
+		return sqlSessionTemplate.update("com.ksmart.harulook.adrefund.service.AdRefundMapper.updateRefund", refundNo);
+	}
+	public int approveRefund(String refundNo){
+		System.out.println("환불 상태변경 =>환불완료");
+		return sqlSessionTemplate.update("com.ksmart.harulook.adrefund.service.AdRefundMapper.approveRefund", refundNo);
 	}
 
 }

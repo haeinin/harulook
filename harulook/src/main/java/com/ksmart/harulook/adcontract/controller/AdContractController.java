@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.support.SessionStatus;
-
 import com.ksmart.harulook.adcontract.service.AdContractDao;
 import com.ksmart.harulook.adcontract.service.AdContractDto;
 import com.ksmart.harulook.adrefund.service.AdRefundDao;
@@ -29,13 +27,6 @@ public class AdContractController {
 	
 	@Autowired
 	private AdRefundDao adrefunddao;
-	
-	/*광고 계약 폼 호출*/
-	@RequestMapping(value="/adContractInsertForm",method = RequestMethod.GET)
-	public String adContractInsertForm() {
-		System.out.println("광고 계약 입력 폼 요청");
-		return "ad/contract/ad_contract_insert";
-	}
 	/************/
 	
 /* 세션 적용전 사용하던 코드
@@ -94,6 +85,12 @@ public class AdContractController {
 		System.out.println(model.toString());
 		return "ad/contract/ad_contract_list";
 	}
+	/*광고 계약 입력 화면요청*/
+	@RequestMapping(value="/adContractInsert",method = RequestMethod.GET)
+	public String adContractInsertForm(){
+		System.out.println("광고 계약 입력 화면 요청");
+		return "ad/contract/ad_contract_insert";
+	}
 	/*광고 계약 입력 요청*/
 	@RequestMapping(value="/adContractInsert",method = RequestMethod.POST)
 	public String adContractInsert(AdContractDto adcontract,@RequestParam("adDcNo") String adDcNo, Model model, HttpSession session) throws ParseException {
@@ -115,7 +112,7 @@ public class AdContractController {
 		adcontract.setUserId((String)session.getAttribute("id"));
 		System.out.println(adcontract.getUserId());
 		adcontract.setAdContractNo("ad_contract_"+initContractNo);
-		/*날씨 더하는 코드 시작*/
+/*		날씨 더하는 코드 시작
 		SimpleDateFormat dateformat = new SimpleDateFormat ("yy-mm-dd");
 		System.out.println(adcontract.getAdContractStart());
 		Date startdate = dateformat.parse(adcontract.getAdContractStart());
@@ -126,7 +123,7 @@ public class AdContractController {
 		System.out.println("계산된 enddate : " + enddate);
 		adcontract.setAdContractEnd(enddate);
 		System.out.println(date);
-		System.out.println(adcontract);
+		System.out.println(adcontract);*/
 		adcontractdao.insertAdContract(adcontract);
 		System.out.println("adContract 입력 완료");
 		model.addAttribute("contractNo", adcontract.getAdContractNo());
