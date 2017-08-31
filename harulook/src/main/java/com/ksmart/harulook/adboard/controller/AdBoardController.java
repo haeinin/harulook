@@ -7,18 +7,19 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.ksmart.harulook.adgoods.AdGoodsDto;
 import com.ksmart.harulook.util.UtilFile;
 import com.ksmart.harulook.adboard.service.AdBoardDao;
 import com.ksmart.harulook.adboard.service.AdBoardDto;
 import com.ksmart.harulook.adcontract.service.AdContractDao;
-import com.ksmart.harulook.adcontract.service.AdContractDto;
+import com.ksmart.harulook.adgoods.service.AdGoodsDao;
+import com.ksmart.harulook.adgoods.service.AdGoodsDto;
 
 @Controller
 public class AdBoardController {
@@ -28,6 +29,25 @@ public class AdBoardController {
 	private UtilFile utilfile;
 	@Autowired
 	private AdContractDao adcontractdao;
+	@Autowired
+	private AdGoodsDao adgoodsdao;
+	@RequestMapping(value="/selectAdBoardGoods", method = RequestMethod.GET)
+	public String selectAdBoardGoods(Model model
+									,@RequestParam("adGoodsNo") String adGoodsNo){
+		AdGoodsDto adgoods = adgoodsdao.selectAdGoods(adGoodsNo);
+		model.addAttribute("adgoods", adgoods);
+		return "ad/board/ad_goods_detail";
+	}
+	
+	@RequestMapping(value="/adBoardList",method = RequestMethod.GET)
+	public String selectAdBoardList(Model model) {
+		System.out.println("광고 게시물 목록 요청");
+		List<AdBoardDto> adboardlist = adboarddao.selectAdBoard();
+		model.addAttribute("adboardlist", adboardlist);
+		System.out.println(model);
+		return "ad/board/ad_board_list";	
+	}
+	
 	@RequestMapping(value="/insertAdBoard",method = RequestMethod.GET)
 	public String insertAdBoardView(@RequestParam("adContractNo") String adcontractno
 								 ,HttpSession session) {
