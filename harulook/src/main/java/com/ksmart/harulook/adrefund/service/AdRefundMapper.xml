@@ -18,7 +18,6 @@
  			  ,refund_stat
  			  ,refund_request_date
 		FROM refund
-		WHERE refund_stat = '결제정보입력대기'
  </select>
   <select id="selectRefundListAdUser" resultMap="refundList">
  		SELECT refund.refund_no
@@ -30,8 +29,7 @@
 		FROM refund
 		JOIN ad_contract
 		ON ad_contract.ad_contract_no = refund.ad_contract_no	
-		WHERE refund_stat = '결제정보입력대기'
-		AND ad_contract.user_id = #{SID}
+		WHERE ad_contract.user_id = #{SID}
 		      
 			  
  </select>
@@ -57,4 +55,20 @@
 				   ,'결제정보입력대기'
 				   ,NOW()) 
  </insert>
+ <update id="updateRefund">
+		UPDATE refund
+	SET
+		refund_stat='환불정보입력완료',
+		refund_date= now()
+	WHERE 
+		refund_no=#{refundNo}	
+ </update>
+  <update id="approveRefund">
+		UPDATE refund
+	SET
+		refund_stat='환불완료'
+	WHERE 
+		refund_no=#{refundNo}
+ </update>
+ 
 </mapper>		

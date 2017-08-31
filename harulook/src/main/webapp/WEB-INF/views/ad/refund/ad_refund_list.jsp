@@ -26,21 +26,34 @@
 		  <table class="table table-striped">
         <thead>
             <tr>
+            	<th>환불번호</th>
                 <th>계약번호</th>
                 <th>환불금액</th>
                 <th>환불신청일자</th>
+                <th>환불일자</th>
                 <th>환불상태 </th>
-                <th></th>
+                <th>비고</th>
             </tr>
         </thead>
         <tbody>
         <c:forEach var="b" items="${adrefundlist}">
             <tr>
+            		<td>${b.refundNo}</td>
                     <td>${b.adContractNo}</td>
                     <td>${b.refundPrice}</td>
                     <td>${b.refundRequestDate}</td>
+                    <td>${b.refundDate}</td>
                     <td>${b.refundStat}</td>
-                    <td><button>환불정보입력</button></td>
+                    <td>
+                    	<c:if test="${sessionScope.level=='관리자'}">
+                    	<c:if test="${b.refundStat=='결제정보입력대기'}"></c:if>
+                    	<c:if test="${b.refundStat=='환불정보입력완료'}"><a href="./approveRefund?refundNo=${b.refundNo}">환불 승인</a></c:if>
+                    	</c:if>
+                    	<c:if test="${sessionScope.level=='사업자'}">
+                    	<c:if test="${b.refundStat=='결제정보입력대기'}"><a href="./insertRefundValue?refundNo=${b.refundNo}">환불정보입력</a></c:if>
+                    	<c:if test="${b.refundStat=='환불정보입력완료'}"></c:if>
+                    	</c:if>
+                    </td>
                 </tr>
                 </c:forEach>
         </tbody>

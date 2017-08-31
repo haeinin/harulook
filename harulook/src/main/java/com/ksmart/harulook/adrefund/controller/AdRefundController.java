@@ -15,11 +15,12 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.ksmart.harulook.adrefund.service.AdRefundDao;
 import com.ksmart.harulook.adrefund.service.AdRefundDto;
+import com.ksmart.harulook.adrefundpay.service.AdRefundPayDao;
+import com.ksmart.harulook.adrefundpay.service.AdRefundPayDto;
 @Controller
 public class AdRefundController {
 	@Autowired
 	private AdRefundDao adrefunddao;
-	
 	
 	@RequestMapping(value="/insertRefund",method = RequestMethod.POST)
 	@ResponseBody
@@ -53,6 +54,23 @@ public class AdRefundController {
 		System.out.println(adrefundlist);
 		return "ad/refund/ad_refund_list";
 	}
+	
+	@RequestMapping(value="/insertRefundValue", method = RequestMethod.GET)
+	public String insertRefundValueForm(Model model
+								   ,@RequestParam("refundNo") String refundNo){
+		model.addAttribute("refundNo", refundNo);
+		return "ad/refund_pay/ad_refund_pay";
+	}
+	@RequestMapping(value="/approveRefund", method = RequestMethod.GET)
+	public String approveRefund(Model model
+							  ,@RequestParam("refundNo") String refundNo){
+		System.out.println("환불번호 : " + refundNo);
+		model.addAttribute("refundNo", refundNo);
+		adrefunddao.approveRefund(refundNo);
+		return "redirect:/selectRefund";
+	}
+	
+	
 }
 		
 	
