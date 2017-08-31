@@ -1,95 +1,87 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
 </head>
 <style>
 canvas {
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
 }
 </style>
 <c:import url="../statistics/statistics_header.jsp"></c:import>
-<div style="width: 80%">
-    <div>
-        <canvas id="canvas" height="350" width="600"></canvas>
-    </div>
+<div class="row">
+	<div class="col-xs-1"></div>
+	<div class="col-xs-9">
+		<div style="width: 80%">
+			<div>
+				<canvas id="canvas" height="350" width="600"></canvas>
+			</div>
+		</div>
+		
+	</div>
 </div>
 <div>
-	<table>
-	<tr>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-	<c:forEach var="b" items="${list}" >
-	<tr>
-		<td>${b.statsDate}</td>
-		<td>${b.statsAmount}</td>
-		<td>${b.statsStartDate}</td>
-		<td>${b.statsEndDate}</td>
-	</tr>
-	</c:forEach>
-	</table>
+	
 
 </div>
 
-<c:set value="${cooContractNo}" var="no"/>
+<c:set value="${cooContractNo}" var="no" />
 <script>
-var chartLabels = [];// 받아올 데이터를 저장할 배열 선언
-var chartData = [];
+	var chartLabels = [];// 받아올 데이터를 저장할 배열 선언
+	var chartData = [];
 
-var cooContractNo = '<c:out value="${no}"/>';
+	var cooContractNo = '<c:out value="${no}"/>';
 
-console.log(cooContractNo);
+	console.log(cooContractNo);
 
+	console.log(chartLabels);
+	console.log(chartData);
 
- console.log(chartLabels);
- console.log(chartData);
- 
- var lineChartData = {
-		    labels : chartLabels,
-		    datasets : [ {
-		        label : "주별 방문자 수",
-		        fillColor : "rgba(220,220,220,0.2)",
-		        strokeColor : "rgba(220,220,220,1)",
-		        pointColor : "rgba(220,220,220,1)",
-		        pointStrokeColor : "#fff",
-		        pointHighlightFill : "#fff",
-		        pointHighlightStroke : "rgba(220,220,220,1)",
-		        data : chartData
-		    } ]
-		 
-		}
-		 
-		function createChart() {
-		    var ctx = document.getElementById("canvas").getContext("2d");
-		    LineChartDemo = Chart.Line(ctx, {
-		        data : lineChartData,
-		        options : {
-		            scales : {
-		                yAxes : [ {
-		                    ticks : {
-		                        beginAtZero : true
-		                    }
-		                } ]
-		            }
-		        }
-		    });
-		}
-$.getJSON("./getWeeklyInflux"
-		,{cooContractNo:cooContractNo}
-		, function (data) {
-	 $.each(data, function (key, value) {
+	var lineChartData = {
+		labels : chartLabels,
+		datasets : [ {
+			label : "주별 방문자 수",
+			fillColor : "rgba(220,220,220,0.2)",
+			strokeColor : "rgba(220,220,220,1)",
+			pointColor : "rgba(220,220,220,1)",
+			pointStrokeColor : "#fff",
+			pointHighlightFill : "#fff",
+			pointHighlightStroke : "rgba(220,220,220,1)",
+			data : chartData
+		} ]
 
-		 chartLabels.push(value.statsDate);
-		 chartData.push(value.statsAmount);
-		 
-	 });
-	 createChart();
-	 });
+	}
 
+	function createChart() {
+		var ctx = document.getElementById("canvas").getContext("2d");
+		LineChartDemo = Chart.Line(ctx, {
+			data : lineChartData,
+			options : {
+				scales : {
+					yAxes : [ {
+						ticks : {
+							beginAtZero : true
+						}
+					} ]
+				}
+			}
+		});
+	}
+	$.getJSON("./getWeeklyInflux", {
+		cooContractNo : cooContractNo
+	}, function(data) {
+		$.each(data, function(key, value) {
+
+			chartLabels.push(value.statsStartDate);
+			chartData.push(value.statsAmount);
+
+		});
+		createChart();
+	});
 </script>

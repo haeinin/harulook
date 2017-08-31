@@ -9,6 +9,17 @@
 <title>제휴계약 결제 예정 금액 현황</title>
 </head>
 <body>
+<!-- 상단 인클루드 -->
+    <c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+    
+    <!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1">
+	    <c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
+	    </div>
+	    
+	    <div class="col-xs-9" style="margin:30px;">
+
 	<table border="1px">
 		<thead>
 			<tr>
@@ -31,5 +42,8 @@
 			</c:forEach>
 		</tbody>
 	</table>
+
+	</div>
+	</div>
 </body>
 </html>

@@ -155,7 +155,7 @@
 </head>
 <body>
 	<!-- 해더인클루드 -->
-	<c:import url="../module/header.jsp"></c:import>	
+<%-- 	<c:import url="../module/header.jsp"></c:import>	 --%>
 	<!-- 바디 인클루드 -->
     <div class="row">
 	    <div class="col-xs-1"></div>

@@ -43,6 +43,7 @@
        #head {
 		  position: relative;
 		  height: 150px;
+		  margin-bottom : 50px;
 	   }
 </style>
 
@@ -516,7 +517,7 @@ function dfs_xy_conv(code, v1, v2) {
 				  
 				  <!-- 내 제휴 보기 -->
 
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/partnerContractList" method="post">
+				  <form id="partnerContractListForm" action="${pageContext.request.contextPath}/partnerHome" method="get">
 
 			  		<div>
 			  			<input class="btn btn-default" id="partnerContractListButton" type="button" value="내 제휴 보기"/>

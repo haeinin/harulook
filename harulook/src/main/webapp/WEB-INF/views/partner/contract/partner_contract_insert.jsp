@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -37,7 +37,17 @@ $(function(){
 </script>
 </head>
 <body>
-Insert화면입니다.
+    <!-- 상단 인클루드 -->
+    <c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+    
+    <!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1">
+	    <c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
+	    </div>
+	    
+	    <div class="col-xs-9">
+
 <form id="addForm" action="${pageContext.request.contextPath}/partnerContractInsert" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="cooContractDc">제공할 쿠폰 할인율 </label>
@@ -72,5 +82,7 @@ Insert화면입니다.
             <a class="btn btn-default" href="${pageContext.request.contextPath}/partnerContractList">계약목록</a>
         </div>
     </form>
+</div>
+</div>
 </body>
 </html>
