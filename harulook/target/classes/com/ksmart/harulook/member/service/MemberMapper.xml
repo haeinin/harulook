@@ -179,6 +179,9 @@
 					,user_tel 
 			from user
 			where user_level = #{level}
+			<if test="userId != null">
+			AND user_id = #{userId}
+			</if>
 			ORDER BY user_date DESC 
        		LIMIT #{beginRow}, #{pagePerRow}
 			;

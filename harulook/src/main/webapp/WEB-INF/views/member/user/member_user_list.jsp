@@ -23,13 +23,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
  
 <script>
-	$(document).ready(function(){
+	/* $(document).ready(function(){
 		
 		$('#idcheckbutton').click(function(){	//아이디중복체크버튼
 		
         });
 		
-    });
+    }); */
 </script>
 <title>일반회원가입폼</title>
 </head>
@@ -42,25 +42,63 @@
 	    <div id="div1" class="col-xs-9">
 	
 		<div class="container">
-		    <h1>일반회원리스트</h1>
+		    <h1>${sessionScope.searchLevel} 리스트</h1>
 		    <div>전체행의 수 : ${boardCount}</div>
+		    <!-- 회원아이디검색 -->
+	  		<c:import url="../search/user_search.jsp"></c:import>
+		    
 		    <table class="table table-striped">
 		        <thead>
 		            <tr>
 		                <th>아이디</th>
 		                <th>닉네임</th>
 		                <th>이름</th>
+		                
+		                <c:if test="${sessionScope.searchLevel == '일반회원'}">
 		                <th>포인트</th>
+		                </c:if>
+		                
+		                <c:if test="${sessionScope.searchLevel == '관리자'}">
+		                <th>전화번호</th>
+		                </c:if>
+		               
+		                <c:if test="${sessionScope.searchLevel == '사업자'}">
+		                <th>사업체</th>
+		                </c:if>
+		                
 		                <th>가입날짜</th>
 		            </tr>
 		        </thead>
 		        <tbody>
 		            <c:forEach var="b" items="${list}">
 		                <tr>
+		                    <c:if test="${sessionScope.searchLevel == '일반회원'}">
 		                    <td><a href="${pageContext.request.contextPath}/member_user_detail?userId=${b.userId}">${b.userId}</a></td>
+		                    </c:if>
+		                    
+		                    <c:if test="${sessionScope.searchLevel == '관리자'}">
+		                    <td><a href="${pageContext.request.contextPath}/member_manager_detail?userId=${b.userId}">${b.userId}</a></td> <!-- 연결되는주소 수정하여라 -->
+		                    </c:if>
+		                    
+		                    <c:if test="${sessionScope.searchLevel == '사업자'}">
+		                    <td><a href="${pageContext.request.contextPath}/member_business_detail?userId=${b.userId}">${b.userId}</a></td> <!-- 연결되는주소 수정하여라 -->
+			                </c:if>    
+		                    
 		                    <td>${b.userNick}</td>
 		                    <td>${b.userName}</td>
+		                    
+		                    <c:if test="${sessionScope.searchLevel == '일반회원'}">
 		                    <td>${b.userPoint}</td>
+		                    </c:if>
+		                    
+		                    <c:if test="${sessionScope.searchLevel == '관리자'}">
+			                <td>${b.userTel}</td>
+			                </c:if>
+			               
+			                <c:if test="${sessionScope.searchLevel == '사업자'}">
+			                <td>${b.userBsName}</td>
+			                </c:if>
+		                    
 		                    <td>${b.userDate}</td>
 		                   
 		                </tr>

@@ -139,7 +139,7 @@ public class MemberController {
 		return "login/login"; //로그인화면
 	}
 	
-	/*사업자회원정보보기 + 관리자회원정보*/
+	/*관리자회원정보*/
 	@RequestMapping(value="/member_manager_detail", method = RequestMethod.GET)
 	public String managerDetail(Model model,
 			@RequestParam(value="userId", required=true) String userId) {
@@ -150,7 +150,7 @@ public class MemberController {
 		return "member/manager/member_manager_detail"; //일반회원가입폼화면
 	}
 	
-	/*사업자회원정보보기 + 관리자회원정보*/
+	/*사업자회원정보보기*/
 	@RequestMapping(value="/member_business_detail", method = RequestMethod.GET)
 	public String businessDetail(Model model,
 			@RequestParam(value="userId", required=true) String userId) {
@@ -182,57 +182,30 @@ public class MemberController {
 		return "member/user/member_user_detail"; //일반회원가입폼화면
 	}
 	
-	///////////////////////////////////////////////////////////////////////////하나로 합칠수있음
-	/*관리자회원목록*/
-	@RequestMapping(value={"member_manager_list"}, method = RequestMethod.GET)
-    public String managerList(Model model,
-             @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		String level = "관리자";	//****나중에 운영자가 회원검색했을때 페이지에서 넘어오는값을 변수로 받아올지 결정하자***
-		
-		int boardCount = memberDao.getBoardCount(level);	// 일반회원 게시물 수
-			
-        int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
-        int lastPage = (int)(Math.ceil(boardCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
-        List<MemberDto> list = memberDao.userList(currentPage, pagePerRow, level);
-		model.addAttribute("currentPage", currentPage);
-        model.addAttribute("boardCount", boardCount);
-        model.addAttribute("lastPage", lastPage);
-        
-        model.addAttribute("list", list);
-        	System.out.println("MemeberController 셀렉트해서 받아온 일반 회원 리스트 model값 == "+model);
-        return "member/manager/member_manager_list";  //아이디중복체크후 화면 그대로
-    }
 	
-	/*사업자회원목록*/
-	@RequestMapping(value={"member_business_list"}, method = RequestMethod.GET)
-    public String businessList(Model model,
-             @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		String level = "사업자";	//****나중에 운영자가 회원검색했을때 페이지에서 넘어오는값을 변수로 받아올지 결정하자***
-		
-		int boardCount = memberDao.getBoardCount(level);	// 일반회원 게시물 수
-			
-        int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
-        int lastPage = (int)(Math.ceil(boardCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
-        List<MemberDto> list = memberDao.userList(currentPage, pagePerRow, level);
-		model.addAttribute("currentPageUse", currentPage);
-        model.addAttribute("boardCountUse", boardCount);
-        model.addAttribute("lastPage", lastPage);
-        
-        model.addAttribute("list", list);
-        	System.out.println("MemeberController 셀렉트해서 받아온 일반 회원 리스트 model값 == "+model);
-        return "member/business/member_business_list";  //아이디중복체크후 화면 그대로
-    }
-	
-	/*일반회원목록*/
-	@RequestMapping(value={"member_user_list"}, method = RequestMethod.GET)
+	/*전체회원리스트*/
+	@RequestMapping(value={"member_user_list"}, produces = "application/text; charset=utf8", method = {RequestMethod.GET, RequestMethod.POST})
     public String userList(Model model,
+    		 HttpSession session,
+    		 @RequestParam(value="userId", required=false) String userId,
+    		 @RequestParam(value="level", required=false) String levelList,	//권한을 null로도 받을수 있게 false
              @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		String level = "일반회원";	//****나중에 운영자가 회원검색했을때 페이지에서 넘어오는값을 변수로 받아올지 결정하자***
+		System.out.println(userId + " == 검색 아이디");
+		
+		if(userId == ""){	//검색 아이디가 공백일 경우 null로 바꾸어 전체 리스트 나열
+			userId = null;
+		}
+		System.out.println(levelList + " == 권한별로 리스트");
+		if(levelList != null){	//관리자가 회원리스트 버튼으로 접속할때 권한을 세션에 세팅하기위함  *리스트 다음 이전버튼클릭시 권한이 null로 세팅되는걸 막기 위함
+			session.setAttribute("searchLevel", levelList);
+		}
+		String level = (String) session.getAttribute("searchLevel");
+		System.out.println(level + " ==  세션 권한별로 리스트");
 		
 		int boardCount = memberDao.getBoardCount(level);	// 일반회원 게시물 수
         int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
-        List<MemberDto> list = memberDao.userList(currentPage, pagePerRow, level);
+        List<MemberDto> list = memberDao.userList(currentPage, pagePerRow, level, userId);
 		model.addAttribute("currentPage", currentPage);
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("lastPage", lastPage);
@@ -241,7 +214,6 @@ public class MemberController {
         	System.out.println("MemeberController 셀렉트해서 받아온 일반 회원 리스트 model값 == "+model);
         return "member/user/member_user_list";  //아이디중복체크후 화면 그대로
     }
-	///////////////////////////////////////////////////////////////////////////하나로 합칠수있음
 	
 	/*닉네임중복체크*/
 	@RequestMapping(value="/nickcheck", produces = "application/text; charset=utf8", method = RequestMethod.POST)

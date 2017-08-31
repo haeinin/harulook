@@ -457,27 +457,34 @@ function dfs_xy_conv(code, v1, v2) {
 			  	 	</div>	
 				  </form>	
 				
+				
+				
+				
 					<!-- 일반회원검색 -->
-				  <form id="member_user_list" action="${pageContext.request.contextPath}/member_user_list" method="get">
+				  <form id="member_user_list" action="${pageContext.request.contextPath}/member_user_list?level=일반회원" method="post">
 			  		<div>
 			  			<input class="btn btn-default" id="userlistbutton" type="button" value="일반회원검색"/>
 			  	 	</div>	
 				  </form>	
 				  
 				  	<!-- 사업자검색 -->
-				  <form id="member_business_list" action="${pageContext.request.contextPath}/member_business_list" method="get">
+				  <form id="member_business_list" action="${pageContext.request.contextPath}/member_user_list?level=사업자" method="post">
 			  		<div>
 			  			<input class="btn btn-default" id="businesslistbutton" type="button" value="사업자검색"/>
 			  	 	</div>	
 				  </form>
 				  
 				  	<!-- 관리자검색 -->
-				  <form id="member_manager_list" action="${pageContext.request.contextPath}/member_manager_list" method="get">
+				  <form id="member_manager_list" action="${pageContext.request.contextPath}/member_user_list?level=관리자" method="post">
 			  		<div>
 			  			<input class="btn btn-default" id="managerlistbutton" type="button" value="관리자검색"/>
 			  	 	</div>	
 				  </form>
 				  
+				 
+				 
+				 
+				 
 				  	<!-- 광고 검색 및 승인 -->
 				  <form id="adcontractlistFormManager" action="${pageContext.request.contextPath}/adContractList" method="get">
 			  		<div>
