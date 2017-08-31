@@ -13,6 +13,50 @@ public class PointDao {
 	@Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 	
+	/*출석체크삭제 */
+    public int attenCheckDelete(String userId) {
+    	Map<String, String> map = new HashMap<String, String>();
+        map.put("userId", userId);
+        return sqlSessionTemplate.insert("com.ksmart.harulook.point.service.PointMapper.attenCheckDelete", map);
+    }
+	
+	/* 출석체크 한달검색  */
+	public int attenCheckSelectMonth(String userId) {
+		Map<String, String> map = new HashMap<String, String>();
+        map.put("userId", userId);
+        return sqlSessionTemplate.selectOne("com.ksmart.harulook.point.service.PointMapper.attenCheckSelectMonth", map);
+	}
+	
+	/* 출석체크검색  */
+	public String attenCheckSelect(String userId) {
+		Map<String, String> map = new HashMap<String, String>();
+        map.put("userId", userId);
+        return sqlSessionTemplate.selectOne("com.ksmart.harulook.point.service.PointMapper.attenCheckSelect", map);
+	}
+	
+	/*출석체크입력 */
+    public int attenCheckInsert(String userId) {
+    	Map<String, String> map = new HashMap<String, String>();
+        map.put("userId", userId);
+        return sqlSessionTemplate.insert("com.ksmart.harulook.point.service.PointMapper.attenCheckInsert", map);
+    }
+	
+	/*포인트취득 */
+    public int pointGetInsert(String userId, String pointPolicyNo) {
+    	Map<String, String> map = new HashMap<String, String>();
+        map.put("userId", userId);
+        map.put("pointPolicyNo", pointPolicyNo);
+        return sqlSessionTemplate.insert("com.ksmart.harulook.point.service.PointMapper.pointGetInsert", map);
+    }
+	
+	/* 포인트등록 게시물 검색  */
+	public String pointCehck(String userId, String point_policy_no) {
+		Map<String, String> map = new HashMap<String, String>();
+        map.put("userId", userId);
+        map.put("point_policy_no", point_policy_no);
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.point.service.PointMapper.pointCehck", map);
+	}
+	
 	/*쿠폰 중복 검사 */
     public String couponCheck(String pointGoodsCode) {
     	Map<String, String> map = new HashMap<String, String>();
@@ -21,15 +65,15 @@ public class PointDao {
     }
 	
 	/*쿠폰입력no검색*/
-    public String pointNo() {
+    /*public String pointNo() {
     	return sqlSessionTemplate.selectOne("com.ksmart.harulook.point.service.PointMapper.pointNo");
     	
-    }
+    }*/
 	
 	/*쿠폰사용 */
-    public int couponInset(String pointNo, String userId, int pointPolicyValue, String pointGoodsCode) {
+    public int couponInset(/*String pointNo, */String userId, int pointPolicyValue, String pointGoodsCode) {
     	Map<Object, Object> map = new HashMap<Object, Object>();
-    	map.put("pointNo", pointNo);
+    	/*map.put("pointNo", pointNo);*/
     	map.put("userId", userId);
     	map.put("pointPolicyValue", pointPolicyValue);
     	map.put("pointGoodsCode", pointGoodsCode);

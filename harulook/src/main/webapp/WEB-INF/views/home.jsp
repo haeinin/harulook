@@ -5,7 +5,56 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>~하루룩~</title>
+
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      #floating-panel {
+        position: absolute;
+        top: 5px;
+        left: 50%;
+        margin-left: -180px;
+        width: 350px;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+      }
+      #latlng {
+        width: 225px;
+      }
+    </style>
+
+
+>>>>>>> refs/remotes/origin/kmg883011
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
@@ -29,17 +78,27 @@
 
 <!-- 아이피받아오기 -->
 <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
+
+<!-- 지오코딩구글 -->
+<!-- <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGmPrfFYkGiCQuX3VZJ9hpMAf00Phfgog&callback=initMap">
+    </script> -->
+<!-- 지오코딩다음 -->
+<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41149e966427f3ed0a2d1b8fe3bcf837"></script> 
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41149e966427f3ed0a2d1b8fe3bcf837&libraries=services"></script>  --> 
+
 <script type="text/javascript">
 
 	$(document).ready(function(){
 		/* 받아온 아이피 */
 		console.log(ip());
 		var addr;
-		
+		var x = 0;
+		var y = 0;
 		/* 세션 입력 */
-		sessionStorage.setItem('influx', 'haruloook');
+		sessionStorage.setItem('influx', 'haruloook');	//제휴사이트에 값 넘기기위함
 		var position = sessionStorage.getItem('influx');
-		console.log(position + " == 세션sadfsadlkfasjlkfjasdflkj");
+		console.log(position + " == 세션position");
 		
 		/* function ipv(){
 		  return -1 !=ip().indexOf(":")?6:4
@@ -50,9 +109,11 @@
 		/* 현재내위치좌표 */
 		navigator.geolocation.getCurrentPosition(function(position){
 	    console.log('latitude: ', position.coords.latitude);
+	    console.log('longitude: ', position.coords.longitude);
 	    addr = position.coords.latitude;	////////////////////////나중에 주소(도)로 바꿔서 넘겨야함
 	    
-	    console.log('longitude: ', position.coords.longitude);
+	    x = position.coords.latitude;
+	    y = position.coords.longitude;
 	    });
 		
 		var request = $.ajax({
@@ -61,11 +122,64 @@
 			  data: { 'ip' : ip() }, //전송해줄값
 			  dataType: "text" //결과값 타입 (리턴)
 		});
-	});
+	
 		
+	//구글////////////////////////////////////////////////////////////////////////////////////////////
+	 /* function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: {lat: 35.836895, lng: 127.131554}
+        });
+        var geocoder = new google.maps.Geocoder;
+        var infowindow = new google.maps.InfoWindow;
 
+        document.getElementById('submit').addEventListener('click', function() {
+          geocodeLatLng(geocoder, map, infowindow);
+        });
+      }
+
+      function geocodeLatLng(geocoder, map, infowindow) {
+        var input = document.getElementById('latlng').value;
+        var latlngStr = input.split(',', 2);
+        var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          if (status === 'OK') {
+            if (results[1]) {
+              map.setZoom(11);
+              var marker = new google.maps.Marker({
+                position: latlng,
+                map: map
+              });
+              infowindow.setContent(results[1].formatted_address);
+              infowindow.open(map, marker);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+          }
+        });
+      }  */
+//////다음////////////////////////////////////////////////////////////////////////////////////////
+		
+		/* var geocoder = new daum.maps.services.Geocoder();
+
+		var coord = new daum.maps.LatLng(35.836787, 127.13120959999999);
+		var callback = function(result, status) {
+		    if (status === daum.maps.services.Status.OK) {
+
+		        console.log('지역 명칭 : ' + result[0].address_name);
+		        console.log('행정구역 코드 : ' + result[0].code);
+		    }
+		};
+
+		geocoder.coord2RegionCode(coord, callback); */
+		/* geocoder.coord2addr(coord, callback); */
+	});   
+   
 </script>
-<title>홈</title>
+
+
 </head>
 <body>
     <!-- 상단 인클루드 -->
@@ -84,10 +198,7 @@
             <!-- 우측 베너 인클루드 -->
     		<c:import url="./module/right.jsp"></c:import>
         </div>
-    </div>
-    
 
-    
     <!-- 하단 인클루드 -->
     <c:import url="./module/footer.jsp"></c:import>
     

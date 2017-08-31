@@ -70,14 +70,14 @@ public class PointController {
 			couponCheck = pointDao.couponCheck(pointGoodsCode);
 		}
 		
-		String pointNo = pointDao.pointNo();	//쿠폰번호 검색 후 마지막 +1 입력
+		/*String pointNo = pointDao.pointNo();	//쿠폰번호 검색 후 마지막 +1 입력
 		System.out.println("PointController pointNo = " + pointNo);
 		int pointInserNO = 1;    //DB에 등록된 쿠폰 없을 때 번호의 초기값
     	if(pointNo != null) {
     		pointInserNO = Integer.parseInt(pointNo)+1;	//마지막no +1
-    		pointDao.couponInset("point_"+pointInserNO, userId, pointPolicyValue, pointGoodsCode);	//쿠폰사용입력 
-    		return "point/point_list";
-    	}
+*/    		pointDao.couponInset(/*"point_"+pointInserNO, */userId, pointPolicyValue, pointGoodsCode);	//쿠폰사용입력 
+    	/*	return "point/point_list";
+    	}*/
         return "point/point_list";  
     }
 	

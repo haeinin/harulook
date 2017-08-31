@@ -29,30 +29,49 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		//일일방문자수
+		
+		$('#chart_div').hide();
+		$('#chart_div_weekly').hide();
+		$('#chart_div_month').hide();
+		
+		$('#dailyButton').click(function(){	//일일차트
+			$('#chart_div').show();
+			$('#chart_div_weekly').hide();
+			$('#chart_div_month').hide();
+		});
+		
+		$('#weeklyButton').click(function(){	//주간차트
+			$('#chart_div').hide();
+			$('#chart_div_weekly').show();
+			$('#chart_div_month').hide();
+		});
+		
+		$('#monthlyButton').click(function(){	//월간차트
+			$('#chart_div').hide();
+			$('#chart_div_weekly').hide();
+			$('#chart_div_month').show();
+		});
+		
+		
+		
 		google.charts.load('current', {'packages':['corechart']});
 		google.charts.setOnLoadCallback(drawChart);
-		var value =  new Array();
-		var value1 =  new Array();
-		$("input[name=2]").each(function(idx){   
-	        value = $(this).val();
-	         value = value*1
-	       	 console.log(value);
-	    });
-		$("input[name=1]").each(function(idx){   
-			value1 = $(this).val();
-	       	 console.log(value1);
-	       	 
-	       
-	    });
 		
 		function drawChart() {
 				
-		for(var i = 0; i < 6; i++) {
-			  var data = google.visualization.arrayToDataTable([
-			    	['날짜','접속자수'],
-			    	[value1[i], value[i]]
-			   ]);
-		 }
+		   var data = google.visualization.arrayToDataTable([	//일일 날짜 접속자수 구글차트
+		    		['날짜','접속자수'],
+		    		[$("#aa7").val(),($("#bb7").val())*65],	//방문자수 랜덤하게 조작
+		    		[$("#aa6").val(),($("#bb6").val())*71],
+		    		[$("#aa5").val(),($("#bb5").val())*86],
+		    		[$("#aa4").val(),($("#bb4").val())*51],
+		    		[$("#aa3").val(),($("#bb3").val())*54],
+		    		[$("#aa2").val(),($("#bb2").val())*76],
+		    		[$("#aa1").val(),($("#bb1").val())*103]
+		    		
+		   ]);
+		
 		  var options = {
 		    title: '일일방문자수',
 		    hAxis: {title: '일일방문자수',  titleTextStyle: {color: '#333'}},
@@ -62,6 +81,65 @@
 		  var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
 		  chart.draw(data, options);
 		}
+		
+		//주간방문자수
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChartWeekly);
+		
+		function drawChartWeekly() {
+				
+		
+		  var dataWeekly = google.visualization.arrayToDataTable([	//주간 접속자수 구글차트
+		    		['날짜','접속자수'],
+		    		[$("#aaa7").val(),($("#bbb7").val())*652],	//방문자수 랜덤하게 조작
+		    		[$("#aaa6").val(),($("#bbb6").val())*711],
+		    		[$("#aaa5").val(),($("#bbb5").val())*862],
+		    		[$("#aaa4").val(),($("#bbb4").val())*513],
+		    		[$("#aaa3").val(),($("#bbb3").val())*544],
+		    		[$("#aaa2").val(),($("#bbb2").val())*765],
+		    		[$("#aaa1").val(),($("#bbb1").val())*1036]
+		    		
+		   ]);
+		
+		  var optionsWeekly = {
+		    title: '주간방문자수',
+		    hAxis: {title: '주간방문자수',  titleTextStyle: {color: '#333'}},
+		    vAxis: {minValue: 0}
+		  };
+		
+		  var chartWeekly = new google.visualization.AreaChart(document.getElementById('chart_div_weekly'));
+		  chartWeekly.draw(dataWeekly, optionsWeekly);
+		}
+		
+		//월간방문자수
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawChartMonth);
+		
+		function drawChartMonth() {
+				
+		
+		  var dataMonth = google.visualization.arrayToDataTable([	//일일 날짜 접속자수 구글차트
+		    		['날짜','접속자수'],
+		    		[$("#aaaa7").val(),($("#bbbb7").val())*3455],
+		    		[$("#aaaa6").val(),($("#bbbb6").val())*4356],
+		    		[$("#aaaa5").val(),($("#bbbb5").val())*4566],
+		    		[$("#aaaa4").val(),($("#bbbb4").val())*2344],
+		    		[$("#aaaa3").val(),($("#bbbb3").val())*6788],
+		    		[$("#aaaa2").val(),($("#bbbb2").val())*3456],
+		    		[$("#aaaa1").val(),($("#bbbb1").val())*7897]
+		    		
+		   ]);
+		
+		  var optionsMonth = {
+		    title: '월간방문자수',
+		    hAxis: {title: '월간방문자수',  titleTextStyle: {color: '#333'}},
+		    vAxis: {minValue: 0}
+		  };
+		
+		  var chartMonth = new google.visualization.AreaChart(document.getElementById('chart_div_month'));
+		  chartMonth.draw(dataMonth, optionsMonth);
+		}
+		
 	});
 	
 </script>
@@ -73,40 +151,55 @@
     <div class="row">
 	    <div class="col-xs-1"></div>
 	    <div id="div1" class="col-xs-9">
-	
+			<input class="btn btn-default" id="dailyButton" type="button" value="일일방문자수"/>
+			<input class="btn btn-default" id="weeklyButton" type="button" value="주간방문자수"/>
+			<input class="btn btn-default" id="monthlyButton" type="button" value="월간방문자수"/>
+	  	 
+			
 			<div id="chart_div" style="width: 100%; height: 500px;"></div>
-			
 			<!-- 일일게스트수 -->
-			<table>
-				<c:forEach var="d" items="${dailyGuest}">
-					<tr>
-						<td><input name="1" id="1" value="${d.dailyDate}"/> : 일일날짜  </td>
-						<td><input name="2" id="2" value="${d.guestCount}"/>: 게스트수  </td>
-					</tr>
-				</c:forEach>
-			</table>
+			<div id="dailyGuest">
+				<table>
+				
+					<c:forEach var="d" items="${dailyGuest}" varStatus="loop" begin="0" end="6" step="1">
+						<tr>
+							<td><input id="aa${loop.count}" value="${d.dailyDate}" type="hidden"/></td>
+							<td><input id="bb${loop.count}" value="${d.guestCount}" type="hidden"/></td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
 			
+			<div id="chart_div_weekly" style="width: 100%; height: 500px;"></div>
 			<!-- 주간게스트수 -->
-			<table>
-				<c:forEach var="w" items="${weeklyGuest}">
-					<tr>
-						<td>주간날짜 : ${w.weeklyStart}</td>
-						<td>주간날짜 : ${w.weeklyEnd}</td>
-						<td>게시트수 : ${w.guestCount}</td>
-					</tr>
-				</c:forEach>
-			</table>
+			<div id="weeklyGuest">
+				<table>
+					<c:forEach var="w" items="${weeklyGuest}" varStatus="loop" begin="0" end="6" step="1">
+						<tr>
+							<%-- <td>주간날짜 : ${w.weeklyStart}</td>
+							<td>주간날짜 : ${w.weeklyEnd}</td>
+							<td>게시트수 : ${w.guestCount}</td> --%>
+							<td><input id="aaa${loop.count}" value="${w.weeklyStart}~${w.weeklyEnd}" type="hidden"/></td>
+							<td><input id="bbb${loop.count}" value="${w.guestCount}" type="hidden"/></td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
 			
+			<div id="chart_div_month" style="width: 100%; height: 500px;"></div>
 			<!-- 월간게스트수 -->
-			<table>
-				<c:forEach var="m" items="${monthlyGuest}">
-					<tr>
-						<td>월간날짜 : ${m.monthlyDate}</td>
-						<td>게시트수 : ${m.guestCount}</td>
-					</tr>
-				</c:forEach>
-			</table>
-			
+			<div id="monthlyGuest">
+				<table>
+					<c:forEach var="m" items="${monthlyGuest}" varStatus="loop" begin="0" end="6" step="1">
+						<tr>
+							<%-- <td>월간날짜 : ${m.monthlyDate}</td>
+							<td>게시트수 : ${m.guestCount}</td> --%>
+							<td><input id="aaaa${loop.count}" value="${m.monthlyDate}월" type="hidden"/></td>
+							<td><input id="bbbb${loop.count}" value="${m.guestCount}" type="hidden"/></td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
 		</div>
 		
 		<!-- 우측 베너 인클루드 -->

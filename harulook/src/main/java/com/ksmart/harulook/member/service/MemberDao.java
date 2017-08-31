@@ -101,32 +101,16 @@ public class MemberDao {
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.userDetail", map);
     }
     
-    /*관리자회원리스트 */
-    public List<MemberDto> managerList(int currentPage, int pagePerRow, String level) {
-		Map<Object, Object> map = new HashMap<Object, Object>();
-        map.put("beginRow", (currentPage-1)*pagePerRow);
-        map.put("pagePerRow", pagePerRow);
-        map.put("level", level);
-        return sqlSessionTemplate.selectList("com.ksmart.harulook.member.service.MemberMapper.userList", map);
-    }
-    
-    /*사업자회원리스트 */
-    public List<MemberDto> businessList(int currentPage, int pagePerRow, String level) {
+  
+    /*전체회원리스트 */
+    public List<MemberDto> userList(int currentPage, int pagePerRow, String level, String userId) {
 		
         Map<Object, Object> map = new HashMap<Object, Object>();
         map.put("beginRow", (currentPage-1)*pagePerRow);
         map.put("pagePerRow", pagePerRow);
         map.put("level", level);
-        return sqlSessionTemplate.selectList("com.ksmart.harulook.member.service.MemberMapper.userList", map);
-    }
-    
-    /*일반회원리스트 */
-    public List<MemberDto> userList(int currentPage, int pagePerRow, String level) {
-		
-        Map<Object, Object> map = new HashMap<Object, Object>();
-        map.put("beginRow", (currentPage-1)*pagePerRow);
-        map.put("pagePerRow", pagePerRow);
-        map.put("level", level);
+        map.put("userId", userId);
+        	System.out.println(map + " ==MemberDao 전체회원리스트 map");
         return sqlSessionTemplate.selectList("com.ksmart.harulook.member.service.MemberMapper.userList", map);
     }
     

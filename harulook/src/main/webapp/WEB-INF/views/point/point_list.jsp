@@ -34,7 +34,7 @@
 <meta http-equiv="Expires" content="-1">
 <script type="text/javascript">
 	$(document).ready(function(){
-		var myPointMsg;
+		var myPointMsgB;
 		
 		console.log(sessionStorage.getItem('get'));	//포인트 취득 내역리스트를 보기 위한 세션 값
 		if(sessionStorage.getItem('get') != "get"){	//취득내역 다음이전버튼 클릭 안했을때
@@ -72,9 +72,9 @@
 			request.done(function( msg ) {
 				msg = msg.trim();
 				console.log(msg);	//아이디찾기
-				$('#myPointMsg').html('나의 보유 포인트 = ' + msg);
-				myPointMsg = msg * 1;	//보유포인트 변수로 지정
-				console.log(myPointMsg + " ==인트변환");
+				$('#myPointMsgB').html('나의 보유 포인트 = ' + msg);
+				myPointMsgB = msg * 1;	//보유포인트 변수로 지정
+				console.log(myPointMsgB + " ==인트변환");
 			});	
 			$('#pointPolicyModal').modal();
 		});
@@ -88,9 +88,9 @@
 			pointValusIf = pointValue * -1;	//음수를 양수로 변환
 			console.log(pointValusIf);
 			
-			if(myPointMsg < pointValusIf){	// 보유 포인트가 부족하면 경고문
+			if(myPointMsgB < pointValusIf){	// 보유 포인트가 부족하면 경고문
 				alert('포인트가 부족합니다');
-			}else if(myPointMsg >= pointValusIf){	//보유 포인트가 충분하면 사용가능
+			}else if(myPointMsgB >= pointValusIf){	//보유 포인트가 충분하면 사용가능
 				console.log('포인트충분');
 				var request = $.ajax({
 					  url: "./couponUse", //호출 경로
@@ -157,7 +157,9 @@
 							<div class="container">
 							    <h1>포인트 사용 쿠폰</h1>
 							    <!-- 보유포인트-->
-								<h5><span id="myPointMsg"></span><br></h5>
+							    
+								<span id="myPointMsgB"></span><br>
+								
 							    <table class="table">
 							        <thead>
 							            <tr>
