@@ -19,13 +19,20 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
  
 <script>
-	$(document).ready(function(){
-		
-		$('#idcheckbutton').click(function(){	//아이디중복체크버튼
-		
-        });
-		
-    });
+
+	$(document).ready(function(){	
+		$('#userDelete').click(function(){	//회원추방
+			alert('추방하였습니다');
+			var request = $.ajax({
+				  url: "./userDeleteAdd", //호출 경로
+				  method: "POST",	//전송방식
+				  data: { 'deleteid' : $('#user_id').attr("value") }, //전송해줄값
+				  dataType: "text" //결과값 타입 (리턴)
+			});
+			$('#home').submit();	
+		});
+	});
+	
 </script>
 <title>사업자회원정보보기</title>
 </head>
@@ -53,6 +60,12 @@
 	       	업체홈페이지: <a>${businessDetail.userUrl}</a><br>
 	       	가입날짜: <a>${businessDetail.userDate}</a><br>
 	       	
+	       	<!-- 추방하기 -->
+			<c:if test="${sessionScope.level == '관리자'}">
+			<input class="btn btn-default" id="userDelete" type="button" value="추방하기"/>
+			<form id="home" action="${pageContext.request.contextPath}/home" method="get"></form>	
+			</c:if>	
+			
 	    </div>
 		
 		<!-- 우측 베너 인클루드 -->

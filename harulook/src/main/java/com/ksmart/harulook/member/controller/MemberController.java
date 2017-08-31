@@ -175,6 +175,8 @@ public class MemberController {
 			
 			List<String> userStyle = memberDao.userStyle(userId);	
 			model.addAttribute("userStyle", userStyle);
+				System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러==" + userColor);
+				System.out.println("MemeberController 회원정보보기로 받아온 회원의스타일==" + userStyle);
 				System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러와스타일 model==" + model);
 				
 		return "member/user/member_user_detail"; //일반회원가입폼화면

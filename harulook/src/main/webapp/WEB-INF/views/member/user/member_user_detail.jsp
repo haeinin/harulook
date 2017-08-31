@@ -24,6 +24,19 @@
  
 <script>
 	
+	$(document).ready(function(){	
+		$('#userDelete').click(function(){	//회원추방
+			alert('추방하였습니다');
+			var request = $.ajax({
+				  url: "./userDeleteAdd", //호출 경로
+				  method: "POST",	//전송방식
+				  data: { 'deleteid' : $('#user_id').attr("value") }, //전송해줄값
+				  dataType: "text" //결과값 타입 (리턴)
+			});
+			$('#home').submit();	
+		});
+	});
+	
 </script>
 <title>일반회원정보보기</title>
 </head>
@@ -37,30 +50,32 @@
 	    
 	    <h1>일반회원정보보기</h1>
 	    
-	    	아이디 : <a>${userDetail.userId}</a><br>
-	       	닉네임 : <a>${userDetail.userNick}</a><br>
-	       	이름: <a>${userDetail.userName}</a><br>
-	       	성별: <a>${userDetail.userGender}</a><br>
-	       	이메일: <a>${userDetail.userEmail}</a><br>
-	       	전화번호: <a>${userDetail.userTel}</a><br>
-	       	주소: <a>${userDetail.userAddr}</a><br>
-	       	나이: <a>${userDetail.userAge}</a><br>
-	       	키: <a>${userDetail.userTall}</a><br>
-	       	체형: <a>${userDetail.userSize}</a><br>
-	       	권한: <a>${userDetail.userLevel}</a><br>
-	       	가입날짜: <a>${userDetail.userDate}</a><br>
-	       	
-	                    	
-	                    
-                          스타일:    
-           <c:forEach var="c" items="${userColor}">
-                 	<a>${c.colorValue}</a><br>
-           </c:forEach>
-           <br>
-                         선호색: 
-           <c:forEach var="s" items="${userStyle}">
-               		<a>${s.styleValue}</a><br>
-           </c:forEach>
+			아이디 : <div id="user_id" value="${userDetail.userId}">${userDetail.userId}</div><br>
+			닉네임 : <a>${userDetail.userNick}</a><br>
+			이름: <a>${userDetail.userName}</a><br>
+			성별: <a>${userDetail.userGender}</a><br>
+			이메일: <a>${userDetail.userEmail}</a><br>
+			전화번호: <a>${userDetail.userTel}</a><br>
+			주소: <a>${userDetail.userAddr}</a><br>
+			나이: <a>${userDetail.userAge}</a><br>
+			키: <a>${userDetail.userTall}</a><br>
+			체형: <a>${userDetail.userSize}</a><br>
+			권한: <a>${userDetail.userLevel}</a><br>
+			가입날짜: <a>${userDetail.userDate}</a><br>
+			
+			스타일:    
+			<a>${userColor}</a><br>
+			<br>
+			선호색: 
+			<a>${userStyle}</a><br>
+			<br>
+	       
+			<!-- 추방하기 -->
+			<c:if test="${sessionScope.level == '관리자'}">
+			<input class="btn btn-default" id="userDelete" type="button" value="추방하기"/>
+			<form id="home" action="${pageContext.request.contextPath}/home" method="get"></form>	
+			</c:if>	
+        
         </div>  
         
         <!-- 우측 베너 인클루드 -->

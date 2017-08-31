@@ -183,50 +183,49 @@
     <c:import url="./module/header.jsp"></c:import>
     
     <!-- 바디 인클루드 -->
-    <div class="col-xs-1"></div>
-    <div class="col-xs-9">
-	    <section class="instagram-wrap">
-	        <div class="container">
-	            <div class="row">
-	                
-	                    <div class="instagram-content">
-	                        <h3>Latest Photos</h3>
-	                        <div class="row photos-wrap">
-	                        
-	                        <!-- The following HTML will be our template inside instafeed -->
-	                        <div class="col-xs-9 col-sm-6 col-md-4 col-lg-3">
-	                            <div class="photo-box">
-	                                <div class="image-wrap">
-	                                    <img src="resources/files/images/test_img.jpg">
-	                                    <div class="likes">309 Likes</div>
-	                                </div>
-	                                <div class="description">
-	                                    Fantastic Architecture #architecture #testing
-	                                    <div class="date">September 16, 2014</div>
-	                                </div>
-	                            </div>
-	                        </div>
+    <div class="row">
+	    <div class="col-xs-1"></div>
+	    <div class="col-xs-9">
+		    <section class="instagram-wrap">
+		        <div class="container">
+		           <div class="instagram-content">
+	                    <h3>Latest Photos</h3>
+	                    <div class="row photos-wrap">
+	                    
+		                    <!-- The following HTML will be our template inside instafeed -->
+		                    <div class="col-xs-9 col-sm-6 col-md-4 col-lg-3">
+		                        <div class="photo-box">
+		                            <div class="image-wrap">
+		                                <img src="resources/files/images/test_img.jpg">
+		                                <div class="likes">309 Likes</div>
+		                            </div>
+		                            <div class="description">
+		                                Fantastic Architecture #architecture #testing
+		                                <div class="date">September 16, 2014</div>
+		                            </div>
+		                        </div>
+		                    </div>
 	
-	                        </div>
 	                    </div>
-	            </div>
-	        </div>
-	    </section>
-	    
-	   
-	<!-- 테스트용 다음 맵 삭제 하면 됨 <div id="map" style="width:500px;height:400px;"></div>   -->
-	
-	 <!-- 테스트용 구글 맵 <div id="floating-panel">
-	      <input id="latlng" type="text" value="40.714224,-73.961452">
-	      <input id="submit" type="button" value="Reverse Geocode">
+	                </div>
+	            
+		        </div>
+		    </section>
+		    
+		   
+		<!-- 테스트용 다음 맵 삭제 하면 됨 <div id="map" style="width:500px;height:400px;"></div>   -->
+		
+		 <!-- 테스트용 구글 맵 <div id="floating-panel">
+		      <input id="latlng" type="text" value="40.714224,-73.961452">
+		      <input id="submit" type="button" value="Reverse Geocode">
+		    </div>
+		    <div id="map"></div> -->
+		
 	    </div>
-	    <div id="map"></div> -->
-	
+	    
+	    <!-- 우측 베너 인클루드 -->
+	    <c:import url="./module/right.jsp"></c:import>
     </div>
-    
-    <!-- 우측 베너 인클루드 -->
-    <c:import url="./module/right.jsp"></c:import>
-    
     <!-- 하단 인클루드 -->
     <c:import url="./module/footer.jsp"></c:import>
 </body>

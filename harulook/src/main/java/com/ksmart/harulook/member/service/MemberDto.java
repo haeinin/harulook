@@ -164,6 +164,7 @@ public class MemberDto {
 		return styleValue;
 	}
 	public void setStyleValue(String styleValue) {
+			System.out.println(styleValue);
 		this.styleValue = styleValue;
 	}
 	public String getColorNo() {
