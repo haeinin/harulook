@@ -112,7 +112,7 @@ public class AdContractController {
 		adcontract.setUserId((String)session.getAttribute("id"));
 		System.out.println(adcontract.getUserId());
 		adcontract.setAdContractNo("ad_contract_"+initContractNo);
-		/*날씨 더하는 코드 시작*/
+/*		날씨 더하는 코드 시작
 		SimpleDateFormat dateformat = new SimpleDateFormat ("yy-mm-dd");
 		System.out.println(adcontract.getAdContractStart());
 		Date startdate = dateformat.parse(adcontract.getAdContractStart());
@@ -123,7 +123,7 @@ public class AdContractController {
 		System.out.println("계산된 enddate : " + enddate);
 		adcontract.setAdContractEnd(enddate);
 		System.out.println(date);
-		System.out.println(adcontract);
+		System.out.println(adcontract);*/
 		adcontractdao.insertAdContract(adcontract);
 		System.out.println("adContract 입력 완료");
 		model.addAttribute("contractNo", adcontract.getAdContractNo());

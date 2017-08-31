@@ -22,18 +22,20 @@ jQuery.browser = {};
 	
 <script>
     $(function() {
-    	var selectedday;
     	var price;
     	var dc;
+    	var period;
+    	var startdate;
+    	var enddate;
     	/* 총 합계를 계산해 놓으면 텍스트박스에 NaN이라는 값이 출력되서 날짜를 선택해야 총 합계가 나오게 만듬 */
     	$('#date').change(function(){
 
 			if($('#date').val() == 'ad_dc_01'){
-				selectedday = 1;
+				period = 3;
 			}else if($('#date').val() == 'ad_dc_02'){
-				selectedday = 5;
+				period = 7;
 			}else if($('#date').val() == 'ad_dc_03'){
-				selectedday = 7;
+				period = 30;
 			}
 			
 		/* 기간을 선택했을때 ajax를 이용하여 기간별 할인율을 전송받음*/
@@ -45,7 +47,7 @@ jQuery.browser = {};
     				console.log("수수료 : " + data);
     				dc = data;
     				$('#dcForPrice').val(data);
-    				$('#priceTotal').val((selectedday*$('#pricePerDay').val())*(1-data/100));
+    				$('#priceTotal').val((period*$('#pricePerDay').val())*(1-data/100));
     			}
     		})
     	/****************************************/	
@@ -69,6 +71,25 @@ jQuery.browser = {};
     	/* 날짜 선택시 옵션 지정 (선택가능한 최소날짜 오늘부터, 날짜 형식 지정)*/
         $("#datepicker").datepicker({
         	minDate: +0,
+        	dateFormat: 'yy-mm-dd'
+        });
+        $("#datepicker").change(function(){
+        	enddate = new Date($(this).val());
+        	enddate.setDate(enddate.getDate() + period);
+        	var year = enddate.getFullYear();
+        	var month = ((enddate.getMonth()+101)+"").substring(1,3);
+			var day = enddate.getDate();
+        	console.log('년 :' + year);
+        	console.log('월 :' + month);
+        	console.log('일 :' + day);
+        	console.log(enddate);
+        	console.log(year + '-' + month + '-' + day);
+        	if(day < 10)
+        	$('#datepicker2').val(year+'-'+month+'-0'+day);
+        	else
+        	$('#datepicker2').val(year+'-'+month+'-'+day);	
+        });
+        $("#datepicker2").datepicker({
         	dateFormat: 'yy-mm-dd'
         });
     	/**********************************************/
@@ -116,6 +137,10 @@ jQuery.browser = {};
         <div class="form-group">
             <label for="boardPw">시작일자</label>
             <input type="text" id="datepicker" name="adContractStart">  
+        </div>
+        <div class="form-group">
+            <label for="boardPw">종료일자</label>
+            <input type="text" id="datepicker2" name="adContractEnd">  
         </div>
         
         <div class="form-group">
