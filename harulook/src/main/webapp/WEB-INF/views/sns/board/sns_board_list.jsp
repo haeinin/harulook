@@ -23,10 +23,12 @@
 <!-- sns스타일 탬플릿 css-->
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 <!-- 예뻐요 아이콘 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="<c:url value="resources/css/like-btn.css" />" type="text/css">
 <title>Insert title here</title>
+<script type="text/javascript" src="resources/js/boardDetail.js"></script>
 <script type="text/javascript">
 $(function(){     
+	
 	/* 게시글 추천수, 댓글수 보이기 및 감추기 ***************/
 	
 	$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
@@ -37,7 +39,7 @@ $(function(){
 		$(this).find('.likes').hide();
 	});
 	
-	$('.image-wrap img').each(function() {
+	$('.image-wrap img').each(function imgAutoSize() {
         var maxWidth = 345; // Max width for the image
         var maxHeight = 345;    // Max height for the image
         var ratio = 0;  // Used for aspect ratio
@@ -64,7 +66,7 @@ $(function(){
 		}
     });
 	
-	/*  게시물 상세보기  */
+	/*  게시물 클릭  */
 	$('.sns-photo-box').click(function(){
 		var index = $('.sns-photo-box').index(this);
 		var boardNo = $(this).children().eq(0).val();
@@ -73,157 +75,19 @@ $(function(){
 		console.log('data[',index,'].snsBoardNo : ',boardNo);
 		
 		
-		$.ajax({
+		var boardDetailRequest = $.ajax({
 			url : './boardDetail',
 			method : 'get',
 			data :{'boardNo' : boardNo},
 			datatype : 'json',
-			success : function(data) {
-				console.log('boardDatil : ',data);
-				var snsDetailImg = '';
-				snsDetailImg += '<img alt="no image" style="width: 580px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.board.snsBoardImg+'">';
-				$('#snsDetailImg').html(snsDetailImg);
-				
-				var snsDetailContent = '';
-				snsDetailContent += '<div style="float: left;">';
-				snsDetailContent += '<h4>'+data.board.userNick+'(<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+data.board.userId+'">'+data.board.userId+'</a>)</h4>';
-				snsDetailContent += '</div>';
-				snsDetailContent += '<button>팔로우</button>';
-				snsDetailContent += '<hr></hr>';
-				snsDetailContent += '<div>';
-				snsDetailContent += '<span>'+data.board.snsBoardContent+'</span><br>';
-				for(var i=0; i<data.snsStyle.length; i++) {
-					var snsStyleValue = '';
-					switch(data.snsStyle[i]) {
-					case '클래식' :
-						snsStyleValue = 'style_01';
-						break;
-					case '캐쥬얼' :
-						snsStyleValue = 'style_02';
-						break;
-					case '빈티지' :
-						snsStyleValue = 'style_03';
-						break;
-					case '스트리트' :
-						snsStyleValue = 'style_04';
-						break;
-					case '댄디' :
-						snsStyleValue = 'style_05';
-						break;
-					case '럭셔리' :
-						snsStyleValue = 'style_06';
-						break;
-					case '러블리' :
-						snsStyleValue = 'style_07';
-						break;
-					case '로맨틱' :
-						snsStyleValue = 'style_08';
-						break;
-					case '심플' :
-						snsStyleValue = 'style_09';
-						break;
-					case '액티브' :
-						snsStyleValue = 'style_10';
-						break;
-					default :
-						snsStyleValue = '';
-					break;
-					}
-					snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&styleValue='+snsStyleValue+'">#'+data.snsStyle[i]+'</a>&nbsp';
-				}
-				for(var i=0; i<data.snsColor.length; i++) {
-					var snsColorValue = '';
-					switch(data.snsColor[i]) {
-					case '빨강' :
-						snsColorValue = 'color_01';
-						break;
-					case '주황' :
-						snsColorValue = 'color_02';
-						break;
-					case '노랑' :
-						snsColorValue = 'color_03';
-						break;
-					case '초록' :
-						snsColorValue = 'color_04';
-						break;
-					case '파랑' :
-						snsColorValue = 'color_05';
-						break;
-					case '남색' :
-						snsColorValue = 'color_06';
-						break;
-					case '보라' :
-						snsColorValue = 'color_07';
-						break;
-					case '검정' :
-						snsColorValue = 'color_08';
-						break;
-					case '회색' :
-						snsColorValue = 'color_09';
-						break;
-					case '흰색' :
-						snsColorValue = 'color_10';
-						break;
-					case '갈색' :
-						snsColorValue = 'color_11';
-						break;
-					case '베이지' :
-						snsColorValue = 'color_12';
-						break;
-					case '분홍' :
-						snsColorValue = 'color_13';
-						break;
-					default :
-						snsColorValue = '';
-					break;
-					}
-					snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&colorValue='+snsColorValue+'">#'+data.snsColor[i]+'</a>&nbsp';
-				}
-				for(var i=0; i<data.snsSituation.length; i++) {
-					var snsSituationValue = '';
-					switch(data.snsSituation[i]) {
-					case '학교' :
-						snsSituationValue = 'situation_01';
-						break;
-					case '출근' :
-						snsSituationValue = 'situation_02';
-						break;
-					case '파티' :
-						snsSituationValue = 'situation_03';
-						break;
-					case '여행' :
-						snsSituationValue = 'situation_04';
-						break;
-					case '운동' :
-						snsSituationValue = 'situation_05';
-						break;
-					case '나들이' :
-						snsSituationValue = 'situation_06';
-						break;
-					case '하객' :
-						snsSituationValue = 'situation_07';
-						break;
-					default :
-						snsSituationValue = '';
-					break;
-					}
-					snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&situationValue='+snsSituationValue+'">#'+data.snsSituation[i]+'</a>&nbsp';
-				}
-				snsDetailContent += '</div>';
-				snsDetailContent += '<hr></hr>';
-				snsDetailContent += '<div>';
-				for(var i=0; i<data.commentList.length; i++) {
-					snsDetailContent += '<span>'+data.commentList[i].userId+': '+data.commentList[i].snsCommentContent+'</span><br>';
-				}
-				snsDetailContent += '</div>';
-				$('#snsDetailContent').html(snsDetailContent);
-			},
-			error : function(){
-				alert('fail');
+			success : function(msg) {
+				boardDetailRequest.done( boardDetail(msg));
 			}
+			
 		});
 		$('#snsModal').modal();
 	});
+	
 	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
 	$('.searchCategory').change(function(){
 		
@@ -322,7 +186,7 @@ $(function(){
 					}
 			    });
 				
-				/*  게시물 상세보기  */
+				/*  게시물 클릭  */
 				$('.sns-photo-box').click(function(){
 					var index = $('.sns-photo-box').index(this);
 					var boardNo = data[index].snsBoardNo;
@@ -331,160 +195,24 @@ $(function(){
 					console.log('data[',index,'].snsBoardNo : ',boardNo);
 					
 					
-					$.ajax({
+					var boardDetailRequest = $.ajax({
 						url : './boardDetail',
 						method : 'get',
 						data :{'boardNo' : boardNo},
 						datatype : 'json',
-						success : function(data) {
-							console.log('boardDatil : ',data);
-							var snsDetailImg = '';
-							snsDetailImg += '<img alt="no image" style="width: 580px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.board.snsBoardImg+'">';
-							$('#snsDetailImg').html(snsDetailImg);
-							
-							var snsDetailContent = '';
-							snsDetailContent += '<div style="float: left;">';
-							snsDetailContent += '<h4>'+data.board.userNick+'(<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+data.board.userId+'">'+data.board.userId+'</a>)</h4>';
-							snsDetailContent += '</div>';
-							snsDetailContent += '<button>팔로우</button>';
-							snsDetailContent += '<hr></hr>';
-							snsDetailContent += '<div>';
-							snsDetailContent += '<span>'+data.board.snsBoardContent+'</span><br>';
-							for(var i=0; i<data.snsStyle.length; i++) {
-								var snsStyleValue = '';
-								switch(data.snsStyle[i]) {
-								case '클래식' :
-									snsStyleValue = 'style_01';
-									break;
-								case '캐쥬얼' :
-									snsStyleValue = 'style_02';
-									break;
-								case '빈티지' :
-									snsStyleValue = 'style_03';
-									break;
-								case '스트리트' :
-									snsStyleValue = 'style_04';
-									break;
-								case '댄디' :
-									snsStyleValue = 'style_05';
-									break;
-								case '럭셔리' :
-									snsStyleValue = 'style_06';
-									break;
-								case '러블리' :
-									snsStyleValue = 'style_07';
-									break;
-								case '로맨틱' :
-									snsStyleValue = 'style_08';
-									break;
-								case '심플' :
-									snsStyleValue = 'style_09';
-									break;
-								case '액티브' :
-									snsStyleValue = 'style_10';
-									break;
-								default :
-									snsStyleValue = '';
-								break;
-								}
-								snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&styleValue='+snsStyleValue+'">#'+data.snsStyle[i]+'</a>&nbsp';
-							}
-							for(var i=0; i<data.snsColor.length; i++) {
-								var snsColorValue = '';
-								switch(data.snsColor[i]) {
-								case '빨강' :
-									snsColorValue = 'color_01';
-									break;
-								case '주황' :
-									snsColorValue = 'color_02';
-									break;
-								case '노랑' :
-									snsColorValue = 'color_03';
-									break;
-								case '초록' :
-									snsColorValue = 'color_04';
-									break;
-								case '파랑' :
-									snsColorValue = 'color_05';
-									break;
-								case '남색' :
-									snsColorValue = 'color_06';
-									break;
-								case '보라' :
-									snsColorValue = 'color_07';
-									break;
-								case '검정' :
-									snsColorValue = 'color_08';
-									break;
-								case '회색' :
-									snsColorValue = 'color_09';
-									break;
-								case '흰색' :
-									snsColorValue = 'color_10';
-									break;
-								case '갈색' :
-									snsColorValue = 'color_11';
-									break;
-								case '베이지' :
-									snsColorValue = 'color_12';
-									break;
-								case '분홍' :
-									snsColorValue = 'color_13';
-									break;
-								default :
-									snsColorValue = '';
-								break;
-								}
-								snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&colorValue='+snsColorValue+'">#'+data.snsColor[i]+'</a>&nbsp';
-							}
-							for(var i=0; i<data.snsSituation.length; i++) {
-								var snsSituationValue = '';
-								switch(data.snsSituation[i]) {
-								case '학교' :
-									snsSituationValue = 'situation_01';
-									break;
-								case '출근' :
-									snsSituationValue = 'situation_02';
-									break;
-								case '파티' :
-									snsSituationValue = 'situation_03';
-									break;
-								case '여행' :
-									snsSituationValue = 'situation_04';
-									break;
-								case '운동' :
-									snsSituationValue = 'situation_05';
-									break;
-								case '나들이' :
-									snsSituationValue = 'situation_06';
-									break;
-								case '하객' :
-									snsSituationValue = 'situation_07';
-									break;
-								default :
-									snsSituationValue = '';
-								break;
-								}
-								snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&situationValue='+snsSituationValue+'">#'+data.snsSituation[i]+'</a>&nbsp';
-							}
-							snsDetailContent += '</div>';
-							snsDetailContent += '<hr></hr>';
-							snsDetailContent += '<div>';
-							for(var i=0; i<data.commentList.length; i++) {
-								snsDetailContent += '<span>'+data.commentList[i].userId+': '+data.commentList[i].snsCommentContent+'</span><br>';
-							}
-							snsDetailContent += '</div>';
-							$('#snsDetailContent').html(snsDetailContent);
-						},
-						error : function(){
-							alert('fail');
+						success: function(msg) {
+							boardDetailRequest.done( boardDetail(msg));
 						}
+						
 					});
+					
 					$('#snsModal').modal();
 				});
 			}
 		});
 	});
+	
+
 });
 </script>
 </head>
@@ -632,20 +360,21 @@ $(function(){
 	
 <div class="modal fade" id="snsModal" role="dialog">
     <div class="modal-dialog modal-lg" >
-      <div id="snsDetail" class="modal-content">
-        	
-        <div class="row">
-	        <div class="modal-body col-xs-8" style="padding-bottom: 0; padding-top: 0;">
-				<div id="snsDetailImg">
-					
+		<div id="snsDetail" class="modal-content">
+	        <div class="row">
+		        <div class="modal-body col-xs-8" style="padding-bottom: 0; padding-top: 0;">
+					<div id="snsDetailImg"></div>
+	        	</div>
+		        <div id="snsDetailContent" class="modal-body col-xs-4">
 				</div>
-	        </div>
-	        <div id="snsDetailContent" class="modal-body col-xs-4">
-	        	<div id="snsDetailContent"></div>
-	        </div>
-      	</div>
-      </div>
-    </div>
-    </div>
+				<div id="snsDetailComment">
+	        		<input type="text" id="commentArea">
+	        		<button type="button" id="commentBtn">등록</button>
+	        	</div>	
+			<!-- 예뻐요 버튼  -->
+		     </div>
+		</div>
+	</div>
+</div>
 </body>
 </html>

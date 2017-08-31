@@ -171,7 +171,7 @@ public class BoardController {
 	}
 	
 	/* sns게시물 상세 보기 */
-	@RequestMapping(value="/boardDetail", method = RequestMethod.POST)
+	@RequestMapping(value="/oardDetail", method = RequestMethod.GET)
 	public String boardDetail(Model model, HttpSession session
             , @RequestParam(value="boardNo", required=true) String boardNo) {
 		System.out.println("boardDeatil 화면 요청");
