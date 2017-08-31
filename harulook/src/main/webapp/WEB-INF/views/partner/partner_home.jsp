@@ -14,7 +14,7 @@
     <!-- 바디 인클루드 -->
     <div class="row">
 	    <div class="col-xs-1">
-	    <c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
+	    
 	    </div>
 	    <div class="col-xs-9">
  <table border="1px">
@@ -30,10 +30,11 @@
                 </c:if>
             </tr>
         </thead>
+        
         <tbody>
             <c:forEach var="b" items="${list}">
                 <tr>
-                    <td><a href="${pageContext.request.contextPath}/StatsView?cooContractNo=${b.cooContractNo}">${b.cooContractNo}</a></td>
+                    <td><a href="${pageContext.request.contextPath}/partnerMain?setNo=${b.cooContractNo}">${b.cooContractNo}</a></td>
                     <td>${b.cooContractStart}</td>
                     <td>${b.cooContractEnd}</td>
                     <td>${b.cooContractStat}</td>

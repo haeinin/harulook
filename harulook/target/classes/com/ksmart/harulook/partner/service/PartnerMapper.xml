@@ -299,9 +299,7 @@
 		,coo_bill_date
 		FROM
 		coo_bill
-		WHERE coo_contract_no = (SELECT coo_contract_no
-								FROM coo_contract
-								WHERE user_id=#{userId})
+		WHERE coo_contract_no = #{cooContractNo}
 	</select>
 
 	<!-- 제휴신청 승인 -->
@@ -324,8 +322,7 @@
 		,coo_pay_total
 		FROM 
 		coo_pay
-		WHERE 
-		coo_contract_no = #{cooContracNo}
+		WHERE coo_contract_no = #{cooContractNo}
 	</select>
 	
 	<!-- 제휴계약 이름 가져오기 -->
