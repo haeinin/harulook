@@ -18,30 +18,33 @@
 		
 		<!-- 월간방문자수조회 -->
      	<select id="monthlyGuest" resultMap="guest">
-			SELECT month(guest_date) as 'monthly_date'
+			select month(guest_date) as 'monthly_date'
 				,count(guest_no) guest_count
 			from guest 
 			group by monthly_date
+			order by monthly_date desc
 			; 
     	</select>
 		
 		<!-- 주간방문자수조회 -->
      	<select id="weeklyGuest" resultMap="guest">
-			SELECT DATE_FORMAT(DATE_SUB(`guest_date`, INTERVAL (DAYOFWEEK(`guest_date`)-1) DAY), '%Y/%m/%d') as weekly_start
+			select DATE_FORMAT(DATE_SUB(`guest_date`, INTERVAL (DAYOFWEEK(`guest_date`)-1) DAY), '%Y/%m/%d') as weekly_start
 				,DATE_FORMAT(DATE_SUB(`guest_date`, INTERVAL (DAYOFWEEK(`guest_date`)-7) DAY), '%Y/%m/%d') as weekly_end
 				,DATE_FORMAT(`guest_date`, '%Y%U') as 'date'
 				,count(guest_no) guest_count
 			from guest
 			group by date
+			order by date desc
 			; 
     	</select>
 		
 		<!-- 일일방문자수조회 -->
      	<select id="dailyGuest" resultMap="guest">
-			SELECT date(guest_date) as 'daily_date'
+			select date(guest_date) as 'daily_date'
 				,count(guest_no) guest_count
 			from guest
 			group by daily_date
+			order by daily_date desc
 			; 
     	</select>
 		
