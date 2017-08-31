@@ -29,9 +29,9 @@ public class UtilFile {
             fileName = uploadFile.getOriginalFilename();
             byte[] bytes = uploadFile.getBytes();
             //배포할때에
-            //path = getSaveLocation(request);
+            path = getSaveLocation(request);
             //로컬에서 테스트할때에
-            path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/resources/files/";
+            //path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/resources/files/";
 
             System.out.println("UtilFile fileUpload fileName : " + fileName);
             System.out.println("UtilFile fileUpload uploadPath : " + path);
@@ -73,4 +73,13 @@ public class UtilFile {
         
         return path + fileName;
    }
+//  업로드 파일 저장 경로 얻는 메소드
+private String getSaveLocation(MultipartHttpServletRequest request) {
+    
+    String uploadPath = request.getSession().getServletContext().getRealPath("/");
+    String attachPath = "resources/files/";
+   
+    System.out.println("UtilFile getSaveLocation path : " + uploadPath + attachPath);
+    return uploadPath + attachPath;
+}
 }
