@@ -62,13 +62,6 @@ public class BoardRestController {
 		map.put("likeToggle", likeToggle);
 		map.put("board", board);
 		map.put("commentList", commentList);
-/*		model.addAttribute("snsColor", snsColor);
-		model.addAttribute("snsSituation", snsSituation);
-		model.addAttribute("snsStyle", snsStyle);
-		model.addAttribute("likeToggle", likeToggle);
-		model.addAttribute("board", board);
-		model.addAttribute("commentList",commentList);
-		System.out.println("boardDetail : "+ model);*/
 		return (HashMap<String, Object>) map;
 	}
 	

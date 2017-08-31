@@ -13,7 +13,25 @@ function boardDetail(msg) {
 	snsDetailContent += '<button>팔로우</button>';
 	snsDetailContent += '<hr></hr>';
 	snsDetailContent += '<div>';
-	snsDetailContent += '<span>'+msg.board.snsBoardContent+'</span><br>';
+	if(msg.board.snsBoardWeather != '') {
+		snsDetailContent += '<span>날씨&nbsp:&nbsp'+msg.board.snsBoardWeather+'</span><br>';
+	}
+	if(msg.board.snsBoardLoc != '') {
+		snsDetailContent += '<span>지역&nbsp:&nbsp'+msg.board.snsBoardLoc+'</span><br>';
+	}
+	if(msg.board.snsBoardGender != null) {
+		snsDetailContent += '<span>성별&nbsp:&nbsp'+msg.board.snsBoardGender+'</span><br>';
+	}
+	if(msg.board.snsBoardTall != null) {
+		snsDetailContent += '<span>키&nbsp:&nbsp'+msg.board.snsBoardTall+'</span><br>';
+	}
+	if(msg.board.snsBoardSize != null) {
+		snsDetailContent += '<span>체형&nbsp:&nbsp'+msg.board.snsBoardSize+'</span><br>';
+	}
+	if(msg.board.snsBoardAge != null) {
+		snsDetailContent += '<span>연령대&nbsp:&nbsp'+msg.board.snsBoardAge+'</span><br>';
+	}
+	snsDetailContent += '<span>'+msg.board.snsBoardContent+'</span>';
 	for(var i=0; i<msg.snsStyle.length; i++) {
 		var snsStyleValue = '';
 		switch(msg.snsStyle[i]) {
@@ -132,11 +150,49 @@ function boardDetail(msg) {
 		snsDetailContent += '<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&situationValue='+snsSituationValue+'">#'+msg.snsSituation[i]+'</a>&nbsp';
 	}
 	snsDetailContent += '</div>';
-	snsDetailContent += '<hr></hr>';
-	snsDetailContent += '<div>';
-	for(var i=0; i<msg.commentList.length; i++) {
-		snsDetailContent += '<span>'+msg.commentList[i].userId+': '+msg.commentList[i].snsCommentContent+'</span><br>';
-	}
-	snsDetailContent += '</div>';
+	
 	$('#snsDetailContent').html(snsDetailContent);
+	
+	var snsDetailComment = '';
+	
+	snsDetailComment += '<div>';
+	for(var i=0; i<msg.commentList.length; i++) {
+		snsDetailComment += '<span>'+msg.commentList[i].userId+': '+msg.commentList[i].snsCommentContent+'</span><br>';
+	}
+	snsDetailComment += '</div>';
+	$('#snsDetailComment').html(snsDetailComment);
+	
+	var snsDetailCommentControll = '';
+	snsDetailCommentControll += '<input type="text" id="commentValue">';
+	snsDetailCommentControll += '<button type="button" id="commentBtn">등록</button>';
+	$('#snsDetailCommentControll').html(snsDetailCommentControll);
+	
+	$('#commentBtn').click(function(){
+		var snsCommentContent = $('#commentValue').val();
+		var commentInsertRequest = $.ajax({
+			url: './commentInsert',
+			method: 'post',
+			data:{'snsCommentContent' : snsCommentContent
+				, 'userId' : $('#commentUserId').val()
+				, 'snsBoardNo' : msg.board.snsBoardNo
+				}
+		});
+		$.ajax({
+			url: './boardDetail',
+			method: 'get',
+			data: { 'boardNo' : msg.board.snsBoardNo},
+			datatype: 'json',
+			success: function(data){
+				snsDetailComment = '';
+				
+				snsDetailComment += '<div>';
+				for(var i=0; i<data.commentList.length; i++) {
+					snsDetailComment += '<span>'+data.commentList[i].userId+': '+data.commentList[i].snsCommentContent+'</span><br>';
+				}
+				snsDetailComment += '</div>';
+				$('#snsDetailComment').html(snsDetailComment);
+			}
+		});
+	});
 }
+
