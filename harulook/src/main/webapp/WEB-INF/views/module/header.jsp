@@ -34,7 +34,7 @@
           left: 20px;
        }
        /* 홈으로 */
-       #homeHeader {
+       #logo {
           position: relative;
           top: -110px;
           left: 200px;
@@ -353,6 +353,7 @@ function dfs_xy_conv(code, v1, v2) {
 <body>
 
 	<div id="head">
+	<div class="row">
 		<header>
 			<!-- <img src="resources/files/images/mountains.jpg" alt="Mountains">
 			 --><div class="name fancy-font">
@@ -379,7 +380,7 @@ function dfs_xy_conv(code, v1, v2) {
 	<form id="homeForm" action="${pageContext.request.contextPath}/home" method="get">
 	 		<div>
 
-	 			<button class="btn btn-default" id="home" value="메인버튼">
+	 			<button class="btn btn-default" id="logo" value="메인버튼">
 				<img src="./resources/logo.jpg" class="img-rounded" alt="Cinque Terre" ></button>
 
 	 	 	</div>	
@@ -594,5 +595,6 @@ function dfs_xy_conv(code, v1, v2) {
 	     </div>
 	   </div>
 	 </div> 
+	</div>
 </body>
 </html>

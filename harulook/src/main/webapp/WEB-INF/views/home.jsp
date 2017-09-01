@@ -53,8 +53,6 @@
       }
     </style>
 
-
->>>>>>> refs/remotes/origin/kmg883011
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
@@ -198,7 +196,7 @@
             <!-- 우측 베너 인클루드 -->
     		<c:import url="./module/right.jsp"></c:import>
         </div>
-
+	</div>
     <!-- 하단 인클루드 -->
     <c:import url="./module/footer.jsp"></c:import>
     
