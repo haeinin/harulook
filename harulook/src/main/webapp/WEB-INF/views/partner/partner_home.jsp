@@ -17,7 +17,7 @@
 	    
 	    </div>
 	    <div class="col-xs-9">
- <table border="1px">
+ <table class="table">
         <thead>
             <tr>
                 <th>제휴계약번호</th>

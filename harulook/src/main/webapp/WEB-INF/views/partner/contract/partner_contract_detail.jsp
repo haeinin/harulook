@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,6 +27,15 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 </head>
 <body>
+  <!-- 상단 인클루드 -->
+    <c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+    
+    <!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1">
+			<c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
+	    </div>
+	    <div class="col-xs-9">
 	<div class="container">
 		<table class="table">
 			<tr>
@@ -94,8 +103,9 @@
 		<a class="btn btn-default"
 			href="${pageContext.request.contextPath}/partnerContractUpdate?cooContractNo=${dto.cooContractNo}">수정</a>
 
-		<a class="btn btn-default"
-			href="${pageContext.request.contextPath}/partnerContractList">글목록</a>
+		
+	</div>
+	</div>
 	</div>
 	
 	<!-- Modal -->

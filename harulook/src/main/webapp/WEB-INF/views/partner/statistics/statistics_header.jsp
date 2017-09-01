@@ -40,24 +40,6 @@ canvas {
 				<input type="button" id="monthlyBtn" name="btn" value="월별보기" onclick="location.href='././monthly'"> 
 				<input type="button" id="weeklyBtn" name="btn" value="주별보기" onclick="location.href='././getWeeklyVisitorTable?cooContractNo=${cooContractNo}'">
 
-				<div id="selectM" >
-					<select name="selectMonth" id="selectMonth">
-
-						<option value="1">JAN</option>
-						<option value="2">FEB</option>
-						<option value="3">MAR</option>
-						<option value="4">APR</option>
-						<option value="5">MAY</option>
-						<option value="6">JUN</option>
-						<option value="7">JUL</option>
-						<option value="8">AUG</option>
-						<option value="9">SEP</option>
-						<option value="10">OCT</option>
-						<option value="11">NOV</option>
-						<option value="12">DEC</option>
-					</select>
-					<button id="btn">보기</button>
-				</div>
 			</div>
 
 

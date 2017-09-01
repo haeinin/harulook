@@ -5,14 +5,6 @@
         <html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script>
-$(document).ready(function(){
-
-	var t = sessionStorage.getItem('cooContractNo');
-	console.log(t + " == 세션");
-
-});
-</script>
         <head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
@@ -28,12 +20,13 @@ $(document).ready(function(){
 
                 <div class="col-xs-9" style="margin:30px;">
                     <div id="table">
-                        <table border="1px" id="table">
+                        <table class="table" id="table">
                             <thead>
                                 <tr>
                                     <th>제휴계약번호</th>
-                                    <th>결제 금액</th>
                                     <th>결제 날짜</th>
+                                    <th>결제 금액</th>
+                                    
 
 
                                 </tr>

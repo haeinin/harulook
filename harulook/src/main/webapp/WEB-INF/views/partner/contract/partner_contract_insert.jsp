@@ -47,6 +47,7 @@ $(function(){
 	    </div>
 	    
 	    <div class="col-xs-9">
+	    <div class="container">
 
 <form id="addForm" action="${pageContext.request.contextPath}/partnerContractInsert" method="post" enctype="multipart/form-data">
         <div class="form-group">
@@ -82,6 +83,7 @@ $(function(){
             <a class="btn btn-default" href="${pageContext.request.contextPath}/partnerContractList">계약목록</a>
         </div>
     </form>
+    </div>
 </div>
 </div>
 </body>
