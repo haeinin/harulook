@@ -192,10 +192,10 @@
             </div>
         </div>
         
-        <div class="col-xs-2">
+        
             <!-- 우측 베너 인클루드 -->
     		<c:import url="./module/right.jsp"></c:import>
-        </div>
+       
 	</div>
     <!-- 하단 인클루드 -->
     <c:import url="./module/footer.jsp"></c:import>
