@@ -120,7 +120,7 @@
 			AND sns_board.user_id = #{userId}
 		</if>
 		GROUP BY sns_board.sns_board_no 
-		ORDER BY sns_board.sns_board_date DESC
+		ORDER BY sns_board.sns_board_no DESC
 	</select>
 	
 	<!-- sns게시물 상황별 분류 삭제 -->

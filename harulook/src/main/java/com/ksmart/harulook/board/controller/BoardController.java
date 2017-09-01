@@ -60,6 +60,9 @@ public class BoardController {
 		board.setSituationValue(situationValue);
 		System.out.println("boardTagSearch --> "+board);
 		
+		if(board.getUserId().equals("")) {
+			board.setUserId(null);
+		} 
 		if(board.getSnsBoardAge().equals("")) {
 			board.setSnsBoardAge(null);
 		} 

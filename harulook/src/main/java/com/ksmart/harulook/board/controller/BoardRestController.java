@@ -80,6 +80,9 @@ public class BoardRestController {
 		System.out.println("styleValue : "+styleValue);
 		System.out.println("situationValue : "+situationValue);
 		
+		if(board.getUserId().equals("")) {
+			board.setUserId(null);
+		} 
 		if(board.getSnsBoardAge().equals("")) {
 			board.setSnsBoardAge(null);
 		} 

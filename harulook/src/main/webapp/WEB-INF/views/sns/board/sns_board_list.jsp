@@ -206,6 +206,7 @@ $(function(){
 						datatype : 'json',
 						success: function(msg) {
 							boardDetail(msg);
+							followCheck(msg);
 						}
 					});
 					$('#snsModal').modal();
