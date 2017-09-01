@@ -30,7 +30,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		//일일방문자수
-		
 		$('#chart_div').show();
 		$('#chart_div_weekly').show();
 		$('#chart_div_month').show();

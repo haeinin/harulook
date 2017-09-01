@@ -20,7 +20,7 @@ function followCheck(msg) {
 				$('#followInsertButton').hide();
 				$('#followCheckOverlap').show();
 			}
-		}else{
+		}else{	//로그인접속자가 일반회원이 아닌경우
 			$('#Blank').show();	
 			$('#followInsertButton').hide();
 			$('#followCheckOverlap').hide();
@@ -35,7 +35,7 @@ function followCheck(msg) {
 			  data:  { 'followId' : msg.board.userId } , //전송해줄값
 			  dataType: "text", //결과값 타입 (리턴)
 			  success : function(msg) {
-				  $('#followInsertButton').hide(msg);
+				  $('#followInsertButton').hide();
 				  $('#followCheckOverlap').show();
 				  alert('친구등록완료');
 			  }

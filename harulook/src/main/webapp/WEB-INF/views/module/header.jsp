@@ -414,14 +414,14 @@ function dfs_xy_conv(code, v1, v2) {
 			</c:if>
 			
 			<!-- 게시물등록하기버튼 -->
-			<c:if test="${sessionScope.level == '일반회원'}">
+			<%-- <c:if test="${sessionScope.level == '일반회원'}">
 			  <form id="snsInsertForm" action="${pageContext.request.contextPath}/boardInsert" method="get">
 			 		<div>
 			 			<button class="btn btn-default" id="snsInsertButton" value="sns게시물등록하기">
 						<img src="./resources/sns_Insert.png" class="img-rounded" alt="Cinque Terre" width="50" height="40"></button>
 			 	 	</div>	
 			  </form>
-			</c:if>
+			</c:if> --%>
 	</div>
 		
 	
