@@ -336,7 +336,7 @@ $(function(){
 	<div class="row">
 	    <div class="col-xs-12">
 	        <div class="instagram-content">
-	        	
+	        	<h3>#하 루 룩</h3><br>
 	            <h3>최근 게시물</h3>
 	            <!-- The following HTML will be our template inside instafeed -->
 				<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
