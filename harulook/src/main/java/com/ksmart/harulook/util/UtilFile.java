@@ -20,6 +20,7 @@ public class UtilFile {
     public String fileUpload(MultipartHttpServletRequest request,
                                         MultipartFile uploadFile) {
         String path = "";
+        String dbpath = "";
         String fileName = "";
         
         OutputStream out = null;
@@ -32,6 +33,7 @@ public class UtilFile {
             path = getSaveLocation(request);
             //로컬에서 테스트할때에
             //path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/resources/files/";
+            dbpath = "resources/files/";
 
             System.out.println("UtilFile fileUpload fileName : " + fileName);
             System.out.println("UtilFile fileUpload uploadPath : " + path);
@@ -71,7 +73,7 @@ public class UtilFile {
             }
         }
         
-        return path + fileName;
+        return dbpath + fileName;
    }
 //  업로드 파일 저장 경로 얻는 메소드
 private String getSaveLocation(MultipartHttpServletRequest request) {

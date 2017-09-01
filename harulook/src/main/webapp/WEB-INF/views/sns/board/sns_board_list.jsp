@@ -82,7 +82,7 @@ $(function(){
 			data :{'boardNo' : boardNo},
 			datatype : 'json',
 			success : function(msg) {
-				boardDetailRequest.done( boardDetail(msg));
+				boardDetail(msg);
 			}
 		});
 		$('#snsModal').modal();
@@ -114,7 +114,8 @@ $(function(){
 		$.ajax({
 			url : './boardSearchList',
 			method : 'get',
-			data : { 'snsBoardWeather'	: $('#snsBoardWeather').val()
+			data : { 'userId'		: $('#userId').val()
+					,'snsBoardWeather'	: $('#snsBoardWeather').val()
 					,'snsBoardTall'		: $('#snsBoardTall').val()
 					,'snsBoardSize'		: $('#snsBoardSize').val()
 					,'snsBoardLoc'		: $('#snsBoardLoc').val()
@@ -201,7 +202,7 @@ $(function(){
 						data :{'boardNo' : boardNo},
 						datatype : 'json',
 						success: function(msg) {
-							boardDetailRequest.done( boardDetail(msg));
+							boardDetail(msg);
 						}
 					});
 					$('#snsModal').modal();
@@ -314,9 +315,10 @@ $(function(){
 	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객    	
 	    </div>
 	    <div class="form-group">
-	    	<input type="text" id="userId" name="userId">
-	    	<button type="button" id="searchBtn">검색</button>
-	    </div>		
+	    	<label class="searchCategory" for="userId">아이디 :</label>
+	    	<input type="text" class="searchCategory" id="userId" name="userId">
+	    	<input type="button" value="검색">
+	    </div>
 	</div>
 </div>
 <!-- sns 게시물 검색 항목 -->

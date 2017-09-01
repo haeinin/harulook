@@ -129,7 +129,7 @@ public class MemberController {
 						pointDao.pointGetInsert(loginCheck.getUserId(), pointAttendMonth);	//한달출석 포인트 입력
 					}
 				}
-				return "home";
+				return "redirect:/home";
 			}else{
 				System.out.println("비번틀림");
 				model.addAttribute("loginCheck", "비번틀림");

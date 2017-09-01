@@ -19,7 +19,7 @@ public class CommentController {
 	public String commentDelete(String snsCommentNo, String snsBoardNo) {
 		System.out.println("commentDelete 요청");
 		commentDao.commentDelete(snsCommentNo);
-		return "redirect:/boardDetail?boardNo="+snsBoardNo;
+		return "redirect:/home";
 	}
 	
 	/* sns게시글 댓글 등록 */
