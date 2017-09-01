@@ -17,6 +17,9 @@
 	    
 	    </div>
 	    <div class="col-xs-9">
+
+<c:if test="${!empty list}">
+
  <table class="table">
         <thead>
             <tr>
@@ -42,6 +45,11 @@
             </c:forEach>
         </tbody>
         </table>
+</c:if>
+<c:if test="${empty list}">
+<p>신청한 제휴계약이 없습니다</p>
+<a href="${pageContext.request.contextPath}/partnerContractInsert">제휴계약신청하기</a>
+</c:if>
         </div>
         </div>
 </body>

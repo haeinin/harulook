@@ -21,6 +21,10 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
 	$(document).ready(function() {
+		
+		var influx = sessionStorage.getItem('influx');
+		
+		
 		$('#account').hide();
 		$('#card').hide();
 
@@ -138,9 +142,17 @@
 					value="1" type="text" />
 			</div>
 			<div class="form-group">
-				<label for="cooContractCode">할인쿠폰코드</label> <input
-					class="form-control " name="cooContractCode" id="cooContractCode"
-					type="text" readonly="readonly" />
+				<label for="cooContractCode">할인쿠폰코드</label> 
+				<input class="form-control " name="cooContractCode" id="cooContractCode" type="text" readonly="readonly" />
+				<%-- <c:choose>
+				<c:when test="${sessionScope.influx == 'harulook'}">
+				<input class="form-control " name="cooContractCode" id="cooContractCode"  value="dal" type="text" readonly="readonly" />
+				</c:when>
+				<c:when test="${sessionScope.influx != 'harulook'}">
+				<input class="form-control " name="cooContractCode" id="cooContractCode" type="text" readonly="readonly" />
+				</c:when>
+				</c:choose> --%>
+				
 			</div>
 
 		</form>

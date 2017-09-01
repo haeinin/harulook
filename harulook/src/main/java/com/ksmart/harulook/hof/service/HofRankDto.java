@@ -5,6 +5,7 @@ public class HofRankDto {
 	private String boardNo;
 	private int rank;
 	private int liker;
+	
 	public String getBoardNo() {
 		return boardNo;
 	}
@@ -23,6 +24,6 @@ public class HofRankDto {
 	public void setLiker(int liker) {
 		this.liker = liker;
 	}
-	
-	
+
+
 }

@@ -18,6 +18,15 @@
 <title>제휴계약 수정하기</title>
 </head>
 <body>
+ <!-- 상단 인클루드 -->
+    <c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+    
+    <!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1">
+			<c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
+	    </div>
+	    <div class="col-xs-9">
 <div class="container">
     <form id="modifyForm" action="${pageContext.request.contextPath}/partnerContractUpdate" method="post">
         <div class="form-group">
@@ -56,6 +65,8 @@
         	 <input class="btn btn-default" id="addButton" type="submit" value="수정신청"/>
         </div>
     </form>
+    </div>
+    </div>
 </div>
 </body>
 </html>

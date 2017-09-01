@@ -8,6 +8,7 @@ public class MallDto {
 	private String mallProCate;
 	private String mallProImg;
 	private String cooContractNo;
+	
 	public String getMallProNo() {
 		return mallProNo;
 	}
