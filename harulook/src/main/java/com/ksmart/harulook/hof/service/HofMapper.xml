@@ -44,7 +44,7 @@
 		(
 		SELECT sns_board_no ,count(sns_like_no) as liker
 		FROM sns_like
-		WHERE MONTH(sns_like_date) = MONTH(NOW())
+		WHERE MONTH(sns_like_date) = (MONTH(NOW())-1)
 		GROUP BY sns_board_no 
 		ORDER BY count(sns_like_no) DESC
 		)sub1

@@ -7,24 +7,8 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
 </head>
-<style>
-canvas {
-	-moz-user-select: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-}
-</style>
+
 <c:import url="../statistics/statistics_header.jsp"></c:import>
-<div class="row">
-	<div class="col-xs-1"></div>
-	<div class="col-xs-9">
-		<div style="width: 80%">
-			<div>
-				<canvas id="canvas" height="350" width="600"></canvas>
-			</div>
-		</div>
-	</div>
-</div>
 
 <c:set value="${cooContractNo}" var="no" />
 <script>

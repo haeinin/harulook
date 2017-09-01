@@ -12,7 +12,9 @@ canvas {
 	-ms-user-select: none;
 }
 </style>
-<c:import url="../statistics/statistics_header.jsp"></c:import>
+
+
+
 
 <c:set value="${cooContractNo}" var="no" />
 <script>
@@ -22,6 +24,8 @@ canvas {
 
 
 	$(document).ready(function() {
+
+		
 		var chartLabels = [];// 받아올 데이터를 저장할 배열 선언
 		var chartData = [];
 		var month="";
@@ -103,31 +107,38 @@ canvas {
 	})
 	
 </script>
-	<div class="row">
-		<div class="col-xs-1"></div>
-		<div class="col-xs-9">
-	<select name="selectMonth" id="selectMonth">
-		<option value="1">JAN</option>
-		<option value="2">FEB</option>
-		<option value="3">MAR</option>
-		<option value="4">APR</option>
-		<option value="5">MAY</option>
-		<option value="6">JUN</option>
-		<option value="7">JUL</option>
-		<option value="8">AUG</option>
-		<option value="9">SEP</option>
-		<option value="10">OCT</option>
-		<option value="11">NOV</option>
-		<option value="12">DEC</option>
-	</select>
-	<button id="btn">보기</button>
+
+
+<c:import url="../statistics/statistics_header.jsp"></c:import>
+<!-- 바디 인클루드 -->
+<div class="row">
+	<div class="col-xs-1">
+		
+		
+	</div>
+	<div class="col-xs-9">
+	<div style="margin:50px;">
 	
-	<div id="graph" style="width: 80%">
-	<div>
-		<canvas id="canvas" height="350" width="600"></canvas>
+		<select name="selectMonth" id="selectMonth">
+			<option value="1">JAN</option>
+			<option value="2">FEB</option>
+			<option value="3">MAR</option>
+			<option value="4">APR</option>
+			<option value="5">MAY</option>
+			<option value="6">JUN</option>
+			<option value="7">JUL</option>
+			<option value="8">AUG</option>
+			<option value="9">SEP</option>
+			<option value="10">OCT</option>
+			<option value="11">NOV</option>
+			<option value="12">DEC</option>
+		</select>
+		<button id="btn">보기</button>
+	</div>
+	
 	</div>
 </div>
-</div>
-</div>
+
+
 
 

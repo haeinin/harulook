@@ -190,7 +190,7 @@
 		,coo_bill_date
 		FROM
 		coo_bill
-		WHERE coo_contract_no = #{cooContractNo}
+		WHERE coo_bill_no = #{cooBillNo}
 	</select>
 	
 	<!-- 제휴 결제 처리 -->
@@ -240,7 +240,7 @@
 					ON
 						coo_bill.coo_contract_no = coo_pay.coo_contract_no
 					WHERE (coo_pay.coo_pay_total - coo_bill.coo_bill_value)>=0 
-					AND coo_pay.coo_contract_no = #{cooContractNo})
+					AND coo_pay.coo_contract_no = 'coo_contract_1' AND MONTH(coo_pay.coo_pay_date)=(coo_bill.coo_bill_month))
 
 	</update>
 	
@@ -273,6 +273,11 @@
 		,#{cooContractNo}
 		,(
 			SELECT sum(mall_sale_total)
+			*
+			(SELECT coo_contract_fee/100
+			FROM coo_contract
+			WHERE coo_contract_no=#{cooContractNo}
+			)
 			FROM mall_sale
 			WHERE coo_contract_no= #{cooContractNo}
 		)
@@ -422,9 +427,9 @@
 	</select>
 	<!-- 상품별 구매량 불러오기 -->
 	<select id="getBuyStats" parameterType="String" resultMap="rate">
-	SELECT COUNT(mall_sale_no)as total,(SELECT COUNT(mall_sale_no) FROM mall_sale WHERE coo_contract_no='coo_contract_1' AND MONTH(mall_sale_date)=8 AND mall_pro_no =#{mallProNo})as influx
+	SELECT COUNT(mall_sale_no)as total,(SELECT COUNT(mall_sale_no) FROM mall_sale WHERE coo_contract_no='coo_contract_1' AND MONTH(mall_sale_date)=MONTH(NOW()) AND mall_pro_no =#{mallProNo})as influx
 	FROM mall_sale
-	WHERE MONTH(mall_sale_date)=8 AND mall_pro_no =#{mallProNo}
+	WHERE MONTH(mall_sale_date)=MONTH(NOW()) AND mall_pro_no =#{mallProNo}
 	</select>
 	<select id="getMallProNo" resultType="String">
 	SELECT mall_pro_no

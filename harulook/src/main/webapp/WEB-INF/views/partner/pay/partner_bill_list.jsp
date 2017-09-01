@@ -37,7 +37,7 @@
 					<td>${b.cooBillMonth}</td>
 					<td>${b.cooBillValue}</td>
 					<td>${b.cooBillDate}</td>
-					<td><a class="btn btn-default" href="${pageContext.request.contextPath}/partnerContractPayInsert?cooContractNo=${b.cooContractNo}">결제하기</a></td>
+					<td><a class="btn btn-default" href="${pageContext.request.contextPath}/partnerContractPayInsert?cooBillNo=${b.cooBillNo}">결제하기</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

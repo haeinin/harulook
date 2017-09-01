@@ -45,6 +45,7 @@ public class Scheduler {
 			e.printStackTrace();
 		}
 	}
+	
 	/*매월 1일 0시 30분 명예의전당 입력*/
 	@Scheduled(cron="0 30 0 1 * *")
 	public void HofScheduler() {
@@ -58,7 +59,8 @@ public class Scheduler {
 	}
 	
 	/*매월 1일 0시 10분에 결제예정수수료 입력*/
-	@Scheduled(cron="0 10 0 1 * *")
+	/*@Scheduled(cron="0 10 0 1 * *")*/
+	@Scheduled(cron="0 0 10 * * *")
 	public void PartnerScheduler() {
 		try{
 			List<String> cooContractNoList = partnerdao.getCooContractNo();
