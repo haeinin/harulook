@@ -4,7 +4,7 @@
 <html>
 <body>
 
-<div>
+<div class="col-xs-2">
 <a href="${pageContext.request.contextPath}/mallMain" target="_blank">
 <img src="resources/banner.jpg" >
 </a>
