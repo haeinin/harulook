@@ -10,10 +10,16 @@ function boardDetail(msg) {
 	snsDetailContent += '<div style="float: left;">';
 	snsDetailContent += '<h4>'+msg.board.userNick+'(<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+msg.board.userId+'">'+msg.board.userId+'</a>)</h4>';
 	snsDetailContent += '</div>';
-	snsDetailContent += '<button>팔로우</button>';
+	snsDetailContent += '<button class="btn btn-default">팔로우</button>';
 	if(msg.board.userId == $('#commentUserId').val()) {
-		snsDetailContent += '<a href="./boardUpdate?boardNo='+msg.board.snsBoardNo+'">수정</a>';
-		snsDetailContent += '<a href="./boardDelete?boardNo='+msg.board.snsBoardNo+'">삭제</a>';
+		snsDetailContent += '<div class="dropdown">';
+		snsDetailContent += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown">...';
+		snsDetailContent += '<span class="caret"></span></button>';
+		snsDetailContent += '<ul class="dropdown-menu">';
+		snsDetailContent += '<li><a href="./boardUpdate?boardNo='+msg.board.snsBoardNo+'">수정</a></li>';
+		snsDetailContent += '<li><a href="./boardDelete?boardNo='+msg.board.snsBoardNo+'">삭제</a></li>';
+		snsDetailContent += '</ul>';
+		snsDetailContent += '</div>';
 	}
 	snsDetailContent += '<hr>';
 	snsDetailContent += '<div>';
