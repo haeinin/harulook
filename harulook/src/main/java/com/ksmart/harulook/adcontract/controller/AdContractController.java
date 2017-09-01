@@ -159,7 +159,7 @@ public class AdContractController {
 		adcontractdao.modifyContractStat(adcontractno);
 		System.out.println("취소 요청 완료");
 		
-		return "ad/contract/ad_contract_list";
+		return "redirect:/adContractList";
 	}
 	/*광고주가 요청한 광고를 관리자가 승인할때*/
 	@RequestMapping(value="/approveContract",method = RequestMethod.GET)
@@ -167,7 +167,7 @@ public class AdContractController {
 		System.out.println("adContractNo : " + adcontractno);
 		adcontractdao.approveContractStat(adcontractno);
 		System.out.println("광고 승인 완료");
-		return "ad/contract/ad_contract_list";	
+		return "redirect:/adContractList";	
 	} 
 	/*광고주가 계약취소를 요청하고 관리자가 계약취소를 승인할때*/
 	@RequestMapping(value="/approveCancel",method = RequestMethod.GET)
@@ -187,7 +187,7 @@ public class AdContractController {
 		adrefund.setRefundPrice(adcontractprice);
 		adrefunddao.insertRefund(adrefund);
 		System.out.println("환불정보 입력 완료");
-		return "ad/contract/ad_contract_list";	
+		return "redirect:/adContractList";	
 	} 
 
 }

@@ -4,21 +4,26 @@
  <mapper namespace="com.ksmart.harulook.adgoods.service.AdgoodsMapper">
  
  <resultMap type="com.ksmart.harulook.adgoods.service.AdGoodsDto" id="AdGoodsList">
- 	<result property="adContractNo" column="ad_contract_no"/>
- 	<result property="adContractPlace" column="ad_contract_place"/>
- 	<result property="userBsName" column="user_bs_name"/>
- 	<result property="userId" column="user_id"/>
- 	<result property="adContractStart" column="ad_contract_start"/>
- 	<result property="adContractEnd" column="ad_contract_end"/>
- 	<result property="adContractPrice" column="ad_contract_price"/>
- 	<result property="adContractStat" column="ad_contract_stat"/> 	
+ 	<result property="adGoodsNo" column="ad_goods_no"/>
+ 	<result property="adGoodsImage" column="ad_goods_img"/>
+ 	<result property="adGoodsLink" column="ad_goods_link"/>
  </resultMap>
   <!-- 광고 상태 변경(광고중 -> 계약만료)해야하는 계약번호 조회 -->
  	<select id ="selectAdGoods" resultMap="AdGoodsList">
 	SELECT ad_goods_no
 		  ,ad_goods_img
-		  ,ad_board_link
+		  ,ad_goods_link
 	FROM ad_goods
 	WHERE ad_goods_no = #{adGoodsNo}
 	 </select>
+	 
+	 
+	 <update id="updateAdGoods">
+	 UPDATE ad_goods
+		SET
+			ad_goods_img=#{adGoodsImage},
+			ad_goods_link=#{adGoodsLink}
+		WHERE 
+			ad_goods_no = #{adGoodsNo}
+	 </update>
 </mapper>

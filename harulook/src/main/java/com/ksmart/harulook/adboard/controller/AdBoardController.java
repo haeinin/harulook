@@ -18,7 +18,6 @@ import com.ksmart.harulook.util.UtilFile;
 import com.ksmart.harulook.adboard.service.AdBoardDao;
 import com.ksmart.harulook.adboard.service.AdBoardDto;
 import com.ksmart.harulook.adcontract.service.AdContractDao;
-import com.ksmart.harulook.adgoods.service.AdGoodsDao;
 import com.ksmart.harulook.adgoods.service.AdGoodsDto;
 
 @Controller
@@ -29,15 +28,6 @@ public class AdBoardController {
 	private UtilFile utilfile;
 	@Autowired
 	private AdContractDao adcontractdao;
-	@Autowired
-	private AdGoodsDao adgoodsdao;
-	@RequestMapping(value="/selectAdBoardGoods", method = RequestMethod.GET)
-	public String selectAdBoardGoods(Model model
-									,@RequestParam("adGoodsNo") String adGoodsNo){
-		AdGoodsDto adgoods = adgoodsdao.selectAdGoods(adGoodsNo);
-		model.addAttribute("adgoods", adgoods);
-		return "ad/board/ad_goods_detail";
-	}
 	
 	@RequestMapping(value="/adBoardList",method = RequestMethod.GET)
 	public String selectAdBoardList(Model model) {
@@ -125,7 +115,7 @@ public class AdBoardController {
 				System.out.println("이미지 : "+ adGoodsImages.get(j) );
 				adgoods.setAdGoodsNo("ad_goods_"+initGoodsno);
 				adgoods.setAdGoodsLink(links[j]);
-				adgoods.setAdGoodsImg(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j)));
+				adgoods.setAdGoodsImage(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j)));
 				adboard.setAdBoardGoods1("ad_goods_"+(initGoodsno-1));
 				adboard.setAdBoardGoods2("ad_goods_"+(initGoodsno));
 				adboarddao.insertAdGoods(adgoods);
