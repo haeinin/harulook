@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,9 +71,6 @@ $(function(){
 	
 	/*  게시물 클릭  */
 	$('.sns-photo-box').click(function(){
-		//게시물 클릭 했을때 게시물의 아이디가 로그인 되어있는 내 아이디가 팔로우 되어 있는지 확인후 결과 출력
-		
-		
 		var index = $('.sns-photo-box').index(this);
 		var boardNo = $(this).children().eq(0).val();
 		
@@ -333,6 +331,7 @@ $(function(){
 	<div class="row">
 	    <div class="col-xs-12">
 	        <div class="instagram-content">
+	        	
 	            <h3>최근 게시물</h3>
 	            <!-- The following HTML will be our template inside instafeed -->
 				<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
@@ -400,7 +399,8 @@ $(function(){
 		</div>
 	</div>
 </div>
-
+<!-- 로그인권한별로 버튼을 나누기 위한 세션 아이디 -->
+<input id="levelCheck" type="hidden" value="${sessionScope.level}"/>
 <!-- sns 게시물 상세보기 모달 -->
 
 </body>

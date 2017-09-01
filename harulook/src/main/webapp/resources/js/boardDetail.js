@@ -13,6 +13,7 @@ function boardDetail(msg) {
 	
 	snsDetailContent += '<button id="followInsertButton">팔로우</button>';
 	snsDetailContent += '<span id="followCheckOverlap">이미등록된친구</span>';
+	snsDetailContent += '<span id="Blank">&nbsp;</span>';
 	
 	snsDetailContent += '<hr></hr>';
 	snsDetailContent += '<div>';

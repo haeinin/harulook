@@ -31,9 +31,9 @@
 	$(document).ready(function(){
 		//일일방문자수
 		
-		$('#chart_div').hide();
-		$('#chart_div_weekly').hide();
-		$('#chart_div_month').hide();
+		$('#chart_div').show();
+		$('#chart_div_weekly').show();
+		$('#chart_div_month').show();
 		
 		$('#dailyButton').click(function(){	//일일차트
 			$('#chart_div').show();
