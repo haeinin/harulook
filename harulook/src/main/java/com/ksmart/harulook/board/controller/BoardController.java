@@ -50,7 +50,7 @@ public class BoardController {
 	
 	/* sns게시물 목록 검색 */
 	@RequestMapping(value="/boardTagSearch", method = RequestMethod.GET)
-	public String bboardTagSearch(Model model, BoardDto board, HttpServletRequest request) {
+	public String boardTagSearch(Model model, BoardDto board, HttpServletRequest request) {
 		System.out.println("boardTagSearch 요청");
 		String[] colorValue = request.getParameterValues("colorValue");
 		String[] styleValue = request.getParameterValues("styleValue");
@@ -92,7 +92,7 @@ public class BoardController {
 		boardDao.snsColorDelete(boardNo);
 		boardDao.snsSituationDelete(boardNo);
 		boardDao.snsStyleDelete(boardNo);
-		return "redirect:/boardList";
+		return "redirect:/home";
 	}
 	
 	/* sns게시물 수정 처리 요청 */
@@ -152,7 +152,7 @@ public class BoardController {
 		}
 		
 		boardDao.boardUpdate(board);
-		return "redirect:/boardDetail?boardNo="+board.getSnsBoardNo();
+		return "redirect:/home";
 	}
 	
 	/* sns게시물 수정 화면 요청 */
@@ -241,7 +241,7 @@ public class BoardController {
         String uploadPath = utilFile.fileUpload(multipartRequest, uploadFile);
         
         System.out.println("RewardController reAddProCtrl uploadPath : " + uploadPath);
-    	board.setSnsBoardImg(uploadPath.substring(61));
+    	board.setSnsBoardImg(uploadPath);
         
     	String[] colorValue = request.getParameterValues("colorValue");
 		String[] styleValue = request.getParameterValues("styleValue");
@@ -320,7 +320,7 @@ public class BoardController {
         	System.out.println("BoardController 게시물 등록할때 하루 첫번째 등록 포인트도 같이 등록 ");
         	pointDao.pointGetInsert(board.getUserId(), pointPolicyNo);	//취득포인트입력
         }	
-        return "redirect:/boardList";
+        return "redirect:/home";
     }
     
     /* sns게시물 입력 화면 요청 */

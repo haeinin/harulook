@@ -21,19 +21,19 @@
 		<table class="table">
 			<tbody>
             	<tr>
-             		<td>sns_board_no :</td>
+             		<td>이미지 :</td>
 	                <td>
-						<input class="form-control" name="snsBoardNo" id="snsBoardNo" type="text" value="${board.snsBoardNo}" readonly="readonly"/>
+						<img alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${board.snsBoardImg}">
 					</td>
 	            </tr>
             	<tr>
-					<td>sns_board_content :</td>
+					<td>내용 :</td>
 					<td>
 						<input class="form-control" name="snsBoardContent" id="snsBoardContent" type="text" value="${board.snsBoardContent}"/>
 					</td>
             	</tr>
             	<tr>
-					<td>sns_board_weather :</td>
+					<td>날씨 :</td>
                   	<td>
 						<select class="form-control" name="snsBoardWeather" id="snsBoardWeather">
 							<option>${board.snsBoardWeather}</option>
@@ -47,7 +47,7 @@
 					</td>
 	            </tr>
 	            <tr>
-					<td>sns_board_tall :</td>
+					<td>키 :</td>
 					<td>
 						<select class="form-control" name="snsBoardTall" id="snsBoardTall">
 						<option>${board.snsBoardTall}</option>
@@ -59,7 +59,7 @@
 					</td>
 	            </tr>
 	            <tr>
-					<td>sns_board_size :</td>
+					<td>체형 :</td>
 					<td>
 						<select class="form-control" name="snsBoardSize" id="snsBoardSize">
 			            	<option>${board.snsBoardSize}</option>
@@ -71,7 +71,7 @@
 					</td>
 	            </tr>
 	            <tr>
-					<td>sns_board_loc :</td>
+					<td>지역 :</td>
 					<td>
 						<select class="form-control" name="snsBoardLoc" id="snsBoardLoc">
 							<option>${board.snsBoardLoc}</option>
@@ -91,7 +91,7 @@
 					</td>
 	            </tr>
 	            <tr>
-					<td>sns_board_gender :</td>
+					<td>성별 :</td>
 					<td>
 						<select class="form-control" name="snsBoardGender" id="snsBoardGender">
 							<option>${board.snsBoardGender}</option>
@@ -102,7 +102,7 @@
 					</td>
 	            </tr>
 	            <tr>
-					<td>sns_board_age :</td>
+					<td>연령대 :</td>
 					<td>
 						<select class="form-control" name="snsBoardAge" id="snsBoardAge">
 							<option>${board.snsBoardAge}</option>
@@ -116,7 +116,7 @@
 					</td>
 	            </tr>
 	            <tr>
-					<td>sns_board_style :</td>
+					<td>스타일 :</td>
 					<td>
 						<c:choose>
 							<c:when test="${snsStyle.contains('클래식')}">
@@ -201,7 +201,7 @@
 					</td>
 	            </tr>
 	            <tr>
-					<td>sns_board_color :</td>
+					<td>색상 :</td>
 					<td>
 						<c:choose>
 							<c:when test="${snsColor.contains('빨강')}">
@@ -310,7 +310,7 @@
 					</td>
 	            </tr>
 	            <tr>
-					<td>sns_board_situation :</td>
+					<td>상황 :</td>
 					<td>
 						<c:choose>
 							<c:when test="${snsSituation.contains('학교')}">
@@ -373,8 +373,7 @@
 	        </tbody>
 	    </table>
     	<input class="btn btn-default" type="submit" value="수정">
-    	<a class="btn btn-default" href="${pageContext.request.contextPath}/boardDetail?boardNo=${board.snsBoardNo}">취소</a>
-    	<a class="btn btn-default" href="${pageContext.request.contextPath}/boardList">글목록</a>
+    	<a class="btn btn-default" href="${pageContext.request.contextPath}/home">취소</a>
     </form>
 </div>
 </body>

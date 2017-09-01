@@ -10,12 +10,20 @@ function boardDetail(msg) {
 	snsDetailContent += '<div style="float: left;">';
 	snsDetailContent += '<h4>'+msg.board.userNick+'(<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+msg.board.userId+'">'+msg.board.userId+'</a>)</h4>';
 	snsDetailContent += '</div>';
-	
 	snsDetailContent += '<button id="followInsertButton">팔로우</button>';
 	snsDetailContent += '<span id="followCheckOverlap">이미등록된친구</span>';
 	snsDetailContent += '<span id="Blank">&nbsp;</span>';
-	
-	snsDetailContent += '<hr></hr>';
+	if(msg.board.userId == $('#commentUserId').val()) {
+		snsDetailContent += '<div class="dropdown">';
+		snsDetailContent += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown">...';
+		snsDetailContent += '<span class="caret"></span></button>';
+		snsDetailContent += '<ul class="dropdown-menu">';
+		snsDetailContent += '<li><a href="./boardUpdate?boardNo='+msg.board.snsBoardNo+'">수정</a></li>';
+		snsDetailContent += '<li><a href="./boardDelete?boardNo='+msg.board.snsBoardNo+'">삭제</a></li>';
+		snsDetailContent += '</ul>';
+		snsDetailContent += '</div>';
+	}
+	snsDetailContent += '<hr>';
 	snsDetailContent += '<div>';
 	
 	
@@ -37,7 +45,9 @@ function boardDetail(msg) {
 	if(msg.board.snsBoardAge != null) {
 		snsDetailContent += '<span>연령대&nbsp:&nbsp'+msg.board.snsBoardAge+'</span><br>';
 	}
+	snsDetailContent += '<hr>';
 	snsDetailContent += '<span>'+msg.board.snsBoardContent+'</span>';
+	snsDetailContent += '<br>';
 	for(var i=0; i<msg.snsStyle.length; i++) {
 		var snsStyleValue = '';
 		switch(msg.snsStyle[i]) {
@@ -163,7 +173,11 @@ function boardDetail(msg) {
 	
 	snsDetailComment += '<div>';
 	for(var i=0; i<msg.commentList.length; i++) {
-		snsDetailComment += '<span>'+msg.commentList[i].userId+': '+msg.commentList[i].snsCommentContent+'</span><br>';
+		snsDetailComment += '<span>'+msg.commentList[i].userId+': '+msg.commentList[i].snsCommentContent+'</span>';
+		if(msg.commentList[i].userId == $('#commentUserId').val()) {
+			snsDetailComment += '<a class="btn-sm" href="./commentDelete?snsCommentNo='+msg.commentList[i].snsCommentNo+'&snsBoardNo='+msg.board.snsBoardNo+'">삭제</a>';
+		}
+		snsDetailComment += '<br>';
 	}
 	snsDetailComment += '</div>';
 	$('#snsDetailComment').html(snsDetailComment);
@@ -183,22 +197,29 @@ function boardDetail(msg) {
 				, 'snsBoardNo' : msg.board.snsBoardNo
 				}
 		});
-		$.ajax({
-			url: './boardDetail',
-			method: 'get',
-			data: { 'boardNo' : msg.board.snsBoardNo},
-			datatype: 'json',
-			success: function(data){
-				snsDetailComment = '';
-				
-				snsDetailComment += '<div>';
-				for(var i=0; i<data.commentList.length; i++) {
-					snsDetailComment += '<span>'+data.commentList[i].userId+': '+data.commentList[i].snsCommentContent+'</span><br>';
+		commentInsertRequest.done(function(commentInsertData){
+			$.ajax({
+				url: './boardDetail',
+				method: 'get',
+				data: { 'boardNo' : msg.board.snsBoardNo},
+				datatype: 'json',
+				success: function(data){
+					snsDetailComment = '';
+					
+					snsDetailComment += '<div>';
+					for(var i=0; i<data.commentList.length; i++) {
+						snsDetailComment += '<span>'+data.commentList[i].userId+': '+data.commentList[i].snsCommentContent+'</span>';
+						if(data.commentList[i].userId == $('#commentUserId').val()) {
+							snsDetailComment += '<a class="btn-sm" href="./commentDelete?snsCommentNo='+data.commentList[i].snsCommentNo+'&snsBoardNo='+msg.board.snsBoardNo+'">삭제</a>';
+						}
+						snsDetailComment += '<br>';
+					}
+					snsDetailComment += '</div>';
+					$('#snsDetailComment').html(snsDetailComment);
 				}
-				snsDetailComment += '</div>';
-				$('#snsDetailComment').html(snsDetailComment);
-			}
-		});
+			});
+		})
+		$('#commentValue').val('');
 	});
 }
 

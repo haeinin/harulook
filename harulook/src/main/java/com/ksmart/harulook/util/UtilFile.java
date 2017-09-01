@@ -21,7 +21,6 @@ public class UtilFile {
                                         MultipartFile uploadFile) {
         String path = "";
         String dbpath = "";
-        
         String fileName = "";
         
         OutputStream out = null;

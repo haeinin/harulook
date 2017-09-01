@@ -10,11 +10,11 @@
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- jquery를 사용하기위한 CDN주소 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- 모달을 쓰기위한 부트스트랩 -->
@@ -84,8 +84,8 @@ $(function(){
 			data :{'boardNo' : boardNo},
 			datatype : 'json',
 			success : function(msg) {
-				boardDetailRequest.done( boardDetail(msg));
-				boardDetailRequest.done( followCheck(msg));
+				boardDetail(msg);
+				followCheck(msg);
 			}
 		});
 		$('#snsModal').modal();
@@ -117,7 +117,8 @@ $(function(){
 		$.ajax({
 			url : './boardSearchList',
 			method : 'get',
-			data : { 'snsBoardWeather'	: $('#snsBoardWeather').val()
+			data : { 'userId'		: $('#userId').val()
+					,'snsBoardWeather'	: $('#snsBoardWeather').val()
 					,'snsBoardTall'		: $('#snsBoardTall').val()
 					,'snsBoardSize'		: $('#snsBoardSize').val()
 					,'snsBoardLoc'		: $('#snsBoardLoc').val()
@@ -204,7 +205,7 @@ $(function(){
 						data :{'boardNo' : boardNo},
 						datatype : 'json',
 						success: function(msg) {
-							boardDetailRequest.done( boardDetail(msg));
+							boardDetail(msg);
 						}
 					});
 					$('#snsModal').modal();
@@ -217,6 +218,9 @@ $(function(){
 </head>
 <body>
 <!-- sns 게시물 검색 항목 -->
+
+	    <div class="col-xs-1"></div>
+	    <div class="col-xs-9">
 <div class="container">
 	<a href="#demo" class="btn btn-default" data-toggle="collapse">게시물 검색</a>
 	<div id="demo" class="collapse">
@@ -317,9 +321,10 @@ $(function(){
 	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객    	
 	    </div>
 	    <div class="form-group">
-	    	<input type="text" id="userId" name="userId">
-	    	<button type="button" id="searchBtn">검색</button>
-	    </div>		
+	    	<label class="searchCategory" for="userId">아이디 :</label>
+	    	<input type="text" class="searchCategory" id="userId" name="userId">
+	    	<input type="button" value="검색">
+	    </div>
 	</div>
 </div>
 <!-- sns 게시물 검색 항목 -->
@@ -402,6 +407,6 @@ $(function(){
 <!-- 로그인권한별로 버튼을 나누기 위한 세션 아이디 -->
 <input id="levelCheck" type="hidden" value="${sessionScope.level}"/>
 <!-- sns 게시물 상세보기 모달 -->
-
+</div>
 </body>
 </html>
