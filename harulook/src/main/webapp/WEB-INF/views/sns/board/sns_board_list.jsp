@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="true" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +28,7 @@
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
 <c:set value="${sessionScope.id}" var="sessionId" />
 <script type="text/javascript" src="resources/js/boardDetail.js"></script>
+<script type="text/javascript" src="resources/js/followCheck.js"></script>
 <script type="text/javascript">
 $(function(){     
 	
@@ -83,6 +85,7 @@ $(function(){
 			datatype : 'json',
 			success : function(msg) {
 				boardDetailRequest.done( boardDetail(msg));
+				boardDetailRequest.done( followCheck(msg));
 			}
 		});
 		$('#snsModal').modal();
@@ -328,6 +331,7 @@ $(function(){
 	<div class="row">
 	    <div class="col-xs-12">
 	        <div class="instagram-content">
+	        	
 	            <h3>최근 게시물</h3>
 	            <!-- The following HTML will be our template inside instafeed -->
 				<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
@@ -395,7 +399,8 @@ $(function(){
 		</div>
 	</div>
 </div>
-
+<!-- 로그인권한별로 버튼을 나누기 위한 세션 아이디 -->
+<input id="levelCheck" type="hidden" value="${sessionScope.level}"/>
 <!-- sns 게시물 상세보기 모달 -->
 
 </body>

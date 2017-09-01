@@ -173,6 +173,10 @@
 
 		geocoder.coord2RegionCode(coord, callback); */
 		/* geocoder.coord2addr(coord, callback); */
+		$('#snsInsertButton').click(function(){	//sns게시물등록하기
+			$('#snsInsertForm').submit();
+        });
+	
 	});   
    
 </script>
@@ -185,7 +189,9 @@
     
     <!-- 바디 인클루드 -->
     <div class="row">
-	    <div class="col-xs-1"></div>
+	    <!-- 좌측 베너 인클루드 -->
+    		<c:import url="./module/left.jsp"></c:import>
+    		
 	    <div class="col-xs-9">
         	<div class="container">
             	<c:import url="/boardList"></c:import>

@@ -74,18 +74,13 @@ public class MemberController {
 		return userDeletePw; //비밀번호체크 받아오는값
 	}
 	
-	/*로그아웃액션*/
-	@RequestMapping(value="/logoutadd", method = RequestMethod.POST)
-	public String logoutadd() {
-		System.out.println("MemberControlladd 로그아웃 ");
-		return "home"; //홈화면
-	}
 	
-	/*로그아웃화면*/
+	/*로그아웃*/
 	@RequestMapping(value="/logout", method = RequestMethod.POST)
-	public String logout() {
-		System.out.println("MemberControll 로그아웃 ");
-		return "login/logout"; //홈화면
+	public String logout(HttpSession session) {
+		System.out.println("MemberControll 로그아웃 aaaaaaa");
+		session.invalidate();	//로그인되어있는 세션을 삭제시키고 로그아웃
+		return "redirect:/home"; //홈화면
 	}
 	
 	/*로그인*/
@@ -120,6 +115,16 @@ public class MemberController {
 						System.out.println("MemeberController 출석체크 중복검사== " + attenCheckSelect);
 					int attenCheckSelectMonth = pointDao.attenCheckSelectMonth(loginCheck.getUserId());
 						System.out.println("MemeberController 출석체크 한달== " + attenCheckSelectMonth);
+					//맞춤추천을 위해 세션에 정보 저장	
+					MemberDto userDetail = memberDao.userDetail(id);
+					List<String> userColor = memberDao.userColor(id);
+					List<String> userStyle = memberDao.userStyle(id);	
+					session.setAttribute("CcTall", userDetail.getUserTall());		//키
+					session.setAttribute("CcSize", userDetail.getUserSize());		//체형
+					session.setAttribute("CcGender", userDetail.getUserGender());	//성별
+					session.setAttribute("CcAge", userDetail.getUserAge());			//나이
+					session.setAttribute("CcuserColor", userColor);					//컬러
+					session.setAttribute("CcuserStyle", userStyle);					//스타일
 						
 					if(attenCheckSelect == null){	//하루출석
 						pointDao.attenCheckInsert(loginCheck.getUserId());	//출석체크 입력
@@ -129,7 +134,7 @@ public class MemberController {
 						pointDao.pointGetInsert(loginCheck.getUserId(), pointAttendMonth);	//한달출석 포인트 입력
 					}
 				}
-				return "home";
+				return "redirect:/home";
 			}else{
 				System.out.println("비번틀림");
 				model.addAttribute("loginCheck", "비번틀림");
@@ -242,7 +247,7 @@ public class MemberController {
 	public String managerAdd(MemberDto memberDto) {
         System.out.println("MemberController 회원가입시 받아오는 데이터" + memberDto);
         memberDao.managerInsert(memberDto);	//일반회원가입 기타 입력데이터
-        return "home";  //회원가입후 홈화면으로
+        return "redirect:/home";  //회원가입후 홈화면으로
     }
 	
 	/*사업자등록액션*/
@@ -250,7 +255,7 @@ public class MemberController {
 	public String businessAdd(MemberDto memberDto) {
         System.out.println("MemberController 회원가입시 받아오는 데이터" + memberDto);
         memberDao.businessInsert(memberDto);	//일반회원가입 기타 입력데이터
-        return "home";  //회원가입후 홈화면으로
+        return "redirect:/home";  //회원가입후 홈화면으로
     }
 	
 	/*관리자 광고주 정보 수정*/
@@ -260,7 +265,7 @@ public class MemberController {
         System.out.println("MemberController 회원정보수정하기" + memberDto);
         memberDao.businessUpdate(memberDto);	// 관리자 광주고 입력데이터
        
-        return "home";  //회원가입후 홈화면으로
+        return "redirect:/home";  //회원가입후 홈화면으로
     }
 	
 	/*일반회원정보수정*/
@@ -304,7 +309,7 @@ public class MemberController {
 	        	System.out.println(styleValue[i] + " == 스타일배열");
 	        }
         }
-        return "home";  //회원가입후 홈화면으로
+        return "redirect:/home";  //회원정보수정 홈화면으로
     }
 	
 	/*일반회원가입액션*/
@@ -343,7 +348,7 @@ public class MemberController {
 	        	System.out.println(styleValue[i] + " == 스타일배열");
 	        }
         }    
-	        return "home";  //회원가입후 홈화면으로
+	        return "redirect:/home";  //회원가입후 홈화면으로
     }
 	
 	/*member_manager_insert(관리자등록 폼)*/
