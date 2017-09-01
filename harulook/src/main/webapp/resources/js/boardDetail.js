@@ -4,15 +4,20 @@ function boardDetail(msg) {
 	console.log('boardDatil : ',msg);
 	var snsDetailImg = '';
 	snsDetailImg += '<img alt="no image" style="width: 580px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.board.snsBoardImg+'">';
-	$('#snsDetailImg').html(snsDetailImg);
 	
+	$('#snsDetailImg').html(snsDetailImg);
 	var snsDetailContent = '';
 	snsDetailContent += '<div style="float: left;">';
 	snsDetailContent += '<h4>'+msg.board.userNick+'(<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+msg.board.userId+'">'+msg.board.userId+'</a>)</h4>';
 	snsDetailContent += '</div>';
-	snsDetailContent += '<button>팔로우</button>';
+	
+	snsDetailContent += '<button id="followInsertButton">팔로우</button>';
+	snsDetailContent += '<span id="followCheckOverlap">이미등록된친구</span>';
+	
 	snsDetailContent += '<hr></hr>';
 	snsDetailContent += '<div>';
+	
+	
 	if(msg.board.snsBoardWeather != '') {
 		snsDetailContent += '<span>날씨&nbsp:&nbsp'+msg.board.snsBoardWeather+'</span><br>';
 	}

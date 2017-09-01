@@ -27,6 +27,7 @@
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
 <c:set value="${sessionScope.id}" var="sessionId" />
 <script type="text/javascript" src="resources/js/boardDetail.js"></script>
+<script type="text/javascript" src="resources/js/followCheck.js"></script>
 <script type="text/javascript">
 $(function(){     
 	
@@ -69,6 +70,9 @@ $(function(){
 	
 	/*  게시물 클릭  */
 	$('.sns-photo-box').click(function(){
+		//게시물 클릭 했을때 게시물의 아이디가 로그인 되어있는 내 아이디가 팔로우 되어 있는지 확인후 결과 출력
+		
+		
 		var index = $('.sns-photo-box').index(this);
 		var boardNo = $(this).children().eq(0).val();
 		
@@ -83,6 +87,7 @@ $(function(){
 			datatype : 'json',
 			success : function(msg) {
 				boardDetailRequest.done( boardDetail(msg));
+				boardDetailRequest.done( followCheck(msg));
 			}
 		});
 		$('#snsModal').modal();
