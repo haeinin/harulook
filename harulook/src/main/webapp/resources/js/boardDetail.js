@@ -14,13 +14,12 @@ function boardDetail(msg) {
 	snsDetailContent += '<span id="followCheckOverlap">이미등록된친구</span>';
 	snsDetailContent += '<span id="Blank">&nbsp;</span>';
 	if(msg.board.userId == $('#commentUserId').val()) {
-		snsDetailContent += '<div class="dropdown">';
-		snsDetailContent += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown">...';
-		snsDetailContent += '<span class="caret"></span></button>';
-		snsDetailContent += '<ul class="dropdown-menu">';
-		snsDetailContent += '<li><a href="./boardUpdate?boardNo='+msg.board.snsBoardNo+'">수정</a></li>';
-		snsDetailContent += '<li><a href="./boardDelete?boardNo='+msg.board.snsBoardNo+'">삭제</a></li>';
-		snsDetailContent += '</ul>';
+		snsDetailContent += '<div class="menu">';
+		snsDetailContent += '<div id="item"><img src="resources/files/images/more_icon.png" style="width: 30px;"></div>';
+		snsDetailContent += '<div id="submenu">';
+		snsDetailContent += '<a href="./boardUpdate?boardNo='+msg.board.snsBoardNo+'">수정</a>';
+		snsDetailContent += '<a href="./boardDelete?boardNo='+msg.board.snsBoardNo+'">삭제</a>';
+		snsDetailContent += '</div>';
 		snsDetailContent += '</div>';
 	}
 	snsDetailContent += '<hr>';
@@ -220,6 +219,12 @@ function boardDetail(msg) {
 			});
 		})
 		$('#commentValue').val('');
+	});
+	
+	$('#submenu').hide();
+	
+	$('#item').click(function(){
+		$('#submenu').slideToggle(500);
 	});
 }
 

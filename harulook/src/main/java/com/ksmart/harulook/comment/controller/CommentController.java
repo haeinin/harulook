@@ -18,7 +18,7 @@ public class CommentController {
 	@RequestMapping(value="/commentDelete", method = RequestMethod.GET)
 	public String commentDelete(String snsCommentNo, String snsBoardNo) {
 		System.out.println("commentDelete 요청");
-		commentDao.commentDelete(snsCommentNo);
+		commentDao.deleteComment(snsCommentNo);
 		return "redirect:/home";
 	}
 	
@@ -28,7 +28,7 @@ public class CommentController {
         System.out.println("commentInsert 요청");
         
         /******** sns_comment_no의 끝 숫자 자동 입력 *****************/
-        String lastCommentNo = commentDao.getLastCommentNo();
+        String lastCommentNo = commentDao.selectLastCommentNo();
         int insertCommentNo = 1;	//DB에 등록된 댓글이 없을 때 번호의 초기값
         if(lastCommentNo != null) {
         	insertCommentNo = Integer.parseInt(lastCommentNo)+1;
@@ -37,7 +37,7 @@ public class CommentController {
         /*************************************************/
         
         System.out.println("comment : "+ comment);
-        commentDao.commentInsert(comment);
+        commentDao.insertComment(comment);
         return "redirect:/boardDetail?boardNo="+comment.getSnsBoardNo();
     }
 }

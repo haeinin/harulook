@@ -14,23 +14,23 @@ public class LikeDao {
 	private SqlSessionTemplate sqlSessionTemplate;
 	
 	/* sns게시물 삭제 시 예뻐요 삭제 */
-	public int boardLikeDelete(String snsBoardNo) {
+	public int deleteboardLike(String snsBoardNo) {
 		return sqlSessionTemplate.delete("com.ksmart.harulook.like.service.LikeMapper.boardLikeDelete", snsBoardNo);
 	}
 	
 	/* 가장 최근에 등록한 예뻐요 번호 */
-	public String getLastLikeNo() {
+	public String selectLastLikeNo() {
         String lastLikeNo = "";
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.like.service.LikeMapper.getLastLikeNo", lastLikeNo);
  	}
 	
 	/* sns게시물 예뻐요 수 조회 */
-	public int getLikeCount(String snsBoardNo) {
+	public int selectLikeCount(String snsBoardNo) {
 		return sqlSessionTemplate.selectOne("com.ksmart.harulook.like.service.LikeMapper.getLikeCount",snsBoardNo);
 	}
 	
 	/* sns게시물 예뻐요 등록 여부 확인 메서드 */
-	public int getLikeClick(String snsBoardNo, String userId) {
+	public int selectLikeClick(String snsBoardNo, String userId) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("snsBoardNo", snsBoardNo);
 		map.put("userId", userId);
@@ -39,7 +39,7 @@ public class LikeDao {
 	}
 	
 	/* sns게시물 예뻐요 등록 */
-	public int likeInsert(String snsLikeNo, String snsBoardNo, String userId) {
+	public int insertLike(String snsLikeNo, String snsBoardNo, String userId) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("snsLikeNo", snsLikeNo);
 		map.put("snsBoardNo", snsBoardNo);
@@ -49,7 +49,7 @@ public class LikeDao {
 	}
 	
 	/* sns게시물 예뻐요 등록 취소 */
-	public int likeDelete(String snsBoardNo, String userId) {
+	public int deleteLike(String snsBoardNo, String userId) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("snsBoardNo", snsBoardNo);
 		map.put("userId", userId);

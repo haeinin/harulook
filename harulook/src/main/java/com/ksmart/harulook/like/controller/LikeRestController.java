@@ -21,22 +21,22 @@ public class LikeRestController {
 			@RequestParam(value="snsBoardNo", required=true) String snsBoardNo
 			,@RequestParam(value="userId", required=true) String userId) {
 		System.out.println("likeBtnClick 요청");
-		int likeClick = likeDao.getLikeClick(snsBoardNo, userId);
+		int likeClick = likeDao.selectLikeClick(snsBoardNo, userId);
 		System.out.println("likeClick : "+likeClick);
 		if(likeClick != 0) {
-			likeDao.likeDelete(snsBoardNo, userId);
+			likeDao.deleteLike(snsBoardNo, userId);
 		} else {
 			/******** sns_board_no의 끝 숫자 자동 입력 *****************/
-			 String lastLikeNo = likeDao.getLastLikeNo();
+			 String lastLikeNo = likeDao.selectLastLikeNo();
 			 int insertLikeNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
 			 if(lastLikeNo != null) {
 			      insertLikeNo = Integer.parseInt(lastLikeNo)+1;
 			 }
 			 String snsLikeNo = "sns_like_"+insertLikeNo;
 			/*************************************************/
-			likeDao.likeInsert(snsLikeNo, snsBoardNo, userId);
+			likeDao.insertLike(snsLikeNo, snsBoardNo, userId);
 		}
-		int snsLikeCount = likeDao.getLikeCount(snsBoardNo);
+		int snsLikeCount = likeDao.selectLikeCount(snsBoardNo);
 		LikeToggleDto likeToggle = new LikeToggleDto();
 		likeToggle.setLikeClick(likeClick);
 		likeToggle.setSnsLikeCount(snsLikeCount);

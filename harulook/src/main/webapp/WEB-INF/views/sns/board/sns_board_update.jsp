@@ -18,6 +18,7 @@
 게시물 수정 화면
 <div class="container">
 	<form id="UdpateForm" action="${pageContext.request.contextPath}/boardUpdate" method="post">
+		<input type="hidden" name="snsBoardNo" value="${board.snsBoardNo}">
 		<table class="table">
 			<tbody>
             	<tr>

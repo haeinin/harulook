@@ -37,17 +37,17 @@ public class BoardRestController {
 	public HashMap<String,Object> boardDetail(HttpSession session
             , @RequestParam(value="boardNo", required=true) String boardNo) {
 		System.out.println("boardDeatil 화면 요청");
-		BoardDto board = boardDao.boardDetail(boardNo);
+		BoardDto board = boardDao.selectBoardDetail(boardNo);
 		System.out.println("boardNo : "+ boardNo);
-		List<CommentDto> commentList = commentDao.commentList(boardNo);
+		List<CommentDto> commentList = commentDao.selectCommentList(boardNo);
 		System.out.println("comment : "+ commentList);
 		
-		List<String> snsStyle = boardDao.boardStyleSelect(boardNo);
-		List<String> snsColor = boardDao.boardColorSelect(boardNo);
-		List<String> snsSituation = boardDao.boardSituationSelect(boardNo);
+		List<String> snsStyle = boardDao.selectBoardStyle(boardNo);
+		List<String> snsColor = boardDao.selectBoardColor(boardNo);
+		List<String> snsSituation = boardDao.selectBoardSituation(boardNo);
 		
 		String sessionId = (String)session.getAttribute("id");
-		int likeClick = likeDao.getLikeClick(boardNo, sessionId);
+		int likeClick = likeDao.selectLikeClick(boardNo, sessionId);
 		boolean likeToggle = false;
 		if(likeClick == 1) {
 			likeToggle = true;
@@ -99,7 +99,7 @@ public class BoardRestController {
 			board.setSnsBoardWeather(null);
 		}
 		System.out.println("boardSearchList --> "+board);
-		List<BoardDto> list = boardDao.boardSearchList(board);
+		List<BoardDto> list = boardDao.selectBoardSearchList(board);
 		System.out.println("boardSearchList --> "+list);
 		return list;
 	}
