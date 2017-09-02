@@ -1,6 +1,6 @@
 /* 게시물 상세보기  */
 function boardDetail(msg) {
-
+	
 	console.log('boardDatil : ',msg);
 	var snsDetailImg = '';
 	snsDetailImg += '<img alt="no image" style="width: 580px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.board.snsBoardImg+'">';
@@ -13,7 +13,7 @@ function boardDetail(msg) {
 	snsDetailContent += '<button id="followInsertButton">팔로우</button>';
 	snsDetailContent += '<span id="followCheckOverlap">이미등록된친구</span>';
 	snsDetailContent += '<span id="Blank">&nbsp;</span>';
-	if(msg.board.userId == $('#commentUserId').val()) {
+	if(msg.board.userId == $('#sessionUserId').val()) {
 		snsDetailContent += '<div class="menu">';
 		snsDetailContent += '<div id="item"><img src="resources/files/images/more_icon.png" style="width: 30px;"></div>';
 		snsDetailContent += '<div id="submenu">';
@@ -171,9 +171,29 @@ function boardDetail(msg) {
 	var snsDetailComment = '';
 	
 	snsDetailComment += '<div>';
+	snsDetailComment += '<div id="like">';
+	if($('#sessionUserLevel').val() == '일반회원') {
+		
+		snsDetailComment += '<button id="likeBtn" class="btn btn-link">';
+		console.log('likeToggle : ',msg.likeToggle);
+		if(msg.likeToggle == true) {
+			snsDetailComment += '<i id="likeToggle" class="material-icons center" style="color: #FFB2F5; font-size:24px;">thumb_up</i>';
+		} else {
+			snsDetailComment += '<i id="likeToggle" class="material-icons center" style="color: rgba(0,0,0,0.3); font-size:24px;">thumb_up</i>';
+		}
+		snsDetailComment += '</button>';
+		
+
+	} else {
+		snsDetailComment += '<i class="material-icons center" style="color: rgba(0,0,0,0.3); font-size:24px;">thumb_up</i>';
+	}
+	
+	snsDetailComment += '<span class="center" id="snsLikeCount">'+msg.board.snsLikeCount+'개&nbsp;&nbsp;</span>';
+	snsDetailComment += '</div>';
+	
 	for(var i=0; i<msg.commentList.length; i++) {
 		snsDetailComment += '<span>'+msg.commentList[i].userId+': '+msg.commentList[i].snsCommentContent+'</span>';
-		if(msg.commentList[i].userId == $('#commentUserId').val()) {
+		if(msg.commentList[i].userId == $('#sessionUserId').val()) {
 			snsDetailComment += '<a class="btn-sm" href="./commentDelete?snsCommentNo='+msg.commentList[i].snsCommentNo+'&snsBoardNo='+msg.board.snsBoardNo+'">삭제</a>';
 		}
 		snsDetailComment += '<br>';
@@ -192,7 +212,7 @@ function boardDetail(msg) {
 			url: './commentInsert',
 			method: 'post',
 			data:{'snsCommentContent' : snsCommentContent
-				, 'userId' : $('#commentUserId').val()
+				, 'userId' : $('#sessionUserId').val()
 				, 'snsBoardNo' : msg.board.snsBoardNo
 				}
 		});
@@ -208,7 +228,7 @@ function boardDetail(msg) {
 					snsDetailComment += '<div>';
 					for(var i=0; i<data.commentList.length; i++) {
 						snsDetailComment += '<span>'+data.commentList[i].userId+': '+data.commentList[i].snsCommentContent+'</span>';
-						if(data.commentList[i].userId == $('#commentUserId').val()) {
+						if(data.commentList[i].userId == $('#sessionUserId').val()) {
 							snsDetailComment += '<a class="btn-sm" href="./commentDelete?snsCommentNo='+data.commentList[i].snsCommentNo+'&snsBoardNo='+msg.board.snsBoardNo+'">삭제</a>';
 						}
 						snsDetailComment += '<br>';
@@ -226,5 +246,26 @@ function boardDetail(msg) {
 	$('#item').click(function(){
 		$('#submenu').slideToggle(500);
 	});
+	
+	$("#likeBtn").click(function(){
+		
+		console.log($('#sessionUserId').val());
+		$.ajax({
+            url : './likeBtnClick',
+            method: 'POST',
+            data : { 'snsBoardNo' : msg.board.snsBoardNo
+            		,'userId' : $('#sessionUserId').val()},
+            dataType: 'JSON',
+            success : function(data){
+            	console.log(data);
+            	$('#snsLikeCount').text(data.snsLikeCount+'개');
+            	if(data.likeClick === 0) {
+            		$('#likeToggle').css('color','#FFB2F5');
+            	} else {
+            		$('#likeToggle').css('color','rgba(0,0,0,0.3)');
+            	}
+            }
+        });
+	})
 }
 

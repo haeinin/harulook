@@ -382,13 +382,14 @@ $(function(){
 	        	
 	        	<!-- 게시물 내용 영역 -->
 		        <div class="modal-body col-xs-4">
+		        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
 		        	<div id="snsDetailContent"></div>
 		        	<hr>
 		        	<div id="snsDetailComment">
 		        	</div>
 		        	<hr>
 		        	<c:if test="${sessionScope.id != null}">
-		        	<input type="hidden" id="commentUserId" value="${sessionScope.id}">
+		        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">
 		        	<div id="snsDetailCommentControll">
 		        	</div>
 		        	</c:if>
