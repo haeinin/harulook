@@ -367,12 +367,6 @@ $(function(){
 
 
 
-<div>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/boardInsert">게시글 입력</a>
-</div>
-	
-
-
 <!-- sns 게시물 상세보기 모달 -->
 
 <div class="modal fade" id="snsModal" role="dialog">

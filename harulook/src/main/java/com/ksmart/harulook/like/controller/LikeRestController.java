@@ -1,24 +1,23 @@
 package com.ksmart.harulook.like.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ksmart.harulook.like.service.LikeDao;
 import com.ksmart.harulook.like.service.LikeToggleDto;
 
-@Controller
-public class LikeController {
+@RestController
+public class LikeRestController {
 
 	@Autowired
 	private LikeDao likeDao;
 	
 	/* sns게시물의 예뻐요 버튼 클릭 */
 	@RequestMapping(value="/likeBtnClick", method = RequestMethod.POST)
-	public @ResponseBody LikeToggleDto likeBtnClick(
+	public LikeToggleDto likeBtnClick(
 			@RequestParam(value="snsBoardNo", required=true) String snsBoardNo
 			,@RequestParam(value="userId", required=true) String userId) {
 		System.out.println("likeBtnClick 요청");

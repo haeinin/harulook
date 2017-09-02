@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -31,7 +30,7 @@ import com.ksmart.harulook.util.UtilFile;
 public class PartnerController {
 
 	@Autowired
-	private PartnerDao dao;
+	private PartnerDao partnerDao;
 
 	/*제휴계약 신청처리*/
 	@RequestMapping(value = "/partnerContractInsert", method = RequestMethod.POST)
@@ -45,7 +44,7 @@ public class PartnerController {
 		String id = (String)session.getAttribute("id");
 		dto.setUserId(id);
 		/*제휴계약번호 자동입력*/
-		String lastCooContractNo = dao.getLastCooContractNo();
+		String lastCooContractNo = partnerDao.getLastCooContractNo();
 		System.out.println("컨트롤러"+lastCooContractNo);
 		int setNo = 1;
 		if(lastCooContractNo != null){
@@ -55,7 +54,7 @@ public class PartnerController {
 		/*제휴쿠폰코드 랜덤생성*/
 		String cooContractCode = getRandomCode();
 		/*제휴쿠폰코드 중복체크*/
-		while(dao.duplicateCode(cooContractCode) > 0){
+		while(partnerDao.duplicateCode(cooContractCode) > 0){
 			cooContractCode = getRandomCode();
 		}
 		/*이미지파일 업로드*/
@@ -66,7 +65,7 @@ public class PartnerController {
 		System.out.println("2번 : " + uploadFile);
 		/*---------------------*/
 		dto.setCooContractCode(cooContractCode);
-		dao.insertCooContract(dto);
+		partnerDao.insertCooContract(dto);
 		System.out.println("제휴계약신청완료");
 		return "redirect:/partnerContractList";
 	}
@@ -80,13 +79,13 @@ public class PartnerController {
 	@RequestMapping(value = "/partnerContractAdmit", method = RequestMethod.POST)
 	public String cooContractAdmit(PartnerDto dto){
 		System.out.println("제휴계약신청 승인하기");
-		dao.updateCooContractAdmit(dto);
+		partnerDao.updateCooContractAdmit(dto);
 		return "redirect:/partnerContractAllList";
 	}
 	/*제휴계약 전체목록보기(관리자)*/
 	@RequestMapping(value = "/partnerContractAllList", method = RequestMethod.GET)
 	public String partnerContractAllList(Model model) {
-		List<PartnerDto> list = dao.getCooContractList();
+		List<PartnerDto> list = partnerDao.getCooContractList();
 		model.addAttribute("list",list);
 		System.out.println("제휴계약컨트롤러 리스트보기");
 		return "partner/contract/partner_contract_list";
@@ -96,7 +95,7 @@ public class PartnerController {
 	public String partnerContractList(Model model
 									,HttpSession session) {
 		String id = (String) session.getAttribute("id");
-		List<PartnerDto> list = dao.getCooContractList(id);
+		List<PartnerDto> list = partnerDao.getCooContractList(id);
 		model.addAttribute("list",list);
 		System.out.println("제휴계약컨트롤러 리스트보기");
 		return "partner/contract/partner_contract_list";
@@ -105,11 +104,11 @@ public class PartnerController {
 	@RequestMapping(value="/partnerContractDetail", method = RequestMethod.GET)
     public String boardView(Model model
                             , @RequestParam(value="cooContractNo", required=true) String cooContractNo) {
-		PartnerDto dto = dao.getCooContractDetail(cooContractNo);
+		PartnerDto dto = partnerDao.getCooContractDetail(cooContractNo);
         model.addAttribute("dto", dto);
         String userId=dto.getUserId();
         System.out.println("userId 상세보기"+userId);
-        MemberDto Mdto = dao.getCooContractCompany(userId);
+        MemberDto Mdto = partnerDao.getCooContractCompany(userId);
         model.addAttribute("Mdto", Mdto);
         System.out.println("제휴계약컨트롤러 상세보기");
         return "partner/contract/partner_contract_detail";
@@ -118,7 +117,7 @@ public class PartnerController {
 	/*제휴계약 수정처리*/
 	@RequestMapping(value = "/partnerContractUpdate", method = RequestMethod.POST)
 	public String partnerContractUpdate(PartnerDto dto) {
-		dao.updateCooContract(dto);
+		partnerDao.updateCooContract(dto);
 		System.out.println("제휴계약 수정처리");
 		return "redirect:/partnerContractDetail?cooContractNo="+dto.getCooContractNo();
 
@@ -128,7 +127,7 @@ public class PartnerController {
 	@RequestMapping(value = "/partnerContractUpdate", method = RequestMethod.GET)
 	public String partnerContractUpdate(Model model
 										,@RequestParam(value="cooContractNo",required=true) String cooContractNo){
-		PartnerDto dto = dao.getCooContractDetail(cooContractNo);
+		PartnerDto dto = partnerDao.getCooContractDetail(cooContractNo);
 		model.addAttribute("dto", dto);
 		System.out.println("제휴계약 수정 폼 요청");
 		return "partner/contract/partner_contract_update";
@@ -138,7 +137,7 @@ public class PartnerController {
 	public String partnerContractBillList(Model model
 										,HttpSession session){
 		String cooContractNo = (String) session.getAttribute("setNo");
-		List<PartnerBillDto> list = dao.getCooContractBill(cooContractNo);
+		List<PartnerBillDto> list = partnerDao.getCooContractBill(cooContractNo);
 		model.addAttribute("list",list);
 		System.out.println("제휴결제예정수수료보기");
 		return "partner/pay/partner_bill_list";
@@ -148,9 +147,9 @@ public class PartnerController {
 	public String partnerContractPay(PartnerBillDto dto){
 		System.out.println("제휴결제처리(insert-update-delete)");
 		System.out.println(dto.toString());
-		dao.insertCooContractPay(dto);
-		dao.updateCooContractPayStat(dto);
-		dao.deleteCooContractBill(dto);
+		partnerDao.insertCooContractPay(dto);
+		partnerDao.updateCooContractPayStat(dto);
+		partnerDao.deleteCooContractBill(dto);
 		return "partner/pay/partner_pay_list";
 	}
 	
@@ -160,7 +159,7 @@ public class PartnerController {
 								,HttpSession session){
 
 		String cooContractNo = (String) session.getAttribute("setNo");
-		List<PartnerPayDto> list = dao.getCooContractPayList(cooContractNo);
+		List<PartnerPayDto> list = partnerDao.getCooContractPayList(cooContractNo);
 		model.addAttribute("list",list);
 		System.out.println("제휴결제내역보기");
 
@@ -172,7 +171,7 @@ public class PartnerController {
 	@RequestMapping(value = "/partnerContractPayInsert", method = RequestMethod.GET)
 	public String partnerContractPayInsert(Model model
 											,@RequestParam(value="cooContractNo",required=true) String cooContractNo){
-		PartnerBillDto dto = dao.cooContractPayForm(cooContractNo);
+		PartnerBillDto dto = partnerDao.cooContractPayForm(cooContractNo);
 		model.addAttribute("dto",dto);
 		return "partner/pay/partner_pay_insert";
 		
@@ -184,7 +183,7 @@ public class PartnerController {
 			, HttpSession session) {
 		
 		String id = (String) session.getAttribute("id");
-		List<PartnerDto> list = dao.getCooContractList(id);
+		List<PartnerDto> list = partnerDao.getCooContractList(id);
 		model.addAttribute("list", list);
 		
 		return "partner/statistics/partner_statistics_list";
@@ -218,72 +217,11 @@ public class PartnerController {
 
 	}
 
-	
-	/*제휴업체사이트 일별 방문자 조회*/
-	@RequestMapping(value = "/getDailyVisitor", method = RequestMethod.GET)
-	public @ResponseBody String getDailyVisitor(HttpSession session, String month){
-		String cooContractNo = (String) session.getAttribute("setNo");
-		Gson gson = new Gson();
-		HashMap<String,String> map = new HashMap<String,String>();
-		System.out.println("cooContractNo==>"+cooContractNo);
-		System.out.println("month==>"+month);
-		
-		map.put("cooContractNo",cooContractNo);
-		map.put("month", month);
-		List<PartnerStatsDto> list= dao.getDailyVisitor(map);
-		
-		System.out.println("list==>"+list);
-		
-		return gson.toJson(list);
-
-	}
-	
-	/*제휴업체사이트 월별 방문자 조회*/
-	@RequestMapping(value = "/getMonthlyVisitor", method = RequestMethod.GET)
-	public @ResponseBody String getMonthlyVisitor(String cooContractNo) {
-		//String cooContractNo = (String) session.getAttribute("setNo");
-		Gson gson = new Gson();
-		List<PartnerStatsDto> list= dao.getMonthlyVisitor(cooContractNo);
-		System.out.println(list.toString());
-		return gson.toJson(list);
-
-	}
-	/*제휴업체사이트 월별 유입방문자 조회*/
-	@RequestMapping(value = "/getMonthlyInflux", method = RequestMethod.GET)
-	public @ResponseBody String getMonthlyInflux(HttpSession session) {
-		String cooContractNo = (String) session.getAttribute("setNo");
-		Gson gson = new Gson();
-		List<PartnerStatsDto> list= dao.getMonthlyInflux(cooContractNo);
-		System.out.println(list.toString());
-		return gson.toJson(list);
-
-	}
-	
-	/*제휴업체사이트 주별 방문자 조회*/
-	@RequestMapping(value = "/getWeeklyVisitor", method = RequestMethod.GET)
-	public @ResponseBody String getWeeklyVisitor(HttpSession session) {
-		String cooContractNo = (String) session.getAttribute("setNo");
-		Gson gson = new Gson();
-		List<PartnerStatsDto> list= dao.getWeeklyVisitor(cooContractNo);
-		System.out.println("그래프"+list.toString());
-		return gson.toJson(list);
-
-	}
-	/*제휴업체사이트 주별 유입방문자 조회*/
-	@RequestMapping(value = "/getWeeklyInflux", method = RequestMethod.GET)
-	public @ResponseBody String getWeeklyInflux(HttpSession session) {
-		String cooContractNo = (String) session.getAttribute("setNo");
-		Gson gson = new Gson();
-		List<PartnerStatsDto> list= dao.getWeeklyInflux(cooContractNo);
-		System.out.println("그래프"+list.toString());
-		return gson.toJson(list);
-
-	}
 	/*제휴업체사이트 주별 방문자 조회(*/
 	@RequestMapping(value = "/getWeeklyVisitorTable", method = RequestMethod.GET)
 	public String getWeeklyVisitorTable(Model model,HttpSession session) {
 		String cooContractNo = (String) session.getAttribute("setNo");
-		List<PartnerStatsDto> list= dao.getWeeklyVisitor(cooContractNo);
+		List<PartnerStatsDto> list= partnerDao.getWeeklyVisitor(cooContractNo);
 		model.addAttribute("list",list);
 		model.addAttribute("cooContractNo",cooContractNo);
 		System.out.println("table"+list.toString());
@@ -305,13 +243,13 @@ public class PartnerController {
 	/*제휴계약업체 구매 비율보기*/
 	@RequestMapping(value = "/getBuyRate", method = RequestMethod.GET)
 	public String getBuyRate(Model model) {
-		List<String> proList = dao.getMallProNo();
+		List<String> proList = partnerDao.getMallProNo();
 		List<HashMap<String, Integer>> m = new ArrayList<HashMap<String, Integer>>();
 		
 		for (int i = 0; i < proList.size(); i++) {
 			String mallProNo = proList.get(i);
 			System.out.println("mallPro=" + mallProNo);
-			HashMap<String, Integer> map = dao.getCountBuy(mallProNo);
+			HashMap<String, Integer> map = partnerDao.getCountBuy(mallProNo);
 			float total = map.get("total");
 			float influx = map.get("influx");
 			int rate = 0;
@@ -345,7 +283,7 @@ public class PartnerController {
 								,HttpSession session){
 		
 		String id = (String) session.getAttribute("id");
-		List<PartnerDto> list = dao.getCooContractList(id);
+		List<PartnerDto> list = partnerDao.getCooContractList(id);
 		model.addAttribute("list", list);
 
 		return "partner/partner_home";

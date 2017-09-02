@@ -15,7 +15,7 @@ import com.ksmart.harulook.weather.service.WeatherDao;
 import com.ksmart.harulook.weather.service.WeatherDto;
 
 @RestController
-public class WeatherController {
+public class WeatherRestController {
 
 	@Autowired
 	private WeatherDao weatherDao; 

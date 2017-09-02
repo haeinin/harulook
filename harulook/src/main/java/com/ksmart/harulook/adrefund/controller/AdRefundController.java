@@ -22,24 +22,6 @@ public class AdRefundController {
 	@Autowired
 	private AdRefundDao adrefunddao;
 	
-	@RequestMapping(value="/insertRefund",method = RequestMethod.POST)
-	@ResponseBody
-	public void insertRefund(@RequestParam("conractNo") String contractno
-						    ,@RequestParam("contractPrice")int contractprice){
-		System.out.println("광고 환불 등록 요청");
-		System.out.println("계약 번호 : " + contractno + "계약금액 : " + contractprice);
-		AdRefundDto adrefund = new AdRefundDto();
-		String lastrefundNo=adrefunddao.getRefundNo();
-		int initRefundNo=1;
-		if(lastrefundNo != null){
-			initRefundNo = Integer.parseInt(lastrefundNo)+1;
-		}
-		adrefund.setRefundNo("refund_"+initRefundNo);
-		adrefund.setAdContractNo(contractno);
-		adrefund.setRefundPrice(contractprice);
-		adrefunddao.insertRefund(adrefund);
-	}
-	
 	@RequestMapping(value="/selectRefund", method = RequestMethod.GET)
 	public String getRefundList(Model model, HttpSession session){
 		String SLEVEL = (String)session.getAttribute("level");
