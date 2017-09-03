@@ -32,6 +32,26 @@ public class BoardRestController {
 	@Autowired
 	private LikeDao likeDao;
 	
+	/* sns게시물 목록 요청 */
+	@RequestMapping(value="/boardListMore", method = RequestMethod.GET)
+	public HashMap<String,Object> boardList(@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		System.out.println("boardListMore 요청");
+		System.out.println("currentPage : "+currentPage);
+		
+		int boardCount = boardDao.selectBoardCount();
+        int pagePerRow = 9;
+        int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
+		List<BoardDto> list = boardDao.selectBoardList(currentPage, pagePerRow);
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("currentPage", currentPage);
+		map.put("boardCount", boardCount);
+		map.put("lastPage", lastPage);
+		map.put("list", list);
+        System.out.println("boardList : "+map);
+		return (HashMap<String, Object>) map;
+	}
+	
 	/* sns 게시물  상세보기 */
 	@RequestMapping(value="/boardDetail", method = RequestMethod.GET)
 	public HashMap<String,Object> boardDetail(HttpSession session

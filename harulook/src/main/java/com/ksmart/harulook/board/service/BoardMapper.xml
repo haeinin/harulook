@@ -280,8 +280,8 @@
 		 	) AS lc 
 		 WHERE sns_board.sns_board_no = cc.sns_board_no 
 		 AND sns_board.sns_board_no = lc.sns_board_no 
-		 ORDER BY sns_board.sns_board_no 
-		 DESC LIMIT #{beginRow}, #{pagePerRow}
+		 ORDER BY sns_board.sns_board_no DESC 
+		 LIMIT #{beginRow}, #{pagePerRow}
 	</select>
 
 	<!-- sns게시물 상황별 분류 입력 -->
