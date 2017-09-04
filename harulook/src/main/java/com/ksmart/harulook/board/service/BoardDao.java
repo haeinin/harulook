@@ -79,6 +79,8 @@ public class BoardDao {
 	/* sns게시물 목록 조회 메서드 */
 	public List<BoardDto> selectBoardList(int currentPage, int pagePerRow) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
+		int popularity = 0;
+		map.put("popularity", popularity);
         map.put("beginRow", (currentPage-1)*pagePerRow);
         map.put("pagePerRow", pagePerRow);
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.board.service.BoardMapper.boardList", map);
@@ -138,6 +140,15 @@ public class BoardDao {
 	public String selectLastBoardNo() {
 		String lastBoardNo = "";
 		return sqlSessionTemplate.selectOne("com.ksmart.harulook.board.service.BoardMapper.getLastBoardNo", lastBoardNo);
+	}
+
+	public List<BoardDto> selectBoardPopularityList(int currentPage, int pagePerRow) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		int popularity = 1;
+		map.put("popularity", popularity);
+        map.put("beginRow", (currentPage-1)*pagePerRow);
+        map.put("pagePerRow", pagePerRow);
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.board.service.BoardMapper.boardList", map);
 	}
 	
 	

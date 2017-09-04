@@ -192,12 +192,14 @@
     <div class="row">
 	    <!-- 좌측 베너 인클루드 -->
     		<c:import url="./module/left.jsp"></c:import>
-    		
-	    <div class="col-xs-9">
+    	
+    	<div class="col-xs-9">
         	<div class="container">
+            	<c:import url="/boardPopList"></c:import>
             	<c:import url="/boardList"></c:import>
             </div>
-        </div>
+        </div>	
+            	
         
         
             <!-- 우측 베너 인클루드 -->

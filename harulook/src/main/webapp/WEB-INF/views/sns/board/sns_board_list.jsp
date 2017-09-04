@@ -222,6 +222,7 @@ $(function(){
 </script>
 </head>
 <body>
+<br>
 <div class="row">
 	<div class="col-xs-1"></div>
 	<div class="col-xs-11">
@@ -337,8 +338,6 @@ $(function(){
     <div class="col-xs-12">
         <div class="instagram-content">
         
-        	<h1>#하루룩</h1><br>
-			        	<h2>게시물 : ${boardCount}</h2>
             <h3>최근 게시물</h3>
             <!-- The following HTML will be our template inside instafeed -->
 			<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">

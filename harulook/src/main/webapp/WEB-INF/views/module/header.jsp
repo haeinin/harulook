@@ -296,18 +296,22 @@ function dfs_xy_conv(code, v1, v2) {
 		/********************************/
 		
 		var position = sessionStorage.getItem('influx');
+		var nx = '60';
+		var ny = '127';
 		
 		navigator.geolocation.getCurrentPosition(function(position){
-			
-			 var lat = position.coords.latitude;	// 현재 접속 위치의 위도
-			 var lng = position.coords.longitude; 	// 현재 접속 위치의 경도
-			
-			var rs = dfs_xy_conv("toXY",lat,lng); // 위도경도 값을 xy격자 값으로 변환
-			console.log(rs.x, rs.y);
-	    
-			
+	
+		var lat = position.coords.latitude;	// 현재 접속 위치의 위도
+		var lng = position.coords.longitude; 	// 현재 접속 위치의 경도
+		
+		var rs = dfs_xy_conv("toXY",lat,lng); // 위도경도 값을 xy격자 값으로 변환
+		
+		nx = rs.x;
+		ny = rs.y;   
+		console.log(nx, nx);
+		
 		/**************** 날씨 초단기 실황 api 실행 ***************/
-		var allData = { 'date': date, 'hour': hour, 'nx': rs.x, 'ny': rs.y };	// api에 입력할 데이터 
+		var allData = { 'date': date, 'hour': hour, 'nx': nx, 'ny': ny};	// api에 입력할 데이터 
 		
 		var weatherRequest = $.ajax({
 			url : './currentWeather',
@@ -368,7 +372,7 @@ function dfs_xy_conv(code, v1, v2) {
 			}
 		});
 		/***********************************************************/
-	 });
+ 		});
 	});
 </script>
 

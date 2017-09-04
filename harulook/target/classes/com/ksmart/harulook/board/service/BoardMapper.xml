@@ -280,7 +280,13 @@
 		 	) AS lc 
 		 WHERE sns_board.sns_board_no = cc.sns_board_no 
 		 AND sns_board.sns_board_no = lc.sns_board_no 
-		 ORDER BY sns_board.sns_board_no DESC 
+		 <if test="popularity == 1">
+		 	AND sns_board.sns_board_date = date(now()) 
+		 	ORDER BY snsLikeCount DESC 
+		 </if>
+		 <if test="popularity == 0">
+		 	ORDER BY sns_board.sns_board_no DESC 
+		 </if>
 		 LIMIT #{beginRow}, #{pagePerRow}
 	</select>
 

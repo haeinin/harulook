@@ -59,9 +59,9 @@ function imgAutoSizing() {
             height = height * ratio;    // 적용
 		}	
 
-        // Check if current height is larger than max
+        // 현재 이미지의 세로 길이가 최대 세로 길이보다 클 때
 		if(height > maxHeight){
-            ratio = maxHeight / height; // 이미지 비율
+            ratio = maxHeight / height; // 세로 이미지 비율
             $(this).css("height", maxHeight);   // Set new height
             $(this).css("width", width * ratio);    // Scale width based on ratio
             width = width * ratio;    // Reset width to match scaled image
@@ -70,10 +70,14 @@ function imgAutoSizing() {
 }
 
 /*  게시물 클릭  */
-function showDetail() {
+function showDetail(data) {
 	$('.sns-photo-box').click(function(){
 		var index = $('.sns-photo-box').index(this);
-		var boardNo = $(this).children().eq(0).val();
+		if(data != null) {
+			var boardNo = data[index].snsBoardNo;
+		} else {
+			var boardNo = $(this).children().eq(0).val();
+		}
 		
 		console.log('index : ',index);
 		console.log('data[',index,'].snsBoardNo : ',boardNo);
@@ -96,9 +100,7 @@ $(function(){
 	
 	likeAndComment();
 	imgAutoSizing();
-	showDetail();
-	
-	$('')
+	showDetail(null);
 	
 	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
 	$('.searchCategory').change(function(){
@@ -165,7 +167,7 @@ $(function(){
 
 				likeAndComment();
 				imgAutoSizing();
-				showDetail();
+				showDetail(data);
 			}
 		});
 	});
@@ -176,6 +178,43 @@ $(function(){
 	console.log('currentPage : ',currentPage);
 	console.log('typeof currentPage : ',typeof currentPage);
 	
+	/* 더 읽어들이기 버튼 클릭 */
+ 	$('#readMoreBtn').click(function(){
+ 		currentPage += 1;
+ 		console.log('currentPage : ',currentPage);
+		var readMoreRequest = $.ajax({
+			url: './boardListMore',
+			data:{ 'currentPage' : currentPage},
+			datatype: 'json',
+			method: 'get',
+			success: function(data) {
+				console.log(currentPage,'page data : ',data);
+				var readMoreHtml = '';
+				
+				for(var i=0; i < data.list.length; i++) {
+					readMoreHtml += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >';
+					readMoreHtml += '<div class="sns-photo-box">';
+					readMoreHtml += '<input type="hidden" id="boardNo" value="'+data.list[i].snsBoardNo+'">';
+					readMoreHtml += '<div class="image-wrap">';
+					readMoreHtml += '<img style="height: 100%;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.list[i].snsBoardImg+'">';
+					readMoreHtml += '<div class="likes">';
+					readMoreHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
+					readMoreHtml += '<span class="center">&nbsp;'+data.list[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
+					readMoreHtml += '<i class="fa fa-commenting center" style="font-size:24px"></i>';
+					readMoreHtml += '<span class="center">&nbsp;'+data.list[i].snsCommentCount+'</span>';
+					readMoreHtml += '</div>';
+					readMoreHtml += '</div>';
+					readMoreHtml += '</div>';
+					readMoreHtml += '</div>';
+				}
+				$('#boardOutput').append(readMoreHtml);
+				
+				imgAutoSizing();
+				likeAndComment();
+				showDetail(null);
+			}
+		});
+	}); 
 });
 </script>
 </head>
@@ -291,7 +330,7 @@ $(function(){
 			    </div>
 			    <div class="form-group">
 			    	<label class="searchCategory" for="userId">아이디 :</label>
-			    	<input type="text" class="searchCategory" id="userId" name="userId">
+			    	<input type="text" class="searchCategory" id="userId" name="userId" value="${board.userId}">
 			    	<input type="button" value="검색">
 			    </div>
 			</div>
