@@ -10,7 +10,6 @@ function followCheck(msg) {
 	requestFollow.done(function( msg ) {
 		msg = msg.trim();
 		console.log(msg);	//친구 등록 체크
-		console.log($('#levelCheck').val() + " == ㄴㅁㅇㄻㄴㅇㄻㄴㅇㄻ너롬널");
 		if($('#levelCheck').val() == '일반회원'){
 			if(!msg){	//등록되지않은 친구
 				followInsertButton

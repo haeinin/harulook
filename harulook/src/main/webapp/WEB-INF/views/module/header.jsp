@@ -29,8 +29,8 @@
 }
 /* 게시물등록하기 */
 #snsInsertButton {
-	position: relative;
-	top: 0px;
+	position: fixed;
+	top: 200px;
 	left: 20px;
 }
 /* 홈으로 */
@@ -85,13 +85,14 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/cartoony-weather.css" />"
+	href="<c:url value="resources/css/cartoony-weather.css?ver=1" />"
 	type="text/css">
 <link
 	href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat'
 	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
-
+<!-- w3아이콘  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="resources/js/modernizr.js"></script>
 
 <script type="text/javascript">
@@ -404,7 +405,7 @@ function dfs_xy_conv(code, v1, v2) {
 				method="get">
 				<div>
 
-					<button class="btn btn-link" style="color: black;" id="logo" value="메인버튼"><div class="name fancy-font"><h2>haruloook</h2></div>
+					<button class="btn btn-link" style="color: black;" id="logo" value="메인버튼"><div class="name fancy-font"><h2><i class="fa fa-umbrella" style="font-size:48px;color:black"></i>&nbsp haruloook</h2></div>
 						<!-- <img src="./resources/logo.jpg" width="180px" height="50px"
 							class="img-rounded" alt="Cinque Terre"> -->
 					</button>

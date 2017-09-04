@@ -1325,7 +1325,15 @@ h4, .h4 {
 }
 
 h5, .h5 {
-  font-size: 14px;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+  padding: 5px 0;
+  color: #000000;
+  top: -50px;
 }
 
 h6, .h6 {
@@ -1688,6 +1696,7 @@ pre code {
 .container {
   margin-right: auto;
   margin-left: auto;
+  /* padding-top : 5px; */
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -6816,15 +6825,39 @@ header .social a.instagram {
   background: #eeeeee;
 }
 
+.instagram-content h1 {
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  font-size: 40px;
+  font-weight: 700;
+  text-align: center;
+  padding: 5px 0;
+  margin: 0;
+  color: #000000;
+}
+
+.instagram-content h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  padding: 5px 0;
+  margin: 0;
+  color: #000000;
+}
+
 .instagram-content h3 {
   text-transform: uppercase;
   letter-spacing: 0.5em;
   font-size: 12px;
   font-weight: 700;
-  text-align: center;
-  padding: 50px 0;
-  color: #bbbbbb;
+  text-align: left;
+  padding: 5px 0;
+  color: #484848;
 }
+
+
 .instagram-content .photo-box {
   margin: 0 0 30px 0;
   width: 345px;
@@ -6873,11 +6906,11 @@ header .social a.instagram {
 }
 
 .instagram-content .sns-photo-box .image-wrap {
-  width: 345px;
-  height: 345px;
+  width: 300px;
+  height: 300px;
   display: table-cell;
   vertical-align: middle;
-  background-color: white;
+  background-color: #ABABAB;
 }
 
 .instagram-content .sns-photo-box .image-wrap .likes {
@@ -6980,3 +7013,6 @@ footer .contact-now-btn:hover {
 .fancy-font {
   font-family: "Kaushan Script", cursive;
 }
+
+/* 민구가 세팅한 게시판 글 위치 설정 */
+
