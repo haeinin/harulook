@@ -226,7 +226,7 @@ $(function(){
 	<div class="col-xs-1"></div>
 	<div class="col-xs-11">
 		<!-- sns 게시물 검색 항목 -->	    
-		<a href="#demo" data-toggle="collapse" style="color: black;">게시물 검색<i class="fa fa-bars"></i></a>
+		<a href="#demo" data-toggle="collapse" style="color: black;"><h5>게시물 필터 <i class="fa fa-bars"></i></h5></a>
 		<div id="demo" class="collapse">
 			<div class="searchGroup">
 				<label for="snsBoardWeather">날씨 :</label>

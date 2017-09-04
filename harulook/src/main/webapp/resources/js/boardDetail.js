@@ -14,7 +14,7 @@ function boardDetail(msg) {
 	snsDetailContent += '<h4>'+msg.board.userNick+'(<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+msg.board.userId+'">'+msg.board.userId+'</a>)</h4>';
 	snsDetailContent += '</div>';
 	snsDetailContent += '<button id="followInsertButton" class="btn btn-default">팔로우</button>';
-	snsDetailContent += '<span id="followCheckOverlap">이미등록된친구</span>';
+	snsDetailContent += '<span id="followCheckOverlap">&nbsp;</span>';
 	snsDetailContent += '<span id="Blank">&nbsp;</span>';
 	if(msg.board.userId == $('#sessionUserId').val()) {
 		snsDetailContent += '<div class="menu">';
