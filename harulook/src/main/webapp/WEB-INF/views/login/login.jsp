@@ -11,9 +11,21 @@
 <style type="text/css">
        #div1 {
        	  position: relative;
-          height: 500px;
+          height: 600px;
+          top: 120px;
+          left: 100px;
+       }
+       
+       #div2 {
+       	  position: relative;
+          height: 600px;
           top: 10px;
-          left: 200px;
+          left: 300px;
+       }
+       
+       #loginTitle{	
+       	  position: relative;
+          left: 500px;
        }
 </style>
 
@@ -158,67 +170,57 @@
 	<c:import url="../module/header.jsp"></c:import>	
 	<!-- 바디 인클루드 -->
     <div class="row">
-	    <div class="col-xs-1"></div>
-	    <div id="div1" class="col-xs-9">
-			
-			<!-- 일반회원자동로그인 -->
-		    <form id=loginAddUser action="${pageContext.request.contextPath}/loginAdd" method="post">
-		    	<input name="userId" id="user_id" type="hidden" value="id003" />
-	            <input name="userPw" id="user_pw" type="hidden" value="pw003"/>
-	            <input class="btn btn-default" id="loginUser" type="button" value="일반회원자동로그인"/>
-		    </form>
-		    
-		    <!-- 관리자자동로그인 -->
-		    <form id=loginAddManager action="${pageContext.request.contextPath}/loginAdd" method="post">
-		    	<input name="userId" id="user_id" type="hidden" value="id001"/>
-	            <input name="userPw" id="user_pw" type="hidden" value="321321"/>
-	            <input class="btn btn-default" id="loginManager" type="button" value="관리자자동로그인"/>
-		    </form>
-		    
-		    <!-- 사업자자동로그인 -->
-		    <form id=loginAddBusiness action="${pageContext.request.contextPath}/loginAdd" method="post">
-		    	<input name="userId" id="user_id" type="hidden" value="id004"/>
-	            <input name="userPw" id="user_pw" type="hidden" value="pw004"/>
-	            <input class="btn btn-default" id="loginBusiness" type="button" value="사업자자동로그인"/>
-		    </form>
-			
-	       
-		    <h1>로그인 기본 폼</h1>
-		    <!-- 로그인 -->
-		    <form id=loginAddR action="${pageContext.request.contextPath}/loginAdd" method="post">
-		    
-	       		<!-- 아이디 -->
-	           	<label for="user_id">아이디 :</label>
-	            <input name="userId" id="user_id" type="text"/>
-	           
-	       		<!-- 비밀번호 -->
-	        	<label for="user_pw">비번 :</label>
-	            <input name="userPw" id="user_pw" type="password"/> <span>${loginCheck}</span><br>
-	            <!-- 로그인버튼 -->
-		        <div>
-		       		<input class="btn btn-default" id="loginButton" type="button" value="로그인"/>
-		        </div>
-		     </form>
-		    
-		    
-		    
-		    <!-- 회원가입하기 -->
-			<form id=userinserform action="${pageContext.request.contextPath}/member_user_insert" method="get">
-				<input class="btn btn-default" id="userinserformbutton" type="button" value="회원가입"/>
-			</form>
-			
-		 	<!-- 사업자등록하기 -->
-			<form id=businessinserform action="${pageContext.request.contextPath}/member_business_insert" method="get">
-				<input class="btn btn-default" id="businessinserformbutton" type="button" value="사업자등록하기"/>
-			</form>
-			
-			<!-- 아이디찾기 -->
-			<input class="btn btn-default" id="idfindbutton" type="button" value="아이디찾기"/><br>
-			
-			
-			<!-- 비밀번호찾기 -->
-			<input class="btn btn-default" id="pwfindbutton" type="button" value="비밀번호찾기"/>
-			
+	<div class="col-xs-1"></div>
+		<div class="col-xs-4">    
+	    
+		<div class="container">
+			<div class="row">
+				<div class="page-header">
+		  	    <h2 id="loginTitle">심플한 로그인 폼</h2>
+				</div>
+					<div id="div2" class="col-md-3">
+						  <div class="login-box well">
+								<form id=loginAddR accept-charset="UTF-8" role="form" method="post" action="${pageContext.request.contextPath}/loginAdd">
+								<legend>로그인</legend>
+								   <div class="form-group">
+								       <!-- 아이디 -->
+								    <label for="username-email">아이디</label>
+								    <input name="userId" id="user_id" placeholder="Username" type="text" class="form-control" />
+								</div>
+								<div class="form-group">
+									<!-- 비밀번호 -->
+								<label for="password">비밀번호</label>
+								<input name="userPw" id="user_pw" placeholder="Password" type="password" class="form-control" /><br>
+								<span>${loginCheck}</span><br>
+								</div>
+								
+								<div class="form-group">
+									<!-- 로그인버튼 -->
+								        <input id="loginButton" type="submit" class="btn btn-default btn-login-submit btn-block m-t-md" value="로그인" />
+								
+								   
+								</form>
+								 <!-- 회원가입하기 -->
+								<form id=userinserform action="${pageContext.request.contextPath}/member_user_insert" method="get">
+									<input class="btn btn-default btn-login-submit btn-block m-t-md" type="submit" value="회원가입"/>
+								</form>
+								
+								<!-- 사업자등록하기 -->
+								<form id=businessinserform action="${pageContext.request.contextPath}/member_business_insert" method="get">
+									<input class="btn btn-default btn-login-submit btn-block m-t-md" type="submit" value="사업자등록하기"/>
+								</form>
+								
+								<!-- 아이디찾기 -->
+								<input id="idfindbutton" class="btn btn-default btn-login-submit btn-block m-t-md" type="button" value="아이디찾기"/>
+								
+								<!-- 비밀번호찾기 -->
+								<input id="pwfindbutton" class="btn btn-default btn-login-submit btn-block m-t-md" type="button" value="비밀번호찾기"/>
+							</div>
+				     </div>
+			     </div>
+			 </div>
+		</div>
+	    
 			
 			<!-- 아이디찾기 modal-->
 			<div class="modal fade" id="idFindModal" role="dialog">
@@ -227,19 +229,20 @@
 					<div class="modal-content">
 						
 						<div class="modal-header" style="padding:35px 50px;">
-						   	아이디찾기
+						   	<h2>아이디찾기</h2><br>
 						    <form name="idFindFormAdd" id=idFindFormAdd action="${pageContext.request.contextPath}/idFindForm" method="post"> 
 						    <!-- 닉네임 -->	        
-				       		<label for="user_nick">닉네임 :</label>
-				            <input name="userNick" id="user_nick" type="text"/> 
+				       		<label for="user_nick">닉&nbsp;&nbsp;네&nbsp;&nbsp;임 &nbsp;:</label>
+				            <input name="userNick" id="user_nick" type="text"/><br>
 						     
 						    <!-- 비밀번호 -->
-				        	<label for="user_pw">비번 :</label>
+				        	<label for="user_pw">비밀번호 :</label>
 				            <input name="userPw" id="user_pw" type="password"/><br>  
 				            
 						    <!-- 질문 -->
-				        	<label for="user_q">질문 :</label>
-				            <select class="form-control" name="userQ" id="user_q">
+				        	<!-- <label for="user_q">질문 :</label> -->
+				            <select class="form-control" name="userQ" id="user_q" style="WIDTH: 190pt; HEIGHT: 25pt" >
+								<option>질문을 입력하세요</option>
 								<option>나의 보물은</option>
 				            	<option>나의 고향은</option>
 				            	<option>나의 초등학교</option>
@@ -252,7 +255,7 @@
 				        	<label for="user_a">질문의 답 :</label>
 				            <input name="userA" id="user_a" type="text"/><br>
 			        		<!-- 아이디찾기경고문 -->
-			        		<span id="findId"></span><br>
+			        		<h2><span id="findId"></span><br></h2>
 			        		<!-- 아이디찾기버튼 -->
 			        		<input class="btn btn-default" id="idFindAdd" type="button" value="아이디찾기"/>
 				            </form>
@@ -269,20 +272,21 @@
 					<div class="modal-content">
 						
 						<div class="modal-header" style="padding:35px 50px;">
-							비밀번호찾기
+							<h2>비밀번호찾기</h2><br>
 							<form name="pwFindFormAdd" id=pwFindFormAdd action="${pageContext.request.contextPath}/pwFindForm" method="post"> 
 						    
 						     <!-- 아이디 -->
-				           	<label for="user_id">아이디 :</label>
-				            <input name="userId" id="user_id_modal" type="text"/>
+				           	<label for="user_id">아&nbsp;&nbsp;이&nbsp;&nbsp;디 &nbsp;:</label>
+				            <input name="userId" id="user_id_modal" type="text"/><br>
 						    
 						     <!-- 닉네임 -->	        
-				       		<label for="user_nick">닉네임 :</label>
+				       		<label for="user_nick">닉&nbsp;&nbsp;네&nbsp;&nbsp;임 &nbsp;:</label>
 				            <input name="userNick" id="user_nick" type="text"/> 
 						     
 						    <!-- 질문 -->
-				        	<label for="user_q">질문 :</label>
-				            <select class="form-control" name="userQ" id="user_q">
+				        	<!-- <label for="user_q">질문 :</label> -->
+				            <select class="form-control" name="userQ" id="user_q" style="WIDTH: 190pt; HEIGHT: 25pt" >
+								<option>질문을 입력하세요</option>
 								<option>나의 보물은</option>
 				            	<option>나의 고향은</option>
 				            	<option>나의 초등학교</option>
@@ -296,7 +300,7 @@
 				            <input name="userA" id="user_a" type="text"/><br>
 			        		
 			        		<!-- 비밀번호찾기경고문 -->
-			        		<span id="findPw"></span><br>
+			        		<h2><span id="findPw"></span><br></h2>
 			        				
 	        				<!-- 비밀번호찾기버튼 -->
 			        		<input class="btn btn-default" id="pwFindAdd" type="button" value="비밀번호찾기"/>
@@ -305,14 +309,14 @@
 				            <!-- 관리자와 사업자 수정하기버튼 -->
 						    <form id="businessUpdate" action="${pageContext.request.contextPath}/businessUpdate?userId=${sessionScope.id}" method="post">
 					  			<div>
-					  				<input class="btn btn-default" id="businessUpdateButton" type="button" value="내 정보 수정 하기(관리자운영자)"/>
+					  				<input class="btn btn-default" id="businessUpdateButton" type="button" value="내 정보 수정 하기"/><!-- 관리자사업자 -->
 					  	 		</div>	
 						    </form>
 	        			
 	        				<!-- 일반회원수정하기버튼 -->
 	        			    <form id="userUpdate" action="${pageContext.request.contextPath}/userUpdate?userId=${sessionScope.id}" method="post">
 					  			<div>
-					  				<input class="btn btn-default" id="userUpdateButton" type="button" value="내 정보 수정 하기(일반회원)"/>
+					  				<input class="btn btn-default" id="userUpdateButton" type="button" value="내 정보 수정 하기"/><!-- 일반회원 -->
 					  	 		</div>	
 						    </form> 
 						    
@@ -323,6 +327,37 @@
 			</div>
 		</div>
 		
+		<div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-4">
+			<div class="container">
+            	<div class="btn-group-vertical">
+            		<div class="well">
+            		<h2>&nbsp;간편 로그인</h2>
+					<!-- 일반회원자동로그인 -->
+				    <form id=loginAddUser action="${pageContext.request.contextPath}/loginAdd" method="post">
+				    	<input name="userId" id="user_id" type="hidden" value="id003" />
+			            <input name="userPw" id="user_pw" type="hidden" value="pw003"/>
+			            <input class="btn btn-warning" style="WIDTH: 130pt; HEIGHT: 27pt" id="loginUser" type="button" value="일반회원자동로그인"/>
+				    </form>
+				    
+				    <!-- 관리자자동로그인 -->
+				    <form id=loginAddManager action="${pageContext.request.contextPath}/loginAdd" method="post">
+				    	<input name="userId" id="user_id" type="hidden" value="id001"/>
+			            <input name="userPw" id="user_pw" type="hidden" value="321321"/>
+			            <input class="btn btn-warning" style="WIDTH: 130pt; HEIGHT: 27pt" id="loginManager" type="button" value="관리자자동로그인"/>
+				    </form>
+				    
+				    <!-- 사업자자동로그인 -->
+				    <form id=loginAddBusiness action="${pageContext.request.contextPath}/loginAdd" method="post">
+				    	<input name="userId" id="user_id" type="hidden" value="id004"/>
+			            <input name="userPw" id="user_pw" type="hidden" value="pw004"/>
+			            <input class="btn btn-warning" style="WIDTH: 130pt; HEIGHT: 27pt" id="loginBusiness" type="button" value="사업자자동로그인"/>
+				    </form>
+				    </div>
+				</div>
+			</div>
+		</div>
+		 
 		<!-- 우측 베너 인클루드 -->
 	    <c:import url="../module/right.jsp"></c:import>
     </div>

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 버튼 위치 조정 -->
 <style type="text/css">
 /* 로그인버튼 */
@@ -16,11 +16,19 @@
 	left: 1350px;
 }
 /* 마이페이지 */
-#mypage {
+/* #mypage {
 	position: relative;
 	top: -210px;
 	left: 1300px;
+} */
+
+/* 마이페이지 드롭다운*/
+#mypageDropdown {
+	position: relative;
+	top: -210px;
+	left: 1050px;
 }
+
 /* 로그아웃 */
 #logout {
 	position: relative;
@@ -94,6 +102,7 @@
 <!-- w3아이콘  -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="resources/js/modernizr.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <script type="text/javascript">
 
@@ -374,7 +383,7 @@ function dfs_xy_conv(code, v1, v2) {
 
 </head>
 <body>
-
+	
 	<div id="head">
 		<div class="row">
 			<header>
@@ -427,9 +436,21 @@ function dfs_xy_conv(code, v1, v2) {
 
 			<c:if test="${sessionScope.level != null}">
 				<!-- 마이페이지 -->
-				<input class="btn btn-default" id="mypage" type="button"
-					value="마이페이지" />
-
+				<!-- <input class="btn btn-default" id="mypage" type="button"
+					value="마이페이지" /> -->
+					
+				<div class="container">
+					<div class="btn-group">
+						<button id="mypageDropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">마이페이지</button>
+						
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Tableㅁㄴㅇㄹㄴㅁㅇㄻㄴㅇㄹt</a></li>
+							<li><a href="#">Smartphone</a></li>
+						</ul>
+					</div>
+				</div>
+				
+				
 				<!-- 로그아웃 -->
 				<form id="logoutadd"
 					action="${pageContext.request.contextPath}/logout" method="post">
@@ -438,25 +459,9 @@ function dfs_xy_conv(code, v1, v2) {
 							value="로그아웃" />
 					</div>
 				</form>
-
-				<!--------팔로우등록 테스트양식------------------------------------------------------------------------------------  -->
-				<%-- <form id="followCheck" action="${pageContext.request.contextPath}/followCheck" method="post">
-			  			<input id="followId" name="followId" type="text" />
-			  			<input id="followCheckButton" type="button" value="입력"/>
-				</form>	 --%>
 			</c:if>
 
-			<!-- 게시물등록하기버튼 -->
-			<%-- <c:if test="${sessionScope.level == '일반회원'}">
-			  <form id="snsInsertForm" action="${pageContext.request.contextPath}/boardInsert" method="get">
-			 		<div>
-			 			<button class="btn btn-default" id="snsInsertButton" value="sns게시물등록하기">
-						<img src="./resources/sns_Insert.png" class="img-rounded" alt="Cinque Terre" width="50" height="40"></button>
-			 	 	</div>	
-			  </form>
-			</c:if> --%>
 		</div>
-
 
 		<!-- 마이페이지 Modal -->
 		<div class="modal fade" id="myModal" role="dialog">
@@ -674,10 +679,6 @@ function dfs_xy_conv(code, v1, v2) {
 										type="button" value="나를 등록한 친구 목록" />
 								</div>
 							</form>
-
-
-
-
 						</c:if>
 					</div>
 				</div>
