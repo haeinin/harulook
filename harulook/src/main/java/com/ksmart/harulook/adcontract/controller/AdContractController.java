@@ -139,6 +139,7 @@ public class AdContractController {
 		System.out.println("광고종류별 금액 요청");
 		System.out.println(adtype);
 		String price = adcontractdao.getPrice(adtype);
+		System.out.println("광고 금액 : " + price);
 		return price;
 	}
 	/*계약기간을 선택헀을때 기간별 할인율 산출(AJAX)*/
@@ -152,13 +153,10 @@ public class AdContractController {
 	}
 	/*광고주가 광고 승인전 계약 취소를 요청했을때*/
 	@RequestMapping(value="/deleteContract", method = RequestMethod.GET)
-	@ResponseBody
 	public String modifyContractStat(@RequestParam("adContractNo") String adcontractno) {
-		
 		System.out.println("adContractNo : " + adcontractno );
 		adcontractdao.modifyContractStat(adcontractno);
 		System.out.println("취소 요청 완료");
-		
 		return "redirect:/adContractList";
 	}
 	/*광고주가 요청한 광고를 관리자가 승인할때*/

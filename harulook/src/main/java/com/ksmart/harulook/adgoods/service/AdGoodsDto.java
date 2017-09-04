@@ -2,7 +2,7 @@ package com.ksmart.harulook.adgoods.service;
 
 public class AdGoodsDto {
 	private String adGoodsNo;
-	private String adGoodsImage;
+	private String adGoodsImg;
 	private String adGoodsLink;
 	public String getAdGoodsNo() {
 		return adGoodsNo;
@@ -11,10 +11,10 @@ public class AdGoodsDto {
 		this.adGoodsNo = adGoodsNo;
 	}
 	public String getAdGoodsImage() {
-		return adGoodsImage;
+		return adGoodsImg;
 	}
 	public void setAdGoodsImage(String adGoodsImage) {
-		this.adGoodsImage = adGoodsImage;
+		this.adGoodsImg = adGoodsImage;
 	}
 	public String getAdGoodsLink() {
 		return adGoodsLink;
@@ -24,7 +24,7 @@ public class AdGoodsDto {
 	}
 	@Override
 	public String toString() {
-		return "AdGoodsDto [adGoodsNo=" + adGoodsNo + ", adGoodsImage=" + adGoodsImage + ", adGoodsLink=" + adGoodsLink
+		return "AdGoodsDto [adGoodsNo=" + adGoodsNo + ", adGoodsImg=" + adGoodsImg + ", adGoodsLink=" + adGoodsLink
 				+ "]";
 	}
 }

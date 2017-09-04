@@ -21,6 +21,7 @@
                 <th>종료 날짜</th>
                 <th>계약 금액</th>
                 <th>계약 상태</th>
+                <th>수정하기></th>
                 <th></th>
             </tr>
         </thead>
@@ -37,13 +38,14 @@
                     <td>
                     <c:if test="${sessionScope.level=='관리자'}">
                     	 <c:if test="${b.adContractStat=='승인대기'}"><a class="btn btn-info" href="./approveContract?adContractNo=${b.adContractNo}">계약 승인</a></c:if>
-                    	 <c:if test="${b.adContractStat=='취소요청'}"><a class="btn btn-info" href="./approveCancel?adContractNo=${b.adContractNo}&adConTractPrice=${b.adContractPrice}">취소 승인</a></c:if>
+                    	 <c:if test="${b.adContractStat=='취소요청'}"><a class="btn btn-info" href="./approveCancel?adConTractPrice=${b.adContractPrice}&adContractNo=${b.adContractNo}">취소 승인</a></c:if>
                     </c:if>
                      <c:if test="${sessionScope.level=='사업자'}">
-                    	<c:if test="${b.adContractStat=='승인대기'}"><a class="btn btn-info" href="./deleteContract?adContractNo=${b.adContractNo}}">계약 취소</a></c:if>
+                    	<c:if test="${b.adContractStat=='승인대기'}"><a class="btn btn-info" href="./deleteContract?adContractNo=${b.adContractNo}">계약 취소</a></c:if>
                     	<c:if test="${b.adContractStat=='광고등록대기'}"><a class="btn btn-info" href="./insertAdBoard?adContractNo=${b.adContractNo}">광고&nbsp;등록</a></c:if>
                     </c:if>
                     </td>
+                    <td><a href="./adBoardUpdate?adContractNo=${b.adContractNo}">수정하기</a></td>
                     
                 </tr>
                 </c:forEach>
