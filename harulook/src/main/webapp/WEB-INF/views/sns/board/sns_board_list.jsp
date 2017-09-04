@@ -22,7 +22,7 @@
 <!-- 댓글 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- sns스타일 탬플릿 css-->
-<link rel="stylesheet" type="text/css" href="resources/css/style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
 <!-- 예뻐요 아이콘 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
@@ -31,15 +31,9 @@
 <script type="text/javascript" src="resources/js/followCheck.js"></script>
 <c:set value="${boardCount}" var="boardCount"></c:set>
 <script type="text/javascript">
-$(function(){     
-	
-	var currentPage = '<c:out value="${currentPage}" />';
-	currentPage = Number(currentPage);
-	console.log('currentPage : ',currentPage);
-	console.log('typeof currentPage : ',typeof currentPage);
-	
-	/* 게시글 추천수, 댓글수 보이기 및 감추기 ***************/
-	
+
+/* 게시글 추천수, 댓글수 보이기 및 감추기 */
+function likeAndComment() {
 	$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
 	$('.sns-photo-box').mouseenter(function(){
 		$(this).find('.likes').show();
@@ -47,38 +41,44 @@ $(function(){
 	$('.sns-photo-box').mouseleave(function(){
 		$(this).find('.likes').hide();
 	});
-	
-	$('.image-wrap img').each(function() {
-        var maxWidth = 345; // Max width for the image
-        var maxHeight = 345;    // Max height for the image
-        var ratio = 0;  // Used for aspect ratio
-        var width = $(this).width();    // Current image width
-        var height = $(this).height();  // Current image height
+}
 
-        // Check if the current width is larger than the max
+/* 이미지 비율은 유지하면서 크기 조절  */
+function imgAutoSizing() {
+	$('.image-wrap img').each(function() {
+        var maxWidth = 300; // 이미지의 최대 가로 길이
+        var maxHeight = 300;    // 최대 세로 길이
+        var ratio = 0;  // 비율 값 초기화
+        var width = $(this).width();    // 현재 이미지의 가로 길이
+        var height = $(this).height();  // 현재 이미지의 세로 길이
+
+        // 현재 이미지의 가로 길이가 최대 가로 길이보다 클 때
 		if(width > maxWidth){
-            ratio = maxWidth / width;   // get ratio for scaling image
-            $(this).css("width", maxWidth); // Set new width
-            $(this).css("height", height * ratio);  // Scale height based on ratio
-            height = height * ratio;    // Reset height to match scaled image
+            ratio = maxWidth / width;   // 가로 길이 비율
+            $(this).css("width", maxWidth); // 가로 길이를 최대 가로 길이로 조정
+            $(this).css("height", height * ratio);  // 세로 길이를 비율에 맞게 조정
+            height = height * ratio;    // 적용
 		}	
 
-       width = $(this).width();    // Current image width
-       height = $(this).height();  // Current image height
-
-        // Check if current height is larger than max
+        // 현재 이미지의 세로 길이가 최대 세로 길이보다 클 때
 		if(height > maxHeight){
-            ratio = maxHeight / height; // get ratio for scaling image
+            ratio = maxHeight / height; // 세로 이미지 비율
             $(this).css("height", maxHeight);   // Set new height
             $(this).css("width", width * ratio);    // Scale width based on ratio
             width = width * ratio;    // Reset width to match scaled image
 		}
     });
-	
-	/*  게시물 클릭  */
+}
+
+/*  게시물 클릭  */
+function showDetail(data) {
 	$('.sns-photo-box').click(function(){
 		var index = $('.sns-photo-box').index(this);
-		var boardNo = $(this).children().eq(0).val();
+		if(data != null) {
+			var boardNo = data[index].snsBoardNo;
+		} else {
+			var boardNo = $(this).children().eq(0).val();
+		}
 		
 		console.log('index : ',index);
 		console.log('data[',index,'].snsBoardNo : ',boardNo);
@@ -96,10 +96,17 @@ $(function(){
 		});
 		$('#snsModal').modal();
 	});
+}
+$(function(){     
+	
+	likeAndComment();
+	imgAutoSizing();
+	showDetail(null);
 	
 	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
 	$('.searchCategory').change(function(){
 		
+		/* 체크박스 체크 유무를 배열로 처리  */
 		var colorValue=[], styleValue=[], situationValue=[];
 		
 		$(":checkbox[name='colorValue']:checked").each(function(i){
@@ -159,68 +166,20 @@ $(function(){
 				}	
 				$('#boardOutput').html(boardHtml);
 
-				/* 게시글 추천수, 댓글수 보이기 및 감추기 ***************/
-				
-				$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
-				$('.sns-photo-box').mouseenter(function(){
-					$(this).find('.likes').show();
-				});
-				$('.sns-photo-box').mouseleave(function(){
-					$(this).find('.likes').hide();
-				});
-				
-				$('.image-wrap img').each(function() {
-			        var maxWidth = 345; // Max width for the image
-			        var maxHeight = 345;    // Max height for the image
-			        var ratio = 0;  // Used for aspect ratio
-			        var width = $(this).width();    // Current image width
-			        var height = $(this).height();  // Current image height
-
-			        // Check if the current width is larger than the max
-					if(width > maxWidth){
-			            ratio = maxWidth / width;   // get ratio for scaling image
-			            $(this).css("width", maxWidth); // Set new width
-			            $(this).css("height", height * ratio);  // Scale height based on ratio
-			            height = height * ratio;    // Reset height to match scaled image
-					}	
-
-			       width = $(this).width();    // Current image width
-			       height = $(this).height();  // Current image height
-
-			        // Check if current height is larger than max
-					if(height > maxHeight){
-			            ratio = maxHeight / height; // get ratio for scaling image
-			            $(this).css("height", maxHeight);   // Set new height
-			            $(this).css("width", width * ratio);    // Scale width based on ratio
-			            width = width * ratio;    // Reset width to match scaled image
-					}
-			    });
-				
-				/*  게시물 클릭  */
-				$('.sns-photo-box').click(function(){
-					var index = $('.sns-photo-box').index(this);
-					var boardNo = data[index].snsBoardNo;
-					
-					console.log('index : ',index);
-					console.log('data[',index,'].snsBoardNo : ',boardNo);
-					
-					
-					var boardDetailRequest = $.ajax({
-						url : './boardDetail',
-						method : 'get',
-						data :{'boardNo' : boardNo},
-						datatype : 'json',
-						success: function(msg) {
-							boardDetail(msg);
-							followCheck(msg);
-						}
-					});
-					$('#snsModal').modal();
-				});
+				likeAndComment();
+				imgAutoSizing();
+				showDetail(data);
 			}
 		});
 	});
 	
+	/*  현재 페이지 값을 받아 number타입으로 변환  */
+	var currentPage = '<c:out value="${currentPage}" />';
+	currentPage = Number(currentPage);
+	console.log('currentPage : ',currentPage);
+	console.log('typeof currentPage : ',typeof currentPage);
+	
+	/* 더 읽어들이기 버튼 클릭 */
  	$('#readMoreBtn').click(function(){
  		currentPage += 1;
  		console.log('currentPage : ',currentPage);
@@ -249,65 +208,11 @@ $(function(){
 					readMoreHtml += '</div>';
 					readMoreHtml += '</div>';
 				}
-				$('#readMore').append(readMoreHtml);
-				/* 게시글 추천수, 댓글수 보이기 및 감추기 ***************/
+				$('#boardOutput').append(readMoreHtml);
 				
-				$('.image-wrap img').each(function() {
-        var maxWidth = 345; // Max width for the image
-        var maxHeight = 345;    // Max height for the image
-        var ratio = 0;  // Used for aspect ratio
-        var width = $(this).width();    // Current image width
-        var height = $(this).height();  // Current image height
-
-        // Check if the current width is larger than the max
-		if(width > maxWidth){
-            ratio = maxWidth / width;   // get ratio for scaling image
-            $(this).css("width", maxWidth); // Set new width
-            $(this).css("height", height * ratio);  // Scale height based on ratio
-            height = height * ratio;    // Reset height to match scaled image
-		}	
-
-       width = $(this).width();    // Current image width
-       height = $(this).height();  // Current image height
-
-        // Check if current height is larger than max
-		if(height > maxHeight){
-            ratio = maxHeight / height; // get ratio for scaling image
-            $(this).css("height", maxHeight);   // Set new height
-            $(this).css("width", width * ratio);    // Scale width based on ratio
-            width = width * ratio;    // Reset width to match scaled image
-		}
-    });
-				
-				$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
-				$('.sns-photo-box').mouseenter(function(){
-					$(this).find('.likes').show();
-				});
-				$('.sns-photo-box').mouseleave(function(){
-					$(this).find('.likes').hide();
-				});
-				
-				/*  게시물 클릭  */
-				$('.sns-photo-box').click(function(){
-					var index = $('.sns-photo-box').index(this);
-					var boardNo = $(this).children().eq(0).val();
-					
-					console.log('index : ',index);
-					console.log('data[',index,'].snsBoardNo : ',boardNo);
-					
-					
-					var boardDetailRequest = $.ajax({
-						url : './boardDetail',
-						method : 'get',
-						data :{'boardNo' : boardNo},
-						datatype : 'json',
-						success : function(msg) {
-							boardDetail(msg);
-							followCheck(msg);
-						}
-					});
-					$('#snsModal').modal();
-				});
+				imgAutoSizing();
+				likeAndComment();
+				showDetail(null);
 			}
 		});
 	}); 
@@ -315,192 +220,186 @@ $(function(){
 </script>
 </head>
 <body>
-<!-- sns 게시물 검색 항목 -->
-	    <div class="col-xs-1"></div>
-	    <div class="col-xs-9">
-<div class="container">
-	<a href="#demo" class="btn btn-default" data-toggle="collapse">게시물 검색</a>
-	<div id="demo" class="collapse">
-		<div class="searchGroup">
-			<label for="snsBoardWeather">날씨 :</label>
-			<select class="searchCategory" name="snsBoardWeather" id="snsBoardWeather">
-				<option></option>
-				<option>맑음</option>
-				<option>구름조금</option>
-				<option>흐림</option>
-				<option>비</option>
-				<option>눈</option>
-			</select>
-		    
-		    <label for="snsBoardTall">키 :</label>
-		    <select class="searchCategory" name="snsBoardTall" id="snsBoardTall">
-		    	<option></option>
-		    	<option>큰키</option>
-		    	<option>보통키</option>
-		    	<option>작은키</option>
-		    </select>
-		    
-		    <label for="snsBoardSize">체형 :</label>
-		    <select class="searchCategory" name="snsBoardSize" id="snsBoardSize">
-		    	<option></option>
-		    	<option>마른</option>
-		    	<option>보통</option>
-		    	<option>뚱뚱</option>
-		    </select>
+<div class="row">
+	<div class="col-xs-1"></div>
+	<div class="col-xs-11">
+		<!-- sns 게시물 검색 항목 -->	    
+		<a href="#demo" data-toggle="collapse" style="color: black;">게시물 검색<i class="fa fa-bars"></i></a>
+		<div id="demo" class="collapse">
+			<div class="searchGroup">
+				<label for="snsBoardWeather">날씨 :</label>
+				<select class="searchCategory" name="snsBoardWeather" id="snsBoardWeather">
+					<option></option>
+					<option>맑음</option>
+					<option>구름조금</option>
+					<option>흐림</option>
+					<option>비</option>
+					<option>눈</option>
+				</select>
+			    
+			    <label for="snsBoardTall">키 :</label>
+			    <select class="searchCategory" name="snsBoardTall" id="snsBoardTall">
+			    	<option></option>
+			    	<option>큰키</option>
+			    	<option>보통키</option>
+			    	<option>작은키</option>
+			    </select>
+			    
+			    <label for="snsBoardSize">체형 :</label>
+			    <select class="searchCategory" name="snsBoardSize" id="snsBoardSize">
+			    	<option></option>
+			    	<option>마른</option>
+			    	<option>보통</option>
+			    	<option>뚱뚱</option>
+			    </select>
+			
+			    <label for="snsBoardLoc">지역 :</label>
+			    <select class="searchCategory" name="snsBoardLoc" id="snsBoardLoc">
+			    	<option></option>
+			    	<option>서울</option>
+			    	<option>경기</option>
+			    	<option>강원</option>
+			    	<option>충남</option>
+			    	<option>충북</option>
+			    	<option>전북</option>
+			    	<option>전남</option>
+			    	<option>경북</option>
+			    	<option>경남</option>
+			    	<option>제주</option>
+			    	<option>세종</option>
+			    </select>
+			
+			    <label for="snsBoardGender">성별 :</label>
+			    <input class="searchCategory" name="snsBoardGender" id="snsBoardGender" type="radio" value="여">여
+			    <input class="searchCategory" name="snsBoardGender" id="snsBoardGender" type="radio" value="남">남
 		
-		    <label for="snsBoardLoc">지역 :</label>
-		    <select class="searchCategory" name="snsBoardLoc" id="snsBoardLoc">
-		    	<option></option>
-		    	<option>서울</option>
-		    	<option>경기</option>
-		    	<option>강원</option>
-		    	<option>충남</option>
-		    	<option>충북</option>
-		    	<option>전북</option>
-		    	<option>전남</option>
-		    	<option>경북</option>
-		    	<option>경남</option>
-		    	<option>제주</option>
-		    	<option>세종</option>
-		    </select>
-		
-		    <label for="snsBoardGender">성별 :</label>
-		    <input class="searchCategory" name="snsBoardGender" id="snsBoardGender" type="radio" value="여">여
-		    <input class="searchCategory" name="snsBoardGender" id="snsBoardGender" type="radio" value="남">남
-	
-		    <label for="snsBoardAge">나이 :</label>
-		    <select class="searchCategory" name="snsBoardAge" id="snsBoardAge">
-		    	<option></option>
-		    	<option>10</option>
-		    	<option>20</option>
-		    	<option>30</option>
-		    	<option>40</option>
-		    	<option>50</option>
-		    </select>
+			    <label for="snsBoardAge">나이 :</label>
+			    <select class="searchCategory" name="snsBoardAge" id="snsBoardAge">
+			    	<option></option>
+			    	<option>10</option>
+			    	<option>20</option>
+			    	<option>30</option>
+			    	<option>40</option>
+			    	<option>50</option>
+			    </select>
+			</div>
+			<div class="form-group">
+				<label for="searchSnsBoardStyle">스타일 :</label>		
+				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
+				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
+				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
+				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트
+				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디
+				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리
+				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리
+				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱
+				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플
+				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브
+			</div>
+			<div class="form-group">
+		      	<label for="searchSnsBoardColor">색상 :</label>
+		     	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01">빨강
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02">주황
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03">노랑
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04">초록
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05">파랑
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06">남색
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07">보라
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08">검정
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09">회색
+		    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10">흰색
+		    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11">갈색
+		    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12">베이지
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13">핑크       	
+		    </div>
+		    <div class="form-group">
+		      	<label class="searchCategory" for="searchSnsBoardSituation">상황 :</label>
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_01">학교
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_02">출근
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_03">파티
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_04">여행
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_05">운동
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이
+		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객    	
+		    </div>
+		    <div class="form-group">
+		    	<label class="searchCategory" for="userId">아이디 :</label>
+		    	<input type="text" class="searchCategory" id="userId" name="userId">
+		    	<input type="button" value="검색">
+		    </div>
 		</div>
-		<div class="form-group">
-			<label for="searchSnsBoardStyle">스타일 :</label>		
-			<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
-			<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
-			<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
-			<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트
-			<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디
-			<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리
-			<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리
-			<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱
-			<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플
-			<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브
-		</div>
-		<div class="form-group">
-	      	<label for="searchSnsBoardColor">색상 :</label>
-	     	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01">빨강
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02">주황
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03">노랑
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04">초록
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05">파랑
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06">남색
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07">보라
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08">검정
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09">회색
-	    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10">흰색
-	    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11">갈색
-	    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12">베이지
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13">핑크       	
-	    </div>
-	    <div class="form-group">
-	      	<label class="searchCategory" for="searchSnsBoardSituation">상황 :</label>
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_01">학교
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_02">출근
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_03">파티
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_04">여행
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_05">운동
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이
-	      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객    	
-	    </div>
-	    <div class="form-group">
-	    	<label class="searchCategory" for="userId">아이디 :</label>
-	    	<input type="text" class="searchCategory" id="userId" name="userId">
-	    	<input type="button" value="검색">
-	    </div>
-	</div>
-</div>
-<!-- sns 게시물 검색 항목 -->
+		<!-- sns 게시물 검색 항목 -->
 
 
-<!-- sns 게시물 목록 영역 -->
-
-<div class="container">
-	<div class="row">
-	    <div class="col-xs-12">
-	        <div class="instagram-content">
-	        	
-	            <h3>최근 게시물</h3>
-	            <!-- The following HTML will be our template inside instafeed -->
-				<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
-				<c:forEach items="${list}" var="b">
-				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >
-					<div class="sns-photo-box">
-						<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
-						<div class="image-wrap">
-							<img style="height: 100%;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
-							<div class="likes">
-								<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>
-								<span class="center">&nbsp;${b.snsLikeCount}&nbsp;&nbsp;&nbsp;</span>
-								<i class="fa fa-commenting center" style="font-size:24px"></i>
-								<span class="center">&nbsp;${b.snsCommentCount}</span>
-							</div>
+	<!-- sns 게시물 목록 영역 -->
+    <div class="col-xs-12">
+        <div class="instagram-content">
+            <h3>최근 게시물</h3>
+            <!-- The following HTML will be our template inside instafeed -->
+			<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
+			<c:forEach items="${list}" var="b">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
+				<div class="sns-photo-box">
+					<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
+					<div class="image-wrap">
+						<img style="height: 100%;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
+						<div class="likes">
+							<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>
+							<span class="center">&nbsp;${b.snsLikeCount}&nbsp;&nbsp;&nbsp;</span>
+							<i class="fa fa-commenting center" style="font-size:24px"></i>
+							<span class="center">&nbsp;${b.snsCommentCount}</span>
 						</div>
 					</div>
 				</div>
-				</c:forEach>
-				</div>
-				<div id="readMore"></div>
+			</div>
+			</c:forEach>
+			</div>
+			<div class="text-center">
 				<button type="button" id="readMoreBtn" class="btn btn-default">더 읽어들이기</button>
-        	</div>
-    	</div>
+			</div>
+       	</div>
 	</div>
-</div>
-
-<!-- sns 게시물 목록 영역 -->
+	<!-- sns 게시물 목록 영역 -->
 
 
-
-<!-- sns 게시물 상세보기 모달 -->
-
-<div class="modal fade" id="snsModal" role="dialog">
-    <div class="modal-dialog modal-lg" >
-		<div id="snsDetail" class="modal-content">
-	        <div class="row">
-	        
-	        	<!-- 게시물 이미지 영역 -->
-		        <div class="modal-body col-xs-8" style="padding-bottom: 0; padding-top: 0;">
-					<div id="snsDetailImg"></div>
-	        	</div>
-	        	<!-- 게시물 이미지 영역 -->
-	        	
-	        	<!-- 게시물 내용 영역 -->
-		        <div class="modal-body col-xs-4">
-		        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
-		        	<div id="snsDetailContent"></div>
-		        	<hr>
-		        	<div id="snsDetailComment">
+	<!-- sns 게시물 상세보기 모달 -->
+	<div class="modal fade" id="snsModal" role="dialog">
+	    <div class="modal-dialog modal-lg" >
+			<div id="snsDetail" class="modal-content">
+		        <div class="row">
+		        
+		        	<!-- 게시물 이미지 영역 -->
+			        <div class="modal-body col-xs-8" style="padding-bottom: 0; padding-top: 0;">
+						<div id="snsDetailImg"></div>
 		        	</div>
-		        	<hr>
-		        	<c:if test="${sessionScope.id != null}">
-		        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">
-		        	<div id="snsDetailCommentControll">
-		        	</div>
-		        	</c:if>
-				</div>
-				<!-- 게시물 내용 영역 -->
-				
-		     </div>
+		        	<!-- 게시물 이미지 영역 -->
+		        	
+		        	<!-- 게시물 내용 영역 -->
+			        <div class="modal-body col-xs-4">
+			        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
+			        	<div id="snsDetailContent"></div>
+			        	<hr>
+			        	<div id="snsDetailLike"></div>
+			        	<div id="snsDetailComment">
+			        	</div>
+			        	<hr>
+			        	<c:if test="${sessionScope.id != null}">
+			        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">
+			        	<div id="snsDetailCommentControll">
+			        	</div>
+			        	</c:if>
+					</div>
+					<!-- 게시물 내용 영역 -->
+					
+			     </div>
+			</div>
 		</div>
 	</div>
-</div>
+	<!-- sns 게시물 상세보기 모달 -->
+	
 <!-- 로그인권한별로 버튼을 나누기 위한 세션 아이디 -->
 <input id="levelCheck" type="hidden" value="${sessionScope.level}"/>
-<!-- sns 게시물 상세보기 모달 -->
+</div>
 </div>
 </body>
 </html>

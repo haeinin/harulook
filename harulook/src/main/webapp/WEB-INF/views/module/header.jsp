@@ -66,7 +66,7 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- 모달을 쓰기위한 부트스트랩 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="<c:url value="/resources/css/cartoony-weather.css" />" type="text/css">
+<link rel="stylesheet" href="<c:url value="resources/css/cartoony-weather.css?ver=1" />" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 

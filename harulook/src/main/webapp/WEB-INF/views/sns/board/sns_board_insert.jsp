@@ -7,17 +7,51 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
- 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <!-- jquery를 사용하기위한 CDN주소 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
- 
 <!-- bootstrap javascript소스를 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+<script type="text/javascript">
+$(function(){
+	//이미지 파일 입력 여부 검사
+	$('#uploadFile').change(function(){
+		if($('#uploadFile').val() == '') { 
+			$('#imgFail').show();
+			$('#uploadFile').focus();
+		return false;
+		}else{
+			$('#imgFail').hide();
+		}
+	});
+	
+	//지역 입력 여부 검사
+	$('#snsBoardWeather').change(function(){
+		if($('#snsBoardWeather').val() == '') { 
+			$('#weatherFail').show();
+			$('#snsBoardWeather').focus();
+		return false;
+		}else{
+			$('#weatherFail').hide();
+		}
+	});
+	
+	//지역 입력 여부 검사
+	$('#snsBoardLoc').change(function(){
+		if($('#snsBoardLoc').val() == '') { 
+			$('#locFail').show();
+			$('#snsBoardLoc').focus();
+		return false;
+		}else{
+			$('#locFail').hide();
+		}
+	});
+});
+</script>
 </head>
 <body>
 	<!-- 해더인클루드 -->
@@ -33,10 +67,29 @@
 		        <div class="form-group">
 		            <label for="uploadFile">snsBoardImg :</label>
 		            <input class="form-control" name="uploadFile" id="uploadFile" type="file"/>
+		            <span id="imgFail" >사진을 올려주세요.</span>
 		        </div>
 		        <div class="form-group">
 		            <label for="snsBoardContent">snsBoardContent :</label>
 		            <input class="form-control" name="snsBoardContent" id="snsBoardContent" type="text"/>
+		        </div>
+		        <div class="form-group">
+		            <label for="snsBoardLoc">snsBoardLoc :</label>
+		            <select class="form-control" name="snsBoardLoc" id="snsBoardLoc">
+		            	<option></option>
+		            	<option>서울</option>
+		            	<option>경기</option>
+		            	<option>강원</option>
+		            	<option>충남</option>
+		            	<option>충북</option>
+		            	<option>전북</option>
+		            	<option>전남</option>
+		            	<option>경북</option>
+		            	<option>경남</option>
+		            	<option>제주</option>
+		            	<option>세종</option>
+		            </select>
+		            <span id="locFail" >지역을 선택해주세요.</span>
 		        </div>
 		        <div class="form-group">
 		            <label for="snsBoardWeather">snsBoardWeather :</label>
@@ -48,6 +101,7 @@
 		            	<option>비</option>
 		            	<option>눈</option>
 		            </select>
+	            	<span id="weatherFail" >현재 날씨를 선택해주세요.</span>
 		        </div>
 		        <div class="form-group">
 		            <label for="snsBoardTall">snsBoardTall :</label>
@@ -65,23 +119,6 @@
 		            	<option>마른</option>
 		            	<option>보통</option>
 		            	<option>뚱뚱</option>
-		            </select>
-		        </div>
-		        <div class="form-group">
-		            <label for="snsBoardLoc">snsBoardLoc :</label>
-		            <select class="form-control" name="snsBoardLoc" id="snsBoardLoc">
-		            	<option></option>
-		            	<option>서울</option>
-		            	<option>경기</option>
-		            	<option>강원</option>
-		            	<option>충남</option>
-		            	<option>충북</option>
-		            	<option>전북</option>
-		            	<option>전남</option>
-		            	<option>경북</option>
-		            	<option>경남</option>
-		            	<option>제주</option>
-		            	<option>세종</option>
 		            </select>
 		        </div>
 		        <div class="form-group">
