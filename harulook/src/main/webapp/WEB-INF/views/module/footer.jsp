@@ -5,18 +5,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
+<style type="text/css">
+/* 하단위치조정 */
+#footer {
+	position: relative;
+	height: 70px;
+	/* background-color: #D6F0FF; */
+	border-top: 1px solid lightgrey;
+}
+</style>
+
 </head>
 <body>
-	
+	<div id="footer">
         <div class="container">
+        
             <div class="row">
                 <div class="col-xs-12">
-                <h4>Get in touch</h4>
-                <p class="about-text">하단 바</p>
-                <a class="contact-now-btn" href="#">Contact Now</a>
+                <h4>회사주소등 전화번호</h4>
+                <p class="about-text">등등등 등등등 </p>
                 </div>
             </div>
         </div>
-    
+    </div>
 </body>
 </html>

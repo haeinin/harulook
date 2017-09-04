@@ -22,8 +22,10 @@
 <!-- 댓글 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- sns스타일 탬플릿 css-->
-<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+<link rel="stylesheet" type="text/css" href="resources/css/style.css?ver=1">
 <!-- 예뻐요 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- 게시글 필터 버튼 모양 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
 <c:set value="${sessionScope.id}" var="sessionId" />
@@ -334,6 +336,9 @@ $(function(){
 	<!-- sns 게시물 목록 영역 -->
     <div class="col-xs-12">
         <div class="instagram-content">
+        
+        	<h1>#하루룩</h1><br>
+			        	<h2>게시물 : ${boardCount}</h2>
             <h3>최근 게시물</h3>
             <!-- The following HTML will be our template inside instafeed -->
 			<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">

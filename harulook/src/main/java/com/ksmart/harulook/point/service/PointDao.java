@@ -50,10 +50,10 @@ public class PointDao {
     }
 	
 	/* 포인트등록 게시물 검색  */
-	public String pointCehck(String userId, String point_policy_no) {
+	public String pointCehck(String userId, String pointPolicyNo) {
 		Map<String, String> map = new HashMap<String, String>();
         map.put("userId", userId);
-        map.put("point_policy_no", point_policy_no);
+        map.put("pointPolicyNo", pointPolicyNo);
 		return sqlSessionTemplate.selectOne("com.ksmart.harulook.point.service.PointMapper.pointCehck", map);
 	}
 	

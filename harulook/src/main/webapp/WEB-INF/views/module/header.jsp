@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="true" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="true"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,67 +9,90 @@
 
 <!-- 버튼 위치 조정 -->
 <style type="text/css">
-       /* 로그인버튼 */
-       #loginbutton {
-          position: relative;
-          top: -180px;
-          left: 1400px;
-       }
-       /* 마이페이지 */
-       #mypage {
-          position: relative;
-          top: -200px;
-          left: 1300px;
-       }
-       /* 로그아웃 */
-       #logout {
-          position: relative;
-          top: -233px;
-          left: 1400px;
-       }
-       /* 게시물등록하기 */
-       #snsInsertButton {
-          position: relative;
-          top: 0px;
-          left: 20px;
-       }
-       /* 홈으로 */
-       #logo {
-          position: relative;
-          top: -110px;
-          left: 200px;
-       }
-       /* 해더위치조정 */
-       #head {
-		  position: relative;
-		  height: 150px;
-		  margin-bottom : 50px;
-	   }
+/* 로그인버튼 */
+#loginbutton {
+	position: relative;
+	top: -190px;
+	left: 1350px;
+}
+/* 마이페이지 */
+#mypage {
+	position: relative;
+	top: -210px;
+	left: 1300px;
+}
+/* 로그아웃 */
+#logout {
+	position: relative;
+	top: -243px;
+	left: 1400px;
+}
+/* 게시물등록하기 */
+#snsInsertButton {
+	position: fixed;
+	top: 200px;
+	left: 20px;
+}
+/* 홈으로 */
+#logo {
+	position: relative;
+	top: -135px;
+	left: 300px;
+	
+	/* border: 0;
+	outline: 0; */
+}
+/* 해더위치조정 */
+#head {
+	position: relative;
+	height: 80px;
+	margin-bottom: 50px;
+	background-color: #f4f8f9;
+	border-bottom: 1px solid lightgrey;
+}
 </style>
 
 
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
- 
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+
 <!-- jquery를 사용하기위한 CDN주소 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <!-- bootstrap javascript소스를 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<!-- 주소 api --> 
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script> 
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+<!-- 주소 api -->
+<script
+	src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <!-- 유효성검사 -->
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- 모달을 쓰기위한 부트스트랩 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="<c:url value="resources/css/cartoony-weather.css?ver=1" />" type="text/css">
-<link href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat' rel='stylesheet' type='text/css'>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="<c:url value="resources/css/cartoony-weather.css?ver=1" />"
+	type="text/css">
+<link
+	href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat'
+	rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
-
+<!-- w3아이콘  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="resources/js/modernizr.js"></script>
 
 <script type="text/javascript">
@@ -353,66 +376,76 @@ function dfs_xy_conv(code, v1, v2) {
 <body>
 
 	<div id="head">
-	<div class="row">
-		<header>
-			<!-- <img src="resources/files/images/mountains.jpg" alt="Mountains">
-			 --><div class="name fancy-font">
-			    Hanamichi
+		<div class="row">
+			<header>
+				<!-- <img src="resources/files/images/mountains.jpg" alt="Mountains">
+			 -->
+				<div class="name fancy-font">Hanamichi</div>
+				<div class="titles">
+					<h1>
+						Welcome to <span>Harulook!</span>
+					</h1>
+				</div>
+			</header>
+			<!-- 현재 날씨  -->
+			<div class="weather_body">
+				<div id="weaterIcon">
+					<div id="sun"></div>
+					<div id="cloud"></div>
+					<div id="rain"></div>
+				</div>
 			</div>
-			<div class="titles">
-			    <h1>Welcome to <span>Harulook!</span></h1>
-			</div>
-		</header>
-		<!-- 현재 날씨  -->
-		<div class="weather_body">
-			<div id="weaterIcon">
-				<div id="sun"></div>
-				<div id="cloud"></div>
-				<div id="rain"></div>
-			</div> 
-		</div>
-		<h2 style="margin-left: 20px;" id="tempur"></h2>
-		<!-- 세션에 있는 아이디 권한 받기 -->
-		<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
-		<%-- 권한 : <c:out value='${sessionScope.level}'/><br> --%>
-		<%-- 닉네임 : <c:out value='${sessionScope.nick}'/><br> --%>
+			<h2 style="margin-left: 20px;" id="tempur"></h2>
+			<!-- 세션에 있는 아이디 권한 받기 -->
+			<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
+			<%-- 권한 : <c:out value='${sessionScope.level}'/><br> --%>
+			<%-- 닉네임 : <c:out value='${sessionScope.nick}'/><br> --%>
 
-	<form id="homeForm" action="${pageContext.request.contextPath}/home" method="get">
-	 		<div>
+			<form id="homeForm" action="${pageContext.request.contextPath}/home"
+				method="get">
+				<div>
 
-	 			<button class="btn btn-default" id="logo" value="메인버튼">
-				<img src="./resources/logo.jpg" class="img-rounded" alt="Cinque Terre" ></button>
+					<button class="btn btn-link" style="color: black;" id="logo" value="메인버튼"><div class="name fancy-font"><h2><i class="fa fa-umbrella" style="font-size:48px;color:black"></i>&nbsp haruloook</h2></div>
+						<!-- <img src="./resources/logo.jpg" width="180px" height="50px"
+							class="img-rounded" alt="Cinque Terre"> -->
+					</button>
 
-	 	 	</div>	
-    </form>
+				</div>
+			</form>
 
-	<c:if test="${sessionScope.level == null}">
-		<!-- 로그인버튼 -->
-		<form id="login" action="${pageContext.request.contextPath}/loginForm" method="get">
-  		<div class="btn"> 
-			<input class="btn btn-default" id="loginbutton" type="button" value="로그인하기"/>
-		</div>	
-	</form>
-	</c:if><br>
-	
+			<c:if test="${sessionScope.level == null}">
+				<!-- 로그인버튼 -->
+				<form id="login"
+					action="${pageContext.request.contextPath}/loginForm" method="get">
+					<div class="btn">
+						<input class="btn btn-default" id="loginbutton" type="button"
+							value="로그인하기" />
+					</div>
+				</form>
+			</c:if>
+			<br>
+
 			<c:if test="${sessionScope.level != null}">
 				<!-- 마이페이지 -->
-				<input class="btn btn-default" id="mypage" type="button" value="마이페이지"/>
-				
+				<input class="btn btn-default" id="mypage" type="button"
+					value="마이페이지" />
+
 				<!-- 로그아웃 -->
-				<form id="logoutadd" action="${pageContext.request.contextPath}/logout" method="post">
-			  		<div>
-						<input class="btn btn-default" id="logout" type="button" value="로그아웃"/>
-			  	 	</div>	
-				</form>	
-				
+				<form id="logoutadd"
+					action="${pageContext.request.contextPath}/logout" method="post">
+					<div>
+						<input class="btn btn-default" id="logout" type="button"
+							value="로그아웃" />
+					</div>
+				</form>
+
 				<!--------팔로우등록 테스트양식------------------------------------------------------------------------------------  -->
 				<%-- <form id="followCheck" action="${pageContext.request.contextPath}/followCheck" method="post">
 			  			<input id="followId" name="followId" type="text" />
 			  			<input id="followCheckButton" type="button" value="입력"/>
-				</form>	 --%>	
+				</form>	 --%>
 			</c:if>
-			
+
 			<!-- 게시물등록하기버튼 -->
 			<%-- <c:if test="${sessionScope.level == '일반회원'}">
 			  <form id="snsInsertForm" action="${pageContext.request.contextPath}/boardInsert" method="get">
@@ -422,179 +455,234 @@ function dfs_xy_conv(code, v1, v2) {
 			 	 	</div>	
 			  </form>
 			</c:if> --%>
-	</div>
-		
-	
-	<!-- 마이페이지 Modal -->
-	 <div class="modal fade" id="myModal" role="dialog">
-	   <div class="modal-dialog">
-	   
-	     <!-- Modal content-->
-	     <div class="modal-content">
-	    	<!-- 모달 공통내용 -->
-	    	<div class="modal-header" style="padding:35px 50px;">
-	         <button type="button" class="close" data-dismiss="modal">&times;</button>
-	         <h4>마이페이지</h4>
-	         <a>닉네임 : ${sessionScope.nick}</a><br>
-		  <a>권한 : ${sessionScope.level}</a><br>
-		  <!-- 내정보수정하기버튼 -->
 		</div>
-		
-		
-		
-	       <!-- 모달 회원별 내용 -->
-	       <div class="modal-body" style="padding:40px 50px;">
-	         	<c:if test="${sessionScope.level == '관리자'}">
-				<a>관리자로 로그인</a><br>
-				<!-- 관리자용 버튼 -->
-					<!-- 내정보수정하기버튼 -->
-				  <form id="businessUpdate" action="${pageContext.request.contextPath}/businessUpdate?userId=${sessionScope.id}" method="post">
-			  		<div>
-			  			<input class="btn btn-default" id="businessUpdateButton" type="button" value="내 정보 수정 하기"/>
-			  	 	</div>	
-				  </form>
-				
-					<!-- 새관리자 등록하기 -->
-				  <form id="newManagerInsert" action="${pageContext.request.contextPath}/member_manager_insert" method="get">
-			  		<div>
-			  			<input class="btn btn-default" id="managerInsertbutton" type="button" value="새관리자등록하기"/>
-			  	 	</div>	
-				  </form>	
-				
-				
-				
-				
-					<!-- 일반회원검색 -->
-				  <form id="member_user_list" action="${pageContext.request.contextPath}/member_user_list?level=일반회원" method="post">
-			  		<div>
-			  			<input class="btn btn-default" id="userlistbutton" type="button" value="일반회원검색"/>
-			  	 	</div>	
-				  </form>	
-				  
-				  	<!-- 사업자검색 -->
-				  <form id="member_business_list" action="${pageContext.request.contextPath}/member_user_list?level=사업자" method="post">
-			  		<div>
-			  			<input class="btn btn-default" id="businesslistbutton" type="button" value="사업자검색"/>
-			  	 	</div>	
-				  </form>
-				  
-				  	<!-- 관리자검색 -->
-				  <form id="member_manager_list" action="${pageContext.request.contextPath}/member_user_list?level=관리자" method="post">
-			  		<div>
-			  			<input class="btn btn-default" id="managerlistbutton" type="button" value="관리자검색"/>
-			  	 	</div>	
-				  </form>
-				  
-				 
-				 
-				 
-				 
-				  	<!-- 광고 검색 및 승인 -->
-				  <form id="adcontractlistFormManager" action="${pageContext.request.contextPath}/adContractList" method="get">
-			  		<div>
-			  			<input class="btn btn-default" id="adcontractlistButtonManager" type="button" value="광거 검색 및 승인"/>
-			  	 	</div>	
-				  </form>
-				  
-				  	<!-- 사이트 접속자수 검색 -->
-				   <form id="guestListForm" action="${pageContext.request.contextPath}/guestList" method="get">
-			  		<div>
-			  			<input class="btn btn-default" id="guestListButton" type="button" value="사이트 접속자수 검색"/>
-			  	 	</div>	
-				  </form>
-			</c:if>
-			<c:if test="${sessionScope.level == '사업자'}">
-				<a>사업자로 로그인</a><br>
-				<!-- 사업자용 버튼 -->
-					<!-- 내정보수정하기버튼 -->
-				  <form id="businessUpdate" action="${pageContext.request.contextPath}/businessUpdate?userId=${sessionScope.id}" method="post">
-			  		<div>
-			  			<input class="btn btn-default" id="businessUpdateButton" type="button" value="내 정보 수정 하기"/>
-			  	 	</div>	
-				  </form>
-				
-					<!-- 내 광고 보기 -->
 
-				  <form id="adContract" action="${pageContext.request.contextPath}/adContractList" method="get">
 
-				  <form id="adcontractlistForm" action="${pageContext.request.contextPath}/adContractList" method="get">
+		<!-- 마이페이지 Modal -->
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
 
-			  		<div>
-			  			<input class="btn btn-default" id="adContractListButton" type="button" value="내 광고 보기"/>
+				<!-- Modal content-->
+				<div class="modal-content">
+					<!-- 모달 공통내용 -->
+					<div class="modal-header" style="padding: 35px 50px;">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4>마이페이지</h4>
+						<a>닉네임 : ${sessionScope.nick}</a><br> <a>권한 :
+							${sessionScope.level}</a><br>
+						<!-- 내정보수정하기버튼 -->
+					</div>
 
-			  	 	</div>	
-				  </form>
-				  
-				  <!-- 내 제휴 보기 -->
 
-				  <form id="partnerContractListForm" action="${pageContext.request.contextPath}/partnerHome" method="get">
 
-			  		<div>
-			  			<input class="btn btn-default" id="partnerContractListButton" type="button" value="내 제휴 보기"/>
-			  	 	</div>	
-				  </form>
-				  
-				  <!-- 내 결제 예정 금액 보기-->
-				  <form id="myModifiedFrom" action="${pageContext.request.contextPath}/myModifiedFrom" method="post">
-			  		<div>
-			  			<input class="btn btn-default" id="myModified" type="button" value="내 결제 예정 금액"/>
-			  	 	</div>	
-				  </form>		
-				  
-				  <!-- 사이트 접속자수 검색 -->
-				   <form id="guestListForm" action="${pageContext.request.contextPath}/guestList" method="get">
-			  		<div>
-			  			<input class="btn btn-default" id="guestListButton" type="button" value="사이트 접속자수 검색"/>
-			  	 	</div>	
-				  </form>
-			</c:if>
-			
-			<c:if test="${sessionScope.level == '일반회원'}">
-				<a>일반회원 로그인</a><br>
-				<!-- 일반회원용 버튼 -->
-					
-					<!-- 보유포인트-->
-				  <span id="myPointMsg"></span><br>
-				  
-				  <!-- 포인트 보러 가기 -->
-				  <form id="myPoint" action="${pageContext.request.contextPath}/myPoint" method="get">
-			  		<div>
-			  			<input class="btn btn-default" id="myPointButton" type="button" value="내 포인트 쓰러가기"/>
-			  	 	</div>	
-				  </form>	
-					
-					<!-- 내정보수정하기버튼 -->
-				  <form id="userUpdate" action="${pageContext.request.contextPath}/userUpdate?userId=${sessionScope.id}" method="post">
-			  		<div>
-			  			<input class="btn btn-default" id="userUpdateButton" type="button" value="내 정보 수정 하기"/>
-			  	 	</div>	
-				  </form>
-				
-					<!-- 내 게시물 보기 -->
-				  <a class="btn btn-default" id="myModifiedFrom" href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId=${sessionScope.id}">내 게시물 보기</a>
-				  
-					<!-- 내 친구 보기 -->
-				  <form id="followList" action="${pageContext.request.contextPath}/followList" method="get">
-			  		<div>
-			  			<input class="btn btn-default" id="followListButton" type="button" value="내 친구 보기"/>
-			  	 	</div>	
-				  </form>
-				  
-				  <!-- 나를 등록한 친구목록 -->
-				  <form id="followMeList" action="${pageContext.request.contextPath}/followMeList" method="get">
-			  		<div>
-			  			<input class="btn btn-default" id="followMeListButton" type="button" value="나를 등록한 친구 목록"/>
-			  	 	</div>	
-				  </form>
-				  
-				 
-				  
-				  	
-			</c:if>
-	       </div>
-	     </div>
-	   </div>
-	 </div> 
+					<!-- 모달 회원별 내용 -->
+					<div class="modal-body" style="padding: 40px 50px;">
+						<c:if test="${sessionScope.level == '관리자'}">
+							<a>관리자로 로그인</a>
+							<br>
+							<!-- 관리자용 버튼 -->
+							<!-- 내정보수정하기버튼 -->
+							<form id="businessUpdate"
+								action="${pageContext.request.contextPath}/businessUpdate?userId=${sessionScope.id}"
+								method="post">
+								<div>
+									<input class="btn btn-default" id="businessUpdateButton"
+										type="button" value="내 정보 수정 하기" />
+								</div>
+							</form>
+
+							<!-- 새관리자 등록하기 -->
+							<form id="newManagerInsert"
+								action="${pageContext.request.contextPath}/member_manager_insert"
+								method="get">
+								<div>
+									<input class="btn btn-default" id="managerInsertbutton"
+										type="button" value="새관리자등록하기" />
+								</div>
+							</form>
+
+
+
+
+							<!-- 일반회원검색 -->
+							<form id="member_user_list"
+								action="${pageContext.request.contextPath}/member_user_list?level=일반회원"
+								method="post">
+								<div>
+									<input class="btn btn-default" id="userlistbutton"
+										type="button" value="일반회원검색" />
+								</div>
+							</form>
+
+							<!-- 사업자검색 -->
+							<form id="member_business_list"
+								action="${pageContext.request.contextPath}/member_user_list?level=사업자"
+								method="post">
+								<div>
+									<input class="btn btn-default" id="businesslistbutton"
+										type="button" value="사업자검색" />
+								</div>
+							</form>
+
+							<!-- 관리자검색 -->
+							<form id="member_manager_list"
+								action="${pageContext.request.contextPath}/member_user_list?level=관리자"
+								method="post">
+								<div>
+									<input class="btn btn-default" id="managerlistbutton"
+										type="button" value="관리자검색" />
+								</div>
+							</form>
+
+
+
+
+
+							<!-- 광고 검색 및 승인 -->
+							<form id="adcontractlistFormManager"
+								action="${pageContext.request.contextPath}/adContractList"
+								method="get">
+								<div>
+									<input class="btn btn-default" id="adcontractlistButtonManager"
+										type="button" value="광거 검색 및 승인" />
+								</div>
+							</form>
+
+							<!-- 사이트 접속자수 검색 -->
+							<form id="guestListForm"
+								action="${pageContext.request.contextPath}/guestList"
+								method="get">
+								<div>
+									<input class="btn btn-default" id="guestListButton"
+										type="button" value="사이트 접속자수 검색" />
+								</div>
+							</form>
+						</c:if>
+						<c:if test="${sessionScope.level == '사업자'}">
+							<a>사업자로 로그인</a>
+							<br>
+							<!-- 사업자용 버튼 -->
+							<!-- 내정보수정하기버튼 -->
+							<form id="businessUpdate"
+								action="${pageContext.request.contextPath}/businessUpdate?userId=${sessionScope.id}"
+								method="post">
+								<div>
+									<input class="btn btn-default" id="businessUpdateButton"
+										type="button" value="내 정보 수정 하기" />
+								</div>
+							</form>
+
+							<!-- 내 광고 보기 -->
+
+							<form id="adContract"
+								action="${pageContext.request.contextPath}/adContractList"
+								method="get">
+
+								<form id="adcontractlistForm"
+									action="${pageContext.request.contextPath}/adContractList"
+									method="get">
+
+									<div>
+										<input class="btn btn-default" id="adContractListButton"
+											type="button" value="내 광고 보기" />
+
+									</div>
+								</form>
+
+								<!-- 내 제휴 보기 -->
+
+								<form id="partnerContractListForm"
+									action="${pageContext.request.contextPath}/partnerHome"
+									method="get">
+
+									<div>
+										<input class="btn btn-default" id="partnerContractListButton"
+											type="button" value="내 제휴 보기" />
+									</div>
+								</form>
+
+								<!-- 내 결제 예정 금액 보기-->
+								<form id="myModifiedFrom"
+									action="${pageContext.request.contextPath}/myModifiedFrom"
+									method="post">
+									<div>
+										<input class="btn btn-default" id="myModified" type="button"
+											value="내 결제 예정 금액" />
+									</div>
+								</form>
+
+								<!-- 사이트 접속자수 검색 -->
+								<form id="guestListForm"
+									action="${pageContext.request.contextPath}/guestList"
+									method="get">
+									<div>
+										<input class="btn btn-default" id="guestListButton"
+											type="button" value="사이트 접속자수 검색" />
+									</div>
+								</form>
+						</c:if>
+
+						<c:if test="${sessionScope.level == '일반회원'}">
+							<a>일반회원 로그인</a>
+							<br>
+							<!-- 일반회원용 버튼 -->
+
+							<!-- 보유포인트-->
+							<span id="myPointMsg"></span>
+							<br>
+
+							<!-- 포인트 보러 가기 -->
+							<form id="myPoint"
+								action="${pageContext.request.contextPath}/myPoint" method="get">
+								<div>
+									<input class="btn btn-default" id="myPointButton" type="button"
+										value="내 포인트 쓰러가기" />
+								</div>
+							</form>
+
+							<!-- 내정보수정하기버튼 -->
+							<form id="userUpdate"
+								action="${pageContext.request.contextPath}/userUpdate?userId=${sessionScope.id}"
+								method="post">
+								<div>
+									<input class="btn btn-default" id="userUpdateButton"
+										type="button" value="내 정보 수정 하기" />
+								</div>
+							</form>
+
+							<!-- 내 게시물 보기 -->
+							<a class="btn btn-default" id="myModifiedFrom"
+								href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId=${sessionScope.id}">내
+								게시물 보기</a>
+
+							<!-- 내 친구 보기 -->
+							<form id="followList"
+								action="${pageContext.request.contextPath}/followList"
+								method="get">
+								<div>
+									<input class="btn btn-default" id="followListButton"
+										type="button" value="내 친구 보기" />
+								</div>
+							</form>
+
+							<!-- 나를 등록한 친구목록 -->
+							<form id="followMeList"
+								action="${pageContext.request.contextPath}/followMeList"
+								method="get">
+								<div>
+									<input class="btn btn-default" id="followMeListButton"
+										type="button" value="나를 등록한 친구 목록" />
+								</div>
+							</form>
+
+
+
+
+						</c:if>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
