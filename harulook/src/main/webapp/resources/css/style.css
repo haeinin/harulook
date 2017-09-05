@@ -6871,6 +6871,12 @@ header .social a.instagram {
   background-color: white;
 }
 
+.instagram-content .photo-box .image-wrap img {
+	max-width: 300px;
+	max-height: 300px;
+	width: auto;
+	height: auto;	
+}
 .instagram-content .photo-box .image-wrap .likes {
       position: absolute;
     bottom: 0;

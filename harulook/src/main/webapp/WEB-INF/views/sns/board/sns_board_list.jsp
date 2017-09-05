@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
 <c:set value="${sessionScope.id}" var="sessionId" />
-<script type="text/javascript" src="resources/js/boardDetail.js"></script>
+<script type="text/javascript" src="resources/js/boardDetail.js?ver=1"></script>
 <script type="text/javascript" src="resources/js/followCheck.js"></script>
 <c:set value="${boardCount}" var="boardCount"></c:set>
 <script type="text/javascript">
@@ -43,33 +43,6 @@ function likeAndComment() {
 	$('.sns-photo-box').mouseleave(function(){
 		$(this).find('.likes').hide();
 	});
-}
-
-/* 이미지 비율은 유지하면서 크기 조절  */
-function imgAutoSizing() {
-	$('.image-wrap img').each(function() {
-        var maxWidth = 300; // 이미지의 최대 가로 길이
-        var maxHeight = 300;    // 최대 세로 길이
-        var ratio = 0;  // 비율 값 초기화
-        var width = $(this).width();    // 현재 이미지의 가로 길이
-        var height = $(this).height();  // 현재 이미지의 세로 길이
-
-        // 현재 이미지의 가로 길이가 최대 가로 길이보다 클 때
-		if(width > maxWidth){
-            ratio = maxWidth / width;   // 가로 길이 비율
-            $(this).css("width", maxWidth); // 가로 길이를 최대 가로 길이로 조정
-            $(this).css("height", height * ratio);  // 세로 길이를 비율에 맞게 조정
-            height = height * ratio;    // 적용
-		}	
-
-        // 현재 이미지의 세로 길이가 최대 세로 길이보다 클 때
-		if(height > maxHeight){
-            ratio = maxHeight / height; // 세로 이미지 비율
-            $(this).css("height", maxHeight);   // Set new height
-            $(this).css("width", width * ratio);    // Scale width based on ratio
-            width = width * ratio;    // Reset width to match scaled image
-		}
-    });
 }
 
 /*  게시물 클릭  */
@@ -102,7 +75,6 @@ function showDetail(data) {
 $(function(){     
 	
 	likeAndComment();
-	imgAutoSizing();
 	showDetail(null);
 	
 	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
@@ -149,10 +121,10 @@ $(function(){
 				var boardHtml = '';
 				if(data.length > 0) {
 					for(var i=0; i<data.length; i++) {
-						boardHtml += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >';
+						boardHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
 						boardHtml += '<div class="sns-photo-box" value="'+data[i].snsBoardNo+'">';
 						boardHtml += '<div class="image-wrap">';
-						boardHtml += '<img style="height: 100%;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
+						boardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
 						boardHtml += '<div class="likes">';
 						boardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
 						boardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
@@ -162,14 +134,13 @@ $(function(){
 						boardHtml += '</div>';
 						boardHtml += '</div>';
 						boardHtml += '</div>';
+						
 					}
 				} else {
 					boardHtml += '<span>일치하는 결과가 없습니다.</span>';
 				}	
 				$('#boardOutput').html(boardHtml);
-
 				likeAndComment();
-				imgAutoSizing();
 				showDetail(data);
 			}
 		});
@@ -195,11 +166,11 @@ $(function(){
 				var readMoreHtml = '';
 				
 				for(var i=0; i < data.list.length; i++) {
-					readMoreHtml += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >';
+					readMoreHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
 					readMoreHtml += '<div class="sns-photo-box">';
 					readMoreHtml += '<input type="hidden" id="boardNo" value="'+data.list[i].snsBoardNo+'">';
 					readMoreHtml += '<div class="image-wrap">';
-					readMoreHtml += '<img style="height: 100%;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.list[i].snsBoardImg+'">';
+					readMoreHtml += '<img style="height: auto; max-width: 300px; max-height: 300px; width: auto;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.list[i].snsBoardImg+'">';
 					readMoreHtml += '<div class="likes">';
 					readMoreHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
 					readMoreHtml += '<span class="center">&nbsp;'+data.list[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
@@ -212,7 +183,6 @@ $(function(){
 				}
 				$('#boardOutput').append(readMoreHtml);
 				
-				imgAutoSizing();
 				likeAndComment();
 				showDetail(null);
 			}
@@ -368,23 +338,25 @@ $(function(){
 
 	<!-- sns 게시물 상세보기 모달 -->
 	<div class="modal fade" id="snsModal" role="dialog">
-	    <div class="modal-dialog modal-lg" >
+	    <div id="modalFrame" class="modal-dialog modal-lg" >
 			<div id="snsDetail" class="modal-content">
 		        <div class="row">
 		        
 		        	<!-- 게시물 이미지 영역 -->
-			        <div class="modal-body col-xs-8" style="padding-bottom: 0; padding-top: 0;">
+			        <div class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
 						<div id="snsDetailImg"></div>
 		        	</div>
 		        	<!-- 게시물 이미지 영역 -->
 		        	
 		        	<!-- 게시물 내용 영역 -->
-			        <div class="modal-body col-xs-4">
+			        <div class="modal-body col-xs-12 col-sm-6">
 			        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
-			        	<div id="snsDetailContent"></div>
-			        	<hr>
-			        	<div id="snsDetailLike"></div>
-			        	<div id="snsDetailComment">
+			        	<div id="snsDetailScroll" style="overflow: atuo">
+			        		<div id="snsDetailContent"></div>
+			        		<hr>
+			        	
+				        	<div id="snsDetailLike"></div>
+				        	<div id="snsDetailComment"></div>
 			        	</div>
 			        	<hr>
 			        	<c:if test="${sessionScope.id != null}">

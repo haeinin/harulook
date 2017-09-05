@@ -5,9 +5,9 @@ function boardDetail(msg) {
 	
 	/* 게시물 상세보기 이미지 */
 	var snsDetailImg = '';
-	snsDetailImg += '<img alt="no image" style="width: 580px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.board.snsBoardImg+'">';
-	$('#snsDetailImg').html(snsDetailImg);
+	snsDetailImg += '<img id="detailImg" alt="no image" style="max-width: 580px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.board.snsBoardImg+'">';
 	
+	$('#snsDetailImg').html(snsDetailImg);
 	/* 게시물 상세정보 */
 	var snsDetailContent = '';
 	snsDetailContent += '<div style="float: left;">';
@@ -255,6 +255,7 @@ function boardDetail(msg) {
 			})
 			$('#commentValue').val('');
 		}
+		$('#snsDetailContent').css('max-height',$('#detailImg').height);
 	});
 	
 	/* 게시물 수정,삭제 dropdown */
