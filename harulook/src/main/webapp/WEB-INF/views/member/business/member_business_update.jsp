@@ -43,6 +43,7 @@
 			bsno = $('#user_bs_no');
 			
 			//아이디 중복체크 메시지 숨김
+			$('#idsfirst').hide();
 			$('#idsuccess').hide();
 			$('#idfail').hide();
 			$('#idre').hide();
@@ -53,6 +54,7 @@
 			$('#nickre').hide();
 			
 			//비밀번호 메시지 숨김
+			$('#pwfirst').show();
 			$('#pwsuccess').hide();
 			$('#pwfail').hide();
 			$('#pwre').hide();
@@ -62,6 +64,7 @@
 			$('#emailfail').hide();
 			
 			//전화번호 확인 메시지 숨김
+			$('#telfirst').show();
 			$('#telsuccess').hide();
 			$('#telfail').hide();
 			
@@ -69,6 +72,7 @@
 			$('#userAfail').hide();
 			
 			//사업자번호 확인 메시지 숨김
+			$('#Bsfirst').show();
 			$('#BsNosuccess').hide();
 			$('#BsNofail').hide();
 			
@@ -78,8 +82,9 @@
 			
 			//회원탈퇴비밀번호오류메시지
 			$('#modalpwfail').hide();
+			
 		//아이디중복체크버튼
-		$('#user_id').blur(function(){	
+		/* $('#user_id').blur(function(){	
 			var request = $.ajax({
 				  url: "./idcheck", //호출 경로
 				  method: "POST",	//전송방식
@@ -93,6 +98,7 @@
 				console.log($('#user_id').val());	//중복체크 입력한 아이디
 				
 				if (re_id.test(uid.val()) != true) { // 아이디 입력 양식이 틀렸을때
+					$('#idsfirst').hide();
 					$('#idre').show();
 					$('#idsuccess').hide();
 					$('#idfail').hide();
@@ -100,16 +106,19 @@
 					return false;
 				}else{	//아이디 입력양식이 맞을때
 					if($('#user_id').val() == msg){	//아이디가 중복될때 메시지
+						$('#idsfirst').hide();
 						$('#idfail').show();
 						$('#idsuccess').hide();
 						$('#idre').hide();
 						$('#user_id').val("");
 						uid.focus();
 					}else if(msg == ""){	//아이디가 중복안될때 메시지
+						$('#idsfirst').hide();
 						$('#idsuccess').show();
 						$('#idfail').hide();
 						$('#idre').hide();
 					}else{					//오류일때
+						$('#idsfirst').hide();
 						$('#idre').show();
 						$('#idsuccess').hide();
 						$('#idfail').hide();
@@ -118,7 +127,7 @@
 					}
 				}
 			});
-	  	});
+	  	}); */
 		
 		//닉네임 중복체크버튼
 		$('#user_nick').blur(function(){	
@@ -156,33 +165,37 @@
 		//비밀번호 확인
 		$('#user_pw_check').blur(function(){	
 			
-				if(re_pw.test(upw.val()) != true) { // 비밀번호 양식 오류
+			if(re_pw.test(upw.val()) != true) { // 비밀번호 양식 오류
+				$('#pwre').show();
+				$('#pwfirst').hide();
+				$('#pwsuccess').hide();
+				$('#pwfail').hide();
+				$('#user_pw').val("");
+				$('#user_pw_check').val("");
+				return false;
+			}else{
+				if($('#user_pw').val() == $('#user_pw_check').val()){	//비밀번호 일치
+					$('#pwfirst').hide();
+					$('#pwsuccess').show();
+					$('#pwfail').hide();
+					$('#pwre').hide();
+				}else if($('#user_pw').val() != $('#user_pw_check').val()){	//비밀번호 불일치
+					$('#pwfirst').hide();
+					$('#pwfail').show();
+					$('#pwsuccess').hide();
+					$('#pwre').hide();
+					$('#user_pw').val("");
+					$('#user_pw_check').val("");
+					upw.focus();
+				}else{					//오류일때
+					$('#pwfirst').hide();
 					$('#pwre').show();
 					$('#pwsuccess').hide();
 					$('#pwfail').hide();
 					$('#user_pw').val("");
 					$('#user_pw_check').val("");
-					return false;
-				}else{
-					if($('#user_pw').val() == $('#user_pw_check').val()){	//비밀번호 일치
-						$('#pwsuccess').show();
-						$('#pwfail').hide();
-						$('#pwre').hide();
-					}else if($('#user_pw').val() != $('#user_pw_check').val()){	//비밀번호 불일치
-						$('#pwfail').show();
-						$('#pwsuccess').hide();
-						$('#pwre').hide();
-						$('#user_pw').val("");
-						$('#user_pw_check').val("");
-						upw.focus();
-					}else{					//오류일때
-						$('#pwre').show();
-						$('#pwsuccess').hide();
-						$('#pwfail').hide();
-						$('#user_pw').val("");
-						$('#user_pw_check').val("");
-						upw.focus();
-					}
+					upw.focus();
+				}
 				}
 	  	});
 		
@@ -202,11 +215,13 @@
 		//전화번호 유효성
 		$('#user_tel').blur(function(){
 			if(re_tel.test(tel.val()) != true) { // 전화번호 검사
+				$('#telfirst').hide();
 				$('#telsuccess').hide();
 				$('#telfail').show();
 			tel.focus();
 			return false;
 			}else{
+				$('#telfirst').hide();
 				$('#telsuccess').show();
 				$('#telfail').hide();
 			}
@@ -228,11 +243,13 @@
 		//사업자번호 검사
 		$('#user_bs_no').blur(function(){
 			if(re_bs_no.test(bsno.val()) != true) { // 사업자번호 검사
+				$('#Bsfirst').hide();
 				$('#BsNosuccess').hide();
 				$('#BsNofail').show();
 			bsno.focus();
 			return false;
 			}else{
+				$('#Bsfirst').hide();
 				$('#BsNosuccess').show();
 				$('#BsNofail').hide();
 			}
@@ -252,7 +269,7 @@
 		});
 		
 		
-		$('#businessUpdate').click(function(){	//회원가입버튼
+		$('#businessUpdateFormButton').click(function(){	//회원가입버튼
 			
 			if(!$('#user_id').val()){	//아이디입력 안했을때
 				alert('아이디를입력하세요');
@@ -416,129 +433,129 @@
 	    <div class="col-xs-1"></div>
 	    <div id="div1" class="col-xs-9">
 	
-		    <h1>내정보수정하기</h1>
-		    <form id="addBusinessUpdate" action="${pageContext.request.contextPath}/addBusinessUpdate" method="post">
-		    
-		       		<!-- 아이디 -->
-		           	<label for="user_id">아이디 :</label>
-		            <input name="userId" id="user_id" type="text" readonly value="${businessDetail.userId}"/>  5자~16자 이내 영문과 숫자만가능<br>
-		           
-		            <div>아이디중복체크결과 :
-		            	<span id="idsuccess" >사용가능한 아이디입니다</span>
-		            	<span id="idfail" >사용불가능한 아이디입니다</span>
-		            	<span id="idre" >아이디 다시 입력해주세요</span>
-		            </div>
-		       		
-		       		<!-- 비밀번호 -->
-		        	<label for="user_pw">비번 :</label>
-		            <input name="userPw" id="user_pw" type="password"/><br>
-		            
-		            <!-- 비밀번호 확인-->
-		        	<label for="user_pw_check">비번 :</label>
-		            <input name="userPwCheck" id="user_pw_check" type="password"/>6자~16자 이내 특수문자가능<br>
-		            <div>비밀번호 확인결과 :
-		            	<span id="pwsuccess" >비밀번호일치</span>
-		            	<span id="pwfail" >비밀번호 불일치</span>
-		            	<span id="pwre" >비밀번호 다시입력해주세요</span>
-		            </div>
-					
-					<!-- 닉네임 -->	        
-		       		<label for="user_nick">닉네임 :</label>
-		            <input name="userNick" id="user_nick" type="text" value="${businessDetail.userNick}"/>
-		            <div>닉네임중복체크결과 :
-		            	<span id="nicksuccess" >사용가능한 닉네임입니다</span>
-		            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
-		            	<span id="nickre" >닉네임 다시 입력해주세요</span>
-	            	</div>
-	            	
-	            	<!-- 이름 -->
-		        	<label for="user_name">이름 :</label>
-		            <input name="userName" id="user_name" type="text" value="${businessDetail.userName}"/><br>
-		        	
-		        	<!-- 전화번호 -->
-		        	<label for="user_tel">전화번호 :</label>
-		            <input name="userTel" id="user_tel" type="text" value="${businessDetail.userTel}"/>- 빼고 숫자만 입력하세요 ** 수정필요<br>
-		       		
-		       		<div>전화번호 양식검사 :
-		            	<span id="telsuccess" >사용가능한 전화번호입니다</span>
-		            	<span id="telfail" >사용불가능한 전화번호입니다</span>
-		            </div>
-		            
-		          	<!--  이메일 -->
-		        	<label for="user_email">이메일 :</label>
-		            <input name="userEmail" id="user_email" type="text" value="${businessDetail.userEmail}"/><br>
-		            <div>이메일양식검사 :
-		            	<span id="emailsuccess" >사용가능한 이메일입니다</span>
-		            	<span id="emailfail" >사용불가능한 이메일입니다</span>
-		            </div>
-		        	
-		        	<!-- 주소 -->
-		        	<label for="user_addr">주소 :</label>
-		            <!-- <input name="userAddr" id="user_addr" type="text"/><br> -->
-		        	
-		        	<input type="text" id="sample4_postcode" placeholder="우편번호">
-					<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-					<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소" value="${businessDetail.userAddr}"><br><br>
-					<span id="guide" style="color:#999"></span>
-		        	
-		        	<!-- 질문 -->
-		        	<label for="user_q">질문 :</label>
-		            <select class="form-control" name="userQ" id="user_q">
-						<option>${businessDetail.userQ}</option>
-		            	<option>나의 보물은</option>
-		            	<option>나의 고향은</option>
-		            	<option>나의 초등학교</option>
-		            	<option>나의 고등학교</option>
-		            	<option>나의 비밀은</option>
-		            	<option>나의 꿈은</option>
-	            	</select>
-		       		
-		       		<!-- 답 -->
-		        	<label for="user_a">질문의 답 :</label>
-		            <input name="userA" id="user_a" type="text" value="${businessDetail.userA}"/><br>
-	        		<div>질문의 답 오류구문 :
-		            	<span id="userAfail" >답을 입력하세요</span>
-		            </div>
-		        	
-		        	<!-- 사업자번호 -->
-		        	<label for="user_bs_no">사업자번호 :</label>
-		            <input name="userBsNo" id="user_bs_no" type="text" value="${businessDetail.userBsNo}"/> 000-00-00000 -은빼고 입력하세요<br>
-		        	<div>사업자번호 양식검사 :
-		            	<span id="BsNosuccess" >사용가능한 사업자번호입니다</span>
-		            	<span id="BsNofail" >사용불가능한 사업자번호입니다</span>
-		            </div>
-		            
-		        	<!-- 업종 -->
-		        	<label for="user_bs_type">업종 :</label>
-		            <input name="userBsType" id="user_bs_type" type="text" value="${businessDetail.userBsType}"/><br>
-		            
-		            <!-- 업태 -->
-		        	<label for="user_bs_status">업태 :</label>
-		            <input name="userBsStatus" id="user_bs_status" type="text" value="${businessDetail.userBsStatus}"/><br>
-		            
-		            <!-- 업체명 -->
-		        	<label for="user_bs_name">업체명 :</label>
-		            <input name="userBsName" id="user_bs_name" type="text" value="${businessDetail.userBsName}"/><br>
-		            
-		            <!-- 업체홈페이지 -->
-		        	<label for="user_url">업체홈페이지 :</label>
-		            <input name="userUrl" id="user_url" type="text" value="${businessDetail.userUrl}"/><br>
-		     		<div>url 양식검사 :
-		            	<span id="Urlsuccess" >사용가능한 주소입니다</span>
-		            	<span id="Urlfail" >사용불가능한 주소입니다</span>
-		            </div>
-		     	
-		     	<!-- 관리자 사업자 수정버튼 -->
-		     	<div>
-		       		<input class="btn btn-default" id="businessUpdate" type="button" value="수정확인"/>
-		        </div>
-		    </form>
-				<!-- 회원탈퇴버튼 -->
-	    	<div>
-	      		<input class="btn btn-default" id="userDelete" type="button" value="탈퇴하기"/>
-	        </div>	
-			
+			<div class="container">
+			<div class="row">
+				<div class="page-header">
+		  	    
+				</div>
+					<div id="" class="col-md-2"></div>
+					<div id="" class="col-md-7">
+					<h2 id="loginTitle">내정보수정하기</h2>
+						<div class="login-box well">
+							 <form id="addBusinessUpdate" action="${pageContext.request.contextPath}/addBusinessUpdate" method="post">
+								<!-- 아이디 -->
+					           	<label style="letter-spacing:11.3px" for="user_id">아이디</label>
+					            <input name="userId" id="user_id" type="text" readonly value="${businessDetail.userId}"/>  
+						            <span id="idsfirst" >5자~16자 이내 영문과 숫자만가능</span>
+					            	<span id="idsuccess" >사용가능한 아이디입니다</span>
+					            	<span id="idfail" >사용불가능한 아이디입니다</span>
+					            	<span id="idre" >아이디 다시 입력해주세요</span><br>
+					        
+					            <!-- 비밀번호 -->
+					        	<label style="letter-spacing:5px" for="user_pw">비밀번호</label>
+					            <input name="userPw" id="user_pw" type="password"/><br>
+					            
+					            <!-- 비밀번호 확인-->
+					        	<label style="letter-spacing:5px" for="user_pw_check">비밀번호</label>
+					            <input name="userPwCheck" id="user_pw_check" type="password"/> 
+					            	<span id="pwfirst" >6자~16자 이내 특수문자가능</span>
+					            	<span id="pwsuccess" >비밀번호일치</span>
+					            	<span id="pwfail" >비밀번호 불일치</span>
+					            	<span id="pwre" >비밀번호 다시입력해주세요</span><br>
+					            	
+					            <!-- 닉네임 -->	        
+					       		<label style="letter-spacing:11.3px" for="user_nick">닉네임</label>
+					            <input name="userNick" id="user_nick" type="text" value="${businessDetail.userNick}"/>
+					           		<span id="nicksuccess" >사용가능한 닉네임입니다</span>
+					            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
+					            	<span id="nickre" >닉네임 다시 입력해주세요</span><br>
+				            	
+				            	<!-- 이름 -->
+					        	<label style="letter-spacing:10px" for="user_name">이&nbsp;&nbsp;름</label>
+					            <input name="userName" id="user_name" type="text" value="${businessDetail.userName}"/><br>
+										
+								<!-- 전화번호 -->
+					        	<label style="letter-spacing:5px" for="user_tel">전화번호</label>
+					            <input name="userTel" id="user_tel" type="text" value="${businessDetail.userTel}"/>
+									<span id="telfirst" >&nbsp;- 빼고 숫자만 입력하세요</span>
+					            	<span id="telsuccess" >사용가능한 전화번호입니다</span>
+					            	<span id="telfail" >사용불가능한 전화번호입니다</span><br>	
+					            					            
+					            <!--  이메일 -->
+					        	<label style="letter-spacing:11.3px" for="user_email">이메일</label>
+					            <input name="userEmail" id="user_email" type="text" value="${businessDetail.userEmail}"/>
+					           		<span id="emailsuccess" >사용가능한 이메일입니다</span>
+					            	<span id="emailfail" >사용불가능한 이메일입니다</span><br>
+					  
+					            <!-- 주소 -->
+					        	<label style="letter-spacing:10px" for="user_addr">주&nbsp;&nbsp;소</label>
+					            <!-- <input name="userAddr" id="user_addr" type="text"/><br> -->
+					        	
+					        	<input type="text" id="sample4_postcode" placeholder="우편번호">
+								<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+								<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
+								<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소" value="${businessDetail.userAddr}"><br><br>
+								<span id="guide" style="color:#999"></span>
+					        	
+					  			<!-- 질문 -->
+					        	<div>
+						        	<label style="letter-spacing:10px" for="user_q">질&nbsp;&nbsp;문</label>
+						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userQ" id="user_q">
+										<option>${businessDetail.userQ}</option>
+						            	<option>나의 보물은</option>
+						            	<option>나의 고향은</option>
+						            	<option>나의 초등학교</option>
+						            	<option>나의 고등학교</option>
+						            	<option>나의 비밀은</option>
+						            	<option>나의 꿈은</option>
+					            	</select>
+					        	</div>
+					       		
+					       		<!-- 답 -->
+					        	<label style="letter-spacing:5px" for="user_a">질문의답</label>
+					            <input name="userA" id="user_a" type="text" value="${businessDetail.userA}"/>
+				        			<span id="userAfail" >답을 입력하세요</span><br>
+					        	
+					        	<!-- 사업자번호 -->
+					        	<label style="letter-spacing:1.1px" for="user_bs_no">사업자번호</label>
+					            <input name="userBsNo" id="user_bs_no" type="text" value="${businessDetail.userBsNo}"/>
+					        		<span id="Bsfirst" > 000-00-00000 -은빼고 입력하세요</span>
+					            	<span id="BsNosuccess" >사용가능한 사업자번호입니다</span>
+					            	<span id="BsNofail" >사용불가능한 사업자번호입니다</span><br>
+					          
+					            <!-- 업종 -->
+					        	<label style="letter-spacing:10px" for="user_bs_type">업&nbsp;&nbsp;종</label>
+					            <input name="userBsType" id="user_bs_type" type="text" value="${businessDetail.userBsType}"/><br>
+					                  
+					            <!-- 업태 -->
+					        	<label style="letter-spacing:10px" for="user_bs_status">업&nbsp;&nbsp;태</label>
+					            <input name="userBsStatus" id="user_bs_status" type="text" value="${businessDetail.userBsStatus}"/><br>
+					            
+					            <!-- 업체명 -->
+					        	<label style="letter-spacing:11.3px" for="user_bs_name">업체명</label>
+					            <input name="userBsName" id="user_bs_name" type="text" value="${businessDetail.userBsName}"/><br>
+					             
+					            <!-- 업체홈페이지 -->
+					        	<label style="letter-spacing:5px" for="user_url">홈페이지</label>
+					            <input name="userUrl" id="user_url" type="text" value="${businessDetail.userUrl}"/>
+					     			<span id="Urlsuccess" >사용가능한 주소입니다</span>
+					            	<span id="Urlfail" >사용불가능한 주소입니다</span><br>
+					            <br>
+		            			
+		            			<!-- 관리자 사업자 수정버튼 -->
+			     				<div>
+						       		<input class="btn btn-default" id="businessUpdateFormButton" type="button" value="수정확인"/>
+						        </div>
+						        <!-- 회원탈퇴버튼 -->
+						    	<div>
+						      		<input class="btn btn-default" id="userDelete" type="button" value="탈퇴하기"/>
+						        </div>	
+					       </form>	
+						</div>
+					</div>
+				</div>
+			</div>
+	
 			<!-- 탈퇴하기버튼 modal -->
 			<div class="modal fade" id="userDeleteModal" role="dialog">
 			    <div class="modal-dialog">

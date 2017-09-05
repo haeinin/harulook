@@ -29,6 +29,7 @@
 	left: 1050px;
 }
 
+
 /* 로그아웃 */
 #logout {
 	position: relative;
@@ -59,7 +60,11 @@
 	border-bottom: 1px solid lightgrey;
 }
 </style>
-
+<!-- 드롭박스 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
@@ -270,6 +275,10 @@ function dfs_xy_conv(code, v1, v2) {
 			$('#adContract').submit();
 		})
 		
+		$('#reFundButton').click(function(){	//환불보기
+			$('#reFundForm').submit();
+		})
+		
 		
 		/* 오늘 날짜를 날씨 api의 입력 양식에 맞게 변환 */
 	    var d = new Date();
@@ -435,56 +444,17 @@ function dfs_xy_conv(code, v1, v2) {
 			<br>
 
 			<c:if test="${sessionScope.level != null}">
-				<!-- 마이페이지 -->
-				<!-- <input class="btn btn-default" id="mypage" type="button"
-					value="마이페이지" /> -->
-					
-				<div class="container">
-					<div class="btn-group">
-						<button id="mypageDropdown" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">마이페이지</button>
-						
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Tableㅁㄴㅇㄹㄴㅁㅇㄻㄴㅇㄹt</a></li>
-							<li><a href="#">Smartphone</a></li>
-						</ul>
-					</div>
-				</div>
 				
-				
-				<!-- 로그아웃 -->
-				<form id="logoutadd"
-					action="${pageContext.request.contextPath}/logout" method="post">
-					<div>
-						<input class="btn btn-default" id="logout" type="button"
-							value="로그아웃" />
-					</div>
-				</form>
-			</c:if>
-
-		</div>
-
-		<!-- 마이페이지 Modal -->
-		<div class="modal fade" id="myModal" role="dialog">
-			<div class="modal-dialog">
-
-				<!-- Modal content-->
-				<div class="modal-content">
-					<!-- 모달 공통내용 -->
-					<div class="modal-header" style="padding: 35px 50px;">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4>마이페이지</h4>
-						<a>닉네임 : ${sessionScope.nick}</a><br> <a>권한 :
-							${sessionScope.level}</a><br>
-						<!-- 내정보수정하기버튼 -->
-					</div>
-
-
-
-					<!-- 모달 회원별 내용 -->
-					<div class="modal-body" style="padding: 40px 50px;">
-						<c:if test="${sessionScope.level == '관리자'}">
-							<a>관리자로 로그인</a>
-							<br>
+			<!-- 마이페이지 드롭다운 -->
+			<div id="mypageDropdown" class="container">
+				<div class="dropdown">
+					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">마이페이지
+					<span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><a>닉네임 : ${sessionScope.nick}</a>
+						 	<a>권한 : ${sessionScope.level}</a></li>
+						<li><c:if test="${sessionScope.level == '관리자'}">
+							
 							<!-- 관리자용 버튼 -->
 							<!-- 내정보수정하기버튼 -->
 							<form id="businessUpdate"
@@ -492,7 +462,7 @@ function dfs_xy_conv(code, v1, v2) {
 								method="post">
 								<div>
 									<input class="btn btn-default" id="businessUpdateButton"
-										type="button" value="내 정보 수정 하기" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="내 정보 수정 하기" />
 								</div>
 							</form>
 
@@ -502,12 +472,9 @@ function dfs_xy_conv(code, v1, v2) {
 								method="get">
 								<div>
 									<input class="btn btn-default" id="managerInsertbutton"
-										type="button" value="새관리자등록하기" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="새관리자등록하기" />
 								</div>
 							</form>
-
-
-
 
 							<!-- 일반회원검색 -->
 							<form id="member_user_list"
@@ -515,7 +482,7 @@ function dfs_xy_conv(code, v1, v2) {
 								method="post">
 								<div>
 									<input class="btn btn-default" id="userlistbutton"
-										type="button" value="일반회원검색" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="일반회원검색" />
 								</div>
 							</form>
 
@@ -525,7 +492,7 @@ function dfs_xy_conv(code, v1, v2) {
 								method="post">
 								<div>
 									<input class="btn btn-default" id="businesslistbutton"
-										type="button" value="사업자검색" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="사업자검색" />
 								</div>
 							</form>
 
@@ -535,13 +502,9 @@ function dfs_xy_conv(code, v1, v2) {
 								method="post">
 								<div>
 									<input class="btn btn-default" id="managerlistbutton"
-										type="button" value="관리자검색" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="관리자검색" />
 								</div>
 							</form>
-
-
-
-
 
 							<!-- 광고 검색 및 승인 -->
 							<form id="adcontractlistFormManager"
@@ -549,23 +512,32 @@ function dfs_xy_conv(code, v1, v2) {
 								method="get">
 								<div>
 									<input class="btn btn-default" id="adcontractlistButtonManager"
-										type="button" value="광거 검색 및 승인" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="광거 검색 및 승인" />
 								</div>
 							</form>
-
+							
+							<!-- 환불 보기-->
+							<form id="reFundForm"
+								action="${pageContext.request.contextPath}/selectRefund"
+								method="get">
+								<div>
+									<input class="btn btn-default" id="reFundButton" type="button"
+										 style="WIDTH: 130pt; HEIGHT: 25pt" value="환불 관리" />
+								</div>
+							</form>
+							
 							<!-- 사이트 접속자수 검색 -->
 							<form id="guestListForm"
 								action="${pageContext.request.contextPath}/guestList"
 								method="get">
 								<div>
 									<input class="btn btn-default" id="guestListButton"
-										type="button" value="사이트 접속자수 검색" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="사이트 접속자수 검색" />
 								</div>
 							</form>
 						</c:if>
+						
 						<c:if test="${sessionScope.level == '사업자'}">
-							<a>사업자로 로그인</a>
-							<br>
 							<!-- 사업자용 버튼 -->
 							<!-- 내정보수정하기버튼 -->
 							<form id="businessUpdate"
@@ -573,7 +545,7 @@ function dfs_xy_conv(code, v1, v2) {
 								method="post">
 								<div>
 									<input class="btn btn-default" id="businessUpdateButton"
-										type="button" value="내 정보 수정 하기" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="내 정보 수정 하기" />
 								</div>
 							</form>
 
@@ -589,7 +561,7 @@ function dfs_xy_conv(code, v1, v2) {
 
 									<div>
 										<input class="btn btn-default" id="adContractListButton"
-											type="button" value="내 광고 보기" />
+											type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="내 광고 보기" />
 
 									</div>
 								</form>
@@ -602,7 +574,7 @@ function dfs_xy_conv(code, v1, v2) {
 
 									<div>
 										<input class="btn btn-default" id="partnerContractListButton"
-											type="button" value="내 제휴 보기" />
+											type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="내 제휴 보기" />
 									</div>
 								</form>
 
@@ -612,7 +584,17 @@ function dfs_xy_conv(code, v1, v2) {
 									method="post">
 									<div>
 										<input class="btn btn-default" id="myModified" type="button"
-											value="내 결제 예정 금액" />
+											 style="WIDTH: 130pt; HEIGHT: 25pt" value="내 결제 예정 금액" />
+									</div>
+								</form>
+								
+								<!-- 내 환불 보기-->
+								<form id="reFundForm"
+									action="${pageContext.request.contextPath}/selectRefund"
+									method="get">
+									<div>
+										<input class="btn btn-default" id="reFundButton" type="button"
+											 style="WIDTH: 130pt; HEIGHT: 25pt" value="나의 환불 관리" />
 									</div>
 								</form>
 
@@ -622,67 +604,77 @@ function dfs_xy_conv(code, v1, v2) {
 									method="get">
 									<div>
 										<input class="btn btn-default" id="guestListButton"
-											type="button" value="사이트 접속자수 검색" />
+											type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="사이트 접속자수 검색" />
 									</div>
 								</form>
-						</c:if>
-
-						<c:if test="${sessionScope.level == '일반회원'}">
-							<a>일반회원 로그인</a>
-							<br>
-							<!-- 일반회원용 버튼 -->
-
-							<!-- 보유포인트-->
-							<span id="myPointMsg"></span>
-							<br>
-
-							<!-- 포인트 보러 가기 -->
-							<form id="myPoint"
-								action="${pageContext.request.contextPath}/myPoint" method="get">
-								<div>
-									<input class="btn btn-default" id="myPointButton" type="button"
-										value="내 포인트 쓰러가기" />
-								</div>
-							</form>
-
-							<!-- 내정보수정하기버튼 -->
-							<form id="userUpdate"
-								action="${pageContext.request.contextPath}/userUpdate?userId=${sessionScope.id}"
-								method="post">
-								<div>
-									<input class="btn btn-default" id="userUpdateButton"
-										type="button" value="내 정보 수정 하기" />
-								</div>
-							</form>
-
-							<!-- 내 게시물 보기 -->
-							<a class="btn btn-default" id="myModifiedFrom"
-								href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId=${sessionScope.id}">내
-								게시물 보기</a>
-
-							<!-- 내 친구 보기 -->
-							<form id="followList"
-								action="${pageContext.request.contextPath}/followList"
-								method="get">
-								<div>
-									<input class="btn btn-default" id="followListButton"
-										type="button" value="내 친구 보기" />
-								</div>
-							</form>
-
-							<!-- 나를 등록한 친구목록 -->
-							<form id="followMeList"
-								action="${pageContext.request.contextPath}/followMeList"
-								method="get">
-								<div>
-									<input class="btn btn-default" id="followMeListButton"
-										type="button" value="나를 등록한 친구 목록" />
-								</div>
-							</form>
-						</c:if>
-					</div>
+							</c:if>
+	
+							<c:if test="${sessionScope.level == '일반회원'}">
+								<!-- 일반회원용 버튼 -->
+	
+								<!-- 보유포인트-->
+								<span id="myPointMsg"></span>
+								<br>
+	
+								<!-- 포인트 보러 가기 -->
+								<form id="myPoint"
+									action="${pageContext.request.contextPath}/myPoint" method="get">
+									<div>
+										<input class="btn btn-default" id="myPointButton" type="button"
+											 style="WIDTH: 130pt; HEIGHT: 25pt" value="내 포인트 쓰러가기" />
+									</div>
+								</form>
+	
+								<!-- 내정보수정하기버튼 -->
+								<form id="userUpdate"
+									action="${pageContext.request.contextPath}/userUpdate?userId=${sessionScope.id}"
+									method="post">
+									<div>
+										<input class="btn btn-default" id="userUpdateButton"
+											type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="내 정보 수정 하기" />
+									</div>
+								</form>
+	
+								<!-- 내 게시물 보기 -->
+								<a class="btn btn-default" id="myModifiedFrom"
+									href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId=${sessionScope.id}">내
+									게시물 보기</a>
+	
+								<!-- 내 친구 보기 -->
+								<form id="followList"
+									action="${pageContext.request.contextPath}/followList"
+									method="get">
+									<div>
+										<input class="btn btn-default" id="followListButton"
+											type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="내 친구 보기" />
+									</div>
+								</form>
+	
+								<!-- 나를 등록한 친구목록 -->
+								<form id="followMeList"
+									action="${pageContext.request.contextPath}/followMeList"
+									method="get">
+									<div>
+										<input class="btn btn-default" id="followMeListButton"
+											type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="나를 등록한 친구 목록" />
+									</div>
+								</form>
+							</c:if>
+						</li>
+					</ul>
 				</div>
 			</div>
+							
+			<!-- 로그아웃 -->
+			<form id="logoutadd"
+				action="${pageContext.request.contextPath}/logout" method="post">
+				<div>
+					<input class="btn btn-default" id="logout" type="button"
+						value="로그아웃" />
+				</div>
+			</form>
+			</c:if>
+
 		</div>
 	</div>
 </body>

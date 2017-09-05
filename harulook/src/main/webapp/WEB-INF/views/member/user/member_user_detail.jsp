@@ -48,35 +48,67 @@
 	    <div class="col-xs-1"></div>
 	    <div id="div1" class="col-xs-9">
 	    
-	    <h1>일반회원정보보기</h1>
-	    
-			아이디 : <div id="user_id" value="${userDetail.userId}">${userDetail.userId}</div><br>
-			닉네임 : <a>${userDetail.userNick}</a><br>
-			이름: <a>${userDetail.userName}</a><br>
-			성별: <a>${userDetail.userGender}</a><br>
-			이메일: <a>${userDetail.userEmail}</a><br>
-			전화번호: <a>${userDetail.userTel}</a><br>
-			주소: <a>${userDetail.userAddr}</a><br>
-			나이: <a>${userDetail.userAge}</a><br>
-			키: <a>${userDetail.userTall}</a><br>
-			체형: <a>${userDetail.userSize}</a><br>
-			권한: <a>${userDetail.userLevel}</a><br>
-			가입날짜: <a>${userDetail.userDate}</a><br>
-			
-			스타일:    
-			<a>${userColor}</a><br>
-			<br>
-			선호색: 
-			<a>${userStyle}</a><br>
-			<br>
-	       
-			<!-- 추방하기 -->
-			<c:if test="${sessionScope.level == '관리자'}">
-			<input class="btn btn-default" id="userDelete" type="button" value="추방하기"/>
-			<form id="home" action="${pageContext.request.contextPath}/home" method="get"></form>	
-			</c:if>	
-        
-        </div>  
+	    <div class="container">
+			<div class="row">
+				<div class="page-header">
+		  	    
+				</div>
+					<div id="" class="col-md-2"></div>
+					<div id="" class="col-md-7">
+					<h2 id="loginTitle">${userDetail.userLevel}정보보기</h2>
+						<div class="login-box well">
+						 	<!-- 아이디 -->
+				           	<label style="letter-spacing:11.3px" for="user_id">아이디:</label>${userDetail.userId}
+				            <br>
+				            <!-- 닉네임 -->	        
+				       		<label style="letter-spacing:11.3px" for="user_nick">닉네임:</label>${userDetail.userNick}
+				         	<br>
+				            <!-- 이름 -->
+				        	<label style="letter-spacing:10px" for="user_name">이&nbsp;&nbsp;름:</label>${userDetail.userName}
+				            <br>
+							<!-- 전화번호 -->
+				        	<label style="letter-spacing:5px" for="user_tel">전화번호:</label> ${userDetail.userTel}
+				            <br>
+				            <!--  이메일 -->
+				        	<label style="letter-spacing:11.3px" for="user_email">이메일:</label>${userDetail.userEmail}
+				           	<br>
+				            <!-- 주소 -->
+				        	<label style="letter-spacing:10px" for="user_addr">주&nbsp;&nbsp;소:</label>${userDetail.userAddr}
+				            <br>
+				        	<!-- 성별 -->
+				        	<label style="letter-spacing:10px" for="user_gender" >성&nbsp;&nbsp;별:</label>${userDetail.userGender}
+					        <br>   
+							<!-- 나이 -->	 
+							<label style="letter-spacing:10px" for="user_age">나&nbsp;&nbsp;이:</label>${userDetail.userAge}
+					        <br>
+				        	<!-- 키 -->
+				        	<label style="letter-spacing:11.3px" for="user_tall">본인키:</label>${userDetail.userTall}
+				            <br>
+				      		<!-- 사이즈 -->
+				        	<label style="letter-spacing:11.3px" for="user_size">사이즈:</label>${userDetail.userSize}
+				        	<br>
+					        <!-- 가입날짜 -->
+				        	<label style="letter-spacing:5px" for="user_date">가입날짜:</label> ${userDetail.userDate}
+				            <br>
+				        	<!-- 유저선호스타일 -->
+			        		<label style="letter-spacing:11.3px" for="userStyle">스타일:</label>${userStyle}
+				        	<br>
+				        	<!-- 유저선호색상 -->
+							<label style="letter-spacing:11.3px" for="userColor">선호색:</label>${userColor}
+					       	<br>
+					       	<br>
+		   					
+		   					<!-- 추방하기 -->
+							<c:if test="${sessionScope.level == '관리자'}">
+							<input class="btn btn-default" id="userDelete" type="button" value="추방하기"/>
+							<form id="home" action="${pageContext.request.contextPath}/home" method="get"></form>	
+							</c:if>	
+		   					
+						</div>
+					</div>
+				</div>
+			</div>
+	 	</div>  
         
         <!-- 우측 베너 인클루드 -->
 	    <c:import url="../../module/right.jsp"></c:import>

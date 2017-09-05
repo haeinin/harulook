@@ -41,6 +41,7 @@
 			tel = $('#user_tel');
 			
 			//아이디 중복체크 메시지 숨김
+			$('#idsfirst').hide();
 			$('#idsuccess').hide();
 			$('#idfail').hide();
 			$('#idre').hide();
@@ -51,6 +52,7 @@
 			$('#nickre').hide();
 			
 			//비밀번호 메시지 숨김
+			$('#pwfirst').show();
 			$('#pwsuccess').hide();
 			$('#pwfail').hide();
 			$('#pwre').hide();
@@ -60,6 +62,7 @@
 			$('#emailfail').hide();
 			
 			//전화번호 확인 메시지 숨김
+			$('#telfirst').show();
 			$('#telsuccess').hide();
 			$('#telfail').hide();
 			
@@ -69,7 +72,7 @@
 			//회원탈퇴비밀번호오류메시지
 			$('#modalpwfail').hide();
 		//아이디중복체크버튼
-		$('#user_id').blur(function(){	
+		/* $('#user_id').blur(function(){	
 			var request = $.ajax({
 				  url: "./idcheck", //호출 경로
 				  method: "POST",	//전송방식
@@ -83,6 +86,7 @@
 				console.log($('#user_id').val());	//중복체크 입력한 아이디
 				
 				if (re_id.test(uid.val()) != true) { // 아이디 입력 양식이 틀렸을때
+					$('#idsfirst').hide();
 					$('#idre').show();
 					$('#idsuccess').hide();
 					$('#idfail').hide();
@@ -90,16 +94,19 @@
 					return false;
 				}else{	//아이디 입력양식이 맞을때
 					if($('#user_id').val() == msg){	//아이디가 중복될때 메시지
+						$('#idsfirst').hide();
 						$('#idfail').show();
 						$('#idsuccess').hide();
 						$('#idre').hide();
 						$('#user_id').val("");
 						uid.focus();
 					}else if(msg == ""){	//아이디가 중복안될때 메시지
+						$('#idsfirst').hide();
 						$('#idsuccess').show();
 						$('#idfail').hide();
 						$('#idre').hide();
 					}else{					//오류일때
+						$('#idsfirst').hide();
 						$('#idre').show();
 						$('#idsuccess').hide();
 						$('#idfail').hide();
@@ -108,7 +115,7 @@
 					}
 				}
 			});
-	  	});
+	  	}); */
 		
 		//닉네임 중복체크버튼
 		$('#user_nick').blur(function(){	
@@ -148,6 +155,7 @@
 			
 				if(re_pw.test(upw.val()) != true) { // 비밀번호 양식 오류
 					$('#pwre').show();
+					$('#pwfirst').hide();
 					$('#pwsuccess').hide();
 					$('#pwfail').hide();
 					$('#user_pw').val("");
@@ -155,10 +163,12 @@
 					return false;
 				}else{
 					if($('#user_pw').val() == $('#user_pw_check').val()){	//비밀번호 일치
+						$('#pwfirst').hide();
 						$('#pwsuccess').show();
 						$('#pwfail').hide();
 						$('#pwre').hide();
 					}else if($('#user_pw').val() != $('#user_pw_check').val()){	//비밀번호 불일치
+						$('#pwfirst').hide();
 						$('#pwfail').show();
 						$('#pwsuccess').hide();
 						$('#pwre').hide();
@@ -166,6 +176,7 @@
 						$('#user_pw_check').val("");
 						upw.focus();
 					}else{					//오류일때
+						$('#pwfirst').hide();
 						$('#pwre').show();
 						$('#pwsuccess').hide();
 						$('#pwfail').hide();
@@ -192,11 +203,13 @@
 		//전화번호 유효성
 		$('#user_tel').blur(function(){
 			if(re_tel.test(tel.val()) != true) { // 전화번호 검사
+				$('#telfirst').hide();
 				$('#telsuccess').hide();
 				$('#telfail').show();
 			tel.focus();
 			return false;
 			}else{
+				$('#telfirst').hide();
 				$('#telsuccess').show();
 				$('#telfail').hide();
 			}
@@ -216,7 +229,7 @@
         });
 		
 		//회원수정하기버튼
-		$('#userUpdate').click(function(){	
+		$('#userUpdateFormButton').click(function(){	
 			if(!$('#user_id').val()){	//아이디입력 안했을때
 				alert('아이디를입력하세요');
 				$('#user_id').focus();
@@ -370,374 +383,369 @@
 	<c:import url="../../module/header.jsp"></c:import>	
 	<!-- 바디 인클루드 -->
     <div class="row">
-	    <div class="col-xs-1"></div>
+	    <div class="col-xs-1">
+	    <c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+	    </div>
 	    <div id="div1" class="col-xs-9">
 		
-		<h1>회원정보수정</h1>
-	    <form id="addUserUpdate" action="${pageContext.request.contextPath}/addUserUpdate" method="post">
-	    
-	       		<!-- 아이디 -->
-	           	<label for="user_id">아이디 :</label>
-	            <input name="userId" id="user_id" type="text" readonly value="${userDetail.userId}"/>  5자~16자 이내 영문과 숫자만가능<br>
-	           
-	            <div>아이디중복체크결과 :
-	            	<span id="idsuccess" >사용가능한 아이디입니다</span>
-	            	<span id="idfail" >사용불가능한 아이디입니다</span>
-	            	<span id="idre" >아이디 다시 입력해주세요</span>
-	            </div>
-	       		
-	       		<!-- 비밀번호 -->
-	        	<label for="user_pw">비번 :</label>
-	            <input name="userPw" id="user_pw" type="password"/><br>
-	            
-	            <!-- 비밀번호 확인-->
-	        	<label for="user_pw_check">비번 :</label>
-	            <input name="userPwCheck" id="user_pw_check" type="password"/>6자~16자 이내 특수문자가능<br>
-	            <div>비밀번호 확인결과 :
-	            	<span id="pwsuccess" >비밀번호일치</span>
-	            	<span id="pwfail" >비밀번호 불일치</span>
-	            	<span id="pwre" >비밀번호 다시입력해주세요</span>
-	            </div>
-				
-				<!-- 닉네임 -->	        
-	       		<label for="user_nick">닉네임 :</label>
-	            <input name="userNick" id="user_nick" type="text" value="${userDetail.userNick}"/>
-	            <div>닉네임중복체크결과 :
-	            	<span id="nicksuccess" >사용가능한 닉네임입니다</span>
-	            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
-	            	<span id="nickre" >닉네임 다시 입력해주세요</span>
-            	</div>
-            	
-            	<!-- 이름 -->
-	        	<label for="user_name">이름 :</label>
-	            <input name="userName" id="user_name" type="text" value="${userDetail.userName}"/><br>
-	        	
-	        	<!-- 전화번호 -->
-	        	<label for="user_tel">전화번호 :</label>
-	            <input name="userTel" id="user_tel" type="text" value="${userDetail.userTel}"/>- 빼고 숫자만 입력하세요 ** 수정필요<br>
-	       		<!-- <select id="txtMobile1">
-				    <option value="">::선택::</option>
-				    <option value="011">011</option>
-				    <option value="016">016</option>
-				    <option value="017">017</option>
-				    <option value="019">019</option>
-				    <option value="010">010</option>
-				</select>
-				<input name="userTel" type="text" id="txtMobile2" size="4" onkeypress="onlyNumber();" />
-				<input name="userTel" type="text" id="txtMobile3" size="4" /> -->
-				
-	       		<div>전화번호 양식검사 :
-	            	<span id="telsuccess" >사용가능한 전화번호입니다</span>
-	            	<span id="telfail" >사용불가능한 전화번호입니다</span>
-	            </div>
-	            
-	          	<!--  이메일 -->
-	        	<label for="user_email">이메일 :</label>
-	            <input name="userEmail" id="user_email" type="text" value="${userDetail.userEmail}"/><br>
-	            <div>이메일양식검사 :
-	            	<span id="emailsuccess" >사용가능한 이메일입니다</span>
-	            	<span id="emailfail" >사용불가능한 이메일입니다</span>
-	            </div>
-	        	
-	        	<!-- 주소 -->
-	        	<label for="user_addr">주소 :</label>
-	            <!-- <input name="userAddr" id="user_addr" type="text"/><br> -->
-	        	
-	        	<input type="text" id="sample4_postcode" placeholder="우편번호">
-				<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-				<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소" value="${userDetail.userAddr}"><br><br>
-				<span id="guide" style="color:#999"></span>
-	        	
-	        	
-	        	<!-- 성별 -->
-	        	<label for="user_gender" >성별 :</label>
-	            <select class="form-control" name="userGender" id="user_gender">
-					<option>${userDetail.userGender}</option>
-	            	<option>남</option>
-	            	<option>여</option>
-	            </select>
-				
-				<!-- 나이 -->	        	
-	        	<label for="user_age">나이 :</label>
-	            <select class="form-control" name="userAge" id="user_age">
-					<option>${userDetail.userAge}</option>
-	            	<option>10</option>
-	            	<option>20</option>
-	            	<option>30</option>
-	            	<option>40</option>
-	            	<option>50</option>
-	            	<option>60</option>
-	            </select>
-	        	
-	        	<!-- 키 -->
-	        	<label for="user_tall">키 :</label>
-	            <select class="form-control" name="userTall" id="user_tall">
-					<option>${userDetail.userTall}</option>
-	            	<option>큰키</option>
-	            	<option>보통</option>
-	            	<option>작은키</option>
-            	</select>
-	      		
-	      		<!-- 사이즈 -->
-	        	<label for="user_size">사이즈 :</label>
-	            <select class="form-control" name="userSize" id="user_size">
-					<option>${userDetail.userSize}</option>
-	            	<option>마른</option>
-	            	<option>보통</option>
-	            	<option>뚱뚱</option>
-            	</select>
-			    
-			    <!-- 질문 -->
-	        	<label for="user_q">질문 :</label>
-	            <select class="form-control" name="userQ" id="user_q">
-					<option>${userDetail.userQ}</option>
-	            	<option>나의 보물은</option>
-	            	<option>나의 고향은</option>
-	            	<option>나의 초등학교</option>
-	            	<option>나의 고등학교</option>
-	            	<option>나의 비밀은</option>
-	            	<option>나의 꿈은</option>
-            	</select>
-	       		
-	       		<!-- 답 -->
-	        	<label for="user_a">질문의 답 :</label>
-	            <input name="userA" id="user_a" type="text" value="${userDetail.userA}"/><br>
-        		<div>질문의 답 오류구문 :
-	            	<span id="userAfail" >답을 입력하세요</span>
-	            </div>
-	        	
-	        	<!-- 유저선호스타일 -->
-        		<div class="form-group">
-					<label for="userStyle">회원선호스타일 :</label>
-				    
-				    <c:choose>
-				  		<c:when test="${userStyle.contains('클래식')}">
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01" checked="checked">클래식
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
-				  		</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
-				  		<c:when test="${userStyle.contains('캐쥬얼')}">
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02" checked="checked">캐쥬얼
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
-				  		</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
-				  		<c:when test="${userStyle.contains('빈티지')}">
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03" checked="checked">빈티지
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
-				  		</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
-				  		<c:when test="${userStyle.contains('스트리트')}">
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04" checked="checked">스트리트
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트
-				  		</c:otherwise>
-					</c:choose>
-				    
-				   	<c:choose>
-				  		<c:when test="${userStyle.contains('댄디')}">
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05" checked="checked">댄디
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디
-				  		</c:otherwise>
-					</c:choose>
-				   
-				   	<c:choose>
-				  		<c:when test="${userStyle.contains('럭셔리')}">
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06" checked="checked">럭셔리
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리
-				  		</c:otherwise>
-					</c:choose>
-				    
-				    <c:choose>
-				  		<c:when test="${userStyle.contains('러블리')}">
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07" checked="checked">러블리
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리
-				  		</c:otherwise>
-					</c:choose>
-				    
-				    <c:choose>
-				  		<c:when test="${userStyle.contains('로맨틱')}">
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08" checked="checked">로맨틱
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱
-				  		</c:otherwise>
-					</c:choose>
-				    
-				    <c:choose>
-				  		<c:when test="${userStyle.contains('심플')}">
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09" checked="checked">심플
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플
-				  		</c:otherwise>
-					</c:choose>
-				    
-				    <c:choose>
-				  		<c:when test="${userStyle.contains('액티브')}">
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10" checked="checked">액티브
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브
-				  		</c:otherwise>
-					</c:choose>
-					
+		<div class="container">
+			<div class="row">
+				<div class="page-header">
+		  	    </div>
+					<div id="" class="col-md-2"></div>
+					<div id="" class="col-md-7">
+					<h2 id="loginTitle" left="300px">회원수정하기</h2>
+						<div class="login-box well">
+							 <form id="addUserUpdate" action="${pageContext.request.contextPath}/addUserUpdate" method="post">
+								<!-- 아이디 -->
+					           	<label style="letter-spacing:11.3px" for="user_id">아이디</label>
+					            <input name="userId" id="user_id" type="text" readonly value="${userDetail.userId}"/>  
+						            <span id="idsfirst" >5자~16자 이내 영문과 숫자만가능</span>
+					            	<span id="idsuccess" >사용가능한 아이디입니다</span>
+					            	<span id="idfail" >사용불가능한 아이디입니다</span>
+					            	<span id="idre" >아이디 다시 입력해주세요</span><br>
+					            					            	
+					            <!-- 비밀번호 -->
+					        	<label style="letter-spacing:5px" for="user_pw">비밀번호</label>
+					            <input name="userPw" id="user_pw" type="password"/><br>
+					            
+					            <!-- 비밀번호 확인-->
+					        	<label style="letter-spacing:5px" for="user_pw_check">비밀번호</label>
+					            <input name="userPwCheck" id="user_pw_check" type="password"/> 
+					            	<span id="pwfirst" >6자~16자 이내 특수문자가능</span>
+					            	<span id="pwsuccess" >비밀번호일치</span>
+					            	<span id="pwfail" >비밀번호 불일치</span>
+					            	<span id="pwre" >비밀번호 다시입력해주세요</span><br>
+					            	
+					            <!-- 닉네임 -->	        
+					       		<label style="letter-spacing:11.3px" for="user_nick">닉네임</label>
+					            <input name="userNick" id="user_nick" type="text" value="${userDetail.userNick}"/>
+					           		<span id="nicksuccess" >사용가능한 닉네임입니다</span>
+					            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
+					            	<span id="nickre" >닉네임 다시 입력해주세요</span><br>
+				            	
+				            	<!-- 이름 -->
+					        	<label style="letter-spacing:10px" for="user_name">이&nbsp;&nbsp;름</label>
+					            <input name="userName" id="user_name" type="text" value="${userDetail.userName}"/><br>
+								
+								<!-- 전화번호 -->
+					        	<label style="letter-spacing:5px" for="user_tel">전화번호</label>
+					            <input name="userTel" id="user_tel" type="text" value="${userDetail.userTel}"/>
+									<span id="telfirst" >&nbsp;- 빼고 숫자만 입력하세요</span>
+					            	<span id="telsuccess" >사용가능한 전화번호입니다</span>
+					            	<span id="telfail" >사용불가능한 전화번호입니다</span><br>	
+					            
+					            <!--  이메일 -->
+					        	<label style="letter-spacing:11.3px" for="user_email">이메일</label>
+					            <input name="userEmail" id="user_email" type="text" value="${userDetail.userEmail}"/>
+					           		<span id="emailsuccess" >사용가능한 이메일입니다</span>
+					            	<span id="emailfail" >사용불가능한 이메일입니다</span><br>
+					            					            
+				            	<!-- 주소 -->
+					        	<label style="letter-spacing:10px" for="user_addr">주&nbsp;&nbsp;소</label>
+					            <!-- <input name="userAddr" id="user_addr" type="text"/><br> -->
+					        	
+					        	<input type="text" id="sample4_postcode" placeholder="우편번호">
+								<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+								<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
+								<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소" value="${userDetail.userAddr}"><br><br>
+								<span id="guide" style="color:#999"></span>
+					        	    	
+					        	<!-- 성별 -->
+					        	<div>
+						        	<label style="letter-spacing:10px" for="user_gender" >성&nbsp;&nbsp;별</label>
+						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userGender" id="user_gender">
+										<option>${userDetail.userGender}</option>
+						            	<option>남</option>
+						            	<option>여</option>
+						            </select>
+								</div>
+								
+								<!-- 나이 -->	   
+								<div>     	
+					        	<label style="letter-spacing:10px" for="user_age">나&nbsp;&nbsp;이</label>
+						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userAge" id="user_age">
+										<option>${userDetail.userAge}</option>
+						            	<option>10</option>
+						            	<option>20</option>
+						            	<option>30</option>
+						            	<option>40</option>
+						            	<option>50</option>
+						            	<option>60</option>
+						            </select>
+					        	</div>
+					        	<!-- 키 -->
+					        	<div>
+					        	<label style="letter-spacing:11.3px" for="user_tall">본인키</label>
+					            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userTall" id="user_tall">
+									<option>${userDetail.userTall}</option>
+					            	<option>큰키</option>
+					            	<option>보통</option>
+					            	<option>작은키</option>
+				            	</select>
+					      		</div>
+					      		<!-- 사이즈 -->
+					        	<div>
+						        	<label style="letter-spacing:11.3px" for="user_size">사이즈</label>
+						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userSize" id="user_size">
+										<option>${userDetail.userSize}</option>
+						            	<option>마른</option>
+						            	<option>보통</option>
+						            	<option>뚱뚱</option>
+					            	</select>
+							    </div>
+							    <!-- 질문 -->
+					        	<div>
+						        	<label style="letter-spacing:10px" for="user_q">질&nbsp;&nbsp;문</label>
+						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userQ" id="user_q">
+										<option>${userDetail.userQ}</option>
+						            	<option>나의 보물은</option>
+						            	<option>나의 고향은</option>
+						            	<option>나의 초등학교</option>
+						            	<option>나의 고등학교</option>
+						            	<option>나의 비밀은</option>
+						            	<option>나의 꿈은</option>
+					            	</select>
+					        	</div>
+					       		
+					       		<!-- 답 -->
+					        	<label style="letter-spacing:5px" for="user_a">질문의답</label>
+					            <input name="userA" id="user_a" type="text" value="${userDetail.userA}"/>
+				        			<span id="userAfail" >답을 입력하세요</span><br>
+					        	<br>
+					       
+					        	<!-- 유저선호스타일 -->
+				        		<div class="form-group">
+									<label style="letter-spacing:5px" for="userStyle">회원선호스타일</label>
+									<br>
+								  	<c:choose>
+								  		<c:when test="${userStyle.contains('클래식')}">
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01" checked="checked">클래식
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
+								  		</c:otherwise>
+									</c:choose>
+									
+									<c:choose>
+								  		<c:when test="${userStyle.contains('캐쥬얼')}">
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02" checked="checked">캐쥬얼
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
+								  		</c:otherwise>
+									</c:choose>
+									
+									<c:choose>
+								  		<c:when test="${userStyle.contains('빈티지')}">
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03" checked="checked">빈티지
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
+								  		</c:otherwise>
+									</c:choose>
+									
+									<c:choose>
+								  		<c:when test="${userStyle.contains('스트리트')}">
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04" checked="checked">스트리트
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트
+								  		</c:otherwise>
+									</c:choose>
+								    
+								   	<c:choose>
+								  		<c:when test="${userStyle.contains('댄디')}">
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05" checked="checked">댄디
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디
+								  		</c:otherwise>
+									</c:choose>
+								   	<br>
+								   	<c:choose>
+								  		<c:when test="${userStyle.contains('럭셔리')}">
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06" checked="checked">럭셔리
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리
+								  		</c:otherwise>
+									</c:choose>
+								    
+								    <c:choose>
+								  		<c:when test="${userStyle.contains('러블리')}">
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07" checked="checked">러블리
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리
+								  		</c:otherwise>
+									</c:choose>
+								    
+								    <c:choose>
+								  		<c:when test="${userStyle.contains('로맨틱')}">
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08" checked="checked">로맨틱
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱
+								  		</c:otherwise>
+									</c:choose>
+								    
+								    <c:choose>
+								  		<c:when test="${userStyle.contains('심플')}">
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09" checked="checked">심플
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플
+								  		</c:otherwise>
+									</c:choose>
+								    
+								    <c:choose>
+								  		<c:when test="${userStyle.contains('액티브')}">
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10" checked="checked">액티브
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브
+								  		</c:otherwise>
+									</c:choose>
+								</div>
+								
+								<!-- 유저선호색상 -->
+								<div class="form-group">
+							       	<label style="letter-spacing:5px" for="userColor">회원선호컬러</label>
+							       	<br>
+							       	<c:choose>
+								  		<c:when test="${userColor.contains('빨강')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01" class="checkSelectColor" checked="checked">빨강
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01" class="checkSelectColor">빨강
+								  		</c:otherwise>
+									</c:choose>
+							       	
+							       	<c:choose>
+								  		<c:when test="${userColor.contains('주황')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02" class="checkSelectColor" checked="checked">주황
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02" class="checkSelectColor">주황
+								  		</c:otherwise>
+									</c:choose>
+									
+									<c:choose>
+								  		<c:when test="${userColor.contains('노랑')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03" class="checkSelectColor" checked="checked">노랑
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03" class="checkSelectColor">노랑
+								  		</c:otherwise>
+									</c:choose>
+							       	
+							       	<c:choose>
+								  		<c:when test="${userColor.contains('초록')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04" class="checkSelectColor" checked="checked">초록
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04" class="checkSelectColor">초록
+								  		</c:otherwise>
+									</c:choose>
+									
+									<c:choose>
+								  		<c:when test="${userColor.contains('파랑')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05" class="checkSelectColor" checked="checked">파랑
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05" class="checkSelectColor">파랑
+								  		</c:otherwise>
+									</c:choose>
+									
+									<c:choose>
+								  		<c:when test="${userColor.contains('남색')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06" class="checkSelectColor" checked="checked">남색
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06" class="checkSelectColor">남색
+								  		</c:otherwise>
+									</c:choose>
+									
+									<c:choose>
+								  		<c:when test="${userColor.contains('보라')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07" class="checkSelectColor" checked="checked">보라
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07" class="checkSelectColor">보라
+								  		</c:otherwise>
+									</c:choose>
+							       	<br>
+							       	<c:choose>
+								  		<c:when test="${userColor.contains('검정')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08" class="checkSelectColor" checked="checked">검정
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08" class="checkSelectColor">검정
+								  		</c:otherwise>
+									</c:choose>
+							       	
+							       	<c:choose>
+								  		<c:when test="${userColor.contains('회색')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09" class="checkSelectColor" checked="checked">회색
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09" class="checkSelectColor">회색
+								  		</c:otherwise>
+									</c:choose>
+							       	
+							       	<c:choose>
+								  		<c:when test="${userColor.contains('흰색')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10" class="checkSelectColor" checked="checked">흰색
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10" class="checkSelectColor">흰색
+								  		</c:otherwise>
+									</c:choose>
+									
+									<c:choose>
+								  		<c:when test="${userColor.contains('갈색')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11" class="checkSelectColor" checked="checked">갈색
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11" class="checkSelectColor">갈색
+								  		</c:otherwise>
+									</c:choose>
+							       	
+							       	<c:choose>
+								  		<c:when test="${userColor.contains('베이지')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12" class="checkSelectColor" checked="checked">베이지
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12" class="checkSelectColor">베이지
+								  		</c:otherwise>
+									</c:choose>
+									
+									<c:choose>
+								  		<c:when test="${userColor.contains('핑크')}">
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13" class="checkSelectColor" checked="checked">핑크
+								  		</c:when>
+								  		<c:otherwise>
+								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13" class="checkSelectColor">핑크
+								  		</c:otherwise>
+									</c:choose>
+							     </div>
+			            	</form>	
+			            	<!-- 회원가입버튼 -->
+					     	<div>
+					       		<input class="btn btn-default" id="userUpdateFormButton" type="button" value="회원수정"/>
+					        </div>
+					        
+					        <!-- 회원탈퇴버튼 -->
+					    	<div>
+					      		<input class="btn btn-default" id="userDelete" type="button" value="탈퇴하기"/>
+					        </div>	
+						 </div>
+					</div>
 				</div>
-				
-				<!-- 유저선호색상 -->
-				<div class="form-group">
-			       	<label for="userColor">회원선호컬러 :</label>
-			       	
-			       	<c:choose>
-				  		<c:when test="${userColor.contains('빨강')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01" class="checkSelectColor" checked="checked">빨강
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01" class="checkSelectColor">빨강
-				  		</c:otherwise>
-					</c:choose>
-			       	
-			       	<c:choose>
-				  		<c:when test="${userColor.contains('주황')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02" class="checkSelectColor" checked="checked">주황
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02" class="checkSelectColor">주황
-				  		</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
-				  		<c:when test="${userColor.contains('노랑')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03" class="checkSelectColor" checked="checked">노랑
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03" class="checkSelectColor">노랑
-				  		</c:otherwise>
-					</c:choose>
-			       	
-			       	<c:choose>
-				  		<c:when test="${userColor.contains('초록')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04" class="checkSelectColor" checked="checked">초록
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04" class="checkSelectColor">초록
-				  		</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
-				  		<c:when test="${userColor.contains('파랑')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05" class="checkSelectColor" checked="checked">파랑
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05" class="checkSelectColor">파랑
-				  		</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
-				  		<c:when test="${userColor.contains('남색')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06" class="checkSelectColor" checked="checked">남색
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06" class="checkSelectColor">남색
-				  		</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
-				  		<c:when test="${userColor.contains('보라')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07" class="checkSelectColor" checked="checked">보라
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07" class="checkSelectColor">보라
-				  		</c:otherwise>
-					</c:choose>
-			       	
-			       	<c:choose>
-				  		<c:when test="${userColor.contains('검정')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08" class="checkSelectColor" checked="checked">검정
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08" class="checkSelectColor">검정
-				  		</c:otherwise>
-					</c:choose>
-			       	
-			       	<c:choose>
-				  		<c:when test="${userColor.contains('회색')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09" class="checkSelectColor" checked="checked">회색
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09" class="checkSelectColor">회색
-				  		</c:otherwise>
-					</c:choose>
-			       	
-			       	<c:choose>
-				  		<c:when test="${userColor.contains('흰색')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10" class="checkSelectColor" checked="checked">흰색
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10" class="checkSelectColor">흰색
-				  		</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
-				  		<c:when test="${userColor.contains('갈색')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11" class="checkSelectColor" checked="checked">갈색
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11" class="checkSelectColor">갈색
-				  		</c:otherwise>
-					</c:choose>
-			       	
-			       	<c:choose>
-				  		<c:when test="${userColor.contains('베이지')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12" class="checkSelectColor" checked="checked">베이지
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12" class="checkSelectColor">베이지
-				  		</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
-				  		<c:when test="${userColor.contains('핑크')}">
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13" class="checkSelectColor" checked="checked">핑크
-				  		</c:when>
-				  		<c:otherwise>
-				  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13" class="checkSelectColor">핑크
-				  		</c:otherwise>
-					</c:choose>
-				
-				</div>
-	     	
-		     	<!-- 회원수정 -->
-		     	<div>
-		       		<input class="btn btn-default" id="userUpdate" type="button" value="수정확인"/>
-		        </div>
-		    </form>
-		   
-		    <!-- 회원탈퇴버튼 -->
-	    	<div>
-	      		<input class="btn btn-default" id="userDelete" type="button" value="탈퇴하기"/>
-	        </div>	
-			
-			<!-- 탈퇴하기버튼 modal -->
+			</div>
+		
+		    <!-- 탈퇴하기버튼 modal -->
 			<div class="modal fade" id="userDeleteModal" role="dialog">
 			    <div class="modal-dialog">
 			    	<!-- Modal content-->

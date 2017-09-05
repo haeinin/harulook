@@ -43,7 +43,7 @@
 	
 		<div class="container">
 		    <h1>${sessionScope.searchLevel} 리스트</h1>
-		    <div>전체행의 수 : ${boardCount}</div>
+		    <div>회원 수 : ${boardCount}</div>
 		    <!-- 회원아이디검색 -->
 	  		<c:import url="../search/user_search.jsp"></c:import>
 		    

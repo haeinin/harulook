@@ -191,7 +191,7 @@
     <!-- 바디 인클루드 -->
     <div class="row">
 	    <!-- 좌측 베너 인클루드 -->
-    		<c:import url="./module/left.jsp"></c:import>
+    	<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     		
 	    <div class="col-xs-9">
         	<div class="container">

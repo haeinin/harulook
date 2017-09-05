@@ -25,7 +25,7 @@
        
        #loginTitle{	
        	  position: relative;
-          left: 500px;
+          left: 600px;
        }
 </style>
 
@@ -176,7 +176,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="page-header">
-		  	    <h2 id="loginTitle">심플한 로그인 폼</h2>
+		  	    <h2 id="loginTitle">로그인</h2>
 				</div>
 					<div id="div2" class="col-md-3">
 						  <div class="login-box well">

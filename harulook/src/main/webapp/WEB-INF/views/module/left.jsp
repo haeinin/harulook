@@ -37,8 +37,8 @@
 </head>
 <body>
 
-<div class="col-xs-1">
-   <!-- 게시물등록하기버튼 -->
+	<div class="col-xs-1">
+    <!-- 게시물등록하기버튼 -->
 			<c:if test="${sessionScope.level == '일반회원'}">
 			  <form id="snsInsertForm" action="${pageContext.request.contextPath}/boardInsert" method="get">
 			 		<div>
@@ -47,7 +47,7 @@
 			 	 	</div>	
 			  </form>
 			</c:if>
-</div>
+	</div>
 
 
 </body>
