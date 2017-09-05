@@ -22,7 +22,7 @@
 <!-- 댓글 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- sns스타일 탬플릿 css-->
-<link rel="stylesheet" type="text/css" href="resources/css/style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
 <!-- 예뻐요 아이콘 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- 게시글 필터 버튼 모양 -->
@@ -35,47 +35,20 @@
 <script type="text/javascript">
 
 /* 게시글 추천수, 댓글수 보이기 및 감추기 */
-function likeAndComment() {
+function popLikeAndComment() {
 	$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
-	$('.sns-photo-box').mouseenter(function(){
+	$('.sns-pop-photo-box').mouseenter(function(){
 		$(this).find('.likes').show();
 	});
-	$('.sns-photo-box').mouseleave(function(){
+	$('.sns-pop-photo-box').mouseleave(function(){
 		$(this).find('.likes').hide();
 	});
 }
 
-/* 이미지 비율은 유지하면서 크기 조절  */
-function imgAutoSizing() {
-	$('.image-wrap img').each(function() {
-        var maxWidth = 300; // 이미지의 최대 가로 길이
-        var maxHeight = 300;    // 최대 세로 길이
-        var ratio = 0;  // 비율 값 초기화
-        var width = $(this).width();    // 현재 이미지의 가로 길이
-        var height = $(this).height();  // 현재 이미지의 세로 길이
-
-        // 현재 이미지의 가로 길이가 최대 가로 길이보다 클 때
-		if(width > maxWidth){
-            ratio = maxWidth / width;   // 가로 길이 비율
-            $(this).css("width", maxWidth); // 가로 길이를 최대 가로 길이로 조정
-            $(this).css("height", height * ratio);  // 세로 길이를 비율에 맞게 조정
-            height = height * ratio;    // 적용
-		}	
-
-        // 현재 이미지의 세로 길이가 최대 세로 길이보다 클 때
-		if(height > maxHeight){
-            ratio = maxHeight / height; // 세로 이미지 비율
-            $(this).css("height", maxHeight);   // Set new height
-            $(this).css("width", width * ratio);    // Scale width based on ratio
-            width = width * ratio;    // Reset width to match scaled image
-		}
-    });
-}
-
 /*  게시물 클릭  */
-function showDetail(data) {
-	$('.sns-photo-box').click(function(){
-		var index = $('.sns-photo-box').index(this);
+function popShowDetail(data) {
+	$('.sns-pop-photo-box').click(function(){
+		var index = $('.sns-pop-photo-box').index(this);
 		if(data != null) {
 			var boardNo = data[index].snsBoardNo;
 		} else {
@@ -83,7 +56,7 @@ function showDetail(data) {
 		}
 		
 		console.log('index : ',index);
-		console.log('data[',index,'].snsBoardNo : ',boardNo);
+		console.log('data[',index,'].snsBoardNo : ',boardNo,' in pop_list');
 		
 		
 		var boardDetailRequest = $.ajax({
@@ -101,21 +74,17 @@ function showDetail(data) {
 }
 $(function(){     
 	
-	likeAndComment();
-	imgAutoSizing();
-	showDetail(null);
+	popLikeAndComment();
+	popShowDetail(null);
 });
 </script>
 </head>
 <body>
 <div class="row">
-	<div class="col-xs-1"></div>
-	<div class="col-xs-11">
+	<div class="col-xs-2"></div>
 		
-
-
 	<!-- sns 게시물 목록 영역 -->
-    <div class="col-xs-12">
+    <div class="col-xs-9">
         <div class="instagram-content">
         <h1>#하루룩</h1><br>
 			        	<h2>게시물 : ${boardCount}</h2>
@@ -125,10 +94,10 @@ $(function(){
 			<div class="row photos-wrap"  style="text-align: center;">
 			<c:forEach items="${list}" var="b">
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
-				<div class="sns-photo-box">
+				<div class="sns-pop-photo-box">
 					<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
 					<div class="image-wrap">
-						<img style="height: 100%;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
+						<img style="max-width: 300px; max-height: 300px; width: auto; height: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
 						<div class="likes">
 							<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>
 							<span class="center">&nbsp;${b.snsLikeCount}&nbsp;&nbsp;&nbsp;</span>
@@ -182,7 +151,6 @@ $(function(){
 	
 <!-- 로그인권한별로 버튼을 나누기 위한 세션 아이디 -->
 <input id="levelCheck" type="hidden" value="${sessionScope.level}"/>
-</div>
 </div>
 </body>
 </html>

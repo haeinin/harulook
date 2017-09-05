@@ -12,32 +12,22 @@
 /* 로그인버튼 */
 #loginbutton {
 	position: relative;
-	top: -190px;
-	left: 1350px;
 }
 /* 마이페이지 */
 #mypage {
 	position: relative;
-	top: -210px;
-	left: 1300px;
 }
 /* 로그아웃 */
 #logout {
 	position: relative;
-	top: -243px;
-	left: 1400px;
 }
 /* 게시물등록하기 */
 #snsInsertButton {
 	position: fixed;
-	top: 200px;
-	left: 20px;
 }
 /* 홈으로 */
 #logo {
 	position: relative;
-	top: -135px;
-	left: 300px;
 	
 	/* border: 0;
 	outline: 0; */
@@ -378,19 +368,8 @@ function dfs_xy_conv(code, v1, v2) {
 
 </head>
 <body>
-
-	<div id="head">
-		<div class="row">
-			<header>
-				<!-- <img src="resources/files/images/mountains.jpg" alt="Mountains">
-			 -->
-				<div class="name fancy-font">Hanamichi</div>
-				<div class="titles">
-					<h1>
-						Welcome to <span>Harulook!</span>
-					</h1>
-				</div>
-			</header>
+		<div id="head" class="row">
+			<div class="col-xs-3 ">
 			<!-- 현재 날씨  -->
 			<div class="weather_body">
 				<div id="weaterIcon">
@@ -404,63 +383,52 @@ function dfs_xy_conv(code, v1, v2) {
 			<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
 			<%-- 권한 : <c:out value='${sessionScope.level}'/><br> --%>
 			<%-- 닉네임 : <c:out value='${sessionScope.nick}'/><br> --%>
+			</div>
+			
+			<div class="col-xs-6">
+			<div class="name fancy-font">
+				<h2>
+					<a href="${pageContext.request.contextPath}/home" style="color: black;"><i class="fa fa-umbrella" style="font-size:48px;color:black"></i>&nbsp haruloook
+					</a>
+				</h2>
+			</div>
+				<!-- <img src="./resources/logo.jpg" width="180px" height="50px"
+					class="img-rounded" alt="Cinque Terre"> -->
+			</div>
 
-			<form id="homeForm" action="${pageContext.request.contextPath}/home"
-				method="get">
-				<div>
-
-					<button class="btn btn-link" style="color: black;" id="logo" value="메인버튼"><div class="name fancy-font"><h2><i class="fa fa-umbrella" style="font-size:48px;color:black"></i>&nbsp haruloook</h2></div>
-						<!-- <img src="./resources/logo.jpg" width="180px" height="50px"
-							class="img-rounded" alt="Cinque Terre"> -->
-					</button>
-
-				</div>
-			</form>
-
-			<c:if test="${sessionScope.level == null}">
-				<!-- 로그인버튼 -->
-				<form id="login"
-					action="${pageContext.request.contextPath}/loginForm" method="get">
-					<div class="btn">
-						<input class="btn btn-default" id="loginbutton" type="button"
-							value="로그인하기" />
-					</div>
-				</form>
-			</c:if>
-			<br>
-
-			<c:if test="${sessionScope.level != null}">
-				<!-- 마이페이지 -->
-				<input class="btn btn-default" id="mypage" type="button"
-					value="마이페이지" />
-
-				<!-- 로그아웃 -->
-				<form id="logoutadd"
-					action="${pageContext.request.contextPath}/logout" method="post">
-					<div>
-						<input class="btn btn-default" id="logout" type="button"
-							value="로그아웃" />
-					</div>
-				</form>
-
-				<!--------팔로우등록 테스트양식------------------------------------------------------------------------------------  -->
-				<%-- <form id="followCheck" action="${pageContext.request.contextPath}/followCheck" method="post">
-			  			<input id="followId" name="followId" type="text" />
-			  			<input id="followCheckButton" type="button" value="입력"/>
-				</form>	 --%>
-			</c:if>
-
-			<!-- 게시물등록하기버튼 -->
-			<%-- <c:if test="${sessionScope.level == '일반회원'}">
-			  <form id="snsInsertForm" action="${pageContext.request.contextPath}/boardInsert" method="get">
-			 		<div>
-			 			<button class="btn btn-default" id="snsInsertButton" value="sns게시물등록하기">
-						<img src="./resources/sns_Insert.png" class="img-rounded" alt="Cinque Terre" width="50" height="40"></button>
-			 	 	</div>	
-			  </form>
-			</c:if> --%>
+		<div class="col-xs-3">
+					<c:if test="${sessionScope.level == null}">
+						<!-- 로그인버튼 -->
+						<form id="login" style="float:left;"
+							action="${pageContext.request.contextPath}/loginForm" method="get">
+							<div class="btn">
+								<input class="btn btn-default" id="loginbutton" type="button"
+									value="로그인하기" />
+							</div>
+						</form>
+					</c:if>
+					<br>
+				
+				
+					<c:if test="${sessionScope.level != null}">
+							<!-- 마이페이지 -->
+							<input class="btn btn-default" id="mypage" type="button"
+								value="마이페이지" style="float:left;"/>
+							<!-- 로그아웃 -->
+							<form id="logoutadd" style="float:left;"
+								action="${pageContext.request.contextPath}/logout" method="post">
+								<input class="btn btn-default" id="logout" type="button"
+									value="로그아웃" />
+							</form>
+						<!--------팔로우등록 테스트양식------------------------------------------------------------------------------------  -->
+						<%-- <form id="followCheck" action="${pageContext.request.contextPath}/followCheck" method="post">
+					  			<input id="followId" name="followId" type="text" />
+					  			<input id="followCheckButton" type="button" value="입력"/>
+						</form>	 --%>
+						
+					</c:if>
+				
 		</div>
-
 
 		<!-- 마이페이지 Modal -->
 		<div class="modal fade" id="myModal" role="dialog">
@@ -687,6 +655,6 @@ function dfs_xy_conv(code, v1, v2) {
 				</div>
 			</div>
 		</div>
-	</div>
+		</div>
 </body>
 </html>

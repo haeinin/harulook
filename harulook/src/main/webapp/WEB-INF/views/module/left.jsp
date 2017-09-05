@@ -36,19 +36,20 @@
 </script>
 </head>
 <body>
-
-<div class="col-xs-1">
-   <!-- 게시물등록하기버튼 -->
-			<c:if test="${sessionScope.level == '일반회원'}">
-			  <form id="snsInsertForm" action="${pageContext.request.contextPath}/boardInsert" method="get">
-			 		<div>
-			 			<button class="btn btn-default" id="snsInsertButton" value="sns게시물등록하기">
-						<img src="./resources/sns_Insert.png" class="img-rounded" alt="Cinque Terre" width="50" height="40"></button>
-			 	 	</div>	
-			  </form>
-			</c:if>
+<div class="row" style="height: 150px"></div>
+<div class="row">
+	<div class="col-sm-4"></div>
+	
+	<div class="col-xs-12 col-sm-4">
+	   <!-- 게시물등록하기버튼 -->
+		<c:if test="${sessionScope.level == '일반회원'}">
+			<form id="snsInsertForm" action="${pageContext.request.contextPath}/boardInsert" method="get">
+			
+				<button class="btn btn-default" id="snsInsertButton" value="sns게시물등록하기">
+				<img src="./resources/sns_Insert.png" class="img-rounded" alt="Cinque Terre" width="50" height="40"></button>
+			</form>
+		</c:if>
+	</div>
 </div>
-
-
 </body>
 </html>

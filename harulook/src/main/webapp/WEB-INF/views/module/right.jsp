@@ -10,23 +10,19 @@
 /* 제휴광고버튼 */
 #add {
 	position: fixed;
-	top: 200px;
-	left: 1420px;
 }
 
 </style>
 
 </head>
 <body>
-
-<div class="col-xs-2">
-	<div id=add>
-		<a href="${pageContext.request.contextPath}/mallMain" target="_blank">
-		<img src="resources/beaneo2.png" >
-		</a>
+	<div class="row" style="height: 100px;"></div>
+	<div class="row">
+		<div id=add>
+			<a href="${pageContext.request.contextPath}/mallMain" target="_blank">
+			<img src="resources/beaneo2.png" >
+			</a>
+		</div>
 	</div>
-</div>
-
-
 </body>
 </html>

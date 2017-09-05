@@ -49,7 +49,9 @@
 	<c:import url="../module/header.jsp"></c:import>	
 	<!-- 바디 인클루드 -->
     <div class="row">
-	    <div class="col-xs-1"></div>
+	    <div class="col-xs-1">
+	    	<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+	    </div>
 	    <div id="div1" class="col-xs-9">
 			<!-- 친구 리스트 -->
 			<div class="container">
@@ -85,7 +87,9 @@
 		</div>	
 	    
 		<!-- 우측 베너 인클루드 -->
+		<div class="col-xs-2">
 	    <c:import url="../module/right.jsp"></c:import>
+	    </div>
     </div>
     <!-- 하단 인클루드 -->
     <c:import url="../module/footer.jsp"></c:import>   	

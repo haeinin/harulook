@@ -3,9 +3,13 @@ function boardDetail(msg) {
 	
 	console.log('boardDatil : ',msg);
 	
+	var imgWidth = $('#snsDetailImgArea').width();
+	console.log('snsDetailImgArea width : '+imgWidth); 
+	$('#detailImg').width(imgWidth);
+	
 	/* 게시물 상세보기 이미지 */
 	var snsDetailImg = '';
-	snsDetailImg += '<img id="detailImg" alt="no image" style="max-width: 580px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.board.snsBoardImg+'">';
+	snsDetailImg += '<img id="detailImg" alt="no image" style="width: 100%; height: 100%;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.board.snsBoardImg+'">';
 	
 	$('#snsDetailImg').html(snsDetailImg);
 	/* 게시물 상세정보 */
@@ -215,6 +219,8 @@ function boardDetail(msg) {
 	snsDetailCommentControll += '<button type="button" id="commentBtn">등록</button>';
 	$('#snsDetailCommentControll').html(snsDetailCommentControll);
 	
+	$('#contentArea').height($('#detailImg').height());
+	console.log('contentArea height : ',$('#detailImg').height());
 	/* 댓글 등록 버튼 클릭 */
 	$('#commentBtn').click(function(){
 		var snsCommentContent = $('#commentValue').val();
@@ -255,7 +261,6 @@ function boardDetail(msg) {
 			})
 			$('#commentValue').val('');
 		}
-		$('#snsDetailContent').css('max-height',$('#detailImg').height);
 	});
 	
 	/* 게시물 수정,삭제 dropdown */

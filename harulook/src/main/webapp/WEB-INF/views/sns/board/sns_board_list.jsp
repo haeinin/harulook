@@ -22,14 +22,14 @@
 <!-- 댓글 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- sns스타일 탬플릿 css-->
-<link rel="stylesheet" type="text/css" href="resources/css/style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
 <!-- 예뻐요 아이콘 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- 게시글 필터 버튼 모양 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
 <c:set value="${sessionScope.id}" var="sessionId" />
-<script type="text/javascript" src="resources/js/boardDetail.js?ver=1"></script>
+<script type="text/javascript" src="resources/js/boardDetail.js"></script>
 <script type="text/javascript" src="resources/js/followCheck.js"></script>
 <c:set value="${boardCount}" var="boardCount"></c:set>
 <script type="text/javascript">
@@ -56,7 +56,7 @@ function showDetail(data) {
 		}
 		
 		console.log('index : ',index);
-		console.log('data[',index,'].snsBoardNo : ',boardNo);
+		console.log('data[',index,'].snsBoardNo : ',boardNo,'');
 		
 		
 		var boardDetailRequest = $.ajax({
@@ -192,120 +192,123 @@ $(function(){
 </script>
 </head>
 <body>
-<br>
-<div class="row">
-	<div class="col-xs-1"></div>
-	<div class="col-xs-11">
-		<!-- sns 게시물 검색 항목 -->	    
-		<a href="#demo" data-toggle="collapse" style="color: black;"><h5>게시물 필터 <i class="fa fa-bars"></i></h5></a>
-		<div id="demo" class="collapse">
-			<div class="searchGroup">
-				<label for="snsBoardWeather">날씨 :</label>
-				<select class="searchCategory" name="snsBoardWeather" id="snsBoardWeather">
-					<option></option>
-					<option>맑음</option>
-					<option>구름조금</option>
-					<option>흐림</option>
-					<option>비</option>
-					<option>눈</option>
-				</select>
-			    
-			    <label for="snsBoardTall">키 :</label>
-			    <select class="searchCategory" name="snsBoardTall" id="snsBoardTall">
-			    	<option></option>
-			    	<option>큰키</option>
-			    	<option>보통키</option>
-			    	<option>작은키</option>
-			    </select>
-			    
-			    <label for="snsBoardSize">체형 :</label>
-			    <select class="searchCategory" name="snsBoardSize" id="snsBoardSize">
-			    	<option></option>
-			    	<option>마른</option>
-			    	<option>보통</option>
-			    	<option>뚱뚱</option>
-			    </select>
+	<br>
+	<div class="row">
+		<div class="col-xs-2"></div>
+		<div class="col-xs-9">
+			<!-- sns 게시물 검색 항목 -->	    
+			<h5><a href="#demo" data-toggle="collapse" style="color: black;">게시물 필터 <i class="fa fa-bars"></i></a></h5>
+			<div id="demo" class="collapse">
+				<div class="searchGroup">
+					<label for="snsBoardWeather">날씨 :</label>
+					<select class="searchCategory" name="snsBoardWeather" id="snsBoardWeather">
+						<option></option>
+						<option>맑음</option>
+						<option>구름조금</option>
+						<option>흐림</option>
+						<option>비</option>
+						<option>눈</option>
+					</select>
+				    
+				    <label for="snsBoardTall">키 :</label>
+				    <select class="searchCategory" name="snsBoardTall" id="snsBoardTall">
+				    	<option></option>
+				    	<option>큰키</option>
+				    	<option>보통키</option>
+				    	<option>작은키</option>
+				    </select>
+				    
+				    <label for="snsBoardSize">체형 :</label>
+				    <select class="searchCategory" name="snsBoardSize" id="snsBoardSize">
+				    	<option></option>
+				    	<option>마른</option>
+				    	<option>보통</option>
+				    	<option>뚱뚱</option>
+				    </select>
+				
+				    <label for="snsBoardLoc">지역 :</label>
+				    <select class="searchCategory" name="snsBoardLoc" id="snsBoardLoc">
+				    	<option></option>
+				    	<option>서울</option>
+				    	<option>경기</option>
+				    	<option>강원</option>
+				    	<option>충남</option>
+				    	<option>충북</option>
+				    	<option>전북</option>
+				    	<option>전남</option>
+				    	<option>경북</option>
+				    	<option>경남</option>
+				    	<option>제주</option>
+				    	<option>세종</option>
+				    </select>
+				
+				    <label for="snsBoardGender">성별 :</label>
+				    <input class="searchCategory" name="snsBoardGender" id="snsBoardGender" type="radio" value="여">여
+				    <input class="searchCategory" name="snsBoardGender" id="snsBoardGender" type="radio" value="남">남
 			
-			    <label for="snsBoardLoc">지역 :</label>
-			    <select class="searchCategory" name="snsBoardLoc" id="snsBoardLoc">
-			    	<option></option>
-			    	<option>서울</option>
-			    	<option>경기</option>
-			    	<option>강원</option>
-			    	<option>충남</option>
-			    	<option>충북</option>
-			    	<option>전북</option>
-			    	<option>전남</option>
-			    	<option>경북</option>
-			    	<option>경남</option>
-			    	<option>제주</option>
-			    	<option>세종</option>
-			    </select>
-			
-			    <label for="snsBoardGender">성별 :</label>
-			    <input class="searchCategory" name="snsBoardGender" id="snsBoardGender" type="radio" value="여">여
-			    <input class="searchCategory" name="snsBoardGender" id="snsBoardGender" type="radio" value="남">남
-		
-			    <label for="snsBoardAge">나이 :</label>
-			    <select class="searchCategory" name="snsBoardAge" id="snsBoardAge">
-			    	<option></option>
-			    	<option>10</option>
-			    	<option>20</option>
-			    	<option>30</option>
-			    	<option>40</option>
-			    	<option>50</option>
-			    </select>
+				    <label for="snsBoardAge">나이 :</label>
+				    <select class="searchCategory" name="snsBoardAge" id="snsBoardAge">
+				    	<option></option>
+				    	<option>10</option>
+				    	<option>20</option>
+				    	<option>30</option>
+				    	<option>40</option>
+				    	<option>50</option>
+				    </select>
+				</div>
+				<div class="form-group">
+					<label for="searchSnsBoardStyle">스타일 :</label>		
+					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
+					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
+					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
+					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트
+					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디
+					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리
+					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리
+					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱
+					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플
+					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브
+				</div>
+				<div class="form-group">
+			      	<label for="searchSnsBoardColor">색상 :</label>
+			     	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01">빨강
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02">주황
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03">노랑
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04">초록
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05">파랑
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06">남색
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07">보라
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08">검정
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09">회색
+			    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10">흰색
+			    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11">갈색
+			    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12">베이지
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13">핑크       	
+			    </div>
+			    <div class="form-group">
+			      	<label class="searchCategory" for="searchSnsBoardSituation">상황 :</label>
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_01">학교
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_02">출근
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_03">파티
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_04">여행
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_05">운동
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이
+			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객    	
+			    </div>
+			    <div class="form-group">
+			    	<label class="searchCategory" for="userId">아이디 :</label>
+			    	<input type="text" class="searchCategory" id="userId" name="userId">
+			    	<input type="button" value="검색">
+			    </div>
 			</div>
-			<div class="form-group">
-				<label for="searchSnsBoardStyle">스타일 :</label>		
-				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
-				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
-				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
-				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트
-				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디
-				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리
-				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리
-				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱
-				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플
-				<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브
-			</div>
-			<div class="form-group">
-		      	<label for="searchSnsBoardColor">색상 :</label>
-		     	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01">빨강
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02">주황
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03">노랑
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04">초록
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05">파랑
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06">남색
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07">보라
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08">검정
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09">회색
-		    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10">흰색
-		    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11">갈색
-		    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12">베이지
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13">핑크       	
-		    </div>
-		    <div class="form-group">
-		      	<label class="searchCategory" for="searchSnsBoardSituation">상황 :</label>
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_01">학교
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_02">출근
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_03">파티
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_04">여행
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_05">운동
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이
-		      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객    	
-		    </div>
-		    <div class="form-group">
-		    	<label class="searchCategory" for="userId">아이디 :</label>
-		    	<input type="text" class="searchCategory" id="userId" name="userId">
-		    	<input type="button" value="검색">
-		    </div>
-		</div>
-		<!-- sns 게시물 검색 항목 -->
-
-
+			<!-- sns 게시물 검색 항목 -->
+			<div class="col-xs-1"></div>
+	</div>
+	
+	<div class="row">
+	<div class="col-xs-2"></div>
 	<!-- sns 게시물 목록 영역 -->
-    <div class="col-xs-12">
+    <div class="col-xs-9">
         <div class="instagram-content">
         
             <h3>최근 게시물</h3>
@@ -316,7 +319,7 @@ $(function(){
 				<div class="sns-photo-box">
 					<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
 					<div class="image-wrap">
-						<img style="height: 100%;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
+						<img style="height: auto; max-width: 300px; max-height: 300px; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
 						<div class="likes">
 							<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>
 							<span class="center">&nbsp;${b.snsLikeCount}&nbsp;&nbsp;&nbsp;</span>
@@ -343,21 +346,19 @@ $(function(){
 		        <div class="row">
 		        
 		        	<!-- 게시물 이미지 영역 -->
-			        <div class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
+			        <div id="snsDetailImgArea" class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
 						<div id="snsDetailImg"></div>
 		        	</div>
 		        	<!-- 게시물 이미지 영역 -->
 		        	
 		        	<!-- 게시물 내용 영역 -->
-			        <div class="modal-body col-xs-12 col-sm-6">
+			        <div id="contentArea" class="modal-body col-xs-12 col-sm-6">
 			        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
-			        	<div id="snsDetailScroll" style="overflow: atuo">
-			        		<div id="snsDetailContent"></div>
-			        		<hr>
-			        	
-				        	<div id="snsDetailLike"></div>
-				        	<div id="snsDetailComment"></div>
-			        	</div>
+		        		<div id="snsDetailContent"></div>
+		        		<hr>
+		        	
+			        	<div id="snsDetailLike"></div>
+			        	<div id="snsDetailComment"></div>
 			        	<hr>
 			        	<c:if test="${sessionScope.id != null}">
 			        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">
