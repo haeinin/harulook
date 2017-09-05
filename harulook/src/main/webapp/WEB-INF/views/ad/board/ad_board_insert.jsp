@@ -92,18 +92,6 @@ pageEncoding="UTF-8"%>
             	case 2 :
             		$('#ad-2').show();
             		break;
-            	case 3 :
-            		$('#ad-3').show();
-            		break;
-            	case 4 :
-            		$('#ad-4').show();
-            		break;
-            	case 5 :
-            		$('#ad-5').show();
-            		break;
-            	case 6 :
-            		$('#ad-6').show();
-            		break;	
             	}
             });
            /*****************************************/
@@ -172,26 +160,15 @@ pageEncoding="UTF-8"%>
             $('#ad-1cancel').click(function(){
             	$('#ad-1').hide();
             	$('.ad-1').val("");
+            	i--;
+            	console.log('게시물의 수  : ' + i);
             });
        		$('#ad-2cancel').click(function(){
                	$('#ad-2').hide();
                	$('.ad-2').val("");
+               	i--;
+               	console.log('게시물의 수  : ' + i);
             });
-       		$('#ad-3cancel').click(function(){
-               	$('#ad-3').hide();
-               	$('.ad-3').val("");
-            });
-       		$('#ad-4cancel').click(function(){
-               	$('#ad-4').hide();
-               	$('.ad-4').val("");
-            });
-       		$('#ad-5cancel').click(function(){
-               	$('#ad-5').hide();
-               	$('.ad-5').val("");
-            });
-       		$('#ad-6cancel').click(function(){
-               	$('#ad-6').hide();
-               	$('.ad-6').val("");
             });
        		/******************************/
             		
