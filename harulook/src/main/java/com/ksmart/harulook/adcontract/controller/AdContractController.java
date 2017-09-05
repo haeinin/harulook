@@ -1,9 +1,6 @@
 package com.ksmart.harulook.adcontract.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 
@@ -28,37 +25,32 @@ public class AdContractController {
 	private AdRefundDao adrefunddao;
 	/************/
 	
-/* 세션 적용전 사용하던 코드
- * 	@RequestMapping(value="/adContractListAdmin",method = RequestMethod.GET)
-	public String adContractListAdmin(HttpSession session) {
-		session.setAttribute("SA", "관리자");
-		System.out.println("SA : " + session.getAttribute("SA"));
-		return "ad/contract/ad_contract_list_in";
+	@RequestMapping(value="/adContractUpdate",method = RequestMethod.POST)
+	public String adContractUpdate(AdContractDto adcontract){
+		System.out.println("계약 수정 요청");
+		adcontractdao.updateAdContract(adcontract);
+		return "redirect:/adContractList";
 	}
-	@RequestMapping(value="/adContractListAdUser",method = RequestMethod.GET)
-	public String adContractListAdUser(HttpSession session) {
-		session.setAttribute("SA", "광고주");
-		session.setAttribute("SID", "id001");
-		System.out.println("SA : " + session.getAttribute("SA"));
-		System.out.println("SID : " + session.getAttribute("SID"));
-		return "ad/contract/ad_contract_list_in";
-	} 
-<<<<<<< HEAD
-	@RequestMapping(value="/adContractList",method = RequestMethod.GET)
-=======
 	
-	/*@RequestMapping(value="/adContractList",method = RequestMethod.GET)
->>>>>>> refs/remotes/origin/kmg880311
-	public String adContractList() {
-		return "ad/contract/ad_contract_list";
-	} */
-
+	
+	@RequestMapping(value="/adContractUpdate",method = RequestMethod.GET)
+	public String adContractUpdateForm(Model model
+								      ,@RequestParam("adContractNo") String adcontractno){
+		System.out.println("계약 수정 폼 요청");
+		AdContractDto adContract = adcontractdao.selectAdContractByContractNo(adcontractno);
+		model.addAttribute("adcontract", adContract);
+		System.out.println(model);
+		return "ad/contract/ad_contract_update";
+	}
 	/*광고리스트 요청*/
 
 	@RequestMapping(value="/adContractList",method = RequestMethod.GET)
 	public String adContractList(Model model, HttpSession session) {
 		System.out.println("광고 계약 현황 리스트 요청");
-		List<AdContractDto> adcontractlist = null;
+		List<AdContractDto> adContractListSoon = null;
+		List<AdContractDto> adContractListApproveWait = null;
+		List<AdContractDto> adContractListAdBoardInsertWait = null;
+		List<AdContractDto> adContractCancelRequest = null;
 		AdContractDto adContractPlace1 = adcontractdao.getAdContractListCurrentPlace1();
 		AdContractDto adContractPlace2 = adcontractdao.getAdContractListCurrentPlace2();
 		AdContractDto adContractPlace3 = adcontractdao.getAdContractListCurrentPlace3();
@@ -66,18 +58,25 @@ public class AdContractController {
 		System.out.println("현재 진행중인 광고 리스트 요청");
 		String SA = (String)session.getAttribute("level");
 		String SID = (String)session.getAttribute(("id"));
-
 			System.out.println(SA);
 			System.out.println(SID);
-
 		if(SA.equals("관리자")){
-			adcontractlist = adcontractdao.getAdContractList();
-			System.out.println("권한 : " + SA + "모든광고 계약 리스트 출력");
+			adContractListSoon = adcontractdao.getAdContractSoonList();
+			adContractListApproveWait = adcontractdao.getAdContractApproveWaitList();
+			adContractListAdBoardInsertWait = adcontractdao.getAdContractAdBoardInsertWaitList();
+			adContractCancelRequest = adcontractdao.getAdContractCancelRequestList();
+			System.out.println("권한 : " + SA + "모든광고 예정 계약 리스트 출력");
 		}else if(SA.equals("사업자")){
-			adcontractlist = adcontractdao.getAdContractList(SID);
-			System.out.println("권한 : " + SA + "광고주 ID에 해당하는 계약 리스트 출력");
+			adContractListSoon = adcontractdao.getAdContractSoonList(SID);
+			adContractListApproveWait = adcontractdao.getAdContractApproveWaitListByUser(SID);
+			adContractListAdBoardInsertWait = adcontractdao.getAdContractAdBoardInsertWaitListByUser(SID);
+			adContractCancelRequest = adcontractdao.getAdContractCancelRequestList(SID);
+			System.out.println("권한 : " + SA + "광고주 ID에 해당하는 광고 예정 계약 리스트 출력");
 		}
-		model.addAttribute("adcontractlist", adcontractlist);
+		model.addAttribute("adcontractsoonlist", adContractListSoon);
+		model.addAttribute("adcontractlistapprovewait", adContractListApproveWait);
+		model.addAttribute("adcontractadboardinsertwaitlist", adContractListAdBoardInsertWait);
+		model.addAttribute("adcontractcancelrequestlist", adContractCancelRequest);
 		model.addAttribute("adContractPlace1",  adContractPlace1);
 		model.addAttribute("adContractPlace2",  adContractPlace2);
 		model.addAttribute("adContractPlace3",  adContractPlace3);
@@ -130,15 +129,13 @@ public class AdContractController {
 		System.out.println(model);
 		return "ad/pay/ad_pay";
 	}
-	
+
 	/*광고주가 광고 승인전 계약 취소를 요청했을때*/
 	@RequestMapping(value="/deleteContract", method = RequestMethod.GET)
 	public String modifyContractStat(@RequestParam("adContractNo") String adcontractno) {
-		
 		System.out.println("adContractNo : " + adcontractno );
 		adcontractdao.modifyContractStat(adcontractno);
 		System.out.println("취소 요청 완료");
-		
 		return "redirect:/adContractList";
 	}
 	/*광고주가 요청한 광고를 관리자가 승인할때*/

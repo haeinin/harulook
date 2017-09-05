@@ -7,7 +7,7 @@ public class AdBoardDto {
 	private String adBoardGoods2;
 	private String adBoardTempMin;
 	private String adBoardTempMax;
-	private String adBoardImage;
+	private String adBoardImg;
 	private String adBoardDate;
 	private String adBoardContent;
 	
@@ -54,10 +54,10 @@ public class AdBoardDto {
 		this.adBoardTempMax = adBoardTempMax;
 	}
 	public String getAdBoardImage() {
-		return adBoardImage;
+		return adBoardImg;
 	}
 	public void setAdBoardImage(String adBoardImage) {
-		this.adBoardImage = adBoardImage;
+		this.adBoardImg = adBoardImage;
 	}
 	public String getAdBoardDate() {
 		return adBoardDate;
@@ -69,7 +69,7 @@ public class AdBoardDto {
 	public String toString() {
 		return "AdBoardDto [adBoardNo=" + adBoardNo + ", adContractNo=" + adContractNo + ", adBoardGoods1="
 				+ adBoardGoods1 + ", adBoardGoods2=" + adBoardGoods2 + ", adBoardTempMin=" + adBoardTempMin
-				+ ", adBoardTempMax=" + adBoardTempMax + ", adBoardImage=" + adBoardImage + ", adBoardDate="
+				+ ", adBoardTempMax=" + adBoardTempMax + ", adBoardImage=" + adBoardImg + ", adBoardDate="
 				+ adBoardDate + ", adBoardContent=" + adBoardContent + "]";
 	}
 	

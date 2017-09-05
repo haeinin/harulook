@@ -21,46 +21,49 @@
 <!-- jQuery UI 라이브러리 js파일 -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 </head>
-<body>
-	<div id="container">
-		  <table class="table table-striped">
-        <thead>
-            <tr>
-            	<th>환불번호</th>
-                <th>계약번호</th>
-                <th>환불금액</th>
-                <th>환불신청일자</th>
-                <th>환불일자</th>
-                <th>환불상태 </th>
-                <th>비고</th>
-            </tr>
-        </thead>
-        <tbody>
+		<c:import url="../../module/header.jsp"></c:import>	
+			<div id="container">
+				  <table class="table table-striped">
+		        <thead>
+		            <tr>
+		            	<th>환불번호</th>
+		                <th>계약번호</th>
+		                <th>아이디</th>
+		                <th>환불금액</th>
+		                <th>환불신청일자</th>
+		                <th>환불일자</th>
+		                <th>환불상태 </th>
+		                <th>비고</th>
+		            </tr>
+		        </thead>
+		        <tbody>
         <c:forEach var="b" items="${adrefundlist}">
-            <tr>
-            		<td>${b.refundNo}</td>
-                    <td>${b.adContractNo}</td>
-                    <td>${b.refundPrice}</td>
-                    <td>${b.refundRequestDate}</td>
-                    <td>${b.refundDate}</td>
-                    <td>${b.refundStat}</td>
-                    <td>
-                    	<c:if test="${sessionScope.level=='관리자'}">
-                    	<c:if test="${b.refundStat=='결제정보입력대기'}"></c:if>
-                    	<c:if test="${b.refundStat=='환불정보입력완료'}"><a href="./approveRefund?refundNo=${b.refundNo}">환불 승인</a></c:if>
-                    	</c:if>
-                    	<c:if test="${sessionScope.level=='사업자'}">
-                    	<c:if test="${b.refundStat=='결제정보입력대기'}"><a href="./insertRefundValue?refundNo=${b.refundNo}">환불정보입력</a></c:if>
-                    	<c:if test="${b.refundStat=='환불정보입력완료'}"></c:if>
-                    	</c:if>
-                    </td>
-                </tr>
-                </c:forEach>
-        </tbody>
-    </table>
-	</div>
-	
-	
-	
-</body>
-</html>
+		            <tr>
+		            		<td>${b.refundNo}</td>
+		                    <td>${b.adContractNo}</td>
+		                    <td>${b.userId}</td>
+		                    <td>${b.refundPrice}</td>
+		                    <td>${b.refundRequestDate}</td>
+		                    <td>${b.refundDate}</td>
+		                    <td>${b.refundStat}</td>
+		                    <td>
+		                    	<c:if test="${sessionScope.level=='관리자'}">
+		                    	<c:if test="${b.refundStat=='결제정보입력대기'}"></c:if>
+		                    	<c:if test="${b.refundStat=='환불정보입력완료'}"><a href="./approveRefund?refundNo=${b.refundNo}">환불 승인</a></c:if>
+		                    	</c:if>
+		                    	<c:if test="${sessionScope.level=='사업자'}">
+		                    	<c:if test="${b.refundStat=='결제정보입력대기'}"><a href="./insertRefundValue?refundNo=${b.refundNo}">환불정보입력</a></c:if>
+		                    	<c:if test="${b.refundStat=='환불정보입력완료'}"></c:if>
+		                    	</c:if>
+		                    </td>
+		                </tr>
+		                </c:forEach>
+		        </tbody>
+		    </table>
+			</div>
+		<!-- 우측 베너 인클루드 -->
+        <div class="col-xs-2">
+    		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
+       	</div>
+    <!-- 하단 인클루드 -->
+    <c:import url="../../module/footer.jsp"></c:import>

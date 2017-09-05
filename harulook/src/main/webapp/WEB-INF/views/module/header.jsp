@@ -421,7 +421,7 @@ function dfs_xy_conv(code, v1, v2) {
 				
 				
 					<c:if test="${sessionScope.level != null}">
-					<div id="mypageDropdown" class="container">
+					<div id="mypageDropdown">
 				<div class="dropdown">
 					<button class="btn btn-default dropdown-toggle" style="float:left;" type="button" data-toggle="dropdown">마이페이지
 					<span class="caret"></span></button>

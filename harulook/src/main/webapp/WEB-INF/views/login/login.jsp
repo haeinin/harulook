@@ -13,14 +13,14 @@
        	  position: relative;
           height: 600px;
           top: 120px;
-          left: 100px;
+          /* left: 100px; */
        }
        
        #div2 {
        	  position: relative;
           height: 600px;
           top: 10px;
-          left: 300px;
+          /* left: 300px; */
        }
        
        #loginTitle{	
@@ -169,15 +169,17 @@
 	<!-- 해더인클루드 -->
 	<c:import url="../module/header.jsp"></c:import>	
 	<!-- 바디 인클루드 -->
+	
     <div class="row">
-		<div class="col-xs-2"></div>
+		<div class="col-xs-1">
+	    <c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+	    </div>
+		<div class="col-xs-1"></div>
 		  
 		    
 			
-				<div class="row">
-					<div class="page-header">
-			  	    <h2 id="loginTitle">로그인</h2>
-					</div>
+				
+					
 						<div id="div2" class="col-md-3">
 							  <div class="login-box well">
 									<form id=loginAddR accept-charset="UTF-8" role="form" method="post" action="${pageContext.request.contextPath}/loginAdd">
@@ -193,13 +195,13 @@
 									<input name="userPw" id="user_pw" placeholder="Password" type="password" class="form-control" /><br>
 									<span>${loginCheck}</span><br>
 									</div>
-									
+									</form>
 									<div class="form-group">
 										<!-- 로그인버튼 -->
 									        <input id="loginButton" type="submit" class="btn btn-default btn-login-submit btn-block m-t-md" value="로그인" />
 									
 									   
-									</form>
+									
 									 <!-- 회원가입하기 -->
 									<form id=userinserform action="${pageContext.request.contextPath}/member_user_insert" method="get">
 										<input class="btn btn-default btn-login-submit btn-block m-t-md" type="submit" value="회원가입"/>
@@ -216,13 +218,51 @@
 									<!-- 비밀번호찾기 -->
 									<input id="pwfindbutton" class="btn btn-default btn-login-submit btn-block m-t-md" type="button" value="비밀번호찾기"/>
 								</div>
-					     </div>
-				     </div>
+							</div>
+					    </div>
+				     
 				 
 			
 		    
 				
-		<!-- 아이디찾기 modal-->
+		
+			
+		
+		<div class="col-xs-2"></div>
+	    <div id="div1" class="col-xs-3">
+	           	<div class="btn-group-vertical">
+	           		<div class="well">
+	           		<h2>&nbsp;간편 로그인</h2>
+					<!-- 일반회원자동로그인 -->
+				    <form id=loginAddUser action="${pageContext.request.contextPath}/loginAdd" method="post">
+				    	<input name="userId" id="user_id" type="hidden" value="id003" />
+			            <input name="userPw" id="user_pw" type="hidden" value="pw003"/>
+			            <input class="btn btn-warning" style="WIDTH: 130pt; HEIGHT: 27pt" id="loginUser" type="button" value="일반회원자동로그인"/>
+				    </form>
+				    
+				    <!-- 관리자자동로그인 -->
+				    <form id=loginAddManager action="${pageContext.request.contextPath}/loginAdd" method="post">
+				    	<input name="userId" id="user_id" type="hidden" value="id001"/>
+			            <input name="userPw" id="user_pw" type="hidden" value="321321"/>
+			            <input class="btn btn-warning" style="WIDTH: 130pt; HEIGHT: 27pt" id="loginManager" type="button" value="관리자자동로그인"/>
+				    </form>
+				    
+				    <!-- 사업자자동로그인 -->
+				    <form id=loginAddBusiness action="${pageContext.request.contextPath}/loginAdd" method="post">
+				    	<input name="userId" id="user_id" type="hidden" value="id004"/>
+			            <input name="userPw" id="user_pw" type="hidden" value="pw004"/>
+			            <input class="btn btn-warning" style="WIDTH: 130pt; HEIGHT: 27pt" id="loginBusiness" type="button" value="사업자자동로그인"/>
+				    </form>
+				    </div>
+				</div>
+		</div>
+		 
+		<!-- 우측 베너 인클루드 -->
+        <div class="col-xs-2">
+    		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
+       	</div>
+       	
+       	<!-- 아이디찾기 modal-->
 		<div class="modal fade" id="idFindModal" role="dialog">
 		  	<div class="modal-dialog">
 		 			<!-- Modal content-->
@@ -325,44 +365,7 @@
 				       	</div>
 				 	 </div>
 				</div>
-			
-		
-		<div class="col-xs-2"></div>
-	    <div id="div1" class="col-xs-3">
-			<div class="container">
-	           	<div class="btn-group-vertical">
-	           		<div class="well">
-	           		<h2>&nbsp;간편 로그인</h2>
-					<!-- 일반회원자동로그인 -->
-				    <form id=loginAddUser action="${pageContext.request.contextPath}/loginAdd" method="post">
-				    	<input name="userId" id="user_id" type="hidden" value="id003" />
-			            <input name="userPw" id="user_pw" type="hidden" value="pw003"/>
-			            <input class="btn btn-warning" style="WIDTH: 130pt; HEIGHT: 27pt" id="loginUser" type="button" value="일반회원자동로그인"/>
-				    </form>
-				    
-				    <!-- 관리자자동로그인 -->
-				    <form id=loginAddManager action="${pageContext.request.contextPath}/loginAdd" method="post">
-				    	<input name="userId" id="user_id" type="hidden" value="id001"/>
-			            <input name="userPw" id="user_pw" type="hidden" value="321321"/>
-			            <input class="btn btn-warning" style="WIDTH: 130pt; HEIGHT: 27pt" id="loginManager" type="button" value="관리자자동로그인"/>
-				    </form>
-				    
-				    <!-- 사업자자동로그인 -->
-				    <form id=loginAddBusiness action="${pageContext.request.contextPath}/loginAdd" method="post">
-				    	<input name="userId" id="user_id" type="hidden" value="id004"/>
-			            <input name="userPw" id="user_pw" type="hidden" value="pw004"/>
-			            <input class="btn btn-warning" style="WIDTH: 130pt; HEIGHT: 27pt" id="loginBusiness" type="button" value="사업자자동로그인"/>
-				    </form>
-				    </div>
-				</div>
-			</div>
-		</div>
-		 
-		<div class="col-xs-2">
-			<!-- 우측 베너 인클루드 -->
-		    <c:import url="../module/right.jsp"></c:import>
-	    </div>
-   </div>
+	</div>
     <!-- 하단 인클루드 -->
     <c:import url="../module/footer.jsp"></c:import>
     

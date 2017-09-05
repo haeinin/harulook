@@ -55,10 +55,13 @@ $(function(){
 </head>
 <body>
 	<!-- 해더인클루드 -->
-	<c:import url="../../module/header.jsp"></c:import>	
+	<c:import url="/WEB-INF/views/module/header.jsp"></c:import>	
 	<!-- 바디 인클루드 -->
     <div class="row">
-	    <div class="col-xs-1"></div>
+    <!-- 좌측 베너 인클루드 -->
+    	<div class="col-xs-1">
+    		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+    	</div>
 	    <div id="div1" class="col-xs-9">
 		게시물 입력 화면
 			<div class="container">
@@ -186,9 +189,11 @@ $(function(){
 	    </div>	
 	    
 		<!-- 우측 베너 인클루드 -->
-	    <c:import url="../../module/right.jsp"></c:import>
+        <div class="col-xs-2">
+    		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
+       	</div>
     </div>
     <!-- 하단 인클루드 -->
-    <c:import url="../../module/footer.jsp"></c:import>   
+    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>   
 </body>
 </html>

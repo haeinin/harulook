@@ -12,7 +12,35 @@
  	<result property="adContractEnd" column="ad_contract_end"/>
  	<result property="adContractPrice" column="ad_contract_price"/>
  	<result property="adContractStat" column="ad_contract_stat"/> 	
+ 	<result property="adCostNo" column="ad_cost_no"/>
+ 	<result property="adDcNo" column="ad_dc_no"/>	
  </resultMap>
+ <update id="updateAdContract">
+ 	UPDATE ad_contract
+	SET
+		ad_contract_place=#{adContractPlace}
+	   ,ad_contract_start=#{adContractStart}
+	   ,ad_contract_end=#{adContractEnd}
+	   ,ad_contract_date=date(now())
+	   ,ad_cost_no=#{adCostNo}
+	   ,ad_dc_no=#{adDcNo}
+	   ,ad_contract_price=#{adContractPrice}
+	WHERE ad_contract_no=#{adContractNo}
+ </update>
+ 
+ <select id="SelectAdContractByContractNo" resultMap="AdContractList">
+ 	SELECT ad_contract_no
+		,user_id
+		,ad_contract_place
+		,ad_contract_start
+		,ad_contract_end
+		,ad_contract_date
+		,ad_cost_no
+		,ad_dc_no
+		,ad_contract_price
+	FROM ad_contract
+	WHERE ad_contract_no = #{adcontractno}
+ </select>
  <!-- 광고 상태 변경(광고중 -> 계약만료)해야하는 변경 -->
  <update id="UpdateIngContract">
 	UPDATE ad_contract
@@ -87,8 +115,8 @@
 	WHERE ad_contract_place='3' AND 
 	      ad_contract_stat='광고진행중'
  </select>
- <!-- 관리자로 접속헀을때 진행될 예정인 모든광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외 로 -->
- <select id ="selectAdContractList"  resultMap="AdContractList">
+  <!-- 관리자로 접속헀을때 진행될 예정인 모든광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외 로 -->
+ <select id ="selectAdContractListAdBoardInsertWait"  resultMap="AdContractList">
 	SELECT 
 		ad_contract.ad_contract_place
 		,ad_contract.ad_contract_no
@@ -102,11 +130,82 @@
 	JOIN user
 	ON ad_contract.user_id = user.user_id
 	WHERE ad_contract.ad_contract_end > date(now())
-		AND ad_contract.ad_contract_stat != '광고진행중'
+		AND ad_contract.ad_contract_stat = '광고등록대기'
 	ORDER BY ad_contract.ad_contract_start asc
  </select>
- <!-- 사업주로 접속했을때 진행될 예정인 자신의 광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외로 -->
-   <select id ="selectAdContractListByUser"  resultMap="AdContractList">
+   <select id ="selectAdContractListAdBoardInsertWaitByUser"  resultMap="AdContractList">
+	SELECT 
+		ad_contract.ad_contract_place
+		,ad_contract.ad_contract_no
+		,user.user_bs_name
+		,ad_contract.user_id
+		,ad_contract.ad_contract_start
+		,ad_contract.ad_contract_end
+		,ad_contract.ad_contract_price
+		,ad_contract.ad_contract_stat
+	FROM ad_contract
+	JOIN user
+	ON ad_contract.user_id = user.user_id
+	WHERE user.user_id = #{SID}
+		AND ad_contract.ad_contract_end > date(now())
+		AND ad_contract.ad_contract_stat = '광고등록대기'
+	ORDER BY ad_contract.ad_contract_start asc
+ </select>
+ <!-- 관리자로 접속헀을때 진행될 예정인 모든광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외 로 -->
+ <select id ="selectAdContractListSoon"  resultMap="AdContractList">
+	SELECT 
+		ad_contract.ad_contract_place
+		,ad_contract.ad_contract_no
+		,user.user_bs_name
+		,ad_contract.user_id
+		,ad_contract.ad_contract_start
+		,ad_contract.ad_contract_end
+		,ad_contract.ad_contract_price
+		,ad_contract.ad_contract_stat
+	FROM ad_contract
+	JOIN user
+	ON ad_contract.user_id = user.user_id
+	WHERE ad_contract.ad_contract_end > date(now())
+		AND ad_contract.ad_contract_stat = '광고대기'
+	ORDER BY ad_contract.ad_contract_start asc
+ </select>
+  <select id ="selectAdContractListSoonByUser"  resultMap="AdContractList">
+	SELECT 
+		ad_contract.ad_contract_place
+		,ad_contract.ad_contract_no
+		,user.user_bs_name
+		,ad_contract.user_id
+		,ad_contract.ad_contract_start
+		,ad_contract.ad_contract_end
+		,ad_contract.ad_contract_price
+		,ad_contract.ad_contract_stat
+	FROM ad_contract
+	JOIN user
+	ON ad_contract.user_id = user.user_id
+	WHERE user.user_id = #{SID}
+		AND ad_contract.ad_contract_end > date(now())
+		AND ad_contract.ad_contract_stat = '광고대기'
+	ORDER BY ad_contract.ad_contract_start asc
+ </select>
+ <!-- 관리자로 접속헀을때 진행될 예정인 모든광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외 로 -->
+ <select id ="selectAdContractListCancelRequest"  resultMap="AdContractList">
+	SELECT 
+		ad_contract.ad_contract_place
+		,ad_contract.ad_contract_no
+		,user.user_bs_name
+		,ad_contract.user_id
+		,ad_contract.ad_contract_start
+		,ad_contract.ad_contract_end
+		,ad_contract.ad_contract_price
+		,ad_contract.ad_contract_stat
+	FROM ad_contract
+	JOIN user
+	ON ad_contract.user_id = user.user_id
+	WHERE ad_contract.ad_contract_stat = '취소요청'
+	ORDER BY ad_contract.ad_contract_start asc
+ </select>
+   <!-- 사업주로 접속했을때 진행될 예정인 자신의 광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외로 -->
+   <select id ="selectAdContractListCancelRequestByUser"  resultMap="AdContractList">
 	SELECT 
 		ad_contract.ad_contract_no
 		,ad_contract.ad_contract_place
@@ -120,7 +219,43 @@
 	JOIN user
 	ON ad_contract.user_id = user.user_id
 	WHERE user.user_id = #{SID}
-		AND ad_contract.ad_contract_stat != '광고진행중'
+		AND ad_contract.ad_contract_stat = '취소요청'
+	ORDER BY ad_contract.ad_contract_start asc
+ </select>
+ <!-- 관리자로 접속헀을때 진행될 예정인 모든광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외 로 -->
+ <select id ="selectAdContractListAdWait"  resultMap="AdContractList">
+	SELECT 
+		ad_contract.ad_contract_place
+		,ad_contract.ad_contract_no
+		,user.user_bs_name
+		,ad_contract.user_id
+		,ad_contract.ad_contract_start
+		,ad_contract.ad_contract_end
+		,ad_contract.ad_contract_price
+		,ad_contract.ad_contract_stat
+	FROM ad_contract
+	JOIN user
+	ON ad_contract.user_id = user.user_id
+	WHERE ad_contract.ad_contract_end > date(now())
+		AND ad_contract.ad_contract_stat = '승인대기'
+	ORDER BY ad_contract.ad_contract_start asc
+ </select>
+  <!-- 사업주로 접속했을때 진행될 예정인 자신의 광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외로 -->
+   <select id ="selectAdContractListAdWaitByUser"  resultMap="AdContractList">
+	SELECT 
+		ad_contract.ad_contract_no
+		,ad_contract.ad_contract_place
+		,user.user_bs_name
+		,ad_contract.user_id
+		,ad_contract.ad_contract_start
+		,ad_contract.ad_contract_end
+		,ad_contract.ad_contract_price
+		,ad_contract.ad_contract_stat
+	FROM ad_contract
+	JOIN user
+	ON ad_contract.user_id = user.user_id
+	WHERE user.user_id = #{SID}
+		AND ad_contract.ad_contract_stat = '승인대기'
 	ORDER BY ad_contract.ad_contract_start asc
  </select>
  <!-- 광고 계약 입력 쿼리 -->

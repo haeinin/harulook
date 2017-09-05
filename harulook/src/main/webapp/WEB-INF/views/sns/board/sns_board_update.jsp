@@ -15,8 +15,19 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
+	<div class="row">
+	    <!-- 상단 인클루드 -->
+	    <c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+	</div>
+	
+	<div class="row">
+   		<!-- 좌측 베너 인클루드 -->
+    	<div class="col-xs-1">
+    		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+    	</div>
+   	
+    	<div class="col-xs-9">
 게시물 수정 화면
-<div class="container">
 	<form id="UdpateForm" action="${pageContext.request.contextPath}/boardUpdate" method="post">
 		<input type="hidden" name="snsBoardNo" value="${board.snsBoardNo}">
 		<table class="table">
@@ -376,6 +387,13 @@
     	<input class="btn btn-default" type="submit" value="수정">
     	<a class="btn btn-default" href="${pageContext.request.contextPath}/home">취소</a>
     </form>
-</div>
+    </div>
+    <!-- 우측 베너 인클루드 -->
+        <div class="col-xs-2">
+    		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
+       	</div>
+       </div>
+       	<!-- 하단 인클루드 -->
+    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>
 </body>
 </html>

@@ -6,13 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ksmart.harulook.adcontract.service.AdContractDto;
-import com.ksmart.harulook.adrefund.service.AdRefundDao;
 import com.ksmart.harulook.adrefund.service.AdRefundDto;
 @Repository
 public class AdContractDao {
 	
 	@Autowired
     private SqlSessionTemplate sqlSessionTemplate;
+	
+	public int updateAdContract(AdContractDto adcontract){
+		System.out.println("광고 계약 수정 메서드 실행");
+		System.out.println(adcontract);
+		return sqlSessionTemplate.update("com.ksmart.harulook.adcontract.service.AdContractMapper.updateAdContract", adcontract);
+	}
+	
+	public AdContractDto selectAdContractByContractNo(String contractno){
+		System.out.println("계약 번호에 해당하는 계약 내용 출력 메서드 실행");
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.adcontract.service.AdContractMapper.SelectAdContractByContractNo", contractno);
+	}
 	
 	public int updateEndContract(String adContractNo){
 		System.out.print("광고상태 변경(광고진행중 -> 계약만료)메서드 실행");
@@ -54,19 +64,45 @@ public class AdContractDao {
 		 System.out.println("위치 3에 해당하는 계약 리스트 출력");
 		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListCurrentPlace3");
 	 }
-	 public List<AdContractDto> getAdContractListCurrent() {
+	 /*모든 ID에 해당하는 광고 취소 요청 리스트 출력 메서드*/
+	 public List<AdContractDto> getAdContractCancelRequestList() {
+		 	System.out.println("광고 취소 요청 리스트 출력 메서드 실행");
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListCancelRequest");		 
+	 }
+	 /*광고주 ID에 해당하는 광고 취소 요청 리스트 출력 메서드*/
+	 public List<AdContractDto> getAdContractCancelRequestList(String SID) {
+		 	System.out.println("광고 취소 요청 리스트 출력 메서드 실행");
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListCancelRequestByUser", SID);		 
+	 }
+	 /*모든 ID에 해당하는 광고 등록 대기 리스트 출력 메서드*/
+	 public List<AdContractDto> getAdContractAdBoardInsertWaitList() {
+		 	System.out.println("광고 등록 대기 리스트 출력 메서드 실행");
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListAdBoardInsertWait");		 
+	 }
+	 /*광고주 ID에 해당하는 광고 등록 대기 리스트 출력 메서드*/
+	 public List<AdContractDto> getAdContractAdBoardInsertWaitListByUser(String SID) {
+		 	System.out.println("현재 진행중인 승인 대기 리스트 출력 메서드 실행");
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListAdBoardInsertWaitByUser", SID);		 
+	 }
+	 /*모든 ID에 해당하는 광고 승인 대기 리스트 출력 메서드*/
+	 public List<AdContractDto> getAdContractApproveWaitList() {
+		 	System.out.println("현재 진행중인 승인 대기 리스트 출력 메서드 실행");
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListAdWait");		 
+	 }
+	 /*광고주 ID에 해당하는 광고 승인 대기 리스트 출력 메서드*/
+	 public List<AdContractDto> getAdContractApproveWaitListByUser(String SID) {
+		 	System.out.println("현재 진행중인 승인 대기 리스트 출력 메서드 실행");
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListAdWaitByUser", SID);		 
+	 }
+	 /*모든 ID에 해당하는 광고 예정 리스트 출력 메서드*/
+	 public List<AdContractDto> getAdContractSoonList() {
 		 	System.out.println("현재 진행중인 광고 계약 리스트 출력 메서드 실행");
-		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListCurrent");		 
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListSoon");		 
 	 }
-	 /*광고주 ID에 해당하는 광고 계약 출력 메서드*/
-	 public List<AdContractDto> getAdContractList(String SID) {
-		 	System.out.println("광고주 ID에 해당하는 광고 계약 리스트 출력 메서드 실행");
-		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListByUser", SID);		 
-	 }
-	 /*모든 ID에 해당하는 광고 계약 출력 메서드*/
-	 public List<AdContractDto> getAdContractList() {
-		 	System.out.println("모든 ID에 해당하는 광고 계약 리스트 출력 메서드 실행");
-		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractList");		 
+	 /*광고주 ID에 해당하는 광고 예정 리스트 출력 메서드*/
+	 public List<AdContractDto> getAdContractSoonList(String SID) {
+		 	System.out.println("광고주 ID에 해당하는 광고 예정 리스트 출력 메서드 실행");
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adcontract.service.AdContractMapper.selectAdContractListSoonByUser", SID);		 
 	 }
 	 /*DB에있는 계약번호중 가장 높은 숫자를 불러오는 메서드*/
 	 public String getContractNo(){

@@ -9,18 +9,23 @@
  	<result property="refundDate" column="refund_date"/>
  	<result property="refundRequestDate" column="refund_request_date"/>
  	<result property="refundStat" column="refund_stat"/>
+ 	<result property="userId" column="user_id"/>
  </resultMap>
  <select id="selectRefundList" resultMap="refundList">
- 		SELECT refund_no
- 			  ,ad_contract_no
- 			  ,refund_price
- 			  ,refund_date
- 			  ,refund_stat
- 			  ,refund_request_date
+ 		SELECT refund.refund_no
+ 			  ,ad_contract.user_id
+ 			  ,refund.ad_contract_no
+ 			  ,refund.refund_price
+ 			  ,refund.refund_date
+ 			  ,refund.refund_stat
+ 			  ,refund.refund_request_date
 		FROM refund
+		JOIN ad_contract
+		ON ad_contract.ad_contract_no = refund.ad_contract_no	
  </select>
   <select id="selectRefundListAdUser" resultMap="refundList">
  		SELECT refund.refund_no
+ 			  ,ad_contract.user_id
  			  ,refund.ad_contract_no
  			  ,refund.refund_price
  			  ,refund.refund_date
@@ -51,7 +56,7 @@
 			VALUES (#{refundNo}
 				   ,#{adContractNo}
 				   ,#{refundPrice}
-				   ,''
+				   ,null
 				   ,'결제정보입력대기'
 				   ,NOW()) 
  </insert>
