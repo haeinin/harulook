@@ -235,7 +235,7 @@
 				<form id='insert' action="./adBoardUpdate"
 					enctype="multipart/form-data" method="post">
 					<div id='ad-1'>
-						온도 : 온도선택 <select id="ad-1tempselect">
+						온도 : 온도선택 <select id="ad-1tempselect" class="ad-1">
 							<c:if test="${adboardlist[0].adBoardTempMin==-100}">
 								<option value="temp-5">-5도 이하</option>
 							</c:if>
@@ -294,10 +294,10 @@
 							name="adBoardContent" class="ad-1"
 							value="${adboardlist[0].adBoardContent}"><br>
 						<br>
-						<button id="ad-1cancel">취소</button>
+						<button type="button" id="ad-1cancel">취소</button>
 					</div>
 					<div id='ad-2'>
-						<br> 온도 : 온도선택 <select name="temp" id="ad-2tempselect">
+						<br> 온도 : 온도선택 <select name="temp" id="ad-2tempselect" class="ad-2">
 							<option
 								<c:if test="${adboardlist[1].adBoardTempMin==-100}">
 						<option value="temp-5">-5도 이하</option></c:if>
@@ -350,7 +350,7 @@
 							name="adBoardContent" class="ad-2"
 							value="${adboardlist[1].adBoardContent}"><br>
 						<br>
-						<button id="ad-2cancel">취소</button>
+						<button type="button" id="ad-2cancel">취소</button>
 					</div>
 					<!-- <div id='ad-3'>
 			온도 : 온도선택
