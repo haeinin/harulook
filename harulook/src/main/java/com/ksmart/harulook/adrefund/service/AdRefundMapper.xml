@@ -51,7 +51,7 @@
 			VALUES (#{refundNo}
 				   ,#{adContractNo}
 				   ,#{refundPrice}
-				   ,''
+				   ,null
 				   ,'결제정보입력대기'
 				   ,NOW()) 
  </insert>

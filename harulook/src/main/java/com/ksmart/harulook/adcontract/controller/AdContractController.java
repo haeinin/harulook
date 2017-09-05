@@ -59,7 +59,10 @@ public class AdContractController {
 	@RequestMapping(value="/adContractList",method = RequestMethod.GET)
 	public String adContractList(Model model, HttpSession session) {
 		System.out.println("광고 계약 현황 리스트 요청");
-		List<AdContractDto> adcontractlist = null;
+		List<AdContractDto> adContractListSoon = null;
+		List<AdContractDto> adContractListApproveWait = null;
+		List<AdContractDto> adContractListAdBoardInsertWait = null;
+		List<AdContractDto> adContractCancelRequest = null;
 		AdContractDto adContractPlace1 = adcontractdao.getAdContractListCurrentPlace1();
 		AdContractDto adContractPlace2 = adcontractdao.getAdContractListCurrentPlace2();
 		AdContractDto adContractPlace3 = adcontractdao.getAdContractListCurrentPlace3();
@@ -67,18 +70,25 @@ public class AdContractController {
 		System.out.println("현재 진행중인 광고 리스트 요청");
 		String SA = (String)session.getAttribute("level");
 		String SID = (String)session.getAttribute(("id"));
-
 			System.out.println(SA);
 			System.out.println(SID);
-
 		if(SA.equals("관리자")){
-			adcontractlist = adcontractdao.getAdContractList();
-			System.out.println("권한 : " + SA + "모든광고 계약 리스트 출력");
+			adContractListSoon = adcontractdao.getAdContractSoonList();
+			adContractListApproveWait = adcontractdao.getAdContractApproveWaitList();
+			adContractListAdBoardInsertWait = adcontractdao.getAdContractAdBoardInsertWaitList();
+			adContractCancelRequest = adcontractdao.getAdContractCancelRequestList();
+			System.out.println("권한 : " + SA + "모든광고 예정 계약 리스트 출력");
 		}else if(SA.equals("사업자")){
-			adcontractlist = adcontractdao.getAdContractList(SID);
-			System.out.println("권한 : " + SA + "광고주 ID에 해당하는 계약 리스트 출력");
+			adContractListSoon = adcontractdao.getAdContractSoonList(SID);
+			adContractListApproveWait = adcontractdao.getAdContractApproveWaitListByUser(SID);
+			adContractListAdBoardInsertWait = adcontractdao.getAdContractAdBoardInsertWaitListByUser(SID);
+			adContractCancelRequest = adcontractdao.getAdContractCancelRequestList(SID);
+			System.out.println("권한 : " + SA + "광고주 ID에 해당하는 광고 예정 계약 리스트 출력");
 		}
-		model.addAttribute("adcontractlist", adcontractlist);
+		model.addAttribute("adcontractsoonlist", adContractListSoon);
+		model.addAttribute("adcontractlistapprovewait", adContractListApproveWait);
+		model.addAttribute("adcontractadboardinsertwaitlist", adContractListAdBoardInsertWait);
+		model.addAttribute("adcontractcancelrequestlist", adContractCancelRequest);
 		model.addAttribute("adContractPlace1",  adContractPlace1);
 		model.addAttribute("adContractPlace2",  adContractPlace2);
 		model.addAttribute("adContractPlace3",  adContractPlace3);

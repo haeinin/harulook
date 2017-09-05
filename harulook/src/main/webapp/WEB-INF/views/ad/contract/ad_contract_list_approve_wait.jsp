@@ -21,12 +21,12 @@
                 <th>종료 날짜</th>
                 <th>계약 금액</th>
                 <th>계약 상태</th>
-                <th>수정하기></th>
+                <th>수정하기</th>
                 <th></th>
             </tr>
         </thead>
-        <tbody>
-            <c:forEach var="b" items="${adcontractlist}">
+        <tbody>							
+            <c:forEach var="b" items="${adcontractlistapprovewait}">
             <tr>
                     <td>${b.adContractPlace}</td>
                     <td>${b.userBsName}</td>
@@ -45,8 +45,13 @@
                     	<c:if test="${b.adContractStat=='광고등록대기'}"><a class="btn btn-info" href="./insertAdBoard?adContractNo=${b.adContractNo}">광고&nbsp;등록</a></c:if>
                     </c:if>
                     </td>
-                    <td><a href="./adBoardUpdate?adContractNo=${b.adContractNo}">수정하기</a></td>
-                    
+					<c:if test="${sessionScope.level=='사업자'}">
+                    <c:if test="${b.adContractStat=='광고대기'}">
+                    <td>
+                    <a class="btn btn-info" href="./adBoardUpdate?adContractNo=${b.adContractNo}">수정하기</a>
+                    </td>
+                    </c:if>
+                    </c:if>                         
                 </tr>
                 </c:forEach>
         </tbody>
