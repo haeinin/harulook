@@ -23,7 +23,7 @@
 		/*입력과는 다르게 처음에 광고 모두 표시 */
 		console.log('${goodscount[0]}');
 		console.log('${goodscount[1]}');
-		var i = 1;
+		var i = ${adboardcount};
 		$('#ad-2').hide();
 		if ('${adboardcount==2}') {
 			$('#ad-2').show();
@@ -86,7 +86,7 @@
 		});
 
 		/* 추가버튼을 눌렀을때 온도별 광고 한개씩 늘어나게 해주는 기능 */
-		/* $('#adAdd').click(function(){
+		 $('#adAdd').click(function(){
 			i++;
 			console.log('게시물의 갯수 :' + i);
 			
@@ -96,22 +96,15 @@
 			break;
 		case 2 :
 			$('#ad-2').show();
+			$('#adAdd').hide();
 			break;
-		case 3 :
-			$('#ad-3').show();
-			break;
-		case 4 :
-			$('#ad-4').show();
-			break;
-		case 5 :
-			$('#ad-5').show();
-			break;
-		case 6 :
-			$('#ad-6').show();
-			break;	
 		}
-		}); */
+		 });
 		/*****************************************/
+		$('.cancel').click(function(){
+			i--;
+			console.log('광고게시물 갯수 : ' + i);
+		})
 		/* 등록버튼을 눌렀을 경우 i에 담겨있는 게시물의 값을 adBoardCount를 아이디로 가지는 input에 옮긴다  그리고 서브밋을 한다. */
 		$('#ok').click(function() {
 
@@ -232,8 +225,7 @@
 				계약 번호 : ${sessionScope.adContractNo} <br> 게시물 수 :
 				${adboardcount} <br>
 
-				<form id='insert' action="./adBoardUpdate"
-					enctype="multipart/form-data" method="post">
+				<form id='insert' action="./adBoardUpdate" enctype="multipart/form-data" method="post">
 					<div id='ad-1'>
 						온도 : 온도선택 <select id="ad-1tempselect" class="ad-1">
 							<c:if test="${adboardlist[0].adBoardTempMin==-100}">
@@ -294,7 +286,7 @@
 							name="adBoardContent" class="ad-1"
 							value="${adboardlist[0].adBoardContent}"><br>
 						<br>
-						<button type="button" id="ad-1cancel">취소</button>
+						<button type="button" id="ad-1cancel" class="cancel">취소</button>
 					</div>
 					<div id='ad-2'>
 						<br> 온도 : 온도선택 <select name="temp" id="ad-2tempselect" class="ad-2">
@@ -350,7 +342,7 @@
 							name="adBoardContent" class="ad-2"
 							value="${adboardlist[1].adBoardContent}"><br>
 						<br>
-						<button type="button" id="ad-2cancel">취소</button>
+						<button type="button" id="ad-2cancel" class="cancel">취소</button>
 					</div>
 					<!-- <div id='ad-3'>
 			온도 : 온도선택
