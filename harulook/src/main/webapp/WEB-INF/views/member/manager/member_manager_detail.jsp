@@ -48,29 +48,62 @@
 	    <div class="col-xs-1"></div>
 	    <div id="div1" class="col-xs-9">
 	    
-	    <h1>관리자회원정보보기</h1>
-	    
-	    	아이디 : <a>${businessDetail.userId}</a><br>
-	       	닉네임 : <a>${businessDetail.userNick}</a><br>
-	       	이름: <a>${businessDetail.userName}</a><br>
-	       	이메일: <a>${businessDetail.userEmail}</a><br>
-	       	전화번호: <a>${businessDetail.userTel}</a><br>
-	       	주소: <a>${businessDetail.userAddr}</a><br>
-	       	권한: <a>${businessDetail.userLevel}</a><br>
-	       	사업자번호: <a>${businessDetail.userBsNo}</a><br>
-	       	업종: <a>${businessDetail.userBsType}</a><br>
-	       	업태: <a>${businessDetail.userBsStatus}</a><br>
-	       	업체명: <a>${businessDetail.userBsName}</a><br>
-	       	업체홈페이지: <a>${businessDetail.userUrl}</a><br>
-	       	가입날짜: <a>${businessDetail.userDate}</a><br>
-    		
-    		<!-- 추방하기 -->
-			<c:if test="${sessionScope.level == '관리자'}">
-			<input class="btn btn-default" id="userDelete" type="button" value="추방하기"/>
-			<form id="home" action="${pageContext.request.contextPath}/home" method="get"></form>	
-			</c:if>	
-    	
-    	</div>	
+	    <div class="container">
+			<div class="row">
+				<div class="page-header">
+		  	    
+				</div>
+					<div id="" class="col-md-2"></div>
+					<div id="" class="col-md-7">
+					<h2 id="loginTitle">${businessDetail.userLevel}정보보기</h2>
+						<div class="login-box well">
+						 	<!-- 아이디 -->
+				           	<label style="letter-spacing:11.3px" for="user_id">아이디:</label>${businessDetail.userId}
+				            <br>
+				            <!-- 닉네임 -->	        
+				       		<label style="letter-spacing:11.3px" for="user_nick">닉네임:</label>${businessDetail.userNick}
+				         	<br>
+				            <!-- 이름 -->
+				        	<label style="letter-spacing:10px" for="user_name">이&nbsp;&nbsp;름:</label>${businessDetail.userName}
+				            <br>
+							<!-- 전화번호 -->
+				        	<label style="letter-spacing:5px" for="user_tel">전화번호:</label> ${businessDetail.userTel}
+				            <br>
+				            <!--  이메일 -->
+				        	<label style="letter-spacing:11.3px" for="user_email">이메일:</label>${businessDetail.userEmail}
+				           	<br>
+				            <!-- 주소 -->
+				        	<label style="letter-spacing:10px" for="user_addr">주&nbsp;&nbsp;소:</label>${businessDetail.userAddr}
+				            <br>
+				        	<!-- 사업자번호 -->
+				        	<label style="letter-spacing:1px" for="user_bs_no">사업자번호:</label>&nbsp;&nbsp;${businessDetail.userBsNo}
+				            <br>
+				            <!-- 업종 -->
+				        	<label style="letter-spacing:10px" for="user_bs_type">업&nbsp;&nbsp;종:</label>${businessDetail.userBsType}
+				            <br>
+				            <!-- 업태 -->
+				        	<label style="letter-spacing:10px" for="user_bs_status">업&nbsp;&nbsp;태:</label>${businessDetail.userBsStatus}
+				            <br>
+				            <!-- 업체명 -->
+				        	<label style="letter-spacing:11.3px" for="user_bs_name">업체명:</label>${businessDetail.userBsName}
+				            <br>
+				            <!-- 업체홈페이지 -->
+				        	<label style="letter-spacing:5px" for="user_url">홈페이지:</label> ${businessDetail.userUrl}
+				            <br>
+				            <!-- 가입날짜 -->
+				        	<label style="letter-spacing:5px" for="user_date">가입날짜:</label> ${businessDetail.userDate}
+				            <br>
+	   						<!-- 추방하기 -->
+							<c:if test="${sessionScope.level == '관리자'}">
+							<input class="btn btn-default" id="userDelete" type="button" value="추방하기"/>
+							<form id="home" action="${pageContext.request.contextPath}/home" method="get"></form>	
+							</c:if>	
+		   					
+						</div>
+					</div>
+				</div>
+			</div>
+	 	</div>	
 	    
 		<!-- 우측 베너 인클루드 -->
 	    <c:import url="../../module/right.jsp"></c:import>

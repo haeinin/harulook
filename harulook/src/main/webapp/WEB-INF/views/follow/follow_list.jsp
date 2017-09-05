@@ -50,19 +50,23 @@
 	<!-- 바디 인클루드 -->
     <div class="row">
 	    <div class="col-xs-1">
+<<<<<<< HEAD
 	    	<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+=======
+	    <c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+>>>>>>> refs/remotes/origin/kmg883011
 	    </div>
 	    <div id="div1" class="col-xs-9">
 			<!-- 친구 리스트 -->
 			<div class="container">
-			    <h1>친구 목록</h1>
-			    <div>전체행의 수 : ${followListCount}</div>
+			    <h1>내가 등록한 친구 목록</h1>
+			    <div>팔로우 수 : ${followListCount}</div>
 			    <table class="table table-striped">
 			        <thead>
 			            <tr>
-			                <th>아이디</th>
-			                <th>닉네임</th>
-			                <th>이름</th>
+			                <th>친구아이디</th>
+			                <th>등록날짜</th>
+			                <th>친구삭제</th>
 		            	  </tr>
 			        </thead>
 			        <tbody>
@@ -85,7 +89,7 @@
 		        </c:if>
 		    </ul>
 		</div>	
-	    
+	   
 		<!-- 우측 베너 인클루드 -->
 		<div class="col-xs-2">
 	    <c:import url="../module/right.jsp"></c:import>

@@ -61,18 +61,20 @@
 	<c:import url="../module/header.jsp"></c:import>	
 	<!-- 바디 인클루드 -->
     <div class="row">
-	    <div class="col-xs-1"></div>
+	    <div class="col-xs-1">
+	    <c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+	    </div>
 	    <div id="div1" class="col-xs-9">
 			<!-- 나를 등록한 친구 리스트 -->
 			<div class="container">
-			    <h1>친구 목록</h1>
-			    <div>전체행의 수 : ${followListCount}</div>
+			    <h1>나를 등록한 친구 목록</h1>
+			    <div>팔로우me 수 : ${followListCount}</div>
 			    <table class="table table-striped">
 			        <thead>
 			            <tr>
 			                <th>아이디</th>
-			                <th>닉네임</th>
-			                <th>이름</th>
+			                <th>등록날짜</th>
+			                <th>친구삭제</th>
 		            	  </tr>
 			        </thead>
 			        <tbody>

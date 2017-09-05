@@ -41,40 +41,39 @@
 	    <div class="col-xs-1"></div>
 	    <div id="div1" class="col-xs-9">
 	
-		<div class="container">
-		    <h1>관리자리스트</h1>
-		    <div>전체행의 수 : ${boardCount}</div>
-		    <table class="table table-striped">
-		        <thead>
-		            <tr>
-		                <th>아이디</th>
-		                <th>닉네임</th>
-		                <th>이름</th>
-		                <th>전화번호</th>
-		                <th>가입날짜</th>
-		            </tr>
-		        </thead>
-		        <tbody>
-		            <c:forEach var="b" items="${list}">
-		                <tr>
-		                    <td><a href="${pageContext.request.contextPath}/member_manager_detail?userId=${b.userId}">${b.userId}</a></td> <!-- 연결되는주소 수정하여라 -->
-		                    <td>${b.userNick}</td>
-		                    <td>${b.userName}</td>
-		                    <td>${b.userTel}</td>
-		                    <td>${b.userDate}</td>
-		                   
-		                </tr>
-		            </c:forEach>
-		        </tbody>
-		    </table>
-		    <ul class="pager">
-		        <c:if test="${currentPage > 1}">
-		            <li class="previous"><a href="${pageContext.request.contextPath}/member_manager_list?currentPage=${currentPage-1}">이전</a></li>
-		        </c:if>
-		        <c:if test="${currentPage < lastPage}">
-		            <li class="next"><a href="${pageContext.request.contextPath}/member_manager_list?currentPage=${currentPage+1}">다음</a></li>
-		        </c:if>
-		    </ul>
+			<div class="container">
+			    <h1>관리자리스트</h1>
+			    <div>전체행의 수 : ${boardCount}</div>
+			    <table class="table table-striped">
+			        <thead>
+			            <tr>
+			                <th>아이디</th>
+			                <th>닉네임</th>
+			                <th>이름</th>
+			                <th>전화번호</th>
+			                <th>가입날짜</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <c:forEach var="b" items="${list}">
+			                <tr>
+			                    <td><a href="${pageContext.request.contextPath}/member_manager_detail?userId=${b.userId}">${b.userId}</a></td> <!-- 연결되는주소 수정하여라 -->
+			                    <td>${b.userNick}</td>
+			                    <td>${b.userName}</td>
+			                    <td>${b.userTel}</td>
+			                    <td>${b.userDate}</td>
+		                    </tr>
+			            </c:forEach>
+			        </tbody>
+			    </table>
+			    <ul class="pager">
+			        <c:if test="${currentPage > 1}">
+			            <li class="previous"><a href="${pageContext.request.contextPath}/member_manager_list?currentPage=${currentPage-1}">이전</a></li>
+			        </c:if>
+			        <c:if test="${currentPage < lastPage}">
+			            <li class="next"><a href="${pageContext.request.contextPath}/member_manager_list?currentPage=${currentPage+1}">다음</a></li>
+			        </c:if>
+			    </ul>
 		   	</div>
 		 </div>
 	 

@@ -187,6 +187,7 @@
 	<div class="row">
 	    <!-- 상단 인클루드 -->
 	    <c:import url="./module/header.jsp"></c:import>
+
 	</div>
 	
     <!-- 바디 인클루드 -->
