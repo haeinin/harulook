@@ -1,9 +1,6 @@
 package com.ksmart.harulook.adcontract.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 
@@ -53,7 +50,24 @@ public class AdContractController {
 	public String adContractList() {
 		return "ad/contract/ad_contract_list";
 	} */
-
+	
+	@RequestMapping(value="/adContractUpdate",method = RequestMethod.POST)
+	public String adContractUpdate(AdContractDto adcontract){
+		System.out.println("계약 수정 요청");
+		adcontractdao.updateAdContract(adcontract);
+		return "redirect:/adContractList";
+	}
+	
+	
+	@RequestMapping(value="/adContractUpdate",method = RequestMethod.GET)
+	public String adContractUpdateForm(Model model
+								      ,@RequestParam("adContractNo") String adcontractno){
+		System.out.println("계약 수정 폼 요청");
+		AdContractDto adContract = adcontractdao.selectAdContractByContractNo(adcontractno);
+		model.addAttribute("adcontract", adContract);
+		System.out.println(model);
+		return "ad/contract/ad_contract_update";
+	}
 	/*광고리스트 요청*/
 
 	@RequestMapping(value="/adContractList",method = RequestMethod.GET)

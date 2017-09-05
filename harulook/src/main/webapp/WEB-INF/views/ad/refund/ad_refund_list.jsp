@@ -21,13 +21,14 @@
 <!-- jQuery UI 라이브러리 js파일 -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 </head>
-<body>
+<c:import url="../../module/header.jsp"></c:import>	
 	<div id="container">
 		  <table class="table table-striped">
         <thead>
             <tr>
             	<th>환불번호</th>
                 <th>계약번호</th>
+                <th>아이디</th>
                 <th>환불금액</th>
                 <th>환불신청일자</th>
                 <th>환불일자</th>
@@ -40,6 +41,7 @@
             <tr>
             		<td>${b.refundNo}</td>
                     <td>${b.adContractNo}</td>
+                    <td>${b.userId}</td>
                     <td>${b.refundPrice}</td>
                     <td>${b.refundRequestDate}</td>
                     <td>${b.refundDate}</td>
@@ -59,8 +61,6 @@
         </tbody>
     </table>
 	</div>
-	
-	
-	
-</body>
-</html>
+		    <c:import url="../../module/right.jsp"></c:import>
+    <!-- 하단 인클루드 -->
+    <c:import url="../../module/footer.jsp"></c:import>

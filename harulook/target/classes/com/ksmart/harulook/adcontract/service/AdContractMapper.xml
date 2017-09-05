@@ -12,7 +12,35 @@
  	<result property="adContractEnd" column="ad_contract_end"/>
  	<result property="adContractPrice" column="ad_contract_price"/>
  	<result property="adContractStat" column="ad_contract_stat"/> 	
+ 	<result property="adCostNo" column="ad_cost_no"/>
+ 	<result property="adDcNo" column="ad_dc_no"/>	
  </resultMap>
+ <update id="updateAdContract">
+ 	UPDATE ad_contract
+	SET
+		ad_contract_place=#{adContractPlace}
+	   ,ad_contract_start=#{adContractStart}
+	   ,ad_contract_end=#{adContractEnd}
+	   ,ad_contract_date=date(now())
+	   ,ad_cost_no=#{adCostNo}
+	   ,ad_dc_no=#{adDcNo}
+	   ,ad_contract_price=#{adContractPrice}
+	WHERE ad_contract_no=#{adContractNo}
+ </update>
+ 
+ <select id="SelectAdContractByContractNo" resultMap="AdContractList">
+ 	SELECT ad_contract_no
+		,user_id
+		,ad_contract_place
+		,ad_contract_start
+		,ad_contract_end
+		,ad_contract_date
+		,ad_cost_no
+		,ad_dc_no
+		,ad_contract_price
+	FROM ad_contract
+	WHERE ad_contract_no = #{adcontractno}
+ </select>
  <!-- 광고 상태 변경(광고중 -> 계약만료)해야하는 변경 -->
  <update id="UpdateIngContract">
 	UPDATE ad_contract

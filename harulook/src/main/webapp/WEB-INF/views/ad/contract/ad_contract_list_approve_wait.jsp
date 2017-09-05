@@ -41,7 +41,7 @@
                     	 <c:if test="${b.adContractStat=='취소요청'}"><a class="btn btn-info" href="./approveCancel?adConTractPrice=${b.adContractPrice}&adContractNo=${b.adContractNo}">취소 승인</a></c:if>
                     </c:if>
                      <c:if test="${sessionScope.level=='사업자'}">
-                    	<c:if test="${b.adContractStat=='승인대기'}"><a class="btn btn-info" href="./deleteContract?adContractNo=${b.adContractNo}">계약 취소</a></c:if>
+                    	<c:if test="${b.adContractStat=='승인대기'}"><a href="./adContractUpdate?adContractNo=${b.adContractNo}">수정하기</a></c:if>
                     	<c:if test="${b.adContractStat=='광고등록대기'}"><a class="btn btn-info" href="./insertAdBoard?adContractNo=${b.adContractNo}">광고&nbsp;등록</a></c:if>
                     </c:if>
                     </td>

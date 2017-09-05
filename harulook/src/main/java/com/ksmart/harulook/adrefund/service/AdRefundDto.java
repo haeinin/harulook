@@ -7,12 +7,13 @@ public class AdRefundDto {
 	private String refundDate;
 	private String refundStat;
 	private String refundRequestDate;
+	private String userId;
 
 	@Override
 	public String toString() {
 		return "AdRefundDto [refundNo=" + refundNo + ", adContractNo=" + adContractNo + ", refundPrice=" + refundPrice
 				+ ", refundDate=" + refundDate + ", refundStat=" + refundStat + ", refundRequestDate="
-				+ refundRequestDate + "]";
+				+ refundRequestDate + ", userId=" + userId + "]";
 	}
 	public String getRefundRequestDate() {
 		return refundRequestDate;
@@ -49,5 +50,11 @@ public class AdRefundDto {
 	}
 	public void setRefundStat(String refundStat) {
 		this.refundStat = refundStat;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 }

@@ -6,13 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ksmart.harulook.adcontract.service.AdContractDto;
-import com.ksmart.harulook.adrefund.service.AdRefundDao;
 import com.ksmart.harulook.adrefund.service.AdRefundDto;
 @Repository
 public class AdContractDao {
 	
 	@Autowired
     private SqlSessionTemplate sqlSessionTemplate;
+	
+	public int updateAdContract(AdContractDto adcontract){
+		System.out.println("광고 계약 수정 메서드 실행");
+		System.out.println(adcontract);
+		return sqlSessionTemplate.update("com.ksmart.harulook.adcontract.service.AdContractMapper.updateAdContract", adcontract);
+	}
+	
+	public AdContractDto selectAdContractByContractNo(String contractno){
+		System.out.println("계약 번호에 해당하는 계약 내용 출력 메서드 실행");
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.adcontract.service.AdContractMapper.SelectAdContractByContractNo", contractno);
+	}
 	
 	public int updateEndContract(String adContractNo){
 		System.out.print("광고상태 변경(광고진행중 -> 계약만료)메서드 실행");
