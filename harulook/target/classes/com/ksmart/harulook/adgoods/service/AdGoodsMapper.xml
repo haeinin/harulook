@@ -1,0 +1,44 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.ksmart.harulook.adgoods.service.AdgoodsMapper">
+ 
+ <resultMap type="com.ksmart.harulook.adgoods.service.AdGoodsDto" id="AdGoodsList">
+ 	<result property="adGoodsNo" column="ad_goods_no"/>
+ 	<result property="adGoodsImg" column="ad_goods_img"/>
+ 	<result property="adGoodsLink" column="ad_goods_link"/>
+ </resultMap>
+  <!-- 광고 상태 변경(광고중 -> 계약만료)해야하는 계약번호 조회 -->
+ 	<select id ="selectAdGoods" resultMap="AdGoodsList">
+	SELECT ad_goods_no
+		  ,ad_goods_img
+		  ,ad_goods_link
+	FROM ad_goods
+	WHERE ad_goods_no = #{adGoodsNo}
+	 </select>
+	 
+	 
+	 <update id="updateAdGoods">
+	 UPDATE ad_goods
+		SET
+			ad_goods_img=#{adGoodsImg},
+			ad_goods_link=#{adGoodsLink}
+		WHERE 
+			ad_goods_no = #{adGoodsNo}
+	 </update>
+	   <insert id="insertGoods">
+  INSERT INTO ad_goods
+ 			(ad_goods_no
+ 			,ad_goods_img
+ 			,ad_goods_link)
+	 VALUES (#{adGoodsNo}
+ 			,#{adGoodsImg}
+ 			,#{adGoodsLink});
+  </insert>
+  <delete id="deleteAdGoods">
+  DELETE 
+  FROM ad_goods 
+  WHERE ad_goods_no=#{adGoodsNo}			
+  
+  </delete>
+</mapper>

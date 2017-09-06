@@ -1,0 +1,64 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.ksmart.harulook.like.service.LikeMapper">
+
+	<!-- sns게시물 삭제 시 예뻐요 삭제 -->
+	<insert id="boardLikeDelete" parameterType="String">
+		DELETE 
+		FROM sns_like 
+		WHERE sns_board_no = #{snsBoardNo} 
+	</insert>
+	
+	<!-- 가장 최근에 등록된 예뻐요 번호 가져오기 -->
+	<select id="getLastLikeNo" resultType="String">
+		SELECT
+			max(CAST(substring(sns_like_no,10) AS DECIMAL))  
+		FROM sns_like
+	</select>
+
+	<!-- sns게시물 예뻐요 수 조회 -->
+	<select id="getLikeCount" parameterType="String" resultType="int">
+		SELECT 
+			count(sns_like_no) AS snsLikeCount
+		FROM sns_like
+		WHERE sns_board_no = #{snsBoardNo};
+	</select>
+
+	<!-- sns게시물 예뻐요 등록 여부 조회 -->
+	<select id="getLikeClick" parameterType="java.util.Map" resultType="int">
+		SELECT 
+			COUNT(*) AS likeClick
+		FROM sns_like
+		WHERE user_id = #{userId}
+		AND sns_board_no = #{snsBoardNo}
+	</select>
+
+	<!-- sns게시물 예뻐요 등록 -->
+	<insert id="likeInsert" parameterType="java.util.Map">
+		INSERT INTO 
+			sns_like 
+			(
+			sns_like_no
+			,sns_board_no
+			,user_id
+			,sns_like_date
+			)
+ 		VALUES (
+	 		#{snsLikeNo}
+	 		,#{snsBoardNo}
+	 		,#{userId}
+	 		,now()
+ 		)
+	</insert>
+	
+	<!-- sns게시물 예뻐요 등록 취소 -->
+	<insert id="likeDelete" parameterType="java.util.Map">
+		DELETE 
+		FROM sns_like 
+		WHERE sns_board_no = #{snsBoardNo} 
+		AND user_id = #{userId};
+	</insert>
+	
+</mapper>

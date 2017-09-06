@@ -38,18 +38,18 @@ public class BoardController {
     private PointDao pointDao;
 	
 	/* 내가 올린 sns게시물 목록 검색 */
-	@RequestMapping(value="/myBoardList", method = RequestMethod.POST)
+	/*@RequestMapping(value="/myBoardList", method = RequestMethod.POST)
 	public String myBoardList(Model model, BoardDto board) {
-		System.out.println("bboardTagSearch 요청");
-		System.out.println("bboardTagSearch --> "+board);
+		System.out.println("myBoardList 요청");
+		System.out.println("myBoardList --> "+board);
 		List<BoardDto> list = boardDao.selectBoardSearchList(board);
 		model.addAttribute("list", list);
-		System.out.println("bboardTagSearch --> "+list);
+		System.out.println("myBoardList --> "+list);
 		return "redirect:/boardTagSearch";
-	}
+	}*/
 	
 	/* sns게시물 태그 검색 */
-	@RequestMapping(value="/boardTagSearch", method = RequestMethod.GET)
+	/*@RequestMapping(value="/boardTagSearch", method = RequestMethod.GET)
 	public String boardTagSearch(Model model, BoardDto board, HttpServletRequest request) {
 		System.out.println("boardTagSearch 요청");
 		String[] colorValue = request.getParameterValues("colorValue");
@@ -84,6 +84,41 @@ public class BoardController {
 		model.addAttribute("list", list);
 		System.out.println("boardTagSearch --> "+list);
 		return "sns/board/sns_board_list2";
+	}*/
+	
+
+	/* sns 인기 게시물 목록 요청 */
+	@RequestMapping(value="/boardPopList", method = RequestMethod.GET)
+	public String boardPopularityList(Model model
+            , @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		System.out.println("boardPopularityList 폼 요청");
+		int boardCount = boardDao.selectBoardCount();
+        int pagePerRow = 6;
+        int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
+		List<BoardDto> list = boardDao.selectBoardPopularityList(currentPage, pagePerRow);
+		model.addAttribute("currentPage", currentPage);
+        model.addAttribute("boardCount", boardCount);
+        model.addAttribute("lastPage", lastPage);
+        model.addAttribute("list", list);
+        System.out.println("boardList : "+list);
+		return "sns/board/sns_board_pop_list";
+	}
+	
+	/* sns게시물 목록 요청 */
+	@RequestMapping(value="/boardList", method = RequestMethod.GET)
+	public String boardList(Model model
+            , @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+		System.out.println("boardList 폼 요청");
+		int boardCount = boardDao.selectBoardCount();
+        int pagePerRow = 9;
+        int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
+		List<BoardDto> list = boardDao.selectBoardList(currentPage, pagePerRow);
+		model.addAttribute("currentPage", currentPage);
+        model.addAttribute("boardCount", boardCount);
+        model.addAttribute("lastPage", lastPage);
+        model.addAttribute("list", list);
+        System.out.println("boardList : "+list);
+		return "sns/board/sns_board_list";
 	}
 	
 	/* sns게시물 삭제 처리 요청 */
@@ -232,39 +267,6 @@ public class BoardController {
 		return "sns/board/sns_board_detail";
 	}
 	
-	/* sns 인기 게시물 목록 요청 */
-	@RequestMapping(value="/boardPopList", method = RequestMethod.GET)
-	public String boardPopularityList(Model model
-            , @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		System.out.println("boardPopularityList 폼 요청");
-		int boardCount = boardDao.selectBoardCount();
-        int pagePerRow = 6;
-        int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
-		List<BoardDto> list = boardDao.selectBoardPopularityList(currentPage, pagePerRow);
-		model.addAttribute("currentPage", currentPage);
-        model.addAttribute("boardCount", boardCount);
-        model.addAttribute("lastPage", lastPage);
-        model.addAttribute("list", list);
-        System.out.println("boardList : "+list);
-		return "sns/board/sns_board_pop_list";
-	}
-	
-	/* sns게시물 목록 요청 */
-	@RequestMapping(value="/boardList", method = RequestMethod.GET)
-	public String boardList(Model model
-            , @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		System.out.println("boardList 폼 요청");
-		int boardCount = boardDao.selectBoardCount();
-        int pagePerRow = 9;
-        int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
-		List<BoardDto> list = boardDao.selectBoardList(currentPage, pagePerRow);
-		model.addAttribute("currentPage", currentPage);
-        model.addAttribute("boardCount", boardCount);
-        model.addAttribute("lastPage", lastPage);
-        model.addAttribute("list", list);
-        System.out.println("boardList : "+list);
-		return "sns/board/sns_board_list";
-	}
 	
 	 /* sns게시물 입력 처리 요청  */
     @RequestMapping(value="/boardInsert", method = RequestMethod.POST)

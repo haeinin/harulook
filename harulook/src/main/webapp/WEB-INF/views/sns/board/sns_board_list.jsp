@@ -9,16 +9,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- jquery를 사용하기위한 CDN주소 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- 모달을 쓰기위한 부트스트랩 -->
+<!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 <!-- 댓글 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- sns스타일 탬플릿 css-->
@@ -157,6 +153,19 @@ $(function(){
 	var userAge = '<c:out value="${CcAge}"/>';
 	var userColor = '<c:out value="${CcuserColor}"/>';
 	var userStyle = '<c:out value="${CcuserStyle}"/>';
+
+	/* 검색 초기화 버튼 클릭 */
+	$('#initBtn').click(function(){
+		$('#snsBoardTall').val('');
+		$('#snsBoardSize').val('');
+		$('#snsBoardGender').val('여').attr('checked',false);
+		$('#snsBoardGender').val('남').attr('checked',false);
+		$('#snsBoardAge').val('');
+		$('input:checkbox[name="styleValue"]').attr("checked", false);
+		$('input:checkbox[name="colorValue"]').attr("checked", false);
+		$('input:checkbox[name="situationValue"]').attr("checked", false);
+		boardSearch();
+	});
 	
 	/* 맞춤 추천 버튼 클릭 */
 	$('#recommendationBtn').click(function(){
@@ -166,17 +175,13 @@ $(function(){
 		console.log('userAge : ',userAge);
 		console.log('userColor : ',userColor);
 		console.log('userStyle : ',userStyle);
-		console.log('userColor=빨강 : ',userColor.indexOf('빨강'));
-		console.log('userColor=주황 : ',userColor.indexOf('주황'));
-		console.log('userColor=노랑 : ',userColor.indexOf('노랑'));
 		
 		$('#snsBoardTall').val(userTall);
 		$('#snsBoardSize').val(userSize);
-		$('#snsBoardGender').val(userGender);
 		if(userGender == '여') {
-			$('#snsBoardGender').val('여').attr('checked','checked');
+			$('#snsBoardGender').val('여').attr('checked',true);
 		} else {
-			$('#snsBoardGender').val('남').attr('checked','checked');
+			$('#snsBoardGender').val('남').attr('checked',true);
 		}
 		$('#snsBoardAge').val(userAge);
 		
@@ -416,6 +421,8 @@ $(function(){
 			    	<input type="text" class="searchCategory" id="userId" name="userId">
 			    	<input class="btn btn-default" type="button" value="검색">
 			    	<button class="btn btn-default" type="button" id="recommendationBtn">맞춤 추천</button>
+			    	<button class="btn btn-default" type="button" id="initBtn">초기화</button>
+
 			    </div>
 			</div>
 			<!-- sns 게시물 검색 항목 -->
