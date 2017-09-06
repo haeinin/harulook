@@ -53,6 +53,10 @@
         <result javaType="java.lang.Integer" property="total" column="total" />
         <result javaType="java.lang.Integer" property="influx" column="influx"/>
     </resultMap>
+    <resultMap type="java.util.HashMap" id="banner">
+        <result javaType="java.lang.String" property="link" column="coo_contract_link" />
+        <result javaType="java.lang.String" property="img" column="coo_contract_img"/>
+    </resultMap>
 
 
 	<!-- 제휴계약신청 -->
@@ -425,6 +429,7 @@
 	WHERE 
 		coo_contract_code = #{cooContractCode}
 	</select>
+	
 	<!-- 상품별 구매량 불러오기 -->
 	<select id="getBuyStats" parameterType="String" resultMap="rate">
 	SELECT COUNT(mall_sale_no)as total,(SELECT COUNT(mall_sale_no) FROM mall_sale WHERE coo_contract_no='coo_contract_1' AND MONTH(mall_sale_date)=MONTH(NOW()) AND mall_pro_no =#{mallProNo})as influx
@@ -435,6 +440,14 @@
 	SELECT mall_pro_no
 	FROM mall_pro
 	</select>
+	
+	<!-- 배너이미지 불러오기 -->
+	<select id="getBanner" resultMap="banner">
+	SELECT coo_contract_img,coo_contract_link
+	FROM coo_contract
+	WHERE coo_contract_stat='제휴승인'
+	</select>
+	
 
 
 

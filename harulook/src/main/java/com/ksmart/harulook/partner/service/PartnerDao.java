@@ -121,5 +121,9 @@ public class PartnerDao {
 	 public List<String> getMallProNo(){
 		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getMallProNo");
 	 }
+	 /*제휴승인된 배너 이미지 불러오기*/
+	 public List<HashMap<String,String>> getBanner(){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getBanner");
+	 }
 
 }

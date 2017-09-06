@@ -76,7 +76,7 @@ public class PartnerController {
 		return "partner/contract/partner_contract_insert";
 	}
 	/*제휴계약신청 승인하기*/
-	@RequestMapping(value = "/partnerContractAdmit", method = RequestMethod.POST)
+	@RequestMapping(value = "/partnerContractAdmit", method = RequestMethod.GET)
 	public String cooContractAdmit(PartnerDto dto){
 		System.out.println("제휴계약신청 승인하기");
 		partnerDao.updateCooContractAdmit(dto);
@@ -269,14 +269,7 @@ public class PartnerController {
 		model.addAttribute("proList",proList);
 		return "partner/statistics/partner_statistics_rate";
 	}
-	/*(2)제휴계약메뉴*/
-	@RequestMapping(value = "/partnerMain", method = RequestMethod.GET)
-	public String partnerMain(Model model
-								,HttpSession session
-								,String setNo){
-		session.setAttribute("setNo", setNo);
-		return "partner/partner_main";
-	}
+	
 	/*(1)제휴계약번호 선택하기*/
 	@RequestMapping(value = "/partnerHome", method = RequestMethod.GET)
 	public String part(Model model
@@ -288,5 +281,16 @@ public class PartnerController {
 
 		return "partner/partner_home";
 	}
+	
+	/*(2)제휴계약메뉴*/
+	@RequestMapping(value = "/partnerMain", method = RequestMethod.GET)
+	public String partnerMain(Model model
+								,HttpSession session
+								,String setNo){
+		session.setAttribute("setNo", setNo);
+		return "partner/partner_main";
+	}
+	
+	
 }
  

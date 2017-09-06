@@ -29,6 +29,7 @@ canvas {
 		var chartLabels = [];// 받아올 데이터를 저장할 배열 선언
 		var chartData = [];
 		var month="";
+		
 		var lineChartData = {
 				labels : chartLabels,
 				datasets : [ {
@@ -138,12 +139,12 @@ canvas {
 						<option value="9">SEP</option>
 						<option value="10">OCT</option>
 						<option value="11">NOV</option>
-						<option value="12">DEC</option>
+						<option value="12"></option>
 					</select>
 					<button id="btn">보기</button>
 				</div>
 			</div>
-
+<p></p>
 
 
 			<div id="graph" style="width: 80%; margin: 20px;">

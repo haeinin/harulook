@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,5 +80,17 @@ public class PartnerRestController {
 		
 		return gson.toJson(list);
 
+	}
+	/*제휴승인된 배너 불러오기*/
+	@RequestMapping(value = "/getBanner", method = RequestMethod.GET)
+	public List<HashMap<String, String>> getBanner(Model model) {
+		
+		List<HashMap<String, String>> map = partnerDao.getBanner();
+		System.out.println("삐용삐용삐용"+map);
+		System.out.println("삐용삐용삐용"+map.get(0));
+		System.out.println("삐용삐용삐용"+map.get(0).get("img"));
+		model.addAttribute("m",map);
+
+		return map;
 	}
 }
