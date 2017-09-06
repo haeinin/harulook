@@ -61,13 +61,13 @@
 				
 		   var data = google.visualization.arrayToDataTable([	//일일 날짜 접속자수 구글차트
 		    		['날짜','접속자수'],
-		    		[$("#aa7").val(),($("#bb7").val())*65],	//방문자수 랜덤하게 조작
-		    		[$("#aa6").val(),($("#bb6").val())*71],
-		    		[$("#aa5").val(),($("#bb5").val())*86],
-		    		[$("#aa4").val(),($("#bb4").val())*51],
-		    		[$("#aa3").val(),($("#bb3").val())*54],
-		    		[$("#aa2").val(),($("#bb2").val())*76],
-		    		[$("#aa1").val(),($("#bb1").val())*103]
+		    		[$("#dailyDateChart7").val(),($("#dailyDateCount7").val())*1+684],	//방문자수 랜덤하게 조작
+		    		[$("#dailyDateChart6").val(),($("#dailyDateCount6").val())*1+534],
+		    		[$("#dailyDateChart5").val(),($("#dailyDateCount5").val())*1+434],
+		    		[$("#dailyDateChart4").val(),($("#dailyDateCount4").val())*1+751],
+		    		[$("#dailyDateChart3").val(),($("#dailyDateCount3").val())*1+656],
+		    		[$("#dailyDateChart2").val(),($("#dailyDateCount2").val())*1+813],
+		    		[$("#dailyDateChart1").val(),($("#dailyDateCount1").val())*1+841]
 		    		
 		   ]);
 		
@@ -90,13 +90,13 @@
 		
 		  var dataWeekly = google.visualization.arrayToDataTable([	//주간 접속자수 구글차트
 		    		['날짜','접속자수'],
-		    		[$("#aaa7").val(),($("#bbb7").val())*652],	//방문자수 랜덤하게 조작
-		    		[$("#aaa6").val(),($("#bbb6").val())*711],
-		    		[$("#aaa5").val(),($("#bbb5").val())*862],
-		    		[$("#aaa4").val(),($("#bbb4").val())*513],
-		    		[$("#aaa3").val(),($("#bbb3").val())*544],
-		    		[$("#aaa2").val(),($("#bbb2").val())*765],
-		    		[$("#aaa1").val(),($("#bbb1").val())*1036]
+		    		[$("#weeklyStartChart7").val()+" ~ \n"+$("#weeklyEndChart7").val(),($("#weeklyDateCount7").val())*1+4251],	//방문자수 랜덤하게 조작
+		    		[$("#weeklyStartChart6").val()+" ~ \n"+$("#weeklyEndChart6").val(),($("#weeklyDateCount6").val())*1+5158],
+		    		[$("#weeklyStartChart5").val()+" ~ \n"+$("#weeklyEndChart5").val(),($("#weeklyDateCount5").val())*1+3811],
+		    		[$("#weeklyStartChart4").val()+" ~ \n"+$("#weeklyEndChart4").val(),($("#weeklyDateCount4").val())*1+5121],
+		    		[$("#weeklyStartChart3").val()+" ~ \n"+$("#weeklyEndChart3").val(),($("#weeklyDateCount3").val())*1+2918],
+		    		[$("#weeklyStartChart2").val()+" ~ \n"+$("#weeklyEndChart2").val(),($("#weeklyDateCount2").val())*1+6811],
+		    		[$("#weeklyStartChart1").val()+" ~ \n"+$("#weeklyEndChart1").val(),($("#weeklyDateCount1").val())*1+7513]
 		    		
 		   ]);
 		
@@ -117,15 +117,15 @@
 		function drawChartMonth() {
 				
 		
-		  var dataMonth = google.visualization.arrayToDataTable([	//일일 날짜 접속자수 구글차트
+		  var dataMonth = google.visualization.arrayToDataTable([	//월간날짜 접속자수 구글차트
 		    		['날짜','접속자수'],
-		    		[$("#aaaa7").val(),($("#bbbb7").val())*3455],
-		    		[$("#aaaa6").val(),($("#bbbb6").val())*4356],
-		    		[$("#aaaa5").val(),($("#bbbb5").val())*4566],
-		    		[$("#aaaa4").val(),($("#bbbb4").val())*2344],
-		    		[$("#aaaa3").val(),($("#bbbb3").val())*6788],
-		    		[$("#aaaa2").val(),($("#bbbb2").val())*3456],
-		    		[$("#aaaa1").val(),($("#bbbb1").val())*7897]
+		    		[$("#monthlyDateChart7").val(),($("#monthlyDateCount7").val())*1+35111],
+		    		[$("#monthlyDateChart6").val(),($("#monthlyDateCount6").val())*1+41311],
+		    		[$("#monthlyDateChart5").val(),($("#monthlyDateCount5").val())*1+26181],
+		    		[$("#monthlyDateChart4").val(),($("#monthlyDateCount4").val())*1+43513],
+		    		[$("#monthlyDateChart3").val(),($("#monthlyDateCount3").val())*1+46813],
+		    		[$("#monthlyDateChart2").val(),($("#monthlyDateCount2").val())*1+56515],
+		    		[$("#monthlyDateChart1").val(),($("#monthlyDateCount1").val())*1+52183]
 		    		
 		   ]);
 		
@@ -138,6 +138,8 @@
 		  var chartMonth = new google.visualization.AreaChart(document.getElementById('chart_div_month'));
 		  chartMonth.draw(dataMonth, optionsMonth);
 		}
+		
+		
 		
 	});
 	
@@ -165,8 +167,8 @@
 				
 					<c:forEach var="d" items="${dailyGuest}" varStatus="loop" begin="0" end="6" step="1">
 						<tr>
-							<td><input id="aa${loop.count}" value="${d.dailyDate}" type="hidden"/></td>
-							<td><input id="bb${loop.count}" value="${d.guestCount}" type="hidden"/></td>
+							<td><input id="dailyDateChart${loop.count}" value="${d.dailyDate}" type="hidden"/></td>
+							<td><input id="dailyDateCount${loop.count}" value="${d.guestCount}" type="hidden"/></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -181,8 +183,9 @@
 							<%-- <td>주간날짜 : ${w.weeklyStart}</td>
 							<td>주간날짜 : ${w.weeklyEnd}</td>
 							<td>게시트수 : ${w.guestCount}</td> --%>
-							<td><input id="aaa${loop.count}" value="${w.weeklyStart}~${w.weeklyEnd}" type="hidden"/></td>
-							<td><input id="bbb${loop.count}" value="${w.guestCount}" type="hidden"/></td>
+							<td><input id="weeklyStartChart${loop.count}" value="${w.weeklyStart}" type="hidden"/></td>
+							<td><input id="weeklyEndChart${loop.count}" value="${w.weeklyEnd}" type="hidden"/></td>
+							<td><input id="weeklyDateCount${loop.count}" value="${w.guestCount}" type="hidden"/></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -194,10 +197,10 @@
 				<table>
 					<c:forEach var="m" items="${monthlyGuest}" varStatus="loop" begin="0" end="6" step="1">
 						<tr>
-							<%-- <td>월간날짜 : ${m.monthlyDate}</td>
+							<%-- <td>월간날짜 : ${m.monthlyDateChart}</td>
 							<td>게시트수 : ${m.guestCount}</td> --%>
-							<td><input id="aaaa${loop.count}" value="${m.monthlyDate}월" type="hidden"/></td>
-							<td><input id="bbbb${loop.count}" value="${m.guestCount}" type="hidden"/></td>
+							<td><input id="monthlyDateChart${loop.count}" value="${m.monthlyDate}월" type="hidden"/></td>
+							<td><input id="monthlyDateCount${loop.count}" value="${m.guestCount}" type="hidden"/></td>
 						</tr>
 					</c:forEach>
 				</table>
