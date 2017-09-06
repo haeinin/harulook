@@ -222,7 +222,8 @@ public class MemberController {
 	/*일반회원정보수정*/
 	@RequestMapping(value="/addUserUpdate", method = RequestMethod.POST)
 	public String userUpdateAdd(MemberDto memberDto,
-			HttpServletRequest request) {
+			HttpServletRequest request,
+			HttpSession session) {
         System.out.println("MemberController 회원정보수정하기" + memberDto);
         memberDao.userUpdate(memberDto);	//일반회원가입 기타 입력데이터
         //유저컬러와 스타일 내용 삭제
@@ -260,6 +261,17 @@ public class MemberController {
 	        	System.out.println(styleValue[i] + " == 스타일배열");
 	        }
         }
+        
+        MemberDto userDetail = memberDao.userDetail(memberDto.getUserId());
+		List<String> userColor = memberDao.userColor(memberDto.getUserId());
+		List<String> userStyle = memberDao.userStyle(memberDto.getUserId());	
+		session.setAttribute("CcTall", userDetail.getUserTall());		//키
+		session.setAttribute("CcSize", userDetail.getUserSize());		//체형
+		session.setAttribute("CcGender", userDetail.getUserGender());	//성별
+		session.setAttribute("CcAge", userDetail.getUserAge());			//나이
+		session.setAttribute("CcuserColor", userColor);					//컬러
+		session.setAttribute("CcuserStyle", userStyle);					//스타일
+		
         return "redirect:/home";  //회원정보수정 홈화면으로
     }
 	

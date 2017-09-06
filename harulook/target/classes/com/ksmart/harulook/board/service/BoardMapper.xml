@@ -28,7 +28,7 @@
 	</select>
 	
 	<!-- sns게시물 검색 -->
-	<select id="boardSearchList" parameterType="com.ksmart.harulook.board.service.BoardDto" resultMap="board">
+	<select id="boardSearchList" parameterType="java.util.Map" resultMap="board">
 		SELECT
 			sns_board.sns_board_no
 			,sns_board.sns_board_img
@@ -54,73 +54,74 @@
 			 ON l.sns_board_no = b.sns_board_no
 			 GROUP BY b.sns_board_no
 			 ) AS lc
-			 <if test="situationValue != null">
+			 <if test="board.situationValue != null">
 			  ,(
 			 SELECT sns_board_no 
 			 FROM sns_situation
 			 <trim prefix="WHERE" prefixOverrides="AND|OR">
 			 	OR situation_no IN (
-			 	<foreach collection="situationValue" item="situationValue" separator=",">#{situationValue}</foreach>
+			 	<foreach collection="board.situationValue" item="situationValue" separator=",">#{situationValue}</foreach>
 			 	)
 			 </trim>
 			 ) AS ssit
 			 </if>
-			 <if test="styleValue != null">
+			 <if test="board.styleValue != null">
 			   , (
 			 SELECT sns_board_no 
 			 FROM sns_style
 			 <trim prefix="WHERE" prefixOverrides="AND|OR">
 			 OR style_no IN (
-			 	<foreach collection="styleValue" item="styleValue" separator=",">#{styleValue}</foreach>
+			 	<foreach collection="board.styleValue" item="styleValue" separator=",">#{styleValue}</foreach>
 			 	)
 			 </trim>
 			 ) AS ss
 			 </if>
-			 <if test="colorValue != null">
+			 <if test="board.colorValue != null">
 			   , (
 			 SELECT sns_board_no 
 			 FROM sns_color
 			 <trim prefix="WHERE" prefixOverrides="AND|OR">
 			 OR color_no IN (
-			 	<foreach collection="colorValue" item="colorValue" separator=",">#{colorValue}</foreach>
+			 	<foreach collection="board.colorValue" item="colorValue" separator=",">#{colorValue}</foreach>
 			 	)
 			 </trim>
 			 ) AS sc
 			 </if>
 		WHERE sns_board.sns_board_no = cc.sns_board_no 
 		AND sns_board.sns_board_no = lc.sns_board_no
-		<if test="situationValue != null">
+		<if test="board.situationValue != null">
 			AND sns_board.sns_board_no = ssit.sns_board_no
 		</if>
-		<if test="styleValue != null">
+		<if test="board.styleValue != null">
 			AND sns_board.sns_board_no = ss.sns_board_no
 		</if>
-		<if test="colorValue != null">
+		<if test="board.colorValue != null">
 			AND sns_board.sns_board_no = sc.sns_board_no
 		</if>
-		<if test="snsBoardWeather != null">
-			AND sns_board.sns_board_weather = #{snsBoardWeather}
+		<if test="board.snsBoardWeather != null">
+			AND sns_board.sns_board_weather = #{board.snsBoardWeather}
 		</if>
-		<if test="snsBoardLoc != null">
-			AND sns_board.sns_board_loc = #{snsBoardLoc}
+		<if test="board.snsBoardLoc != null">
+			AND sns_board.sns_board_loc = #{board.snsBoardLoc}
 		</if>
-		<if test="snsBoardTall != null">
-			AND sns_board.sns_board_tall = #{snsBoardTall}
+		<if test="board.snsBoardTall != null">
+			AND sns_board.sns_board_tall = #{board.snsBoardTall}
 		</if>
-		<if test="snsBoardSize != null">
-			AND sns_board.sns_board_size = #{snsBoardSize}
+		<if test="board.snsBoardSize != null">
+			AND sns_board.sns_board_size = #{board.snsBoardSize}
 		</if>
-		<if test="snsBoardGender != null">
-			AND sns_board.sns_board_gender = #{snsBoardGender}
+		<if test="board.snsBoardGender != null">
+			AND sns_board.sns_board_gender = #{board.snsBoardGender}
 		</if>
-		<if test="snsBoardAge != null">
-			AND sns_board.sns_board_age = #{snsBoardAge}
+		<if test="board.snsBoardAge != null">
+			AND sns_board.sns_board_age = #{board.snsBoardAge}
 		</if>
-		<if test="userId != null">
-			AND sns_board.user_id = #{userId}
+		<if test="board.userId != null">
+			AND sns_board.user_id = #{board.userId}
 		</if>
 		GROUP BY sns_board.sns_board_no 
 		ORDER BY sns_board.sns_board_no DESC
+		LIMIT #{beginRow}, #{pagePerRow}
 	</select>
 	
 	<!-- sns게시물 상황별 분류 삭제 -->

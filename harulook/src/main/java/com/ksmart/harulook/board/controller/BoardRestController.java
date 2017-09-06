@@ -33,7 +33,8 @@ public class BoardRestController {
 	
 	/* sns게시물 목록 요청 */
 	@RequestMapping(value="/boardListMore", method = RequestMethod.GET)
-	public HashMap<String,Object> boardList(@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+	public HashMap<String,Object> boardList(
+			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		System.out.println("boardListMore 요청");
 		System.out.println("currentPage : "+currentPage);
 		
@@ -86,9 +87,15 @@ public class BoardRestController {
 	
 	/* sns 게시물 검색 ajax 처리 */
 	@RequestMapping(value="/boardSearchList", method = RequestMethod.GET)
-	public List<BoardDto> boardSearchList(BoardDto board
+	public List<BoardDto> boardSearchList(
+			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
+			,BoardDto board
 			,HttpServletRequest request) {
 		System.out.println("boardSearchList 요청");
+		
+		int boardCount = boardDao.selectBoardCount();
+        int pagePerRow = 9;
+        int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
 		
 		String[] colorValue = request.getParameterValues("colorValue");
 		String[] styleValue = request.getParameterValues("styleValue");
@@ -118,7 +125,7 @@ public class BoardRestController {
 			board.setSnsBoardWeather(null);
 		}
 		System.out.println("boardSearchList --> "+board);
-		List<BoardDto> list = boardDao.selectBoardSearchList(board);
+		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow);
 		System.out.println("boardSearchList --> "+list);
 		return list;
 	}

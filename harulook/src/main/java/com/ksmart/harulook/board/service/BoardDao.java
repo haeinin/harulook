@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,8 +38,16 @@ public class BoardDao {
 	}
 	
 	/* sns게시물 검색 */
-	public List<BoardDto> selectBoardSearchList(BoardDto board) {
-		return sqlSessionTemplate.selectList("com.ksmart.harulook.board.service.BoardMapper.boardSearchList", board);
+	public List<BoardDto> selectBoardSearchList( 
+			BoardDto board
+			, int currentPage
+			, int pagePerRow) {
+		Map<String, Object> map = new HashMap<String, Object>();
+        map.put("beginRow", (currentPage-1)*pagePerRow);
+        map.put("pagePerRow", pagePerRow);
+        map.put("board", board);
+        System.out.println("map : "+map+" in selectBoardSearchList()");
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.board.service.BoardMapper.boardSearchList", map);
 	}
 	
 	/* sns게시물 상황별 분류삭제 */
