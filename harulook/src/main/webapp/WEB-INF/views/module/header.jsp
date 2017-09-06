@@ -260,6 +260,10 @@ function dfs_xy_conv(code, v1, v2) {
 			$('#reFundForm').submit();
 		})
 		
+		$('#partnerButton').click(function(){	//제휴 관리 및 승인
+			$('#partnerForm').submit();
+		})
+		
 		
 		/* 오늘 날짜를 날씨 api의 입력 양식에 맞게 변환 */
 	    var d = new Date();
@@ -498,6 +502,16 @@ function dfs_xy_conv(code, v1, v2) {
 								<div>
 									<input class="btn btn-default" id="reFundButton" type="button"
 										 style="WIDTH: 130pt; HEIGHT: 25pt" value="환불 관리" />
+								</div>
+							</form>
+							
+							<!-- 제휴 관리 및 승인 -->
+							<form id="partnerForm"
+								action="${pageContext.request.contextPath}/guestList"
+								method="get">
+								<div>
+									<input class="btn btn-default" id="partnerButton"
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="제휴 관리 및 승인" />
 								</div>
 							</form>
 							

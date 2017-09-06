@@ -5,10 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 지오코딩다음 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41149e966427f3ed0a2d1b8fe3bcf837&libraries=services"></script>  
 
 <title>~하루룩~</title>
-
-
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
 
@@ -81,10 +81,6 @@
 <!-- <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGmPrfFYkGiCQuX3VZJ9hpMAf00Phfgog&callback=initMap">
     </script> -->
-<!-- 지오코딩다음 -->
-<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41149e966427f3ed0a2d1b8fe3bcf837"></script> 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41149e966427f3ed0a2d1b8fe3bcf837&libraries=services"></script>  --> 
-
 <script type="text/javascript">
 
 	$(document).ready(function(){
@@ -109,9 +105,36 @@
 	    console.log('latitude: ', position.coords.latitude);
 	    console.log('longitude: ', position.coords.longitude);
 	    addr = position.coords.latitude;	////////////////////////나중에 주소(도)로 바꿔서 넘겨야함
+	    //인트로 받은 좌표값을 문자열로 변환
+	    var xC = position.coords.latitude;
+	    var yC = position.coords.longitude;
+	    xC += "";
+	    yC += "";
+	    //xy좌표가 너무 길어 문자열로 변환수 자르고 다시 인트로 변환
+	    x = xC.substr(0, 9);
+	    y = yC.substr(0, 10);
+	    x = x*1;
+	    y = y*1;
 	    
-	    x = position.coords.latitude;
-	    y = position.coords.longitude;
+	    console.log('x 자른좌표 :  ' + x);
+	    console.log('y 자른좌표 :  ' + y);
+		    /* 다음주소 api */
+		    var geocoder = new daum.maps.services.Geocoder();
+			
+			var coord = new daum.maps.LatLng(x, y);
+			var callback = function(result, status) {
+			    if (status === daum.maps.services.Status.OK) {
+			        console.log('주소 ' + result[0].address.address_name);
+			        var a = result[0].address.address_name;
+			        var add = a.substr(0, 2);
+			        console.log('광역시와도 :  ' + add);
+			        
+			     }
+		    /* 다음주소 api */    
+		};
+
+		geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+	    
 	    });
 		
 		var request = $.ajax({
@@ -160,19 +183,11 @@
       }  */
 //////다음////////////////////////////////////////////////////////////////////////////////////////
 		
-		/* var geocoder = new daum.maps.services.Geocoder();
-
-		var coord = new daum.maps.LatLng(35.836787, 127.13120959999999);
-		var callback = function(result, status) {
-		    if (status === daum.maps.services.Status.OK) {
-
-		        console.log('지역 명칭 : ' + result[0].address_name);
-		        console.log('행정구역 코드 : ' + result[0].code);
-		    }
-		};
-
-		geocoder.coord2RegionCode(coord, callback); */
-		/* geocoder.coord2addr(coord, callback); */
+		
+		
+		
+		
+		
 		$('#snsInsertButton').click(function(){	//sns게시물등록하기
 			$('#snsInsertForm').submit();
         });
@@ -187,7 +202,6 @@
 	<div class="row">
 	    <!-- 상단 인클루드 -->
 	    <c:import url="./module/header.jsp"></c:import>
-
 	</div>
 	
     <!-- 바디 인클루드 -->
@@ -196,6 +210,13 @@
     	<div class="col-xs-1">
     		<c:import url="./module/left.jsp"></c:import>
     	</div>
+   	
+   	
+   	
+   	
+   	
+   	
+   	
    	
     	<div class="col-xs-9">
            	<c:import url="/boardPopList"></c:import>
