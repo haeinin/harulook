@@ -45,6 +45,7 @@ public class Scheduler {
 			e.printStackTrace();
 		}
 	}
+	
 	/*매월 1일 0시 30분 명예의전당 입력*/
 	@Scheduled(cron="0 30 0 1 * *")
 	public void HofScheduler() {

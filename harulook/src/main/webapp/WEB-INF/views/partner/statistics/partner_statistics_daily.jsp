@@ -139,12 +139,12 @@ canvas {
 						<option value="9">SEP</option>
 						<option value="10">OCT</option>
 						<option value="11">NOV</option>
-						<option value="12"></option>
+						<option value="12">DEC</option>
 					</select>
 					<button id="btn">보기</button>
 				</div>
 			</div>
-<p></p>
+
 
 
 			<div id="graph" style="width: 80%; margin: 20px;">

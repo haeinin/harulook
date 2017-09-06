@@ -19,8 +19,10 @@
                 </div>
 
                 <div class="col-xs-9" style="margin:30px;">
+
                     <div class="col-xs-8">
                         <table class="table table-striped" id="table">
+
                             <thead>
                                 <tr>
                                     <th>제휴계약번호</th>

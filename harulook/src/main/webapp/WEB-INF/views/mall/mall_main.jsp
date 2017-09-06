@@ -18,6 +18,9 @@
 		
 	$(document).ready(function(){
 		console.log(ip());
+		
+		var position = sessionStorage.getItem('influx');
+		console.log(position + " == 세션position");
 
 		var request = $.ajax({
 			  url: "./insertMallVisitor", //호출 경로
@@ -26,6 +29,7 @@
 			  dataType: "text" //결과값 타입 (리턴)
 		});
 	});
+	
 </script>
  
 </head>

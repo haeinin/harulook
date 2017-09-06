@@ -18,8 +18,6 @@
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
 	    <div class="col-xs-9">
-	    <div class="col-xs-1"></div>
-	    <div class="col-xs-9">
 
 			<c:if test="${!empty list}">
 
@@ -55,7 +53,6 @@
 				<a href="${pageContext.request.contextPath}/partnerContractInsert">제휴계약신청하기</a>
 			</c:if>
 			</div>
-		</div>
-        </div>
+ </div>
 </body>
 </html>

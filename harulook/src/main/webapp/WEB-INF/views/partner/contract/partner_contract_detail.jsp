@@ -36,7 +36,9 @@
 			<c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
 	    </div>
 	    <div class="col-xs-9">
+
 	    <div class="col-xs-8">
+
 	<div class="container">
 		<table class="table">
 			<tr>
@@ -103,7 +105,6 @@
 		</table>
 		<a class="btn btn-default"
 			href="${pageContext.request.contextPath}/partnerContractUpdate?cooContractNo=${dto.cooContractNo}">수정</a>
-
 		</div>
 	</div>
 	</div>

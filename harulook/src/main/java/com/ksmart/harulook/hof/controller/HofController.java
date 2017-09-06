@@ -16,6 +16,7 @@ public class HofController {
 	@Autowired
 	private HofDao dao;
 
+
 	/*이번 달 명예의 전당보기*/
 	@RequestMapping(value = "/hof", method = RequestMethod.GET)
 	public String getLikeRank(Model model){
@@ -23,8 +24,4 @@ public class HofController {
 		model.addAttribute("list",list);
 		return "hof/hof_list";
 	}
-	
-	
-	
-
 }

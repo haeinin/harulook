@@ -23,7 +23,7 @@
     <div class="row">
 	    <!-- 좌측 베너 인클루드 -->
     	<div class="col-xs-1">
-    		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+    		<c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
     	</div>
 	    
 	    <div class="col-xs-9">

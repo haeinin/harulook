@@ -6,11 +6,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <style>
 .container{
 margin:50px;
 }
 </style>
+
 </head>
 <body>
 
@@ -35,6 +37,7 @@ margin:50px;
     
     <!-- 바디 인클루드 -->
     <div class="row">
+
 	    <div class="col-xs-2"></div>
 
 	    <div class="col-xs-9">
@@ -62,6 +65,7 @@ margin:50px;
 			</c:forEach>
 		</div>
 	</div>
+
 
 </body>
 </html>

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.google.gson.Gson;
 import com.ksmart.harulook.member.service.MemberDto;
 import com.ksmart.harulook.partner.service.PartnerBillDto;
 import com.ksmart.harulook.partner.service.PartnerDao;
@@ -170,8 +169,8 @@ public class PartnerController {
 	/*제휴수수료결제 폼 요청*/
 	@RequestMapping(value = "/partnerContractPayInsert", method = RequestMethod.GET)
 	public String partnerContractPayInsert(Model model
-											,@RequestParam(value="cooContractNo",required=true) String cooContractNo){
-		PartnerBillDto dto = partnerDao.cooContractPayForm(cooContractNo);
+			,@RequestParam(value="cooBillNo",required=true) String cooBillNo){
+		PartnerBillDto dto = partnerDao.cooContractPayForm(cooBillNo);
 		model.addAttribute("dto",dto);
 		return "partner/pay/partner_pay_insert";
 		
@@ -253,7 +252,7 @@ public class PartnerController {
 			float total = map.get("total");
 			float influx = map.get("influx");
 			int rate = 0;
-			if (total != 0 || influx != 0) {
+			if (total != 0 && influx != 0) {
 				System.out.println("if문실행");
 				rate = (int)((influx / total) * 100);
 
