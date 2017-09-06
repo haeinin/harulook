@@ -60,6 +60,21 @@
 				   ,'결제정보입력대기'
 				   ,NOW()) 
  </insert>
+  <insert id="insertBadRefund">
+ 		INSERT INTO refund
+			(refund_no
+			,ad_contract_no
+			,refund_price
+			,refund_date
+			,refund_stat
+			,refund_request_date)
+			VALUES (#{refundNo}
+				   ,#{adContractNo}
+				   ,#{refundPrice}
+				   ,null
+				   ,'결제정보입력대기'
+				   ,NOW()) 
+ </insert>
  <update id="updateRefund">
 		UPDATE refund
 	SET

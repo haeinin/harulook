@@ -1,6 +1,8 @@
 package com.ksmart.harulook.adcontract.controller;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 
@@ -24,6 +26,79 @@ public class AdContractController {
 	@Autowired
 	private AdRefundDao adrefunddao;
 	/************/
+	@RequestMapping(value="/contractDoingCancel",method = RequestMethod.GET)
+	public String contractDoingCancel(@RequestParam("adContractNo") String adcontractno
+								   ,@RequestParam("adContractEnd") String adcontractend
+								   ,HttpSession session){
+		System.out.println("진행중인 광고 게시물 취소 요청");
+		adcontractdao.modifyContractStat(adcontractno);
+		AdRefundDto adrefund = new AdRefundDto();
+		adrefund.setAdContractNo(adcontractno);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date d = new Date();
+		String date = sdf.format(d);
+		Date now = null;
+		Date end = null;
+		long caldate = 0;
+		try {
+			now = sdf.parse(date);
+			end = sdf.parse(adcontractend);
+			caldate = (end.getTime()-now.getTime())/( 24*60*60*1000); 
+			caldate = Math.abs(caldate);
+			System.out.println("잔여 일자 : " + caldate);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		adrefund.setRefundPrice(caldate*100000*0.9);
+		int initRefundNo = 1;
+		String lastRefundNo = adrefunddao.getRefundNo();
+		if(lastRefundNo != null){
+			initRefundNo = Integer.parseInt(lastRefundNo) + initRefundNo;
+		}
+		adrefund.setRefundNo("refund_"+initRefundNo);
+		adrefund.setUserId((String)session.getAttribute("id"));
+		adrefunddao.insertRefund(adrefund);
+		return "redirect:/adContractList";
+	}
+	@RequestMapping(value="/contractBadCancel",method = RequestMethod.GET)
+	public String contractBadCancel(@RequestParam("adContractNo") String adcontractno
+								   ,@RequestParam("adContractEnd") String adcontractend
+								   ,HttpSession session){
+		System.out.println("불량 게시물 광고 취소 요청");
+		adcontractdao.updateBadAdContract(adcontractno);
+		AdRefundDto adrefund = new AdRefundDto();
+		adrefund.setAdContractNo(adcontractno);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date d = new Date();
+		String date = sdf.format(d);
+		Date now = null;
+		Date end = null;
+		long caldate = 0;
+		try {
+			now = sdf.parse(date);
+			end = sdf.parse(adcontractend);
+			caldate = (end.getTime()-now.getTime())/( 24*60*60*1000); 
+			caldate = Math.abs(caldate);
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		adrefund.setRefundPrice(caldate*100000*0.5);
+		int initRefundNo = 1;
+		String lastRefundNo = adrefunddao.getRefundNo();
+		if(lastRefundNo != null){
+			initRefundNo = Integer.parseInt(lastRefundNo) + initRefundNo;
+		}
+		adrefund.setRefundNo("refund_"+initRefundNo);
+		adrefund.setUserId((String)session.getAttribute("id"));
+		adrefunddao.insertRefund(adrefund);
+		return "redirect:/adContractList";
+	}
+	
+	
 	
 	@RequestMapping(value="/adContractUpdate",method = RequestMethod.POST)
 	public String adContractUpdate(AdContractDto adcontract){

@@ -3,7 +3,7 @@ package com.ksmart.harulook.adrefund.service;
 public class AdRefundDto {
 	private String refundNo;
 	private String adContractNo;
-	private int refundPrice;
+	private Double refundPrice;
 	private String refundDate;
 	private String refundStat;
 	private String refundRequestDate;
@@ -33,11 +33,11 @@ public class AdRefundDto {
 	public void setAdContractNo(String adContractNo) {
 		this.adContractNo = adContractNo;
 	}
-	public int getRefundPrice() {
+	public Double getRefundPrice() {
 		return refundPrice;
 	}
-	public void setRefundPrice(int refundPrice) {
-		this.refundPrice = refundPrice;
+	public void setRefundPrice(double d) {
+		this.refundPrice = d;
 	}
 	public String getRefundDate() {
 		return refundDate;
