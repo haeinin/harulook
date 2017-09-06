@@ -30,6 +30,7 @@ canvas {
 
 	<!-- 바디 인클루드 -->
 	<div class="row">
+
 		<div class="col-xs-1">
 			<c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
 		</div>

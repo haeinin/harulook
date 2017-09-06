@@ -430,7 +430,10 @@
 	<c:import url="../../module/header.jsp"></c:import>	
 	<!-- 바디 인클루드 -->
     <div class="row">
-	    <div class="col-xs-1"></div>
+	    <!-- 좌측 베너 인클루드 -->
+    	<div class="col-xs-1">
+    		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+    	</div>
 	    <div id="div1" class="col-xs-9">
 	
 			<div class="container">
