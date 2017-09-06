@@ -94,12 +94,6 @@
 		var position = sessionStorage.getItem('influx');
 		console.log(position + " == 세션position");
 		
-		/* function ipv(){
-		  return -1 !=ip().indexOf(":")?6:4
-		}
-		alert(ip);
-		console.log(ip); */
-		
 		/* 현재내위치좌표 */
 		navigator.geolocation.getCurrentPosition(function(position){
 	    console.log('latitude: ', position.coords.latitude);
@@ -144,50 +138,6 @@
 			  dataType: "text" //결과값 타입 (리턴)
 		});
 	
-		
-	//구글////////////////////////////////////////////////////////////////////////////////////////////
-	 /* function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 8,
-          center: {lat: 35.836895, lng: 127.131554}
-        });
-        var geocoder = new google.maps.Geocoder;
-        var infowindow = new google.maps.InfoWindow;
-
-        document.getElementById('submit').addEventListener('click', function() {
-          geocodeLatLng(geocoder, map, infowindow);
-        });
-      }
-
-      function geocodeLatLng(geocoder, map, infowindow) {
-        var input = document.getElementById('latlng').value;
-        var latlngStr = input.split(',', 2);
-        var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
-        geocoder.geocode({'location': latlng}, function(results, status) {
-          if (status === 'OK') {
-            if (results[1]) {
-              map.setZoom(11);
-              var marker = new google.maps.Marker({
-                position: latlng,
-                map: map
-              });
-              infowindow.setContent(results[1].formatted_address);
-              infowindow.open(map, marker);
-            } else {
-              window.alert('No results found');
-            }
-          } else {
-            window.alert('Geocoder failed due to: ' + status);
-          }
-        });
-      }  */
-//////다음////////////////////////////////////////////////////////////////////////////////////////
-		
-		
-		
-		
-		
-		
 		$('#snsInsertButton').click(function(){	//sns게시물등록하기
 			$('#snsInsertForm').submit();
         });
@@ -211,14 +161,7 @@
     		<c:import url="./module/left.jsp"></c:import>
     	</div>
    	
-   	
-   	
-   	
-   	
-   	
-   	
-   	
-    	<div class="col-xs-9">
+   		<div class="col-xs-9">
            	<c:import url="/boardPopList"></c:import>
            	<c:import url="/boardList"></c:import>
            </div>
