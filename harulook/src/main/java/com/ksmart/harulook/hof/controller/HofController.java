@@ -17,7 +17,7 @@ public class HofController {
 	private HofDao dao;
 
 	/*이번 달 명예의 전당보기*/
-	@RequestMapping(value = "/getLikeRank", method = RequestMethod.GET)
+	@RequestMapping(value = "/hof", method = RequestMethod.GET)
 	public String getLikeRank(Model model){
 		List<HofDto> list = dao.getHofList();
 		model.addAttribute("list",list);

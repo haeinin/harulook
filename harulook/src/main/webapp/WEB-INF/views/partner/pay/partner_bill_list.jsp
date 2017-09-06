@@ -20,7 +20,7 @@
 	    
 	    <div class="col-xs-9" style="margin:30px;">
 
-	<table border="1px">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>제휴계약번호</th>
@@ -37,7 +37,7 @@
 					<td>${b.cooBillMonth}</td>
 					<td>${b.cooBillValue}</td>
 					<td>${b.cooBillDate}</td>
-					<td><a class="btn btn-default" href="${pageContext.request.contextPath}/partnerContractPayInsert?cooContractNo=${b.cooContractNo}">결제하기</a></td>
+					<td><a class="btn btn-default" href="${pageContext.request.contextPath}/partnerContractPayInsert?cooBillNo=${b.cooBillNo}">결제하기</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

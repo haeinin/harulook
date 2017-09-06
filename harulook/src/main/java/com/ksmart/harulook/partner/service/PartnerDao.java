@@ -66,8 +66,8 @@ public class PartnerDao {
 		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.cooContractAdmit", dto);
 	 }
 	 /*제휴결제 폼 요청*/
-	 public PartnerBillDto cooContractPayForm(String cooContractNo){
-		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.cooContractPayForm", cooContractNo);
+	 public PartnerBillDto cooContractPayForm(String cooBillNo){
+		 return sqlSessionTemplate.selectOne("com.ksmart.harulook.partner.service.PartnerMapper.cooContractPayForm", cooBillNo);
 	 }
 	 /*제휴계약업체 상세보기*/
 	 public MemberDto getCooContractCompany(String userId){

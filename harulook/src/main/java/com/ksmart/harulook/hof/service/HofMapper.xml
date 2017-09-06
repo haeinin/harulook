@@ -10,25 +10,30 @@
 		<result property="hofDate" column="hof_date"></result>
 		<result property="hofRank" column="hof_rank"></result>
 		<result property="pointPolicyNo" column="point_policy_no"></result>
-		<result property="hofPrizeStat" column="hof_prize_stat"></result>
+		<result property="boardImg" column="sns_board_img"></result>
 	</resultMap>
 	
 	<resultMap type="com.ksmart.harulook.hof.service.HofRankDto" id="hofRank">
 		<result property="boardNo" column="sns_board_no"></result>
 		<result property="rank" column="rank"></result>
 		<result property="liker" column="liker"></result>
+		
 	</resultMap>
 	
 	<!-- 이번 달 명예의전당 -->
 	<select id="getHofList" resultMap="hof">
 	SELECT 
-		hof_month
-		,hof_rank
-		,sns_board_no
+		hof.hof_month
+		,hof.hof_rank
+		,hof.sns_board_no
+		,sns_board.sns_board_img
 	FROM 
 		hof
+	JOIN sns_board
+	ON sns_board.sns_board_no =hof.sns_board_no
 	WHERE 
 		MONTH(hof_date) = MONTH(NOW())	
+	ORDER BY hof.hof_rank ASC
 	</select>
 	
 	<!-- 이번 달 좋아요 랭크 보기 -->
@@ -44,7 +49,7 @@
 		(
 		SELECT sns_board_no ,count(sns_like_no) as liker
 		FROM sns_like
-		WHERE MONTH(sns_like_date) = MONTH(NOW())
+		WHERE MONTH(sns_like_date) = (MONTH(NOW())-1)
 		GROUP BY sns_board_no 
 		ORDER BY count(sns_like_no) DESC
 		)sub1
@@ -94,7 +99,7 @@
 	, DATE(NOW())
 	, #{pointPolicyNo})
 	</insert>
-	
+
 	
 	
 	

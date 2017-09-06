@@ -17,32 +17,44 @@
 	    
 	    </div>
 	    <div class="col-xs-9">
- <table border="1px">
-        <thead>
-            <tr>
-                <th>제휴계약번호</th>
-                <th>제휴 시작 날짜</th>
-                <th>제휴 종료 날짜</th>
-                <th>제휴상태</th>
+	    <div class="col-xs-1"></div>
+	    <div class="col-xs-9">
 
-                <c:if test="${sessionScope.level == '관리자'}">
-                <th>관리자승인</th>
-                </c:if>
-            </tr>
-        </thead>
-        
-        <tbody>
-            <c:forEach var="b" items="${list}">
-                <tr>
-                    <td><a href="${pageContext.request.contextPath}/partnerMain?setNo=${b.cooContractNo}">${b.cooContractNo}</a></td>
-                    <td>${b.cooContractStart}</td>
-                    <td>${b.cooContractEnd}</td>
-                    <td>${b.cooContractStat}</td>
-                </tr>
-            </c:forEach>
-        </tbody>
-        </table>
-        </div>
+			<c:if test="${!empty list}">
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>제휴계약번호</th>
+							<th>제휴 시작 날짜</th>
+							<th>제휴 종료 날짜</th>
+							<th>제휴상태</th>
+
+							<c:if test="${sessionScope.level == '관리자'}">
+								<th>관리자승인</th>
+							</c:if>
+						</tr>
+					</thead>
+
+					<tbody>
+						<c:forEach var="b" items="${list}">
+							<tr>
+								<td><a
+									href="${pageContext.request.contextPath}/partnerMain?setNo=${b.cooContractNo}">${b.cooContractNo}</a></td>
+								<td>${b.cooContractStart}</td>
+								<td>${b.cooContractEnd}</td>
+								<td>${b.cooContractStat}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</c:if>
+			<c:if test="${empty list}">
+				<p>신청한 제휴계약이 없습니다</p>
+				<a href="${pageContext.request.contextPath}/partnerContractInsert">제휴계약신청하기</a>
+			</c:if>
+			</div>
+		</div>
         </div>
 </body>
 </html>

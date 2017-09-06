@@ -7,7 +7,8 @@ public class HofDto {
 	private String hofDate;
 	private int hofRank;
 	private String pointPolicyNo;
-	private String hofPrizeStat;
+	private String boardImg;
+
 	public int getHofMonth() {
 		return hofMonth;
 	}
@@ -38,16 +39,16 @@ public class HofDto {
 	public void setPointPolicyNo(String pointPolicyNo) {
 		this.pointPolicyNo = pointPolicyNo;
 	}
-	public String getHofPrizeStat() {
-		return hofPrizeStat;
+	public String getBoardImg() {
+		return boardImg;
 	}
-	public void setHofPrizeStat(String hofPrizeStat) {
-		this.hofPrizeStat = hofPrizeStat;
+	public void setBoardImg(String boardImg) {
+		this.boardImg = boardImg;
 	}
 	@Override
 	public String toString() {
 		return "HofDto [hofMonth=" + hofMonth + ", boardNo=" + boardNo + ", hofDate=" + hofDate + ", hofRank=" + hofRank
-				+ ", pointPolicyNo=" + pointPolicyNo + ", hofPrizeStat=" + hofPrizeStat + "]";
+				+ ", pointPolicyNo=" + pointPolicyNo + ", boardImg=" + boardImg + "]";
 	}
 
 

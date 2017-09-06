@@ -552,16 +552,6 @@ function dfs_xy_conv(code, v1, v2) {
 											type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="내 제휴 보기" />
 									</div>
 								</form>
-
-								<!-- 내 결제 예정 금액 보기-->
-								<form id="myModifiedFrom"
-									action="${pageContext.request.contextPath}/myModifiedFrom"
-									method="post">
-									<div>
-										<input class="btn btn-default" id="myModified" type="button"
-											 style="WIDTH: 130pt; HEIGHT: 25pt" value="내 결제 예정 금액" />
-									</div>
-								</form>
 								
 								<!-- 내 환불 보기-->
 								<form id="reFundForm"
