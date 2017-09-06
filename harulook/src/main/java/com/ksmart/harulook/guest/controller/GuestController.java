@@ -3,6 +3,8 @@ package com.ksmart.harulook.guest.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +25,14 @@ public class GuestController {
 	@RequestMapping(value="/guestAdd", produces = "application/text; charset=utf8", method = RequestMethod.POST)
 	public String guestAdd(
 			HttpServletRequest request,
-			@RequestParam("ip") String ip ) {
+			HttpSession session,
+			@RequestParam("ip") String ip,
+			@RequestParam("apiAdd") String apiAdd ) {
         System.out.println("GuestController 아이피= " + ip);
         String guestSelectIp = guestDao.guestSelect(ip);	//	게스트 중복 방지 셀렉트
     	
+        session.setAttribute("apiAdd", apiAdd);	//지역 이름 세션 저장
+        System.out.println("GuestController 세션에 저장된 지역 이름 = " + session.getAttribute("apiAdd"));
         if(guestSelectIp != null) {	// 게시트가 중복이면 입력 불가능
         	return "home";
 		}else if(guestSelectIp == null) {	//	게스트가 첫방문이면 입력

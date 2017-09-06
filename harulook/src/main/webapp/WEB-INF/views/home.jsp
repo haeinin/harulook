@@ -89,6 +89,7 @@
 		var addr;
 		var x = 0;
 		var y = 0;
+		
 		/* 세션 입력 */
 		sessionStorage.setItem('influx', 'haruloook');	//제휴사이트에 값 넘기기위함
 		var position = sessionStorage.getItem('influx');
@@ -120,27 +121,27 @@
 			    if (status === daum.maps.services.Status.OK) {
 			        console.log('주소 ' + result[0].address.address_name);
 			        var a = result[0].address.address_name;
-			        var add = a.substr(0, 2);
-			        console.log('광역시와도 :  ' + add);
+			        var apiAdd = a.substr(0, 2);
+			        console.log('광역시와도 : ' + apiAdd);
 			        
+			        var request = $.ajax({	//아이디와 지역 입력
+						  url: "./guestAdd", //호출 경로
+						  method: "POST",	//전송방식
+						  data: { 'ip' : ip(), 'apiAdd' : apiAdd }, //전송해줄값
+						  dataType: "text" //결과값 타입 (리턴)
+					});
+				
+					$('#snsInsertButton').click(function(){	//sns게시물등록하기
+						$('#snsInsertForm').submit();
+			        });
 			     }
 		    /* 다음주소 api */    
-		};
+			};
 
 		geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
 	    
 	    });
 		
-		var request = $.ajax({
-			  url: "./guestAdd", //호출 경로
-			  method: "POST",	//전송방식
-			  data: { 'ip' : ip() }, //전송해줄값
-			  dataType: "text" //결과값 타입 (리턴)
-		});
-	
-		$('#snsInsertButton').click(function(){	//sns게시물등록하기
-			$('#snsInsertForm').submit();
-        });
 	
 	});   
    
@@ -153,8 +154,7 @@
 	    <!-- 상단 인클루드 -->
 	    <c:import url="./module/header.jsp"></c:import>
 	</div>
-	
-    <!-- 바디 인클루드 -->
+	<!-- 바디 인클루드 -->
    	<div class="row">
    		<!-- 좌측 베너 인클루드 -->
     	<div class="col-xs-1">
