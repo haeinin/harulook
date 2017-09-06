@@ -198,6 +198,9 @@ function boardDetail(msg) {
 	}
 	
 	snsDetailLike += '<span class="center" id="snsLikeCount">'+msg.board.snsLikeCount+'개&nbsp;&nbsp;</span>';
+	
+	snsDetailLike += '<div>'+msg.board.snsBoardDate+'</div>';
+	snsDetailLike += '</div>';
 	snsDetailLike += '</div>';
 	$('#snsDetailLike').html(snsDetailLike);
 	

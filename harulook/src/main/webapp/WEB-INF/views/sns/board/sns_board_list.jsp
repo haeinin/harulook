@@ -29,9 +29,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
 <c:set value="${sessionScope.id}" var="sessionId" />
-<script type="text/javascript" src="resources/js/boardDetail.js"></script>
+<c:set value="${sessionScope.CcTall}" var="CcTall"></c:set>
+<c:set value="${sessionScope.CcSize}" var="CcSize"></c:set>
+<c:set value="${sessionScope.CcGender}" var="CcGender"></c:set>
+<c:set value="${sessionScope.CcAge}" var="CcAge"></c:set>
+<c:set value="${sessionScope.CcuserColor}" var="CcuserColor"></c:set>
+<c:set value="${sessionScope.CcuserStyle}" var="CcuserStyle"></c:set>
+<script type="text/javascript" src="resources/js/boardDetail.js?ver=1"></script>
 <script type="text/javascript" src="resources/js/followCheck.js"></script>
-<c:set value="${boardCount}" var="boardCount"></c:set>
 <script type="text/javascript">
 
 /* 게시글 추천수, 댓글수 보이기 및 감추기 */
@@ -72,78 +77,189 @@ function showDetail(data) {
 		$('#snsModal').modal();
 	});
 }
+
+function boardSearch(){
+	
+	/* 체크박스 체크 유무를 배열로 처리  */
+	var colorValue=[], styleValue=[], situationValue=[];
+	
+	$(":checkbox[name='colorValue']:checked").each(function(i){
+		colorValue.push($(this).val());
+	  });
+	
+	$(":checkbox[name='styleValue']:checked").each(function(i){
+		styleValue.push($(this).val());
+	  });
+	
+	$(":checkbox[name='situationValue']:checked").each(function(i){
+		situationValue.push($(this).val());
+	  });
+	
+	console.log('colorValue : ',colorValue);
+	console.log('styleValue : ',styleValue);
+	console.log('situationValue : ',situationValue);
+	
+	$.ajaxSettings.traditional = true; //배열 형태로 서버쪽 전송을 위한 설정
+	
+	$.ajax({
+		url : './boardSearchList',
+		method : 'get',
+		data : { 'userId'		: $('#userId').val()
+				,'snsBoardWeather'	: $('#snsBoardWeather').val()
+				,'snsBoardTall'		: $('#snsBoardTall').val()
+				,'snsBoardSize'		: $('#snsBoardSize').val()
+				,'snsBoardLoc'		: $('#snsBoardLoc').val()
+				,'snsBoardGender'	: $(":input:radio[name=snsBoardGender]:checked").val()
+				,'snsBoardAge'		: $('#snsBoardAge').val()
+					,'colorValue'		: colorValue
+					,'styleValue'		: styleValue
+					,'situationValue'	: situationValue
+				},
+		datatype : 'json',
+		success : function(data){
+			console.log(data);
+			var boardHtml = '';
+			if(data.length > 0) {
+				for(var i=0; i<data.length; i++) {
+					boardHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
+					boardHtml += '<div class="sns-photo-box" value="'+data[i].snsBoardNo+'">';
+					boardHtml += '<div class="image-wrap">';
+					boardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
+					boardHtml += '<div class="likes">';
+					boardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
+					boardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
+					boardHtml += '<i class="fa fa-commenting center" style="font-size:24px"></i>';
+					boardHtml += '<span class="center">&nbsp;'+data[i].snsCommentCount+'</span>';
+					boardHtml += '</div>';
+					boardHtml += '</div>';
+					boardHtml += '</div>';
+					boardHtml += '</div>';
+					
+				}
+			} else {
+				boardHtml += '<span>일치하는 결과가 없습니다.</span>';
+			}	
+			$('#boardOutput').html(boardHtml);
+			likeAndComment();
+			showDetail(data);
+		}
+	});
+}
+
 $(function(){     
 	
 	likeAndComment();
 	showDetail(null);
 	
+	var userTall = '<c:out value="${CcTall}"/>';
+	var userSize = '<c:out value="${CcSize}"/>';
+	var userGender = '<c:out value="${CcGender}"/>';
+	var userAge = '<c:out value="${CcAge}"/>';
+	var userColor = '<c:out value="${CcuserColor}"/>';
+	var userStyle = '<c:out value="${CcuserStyle}"/>';
+	
+	/* 맞춤 추천 버튼 클릭 */
+	$('#recommendationBtn').click(function(){
+		console.log('userTall : ',userTall);
+		console.log('userSize : ',userSize);
+		console.log('userGender : ',userGender);
+		console.log('userAge : ',userAge);
+		console.log('userColor : ',userColor);
+		console.log('userStyle : ',userStyle);
+		console.log('userColor=빨강 : ',userColor.indexOf('빨강'));
+		console.log('userColor=주황 : ',userColor.indexOf('주황'));
+		console.log('userColor=노랑 : ',userColor.indexOf('노랑'));
+		
+		$('#snsBoardTall').val(userTall);
+		$('#snsBoardSize').val(userSize);
+		$('#snsBoardGender').val(userGender);
+		if(userGender == '여') {
+			$('#snsBoardGender').val('여').attr('checked','checked');
+		} else {
+			$('#snsBoardGender').val('남').attr('checked','checked');
+		}
+		$('#snsBoardAge').val(userAge);
+		
+		/* 사용자 스타일 체크 판별 */
+		if(userStyle.indexOf('클래식') != -1) {
+			$('input:checkbox[id="searchStyleClassic"]').attr("checked", true);
+		} 
+		if(userStyle.indexOf('캐쥬얼') != -1) {
+			$('input:checkbox[id="searchStyleCasual"]').attr("checked", true);
+		}
+		if(userStyle.indexOf('빈티지') != -1) {
+			$('input:checkbox[id="searchStyleVintage"]').attr("checked", true);
+		} 
+		if(userStyle.indexOf('스트릿') != -1) {
+			$('input:checkbox[id="searchStyleStreet"]').attr("checked", true);
+		}
+		if(userStyle.indexOf('댄디') != -1) {
+			$('input:checkbox[id="searchStyleDandy"]').attr("checked", true);
+		} 
+		if(userStyle.indexOf('럭셔리') != -1) {
+			$('input:checkbox[id="searchStyleLuxury"]').attr("checked", true);
+		}
+		if(userStyle.indexOf('러블리') != -1) {
+			$('input:checkbox[id="searchStyleLovely"]').attr("checked", true);
+		} 
+		if(userStyle.indexOf('로맨틱') != -1) {
+			$('input:checkbox[id="searchStyleLomantic"]').attr("checked", true);
+		}
+		if(userStyle.indexOf('심플') != -1) {
+			$('input:checkbox[id="searchStyleSimple"]').attr("checked", true);
+		} 
+		if(userStyle.indexOf('액티브') != -1) {
+			$('input:checkbox[id="searchStyleActive"]').attr("checked", true);
+		}
+		
+		/* 사용자 색상 체크 판별 */
+		if(userColor.indexOf('빨강') != -1) {
+			$('input:checkbox[id="searchColorRed"]').attr("checked", true);
+		} 
+		if(userColor.indexOf('주황') != -1) {
+			$('input:checkbox[id="searchColorOrange"]').attr("checked", true);
+		}
+		if(userColor.indexOf('노랑') != -1) {
+			$('input:checkbox[id="searchColorYellow"]').attr("checked", true);
+		} 
+		if(userColor.indexOf('초록') != -1) {
+			$('input:checkbox[id="searchColorGreen"]').attr("checked", true);
+		}
+		if(userColor.indexOf('파랑') != -1) {
+			$('input:checkbox[id="searchColorBlue"]').attr("checked", true);
+		} 
+		if(userColor.indexOf('남색') != -1) {
+			$('input:checkbox[id="searchColorNavy"]').attr("checked", true);
+		}
+		if(userColor.indexOf('보라') != -1) {
+			$('input:checkbox[id="searchColorPurple"]').attr("checked", true);
+		} 
+		if(userColor.indexOf('검정') != -1) {
+			$('input:checkbox[id="searchColorBlack"]').attr("checked", true);
+		}
+		if(userColor.indexOf('회색') != -1) {
+			$('input:checkbox[id="searchColorGrey"]').attr("checked", true);
+		} 
+		if(userColor.indexOf('흰색') != -1) {
+			$('input:checkbox[id="searchColorWhite"]').attr("checked", true);
+		}
+		if(userColor.indexOf('갈색') != -1) {
+			$('input:checkbox[id="searchColorBrown"]').attr("checked", true);
+		}
+		if(userColor.indexOf('베이지') != -1) {
+			$('input:checkbox[id="searchColorBeige"]').attr("checked", true);
+		}
+		if(userColor.indexOf('핑크') != -1) {
+			$('input:checkbox[id="searchColorPink"]').attr("checked", true);
+		}
+		boardSearch();
+	});
+	
+
+	
 	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
 	$('.searchCategory').change(function(){
-		
-		/* 체크박스 체크 유무를 배열로 처리  */
-		var colorValue=[], styleValue=[], situationValue=[];
-		
-		$(":checkbox[name='colorValue']:checked").each(function(i){
-			colorValue.push($(this).val());
-		  });
-		
-		$(":checkbox[name='styleValue']:checked").each(function(i){
-			styleValue.push($(this).val());
-		  });
-		
-		$(":checkbox[name='situationValue']:checked").each(function(i){
-			situationValue.push($(this).val());
-		  });
-		
-		console.log('colorValue : ',colorValue);
-		console.log('styleValue : ',styleValue);
-		console.log('situationValue : ',situationValue);
-		
-		$.ajaxSettings.traditional = true; //배열 형태로 서버쪽 전송을 위한 설정
-		
-		$.ajax({
-			url : './boardSearchList',
-			method : 'get',
-			data : { 'userId'		: $('#userId').val()
-					,'snsBoardWeather'	: $('#snsBoardWeather').val()
-					,'snsBoardTall'		: $('#snsBoardTall').val()
-					,'snsBoardSize'		: $('#snsBoardSize').val()
-					,'snsBoardLoc'		: $('#snsBoardLoc').val()
-					,'snsBoardGender'	: $(":input:radio[name=snsBoardGender]:checked").val()
-					,'snsBoardAge'		: $('#snsBoardAge').val()
- 					,'colorValue'		: colorValue
- 					,'styleValue'		: styleValue
- 					,'situationValue'	: situationValue
-					},
-			datatype : 'json',
-			success : function(data){
-				console.log(data);
-				var boardHtml = '';
-				if(data.length > 0) {
-					for(var i=0; i<data.length; i++) {
-						boardHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
-						boardHtml += '<div class="sns-photo-box" value="'+data[i].snsBoardNo+'">';
-						boardHtml += '<div class="image-wrap">';
-						boardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
-						boardHtml += '<div class="likes">';
-						boardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
-						boardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
-						boardHtml += '<i class="fa fa-commenting center" style="font-size:24px"></i>';
-						boardHtml += '<span class="center">&nbsp;'+data[i].snsCommentCount+'</span>';
-						boardHtml += '</div>';
-						boardHtml += '</div>';
-						boardHtml += '</div>';
-						boardHtml += '</div>';
-						
-					}
-				} else {
-					boardHtml += '<span>일치하는 결과가 없습니다.</span>';
-				}	
-				$('#boardOutput').html(boardHtml);
-				likeAndComment();
-				showDetail(data);
-			}
-		});
+		boardSearch();
 	});
 	
 	/*  현재 페이지 값을 받아 number타입으로 변환  */
@@ -258,32 +374,32 @@ $(function(){
 				</div>
 				<div class="form-group">
 					<label for="searchSnsBoardStyle">스타일 :</label>		
-					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
-					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
-					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
-					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트
-					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디
-					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리
-					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리
-					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱
-					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플
-					<input class="searchCategory" type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브
+					<input class="searchCategory" type="checkbox" id="searchStyleClassic" name="styleValue" value="style_01">클래식
+					<input class="searchCategory" type="checkbox" id="searchStyleCasual" name="styleValue" value="style_02">캐쥬얼
+					<input class="searchCategory" type="checkbox" id="searchStyleVintage" name="styleValue" value="style_03">빈티지
+					<input class="searchCategory" type="checkbox" id="searchStyleStreet" name="styleValue" value="style_04">스트리트
+					<input class="searchCategory" type="checkbox" id="searchStyleDandy" name="styleValue" value="style_05">댄디
+					<input class="searchCategory" type="checkbox" id="searchStyleLuxury" name="styleValue" value="style_06">럭셔리
+					<input class="searchCategory" type="checkbox" id="searchStyleLovely" name="styleValue" value="style_07">러블리
+					<input class="searchCategory" type="checkbox" id="searchStyleLomantic" name="styleValue" value="style_08">로맨틱
+					<input class="searchCategory" type="checkbox" id="searchStyleSimple" name="styleValue" value="style_09">심플
+					<input class="searchCategory" type="checkbox" id="searchStyleActive" name="styleValue" value="style_10">액티브
 				</div>
 				<div class="form-group">
 			      	<label for="searchSnsBoardColor">색상 :</label>
-			     	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01">빨강
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02">주황
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03">노랑
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04">초록
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05">파랑
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06">남색
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07">보라
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08">검정
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09">회색
-			    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10">흰색
-			    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11">갈색
-			    	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12">베이지
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13">핑크       	
+			     	<input class="searchCategory" type="checkbox" id="searchColorRed" name="colorValue" value="color_01">빨강
+			      	<input class="searchCategory" type="checkbox" id="searchColorOrange" name="colorValue" value="color_02">주황
+			      	<input class="searchCategory" type="checkbox" id="searchColorYellow" name="colorValue" value="color_03">노랑
+			      	<input class="searchCategory" type="checkbox" id="searchColorGreen" name="colorValue" value="color_04">초록
+			      	<input class="searchCategory" type="checkbox" id="searchColorBlue" name="colorValue" value="color_05">파랑
+			      	<input class="searchCategory" type="checkbox" id="searchColorNavy" name="colorValue" value="color_06">남색
+			      	<input class="searchCategory" type="checkbox" id="searchColorPurple" name="colorValue" value="color_07">보라
+			      	<input class="searchCategory" type="checkbox" id="searchColorBlack" name="colorValue" value="color_08">검정
+			      	<input class="searchCategory" type="checkbox" id="searchColorGrey" name="colorValue" value="color_09">회색
+			    	<input class="searchCategory" type="checkbox" id="searchColorWhite" name="colorValue" value="color_10">흰색
+			    	<input class="searchCategory" type="checkbox" id="searchColorBrown" name="colorValue" value="color_11">갈색
+			    	<input class="searchCategory" type="checkbox" id="searchColorBeige" name="colorValue" value="color_12">베이지
+			      	<input class="searchCategory" type="checkbox" id="searchColorPink" name="colorValue" value="color_13">핑크       	
 			    </div>
 			    <div class="form-group">
 			      	<label class="searchCategory" for="searchSnsBoardSituation">상황 :</label>
@@ -298,85 +414,85 @@ $(function(){
 			    <div class="form-group">
 			    	<label class="searchCategory" for="userId">아이디 :</label>
 			    	<input type="text" class="searchCategory" id="userId" name="userId">
-			    	<input type="button" value="검색">
+			    	<input class="btn btn-default" type="button" value="검색">
+			    	<button class="btn btn-default" type="button" id="recommendationBtn">맞춤 추천</button>
 			    </div>
 			</div>
 			<!-- sns 게시물 검색 항목 -->
-			<div class="col-xs-1"></div>
+		</div>
 	</div>
 	
 	<div class="row">
-	<div class="col-xs-2"></div>
-	<!-- sns 게시물 목록 영역 -->
-    <div class="col-xs-9">
-        <div class="instagram-content">
-        
-            <h3>최근 게시물</h3>
-            <!-- The following HTML will be our template inside instafeed -->
-			<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
-			<c:forEach items="${list}" var="b">
-			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
-				<div class="sns-photo-box">
-					<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
-					<div class="image-wrap">
-						<img style="height: auto; max-width: 300px; max-height: 300px; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
-						<div class="likes">
-							<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>
-							<span class="center">&nbsp;${b.snsLikeCount}&nbsp;&nbsp;&nbsp;</span>
-							<i class="fa fa-commenting center" style="font-size:24px"></i>
-							<span class="center">&nbsp;${b.snsCommentCount}</span>
+		<div class="col-xs-2"></div>
+		<!-- sns 게시물 목록 영역 -->
+	    <div class="col-xs-9">
+	        <div class="instagram-content">
+	        
+	            <h3>최근 게시물</h3>
+	            <!-- The following HTML will be our template inside instafeed -->
+				<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
+				<c:forEach items="${list}" var="b">
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
+					<div class="sns-photo-box">
+						<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
+						<div class="image-wrap">
+							<img style="height: auto; max-width: 300px; max-height: 300px; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
+							<div class="likes">
+								<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>
+								<span class="center">&nbsp;${b.snsLikeCount}&nbsp;&nbsp;&nbsp;</span>
+								<i class="fa fa-commenting center" style="font-size:24px"></i>
+								<span class="center">&nbsp;${b.snsCommentCount}</span>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			</c:forEach>
-			</div>
-			<div class="text-center">
-				<button type="button" id="readMoreBtn" class="btn btn-default">더 읽어들이기</button>
-			</div>
-       	</div>
-	</div>
-	<!-- sns 게시물 목록 영역 -->
-
-
-	<!-- sns 게시물 상세보기 모달 -->
-	<div class="modal fade" id="snsModal" role="dialog">
-	    <div id="modalFrame" class="modal-dialog modal-lg" >
-			<div id="snsDetail" class="modal-content">
-		        <div class="row">
-		        
-		        	<!-- 게시물 이미지 영역 -->
-			        <div id="snsDetailImgArea" class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
-						<div id="snsDetailImg"></div>
-		        	</div>
-		        	<!-- 게시물 이미지 영역 -->
-		        	
-		        	<!-- 게시물 내용 영역 -->
-			        <div id="contentArea" class="modal-body col-xs-12 col-sm-6">
-			        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
-		        		<div id="snsDetailContent"></div>
-		        		<hr>
-		        	
-			        	<div id="snsDetailLike"></div>
-			        	<div id="snsDetailComment"></div>
-			        	<hr>
-			        	<c:if test="${sessionScope.id != null}">
-			        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">
-			        	<div id="snsDetailCommentControll">
+				</c:forEach>
+				</div>
+				<div class="text-center">
+					<button type="button" id="readMoreBtn" class="btn btn-default">더 읽어들이기</button>
+				</div>
+	       	</div>
+		</div>
+		<!-- sns 게시물 목록 영역 -->
+	
+	
+		<!-- sns 게시물 상세보기 모달 -->
+		<div class="modal fade" id="snsModal" role="dialog">
+		    <div id="modalFrame" class="modal-dialog modal-lg" >
+				<div id="snsDetail" class="modal-content">
+			        <div class="row">
+			        
+			        	<!-- 게시물 이미지 영역 -->
+				        <div id="snsDetailImgArea" class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
+							<div id="snsDetailImg"></div>
 			        	</div>
-			        	</c:if>
-					</div>
-					<!-- 게시물 내용 영역 -->
-					
-			     </div>
+			        	<!-- 게시물 이미지 영역 -->
+			        	
+			        	<!-- 게시물 내용 영역 -->
+				        <div id="contentArea" class="modal-body col-xs-12 col-sm-6">
+				        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
+			        		<div id="snsDetailContent"></div>
+			        		<hr>
+			        	
+				        	<div id="snsDetailLike"></div>
+				        	<hr>
+				        	<div id="snsDetailComment"></div>
+				        	<c:if test="${sessionScope.id != null}">
+				        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">
+				        	<div id="snsDetailCommentControll">
+				        	</div>
+				        	</c:if>
+						</div>
+						<!-- 게시물 내용 영역 -->
+						
+				     </div>
+				</div>
 			</div>
 		</div>
+		<!-- sns 게시물 상세보기 모달 -->
+		
+		<!-- 로그인권한별로 버튼을 나누기 위한 세션 아이디 -->
+		<input id="levelCheck" type="hidden" value="${sessionScope.level}"/>
 	</div>
-	<!-- sns 게시물 상세보기 모달 -->
-	
-<!-- 로그인권한별로 버튼을 나누기 위한 세션 아이디 -->
-<input id="levelCheck" type="hidden" value="${sessionScope.level}"/>
-</div>
-</div>
 </body>
 </html>
