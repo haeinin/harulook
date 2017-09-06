@@ -15,6 +15,15 @@
  	<result property="adCostNo" column="ad_cost_no"/>
  	<result property="adDcNo" column="ad_dc_no"/>	
  </resultMap>
+ 
+ 
+ <update id="updateBadAdContract">
+ 	UPDATE ad_contract
+	SET
+		ad_contract_stat='계약파기'
+	WHERE ad_contract_no=#{adContractNo}
+ </update>
+ 
  <update id="updateAdContract">
  	UPDATE ad_contract
 	SET
@@ -75,12 +84,15 @@
  </select>
  <!-- 위치1에 해당하는 현재진행중인 광고 목록 조회 -->
  <select id ="selectAdContractListCurrentPlace1"  resultMap="AdContractList">
-	SELECT ad_contract.ad_contract_place
+	SELECT
+		   ad_contract.ad_contract_no
+		  ,ad_contract.ad_contract_place
 		  ,user.user_bs_name
 		  ,ad_contract.ad_contract_start
 		  ,ad_contract.ad_contract_end
 		  ,ad_contract.user_id
 		  ,ad_contract.ad_contract_stat
+		  ,ad_contract.ad_contract_price
 	FROM ad_contract
 		JOIN user
 		on ad_contract.user_id = user.user_id
@@ -89,12 +101,15 @@
  </select>
  <!-- 위치2에 해당하는 현재진행중인 광고 목록 조회 -->
  <select id ="selectAdContractListCurrentPlace2"  resultMap="AdContractList">
-	SELECT ad_contract.ad_contract_place
+	SELECT 
+		  ad_contract.ad_contract_no
+		 ,ad_contract.ad_contract_place
 	 	 ,user.user_bs_name
 	  	 ,ad_contract.ad_contract_start
 	  	 ,ad_contract.ad_contract_end
 	  	 ,ad_contract.user_id
 	  	 ,ad_contract.ad_contract_stat
+	  	 ,ad_contract.ad_contract_price
 	FROM ad_contract
 	JOIN user
 	on ad_contract.user_id = user.user_id
@@ -103,12 +118,15 @@
  </select>
  <!-- 위치3에 해당하는 현재진행중인 광고 목록 조회 -->
  <select id ="selectAdContractListCurrentPlace3"  resultMap="AdContractList">
-	SELECT ad_contract.ad_contract_place
+	SELECT 
+		 ad_contract.ad_contract_no
+		,ad_contract.ad_contract_place
 	  	,user.user_bs_name
-	   ,ad_contract.ad_contract_start
-	   ,ad_contract.ad_contract_end
-	   ,ad_contract.user_id
-	   ,ad_contract.ad_contract_stat
+	    ,ad_contract.ad_contract_start
+	    ,ad_contract.ad_contract_end
+	    ,ad_contract.user_id
+	    ,ad_contract.ad_contract_stat
+	    ,ad_contract.ad_contract_price
 	FROM ad_contract
 	JOIN user
 	on ad_contract.user_id = user.user_id

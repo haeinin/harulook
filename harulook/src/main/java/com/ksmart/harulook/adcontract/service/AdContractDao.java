@@ -13,6 +13,12 @@ public class AdContractDao {
 	@Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 	
+	public int updateBadAdContract(String adContractNo){
+		System.out.println("불량 광고 계약 취소 메서드 실행 in Dao");
+		System.out.println("계약 번호 : " + adContractNo);
+		return sqlSessionTemplate.update("com.ksmart.harulook.adcontract.service.AdContractMapper.updateBadAdContract", adContractNo);
+	}
+	
 	public int updateAdContract(AdContractDto adcontract){
 		System.out.println("광고 계약 수정 메서드 실행");
 		System.out.println(adcontract);
