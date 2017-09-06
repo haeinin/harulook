@@ -37,34 +37,6 @@ $(function(){
 	    easing: 		mojs.easing.bezier(.08,.69,.39,.97)
 	  }
 	});
-
-	$("#like-cnt").click(function(){
-		console.log($('#snsBoardNo').text());
-		$.ajax({
-            url : './likeBtnClick',
-            method: 'POST',
-            data : { 'snsBoardNo' : $('#snsBoardNo').text()
-            		,'userId' : $('#userId').val()},
-            dataType: 'JSON',
-            success : function(data){
-            	console.log(data);
-            	$('#snsLikeCount').text(data.snsLikeCount);
-            	if(data.likeClick === 0) {
-            		 t1.set(like_cnt, {scale:0});
-            		    t1.set('.like-btn', {scale: 0});
-            		    t1.to(like_cnt, 0.6, {scale:1, background: '#FFB2F5',ease: Expo.easeOut});
-            		    t2.to('.like-btn', 0.65, {scale: 1, ease: Elastic.easeOut.config(1, 0.3)}, '+=0.2');
-//            		    t1.timeScale(5);
-            		    //circleShape.replay();
-            		    burst.replay();
-            	} else {
-            		t1.to(like_cnt, 1, {scale:1})
-            	      .to(like_cnt, 1, {scale:1, background: 'rgba(0,0,0,0.3)', ease: Power4.easeOut});
-            	    t1.timeScale(7);
-            	}
-            }
-        });
-	})
 });
 </script>
 </head>
@@ -93,120 +65,12 @@ ${b.snsBoardImg}
                 <td>${board.snsBoardContent}</td>
             </tr>
             <tr>
-                <td>sns_board_weather :</td>
-                <td>${board.snsBoardWeather}</td>
-            </tr>
-            <tr>
-                <td>sns_board_tall :</td>
-                <td>${board.snsBoardTall}</td>
-            </tr>
-            <tr>
-                <td>sns_board_size :</td>
-                <td>${board.snsBoardSize}</td>
-            </tr>
-            <tr>
-                <td>sns_board_loc :</td>
-                <td>${board.snsBoardLoc}</td>
-            </tr>
-            <tr>
-                <td>sns_board_date :</td>
-                <td>${board.snsBoardDate}</td>
-            </tr>
-            <tr>
-                <td>sns_board_gender :</td>
-                <td>${board.snsBoardGender}</td>
-            </tr>
-            <tr>
-                <td>sns_board_age :</td>
-                <td>${board.snsBoardAge}</td>
-            </tr>
-            <tr>
-                <td>추천수 :</td>
-                <td id="snsLikeCount">${board.snsLikeCount}</td>
-                
-                <!-- 예뻐요 버튼  -->
-                <c:if test="${sessionScope.id != null}">
-				<div class="like-container">
-				<c:if test="${likeToggle == false}">
-					<div class="like-cnt" id="like-cnt" style="background-color: rgba(0,0,0,0.3);">
-						<div class="like-cnt" id="like-cnt">
-							<i class="like-btn material-icons">thumb_up</i>
-						</div>
-					</div>
-				</c:if>
-				<c:if test="${likeToggle == true}">
-					<div class="like-cnt" id="like-cnt" style="background-color: #FFB2F5;">
-						<div class="like-cnt" id="like-cnt">
-							<i class="like-btn material-icons">thumb_up</i>
-						</div>
-					</div>
-				</c:if>
-				<script src="//production-assets.codepen.io/assets/common/stopExecutionOnTimeout-b2a7b3fe212eaa732349046d8416e00a9dec26eb7fd347590fbced3ab38af52e.js"></script>
-				<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-				<script src='https://cdn.jsdelivr.net/mojs/latest/mo.min.js'></script>
-				<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/DrawSVGPlugin.min.js'></script>
-				<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.0/TweenMax.min.js'></script>
-				</div>
-				</c:if>
-				<!-- 예뻐요 버튼  -->
-				
-            </tr>
-            <tr>
-                <td>댓글수 :</td>
-                <td>${board.snsCommentCount}</td>
-            </tr>
-            <tr>
-                <td>sns_board_style :</td>
-                <td>
-                	<c:if test="${snsColor.size() > 0}">
-                		<c:forEach var="i" begin="0" end="${snsStyle.size()-1}">${snsStyle.get(i)}&nbsp;&nbsp;</c:forEach>
-                	</c:if>
-                </td> 
-            </tr>
-            <tr>
-                <td>sns_board_color :</td>
-                <td>
-                	<c:if test="${snsColor.size() > 0}">
-                		<c:forEach var="i" begin="0" end="${snsColor.size()-1}">${snsColor.get(i)}&nbsp;&nbsp;</c:forEach>
-                	</c:if>
-                </td>
-            </tr>
-            <tr>
-                <td>sns_board_situation :</td>
-                <td>
-                	<c:if test="${snsSituation.size() > 0}">
-                		<c:forEach var="i" begin="0" end="${snsSituation.size()-1}">${snsSituation.get(i)}&nbsp;&nbsp;</c:forEach>
-                	</c:if>
-                </td>
-            </tr>
-            <tr>
                    <td></td>
             </tr>
             <tr>
 	                <th>sns_user_id</th>
 	                <th>sns_comment_content</th>
 	                <th>sns_comment_date</th>
-	        </tr>
-            <c:forEach var="commentList" items="${commentList}">
-	            <tr>
-	                <td>${commentList.userId}</td>
-	                <td>${commentList.snsCommentContent}</td>
-	                <td>${commentList.snsCommentDate}</td>
-	                <c:if test="${sessionScope.id == commentList.userId}">
-	                	<td><a class="btn btn-default" href="${pageContext.request.contextPath}/commentDelete?snsCommentNo=${commentList.snsCommentNo}&snsBoardNo=${commentList.snsBoardNo}">삭제</a></td>
-	            	</c:if>
-	            </tr>
-	         </c:forEach>
-	         <tr>
-	         <c:if test="${sessionScope.id != null}">
-	         	<form action="${pageContext.request.contextPath}/commentInsert" method="post">
-	                <td>${sessionScope.id}<input type="hidden" id="userId" name="userId" value="${sessionScope.id}" readonly="readonly"></td>
-	                <td><input type="text" id="snsCommentContent" name="snsCommentContent"></td>
-	                <input type="hidden" name="snsBoardNo" value=${board.snsBoardNo}>
-	                <td><input class="btn btn-default" type="submit" value="댓글입력"></td>
-				</form>
-				</td>
-			</c:if>
 	        </tr>
         </tbody>
     </table>

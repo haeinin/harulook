@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-    <table class="table table-striped">
+   <table class="table table-striped">
         <thead>
             <tr>
                 <th>위치</th>
@@ -16,6 +15,7 @@
                 <c:if test="${sessionScope.level=='사업자'}">
                 <th>계약 중도 취소</th>
                 </c:if>
+                <th>상세보기</th>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +37,7 @@
             		<td><a href="./contractDoingCancel?adContractNo=${adContractPlace1.adContractNo}&adContractEnd=${adContractPlace1.adContractEnd}">계약 중도 취소 신청</a></td>
             	</c:if>
                 </c:if>
+                <td><button id="place1detail">상세보기</button></td>
             </tr>
             <tr>
                 <td>2</td>
@@ -56,14 +57,14 @@
             	<td><a href="./contractDoingCancel?adContractNo=${adContractPlace2.adContractNo}&adContractEnd=${adContractPlace2.adContractEnd}">계약 중도 취소 신청</a></td>
             	</c:if>
                 </c:if>
-                    
+                 <td><button id="place2detail">상세보기</button></td>    
             </tr>
 
 
             <tr>
             	<td>3</td>
             	<c:if test="${adContractPlace3==null}">
-            		<td colspan="5" align="center"><a class="btn btn-info">비었음</a></td>
+            		<td colspan="7" align="center"><a class="btn btn-info">비었음</a></td>
             	</c:if>
             	<c:if test="${adContractPlace3!=null}">
             		<td>${adContractPlace3.userBsName}</td>
@@ -77,7 +78,10 @@
         		<c:if test="${sessionScope.id==adContractPlace3.userId}">
         			<td><a href="./contractDoingCancel?adContractNo=${adContractPlace3.adContractNo}&adContractEnd=${adContractPlace3.adContractEnd}">계약 중도 취소 신청</a></td>
         		</c:if>
+        		 <td><button id="place3detail">상세보기</button></td>
             	</c:if>
+            	
             </tr>
         </tbody>
     </table>
+    <c:import url="../board/ad_board_detail.jsp"/>

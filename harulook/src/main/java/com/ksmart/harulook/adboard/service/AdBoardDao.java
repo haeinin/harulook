@@ -34,5 +34,9 @@ public class AdBoardDao {
 		System.out.println("광고 게시물 삭제 요청 in Dao");
 		return sqlSessionTemplate.delete("com.ksmart.harulook.adboard.service.AdBoardMapper.deleteAdBoard", adBoardNo);
 	}
+	public AdBoardDto selectBoardDetail(String boardNo) {
+		System.out.println("광고 상세 보기 내용 요청 in Dao");
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.adboard.service.AdBoardMapper.selectAdBoard", boardNo);
+	}
 
 }

@@ -14,7 +14,54 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script>
+function showDetail(data) {
+	$('#place1detail').click(function(){
+		var boardNo = ${adContractPlace1.adContractNo};
+		console.log('adBoardNo : ',boardNo,'');
+		var boardDetailRequest = $.ajax({
+			url : './adboardDetail',
+			method : 'get',
+			data :{'boardNo' : boardNo},
+			datatype : 'json',
+			success : function(contractData) {
+				$.ajax({
+					url : './adGoodsDetail',
+					method : 'get',
+					data : {'adGoodsNo' : contractData.adBoardGoods1}
+					datatype : 'json',
+					success : function(goods1Data) {
+						
+					}
+				})
+				if(contractData.adBoardGoods2 != ""){
+					$.ajax({
+						url : './adGoodsDetail',
+						method : 'get',
+						data : function(goods2Data) {
+							
+						}
+					})
+				}else{
+					
+				}
+				
+			}
+		});
+		$('#adModal').modal();
+	});
+}
 $(document).ready(function(){
+	showDetail(null);
+	
+	$('#place1detail').click(function(){
+		$('#adModal').modal();
+	})
+	$('#place2detail').click(function(){
+		$('#adModal').modal();
+	})
+	$('#place3detail').click(function(){
+		$('#adModal').modal();
+	})
 	$('#adcontractsoonlist').hide();
 	$('#adcontractapprovewaitlist').hide();
 	$('#adcontractadboardinsertwaitlist').hide();
