@@ -407,21 +407,21 @@ function dfs_xy_conv(code, v1, v2) {
 			</div>
 
 		<div class="col-xs-3">
-					<c:if test="${sessionScope.level == null}">
-						<!-- 로그인버튼 -->
-						<form id="login" style="float:left;"
-							action="${pageContext.request.contextPath}/loginForm" method="get">
-							<div class="btn">
-								<input class="btn btn-default" id="loginbutton" type="button"
-									value="로그인하기" />
-							</div>
-						</form>
-					</c:if>
-					<br>
+			<c:if test="${sessionScope.level == null}">
+				<!-- 로그인버튼 -->
+				<form id="login" style="float:left;"
+					action="${pageContext.request.contextPath}/loginForm" method="get">
+					<div class="btn">
+						<input class="btn btn-default" id="loginbutton" type="button"
+							value="로그인하기" />
+					</div>
+				</form>
+			</c:if>
+			<br>
 				
 				
-					<c:if test="${sessionScope.level != null}">
-					<div id="mypageDropdown">
+			<c:if test="${sessionScope.level != null}">
+			<div id="mypageDropdown">
 				<div class="dropdown">
 					<button class="btn btn-default dropdown-toggle" style="float:left;" type="button" data-toggle="dropdown">마이페이지
 					<span class="caret"></span></button>
@@ -645,7 +645,7 @@ function dfs_xy_conv(code, v1, v2) {
 								<input class="btn btn-default" id="logout" type="button"
 									value="로그아웃" />
 							</form>
-					</c:if>
+			</c:if>
 				
 		</div>
 

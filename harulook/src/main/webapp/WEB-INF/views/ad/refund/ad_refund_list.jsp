@@ -13,7 +13,9 @@
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 드롭다운과충돌 -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
 <!-- jQuery UI CSS파일  -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <!-- jQuery 기본 js파일 -->
@@ -21,24 +23,28 @@
 <!-- jQuery UI 라이브러리 js파일 -->
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 </head>
-		<c:import url="../../module/header.jsp"></c:import>	
+<body>
+	<c:import url="../../module/header.jsp"></c:import>	
+	<div class="row">
+		<div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">
 			<div id="container">
-				  <table class="table table-striped">
-		        <thead>
-		            <tr>
-		            	<th>환불번호</th>
-		                <th>계약번호</th>
-		                <th>아이디</th>
-		                <th>환불금액</th>
-		                <th>환불신청일자</th>
-		                <th>환불일자</th>
-		                <th>환불상태 </th>
-		                <th>비고</th>
-		            </tr>
-		        </thead>
-		        <tbody>
-        <c:forEach var="b" items="${adrefundlist}">
-		            <tr>
+				<table class="table table-striped">
+			        <thead>
+			            <tr>
+			            	<th>환불번호</th>
+			                <th>계약번호</th>
+			                <th>아이디</th>
+			                <th>환불금액</th>
+			                <th>환불신청일자</th>
+			                <th>환불일자</th>
+			                <th>환불상태 </th>
+			                <th>비고</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+     				   <c:forEach var="b" items="${adrefundlist}">
+					   <tr>
 		            		<td>${b.refundNo}</td>
 		                    <td>${b.adContractNo}</td>
 		                    <td>${b.userId}</td>
@@ -58,12 +64,17 @@
 		                    </td>
 		                </tr>
 		                </c:forEach>
-		        </tbody>
-		    </table>
+			        </tbody>
+			    </table>
 			</div>
+		</div>
+		
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
        	</div>
+   	</div>
     <!-- 하단 인클루드 -->
     <c:import url="../../module/footer.jsp"></c:import>
+</body>
+</html>
