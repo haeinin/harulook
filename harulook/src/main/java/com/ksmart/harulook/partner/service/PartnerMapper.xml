@@ -284,7 +284,7 @@
 			WHERE coo_contract_no=#{cooContractNo}
 			)
 			FROM mall_sale
-			WHERE coo_contract_no= #{cooContractNo}
+			WHERE coo_contract_no= #{cooContractNo} AND MONTH(mall_sale_date) = MONTH(NOW())-1)
 		)
 		,(MONTH(NOW())-1)
 		,(
@@ -296,6 +296,33 @@
 				coo_contract_no=#{cooContractNo}
 			)
 		);
+	</insert>
+	<!-- 제휴종료시 수수료계산 -->
+	<insert id="insertEndBill" parameterType="java.util.Map">
+	INSERT INTO coo_bill
+		(
+		coo_bill_no
+		,coo_contract_no
+		,coo_bill_value
+		,coo_bill_month
+		,coo_bill_date
+		)
+		VALUES
+		(
+		#{cooBillNo}
+		,#{cooContractNo}
+		,(SELECT sum(mall_sale_total)
+			*
+			(SELECT coo_contract_fee/100
+			FROM coo_contract
+			WHERE coo_contract_no=#{cooContractNo}
+			)
+			FROM mall_sale
+			WHERE coo_contract_no= #{cooContractNo} AND MONTH(mall_sale_date) = MONTH(NOW()))
+		,MONTH(NOW())
+		,DATE_ADD(DATE(NOW()) ,INTERVAL 10 DAY)
+		)
+		
 	</insert>
 
 

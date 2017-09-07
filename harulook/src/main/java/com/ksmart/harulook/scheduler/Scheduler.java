@@ -64,7 +64,7 @@ public class Scheduler {
 					setNo=Integer.parseInt(LastCooBillNo)+1;
 				}
 				String cooBillNo = "coo_bill_"+setNo;
-				partnerdao.cooContractBillInsert(cooBillNo, endList.get(i));
+				partnerdao.insertEndBill(cooBillNo, endList.get(i));
 				
 				System.out.println("매일 0시 0분 6초 제휴계약 기간만료 상태 변경");
 			}

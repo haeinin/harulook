@@ -84,6 +84,13 @@ public class PartnerDao {
 		 map.put("cooContractNo", cooContractNo);
 		 return sqlSessionTemplate.insert("com.ksmart.harulook.partner.service.PartnerMapper.cooContractBillInsert", map);
 	 }
+	 /*제휴종료시 수수료 입력처리*/
+	 public int insertEndBill(String cooBillNo,String cooContractNo){
+		 Map<String,String> map = new HashMap<String,String>();
+		 map.put("cooBillNo", cooBillNo);
+		 map.put("cooContractNo", cooContractNo);
+		 return sqlSessionTemplate.insert("com.ksmart.harulook.partner.service.PartnerMapper.insertEndBill", map);
+	 }
 	 /*제휴계약이름 전체불러오기*/
 	 public List<String> getCooContractNo(){
 		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getCooContractNo");
