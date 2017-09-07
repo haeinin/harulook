@@ -29,8 +29,7 @@ $.ajax({
 	    	
 	    	link.push(value.link);
 	    	img.push(value.img);
-	    	console.log("테스트 : "+value.link);
-	    	console.log("테스트 : "+value.img);});
+	    	});
     	
     	$('#i').attr("src",img.pop());
     	$('#partner1').attr("href",link.pop());
@@ -41,7 +40,7 @@ $.ajax({
  
     },  
     error:function(xhr,status,error){ //ajax 오류인경우  
-            alert("error\nxhr : " + xhr + ", status : " + status + ", error : " + error);                 
+            console.log("error\nxhr : " + xhr + ", status : " + status + ", error : " + error);                 
     }  
 }); 
 });

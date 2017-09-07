@@ -228,25 +228,26 @@
 	
 	<!-- 제휴 결제상태 변경 -->
 	<update id="cooContractPayStatUpdate" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
-		UPDATE
-		coo_contract
-		SET 
-		coo_contract_pay_stat = '결제완료'
-		WHERE 
-		coo_contract_no = 
-					(
-					SELECT 
-						distinct coo_pay.coo_contract_no
-					FROM 
-						coo_pay
-					JOIN 
-						coo_bill
-					ON
-						coo_bill.coo_contract_no = coo_pay.coo_contract_no
-					WHERE (coo_pay.coo_pay_total - coo_bill.coo_bill_value)>=0 
-					AND coo_pay.coo_contract_no = 'coo_contract_1' AND MONTH(coo_pay.coo_pay_date)=(coo_bill.coo_bill_month))
+	UPDATE coo_contract
+	SET
+		coo_contract_pay_stat='결제완료'
+	WHERE 
+	coo_contract_no = (SELECT coo_contract_no
+						FROM coo_bill
+						WHERE coo_bill_no = #{cooBillNo});
 
 	</update>
+	
+	<!-- 결제 후 제휴정지 상태 해제 -->
+	<update id ="updateCooContractRelieve" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
+	UPDATE coo_contract
+	SET
+		coo_contract_stat='제휴진행'
+	WHERE 
+	coo_contract_no = (SELECT coo_contract_no
+						FROM coo_bill
+						WHERE coo_bill_no = #{cooBillNo});
+	</update> 
 	
 	<!-- 제휴 업체 상세보기 -->
 	<select id = "cooContractCompany" parameterType="String" resultMap="partnerCompany">

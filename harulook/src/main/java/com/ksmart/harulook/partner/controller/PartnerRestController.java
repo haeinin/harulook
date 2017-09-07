@@ -86,9 +86,6 @@ public class PartnerRestController {
 	public List<HashMap<String, String>> getBanner(Model model) {
 		
 		List<HashMap<String, String>> map = partnerDao.getBanner();
-		System.out.println("삐용삐용삐용"+map);
-		System.out.println("삐용삐용삐용"+map.get(0));
-		System.out.println("삐용삐용삐용"+map.get(0).get("img"));
 		model.addAttribute("m",map);
 
 		return map;

@@ -42,7 +42,7 @@
 							<tr>
 							<c:if test="${b.cooContractStat == '제휴정지'}">
 							<td>
-								${b.cooContractNo}
+								<a href="${pageContext.request.contextPath}/partnerOverdue?setNo=${b.cooContractNo}">${b.cooContractNo}</a>
 							</td>
 							</c:if>
 							<c:if test="${b.cooContractStat != '제휴정지'}">

@@ -47,7 +47,7 @@ public class Scheduler {
 		}
 	}
 	/*매일 0시 0분 6초에 제휴 상태 갱신*/
-	@Scheduled(cron="6 * * * * *")
+	@Scheduled(cron="6 0 0 * * *")
 	public void CooContractScheduler() {
 		try{
 			List<String> startList = partnerdao.getStartCooContract();

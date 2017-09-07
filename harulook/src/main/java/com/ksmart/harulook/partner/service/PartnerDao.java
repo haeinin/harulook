@@ -53,6 +53,10 @@ public class PartnerDao {
 	 public int updateCooContractPayStat(PartnerBillDto dto){
 		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.cooContractPayStatUpdate", dto);
 	 }
+	 /*제휴정지해제*/
+	 public int updateCooContractRelieve(PartnerBillDto dto){
+		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.updateCooContractRelieve", dto);
+	 }
 	 /*제휴결제처리 후 제휴예정데이터 삭제*/
 	 public int deleteCooContractBill(PartnerBillDto dto){
 		 return sqlSessionTemplate.delete("com.ksmart.harulook.partner.service.PartnerMapper.cooContractBillDelete", dto);

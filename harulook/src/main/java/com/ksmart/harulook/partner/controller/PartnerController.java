@@ -141,6 +141,21 @@ public class PartnerController {
 		System.out.println("제휴결제예정수수료보기");
 		return "partner/pay/partner_bill_list";
 	}
+	/*제휴정지계약 전용 페이지*/
+	@RequestMapping(value = "/partnerOverdue", method = RequestMethod.GET)
+	public String partnerOverdue(Model model
+								,HttpSession session
+								,String setNo){
+		session.setAttribute("setNo", setNo);
+		System.out.println("setNo======================>"+setNo);
+		String cooContractNo = (String) session.getAttribute("setNo");
+		System.out.println("세션======================>"+cooContractNo);
+		List<PartnerBillDto> list = partnerDao.getCooContractBill(cooContractNo);
+		model.addAttribute("list",list);
+		System.out.println("미납자 페이지");
+		return "partner/pay/partner_overdue";
+	}
+	
 	/*제휴수수료결제처리*/
 	@RequestMapping(value = "/partnerContractPay", method = RequestMethod.POST)
 	public String partnerContractPay(PartnerBillDto dto){
@@ -148,6 +163,7 @@ public class PartnerController {
 		System.out.println(dto.toString());
 		partnerDao.insertCooContractPay(dto);
 		partnerDao.updateCooContractPayStat(dto);
+		partnerDao.updateCooContractRelieve(dto);
 		partnerDao.deleteCooContractBill(dto);
 		return "partner/pay/partner_pay_list";
 	}
