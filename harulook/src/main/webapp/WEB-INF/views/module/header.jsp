@@ -50,14 +50,10 @@
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- Optional theme -->
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
 <!-- jquery를 사용하기위한 CDN주소 -->
 <!-- <script
@@ -71,7 +67,7 @@
 <!-- <script type="text/javascript"
 	src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 <link rel="stylesheet"
-	href="<c:url value="resources/css/cartoony-weather.css?ver=1" />"
+	href="<c:url value="resources/css/cartoony-weather.css" />"
 	type="text/css">
 <link
 	href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat'
@@ -159,216 +155,225 @@ function dfs_xy_conv(code, v1, v2) {
     console.log("rs : ",rs);
     return rs;
 }
-//-->		
-	$(document).ready(function(){
-		
-		$('#loginbutton').click(function(){	//로그인버튼
-			$('#login').submit();
-        });
-		
-		$('#logout').click(function(){	//로그아웃버튼
-			$('#logoutadd').submit();
-        });
-		
-		$('#mypage').click(function(){	//마이페이지보기
-			var request = $.ajax({	//일반회원의 포인트를 받아오기 
-				  url: "./myPagePoint", //호출 경로
-				  method: "POST",	//전송방식
-				  dataType: "text" //결과값 타입 (리턴)
-			});  
-			request.done(function( msg ) {
-				msg = msg.trim();
-				console.log(msg);	//아이디찾기
-				$('#myPointMsg').html('나의 보유 포인트 = ' + msg);
-				sessionStorage.setItem('myPointSession', msg);
-			});	
-			$('#myModal').modal();	//마이페이지모달
-        });
 
-		$('#userlistbutton').click(function(){	//일반회원리스트 버튼
-			$('#member_user_list').submit();
-        });
-		
-		$('#businesslistbutton').click(function(){	//사업자회원리스트 버튼
-			$('#member_business_list').submit();
-        });
-		
-		$('#managerlistbutton').click(function(){	//관리자회원리스트 버튼
-			$('#member_manager_list').submit();
-        });
-		
-		$('#managerInsertbutton').click(function(){	//관리자회원리스트 버튼
-			$('#newManagerInsert').submit();
-        });
-		
-		$('#userUpdateButton').click(function(){	//일반회원수정하기
-			$('#userUpdate').submit();
-        });
-		
-		$('#businessUpdateButton').click(function(){	//사업자 관리자 회원 수정하기
-			$('#businessUpdate').submit();
-        });
-		
-		$('#guestListButton').click(function(){	//방문자 접속자수 보기
-			$('#guestListForm').submit();
-        });
-		
-		$('#followListButton').click(function(){	//팔로우 리스트 보기
-			$('#followList').submit();
-        });
-		
-		$('#followMeListButton').click(function(){	//나를 등록한 팔로우 리스트 보기
-			$('#followMeList').submit();
-        });
-		
-		$('#myPointButton').click(function(){	//나의 포인트 보기
-			$('#myPoint').submit();
-        });
-		
-		$('#adcontractlistButton').click(function(){	//내 광고 보기
-			$('#adcontractlistForm').submit();
-        });
-		
-		$('#adcontractlistButtonManager').click(function(){	//사업자가 광고 리스트 보기
-			$('#adcontractlistFormManager').submit();
-        });
-		
-		$('#partnerContractListButton').click(function(){	//내 제휴 보기
-			$('#partnerContractListForm').submit();
-        });
-		
-		$('#snsInsertButton').click(function(){	//sns게시물등록하기
-			$('#snsInsertForm').submit();
-        });
-		
-		$('#followCheckButton').click(function(){	//팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식
-			$('#followCheck').submit();
-        });
-		$('#adContractListButton').click(function(){
-			$('#adContract').submit();
-		})
-		
-		$('#reFundButton').click(function(){	//환불보기
-			$('#reFundForm').submit();
-		})
-		
-		$('#partnerButton').click(function(){	//제휴 관리 및 승인
-			$('#partnerForm').submit();
-		})
-		
-		
-		/* 오늘 날짜를 날씨 api의 입력 양식에 맞게 변환 */
-	    var d = new Date();
-		var year = d.getFullYear();
-		var month = d.getMonth() + 1;
-		if(month < 10) {
-			month = '0'+month;
+/**************** 날씨 초단기 실황 api 실행 ***************/
+function currentWeather(allData) {
+	var weatherRequest = $.ajax({
+		url : './currentWeather',
+		method : 'get',
+		data : allData,
+		datatype : 'json'
+	});
+	weatherRequest.done(function(data) {
+		console.log(data);
+		$('#tempur').text('현재 기온 : '+data.temp1hour+'℃');	// 현재 기온 표시
+		var sessionWeather = '';
+		// 하늘 상태 
+		if(data.thunder == '1') {    // 낙뢰가 있는 경우
+		    $('#weaterIcon').attr('class','thundery');
+		    $('#cloud').attr('class','thundery__cloud');    //먹구름
+		}else {
+		    switch(data.sky) {
+		    case '1' :     // 맑음
+		        $('#weaterIcon').attr('class','sunny');
+		        sessionWeather = '맑음';
+		        break;
+		    case '2' :     // 구름 조금
+		        $('#weaterIcon').attr('class','partly_cloudy');
+		        $('#sun').attr('class','partly_cloudy__sun');
+		        $('#cloud').attr('class','partly_cloudy__cloud');
+		        sessionWeather = '구름 조금';
+		        break;
+		    case '3' :    // 구름 많음
+		        $('#weaterIcon').attr('class','cloudy');
+		        sessionWeather = '흐림';
+		        break;
+		    case '4' :    // 흐림
+		        $('#weaterIcon').attr('class','rainy');
+		        $('#cloud').attr('class','rainy__cloud');
+		        sessionWeather = '흐림';
+		        break;
+		    default :
+		        $('#weaterIcon').attr('class','');
+		        break;
+		    }
 		}
-		console.log(month);
-		var day = d.getDate();
-		if(day < 10) {
-			day = '0'+day;
+		 
+		// 강수형태 - 비나 눈
+		switch(data.rainStat) {    
+		case '1' :    // 비
+		    if(data.precipitation > 5) { // 강수량이 5 이상일 때, 폭우 
+		        $('#rain').attr('class','thundery__rain');
+		    } else {
+		        $('#rain').attr('class','rainy__rain');
+		    }
+		    break;
+		case '2' :    // 눈 (가져온 날씨 css에 눈 그림이 없어서 폭우 그림으로 대체. 눈 그림은 추후에 추가 예정)
+		    $('#rain').attr('class','thundery__rain');
+		    break;
+		default :    //없음
+		    $('#rain').removeAttr('class');
+		    break;
 		}
-		var date = year+month+day+'';
-		console.log(date);
-		/********************************/
-		
-		/* 현재 시간을 날씨api 입력 양식에 맞게 변환 */
-		var hour = d.getHours();
-		var minute = d.getMinutes(); 
-		if(minute < 40) {
-			if(hour > 0) {
-				hour = hour - 1;
-			} else {
-				hour = 23;
-			}
+	});
+	
+}
+//-->		
+
+$(document).ready(function(){
+	
+	$('#loginbutton').click(function(){	//로그인버튼
+		$('#login').submit();
+       });
+	
+	$('#logout').click(function(){	//로그아웃버튼
+		$('#logoutadd').submit();
+       });
+	
+	$('#mypage').click(function(){	//마이페이지보기
+		var request = $.ajax({	//일반회원의 포인트를 받아오기 
+			  url: "./myPagePoint", //호출 경로
+			  method: "POST",	//전송방식
+			  dataType: "text" //결과값 타입 (리턴)
+		});  
+		request.done(function( msg ) {
+			msg = msg.trim();
+			console.log(msg);	//아이디찾기
+			$('#myPointMsg').html('나의 보유 포인트 = ' + msg);
+			sessionStorage.setItem('myPointSession', msg);
+		});	
+		$('#myModal').modal();	//마이페이지모달
+       });
+
+	$('#userlistbutton').click(function(){	//일반회원리스트 버튼
+		$('#member_user_list').submit();
+       });
+	
+	$('#businesslistbutton').click(function(){	//사업자회원리스트 버튼
+		$('#member_business_list').submit();
+       });
+	
+	$('#managerlistbutton').click(function(){	//관리자회원리스트 버튼
+		$('#member_manager_list').submit();
+       });
+	
+	$('#managerInsertbutton').click(function(){	//관리자회원리스트 버튼
+		$('#newManagerInsert').submit();
+       });
+	
+	$('#userUpdateButton').click(function(){	//일반회원수정하기
+		$('#userUpdate').submit();
+       });
+	
+	$('#businessUpdateButton').click(function(){	//사업자 관리자 회원 수정하기
+		$('#businessUpdate').submit();
+       });
+	
+	$('#guestListButton').click(function(){	//방문자 접속자수 보기
+		$('#guestListForm').submit();
+       });
+	
+	$('#followListButton').click(function(){	//팔로우 리스트 보기
+		$('#followList').submit();
+       });
+	
+	$('#followMeListButton').click(function(){	//나를 등록한 팔로우 리스트 보기
+		$('#followMeList').submit();
+       });
+	
+	$('#myPointButton').click(function(){	//나의 포인트 보기
+		$('#myPoint').submit();
+       });
+	
+	$('#adcontractlistButton').click(function(){	//내 광고 보기
+		$('#adcontractlistForm').submit();
+       });
+	
+	$('#adcontractlistButtonManager').click(function(){	//사업자가 광고 리스트 보기
+		$('#adcontractlistFormManager').submit();
+       });
+	
+	$('#partnerContractListButton').click(function(){	//내 제휴 보기
+		$('#partnerContractListForm').submit();
+       });
+	
+	$('#snsInsertButton').click(function(){	//sns게시물등록하기
+		$('#snsInsertForm').submit();
+       });
+	
+	$('#followCheckButton').click(function(){	//팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식팔로우등록 테스트양식
+		$('#followCheck').submit();
+       });
+	$('#adContractListButton').click(function(){
+		$('#adContract').submit();
+	})
+	
+	$('#reFundButton').click(function(){	//환불보기
+		$('#reFundForm').submit();
+	})
+	
+	$('#partnerButton').click(function(){	//제휴 관리 및 승인
+		$('#partnerForm').submit();
+	})
+	
+	
+	/* 오늘 날짜를 날씨 api의 입력 양식에 맞게 변환 */
+    var d = new Date();
+	var year = d.getFullYear();
+	var month = d.getMonth() + 1;
+	if(month < 10) {
+		month = '0'+month;
+	}
+	console.log(month);
+	var day = d.getDate();
+	if(day < 10) {
+		day = '0'+day;
+	}
+	var date = year+month+day+'';
+	console.log(date);
+	/********************************/
+	
+	/* 현재 시간을 날씨api 입력 양식에 맞게 변환 */
+	var hour = d.getHours();
+	var minute = d.getMinutes(); 
+	if(minute < 40) {
+		if(hour > 0) {
+			hour = hour - 1;
+		} else {
+			hour = 23;
 		}
-		if(hour < 10) {
-			hour = '0'+hour;
-		}
-		hour = hour+'00';
-		console.log(hour);
-		/********************************/
-		
-		var position = sessionStorage.getItem('influx');
-		var nx = '60';
-		var ny = '127';
-		
-		navigator.geolocation.getCurrentPosition(function(position){
+	}
+	if(hour < 10) {
+		hour = '0'+hour;
+	}
+	hour = hour+'00';
+	console.log(hour);
+	/********************************/
+	
+	var position = sessionStorage.getItem('influx');
+	var nx = '60';
+	var ny = '127';
+	
+	var allData = { 'date': date, 'hour': hour, 'nx': nx, 'ny': ny};	// api에 입력할 데이터 
+	console.log(nx, ny);
+	
+	console.log('allData : ',allData); 
+	currentWeather(allData);	// 실시간 날씨 api 받아오는 ajax	
+	
+	/* 현재 접속한 아이피로 위치 받아오는 이벤트 */
+	navigator.geolocation.getCurrentPosition(function(position){
 	
 		var lat = position.coords.latitude;	// 현재 접속 위치의 위도
 		var lng = position.coords.longitude; 	// 현재 접속 위치의 경도
 		
 		var rs = dfs_xy_conv("toXY",lat,lng); // 위도경도 값을 xy격자 값으로 변환
 		
-		nx = rs.x;
-		ny = rs.y;   
-		console.log(nx, nx);
+		allData = { 'date': date, 'hour': hour, 'nx': rs.x, 'ny': rs.y};	// api에 입력할 데이터 
 		
-		/**************** 날씨 초단기 실황 api 실행 ***************/
-		var allData = { 'date': date, 'hour': hour, 'nx': nx, 'ny': ny};	// api에 입력할 데이터 
-		
-		var weatherRequest = $.ajax({
-			url : './currentWeather',
-			method : 'get',
-			data : allData,
-			datatype : 'json',
-			success : function(data){
-				console.log(data);
-				$('#tempur').text('현재 기온 : '+data.temp1hour+'℃');	// 현재 기온 표시
-				
-				// 하늘 상태 
-				if(data.thunder == '1') {    // 낙뢰가 있는 경우
-				    $('#weaterIcon').attr('class','thundery');
-				    $('#cloud').attr('class','thundery__cloud');    //먹구름
-				}else {
-				    switch(data.sky) {
-				    case '1' :     // 맑음
-				        $('#weaterIcon').attr('class','sunny');
-				        break;
-				    case '2' :     // 구름 조금
-				        $('#weaterIcon').attr('class','partly_cloudy');
-				        $('#sun').attr('class','partly_cloudy__sun');
-				        $('#cloud').attr('class','partly_cloudy__cloud');
-				        break;
-				    case '3' :    // 구름 많음
-				        $('#weaterIcon').attr('class','cloudy');
-				        break;
-				    case '4' :    // 흐림
-				        $('#weaterIcon').attr('class','rainy');
-				        $('#cloud').attr('class','rainy__cloud');
-				        break;
-				    default :
-				        $('#weaterIcon').attr('class','');
-				        break;
-				    }
-				}
-				 
-				// 강수형태 - 비나 눈
-				switch(data.rainStat) {    
-				case '1' :    // 비
-				    if(data.precipitation > 5) { // 강수량이 5 이상일 때, 폭우 
-				        $('#rain').attr('class','thundery__rain');
-				    } else {
-				        $('#rain').attr('class','rainy__rain');
-				    }
-				    break;
-				case '2' :    // 눈 (가져온 날씨 css에 눈 그림이 없어서 폭우 그림으로 대체. 눈 그림은 추후에 추가 예정)
-				    $('#rain').attr('class','thundery__rain');
-				    break;
-				default :    //없음
-				    $('#rain').removeAttr('class');
-				    break;
-				}
-				
-			},
-			error : function(){
-				alert('fail');
-			}
+		console.log('allData : ',allData);
+		currentWeather(allData);	// 실시간 날씨 api 받아오는 ajax
 		});
-		/***********************************************************/
- 		});
-	});
+});
 </script>
 
 </head>
@@ -384,7 +389,8 @@ function dfs_xy_conv(code, v1, v2) {
 					<div id="rain"></div>
 				</div>
 			</div>
-			<h2 style="margin-left: 20px;" id="tempur"></h2>
+			<h2 style="margin-left: 20px;" id="tempur" class="tempur"></h2>
+			<h2 style="margin-left: 20px;" class="tempur"> 지역: 전북</h2>
 			<!-- 세션에 있는 아이디 권한 받기 -->
 			<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
 			<%-- 권한 : <c:out value='${sessionScope.level}'/><br> --%>

@@ -5,9 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 지오코딩다음 -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41149e966427f3ed0a2d1b8fe3bcf837&libraries=services"></script>  
-
 <title>~하루룩~</title>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -73,6 +70,8 @@
 
 <!-- 아이피받아오기 -->
 <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
+<!-- 지오코딩다음 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41149e966427f3ed0a2d1b8fe3bcf837&libraries=services"></script>  
 
 <!-- 지오코딩구글 -->
 <!-- <script async defer
@@ -82,7 +81,7 @@
 
 	$(document).ready(function(){
 		/* 받아온 아이피 */
-		console.log(ip());
+		/* console.log(ip()); */
 		var addr;
 		var x = 0;
 		var y = 0;

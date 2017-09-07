@@ -41,7 +41,7 @@ $.ajax({
  
     },  
     error:function(xhr,status,error){ //ajax 오류인경우  
-            alert("error\nxhr : " + xhr + ", status : " + status + ", error : " + error);                 
+            console.log("error\nxhr : " + xhr + ", status : " + status + ", error : " + error);                 
     }  
 }); 
 });

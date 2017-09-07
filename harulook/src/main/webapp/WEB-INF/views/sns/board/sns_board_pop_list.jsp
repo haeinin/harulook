@@ -6,19 +6,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
-<!-- 댓글 아이콘 -->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<!-- 예뻐요 아이콘 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- 게시글 필터 버튼 모양 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>BOARD LIST(spring mvc + mybatis 방식)</title>
-<c:set value="${sessionScope.id}" var="sessionId" />
+
 <script type="text/javascript" src="resources/js/boardDetail.js"></script>
 <script type="text/javascript" src="resources/js/followCheck.js"></script>
+
 <c:set value="${boardCount}" var="boardCount"></c:set>
+<c:set value="${sessionScope.id}" var="sessionId" />
+
 <script type="text/javascript">
 
 /* 게시글 추천수, 댓글수 보이기 및 감추기 */

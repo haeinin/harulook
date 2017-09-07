@@ -393,7 +393,10 @@
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
        	</div>
        </div>
-       	<!-- 하단 인클루드 -->
-    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>
+
+    <div class="row">
+	    <!-- 하단 인클루드 -->
+	    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>   
+	</div>
 </body>
 </html>

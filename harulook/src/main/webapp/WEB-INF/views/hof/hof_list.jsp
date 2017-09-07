@@ -5,15 +5,37 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <!-- 예뻐요 아이콘 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="resources/js/boardDetail.js?ver=1"></script>
-<script type="text/javascript" src="resources/js/followCheck.js"></script>
+ <!-- 드롭박스 -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<!-- bootstrap을 사용하기 위한 CDN주소 -->
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<!-- bootstrap javascript소스를 사용하기 위한 CDN주소 -->
+<!-- 주소 api -->
+<script
+	src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<!-- 유효성검사 -->
+<!-- <script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+<link rel="stylesheet"
+	href="<c:url value="resources/css/cartoony-weather.css?ver=1" />"
+	type="text/css">
+<link
+	href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+<!-- w3아이콘  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="resources/js/modernizr.js"></script>
+<!-- 댓글 아이콘 -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script type="text/javascript" src="resources/js/boardDetail.js"></script>
+<script type="text/javascript" src="resources/js/followCheck.js"></script>
 <style>
 .container{
 margin:50px;
@@ -71,8 +93,10 @@ $(function(){
 					</tr>
 				</c:forEach>
 </table> --%>
-  <!-- 상단 인클루드 -->
-    <c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+  	<div class="row">
+		<!-- 해더인클루드 -->
+		<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+	</div>
     
     <!-- 바디 인클루드 -->
     <div class="row">
@@ -112,6 +136,10 @@ $(function(){
 		</div>
 	</div>
 
+	<div class="row">
+	    <!-- 하단 인클루드 -->
+	    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>   
+	</div>
 		<!-- sns 게시물 상세보기 모달 -->
 		<div class="modal fade" id="snsModal" role="dialog">
 		    <div id="modalFrame" class="modal-dialog modal-lg" >

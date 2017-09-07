@@ -393,8 +393,10 @@
 <title>관리자등록 폼</title>
 </head>
 <body>
-	<!-- 해더인클루드 -->
-	<c:import url="../../module/header.jsp"></c:import>	
+	<div class="row">
+		<!-- 해더인클루드 -->
+		<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+	</div>
 	<!-- 바디 인클루드 -->
     <div class="row">
 	    <!-- 좌측 베너 인클루드 -->
@@ -529,7 +531,9 @@
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
        	</div>
     </div>
-    <!-- 하단 인클루드 -->
-    <c:import url="../../module/footer.jsp"></c:import>
+    <div class="row">
+	    <!-- 하단 인클루드 -->
+	    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>   
+	</div>
 </body>
 </html>

@@ -6,24 +6,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
-<!-- bootstrap을 사용하기 위한 CDN주소 -->
-<!-- jquery를 사용하기위한 CDN주소 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+
 <!-- 댓글 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<!-- sns스타일 탬플릿 css-->
-<link rel="stylesheet" type="text/css" href="resources/css/style.css">
-<!-- 예뻐요 아이콘 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- 게시글 필터 버튼 모양 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>BOARD LIST(spring mvc + mybatis 방식)</title>
+
+<script type="text/javascript" src="resources/js/boardDetail.js?ver=1"></script>
+<script type="text/javascript" src="resources/js/followCheck.js"></script>
+
 <c:set value="${sessionScope.id}" var="sessionId" />
 <c:set value="${sessionScope.CcTall}" var="CcTall"></c:set>
 <c:set value="${sessionScope.CcSize}" var="CcSize"></c:set>
@@ -31,9 +21,8 @@
 <c:set value="${sessionScope.CcAge}" var="CcAge"></c:set>
 <c:set value="${sessionScope.CcuserColor}" var="CcuserColor"></c:set>
 <c:set value="${sessionScope.CcuserStyle}" var="CcuserStyle"></c:set>
-<script type="text/javascript" src="resources/js/boardDetail.js?ver=1"></script>
-<script type="text/javascript" src="resources/js/followCheck.js"></script>
 <script type="text/javascript">
+
 
 /* 게시글 추천수, 댓글수 보이기 및 감추기 */
 function likeAndComment() {
@@ -351,14 +340,13 @@ $(function(){
 <body>
 	<br>
 
-	
 	<div class="row">
 		<div class="col-xs-2"></div>
 		<!-- sns 게시물 목록 영역 -->
 	    <div class="col-xs-9">
 	        <div class="instagram-content">
 	        
-	            <h3>최근 게시물</h3>
+	            <h3>최신 게시물</h3>
 	            <!-- The following HTML will be our template inside instafeed -->
 				<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
 				<c:forEach items="${list}" var="b">
