@@ -159,6 +159,7 @@
     	</div>
    	
    		<div class="col-xs-9">
+   			<c:import url="/WEB-INF/views/sns/board/sns_board_search.jsp"></c:import>
            	<c:import url="/boardPopList"></c:import>
            	<c:import url="/boardList"></c:import>
            </div>

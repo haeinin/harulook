@@ -120,7 +120,13 @@
 			AND sns_board.user_id = #{board.userId}
 		</if>
 		GROUP BY sns_board.sns_board_no 
-		ORDER BY sns_board.sns_board_no DESC
+		<if test="popularity == 1">
+		 	<!-- AND sns_board.sns_board_date = date(now())  -->
+		 	ORDER BY snsLikeCount DESC 
+		 </if>
+		 <if test="popularity == 0">
+		 	ORDER BY sns_board.sns_board_no DESC 
+		 </if>
 		LIMIT #{beginRow}, #{pagePerRow}
 	</select>
 	

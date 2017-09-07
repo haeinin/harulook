@@ -41,10 +41,12 @@ public class BoardDao {
 	public List<BoardDto> selectBoardSearchList( 
 			BoardDto board
 			, int currentPage
-			, int pagePerRow) {
+			, int pagePerRow
+			, int popularity) {
 		Map<String, Object> map = new HashMap<String, Object>();
         map.put("beginRow", (currentPage-1)*pagePerRow);
         map.put("pagePerRow", pagePerRow);
+        map.put("popularity", popularity);
         map.put("board", board);
         System.out.println("map : "+map+" in selectBoardSearchList()");
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.board.service.BoardMapper.boardSearchList", map);

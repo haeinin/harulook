@@ -59,10 +59,101 @@ function popShowDetail(data) {
 		$('#snsModal').modal();
 	});
 }
+
+function popBoardSearch(){
+	
+	/* 체크박스 체크 유무를 배열로 처리  */
+	var colorValue=[], styleValue=[], situationValue=[];
+	
+	$(":checkbox[name='colorValue']:checked").each(function(i){
+		colorValue.push($(this).val());
+	  });
+	
+	$(":checkbox[name='styleValue']:checked").each(function(i){
+		styleValue.push($(this).val());
+	  });
+	
+	$(":checkbox[name='situationValue']:checked").each(function(i){
+		situationValue.push($(this).val());
+	  });
+	
+	console.log('colorValue : ',colorValue);
+	console.log('styleValue : ',styleValue);
+	console.log('situationValue : ',situationValue);
+	
+	$.ajaxSettings.traditional = true; //배열 형태로 서버쪽 전송을 위한 설정
+	
+	$.ajax({
+		url : './boardPopSearchList',
+		method : 'get',
+		data : { 'userId'		: $('#userId').val()
+				,'snsBoardWeather'	: $('#snsBoardWeather').val()
+				,'snsBoardTall'		: $('#snsBoardTall').val()
+				,'snsBoardSize'		: $('#snsBoardSize').val()
+				,'snsBoardLoc'		: $('#snsBoardLoc').val()
+				,'snsBoardGender'	: $(":input:radio[name=snsBoardGender]:checked").val()
+				,'snsBoardAge'		: $('#snsBoardAge').val()
+				,'colorValue'		: colorValue
+				,'styleValue'		: styleValue
+				,'situationValue'	: situationValue
+				},
+		datatype : 'json',
+		success : function(data){
+			console.log(data);
+			var popBoardHtml = '';
+			if(data.length > 0) {
+				for(var i=0; i<data.length; i++) {
+					popBoardHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
+					popBoardHtml += '<div class="sns-pop-photo-box" value="'+data[i].snsBoardNo+'">';
+					popBoardHtml += '<div class="image-wrap">';
+					popBoardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
+					popBoardHtml += '<div class="likes">';
+					popBoardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
+					popBoardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
+					popBoardHtml += '<i class="fa fa-commenting center" style="font-size:24px"></i>';
+					popBoardHtml += '<span class="center">&nbsp;'+data[i].snsCommentCount+'</span>';
+					popBoardHtml += '</div>';
+					popBoardHtml += '</div>';
+					popBoardHtml += '</div>';
+					popBoardHtml += '</div>';
+					
+				}
+			} else {
+				popBoardHtml += '<span>일치하는 결과가 없습니다.</span>';
+			}	
+			$('#popBoardOutput').html(popBoardHtml);
+			popLikeAndComment();
+			popShowDetail(data);
+		}
+	});
+}
+
+
 $(function(){     
+	
 	
 	popLikeAndComment();
 	popShowDetail(null);
+	
+	/* 검색 초기화 버튼 클릭 */
+	$('#initBtn').click(function(){
+		$('#snsBoardWeather').val('');
+		$('#snsBoardTall').val('');
+		$('#snsBoardSize').val('');
+		$('#snsBoardLoc').val('');
+		$('#snsGenderMale').prop('checked',false);
+		$('#snsGenderFemale').prop('checked',false);
+		$('#snsBoardAge').val('');
+		$('input:checkbox[name="styleValue"]').prop('checked', false);
+		$('input:checkbox[name="colorValue"]').prop('checked',false);
+		$('input:checkbox[name="situationValue"]').prop('checked',false);
+		popBoardSearch();
+	});
+	
+	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
+	$('.searchCategory').change(function(){
+		popBoardSearch();
+	});
 });
 </script>
 </head>
@@ -78,7 +169,7 @@ $(function(){
             <h3>인기 게시물</h3>
         	
             <!-- The following HTML will be our template inside instafeed -->
-			<div class="row photos-wrap"  style="text-align: center;">
+			<div id="popBoardOutput" class="row photos-wrap"  style="text-align: center;">
 			<c:forEach items="${list}" var="b">
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
 				<div class="sns-pop-photo-box">

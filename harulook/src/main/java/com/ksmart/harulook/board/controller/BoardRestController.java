@@ -31,17 +31,48 @@ public class BoardRestController {
 	@Autowired
 	private LikeDao likeDao;
 	
-	/* sns게시물 목록 요청 */
+	/* sns게시물 더 읽어들이기 */
 	@RequestMapping(value="/boardListMore", method = RequestMethod.GET)
 	public HashMap<String,Object> boardList(
-			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
+			,BoardDto board
+			,HttpServletRequest request) {
 		System.out.println("boardListMore 요청");
 		System.out.println("currentPage : "+currentPage);
+		
+		int popularity = 0;
+		String[] colorValue = request.getParameterValues("colorValue");
+		String[] styleValue = request.getParameterValues("styleValue");
+		String[] situationValue = request.getParameterValues("situationValue");
+		
+		System.out.println("board : "+board);
+		System.out.println("colorValue : "+colorValue);
+		System.out.println("styleValue : "+styleValue);
+		System.out.println("situationValue : "+situationValue);
+		
+		if(board.getUserId().equals("")) {
+			board.setUserId(null);
+		} 
+		if(board.getSnsBoardAge().equals("")) {
+			board.setSnsBoardAge(null);
+		} 
+		if(board.getSnsBoardLoc().equals("")) {
+			board.setSnsBoardLoc(null);
+		} 
+		if(board.getSnsBoardSize().equals("")) {
+			board.setSnsBoardSize(null);
+		}
+		if(board.getSnsBoardTall().equals("")) {
+			board.setSnsBoardTall(null);
+		}
+		if(board.getSnsBoardWeather().equals("")) {
+			board.setSnsBoardWeather(null);
+		}
 		
 		int boardCount = boardDao.selectBoardCount();
         int pagePerRow = 9;
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
-		List<BoardDto> list = boardDao.selectBoardList(currentPage, pagePerRow);
+		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow, popularity);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("currentPage", currentPage);
@@ -85,6 +116,54 @@ public class BoardRestController {
 		return (HashMap<String, Object>) map;
 	}
 	
+	
+	/* sns 게시물 검색 ajax 처리 */
+	@RequestMapping(value="/boardPopSearchList", method = RequestMethod.GET)
+	public List<BoardDto> boardPopSearchList(
+			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
+			,BoardDto board
+			,HttpServletRequest request) {
+		System.out.println("boardPopSearchList 요청");
+		
+		int popularity = 1;
+		int boardCount = boardDao.selectBoardCount();
+        int pagePerRow = 6;
+        int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
+		
+		String[] colorValue = request.getParameterValues("colorValue");
+		String[] styleValue = request.getParameterValues("styleValue");
+		String[] situationValue = request.getParameterValues("situationValue");
+		
+		System.out.println("board : "+board);
+		System.out.println("popularity : "+popularity);
+		System.out.println("colorValue : "+colorValue);
+		System.out.println("styleValue : "+styleValue);
+		System.out.println("situationValue : "+situationValue);
+		
+		if(board.getUserId().equals("")) {
+			board.setUserId(null);
+		} 
+		if(board.getSnsBoardAge().equals("")) {
+			board.setSnsBoardAge(null);
+		} 
+		if(board.getSnsBoardLoc().equals("")) {
+			board.setSnsBoardLoc(null);
+		} 
+		if(board.getSnsBoardSize().equals("")) {
+			board.setSnsBoardSize(null);
+		}
+		if(board.getSnsBoardTall().equals("")) {
+			board.setSnsBoardTall(null);
+		}
+		if(board.getSnsBoardWeather().equals("")) {
+			board.setSnsBoardWeather(null);
+		}
+		System.out.println("boardPopSearchList --> "+board);
+		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow, popularity);
+		System.out.println("boardPopSearchList --> "+list);
+		return list;
+	}
+	
 	/* sns 게시물 검색 ajax 처리 */
 	@RequestMapping(value="/boardSearchList", method = RequestMethod.GET)
 	public List<BoardDto> boardSearchList(
@@ -93,6 +172,7 @@ public class BoardRestController {
 			,HttpServletRequest request) {
 		System.out.println("boardSearchList 요청");
 		
+		int popularity = 0;
 		int boardCount = boardDao.selectBoardCount();
         int pagePerRow = 9;
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
@@ -102,6 +182,7 @@ public class BoardRestController {
 		String[] situationValue = request.getParameterValues("situationValue");
 		
 		System.out.println("board : "+board);
+		System.out.println("popularity : "+popularity);
 		System.out.println("colorValue : "+colorValue);
 		System.out.println("styleValue : "+styleValue);
 		System.out.println("situationValue : "+situationValue);
@@ -125,7 +206,7 @@ public class BoardRestController {
 			board.setSnsBoardWeather(null);
 		}
 		System.out.println("boardSearchList --> "+board);
-		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow);
+		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow, popularity);
 		System.out.println("boardSearchList --> "+list);
 		return list;
 	}
