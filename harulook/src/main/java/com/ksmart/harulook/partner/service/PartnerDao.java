@@ -133,5 +133,21 @@ public class PartnerDao {
 	 public int updateEndCooContract(String cooContractNo){
 		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.updateEndCooContract",cooContractNo);
 	 }
+	 /*제휴 시작할 계약 조회*/
+	 public List<String> getStartCooContract(){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getStartCooContract");
+	 }
+	 /* 제휴진행 상태로 변경*/
+	 public int updateStartCooContract(String cooContractNo){
+		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.updateStartCooContract",cooContractNo);
+	 }
+	 /*납부기한 지난 제휴계약 조회*/
+	 public List<String> getOverDueList(){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getOverDueList");
+	 }
+	 /*납부기한 지난 제휴정지*/
+	 public int updateOverDue(String cooContractNo){
+		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.updateOverDue",cooContractNo);
+	 }
 
 }

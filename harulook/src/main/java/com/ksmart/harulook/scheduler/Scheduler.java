@@ -46,14 +46,37 @@ public class Scheduler {
 			e.printStackTrace();
 		}
 	}
-	/*매일 0시 0분 6초에 광고 상태 갱신*/
-	@Scheduled(cron="5 0 0 * * *")
+	/*매일 0시 0분 6초에 제휴 상태 갱신*/
+	@Scheduled(cron="6 * * * * *")
 	public void CooContractScheduler() {
 		try{
+			List<String> startList = partnerdao.getStartCooContract();
 			List<String> endList = partnerdao.getEndCooContractList();
+			List<String> overList = partnerdao.getOverDueList();
+			
 			for(int i =0; i < endList.size(); i++){
 				partnerdao.updateEndCooContract(endList.get(i));
-				System.out.println("매일 0시 0분 6초 제휴계약기간만료 상태 변경");
+				
+				/*기간만료와 동시에 결제예정수수료 생성*/
+				String LastCooBillNo = partnerdao.getLastCooBillNo();
+				int setNo=1;
+				if(LastCooBillNo !=null){
+					setNo=Integer.parseInt(LastCooBillNo)+1;
+				}
+				String cooBillNo = "coo_bill_"+setNo;
+				partnerdao.cooContractBillInsert(cooBillNo, endList.get(i));
+				
+				System.out.println("매일 0시 0분 6초 제휴계약 기간만료 상태 변경");
+			}
+			
+			for(int i =0; i < startList.size(); i++){
+				partnerdao.updateStartCooContract(startList.get(i));
+				System.out.println("매일 0시 0분 6초 제휴계약 진행 상태 변경");
+			}
+			
+			for(int i =0; i < overList.size(); i++){
+				partnerdao.updateOverDue(overList.get(i));
+				System.out.println("매일 0시 0분 6초 제휴계약 정지 상태 변경");
 			}
 			
 		}catch (Exception e) {

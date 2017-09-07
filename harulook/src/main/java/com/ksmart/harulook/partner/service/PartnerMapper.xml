@@ -334,10 +334,11 @@
 		WHERE coo_contract_no = #{cooContractNo}
 	</select>
 	
-	<!-- 제휴계약 이름 가져오기 -->
+	<!-- 결제예정수수료 생성할 제휴계약 이름 가져오기-->
 	<select id="getCooContractNo" resultType="String">
 	SELECT coo_contract_no
 	FROM coo_contract
+	WHERE coo_contract_stat ='제휴진행'
 	</select>
 	
 	<!-- 제휴결제예정 번호 가져오기 -->
@@ -449,8 +450,29 @@
 	<select id="getBanner" resultMap="banner">
 	SELECT coo_contract_img,coo_contract_link
 	FROM coo_contract
-	WHERE coo_contract_stat='제휴승인'
+	WHERE coo_contract_stat='제휴진행'
 	</select>
+	
+	<!-- 제휴 시작할 계약 조회 -->
+	<select id="getStartCooContract" resultType="String">
+	SELECT 
+		coo_contract_no
+	FROM 
+		coo_contract
+	WHERE 
+		coo_contract_stat ='제휴승인' 
+	AND 
+		DATE(NOW()) > coo_contract_start
+	</select>
+	
+	<!-- 제휴진행 상태로 변경 -->
+	<update id="updateStartCooContract" parameterType="String">
+	UPDATE coo_contract
+	SET
+		coo_contract_stat='제휴진행'
+	WHERE 
+	   coo_contract_no =#{cooContractNo} 
+	</update>
 	
 	<!-- 기간 만료된 제휴계약 조회 -->
 	<select id="getEndCooContractList" resultType="String">
@@ -465,8 +487,25 @@
 	SET
 		coo_contract_stat='제휴종료'
 	WHERE
-		coo_contract_no=#{cooContractNo}
+		coo_contract_no = #{cooContractNo}
 	</update>
+	
+	<!-- 납부기한이 밀린 제휴계약 정지 -->
+	<update id="updateOverDue" parameterType="String">
+	UPDATE coo_contract
+	SET
+		coo_contract_stat='제휴정지'
+	WHERE 
+	   coo_contract_no = #{cooContractNo}
+	</update>
+	
+	<!-- 납부기한이 밀린 제휴계약 조회 -->
+	<select id="getOverDueList" resultType="String">
+	SELECT coo_contract_no
+	FROM coo_bill
+	WHERE DATE(NOW()) > coo_bill_date
+	</select>
+	
 	
 
 
