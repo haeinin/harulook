@@ -228,25 +228,26 @@
 	
 	<!-- 제휴 결제상태 변경 -->
 	<update id="cooContractPayStatUpdate" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
-		UPDATE
-		coo_contract
-		SET 
-		coo_contract_pay_stat = '결제완료'
-		WHERE 
-		coo_contract_no = 
-					(
-					SELECT 
-						distinct coo_pay.coo_contract_no
-					FROM 
-						coo_pay
-					JOIN 
-						coo_bill
-					ON
-						coo_bill.coo_contract_no = coo_pay.coo_contract_no
-					WHERE (coo_pay.coo_pay_total - coo_bill.coo_bill_value)>=0 
-					AND coo_pay.coo_contract_no = 'coo_contract_1' AND MONTH(coo_pay.coo_pay_date)=(coo_bill.coo_bill_month))
+	UPDATE coo_contract
+	SET
+		coo_contract_pay_stat='결제완료'
+	WHERE 
+	coo_contract_no = (SELECT coo_contract_no
+						FROM coo_bill
+						WHERE coo_bill_no = #{cooBillNo});
 
 	</update>
+	
+	<!-- 결제 후 제휴정지 상태 해제 -->
+	<update id ="updateCooContractRelieve" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
+	UPDATE coo_contract
+	SET
+		coo_contract_stat='제휴진행'
+	WHERE 
+	coo_contract_no = (SELECT coo_contract_no
+						FROM coo_bill
+						WHERE coo_bill_no = #{cooBillNo});
+	</update> 
 	
 	<!-- 제휴 업체 상세보기 -->
 	<select id = "cooContractCompany" parameterType="String" resultMap="partnerCompany">
@@ -283,7 +284,7 @@
 			WHERE coo_contract_no=#{cooContractNo}
 			)
 			FROM mall_sale
-			WHERE coo_contract_no= #{cooContractNo}
+			WHERE coo_contract_no= #{cooContractNo} AND MONTH(mall_sale_date) = MONTH(NOW())-1)
 		)
 		,(MONTH(NOW())-1)
 		,(
@@ -295,6 +296,33 @@
 				coo_contract_no=#{cooContractNo}
 			)
 		);
+	</insert>
+	<!-- 제휴종료시 수수료계산 -->
+	<insert id="insertEndBill" parameterType="java.util.Map">
+	INSERT INTO coo_bill
+		(
+		coo_bill_no
+		,coo_contract_no
+		,coo_bill_value
+		,coo_bill_month
+		,coo_bill_date
+		)
+		VALUES
+		(
+		#{cooBillNo}
+		,#{cooContractNo}
+		,(SELECT sum(mall_sale_total)
+			*
+			(SELECT coo_contract_fee/100
+			FROM coo_contract
+			WHERE coo_contract_no=#{cooContractNo}
+			)
+			FROM mall_sale
+			WHERE coo_contract_no= #{cooContractNo} AND MONTH(mall_sale_date) = MONTH(NOW()))
+		,MONTH(NOW())
+		,DATE_ADD(DATE(NOW()) ,INTERVAL 10 DAY)
+		)
+		
 	</insert>
 
 
@@ -334,10 +362,11 @@
 		WHERE coo_contract_no = #{cooContractNo}
 	</select>
 	
-	<!-- 제휴계약 이름 가져오기 -->
+	<!-- 결제예정수수료 생성할 제휴계약 이름 가져오기-->
 	<select id="getCooContractNo" resultType="String">
 	SELECT coo_contract_no
 	FROM coo_contract
+	WHERE coo_contract_stat ='제휴진행'
 	</select>
 	
 	<!-- 제휴결제예정 번호 가져오기 -->
@@ -398,9 +427,11 @@
 	FROM 
 		coo_visitor
 	WHERE
-		coo_contract_no = #{cooContractNo}
+		coo_contract_no = #{cooContractNo} 
 	GROUP BY 
-		date; 
+		date
+	ORDER BY
+		date DESC LIMIT 0,6;
 	
 	</select>
 	<!-- 제휴업체 주별 유입 방문자 수 가져오기 -->
@@ -417,7 +448,9 @@
 		AND 
 		coo_visitor_influx ='harulook'
 	GROUP BY 
-		date; 
+		date
+	ORDER BY
+		date DESC LIMIT 0,6;
 	
 	</select>
 	<!-- 제휴 쿠폰번호 중복체크 -->
@@ -445,8 +478,62 @@
 	<select id="getBanner" resultMap="banner">
 	SELECT coo_contract_img,coo_contract_link
 	FROM coo_contract
-	WHERE coo_contract_stat='제휴승인'
+	WHERE coo_contract_stat='제휴진행'
 	</select>
+	
+	<!-- 제휴 시작할 계약 조회 -->
+	<select id="getStartCooContract" resultType="String">
+	SELECT 
+		coo_contract_no
+	FROM 
+		coo_contract
+	WHERE 
+		coo_contract_stat ='제휴승인' 
+	AND 
+		DATE(NOW()) > coo_contract_start
+	</select>
+	
+	<!-- 제휴진행 상태로 변경 -->
+	<update id="updateStartCooContract" parameterType="String">
+	UPDATE coo_contract
+	SET
+		coo_contract_stat='제휴진행'
+	WHERE 
+	   coo_contract_no =#{cooContractNo} 
+	</update>
+	
+	<!-- 기간 만료된 제휴계약 조회 -->
+	<select id="getEndCooContractList" resultType="String">
+	SELECT coo_contract_no
+	FROM coo_contract
+	WHERE DATE(NOW()) > coo_contract_end  AND coo_contract_stat != '제휴종료'
+	</select>
+	
+	<!-- 기간만료 된 제휴계약 상태변경 -->
+	<update id="updateEndCooContract" parameterType="String">
+	UPDATE coo_contract
+	SET
+		coo_contract_stat='제휴종료'
+	WHERE
+		coo_contract_no = #{cooContractNo}
+	</update>
+	
+	<!-- 납부기한이 밀린 제휴계약 정지 -->
+	<update id="updateOverDue" parameterType="String">
+	UPDATE coo_contract
+	SET
+		coo_contract_stat='제휴정지'
+	WHERE 
+	   coo_contract_no = #{cooContractNo}
+	</update>
+	
+	<!-- 납부기한이 밀린 제휴계약 조회 -->
+	<select id="getOverDueList" resultType="String">
+	SELECT coo_contract_no
+	FROM coo_bill
+	WHERE DATE(NOW()) > coo_bill_date
+	</select>
+	
 	
 
 

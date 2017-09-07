@@ -53,6 +53,10 @@ public class PartnerDao {
 	 public int updateCooContractPayStat(PartnerBillDto dto){
 		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.cooContractPayStatUpdate", dto);
 	 }
+	 /*제휴정지해제*/
+	 public int updateCooContractRelieve(PartnerBillDto dto){
+		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.updateCooContractRelieve", dto);
+	 }
 	 /*제휴결제처리 후 제휴예정데이터 삭제*/
 	 public int deleteCooContractBill(PartnerBillDto dto){
 		 return sqlSessionTemplate.delete("com.ksmart.harulook.partner.service.PartnerMapper.cooContractBillDelete", dto);
@@ -79,6 +83,13 @@ public class PartnerDao {
 		 map.put("cooBillNo", cooBillNo);
 		 map.put("cooContractNo", cooContractNo);
 		 return sqlSessionTemplate.insert("com.ksmart.harulook.partner.service.PartnerMapper.cooContractBillInsert", map);
+	 }
+	 /*제휴종료시 수수료 입력처리*/
+	 public int insertEndBill(String cooBillNo,String cooContractNo){
+		 Map<String,String> map = new HashMap<String,String>();
+		 map.put("cooBillNo", cooBillNo);
+		 map.put("cooContractNo", cooContractNo);
+		 return sqlSessionTemplate.insert("com.ksmart.harulook.partner.service.PartnerMapper.insertEndBill", map);
 	 }
 	 /*제휴계약이름 전체불러오기*/
 	 public List<String> getCooContractNo(){
@@ -124,6 +135,30 @@ public class PartnerDao {
 	 /*제휴승인된 배너 이미지 불러오기*/
 	 public List<HashMap<String,String>> getBanner(){
 		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getBanner");
+	 }
+	 /*기간만료된 제휴계약 조회*/
+	 public List<String> getEndCooContractList(){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getEndCooContractList");
+	 }
+	 /*기간만료된 제휴계약 상태변경*/
+	 public int updateEndCooContract(String cooContractNo){
+		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.updateEndCooContract",cooContractNo);
+	 }
+	 /*제휴 시작할 계약 조회*/
+	 public List<String> getStartCooContract(){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getStartCooContract");
+	 }
+	 /* 제휴진행 상태로 변경*/
+	 public int updateStartCooContract(String cooContractNo){
+		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.updateStartCooContract",cooContractNo);
+	 }
+	 /*납부기한 지난 제휴계약 조회*/
+	 public List<String> getOverDueList(){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getOverDueList");
+	 }
+	 /*납부기한 지난 제휴정지*/
+	 public int updateOverDue(String cooContractNo){
+		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.updateOverDue",cooContractNo);
 	 }
 
 }

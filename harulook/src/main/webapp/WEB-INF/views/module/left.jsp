@@ -15,13 +15,17 @@
 </head>
 <body>
 	<div class="row" style="height: 150px">
-		<div class="col-xs-1">
-			<a href="${pageContext.request.contextPath}/hof"> <img
-				src="./resources/HOF.png" alt="hof" width="100" height="100"></a>
+		<div class="col-sm-4"></div>
+		<div class="col-sm-1">
+		<a href="${pageContext.request.contextPath}/hof"> 
+	<img src="./resources/HOF.png" alt="hof" width="100" height="100">
+	</a>
 		</div>
 	</div>
 	<div class="row">
-	<div class="col-sm-4"></div>
+	<div class="col-sm-4">
+	
+	</div>
 	
 	<div class="col-xs-12 col-sm-4">
 	   <!-- 게시물등록하기버튼 -->

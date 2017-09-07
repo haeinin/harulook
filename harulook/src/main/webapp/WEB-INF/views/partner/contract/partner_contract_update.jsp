@@ -1,13 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
-<!-- bootstrap을 사용하기 위한 CDN주소 -->
-<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<!-- Optional theme -->
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
  
 <!-- jquery를 사용하기위한 CDN주소 -->
@@ -24,9 +22,11 @@
     <!-- 바디 인클루드 -->
     <div class="row">
 	    <div class="col-xs-1">
-			<c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
+	    <c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
 	    </div>
-	    <div class="col-xs-9">
+	    <div class="col-xs-1"></div>
+	    <div class="col-xs-8">
+	    <div class="container">
 <div class="container">
     <form id="modifyForm" action="${pageContext.request.contextPath}/partnerContractUpdate" method="post">
         <div class="form-group">
@@ -65,8 +65,9 @@
         	 <input class="btn btn-default" id="addButton" type="submit" value="수정신청"/>
         </div>
     </form>
-    </div>
-    </div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>

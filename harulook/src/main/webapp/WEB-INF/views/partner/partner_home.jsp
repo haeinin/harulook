@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -25,10 +24,13 @@
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
 	    <div class="col-xs-9">
-
+	    <div class="row">
+	    <div class="col-md-2"></div>
+	    <div class="col-md-7">
+	    
 			<c:if test="${!empty list}">
 
-				<table class="table">
+				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>제휴계약번호</th>
@@ -45,8 +47,17 @@
 					<tbody>
 						<c:forEach var="b" items="${list}">
 							<tr>
-								<td><a
-									href="${pageContext.request.contextPath}/partnerMain?setNo=${b.cooContractNo}">${b.cooContractNo}</a></td>
+							<c:if test="${b.cooContractStat == '제휴정지'}">
+							<td>
+								<a href="${pageContext.request.contextPath}/partnerOverdue?setNo=${b.cooContractNo}">${b.cooContractNo}</a>
+							</td>
+							</c:if>
+							<c:if test="${b.cooContractStat != '제휴정지'}">
+							<td>
+								<a href="${pageContext.request.contextPath}/partnerMain?setNo=${b.cooContractNo}">${b.cooContractNo}</a>
+								</td>
+							</c:if>
+								
 								<td>${b.cooContractStart}</td>
 								<td>${b.cooContractEnd}</td>
 								<td>${b.cooContractStat}</td>
@@ -60,6 +71,8 @@
 				<a href="${pageContext.request.contextPath}/partnerContractInsert">제휴계약신청하기</a>
 			</c:if>
 			</div>
+			</div>
+	    </div>
  </div>
 
 	<div class="row">

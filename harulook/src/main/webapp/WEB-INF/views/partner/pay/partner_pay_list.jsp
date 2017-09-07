@@ -12,15 +12,18 @@
         </head>
         
         <body>
+        <div class="row">
         <c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+        </div>
             <div class="row">
-                <div class="col-xs-2">
+                <div class="col-xs-1">
                     <c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
                 </div>
 
-                <div class="col-xs-9" style="margin:30px;">
-
-                    <div class="col-xs-8">
+                <div class="col-xs-9" >
+                <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-7">
                         <table class="table table-striped" id="table">
 
                             <thead>
@@ -46,8 +49,13 @@
                                 </c:forEach>
                             </tbody>
                         </table>
-                    </div>
                 </div>
+                </div>
+                </div>
+                <div class="col-xs-2">
+				<!-- 우측 베너 인클루드 -->
+				<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
+				</div>
             </div>
 
         </body>

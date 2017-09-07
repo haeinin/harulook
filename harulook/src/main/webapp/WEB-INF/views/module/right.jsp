@@ -29,8 +29,7 @@ $.ajax({
 	    	
 	    	link.push(value.link);
 	    	img.push(value.img);
-	    	console.log("테스트 : "+value.link);
-	    	console.log("테스트 : "+value.img);});
+	    	});
     	
     	$('#i').attr("src",img.pop());
     	$('#partner1').attr("href",link.pop());

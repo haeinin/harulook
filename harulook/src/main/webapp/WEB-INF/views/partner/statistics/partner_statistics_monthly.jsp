@@ -24,21 +24,25 @@
 		labels : chartLabels,
 		datasets : [ {
 			label : "월별 방문자 수 조회",
-			fillColor : "rgba(220,220,220,0.2)",
-			strokeColor : "rgba(220,220,220,1)",
-			pointColor : "rgba(220,220,220,1)",
-			pointStrokeColor : "#fff",
-			pointHighlightFill : "#fff",
-			pointHighlightStroke : "rgba(220,220,220,1)",
+			borderColor: "#80b6f4",
+            pointBorderColor: "#80b6f4",
+            pointBackgroundColor: "#80b6f4",
+            pointHoverBackgroundColor: "#80b6f4",
+            pointHoverBorderColor: "#80b6f4",
+            pointStyle: 'rect',
+            fill: false,
+            borderWidth: 4,
 			data : chartData1
 		}, {
 			label : "월별 유입 수 조회",
-			fillColor : "rgba(100,100,100,0.2)",
-			strokeColor : "rgba(151,187,205,1)",
-			pointColor : "rgba(151,187,205,1)",
-			pointStrokeColor : "#fff",
-			pointHighlightFill : "#fff",
-			pointHighlightStroke : "rgba(151,187,205,1)",
+			borderColor: "#F08080",
+            pointBorderColor: "#F08080",
+            pointBackgroundColor: "#F08080",
+            pointHoverBackgroundColor: "#F08080",
+            pointHoverBorderColor: "#F08080",
+            pointStyle: 'circle',
+            fill: false,
+            borderWidth: 4,
 			data : chartData2
 		} ]
 
