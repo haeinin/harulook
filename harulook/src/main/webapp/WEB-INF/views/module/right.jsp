@@ -37,10 +37,12 @@ $.ajax({
   
     	$('#j').attr("src",img.pop());
     	$('#partner2').attr("href",link.pop());
-    	
- 
-    }
-    
+
+    },  
+    error:function(xhr,status,error){ //ajax 오류인경우  
+            console.log("error\nxhr : " + xhr + ", status : " + status + ", error : " + error);                 
+    }  
+
 }); 
 });
 </script>

@@ -5,9 +5,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 지오코딩다음 -->
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41149e966427f3ed0a2d1b8fe3bcf837&libraries=services"></script>  
-
 <title>~하루룩~</title>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -73,13 +70,20 @@
 <script type="text/javascript" src="resources/js/modernizr.js"></script>
 <!-- 아이피받아오기 -->
 <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
+
+<!-- 지오코딩다음 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=41149e966427f3ed0a2d1b8fe3bcf837&libraries=services"></script>  
+
+
+
 <script type="text/javascript">
 
 	$(document).ready(function(){
 		/* 받아온 아이피 */
 		/* console.log(ip()); */
+
 		var ipimsi = "123.123.123.123";
-		
+
 		var addr;
 		var x = 37.532353;
 		var y = 126.993660;
@@ -182,6 +186,7 @@
     	</div>
    	
    		<div class="col-xs-9">
+   			<c:import url="/WEB-INF/views/sns/board/sns_board_search.jsp"></c:import>
            	<c:import url="/boardPopList"></c:import>
            	<c:import url="/boardList"></c:import>
            </div>

@@ -4,29 +4,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- 드롭박스 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>~하루룩~</title>
-<!-- bootstrap을 사용하기 위한 CDN주소 -->
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<!-- jquery를 사용하기위한 CDN주소 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- 모달을 쓰기위한 부트스트랩 -->
-<!-- 드롭다운과 오류남 -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<!-- bootstrap을 사용하기 위한 CDN주소 -->
+<!-- Optional theme -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+<!-- bootstrap javascript소스를 사용하기 위한 CDN주소 -->
+<!-- 주소 api -->
+<script
+	src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<!-- 유효성검사 -->
+<!-- <script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+<link rel="stylesheet"
+	href="<c:url value="resources/css/cartoony-weather.css?ver=1" />"
+	type="text/css">
+<link
+	href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat'
+	rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+<!-- w3아이콘  -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script type="text/javascript" src="resources/js/modernizr.js"></script>
 <!-- 댓글 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<!-- sns스타일 탬플릿 css-->
-<link rel="stylesheet" type="text/css" href="resources/css/style.css">
-<!-- 예뻐요 아이콘 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>BOARD LIST(spring mvc + mybatis 방식)</title>
+
+<title>BOARD LIST</title>
 <c:set value="${sessionScope.id}" var="sessionId" />
 <script type="text/javascript" src="resources/js/boardDetail.js"></script>
 <script type="text/javascript" src="resources/js/followCheck.js"></script>
@@ -221,8 +230,10 @@ $(function(){
 </script>
 </head>
 <body>
-    <!-- 상단 인클루드 -->
-    <c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+    <div class="row">
+		<!-- 해더인클루드 -->
+		<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+	</div>
     
     <!-- 바디 인클루드 -->
     <div class="row">
@@ -421,8 +432,10 @@ $(function(){
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
        </div>
 	</div>
-    <!-- 하단 인클루드 -->
-    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>
+    <div class="row">
+	    <!-- 하단 인클루드 -->
+	    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>   
+	</div>
     
 
 </html>

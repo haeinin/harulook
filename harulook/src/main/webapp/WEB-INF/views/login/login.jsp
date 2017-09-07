@@ -166,8 +166,10 @@
 <title>로그인</title>
 </head>
 <body>
-	<!-- 해더인클루드 -->
-	<c:import url="../module/header.jsp"></c:import>	
+	<div class="row">
+		<!-- 해더인클루드 -->
+		<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+	</div>	
 	<!-- 바디 인클루드 -->
 	
     <div class="row">
@@ -367,8 +369,10 @@
 				 	 </div>
 				</div>
 	</div>
-    <!-- 하단 인클루드 -->
-    <c:import url="../module/footer.jsp"></c:import>
+    <div class="row">
+	    <!-- 하단 인클루드 -->
+	    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>   
+	</div>
     
 </body>
 </html>
