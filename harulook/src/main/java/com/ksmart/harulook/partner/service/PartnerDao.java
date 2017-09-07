@@ -125,5 +125,13 @@ public class PartnerDao {
 	 public List<HashMap<String,String>> getBanner(){
 		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getBanner");
 	 }
+	 /*기간만료된 제휴계약 조회*/
+	 public List<String> getEndCooContractList(){
+		 return sqlSessionTemplate.selectList("com.ksmart.harulook.partner.service.PartnerMapper.getEndCooContractList");
+	 }
+	 /*기간만료된 제휴계약 상태변경*/
+	 public int updateEndCooContract(String cooContractNo){
+		 return sqlSessionTemplate.update("com.ksmart.harulook.partner.service.PartnerMapper.updateEndCooContract",cooContractNo);
+	 }
 
 }

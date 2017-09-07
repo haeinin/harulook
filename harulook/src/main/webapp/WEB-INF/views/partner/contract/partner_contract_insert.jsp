@@ -45,8 +45,8 @@ $(function(){
 	    <div class="col-xs-1">
 	    <c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
 	    </div>
-	    
-	    <div class="col-xs-9">
+	    <div class="col-xs-1"></div>
+	    <div class="col-xs-8">
 	    <div class="container">
 
 <form id="addForm" action="${pageContext.request.contextPath}/partnerContractInsert" method="post" enctype="multipart/form-data">
@@ -73,6 +73,7 @@ $(function(){
         <div class="form-group">
             <label for="cooContractImg">쇼핑몰 배너 이미지</label>
             <input name="uploadFile" id="uploadFile" type="file"/>
+            이미지 최대 사이즈는 150x300px 입니다. 
         </div>
         <div class="form-group">
             <label for="cooContractLink">배너 클릭시 이동할 URL</label>

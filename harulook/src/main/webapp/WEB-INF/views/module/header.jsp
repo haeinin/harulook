@@ -499,7 +499,7 @@ function dfs_xy_conv(code, v1, v2) {
 							
 							<!-- 제휴 관리 및 승인 -->
 							<form id="partnerForm"
-								action="${pageContext.request.contextPath}/guestList"
+								action="${pageContext.request.contextPath}/partnerContractAllList"
 								method="get">
 								<div>
 									<input class="btn btn-default" id="partnerButton"

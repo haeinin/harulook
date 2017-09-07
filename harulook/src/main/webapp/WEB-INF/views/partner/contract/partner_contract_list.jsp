@@ -23,8 +23,21 @@
 </script>
 </head>
 <body>
+<!-- 상단 인클루드 -->
+    <c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+    
+    <!-- 바디 인클루드 -->
+    <div class="row">
+	    <div class="col-xs-1">
+	    
+	    </div>
+	    
+	    <div class="col-xs-9">
+	    <div class="row">
+	    <div class="col-md-2"></div>
+	    <div class="col-sm-10">
 
-	<table border="1px">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>제휴계약번호</th>
@@ -49,16 +62,7 @@
 					<td>${b.cooContractEnd}</td>
 					<td>${b.cooContractStat}</td>
 					<td>${b.cooContractPayStat}</td>
-					<%-- <c:if test="${sessionScope.level == '관리자'}">
-						<td>
-							<form id="cooContractAdmit"
-								action="${pageContext.request.contextPath}/partnerContractAdmit" method="post">
-								<input class="btn btn-default" id="cooContractAdmitBtn" type="button" value="승인하기" />
-								<input type="hidden" id="cooContractNo" value="${b.cooContractNo}">
-								<input type="hidden" id="managerId" value="${sessionScope.id}">	
-							</form>
-						</td>
-					</c:if> --%>
+	
 					<td>
 					<c:if test="${sessionScope.level=='관리자'}">
                     	 <c:if test="${b.cooContractStat=='제휴신청'}"><a class="btn btn-info" href="${pageContext.request.contextPath}/partnerContractAdmit?cooContractNo=${b.cooContractNo}&managerId=${sessionScope.id}">제휴승인</a></c:if>
@@ -70,5 +74,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	</div>
+	</div>
+	</div>
+	</div>
 </body>
 </html>

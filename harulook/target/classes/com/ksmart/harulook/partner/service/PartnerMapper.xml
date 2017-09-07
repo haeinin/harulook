@@ -448,6 +448,22 @@
 	WHERE coo_contract_stat='제휴승인'
 	</select>
 	
+	<!-- 기간 만료된 제휴계약 조회 -->
+	<select id="getEndCooContractList" resultType="String">
+	SELECT coo_contract_no
+	FROM coo_contract
+	WHERE DATE(NOW()) > coo_contract_end  AND coo_contract_stat != '제휴종료'
+	</select>
+	
+	<!-- 기간만료 된 제휴계약 상태변경 -->
+	<update id="updateEndCooContract" parameterType="String">
+	UPDATE coo_contract
+	SET
+		coo_contract_stat='제휴종료'
+	WHERE
+		coo_contract_no=#{cooContractNo}
+	</update>
+	
 
 
 

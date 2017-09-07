@@ -25,7 +25,7 @@
     	<div class="col-xs-1">
     		<c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
     	</div>
-	    
+	   
 	    <div class="col-xs-9">
 	    
         </div>
