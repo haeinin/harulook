@@ -398,9 +398,11 @@
 	FROM 
 		coo_visitor
 	WHERE
-		coo_contract_no = #{cooContractNo}
+		coo_contract_no = #{cooContractNo} 
 	GROUP BY 
-		date; 
+		date
+	ORDER BY
+		date DESC LIMIT 0,6;
 	
 	</select>
 	<!-- 제휴업체 주별 유입 방문자 수 가져오기 -->
@@ -417,7 +419,9 @@
 		AND 
 		coo_visitor_influx ='harulook'
 	GROUP BY 
-		date; 
+		date
+	ORDER BY
+		date DESC LIMIT 0,6;
 	
 	</select>
 	<!-- 제휴 쿠폰번호 중복체크 -->

@@ -33,6 +33,8 @@ canvas {
 <script>
 	var chartLabels = [];// 받아올 데이터를 저장할 배열 선언
 	var chartData = [];
+	var chartData2 = [];
+
 
 	var cooContractNo = '<c:out value="${no}"/>';
 
@@ -44,13 +46,27 @@ canvas {
 	var lineChartData = {
 		labels : chartLabels,
 		datasets : [ {
-			label : "주별 방문자 수",
-			fillColor : "rgba(220,220,220,0.2)",
-			strokeColor : "rgba(220,220,220,1)",
-			pointColor : "rgba(220,220,220,1)",
-			pointStrokeColor : "#fff",
-			pointHighlightFill : "#fff",
-			pointHighlightStroke : "rgba(220,220,220,1)",
+			label : "주별 방문자 수 조회",
+			borderColor: "#80b6f4",
+            pointBorderColor: "#80b6f4",
+            pointBackgroundColor: "#80b6f4",
+            pointHoverBackgroundColor: "#80b6f4",
+            pointHoverBorderColor: "#80b6f4",
+            pointStyle: 'rect',
+            fill: false,
+            borderWidth: 4,
+           
+			data : chartData2
+		},{
+			label : "주별 유입 방문자 수",
+			borderColor: "#F08080",
+            pointBorderColor: "#F08080",
+            pointBackgroundColor: "#F08080",
+            pointHoverBackgroundColor: "#F08080",
+            pointHoverBorderColor: "#F08080",
+            pointStyle: 'circle',
+            fill: false,
+            borderWidth: 4,
 			data : chartData
 		} ]
 
@@ -61,23 +77,32 @@ canvas {
 		LineChartDemo = Chart.Line(ctx, {
 			data : lineChartData,
 			options : {
+				 
 				scales : {
 					yAxes : [ {
 						ticks : {
-							beginAtZero : true
+							beginAtZero : true,
+							
 						}
 					} ]
 				}
 			}
 		});
 	}
+	$.getJSON("./getWeeklyVisitor", {
+		cooContractNo : cooContractNo
+	}, function(data) {
+		$.each(data, function(key, value) {
+			chartData2[5-key]= value.statsAmount;
+		});
+	});
 	$.getJSON("./getWeeklyInflux", {
 		cooContractNo : cooContractNo
 	}, function(data) {
 		$.each(data, function(key, value) {
 
-			chartLabels.push(value.statsStartDate);
-			chartData.push(value.statsAmount);
+			chartLabels[5-key] = value.statsStartDate;
+			chartData[5-key]= value.statsAmount;
 
 		});
 		createChart();

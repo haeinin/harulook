@@ -18,8 +18,10 @@
 	    <c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
 	    </div>
 	    
-	    <div class="col-xs-9" style="margin:30px;">
-
+	    <div class="col-xs-9">
+	    <div class="row" >
+				<div class="col-md-2"></div>
+				<div class="col-md-7" style="margin-top:50px">
 	<table class="table">
 		<thead>
 			<tr>
@@ -42,8 +44,12 @@
 			</c:forEach>
 		</tbody>
 	</table>
-
+</div>
 	</div>
 	</div>
+	<div class="col-xs-2">
+			<!-- 우측 베너 인클루드 -->
+			<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
+		</div>
 </body>
 </html>

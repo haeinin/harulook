@@ -24,17 +24,18 @@ canvas {
 
 </head>
 <body>
-	<!-- 상단 인클루드 -->
+	<!-- 헤더 -->
 	<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
 
 
-	<!-- 바디 인클루드 -->
+	
 	<div class="row">
 		<div class="col-xs-1">
+		
 			<c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
 		</div>
-
-		<div class="col-xs-9">
+			<div class="col-xs-9" style="margin-top:20px;">
+			<div class="col-md-1"></div>
 			<div class="container">
 
 				<input type="button" id="dailyBtn" name="btn" value="일별보기"  onclick="location.href='././daily'"> 
