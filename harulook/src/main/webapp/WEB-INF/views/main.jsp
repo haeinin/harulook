@@ -71,7 +71,7 @@
 
 <div class="container-fluid bg-1 text-center">
   <h1>하루룩</h1>
-  <a href="http://haruloook.cafe24.com/home">포트폴리오 보러가기</a>
+  <a href="./home">포트폴리오 보러가기</a>
   <h3>하나미치</h3>
   
 </div>
