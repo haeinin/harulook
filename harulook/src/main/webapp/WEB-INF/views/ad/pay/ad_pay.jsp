@@ -4,6 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>결제창</title>
+<!-- 드롭다운 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <!-- div 바디 높이 크기 지정 -->
 <link rel="stylesheet" type="text/css" href="resources/css/member-list-size.css">
  <!-- jquery를 사용하기위한 CDN주소 -->

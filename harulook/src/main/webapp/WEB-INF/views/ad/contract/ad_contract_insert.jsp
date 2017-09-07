@@ -3,12 +3,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1">
-<title> LIST(spring mvc + mybatis 방식)</title>
+
+
+<!-- 드롭다운 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<title>광고계약</title>
 <!-- 해더인클루드 -->
-	<c:import url="../../module/header.jsp"></c:import>	
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
-	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
-	<script type="text/javascript">
+<c:import url="../../module/header.jsp"></c:import>	
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
+<script type="text/javascript">
 jQuery.browser = {};
 (function () {
     jQuery.browser.msie = false;

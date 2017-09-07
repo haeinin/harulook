@@ -29,8 +29,15 @@ public class FollowRestController {
 		String userId = (String) session.getAttribute("id");
 		System.out.println("FollowController 세션아이디 == " + userId);
 		System.out.println("FollowController 월래는게시판아이디 == " + followId);
-		String checkFollow = followDao.followCheck(userId, followId);	//	친구등록 중복 방지 셀렉트
+		
+		String checkFollow = null;	//게시판 아이디와 로그인 아이디 중복검사
+		if(userId.equals(followId)){
+		System.out.println("FollowController 게시판아이디 로그인아이디같음 ");
+			checkFollow = "samId";
+		}else{
+			checkFollow = followDao.followCheck(userId, followId);	//	친구등록 중복 방지 셀렉트
 		System.out.println("FollowController 친구 체크 후 == " +checkFollow);
+		}
 		/*	model.addAttribute("checkFollow", checkFollow);
 		System.out.println("FollowController 팔로우중복체크리턴 == " + model);*/
 		return checkFollow; 

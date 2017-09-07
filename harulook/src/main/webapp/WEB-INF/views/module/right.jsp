@@ -39,10 +39,8 @@ $.ajax({
     	$('#partner2').attr("href",link.pop());
     	
  
-    },  
-    error:function(xhr,status,error){ //ajax 오류인경우  
-            alert("error\nxhr : " + xhr + ", status : " + status + ", error : " + error);                 
-    }  
+    }
+    
 }); 
 });
 </script>

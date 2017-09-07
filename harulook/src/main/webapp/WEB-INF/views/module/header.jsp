@@ -7,6 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
 <!-- 버튼 위치 조정 -->
 <style type="text/css">
 /* 로그인버튼 */
@@ -43,9 +45,9 @@
 </style>
 <!-- 드롭박스 -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
@@ -67,9 +69,11 @@
 <!-- 주소 api -->
 <script
 	src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+
 <!-- 유효성검사 -->
-<script type="text/javascript"
-	src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- <script type="text/javascript"
+	src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+
 <link rel="stylesheet"
 	href="<c:url value="resources/css/cartoony-weather.css?ver=1" />"
 	type="text/css">
@@ -385,6 +389,7 @@ function dfs_xy_conv(code, v1, v2) {
 				</div>
 			</div>
 			<h2 style="margin-left: 20px;" id="tempur"></h2>
+			
 			<!-- 세션에 있는 아이디 권한 받기 -->
 			<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
 			<%-- 권한 : <c:out value='${sessionScope.level}'/><br> --%>

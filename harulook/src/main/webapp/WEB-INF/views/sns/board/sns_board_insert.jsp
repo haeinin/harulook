@@ -15,7 +15,7 @@
 <!-- bootstrap javascript소스를 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<title>Insert title here</title>
+<title>~하루룩~</title>
 <script type="text/javascript">
 $(function(){
 	//이미지 파일 입력 여부 검사

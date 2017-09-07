@@ -5,8 +5,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>~하루룩~</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<!-- 모달을 쓰기위한 부트스트랩 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- div 바디 높이 크기 지정 -->
 <link rel="stylesheet" type="text/css" href="resources/css/member-list-size.css">
 
@@ -21,17 +25,9 @@
  
 <!-- bootstrap javascript소스를 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-<!-- 주소 api --> 
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script> 
-<!-- 유효성검사 -->
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<!-- 모달을 쓰기위한 부트스트랩 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ -->
 
-
-<meta http-equiv="Cache-control" content="no-cache">
-<meta http-equiv="Expires" content="-1">
 <script type="text/javascript">
 	$(document).ready(function(){
 		var myPointMsgB;
@@ -62,7 +58,7 @@
         });
 		
 		
-		$('#pointPolicyButton').click(function(){	//포인트 정책 사용 버튼 보기 
+		/* $('#pointPolicyButton').click(function(){	//포인트 정책 사용 버튼 보기 
 			
 			var request = $.ajax({	//일반회원의 포인트를 받아오기 
 				  url: "./myPagePoint", //호출 경로
@@ -103,7 +99,7 @@
 				alert('오류');
 			}
 		});
-		
+		 */
 		
 	});
 </script>
@@ -120,8 +116,8 @@
     	</div>
 	    
 	    <div id="div1" class="col-xs-9">
-		    
-			<input class="btn btn-default" id="pointPolicyButton" type="button" value="포인트사용하기"/>
+		    <c:import url="/WEB-INF/views/point/point_modal.jsp"></c:import>
+			<!-- <input class="btn btn-default" id="pointPolicyButton" type="button" value="포인트사용하기"/> -->
 			<input class="btn btn-default" id="pointUseButton" type="button" value="포인트 사용 내역"/>
 			<input class="btn btn-default" id="pointGetButton" type="button" value="포인트 취득 내역"/>
 			
@@ -200,7 +196,7 @@
 			            <tr>
 			                <th>쿠폰</th>
 			                <th>쿠폰번호</th>	<!-- ///////////////////////////////////////////////////////////////랜덤생성만들자///// -->
-			                <th>포인트</th>
+			                <th>사용포인트</th>
 			                <th>날짜</th>
 		            	  </tr>
 			        </thead>
@@ -233,7 +229,7 @@
 			        <thead>
 			            <tr>
 			                <th>쿠폰</th>
-			                <th>포인트</th>
+			                <th>취득포인트</th>
 			                <th>날짜</th>
 		            	  </tr>
 			        </thead>

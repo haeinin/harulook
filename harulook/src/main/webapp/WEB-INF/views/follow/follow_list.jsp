@@ -5,7 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>팔로우리스트</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- 모달을 쓰기위한 부트스트랩 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -22,8 +25,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script> 
 <!-- 유효성검사 -->
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<!-- 모달을 쓰기위한 부트스트랩 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
 <meta http-equiv="Cache-control" content="no-cache">
 <meta http-equiv="Expires" content="-1">

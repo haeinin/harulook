@@ -68,24 +68,21 @@
  
 <!-- bootstrap javascript소스를 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="resources/js/modernizr.js"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
+<script type="text/javascript" src="resources/js/modernizr.js"></script>
 <!-- 아이피받아오기 -->
 <script type="text/javascript" src="http://jsgetip.appspot.com"></script>
-
-<!-- 지오코딩구글 -->
-<!-- <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGmPrfFYkGiCQuX3VZJ9hpMAf00Phfgog&callback=initMap">
-    </script> -->
 <script type="text/javascript">
 
 	$(document).ready(function(){
 		/* 받아온 아이피 */
-		console.log(ip());
+		/* console.log(ip()); */
+		var ipimsi = "123.123.123.123";
+		
 		var addr;
-		var x = 0;
-		var y = 0;
+		var x = 37.532353;
+		var y = 126.993660;
 		
 		/* 세션 입력 */
 		sessionStorage.setItem('influx', 'haruloook');	//제휴사이트에 값 넘기기위함
@@ -94,22 +91,20 @@
 		
 		/* 현재내위치좌표 */
 		navigator.geolocation.getCurrentPosition(function(position){
-	    console.log('latitude: ', position.coords.latitude);
-	    console.log('longitude: ', position.coords.longitude);
-	    addr = position.coords.latitude;	////////////////////////나중에 주소(도)로 바꿔서 넘겨야함
-	    //인트로 받은 좌표값을 문자열로 변환
-	    var xC = position.coords.latitude;
-	    var yC = position.coords.longitude;
-	    xC += "";
-	    yC += "";
-	    //xy좌표가 너무 길어 문자열로 변환수 자르고 다시 인트로 변환
-	    x = xC.substr(0, 9);
-	    y = yC.substr(0, 10);
-	    x = x*1;
-	    y = y*1;
-	    
-	    console.log('x 자른좌표 :  ' + x);
-	    console.log('y 자른좌표 :  ' + y);
+		    console.log('latitude: ', position.coords.latitude);
+		    console.log('longitude: ', position.coords.longitude);
+		    addr = position.coords.latitude;	////////////////////////나중에 주소(도)로 바꿔서 넘겨야함
+		    //인트로 받은 좌표값을 문자열로 변환
+		    var xC = position.coords.latitude;
+		    var yC = position.coords.longitude;
+		    xC += "";
+		    yC += "";
+		    //xy좌표가 너무 길어 문자열로 변환수 자르고 다시 인트로 변환
+		    x = xC.substr(0, 9);
+		    y = yC.substr(0, 10);
+		    x = x*1;
+		    y = y*1;
+		    
 		    /* 다음주소 api */
 		    var geocoder = new daum.maps.services.Geocoder();
 			
@@ -124,7 +119,7 @@
 			        var request = $.ajax({	//아이디와 지역 입력
 						  url: "./guestAdd", //호출 경로
 						  method: "POST",	//전송방식
-						  data: { 'ip' : ip(), 'apiAdd' : apiAdd }, //전송해줄값
+						  data: { 'ip' : ipimsi, 'apiAdd' : apiAdd }, //전송해줄값	///////////////////////////////////////////////////아이피 수정시 ipimsi수정
 						  dataType: "text" //결과값 타입 (리턴)
 					});
 				
@@ -135,11 +130,39 @@
 		    /* 다음주소 api */    
 			};
 
-		geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
-	    
-	    });
+			geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);	
+	    });	
 		
-	
+		
+		console.log('x 자른좌표 :  ' + x);
+	    console.log('y 자른좌표 :  ' + y);	
+	    //서버오류로 다음api가 실행 안될때 받는 임시 서울 주소
+		/* 다음주소 api */
+	    var geocoder = new daum.maps.services.Geocoder();
+		
+		var coord = new daum.maps.LatLng(x, y);
+		var callback = function(result, status) {
+		    if (status === daum.maps.services.Status.OK) {
+		        console.log('주소 ' + result[0].address.address_name);
+		        var a = result[0].address.address_name;
+		        var apiAdd = a.substr(0, 2);
+		        console.log('광역시와도 : ' + apiAdd);
+		        
+		        var request = $.ajax({	//아이디와 지역 입력
+					  url: "./guestAdd", //호출 경로
+					  method: "POST",	//전송방식
+					  data: { 'ip' : ipimsi, 'apiAdd' : apiAdd }, //전송해줄값  ///////////////////////////////////////////////////아이피 수정시 ipimsi수정
+					  dataType: "text" //결과값 타입 (리턴)
+				});
+			
+				$('#snsInsertButton').click(function(){	//sns게시물등록하기
+					$('#snsInsertForm').submit();
+		        });
+		     }
+	    /* 다음주소 api */    
+		};
+
+		geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
 	});   
    
 </script>

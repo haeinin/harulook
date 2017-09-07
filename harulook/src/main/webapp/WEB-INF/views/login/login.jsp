@@ -163,7 +163,7 @@
 	
 </script>
 
-<title>일반회원가입폼</title>
+<title>로그인</title>
 </head>
 <body>
 	<!-- 해더인클루드 -->

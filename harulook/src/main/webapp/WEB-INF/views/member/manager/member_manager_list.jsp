@@ -31,7 +31,7 @@
 		
     });
 </script>
-<title>관리자리스트</title>
+<title>회원리스트</title>
 </head>
 <body>
 	<!-- 해더인클루드 -->
