@@ -173,6 +173,19 @@ $(function(){
 		$('input:checkbox[name="styleValue"]').prop('checked', false);
 		$('input:checkbox[name="colorValue"]').prop('checked',false);
 		$('input:checkbox[name="situationValue"]').prop('checked',false);
+		$('#circleRed').attr('class','fa fa-circle');
+		$('#circleOrange').attr('class','fa fa-circle');
+		$('#circleYellow').attr('class','fa fa-circle');
+		$('#circleGreen').attr('class','fa fa-circle');
+		$('#circleBlue').attr('class','fa fa-circle');
+		$('#circleNavy').attr('class','fa fa-circle');
+		$('#circlePurple').attr('class','fa fa-circle');
+		$('#circleBlack').attr('class','fa fa-circle');
+		$('#circleGrey').attr('class','fa fa-circle');
+		$('#circleWhite').attr('class','fa fa-circle');
+		$('#circleBrown').attr('class','fa fa-circle');
+		$('#circleBeige').attr('class','fa fa-circle');
+		$('#circlePink').attr('class','fa fa-circle');
 		boardSearch();
 		popBoardSearch();
 	});
@@ -187,6 +200,25 @@ $(function(){
 		console.log('userColor : ',userColor);
 		console.log('userStyle : ',userStyle);
 		
+		/* 체크박스 초기화 */
+		$('input:checkbox[name="styleValue"]').prop('checked', false);
+		$('input:checkbox[name="colorValue"]').prop('checked',false);
+		$('input:checkbox[name="situationValue"]').prop('checked',false);
+		$('#circleRed').attr('class','fa fa-circle');
+		$('#circleOrange').attr('class','fa fa-circle');
+		$('#circleYellow').attr('class','fa fa-circle');
+		$('#circleGreen').attr('class','fa fa-circle');
+		$('#circleBlue').attr('class','fa fa-circle');
+		$('#circleNavy').attr('class','fa fa-circle');
+		$('#circlePurple').attr('class','fa fa-circle');
+		$('#circleBlack').attr('class','fa fa-circle');
+		$('#circleGrey').attr('class','fa fa-circle');
+		$('#circleWhite').attr('class','fa fa-circle');
+		$('#circleBrown').attr('class','fa fa-circle');
+		$('#circleBeige').attr('class','fa fa-circle');
+		$('#circlePink').attr('class','fa fa-circle');
+		
+		/* 세션에 셋팅된 사용자 정보를 필터에 적용 */
 		$('#snsBoardWeather').val(sessionWeather);
 		$('#snsBoardLoc').val(apiAdd);
 		$('#snsBoardTall').val(userTall);
@@ -201,7 +233,7 @@ $(function(){
 		/* 사용자 스타일 체크 판별 */
 		if(userStyle.indexOf('클래식') != -1) {
 			$('input:checkbox[id="searchStyleClassic"]').prop("checked", true);
-		} 
+		}
 		if(userStyle.indexOf('캐쥬얼') != -1) {
 			$('input:checkbox[id="searchStyleCasual"]').prop("checked", true);
 		}
@@ -233,42 +265,55 @@ $(function(){
 		/* 사용자 색상 체크 판별 */
 		if(userColor.indexOf('빨강') != -1) {
 			$('input:checkbox[id="searchColorRed"]').prop("checked", true);
+			$('#circleRed').attr('class','fa fa-check-circle');
 		} 
 		if(userColor.indexOf('주황') != -1) {
 			$('input:checkbox[id="searchColorOrange"]').prop("checked", true);
+			$('#circleOrange').attr('class','fa fa-check-circle');
 		}
 		if(userColor.indexOf('노랑') != -1) {
 			$('input:checkbox[id="searchColorYellow"]').prop("checked", true);
+			$('#circleYellow').attr('class','fa fa-check-circle');
 		} 
 		if(userColor.indexOf('초록') != -1) {
 			$('input:checkbox[id="searchColorGreen"]').prop("checked", true);
+			$('#circleGreen').attr('class','fa fa-check-circle');
 		}
 		if(userColor.indexOf('파랑') != -1) {
 			$('input:checkbox[id="searchColorBlue"]').prop("checked", true);
+			$('#circleBlue').attr('class','fa fa-check-circle');
 		} 
 		if(userColor.indexOf('남색') != -1) {
 			$('input:checkbox[id="searchColorNavy"]').prop("checked", true);
+			$('#circleNavy').attr('class','fa fa-check-circle');
 		}
 		if(userColor.indexOf('보라') != -1) {
 			$('input:checkbox[id="searchColorPurple"]').prop("checked", true);
+			$('#circlePurple').attr('class','fa fa-check-circle');
 		} 
 		if(userColor.indexOf('검정') != -1) {
 			$('input:checkbox[id="searchColorBlack"]').prop("checked", true);
+			$('#circleBlack').attr('class','fa fa-check-circle');
 		}
 		if(userColor.indexOf('회색') != -1) {
 			$('input:checkbox[id="searchColorGrey"]').prop("checked", true);
+			$('#circleGrey').attr('class','fa fa-check-circle');
 		} 
 		if(userColor.indexOf('흰색') != -1) {
 			$('input:checkbox[id="searchColorWhite"]').prop("checked", true);
+			$('#circleWhite').attr('class','fa fa-check-circle');
 		}
 		if(userColor.indexOf('갈색') != -1) {
 			$('input:checkbox[id="searchColorBrown"]').prop("checked", true);
+			$('#circleBrown').attr('class','fa fa-check-circle');
 		}
 		if(userColor.indexOf('베이지') != -1) {
 			$('input:checkbox[id="searchColorBeige"]').prop("checked", true);
+			$('#circleBeige').attr('class','fa fa-check-circle');
 		}
 		if(userColor.indexOf('핑크') != -1) {
 			$('input:checkbox[id="searchColorPink"]').prop("checked", true);
+			$('#circlePink').attr('class','fa fa-check-circle');
 		}
 		boardSearch();
 		popBoardSearch();
