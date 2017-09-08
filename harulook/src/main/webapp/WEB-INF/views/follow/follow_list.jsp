@@ -58,9 +58,10 @@
     	<div class="col-xs-1">
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
-	    <div id="div1" class="col-xs-9">
+    	<div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-7">
 			<!-- 친구 리스트 -->
-			<div class="container">
+			<div class="row">
 			    <h1>내가 등록한 친구 목록</h1>
 			    <div>팔로우 수 : ${followListCount}</div>
 			    <table class="table table-striped">
@@ -91,7 +92,7 @@
 		        </c:if>
 		    </ul>
 		</div>	
-	   
+	    <div class="col-xs-1"></div>
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>

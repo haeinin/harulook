@@ -115,15 +115,15 @@
     	<div class="col-xs-1">
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
-	    
-	    <div id="div1" class="col-xs-9">
-		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<c:import url="/WEB-INF/views/point/point_modal.jsp"></c:import>
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-7">
+		    <c:import url="/WEB-INF/views/point/point_modal.jsp"></c:import>
 			<!-- <input class="btn btn-default" id="pointPolicyButton" type="button" value="포인트사용하기"/> -->
 			<input class="btn btn-default" id="pointUseButton" type="button" value="포인트 사용 내역"/>
 			<input class="btn btn-default" id="pointGetButton" type="button" value="포인트 취득 내역"/>
 			
 			<!-- 포인트 사용 내역-->
-			<div class="container" id="pointUse">
+			<div class="row" id="pointUse">
 			    <h1>포인트 사용 내역</h1>
 			    <%-- <div>전체행의 수 : ${pointUseCount}</div> --%>
 			    <table class="table table-striped">
@@ -157,7 +157,7 @@
 			</div>
 			
 			<!-- 포인트 취득내역 정책-->
-			<div class="container" id="pointGet">
+			<div class="row" id="pointGet">
 			    <h1>포인트 취득 내역</h1>
 			    <%-- <div>전체행의 수 : ${pointGetCount}</div> --%>
 			    <table class="table table-striped">
@@ -188,7 +188,7 @@
 				</ul>
 			</div>	
 	    </div>
-	    
+	    <div class="col-xs-1"></div>
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>

@@ -38,7 +38,7 @@
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
     	<div class="col-xs-1"></div>
-	    <div id="div1" class="col-xs-8">
+	    <div id="div1" class="col-xs-7">
 			<div id="container">
 				<table class="table table-striped">
 			        <thead>
@@ -79,7 +79,7 @@
 			    </table>
 			</div>
 		</div>
-		
+		<div class="col-xs-1"></div>
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
