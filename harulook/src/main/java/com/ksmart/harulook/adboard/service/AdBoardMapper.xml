@@ -14,7 +14,7 @@
  	<result property="adBoardContent" column="ad_board_content"/>
  	<result property="adBoardDate" column="ad_board_date"/> 	
  </resultMap>
- <select id="selectAdBoard">
+ <select id="selectAdBoard" resultMap="AdBoardList">
 	 SELECT ad_board_no
 			,ad_contract_no
 			,ad_board_goods_1
@@ -25,8 +25,8 @@
 			,ad_board_content
 			,ad_board_date
 	 FROM ad_board
-	 WHERE ad_board_no=#{adBoardNo}
- 
+	 WHERE ad_contract_no=#{adContractNo}
+
  </select>
  
   <select id="selectAdBoardListbyContractId" resultMap="AdBoardList">

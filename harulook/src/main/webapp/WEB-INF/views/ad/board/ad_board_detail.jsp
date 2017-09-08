@@ -14,7 +14,7 @@
  
 </head>
 <!-- sns 게시물 상세보기 모달 -->
-	<div class="modal fade" id="adModal" role="dialog">
+	<div class="modal fade" id="ad2Modal" role="dialog">
 	    <div id="modalFrame" class="modal-dialog modal-lg" >
 			<div id="snsDetail" class="modal-content">
 		        <div class="row">

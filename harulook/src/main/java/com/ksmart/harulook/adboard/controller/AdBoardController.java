@@ -260,6 +260,7 @@ public class AdBoardController {
 					System.out.println("한개 건너뜀");
 					adboard.setAdBoardGoods1("ad_goods_"+initGoodsno);
 					adboard.setAdBoardGoods2(null);
+					adgoodsdao.insertAdGoods(adgoods);
 					break;
 				}else{
 				System.out.println("링크 : " + links[j]);

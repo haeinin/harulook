@@ -22,7 +22,7 @@
             <tr>
             	<td>1</td>
                 <c:if test="${adContractPlace1==null}">
-                	<td colspan="5" align="center"><a class="btn btn-info">비었음</a></td>
+                	<td colspan="7" align="center"><a class="btn btn-info">비었음</a></td>
                 </c:if>
                 <c:if test="${adContractPlace1!=null}">                
                 	<td>${adContractPlace1.userBsName}</td>
@@ -35,14 +35,15 @@
             	</c:if>
 				<c:if test="${sessionScope.id==adContractPlace1.userId}">
             		<td><a href="./contractDoingCancel?adContractNo=${adContractPlace1.adContractNo}&adContractEnd=${adContractPlace1.adContractEnd}">계약 중도 취소 신청</a></td>
+            		<td><button id="place1detail" type="button">상세보기</button></td>
             	</c:if>
                 </c:if>
-                <td><button id="place1detail">상세보기</button></td>
+                
             </tr>
             <tr>
                 <td>2</td>
                 <c:if test="${adContractPlace2==null}">
-                <td colspan="5" align="center"><a class="btn btn-info">비었음</a></td>
+                	<td colspan="7" align="center"><a class="btn btn-info">비었음</a></td>
                 </c:if>
                 <c:if test="${adContractPlace2!=null}">
                 	<td>${adContractPlace2.userBsName}</td>
@@ -54,10 +55,11 @@
             		<td><a href="./contractBadCancel?adContractNo=${adContractPlace2.adContractNo}&adContractEnd=${adContractPlace2.adContractEnd}">계약 강제 취소</a></td>	
             	</c:if>
 	<c:if test="${sessionScope.id==adContractPlace2.userId}">
-            	<td><a href="./contractDoingCancel?adContractNo=${adContractPlace2.adContractNo}&adContractEnd=${adContractPlace2.adContractEnd}">계약 중도 취소 신청</a></td>
+            		<td><a href="./contractDoingCancel?adContractNo=${adContractPlace2.adContractNo}&adContractEnd=${adContractPlace2.adContractEnd}">계약 중도 취소 신청</a></td>
+            	    <td><button id="place2detail" type="button">상세보기</button></td>  
             	</c:if>
                 </c:if>
-                 <td><button id="place2detail">상세보기</button></td>    
+  
             </tr>
 
 
@@ -77,11 +79,10 @@
         		</c:if>
         		<c:if test="${sessionScope.id==adContractPlace3.userId}">
         			<td><a href="./contractDoingCancel?adContractNo=${adContractPlace3.adContractNo}&adContractEnd=${adContractPlace3.adContractEnd}">계약 중도 취소 신청</a></td>
+        			<td><button id="place3detail" type="button">상세보기</button></td>
         		</c:if>
-        		 <td><button id="place3detail">상세보기</button></td>
-            	</c:if>
-            	
+        		</c:if>
+
             </tr>
         </tbody>
     </table>
-    <c:import url="../board/ad_board_detail.jsp"/>

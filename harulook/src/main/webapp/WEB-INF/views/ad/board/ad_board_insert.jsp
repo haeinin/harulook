@@ -16,10 +16,6 @@ pageEncoding="UTF-8"%>
     	/*처음에 광고 한개만 빼고 모두 숨김 */
     	var i = 1;
 	    	$('#ad-2').hide();
-	    	$('#ad-3').hide();
-	    	$('#ad-4').hide();
-	    	$('#ad-5').hide();
-	    	$('#ad-6').hide();
 	    /* 등록버튼을 눌렀을 경우 i에 담겨있는 게시물의 값을 adBoardCount를 아이디로 가지는 input에 옮긴다 
 	    그리고 서브밋을 한다. */
 	    	$('#ok').click(function(){
@@ -97,14 +93,16 @@ pageEncoding="UTF-8"%>
            /* 추가버튼을 눌렀을때 온도별 광고 한개씩 늘어나게 해주는 기능 */
  			$('#adAdd').click(function(){
  				i++;
+
  				console.log('게시물의 갯수 :' + i);
  				
             	switch(i){
             	case 1:
             		$('#ad-1').show();
-            		break;
+            		$('#adAdd').show();
             	case 2 :
             		$('#ad-2').show();
+            		$('#adAdd').hide();
             		break;
             	}
             });
@@ -168,20 +166,22 @@ pageEncoding="UTF-8"%>
 					$('#ad-2adBoardTempMax').val(1000);
 					$('#ad-2adBoardTempMin').val(30);
  				}
- 				console.log('최고온도1: ' + $('#ad-1adBoardTempMax').val());
-					console.log('최저온도 : ' + $('#ad-1adBoardTempMin').val());
+ 				console.log('최고온도1: ' + $('#ad-2adBoardTempMax').val());
+					console.log('최저온도 : ' + $('#ad-2adBoardTempMin').val());
  			});
  			/***************************************************/
  			/* 취소 버튼을 눌렀을때 광고 숨김 및 내용 삭제 */
             $('#ad-1cancel').click(function(){
             	$('#ad-1').hide();
             	$('.ad-1').val("");
+            	$('#adAdd').show();
             	i--;
             	console.log('게시물의 수  : ' + i);
             });
        		$('#ad-2cancel').click(function(){
                	$('#ad-2').hide();
                	$('.ad-2').val("");
+            	$('#adAdd').show();
                	i--;
                	console.log('게시물의 수  : ' + i);
             });

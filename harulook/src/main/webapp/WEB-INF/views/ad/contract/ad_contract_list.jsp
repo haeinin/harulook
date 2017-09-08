@@ -13,37 +13,52 @@
 <!-- bootstrap javascript소스를 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="resources/js/adBoardDetail.js"></script>
 <script>
 function showDetail(data) {
-	$('#place1detail').click(function(){
-		var boardNo = ${adContractPlace1.adContractNo};
-		console.log('adBoardNo : ',boardNo,'');
+ 	$('#place1detail').click(function(){
+		var adContractNo = '${adContractPlace1.adContractNo}';
+		console.log('adContractNo : ',adContractNo,'');
 		var boardDetailRequest = $.ajax({
-			url : './adboardDetail',
+			url : './adBoardDetail',
 			method : 'get',
-			data :{'boardNo' : boardNo},
+			data :{'adContractNo' : adContractNo},
 			datatype : 'json',
 			success : function(contractData) {
-				$.ajax({
-					url : './adGoodsDetail',
-					method : 'get',
-					data : {'adGoodsNo' : contractData.adBoardGoods1}
-					datatype : 'json',
-					success : function(goods1Data) {
-						
-					}
-				})
-				if(contractData.adBoardGoods2 != ""){
-					$.ajax({
-						url : './adGoodsDetail',
-						method : 'get',
-						data : function(goods2Data) {
-							
-						}
-					})
-				}else{
-					
-				}
+				console.log(contractData);
+				adBoardDetail(contractData);
+				
+			}
+		});
+		$('#adModal').modal();
+	});
+ 	$('#place2detail').click(function(){
+		var adContractNo = '${adContractPlace2.adContractNo}';
+		console.log('adContractNo : ',adContractNo,'');
+		var boardDetailRequest = $.ajax({
+			url : './adBoardDetail',
+			method : 'get',
+			data :{'adContractNo' : adContractNo},
+			datatype : 'json',
+			success : function(contractData) {
+				console.log(contractData);
+				adBoardDetail(contractData);
+				
+			}
+		});
+		$('#adModal').modal();
+	});
+ 	$('#place3detail').click(function(){
+		var adContractNo = '${adContractPlace3.adContractNo}';
+		console.log('adContractNo : ',adContractNo,'');
+		var boardDetailRequest = $.ajax({
+			url : './adBoardDetail',
+			method : 'get',
+			data :{'adContractNo' : adContractNo},
+			datatype : 'json',
+			success : function(contractData) {
+				console.log(contractData);
+				adBoardDetail(contractData);
 				
 			}
 		});
@@ -119,6 +134,28 @@ $(document).ready(function(){
 			   <button class="btn btn-info">광고 계약</button>
 			   </form>
 			</div>
+				<!-- sns 게시물 상세보기 모달 -->
+	<div class="modal fade" id="adModal" role="dialog">
+	    <div id="modalFrame" class="modal-dialog modal-lg" >
+			<div id="snsDetail" class="modal-content">
+		        <div class="row">
+		        
+		        	<!-- 게시물 이미지 영역 -->
+			        <div id="snsDetailImgArea" class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
+						<div id="snsDetailImg"></div>
+		        	</div>
+		        	<!-- 게시물 이미지 영역 -->
+		        	
+		        	<!-- 게시물 내용 영역 -->
+			        <div id="snsDetailContent" class="modal-body col-xs-12 col-sm-6">
+					</div>
+					<!-- 게시물 내용 영역 -->
+					
+			     </div>
+			</div>
+		</div>
+	</div>
+	<!-- sns 게시물 상세보기 모달 -->
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
