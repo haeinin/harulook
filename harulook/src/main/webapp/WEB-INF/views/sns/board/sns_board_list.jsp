@@ -383,6 +383,8 @@ $(function(){
 				<div class="text-center">
 					<button type="button" id="readMoreBtn" class="btn btn-default">더 읽어들이기</button>
 				</div>
+				<br>
+				<br>
 	       	</div>
 		</div>
 		<!-- sns 게시물 목록 영역 -->

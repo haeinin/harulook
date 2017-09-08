@@ -170,6 +170,10 @@ $(function(){
         <div class="instagram-content">
         <h1>#하루룩</h1><br>
 			        	<h2>게시물 : ${boardCount}</h2>
+			<!-- 광고게시물 -->
+   			<c:import url="/adBoardList"></c:import>
+            <br>
+            <br>
             <h3>인기 게시물</h3>
         	
             <!-- The following HTML will be our template inside instafeed -->
