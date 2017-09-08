@@ -8,11 +8,11 @@
           	<option>농협</option>
           	</select><br>
           	<h4>카드번호</h4>
-          	<input type="text" size="4">-<input type="text" size="4">-<input type="text" size="4">-<input type="text" size="4">
+          	<input type="text" size="4" value="1234">-<input type="text" size="4" value="1234">-<input type="text" size="4" value="1234">-<input type="text" size="4" value="1234">
           	<h4>카드비밀번호 앞 두자리</h4>
-          	<input type="text" size="2">**<br>
+          	<input type="text" size="2" value="12">**<br>
           	<h4>cvc 번호</h4>
-          	<input type="text" size="3">
+          	<input type="text" size="3" value="123">
           	<div class="reset">
           	<input class="btn btn-default" type="reset" value="초기화" />
           	</div>

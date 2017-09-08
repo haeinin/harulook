@@ -75,7 +75,7 @@
 	          	<input type="button" id="payCard" name="payWay" value="카드결제" > &nbsp;&nbsp;&nbsp;
 	          	<input type="button" id="payAccount" name="payWay" value="무통장입금" ><br>
 	          	<h4>결제자 이름</h4>
-	          	<input name="adPayName" type="text">
+	          	<input name="adPayName" type="text" value="하루룩">
 	          	<c:import url="../../module/pay_account.jsp"></c:import>
 	          	<c:import url="../../module/pay_card.jsp"></c:import>
 	          </form>
