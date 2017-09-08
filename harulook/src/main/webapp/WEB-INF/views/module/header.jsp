@@ -402,7 +402,7 @@ $(document).ready(function(){
 			</div>
 
 			<h2 style="margin-left: 20px;" id="tempur" class="tempur"></h2>
-			<h2 style="margin-left: 20px;" class="tempur"> 접속지역: 전북</h2>
+			<h2 style="margin-left: 20px;" class="tempur"> </h2>
 
 			<!-- 세션에 있는 아이디 권한 받기 -->
 			<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
