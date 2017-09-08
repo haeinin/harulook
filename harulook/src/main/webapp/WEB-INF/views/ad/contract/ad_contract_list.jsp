@@ -56,10 +56,16 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<c:import url="../../module/header.jsp"></c:import>	
+	<div class="row">
+		<!-- 해더인클루드 -->
+		<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+	</div>	
 	<div class="row">	
-			
-		<div class="col-xs-2"></div>
+		<!-- 좌측 베너 인클루드 -->
+    	<div class="col-xs-1">
+    		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+    	</div>
+		<div class="col-xs-1"></div>
 		<div class="col-xs-8">
 		<h1>현재 광고 목록</h1>
 		<c:import url="../contract/ad_contract_list_current.jsp"></c:import>

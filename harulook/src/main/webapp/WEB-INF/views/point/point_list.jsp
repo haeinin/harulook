@@ -105,9 +105,10 @@
 </script>
 </head>
 <body>
-
-	<!-- 해더인클루드 -->
-	<c:import url="../module/header.jsp"></c:import>	
+	<div class="row">
+		<!-- 해더인클루드 -->
+		<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+	</div>		
 	<!-- 바디 인클루드 -->
     <div class="row">
 	    <!-- 좌측 베너 인클루드 -->
@@ -116,7 +117,7 @@
     	</div>
 	    
 	    <div id="div1" class="col-xs-9">
-		    <c:import url="/WEB-INF/views/point/point_modal.jsp"></c:import>
+		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<c:import url="/WEB-INF/views/point/point_modal.jsp"></c:import>
 			<!-- <input class="btn btn-default" id="pointPolicyButton" type="button" value="포인트사용하기"/> -->
 			<input class="btn btn-default" id="pointUseButton" type="button" value="포인트 사용 내역"/>
 			<input class="btn btn-default" id="pointGetButton" type="button" value="포인트 취득 내역"/>

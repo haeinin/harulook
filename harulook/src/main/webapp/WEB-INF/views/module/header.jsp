@@ -14,6 +14,7 @@
 /* 로그인버튼 */
 #loginbutton {
 	position: relative;
+	top : 15px;
 }
 
 /* 마이페이지 드롭다운*/
@@ -21,6 +22,11 @@
 	position: relative;
 }
 
+/* 타이틀 */
+#titleHaruloook {
+	position: relative;
+	top : -5px;
+}
 
 /* 로그아웃 */
 #logout {
@@ -396,7 +402,7 @@ $(document).ready(function(){
 			</div>
 
 			<h2 style="margin-left: 20px;" id="tempur" class="tempur"></h2>
-			<h2 style="margin-left: 20px;" class="tempur"> 지역: 전북</h2>
+			<h2 style="margin-left: 20px;" class="tempur"> 접속지역: 전북</h2>
 
 			<!-- 세션에 있는 아이디 권한 받기 -->
 			<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
@@ -405,11 +411,11 @@ $(document).ready(function(){
 			</div>
 			
 			<div class="col-xs-6">
-			<div class="name fancy-font">
-				<h2>
+			<div id="titleHaruloook" class="name fancy-font">
+				<h1>
 					<a href="${pageContext.request.contextPath}/home" style="color: black;"><i class="fa fa-umbrella" style="font-size:48px;color:black"></i>&nbsp haruloook
 					</a>
-				</h2>
+				</h1>
 			</div>
 				<!-- <img src="./resources/logo.jpg" width="180px" height="50px"
 					class="img-rounded" alt="Cinque Terre"> -->
