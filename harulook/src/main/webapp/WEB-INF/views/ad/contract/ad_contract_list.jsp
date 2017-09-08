@@ -27,6 +27,7 @@ function showDetail(data) {
 			success : function(contractData) {
 				console.log(contractData);
 				adBoardDetail(contractData);
+
 				
 			}
 		});
@@ -67,15 +68,13 @@ function showDetail(data) {
 }
 $(document).ready(function(){
 	showDetail(null);
-	
-	$('#place1detail').click(function(){
-		$('#adModal').modal();
-	})
-	$('#place2detail').click(function(){
-		$('#adModal').modal();
-	})
-	$('#place3detail').click(function(){
-		$('#adModal').modal();
+	$('#next').click(function(){
+		$('.board1goods').hide();
+		$('.board2goods').show();
+	});
+	$('#back').click(function(){
+		$('.board1goods').show();
+		$('.board2goods').hide();
 	})
 	$('#adcontractsoonlist').hide();
 	$('#adcontractapprovewaitlist').hide();
@@ -137,19 +136,19 @@ $(document).ready(function(){
 				<!-- sns 게시물 상세보기 모달 -->
 	<div class="modal fade" id="adModal" role="dialog">
 	    <div id="modalFrame" class="modal-dialog modal-lg" >
-			<div id="snsDetail" class="modal-content">
+			<div id="adDetail" class="modal-content">
 		        <div class="row">
 		        
-		        	<!-- 게시물 이미지 영역 -->
-			        <div id="snsDetailImgArea" class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
-						<div id="snsDetailImg"></div>
+		        	<!-- 광고 메인 이미지 영역 -->
+			        <div id="adDetailImgArea" class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
+						<div id="adMainImg"></div>
 		        	</div>
-		        	<!-- 게시물 이미지 영역 -->
+		        	<!-- 광고 메인 이미지 영역 -->
 		        	
-		        	<!-- 게시물 내용 영역 -->
-			        <div id="snsDetailContent" class="modal-body col-xs-12 col-sm-6">
+		        	<!-- 광고 상세 상품 내용 영역 -->
+			        <div id="adDetailContent" class="modal-body col-xs-12 col-sm-6">
 					</div>
-					<!-- 게시물 내용 영역 -->
+					<!-- 강고 상세 상품 내용 영역 -->
 					
 			     </div>
 			</div>
