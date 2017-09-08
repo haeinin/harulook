@@ -34,6 +34,25 @@ jQuery.browser = {};
     	var period;
     	var startdate;
     	var enddate;
+    	var calcprice;
+    	/* 누락된 값이 없게 하기 위한 유효성 검사 */
+    	$('#priceOk').click(function(){
+    		if($('#adType').val()==""){
+    			alert('광고종류를 선택하세요');
+    			$('#adType').focus();
+    		}else if($('#adPlace').val()==""){
+    			alert('광고기간을 선택하세요');
+    			$('#adPlace').focus();
+    		}else if($('#date').val()==""){
+    			alert('계약일수를 선택하세요');
+    			$('#date').focus();
+    		}else if($('#datepicker').val()==""){
+    			alert('시작일자를 선택하세요');
+    			$('#datepicker').focus();
+    		}
+    		$('#contractForm').submit();
+    	})
+    	/****************************/
     	/* 총 합계를 계산해 놓으면 텍스트박스에 NaN이라는 값이 출력되서 날짜를 선택해야 총 합계가 나오게 만듬 */
     	$('#date').change(function(){
 
@@ -54,7 +73,8 @@ jQuery.browser = {};
     				console.log("수수료 : " + data);
     				dc = data;
     				$('#dcForPrice').val(data);
-    				$('#priceTotal').val((period*$('#pricePerDay').val())*(1-data/100));
+    				calc();
+    				$('#priceTotal').val(calcprice);
     			}
     		})
     	/****************************************/	
@@ -70,6 +90,8 @@ jQuery.browser = {};
     				console.log("하루당 광고비용 : " + data);
     				price = data;
     				$('#pricePerDay').val(data);
+    				calc();
+    				$('#priceTotal').val(calcprice);
     			}
     		})	
     	});
@@ -86,6 +108,7 @@ jQuery.browser = {};
         	var year = enddate.getFullYear();
         	var month = ((enddate.getMonth()+101)+"").substring(1,3);
 			var day = enddate.getDate();
+			calc();
         	console.log('년 :' + year);
         	console.log('월 :' + month);
         	console.log('일 :' + day);
@@ -103,8 +126,12 @@ jQuery.browser = {};
     	/* 광고 계약 취소 시 환불테이블과 계약 상태를 바꿔줌 */
 
     			
-   	});
-
+  
+	function calc(){
+		calcprice = period*price*(1-dc/100);
+		console.log('총 계산된 금액 ' + calcprice);
+	};
+ 	});
    
     	
 </script> 
@@ -116,12 +143,10 @@ jQuery.browser = {};
 	</div>	
 	<!-- 바디 인클루드 -->
     <div class="row">
-	    <div class="col-xs-1">
-    		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
-    	</div>
-		<div class="col-xs-2"></div>
-		<div class="col-xs-6"> 
-		 <form id="contractForm" action="./adContractInsert" method="POST">
+
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-9">    
+		 	<form id="contractForm" action="./adContractInsert" method="POST">
 		    <div class="form-group">
 			        <label for="adType">광고종류</label>
 			        <select id="adType" name="adCostNo">
@@ -154,7 +179,7 @@ jQuery.browser = {};
 		        </div>
 		        <div class="form-group">
 		            <label for="boardPw">종료일자</label>
-		            <input type="text" id="datepicker2" name="adContractEnd">  
+		            <input type="text" id="datepicker2" name="adContractEnd" readonly>  
 		        </div>
 		        
 		        <div class="form-group">
@@ -170,11 +195,11 @@ jQuery.browser = {};
 		            <input type="text" id="priceTotal" name="adContractPrice" readonly>
 		        </div>
 		        <div>
-		        <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#payModal" id="priceOk">결제하기</button>
-		            <input class="btn btn-default" id="totalComplete" type="button" value="완료"/>
+		        <button class="btn btn-info btn-lg" type="button" id="priceOk">결제하기</button>
 		            <input class="btn btn-default" type="reset" value="초기화"/>
 		        </div>
 		        </form>
+
 			</div>	
 		<div class="col-xs-1"></div> 
 		<!-- 우측 베너 인클루드 -->

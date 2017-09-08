@@ -17,17 +17,12 @@ pageEncoding="UTF-8"%>
     	/*처음에 광고 한개만 빼고 모두 숨김 */
     	var i = 1;
 	    	$('#ad-2').hide();
-	    	$('#ad-3').hide();
-	    	$('#ad-4').hide();
-	    	$('#ad-5').hide();
-	    	$('#ad-6').hide();
 	    /* 등록버튼을 눌렀을 경우 i에 담겨있는 게시물의 값을 adBoardCount를 아이디로 가지는 input에 옮긴다 
 	    그리고 서브밋을 한다. */
 	    	$('#ok').click(function(){
 	    		$('#adBoardCount').val(i);
 	    		$('#insert').submit();
-	    		
-	    		
+	                	
 	    	});
 	    /***********************/
 	    /* 사진 올리는 버튼이 바뀔경우 readURL메서드를 실행시켜 사진을 미리보기 시켜줌 */
@@ -36,25 +31,33 @@ pageEncoding="UTF-8"%>
         	   id = id + "View";
         	   console.log(id);
                 readURL(this , id);
+
             });
            $('#ad-1adGoods1Img').on('change', function(){
         	   var id = $(this).attr('id');
         	   id = id + "View";
         	   console.log(id);
                 readURL(this , id);
-            	ad1GoodsCount = 1;
-                $('#ad1GoodsCount').val(ad1GoodsCount);
+                ad1GoodsCount = 1;
                 console.log('ad-1 광고 갯수 : ' + ad1GoodsCount);
-                
+            	$('#ad1GoodsCount').val(ad1GoodsCount);
+
             });
            $('#ad-1adGoods2Img').on('change', function(){
         	   var id = $(this).attr('id');
         	   id = id + "View";
         	   console.log(id);
                 readURL(this , id);
-                ad1GoodsCount = 2;
-                $('#ad1GoodsCount').val(ad1GoodsCount);
+                if($('#ad-1adGoods2Img').val()==""){
+                	ad1GoodsCount=1;
+                	console.log('ad-1 광고 갯수 : ' + ad1GoodsCount)
+                	$('#ad1GoodsCount').val(ad1GoodsCount);
+
+                }else{
+            	ad1GoodsCount = 2;
                 console.log('ad-1 광고 갯수 : ' + ad1GoodsCount);
+            	$('#ad1GoodsCount').val(ad1GoodsCount);
+                }
             });
            $('#ad-2adBoardImg').on('change', function(){
         	   var id = $(this).attr('id');
@@ -67,31 +70,40 @@ pageEncoding="UTF-8"%>
         	   id = id + "View";
         	   console.log(id);
                 readURL(this , id);
-                ad2GoodsCount = 1;
+            	ad2GoodsCount = 1;
+                console.log('ad-2광고 갯수 : ' + ad2GoodsCount);
                 $('#ad2GoodsCount').val(ad2GoodsCount);
-                console.log('ad-2 광고 갯수 : ' + ad2GoodsCount);
             });
            $('#ad-2adGoods2Img').on('change', function(){
         	   var id = $(this).attr('id');
         	   id = id + "View";
         	   console.log(id);
                 readURL(this , id);
-                ad2GoodsCount = 2;
-                $('#ad2GoodsCount').val(ad2GoodsCount);
+                if($('#ad-2adGoods2Img').val()==""){
+                	ad1GoodsCount=1;
+                	console.log('ad-2 광고 갯수 : ' + ad1GoodsCount)
+                	$('#ad2GoodsCount').val(ad2GoodsCount);
+
+                }else{
+            	ad2GoodsCount = 2;
                 console.log('ad-2 광고 갯수 : ' + ad2GoodsCount);
+            	$('#ad2GoodsCount').val(ad2GoodsCount);
+                }
             });
            
            /* 추가버튼을 눌렀을때 온도별 광고 한개씩 늘어나게 해주는 기능 */
  			$('#adAdd').click(function(){
  				i++;
+
  				console.log('게시물의 갯수 :' + i);
  				
             	switch(i){
             	case 1:
             		$('#ad-1').show();
-            		break;
+            		$('#adAdd').show();
             	case 2 :
             		$('#ad-2').show();
+            		$('#adAdd').hide();
             		break;
             	}
             });
@@ -155,18 +167,22 @@ pageEncoding="UTF-8"%>
 					$('#ad-2adBoardTempMax').val(1000);
 					$('#ad-2adBoardTempMin').val(30);
  				}
+ 				console.log('최고온도1: ' + $('#ad-2adBoardTempMax').val());
+					console.log('최저온도 : ' + $('#ad-2adBoardTempMin').val());
  			});
  			/***************************************************/
  			/* 취소 버튼을 눌렀을때 광고 숨김 및 내용 삭제 */
             $('#ad-1cancel').click(function(){
             	$('#ad-1').hide();
             	$('.ad-1').val("");
+            	$('#adAdd').show();
             	i--;
             	console.log('게시물의 수  : ' + i);
             });
        		$('#ad-2cancel').click(function(){
                	$('#ad-2').hide();
                	$('.ad-2').val("");
+            	$('#adAdd').show();
                	i--;
                	console.log('게시물의 수  : ' + i);
             });
@@ -238,8 +254,8 @@ pageEncoding="UTF-8"%>
 					<input type="hidden" value="" name='adGoodsCount' id='ad1GoodsCount'>
 					<br>
 			게시물 설명<br><br>
-					<input type="text" id="temp-5adBoardContent" name="adBoardContent" class="ad-1"><br><br>
-					<button id="ad-1cancel">취소</button>
+					<input type="text" id="ad-1adBoardContent" name="adBoardContent" class="ad-1"><br><br>
+					<button id="ad-1cancel" type="button">취소</button>
 			</div>
 			<div id='ad-2'>
 			<br>
@@ -271,162 +287,14 @@ pageEncoding="UTF-8"%>
 					<img id="ad-2adGoods2ImgView" src="#" alt="your image" width="100px" height="100px" class="ad-2"/>
 			        <input type='file' id="ad-2adGoods2Img" class="ad-2" name="adGoodsImage"/><br><br>
 			상세제품2에 해당하는 링크<br><br>
-					<input type="text" class="ad-2" name="adGoodsLink"><br><br>
+					<input type="text" id="ad-1adGoods2Link" class="ad-2" name="adGoodsLink"><br><br>
 					<input type="hidden"  name="adBoardTempMax" id="ad-2adBoardTempMax">
 					<input type="hidden"  name="adBoardTempMin" id="ad-2adBoardTempMin">
 					<input type="hidden" value="" name='adGoodsCount' id='ad2GoodsCount'>
 					<br>
 			게시물 설명<br><br>
 					<input type="text" id="ad-2adBoardContent" name="adBoardContent" class="ad-2"><br><br>
-					<button id="ad-2cancel">취소</button>
-			</div>
-			<div id='ad-3'>
-			온도 : 온도선택
-			<select name="temp" id="ad-3tempselect">
-				<option></option>
-				<option value="temp-5">-5도 이하</option>
-				<option value="temp-55">-5도~5도</option>
-				<option value="temp515">5도~15도</option>
-				<option value="temp1524">15도~24도</option>
-				<option value="temp2430">24도~30도</option>
-				<option value="temp30">30도 이상</option>
-			</select><br>
-			<br>
-			대표이미지 등록
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-3"/>
-			        <input type='file' id="ad-3adBoardImage" class="ad-3" name="adBoardImage"/><br>
-			
-			<br><br>
-			상세상품이미지 등록<br><br>
-			
-			상세제품1 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-3"/>
-			        <input type='file' id="ad-3adGoods1Image" class="ad-3" name="adGoodsImage"/><br><br>
-			상세제품1에 해당하는 링크<br><br>
-					<input type="text" class="ad-3" name="adGoodsLink"><br><br>
-					
-			상세제품2 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-3"/>
-			        <input type='file' id="ad-3adGoods1Link" class="ad-3" name="adGoodsImage"/><br><br>
-			상세제품2에 해당하는 링크<br><br>
-					<input type="text" class="ad-3" name="adGoodsLink"><br><br>
-					<input type="hidden"  name="adBoardTempMax" id="ad-3adBoardTempMax">
-					<input type="hidden"  name="adBoardTempMin" id="ad-3adBoardTempMin">
-					<br>
-			게시물 설명<br><br>
-					<input type="text" id="ad-3adBoardContent" name="adBoardContent" class="ad-3"><br><br>
-					<button id="ad-3cancel">취소</button>
-			</div>
-			<div id='ad-4'>
-			온도 : 온도선택
-			<select name="temp" id="ad-4tempselect">
-				<option></option>
-				<option value="temp-5">-5도 이하</option>
-				<option value="temp-55">-5도~5도</option>
-				<option value="temp515">5도~15도</option>
-				<option value="temp1524">15도~24도</option>
-				<option value="temp2430">24도~30도</option>
-				<option value="temp30">30도 이상</option>
-			</select><br>
-			<br>
-			대표이미지 등록<br>
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-4"/>
-			        <input type='file' id="ad-4adBoardImage" class="ad-4" name="adBoardImage" name="adBoardImage"/><br>
-			
-			<br><br>
-			상세상품이미지 등록<br><br>
-			
-			상세제품1 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-4"/>
-			        <input type='file' id="ad-4adGoods1Image" class="ad-4" name="adGoodsImage"/><br><br>
-			상세제품1에 해당하는 링크<br><br>
-					<input type="text" id="ad-4adGoods1Link" class="ad-4" name="adGoodsLink"><br><br>
-					
-			상세제품2 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-4"/>
-			        <input type='file' id="ad-4adGoods2Image" class="ad-4" name="adGoodsImage"/><br><br>
-			상세제품2에 해당하는 링크<br><br>
-					<input type="text" id="ad-4adGoods2Link" class="ad-4" name="adGoodsLink"><br><br>
-					<input type="hidden"  name="adBoardTempMax" id="ad-4adBoardTempMax">
-					<input type="hidden"  name="adBoardTempMin" id="ad-4adBoardTempMin">
-					<br>
-			게시물 설명<br><br>
-					<input type="text" id="ad-4adBoardContent" name="adBoardContent" class="ad-4"><br><br>
-					<button id="ad1524cancel">취소</button>
-			</div>
-			<div id='ad-5'>
-			온도 : 온도선택
-			<select name="temp" id="ad-5tempselect">
-				<option></option>
-				<option value="temp-5">-5도 이하</option>
-				<option value="temp-55">-5도~5도</option>
-				<option value="temp515">5도~15도</option>
-				<option value="temp1524">15도~24도</option>
-				<option value="temp2430">24도~30도</option>
-				<option value="temp30">30도 이상</option>
-			</select><br>
-			<br>
-			대표이미지 등록<br>
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-5"/>
-			        <input type='file' id="imgInp" class="ad-5" name="adBoardImage" name="adBoardImage"/><br>
-			
-			<br><br>
-			상세상품이미지 등록<br><br>
-			
-			상세제품1 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-5"/>
-			        <input type='file' id="imgInp" class="ad-5" name="adGoodsImage"/><br><br>
-			상세제품1에 해당하는 링크<br><br>
-					<input type="text" class="ad-5" name="adGoodsLink"><br><br>
-					
-			상세제품2 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-5"/>
-			        <input type='file' id="imgInp" class="ad-5" name="adGoodsImage"/><br><br>
-			상세제품2에 해당하는 링크<br><br>
-					<input type="text" class="ad-5" name="adGoodsLink"><br><br>
-					<input type="hidden"  name="adBoardTempMax" id="ad-5adBoardTempMax">
-					<input type="hidden" name="adBoardTempMin" id="ad-5adBoardTempMin">
-					<br>
-			게시물 설명<br><br>
-					<input type="text" id="ad-5adBoardContent" name="adBoardContent" class="ad-5"><br><br>
-					<button id="ad-5cancel" class="ad-5">취소</button>
-			</div>
-			<div id='ad-6'>
-			온도 : 온도선택
-			<select name="temp" id="ad-6tempselect">
-				<option></option>
-				<option value="temp-5">-5도 이하</option>
-				<option value="temp-55">-5도~5도</option>
-				<option value="temp515">5도~15도</option>
-				<option value="temp1524">15도~24도</option>
-				<option value="temp2430">24도~30도</option>
-				<option value="temp30">30도 이상</option>
-			</select><br>
-			<br>
-			대표이미지 등록<br>
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-6" class="ad-6"/>
-			        <input type='file' id="imgInp" class="ad-6" name="adBoardImage" name="adBoardImage"/><br>
-			
-			<br><br>
-			상세상품이미지 등록<br><br>
-			
-			상세제품1 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px"/>
-			        <input type='file' id="imgInp" class="ad-6" name="adGoodsImage"/><br><br>
-			상세제품1에 해당하는 링크<br><br>
-					<input type="text" class="ad-6" name="adGoodsLink"><br><br>
-					
-			상세제품2 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px"/>
-			        <input type='file' id="imgInp" class="ad-6" name="adGoodsImage"/><br><br>
-			상세제품2에 해당하는 링크<br><br>
-					<input type="text" class="ad-6" name="adGoodsLink"><br><br>
-					<input type="hidden"  name="adBoardTempMax" id="ad-6adBoardTempMax" class="ad-6">
-					<input type="hidden"  name="adBoardTempMin" id="ad-6adBoardTempMin" class="ad-6">
-					<br>
-			게시물 설명<br><br>
-					<input type="text" id="ad-6adBoardContent" name="adBoardContent" class="ad-6"><br><br>
-					<button id="ad-6cancel" class="ad-6">취소</button>
+					<button id="ad-2cancel" type="button" >취소</button>
 			</div>
 			<br><br>
 			<button id="adAdd" type="button">추가</button>

@@ -206,6 +206,9 @@ public class AdBoardController {
 		String minTemp[] = request.getParameterValues("adBoardTempMin");
 		String maxTemp[] = request.getParameterValues("adBoardTempMax");
 		String content[] = request.getParameterValues("adBoardContent");
+		String[] links = request.getParameterValues("adGoodsLink");
+		List<MultipartFile> adGoodsImages = multipartRequest.getFiles("adGoodsImage");
+		List<MultipartFile> adBoardImages = multipartRequest.getFiles("adBoardImage");
 		if(adGoodsCount[1].equals(null)){
 			adGoodsCount[1] = "0";
 		}
@@ -216,16 +219,11 @@ public class AdBoardController {
 		System.out.println("두번째 광고 게시물의 광고의 갯수 : " + adGoodsCount[1]);
 		System.out.println("첫번째 광고 게시물의 내용 : " +  content[0]);
 		System.out.println("두번째 광고 게시물의 내용 : " +  content[1]);
-		String[] links = request.getParameterValues("adGoodsLink");
-		List<MultipartFile> adGoodsImages = multipartRequest.getFiles("adGoodsImage");
-		List<MultipartFile> adBoardImages = multipartRequest.getFiles("adBoardImage");
 		System.out.println("첫번쨰 광고 게시물 상품 갯수 : " + adGoodsCount[0]);
 		System.out.println("두번째 광고 게시물 상품 갯수 : " + adGoodsCount[1]);
 		System.out.println("adBoardImage : " + adBoardImages);
 		System.out.println("adGoodsImage : " + adGoodsImages);
-		System.out.println("adGoodsLink : " + request.getParameterValues("adGoodsLink"));
-
-		
+		System.out.println("adGoodsLink : " + links);
 		for(int i = 0; i < adBoardCount; i++){
 			int initBoardno = 1;
 			AdBoardDto adboard = new AdBoardDto();
@@ -233,7 +231,6 @@ public class AdBoardController {
 			if(lastboardno != null){
 				initBoardno = Integer.parseInt(lastboardno) + initBoardno;
 			}
-			
 			System.out.println("입력될 BoardNo : " + "ad_board_" + initBoardno);
 			adboard.setAdBoardNo("ad_board_" + initBoardno);
 			adboard.setAdBoardImage(utilfile.fileUpload(multipartRequest, adGoodsImages.get(i)));
@@ -251,16 +248,23 @@ public class AdBoardController {
 				System.out.println("입력될 GoodsNo : " + "ad_goods_" + initGoodsno);
 				System.out.println("입력되는 정보 ");
 				System.out.println("goods_no : " + "ad_goods_"+initGoodsno);
-				if(links[j].equals("")){
-					links[j] = links[j+1];
-					adGoodsImages.set(j, adBoardImages.get(j+1));
-					k=k+1;
-					System.out.println("한개 더함");
+				if(Integer.parseInt(adGoodsCount[i])==1){
+					System.out.println("링크 : " + links[j]);
+					System.out.println("이미지 : "+ adGoodsImages.get(j));
+					adgoods.setAdGoodsNo("ad_goods_"+initGoodsno);
+					adgoods.setAdGoodsLink(links[j]);
+					adgoods.setAdGoodsImage(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j)));
+/*					links[j] = links[j+1];
+					adGoodsImages.set(j, adBoardImages.get(j+1));*/
+					k=k+2;
+					System.out.println("한개 건너뜀");
 					adboard.setAdBoardGoods1("ad_goods_"+initGoodsno);
 					adboard.setAdBoardGoods2(null);
+					adgoodsdao.insertAdGoods(adgoods);
+					break;
 				}else{
 				System.out.println("링크 : " + links[j]);
-				System.out.println("이미지 : "+ adGoodsImages.get(j) );
+				System.out.println("이미지 : "+ adGoodsImages.get(j));
 				adgoods.setAdGoodsNo("ad_goods_"+initGoodsno);
 				adgoods.setAdGoodsLink(links[j]);
 				adgoods.setAdGoodsImage(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j)));

@@ -21,9 +21,71 @@
 <!-- 드롭다운과충돌 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+<script type="text/javascript" src="resources/js/adBoardDetail.js"></script>
+
 <script>
+function showDetail(data) {
+ 	$('#place1detail').click(function(){
+		var adContractNo = '${adContractPlace1.adContractNo}';
+		console.log('adContractNo : ',adContractNo,'');
+		var boardDetailRequest = $.ajax({
+			url : './adBoardDetail',
+			method : 'get',
+			data :{'adContractNo' : adContractNo},
+			datatype : 'json',
+			success : function(contractData) {
+				console.log(contractData);
+				adBoardDetail(contractData);
+
+				
+			}
+		});
+		$('#adModal').modal();
+	});
+ 	$('#place2detail').click(function(){
+		var adContractNo = '${adContractPlace2.adContractNo}';
+		console.log('adContractNo : ',adContractNo,'');
+		var boardDetailRequest = $.ajax({
+			url : './adBoardDetail',
+			method : 'get',
+			data :{'adContractNo' : adContractNo},
+			datatype : 'json',
+			success : function(contractData) {
+				console.log(contractData);
+				adBoardDetail(contractData);
+				
+			}
+		});
+		$('#adModal').modal();
+	});
+ 	$('#place3detail').click(function(){
+		var adContractNo = '${adContractPlace3.adContractNo}';
+		console.log('adContractNo : ',adContractNo,'');
+		var boardDetailRequest = $.ajax({
+			url : './adBoardDetail',
+			method : 'get',
+			data :{'adContractNo' : adContractNo},
+			datatype : 'json',
+			success : function(contractData) {
+				console.log(contractData);
+				adBoardDetail(contractData);
+				
+			}
+		});
+		$('#adModal').modal();
+	});
+}
 
 $(document).ready(function(){
+	showDetail(null);
+	$('#next').click(function(){
+		$('.board1goods').hide();
+		$('.board2goods').show();
+	});
+	$('#back').click(function(){
+		$('.board1goods').show();
+		$('.board2goods').hide();
+	})
 	$('#adcontractsoonlist').hide();
 	$('#adcontractapprovewaitlist').hide();
 	$('#adcontractadboardinsertwaitlist').hide();
@@ -92,6 +154,29 @@ $(document).ready(function(){
 		</form>
 		</div>
 		<div class="col-xs-1"></div>
+			
+		<!-- 광고 게시물 상세보기 모달 -->
+		<div class="modal fade" id="adModal" role="dialog">
+		    <div id="modalFrame" class="modal-dialog modal-lg" >
+				<div id="adDetail" class="modal-content">
+			        <div class="row">
+			        
+			        	<!-- 광고 메인 이미지 영역 -->
+				        <div id="adDetailImgArea" class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
+							<div id="adMainImg"></div>
+			        	</div>
+			        	<!-- 광고 메인 이미지 영역 -->
+			        	<!-- 광고 상세 상품 내용 영역 -->
+				        <div id="adDetailContent" class="modal-body col-xs-12 col-sm-6">
+						</div>
+						<hr>
+						<!-- 강고 상세 상품 내용 영역 -->
+						
+				     </div>
+				</div>
+			</div>
+		</div>
+	<!-- 광고 게시물 상세보기 모달 -->
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
