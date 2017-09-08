@@ -42,6 +42,7 @@
 <c:set value="${boardCount}" var="boardCount"></c:set>
 <script type="text/javascript">
 
+
 /* 게시글 추천수, 댓글수 보이기 및 감추기 */
 function likeAndComment() {
 	$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
@@ -52,8 +53,6 @@ function likeAndComment() {
 		$(this).find('.likes').hide();
 	});
 }
-
-
 
 /*  게시물 클릭  */
 function showDetail(data) {
@@ -66,7 +65,7 @@ function showDetail(data) {
 		}
 		
 		console.log('index : ',index);
-		console.log('data[',index,'].snsBoardNo : ',boardNo);
+		console.log('data[',index,'].snsBoardNo : ',boardNo,'');
 		
 		
 		var boardDetailRequest = $.ajax({
@@ -82,79 +81,81 @@ function showDetail(data) {
 		$('#snsModal').modal();
 	});
 }
+
+function boardSearch(){
+	
+	/* 체크박스 체크 유무를 배열로 처리  */
+	var colorValue=[], styleValue=[], situationValue=[];
+	
+	$(":checkbox[name='colorValue']:checked").each(function(i){
+		colorValue.push($(this).val());
+	  });
+	
+	$(":checkbox[name='styleValue']:checked").each(function(i){
+		styleValue.push($(this).val());
+	  });
+	
+	$(":checkbox[name='situationValue']:checked").each(function(i){
+		situationValue.push($(this).val());
+	  });
+	
+	console.log('colorValue : ',colorValue);
+	console.log('styleValue : ',styleValue);
+	console.log('situationValue : ',situationValue);
+	
+	$.ajaxSettings.traditional = true; //배열 형태로 서버쪽 전송을 위한 설정
+	
+	$.ajax({
+		url : './boardSearchList',
+		method : 'get',
+		data : { 'userId'		: $('#userId').val()
+				,'snsBoardWeather'	: $('#snsBoardWeather').val()
+				,'snsBoardTall'		: $('#snsBoardTall').val()
+				,'snsBoardSize'		: $('#snsBoardSize').val()
+				,'snsBoardLoc'		: $('#snsBoardLoc').val()
+				,'snsBoardGender'	: $(":input:radio[name=snsBoardGender]:checked").val()
+				,'snsBoardAge'		: $('#snsBoardAge').val()
+				,'colorValue'		: colorValue
+				,'styleValue'		: styleValue
+				,'situationValue'	: situationValue
+				},
+		datatype : 'json',
+		success : function(data){
+			console.log(data);
+			var boardHtml = '';
+			if(data.length > 0) {
+				for(var i=0; i<data.length; i++) {
+					boardHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
+					boardHtml += '<div class="sns-photo-box" value="'+data[i].snsBoardNo+'">';
+					boardHtml += '<div class="image-wrap">';
+					boardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
+					boardHtml += '<div class="likes">';
+					boardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
+					boardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
+					boardHtml += '<i class="fa fa-commenting center" style="font-size:24px"></i>';
+					boardHtml += '<span class="center">&nbsp;'+data[i].snsCommentCount+'</span>';
+					boardHtml += '</div>';
+					boardHtml += '</div>';
+					boardHtml += '</div>';
+					boardHtml += '</div>';
+					
+				}
+			} else {
+				boardHtml += '<span>일치하는 결과가 없습니다.</span>';
+			}	
+			$('#boardOutput').html(boardHtml);
+			likeAndComment();
+			showDetail(data);
+		}
+	});
+}
+
 $(function(){     
 	
 	likeAndComment();
 	showDetail(null);
 	
-	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
-	$('.searchCategory').change(function(){
-		
-		/* 체크박스 체크 유무를 배열로 처리  */
-		var colorValue=[], styleValue=[], situationValue=[];
-		
-		$(":checkbox[name='colorValue']:checked").each(function(i){
-			colorValue.push($(this).val());
-		  });
-		
-		$(":checkbox[name='styleValue']:checked").each(function(i){
-			styleValue.push($(this).val());
-		  });
-		
-		$(":checkbox[name='situationValue']:checked").each(function(i){
-			situationValue.push($(this).val());
-		  });
-		
-		console.log('colorValue : ',colorValue);
-		console.log('styleValue : ',styleValue);
-		console.log('situationValue : ',situationValue);
-		
-		$.ajaxSettings.traditional = true; //배열 형태로 서버쪽 전송을 위한 설정
-		
-		$.ajax({
-			url : './boardSearchList',
-			method : 'get',
-			data : { 'userId'		: $('#userId').val()
-					,'snsBoardWeather'	: $('#snsBoardWeather').val()
-					,'snsBoardTall'		: $('#snsBoardTall').val()
-					,'snsBoardSize'		: $('#snsBoardSize').val()
-					,'snsBoardLoc'		: $('#snsBoardLoc').val()
-					,'snsBoardGender'	: $(":input:radio[name=snsBoardGender]:checked").val()
-					,'snsBoardAge'		: $('#snsBoardAge').val()
- 					,'colorValue'		: colorValue
- 					,'styleValue'		: styleValue
- 					,'situationValue'	: situationValue
-					},
-			datatype : 'json',
-			success : function(data){
-				console.log(data);
-				var boardHtml = '';
-				if(data.length > 0) {
-					for(var i=0; i<data.length; i++) {
-						boardHtml += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >';
-						boardHtml += '<div class="sns-photo-box" value="'+data[i].snsBoardNo+'">';
-						boardHtml += '<div class="image-wrap">';
-						boardHtml += '<img style="height: auto; max-width: 300px; max-height: 300px; width: auto;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
-						boardHtml += '<div class="likes">';
-						boardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
-						boardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
-						boardHtml += '<i class="fa fa-commenting center" style="font-size:24px"></i>';
-						boardHtml += '<span class="center">&nbsp;'+data[i].snsCommentCount+'</span>';
-						boardHtml += '</div>';
-						boardHtml += '</div>';
-						boardHtml += '</div>';
-						boardHtml += '</div>';
-					}
-				} else {
-					boardHtml += '<span>일치하는 결과가 없습니다.</span>';
-				}	
-				$('#boardOutput').html(boardHtml);
 
-				likeAndComment();
-				showDetail(data);
-			}
-		});
-	});
 	
 	/*  현재 페이지 값을 받아 number타입으로 변환  */
 	var currentPage = '<c:out value="${currentPage}" />';
@@ -162,13 +163,53 @@ $(function(){
 	console.log('currentPage : ',currentPage);
 	console.log('typeof currentPage : ',typeof currentPage);
 	
+	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
+	$('.searchCategory').change(function(){
+		currentPage = 1;
+		console.log('currentPage : ',currentPage);
+		boardSearch();
+	});
+	
 	/* 더 읽어들이기 버튼 클릭 */
  	$('#readMoreBtn').click(function(){
+ 		/* 체크박스 체크 유무를 배열로 처리  */
+ 		var colorValue=[], styleValue=[], situationValue=[];
+ 		
+ 		$(":checkbox[name='colorValue']:checked").each(function(i){
+ 			colorValue.push($(this).val());
+ 		  });
+ 		
+ 		$(":checkbox[name='styleValue']:checked").each(function(i){
+ 			styleValue.push($(this).val());
+ 		  });
+ 		
+ 		$(":checkbox[name='situationValue']:checked").each(function(i){
+ 			situationValue.push($(this).val());
+ 		  });
+ 		
+ 		console.log('colorValue : ',colorValue);
+ 		console.log('styleValue : ',styleValue);
+ 		console.log('situationValue : ',situationValue);
+ 		
+ 		$.ajaxSettings.traditional = true; //배열 형태로 서버쪽 전송을 위한 설정
+ 		
+ 		
  		currentPage += 1;
  		console.log('currentPage : ',currentPage);
 		var readMoreRequest = $.ajax({
 			url: './boardListMore',
-			data:{ 'currentPage' : currentPage},
+			data:{ 'currentPage' : currentPage
+				,'userId'		: $('#userId').val()
+				,'snsBoardWeather'	: $('#snsBoardWeather').val()
+				,'snsBoardTall'		: $('#snsBoardTall').val()
+				,'snsBoardSize'		: $('#snsBoardSize').val()
+				,'snsBoardLoc'		: $('#snsBoardLoc').val()
+				,'snsBoardGender'	: $(":input:radio[name=snsBoardGender]:checked").val()
+				,'snsBoardAge'		: $('#snsBoardAge').val()
+				,'colorValue'		: colorValue
+				,'styleValue'		: styleValue
+				,'situationValue'	: situationValue
+				},
 			datatype: 'json',
 			method: 'get',
 			success: function(data) {
@@ -176,7 +217,7 @@ $(function(){
 				var readMoreHtml = '';
 				
 				for(var i=0; i < data.list.length; i++) {
-					readMoreHtml += '<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >';
+					readMoreHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
 					readMoreHtml += '<div class="sns-photo-box">';
 					readMoreHtml += '<input type="hidden" id="boardNo" value="'+data.list[i].snsBoardNo+'">';
 					readMoreHtml += '<div class="image-wrap">';
@@ -193,7 +234,6 @@ $(function(){
 				}
 				$('#boardOutput').append(readMoreHtml);
 				
-				imgAutoSizing();
 				likeAndComment();
 				showDetail(null);
 			}
@@ -253,6 +293,10 @@ $(function(){
 					</c:forEach>
 					</div>
 	        	</div>
+				<div class="text-center">
+					<button type="button" id="readMoreBtn" class="btn btn-default">더 읽어들이기</button>
+				</div>
+				<br><br>
 	    	</div>
 		</div>
 	<!-- sns 게시물 목록 영역 -->
@@ -285,7 +329,6 @@ $(function(){
 			        	</c:if>
 					</div>
 					<!-- 게시물 내용 영역 -->
-					
 			     </div>
 			</div>
 		</div>

@@ -72,7 +72,7 @@
 	src="http://code.jquery.com/jquery-latest.min.js"></script> -->
 
 <link rel="stylesheet"
-	href="<c:url value="resources/css/cartoony-weather.css" />"
+	href="<c:url value="resources/css/cartoony-weather.css?ver=1" />"
 	type="text/css">
 <link
 	href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat'
@@ -394,7 +394,7 @@ $(document).ready(function(){
 			</div>
 
 			<h2 style="margin-left: 20px;" id="tempur" class="tempur"></h2>
-			<h2 style="margin-left: 20px;" class="tempur"> 지역: 전북</h2>
+			<h2 style="margin-left: 20px;" class="tempur"> 접속 지역 : ${sessionScope.apiAdd}</h2>
 
 			<!-- 세션에 있는 아이디 권한 받기 -->
 			<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
