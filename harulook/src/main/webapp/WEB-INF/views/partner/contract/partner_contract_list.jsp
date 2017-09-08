@@ -6,12 +6,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 	<title>제휴계약 현황 </title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.css" />
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.js"></script>
 
 	
 </head>
@@ -34,10 +33,12 @@
 
 					<div class="container">
 						<h1>제휴계약관리</h1><br>
-						<table class="table table-bordered" id="table" data-toggle="table">
+						<table id="table"
+               data-toggle="table"
+               data-sort-order="desc">
 							<thead>
 								<tr>
-									<th>제휴계약번호</th>
+									<th data-field="name" data-sortable="true">제휴계약번호</th>
 									<th>제휴업체 담당자 아이디</th>
 									<th>하루룩 담당자 아이디</th>
 									<th data-field="start" data-sortable="true">제휴 시작 날짜</th>

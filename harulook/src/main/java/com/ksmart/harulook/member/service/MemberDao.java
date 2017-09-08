@@ -113,6 +113,15 @@ public class MemberDao {
         	System.out.println(map + " ==MemberDao 전체회원리스트 map");
         return sqlSessionTemplate.selectList("com.ksmart.harulook.member.service.MemberMapper.userList", map);
     }
+    /*전체회원리스트 페이지 없이 */
+    public List<MemberDto> allUserList(String level, String userId) {
+		
+        Map<Object, Object> map = new HashMap<Object, Object>();
+        map.put("level", level);
+        map.put("userId", userId);
+        	System.out.println(map + " ==MemberDao 전체회원리스트 map");
+        return sqlSessionTemplate.selectList("com.ksmart.harulook.member.service.MemberMapper.allUserList", map);
+    }
     
     /*회원게시물들의 카운트 매서드 */
     public int getBoardCount(String level) {

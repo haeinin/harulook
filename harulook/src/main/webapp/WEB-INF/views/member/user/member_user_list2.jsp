@@ -1,13 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="true"%>
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.css" />
+<link rel="stylesheet" href="<c:url value="resources/css/cartoony-weather.css" />" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat' rel='stylesheet' type='text/css'>
+<!-- <link rel="stylesheet" type="text/css" href="resources/css/style.css"> -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
+<script type="text/javascript" src="resources/js/modernizr.js"></script>
 
 
-<!-- 버튼 위치 조정 -->
+<title>회원리스트</title>
 <style type="text/css">
 /* 로그인버튼 */
 #loginbutton {
@@ -40,29 +53,13 @@
 	background-color: #f4f8f9;
 	border-bottom: 1px solid lightgrey;
 }
+.fancy-font {
+  font-family: "Kaushan Script", cursive;
+}
 </style>
-<!-- 드롭박스 -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"> -->
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
-<!-- 유효성검사 -->
-<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
-
-<link rel="stylesheet" href="<c:url value="resources/css/cartoony-weather.css" />" type="text/css">
-<link href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="resources/css/style.css">
-<!-- w3아이콘  -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script type="text/javascript" src="resources/js/modernizr.js"></script>
-
 <script>
 
-//<!--
-//
-// LCC DFS 좌표변환을 위한 기초 자료
-//
+
 var RE = 6371.00877; // 지구 반경(km)
 var GRID = 5.0; // 격자 간격(km)
 var SLAT1 = 30.0; // 투영 위도1(degree)
@@ -71,9 +68,6 @@ var OLON = 126.0; // 기준점 경도(degree)
 var OLAT = 38.0; // 기준점 위도(degree)
 var XO = 43; // 기준점 X좌표(GRID)
 var YO = 136; // 기1준점 Y좌표(GRID)
-//
-// LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도,v1:x, v2:y) )
-//
 
 
 function dfs_xy_conv(code, v1, v2) {
@@ -354,9 +348,9 @@ $(document).ready(function(){
 		});
 });
 </script>
-
 </head>
 <body>
+	<div class="row">
 		<div id="head" class="row">
 			<div class="col-xs-3 ">
 
@@ -639,5 +633,97 @@ $(document).ready(function(){
 			</c:if>
 
 		</div>
+	</div>
+	<!-- 바디 인클루드 -->
+    <div class="row">
+	    <!-- 좌측 베너 인클루드 -->
+    	<div class="col-xs-1">
+    		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+    	</div>
+	    <div id="div1" class="col-xs-9">
+	
+		<div class="container">
+		    <h1>${sessionScope.searchLevel} 리스트</h1>
+		    <div>회원 수 : ${boardCount}</div>
+		    <%-- <!-- 회원아이디검색 -->
+	  		<c:import url="../search/user_search.jsp"></c:import> --%>
+		    
+		    <table id="table"
+               data-toggle="table"
+               data-pagination="true"
+               data-search="true">
+		        <thead>
+		            <tr>
+		                <th>아이디</th>
+		                <th>닉네임</th>
+		                <th>이름</th>
+		                
+		                <c:if test="${sessionScope.searchLevel == '일반회원'}">
+		                <th>포인트</th>
+		                </c:if>
+		                
+		                <c:if test="${sessionScope.searchLevel == '관리자'}">
+		                <th>전화번호</th>
+		                </c:if>
+		               
+		                <c:if test="${sessionScope.searchLevel == '사업자'}">
+		                <th>사업체</th>
+		                </c:if>
+		                
+		                <th>가입날짜</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <c:forEach var="b" items="${list}">
+		                <tr>
+		                    <c:if test="${sessionScope.searchLevel == '일반회원'}">
+		                    <td><a href="${pageContext.request.contextPath}/member_user_detail?userId=${b.userId}">${b.userId}</a></td>
+		                    </c:if>
+		                    
+		                    <c:if test="${sessionScope.searchLevel == '관리자'}">
+		                    <td><a href="${pageContext.request.contextPath}/member_manager_detail?userId=${b.userId}">${b.userId}</a></td> <!-- 연결되는주소 수정하여라 -->
+		                    </c:if>
+		                    
+		                    <c:if test="${sessionScope.searchLevel == '사업자'}">
+		                    <td><a href="${pageContext.request.contextPath}/member_business_detail?userId=${b.userId}">${b.userId}</a></td> <!-- 연결되는주소 수정하여라 -->
+			                </c:if>    
+		                    
+		                    <td>${b.userNick}</td>
+		                    <td>${b.userName}</td>
+		                    
+		                    <c:if test="${sessionScope.searchLevel == '일반회원'}">
+		                    <td>${b.userPoint}</td>
+		                    </c:if>
+		                    
+		                    <c:if test="${sessionScope.searchLevel == '관리자'}">
+			                <td>${b.userTel}</td>
+			                </c:if>
+			               
+			                <c:if test="${sessionScope.searchLevel == '사업자'}">
+			                <td>${b.userBsName}</td>
+			                </c:if>
+		                    
+		                    <td>${b.userDate}</td>
+		                   
+		                </tr>
+		            </c:forEach>
+		       </tbody>
+			   </table>
+			</div>
+		</div>
+		
+		<!-- 우측 베너 인클루드 -->
+        <div class="col-xs-2">
+    		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
+       	</div>
+    </div>
+    <div class="row">
+	    <!-- 하단 인클루드 -->
+	    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>   
+	</div>
+	  
+	   
+
 </body>
+
 </html>

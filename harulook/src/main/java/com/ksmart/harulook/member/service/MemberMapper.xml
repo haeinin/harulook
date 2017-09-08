@@ -186,6 +186,23 @@
        		LIMIT #{beginRow}, #{pagePerRow}
 			;
     	</select>
+    	<!-- 전체회원리스트쿼리 페이지없이 -->
+     	<select id="allUserList" parameterType="java.util.Map" resultMap="member">
+			select user_id
+					,user_nick
+					,user_name
+					,user_point
+					,user_date
+					,user_bs_name
+					,user_tel 
+			from user
+			where user_level = #{level}
+			<if test="userId != null">
+			AND user_id = #{userId}
+			</if>
+			ORDER BY user_date DESC 
+			;
+    	</select>
 
 		<!-- 닉네임중복체크 -->
      	<select id="nickcheck" parameterType="java.util.Map" resultType="String">
