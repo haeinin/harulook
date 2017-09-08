@@ -47,7 +47,7 @@ $.ajax({
 </script>
 </head>
 <body>
-	<div class="row" style="height: 100px;"></div>
+	<div class="row" style="height: 40px;"></div>
 	<div class="row" style="height: 400px;">
 		<div id=add>
 			<a href="${pageContext.request.contextPath}/mallMain" target="_blank">

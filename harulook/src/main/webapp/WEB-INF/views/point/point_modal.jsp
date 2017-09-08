@@ -66,9 +66,11 @@
 						<div class="modal-header" style="padding:35px 50px;">
 						   <!-- 포인트 정책-->
 							
-							<div class="container">
+							<div class="row">
+							   
+							    <div class="col-xs-1"></div>
+							    <div class="col-xs-11">
 							    <h1>포인트 정책</h1>
-							    <div class="col-xs-5">
 								    <table class="table">
 								        <thead>
 								            <tr>
@@ -89,13 +91,16 @@
 							</div>
 							
 							<!-- 포인트 사용 쿠폰-->
-							<div class="container">
-							    <h1>포인트 사용 쿠폰</h1>
+							<div class="row">
+							   
 							    <!-- 보유포인트-->
 							    
-								<span id="myPointMsgB"></span><br>
-								<div class="col-xs-5">
+								
+								<div class="col-xs-1"></div>
+								<div class="col-xs-11">
+									<h1>포인트 사용 쿠폰</h1>
 								    <table class="table">
+								    <span id="myPointMsgB"></span><br>
 								        <thead>
 								            <tr>
 								                <th>포인트</th>
@@ -111,6 +116,8 @@
 											      	<td><button class="btn btn-default kuponButton" id="kuponButton" type="button" value="${pu.pointPolicyValue}" >사용하기</button></td>
 										      	</tr>
 										    </c:forEach>
+								        			
+											      
 								        </tbody>
 								   </table>
 							   </div>

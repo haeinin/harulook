@@ -122,72 +122,6 @@
 			<input class="btn btn-default" id="pointUseButton" type="button" value="포인트 사용 내역"/>
 			<input class="btn btn-default" id="pointGetButton" type="button" value="포인트 취득 내역"/>
 			
-			<!-- 포인트 정책 쓰기-->
-			<div class="modal fade" id="pointPolicyModal" role="dialog">
-			  	<div class="modal-dialog">
-		 			<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header" style="padding:35px 50px;">
-						   <!-- 포인트 정책-->
-							
-							<div class="container">
-							    <h1>포인트 정책</h1>
-							    <div class="col-xs-5">
-								    <table class="table">
-								        <thead>
-								            <tr>
-								                <th>포인트</th>
-								                <th>제도</th>
-								            </tr>
-								        </thead>
-								        <tbody>
-								            <c:forEach var="p" items="${pointPolicy}">
-								                <tr>
-									                <td>${p.pointPolicyValue}</td>
-											      	<td>${p.pointPolicyReason}</td>
-											    </tr>
-								            </c:forEach>
-								        </tbody>
-								   </table>
-							   </div>
-							</div>
-							
-							<!-- 포인트 사용 쿠폰-->
-							<div class="container">
-							    <h1>포인트 사용 쿠폰</h1>
-							    <!-- 보유포인트-->
-							    
-								<span id="myPointMsgB"></span><br>
-								<div class="col-xs-5">
-								    <table class="table">
-								        <thead>
-								            <tr>
-								                <th>포인트</th>
-								                <th>쿠폰</th>
-								                <th>사용하기</th>
-							                </tr>
-								        </thead>
-								        <tbody>
-								            <c:forEach var="pu" items="${pointUsePolicy}">
-								                <tr>
-								                	<td><span class="pointPolicyValue" id="pointPolicyValue" value="${pu.pointPolicyValue}">${pu.pointPolicyValue}</span></td>
-											      	<td>${pu.pointPolicyReason}</td>
-											      	<td><button class="btn btn-default kuponButton" id="kuponButton" type="button" value="${pu.pointPolicyValue}" >사용하기</button></td>
-										      	</tr>
-										    </c:forEach>
-								        			
-											      
-								        </tbody>
-								   </table>
-							   </div>
-							</div>
-						</div>
-			       	</div>
-			 	 </div>
-			</div>
-			
-			
-			
 			<!-- 포인트 사용 내역-->
 			<div class="container" id="pointUse">
 			    <h1>포인트 사용 내역</h1>
@@ -196,7 +130,7 @@
 			        <thead>
 			            <tr>
 			                <th>쿠폰</th>
-			                <th>쿠폰번호</th>	<!-- ///////////////////////////////////////////////////////////////랜덤생성만들자///// -->
+			                <th>쿠폰번호</th>	
 			                <th>사용포인트</th>
 			                <th>날짜</th>
 		            	  </tr>
@@ -205,7 +139,7 @@
 			            <c:forEach var="u" items="${pointUse}">
 			                <tr>
 				                <td>${u.pointPolicyReason}</td>
-				                <th>${u.pointGoodsCode}</th>	<!-- ///////////////////////////////////////////////////////////////랜덤생성만들자///// -->
+				                <th>${u.pointGoodsCode}</th>	
 						      	<td>${u.pointPolicyValue}</td>
 						      	<td>${u.pointDate}</td>
 						    </tr>
