@@ -29,19 +29,7 @@ canvas {
 		var chartLabels = [];// 받아올 데이터를 저장할 배열 선언
 		var chartData = [];
 		var month="";
-		
-		var lineChartData = {
-				labels : chartLabels,
-				datasets : [ {
-					label : "일별 방문자 수",
-					pointDot : true,
-					pointStrokeColor : "#2a7df9",
-					pointHighlightFill : "#fff",
-					pointHighlightStroke : "rgba(220,220,220,1)",
-					data : chartData
-				} ]
-
-			}
+	
 		var cooContractNo = '<c:out value="${no}"/>';
 		
 		function createChart() {
@@ -93,6 +81,13 @@ canvas {
 						labels : chartLabels,
 						datasets : [ {
 							label : "일별 방문자 수",
+							borderColor: "#80b6f4",
+				            pointBorderColor: "#80b6f4",
+				            pointBackgroundColor: "#80b6f4",
+				            pointHoverBackgroundColor: "#80b6f4",
+				            pointHoverBorderColor: "#80b6f4",
+				            fill: false,
+				            borderWidth: 4,
 							data : chartData
 						} ]
 

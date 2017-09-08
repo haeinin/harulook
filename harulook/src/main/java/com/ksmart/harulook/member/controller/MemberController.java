@@ -157,7 +157,7 @@ public class MemberController {
 	}
 	
 	
-	/*전체회원리스트*/
+	/*전체회원리스트(기존)*/
 	@RequestMapping(value={"member_user_list"}, produces = "application/text; charset=utf8", method = {RequestMethod.GET, RequestMethod.POST})
     public String userList(Model model,
     		 HttpSession session,
@@ -187,6 +187,35 @@ public class MemberController {
         model.addAttribute("list", list);
         	System.out.println("MemeberController 셀렉트해서 받아온 일반 회원 리스트 model값 == "+model);
         return "member/user/member_user_list";  //아이디중복체크후 화면 그대로
+    }
+	
+	/*전체회원리스트*/
+	@RequestMapping(value={"allUserList"}, produces = "application/text; charset=utf8", method = {RequestMethod.GET, RequestMethod.POST})
+    public String allUserList(Model model,
+    		 HttpSession session,
+    		 @RequestParam(value="userId", required=false) String userId,
+    		 @RequestParam(value="level", required=false) String levelList	//권한을 null로도 받을수 있게 false
+    		 ){
+		System.out.println(userId + " == 검색 아이디");
+		
+		if(userId == ""){	//검색 아이디가 공백일 경우 null로 바꾸어 전체 리스트 나열
+			userId = null;
+		}
+		System.out.println(levelList + " == 권한별로 리스트");
+		if(levelList != null){	//관리자가 회원리스트 버튼으로 접속할때 권한을 세션에 세팅하기위함  *리스트 다음 이전버튼클릭시 권한이 null로 세팅되는걸 막기 위함
+			session.setAttribute("searchLevel", levelList);
+		}
+		String level = (String) session.getAttribute("searchLevel");
+		System.out.println(level + " ==  세션 권한별로 리스트");
+		
+		int boardCount = memberDao.getBoardCount(level);	// 일반회원 게시물 수
+       
+        List<MemberDto> list = memberDao.allUserList(level, userId);
+
+        model.addAttribute("boardCount", boardCount);
+        model.addAttribute("list", list);
+        	System.out.println("MemeberController 셀렉트해서 받아온 일반 회원 리스트 model값 == "+model);
+        return "member/user/member_user_list2";  //아이디중복체크후 화면 그대로
     }
 	
 	
