@@ -31,7 +31,7 @@
 			<c:forEach var="b" items="${adboardlist}" begin="0" end="2" step="1">
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
 				<div class="ad-pop-photo-box"><!-- ddddddddddddddddddddddddddddddddddd  모달 클릭 클래스네임 -->
-					<input type="text" id="adContractNo" value="${b.adContractNo}">
+					<input type="hidden" id="adContractNo" value="${b.adContractNo}">
 					<div class="image-wrap">
 						<img style="max-width: 300px; max-height: 300px; width: auto; height: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.adBoardImage}">
 						
