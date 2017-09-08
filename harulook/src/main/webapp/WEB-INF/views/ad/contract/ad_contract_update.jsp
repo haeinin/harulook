@@ -38,9 +38,19 @@ jQuery.browser = {};
     	calc();
     	$('#approveCancel').click(function(){
     		var result = confirm("정말로 취소 하시겟습니까?");
-    		if(result==false){
-    			return;
+    		if(result==true){
+    			$.ajax({
+        			type : "GET",
+        			url : "./deleteContract",
+        			data : { adContractNo : '${adcontract.adContractNo}' },
+        			success : function(data){
+        				 location.replace('./adContractList');
+        			}
+        		})
+    		}else{
+    			location.replace('./adContractList');
     		}
+
     	});
     	$('#totalComplete').click(function(){
     		$('#contractForm').submit();
@@ -245,7 +255,7 @@ jQuery.browser = {};
         </div>
         <div>
             <button class="btn btn-default" id="totalComplete">완료</button>
-            <a class="btn btn-danger" href="./deleteContract?adContractNo=${adcontract.adContractNo}" id="approveCancel">계약취소</a>
+            <button class="btn btn-danger" id="approveCancel">계약취소</button>
             
         </div>
         </form>
