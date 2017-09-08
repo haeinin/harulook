@@ -56,11 +56,17 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-	<c:import url="../../module/header.jsp"></c:import>	
+	<div class="row">
+		<!-- 해더인클루드 -->
+		<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+	</div>	
 	<div class="row">	
-			
-		<div class="col-xs-2"></div>
-		<div class="col-xs-8">
+		<!-- 좌측 베너 인클루드 -->
+    	<div class="col-xs-1">
+    		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+    	</div>
+		<div class="col-xs-1"></div>
+		<div class="col-xs-7">
 		<h1>현재 광고 목록</h1>
 		<c:import url="../contract/ad_contract_list_current.jsp"></c:import>
 		<button id="adcontractsoonBtn" class="btn btn-primary btn-md">광고 예정목록</button>&nbsp;&nbsp;<button id="adcontractapprovewaitBtn" class="btn btn-primary btn-md">광고계약승인대기목록</button>&nbsp;&nbsp;<button id="adcontractadboardinsertwaitBtn" class="btn btn-primary btn-md">광고등록대기목록</button>&nbsp;&nbsp;<button id="adcontractcancelrequestBtn" class="btn btn-primary btn-md">광고취소요청목록</button>
@@ -85,7 +91,7 @@ $(document).ready(function(){
 		<button class="btn btn-info">광고 계약</button>
 		</form>
 		</div>
-		
+		<div class="col-xs-1"></div>
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>

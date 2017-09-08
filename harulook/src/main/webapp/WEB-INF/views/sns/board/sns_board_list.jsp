@@ -181,7 +181,6 @@ $(function(){
  		
  		$.ajaxSettings.traditional = true; //배열 형태로 서버쪽 전송을 위한 설정
  		
- 		
  		currentPage += 1;
  		console.log('currentPage : ',currentPage);
 		var readMoreRequest = $.ajax({
@@ -262,6 +261,8 @@ $(function(){
 				<div class="text-center">
 					<button type="button" id="readMoreBtn" class="btn btn-default">더 읽어들이기</button>
 				</div>
+				<br>
+				<br>
 	       	</div>
 		</div>
 		<!-- sns 게시물 목록 영역 -->

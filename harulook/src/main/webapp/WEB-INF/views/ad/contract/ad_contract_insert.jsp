@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 
 <!-- 드롭다운 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -11,9 +12,7 @@
 
 
 <title>광고계약</title>
-<!-- 해더인클루드 -->
-<c:import url="../../module/header.jsp"></c:import>	
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+
 
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
 <script type="text/javascript">
@@ -110,67 +109,74 @@ jQuery.browser = {};
     	
 </script> 
 </head>
-
+<body>
+	<div class="row">
+		<!-- 해더인클루드 -->
+		<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+	</div>	
 	<!-- 바디 인클루드 -->
     <div class="row">
-	    <div class="col-xs-2"></div>
-	    <div id="div1" class="col-xs-8">    
- <form id="contractForm" action="./adContractInsert" method="POST">
-    <div class="form-group">
-	        <label for="adType">광고종류</label>
-	        <select id="adType" name="adCostNo">
-	        <option value=""></option>
-	        <option value="ad_cost_01">옷</option>
-	        <option value="ad_cost_03">아이템</option>
-	        </select> 
-    </div>
-    <div class="form-group">
-            <label for="adPlace">광고위치</label>
-            <select id="adPlace" name="adContractPlace">
-            <option value=""></option>
-            <option value="1">첫번째</option>
-            <option value="2">두번째</option>
-            <option value="3">세번째</option>
-            </select> 
-        </div>
-    <div class="form-group">
-            <label for="date">계약일수</label>
-            <select id="date" name="adDcNo">
-            <option value=""></option>
-            <option value="ad_dc_01">3일</option>
-            <option value="ad_dc_02">7일</option>
-            <option value="ad_dc_03">30일</option>
-            </select> 
-        </div>
-        <div class="form-group">
-            <label for="boardPw">시작일자</label>
-            <input type="text" id="datepicker" name="adContractStart">  
-        </div>
-        <div class="form-group">
-            <label for="boardPw">종료일자</label>
-            <input type="text" id="datepicker2" name="adContractEnd">  
-        </div>
-        
-        <div class="form-group">
-            <label for="pricePerDay">하루당 광고금액 :</label>
-            <input type="text" id="pricePerDay" readonly>
-        </div>
-        <div class="form-group">
-            <label for="dcForPrice">할인율 :</label>
-            <input type="text" id="dcForPrice" readonly>
-        </div>
-        <div class="form-group">
-            <label for="priceTotal">총 금액 :</label>
-            <input type="text" id="priceTotal" name="adContractPrice" readonly>
-        </div>
-        <div>
-        <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#payModal" id="priceOk">결제하기</button>
-            <input class="btn btn-default" id="totalComplete" type="button" value="완료"/>
-            <input class="btn btn-default" type="reset" value="초기화"/>
-        </div>
-        </form>
+	    <div class="col-xs-1">
+    		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+    	</div>
+		<div class="col-xs-2"></div>
+		<div class="col-xs-6"> 
+		 <form id="contractForm" action="./adContractInsert" method="POST">
+		    <div class="form-group">
+			        <label for="adType">광고종류</label>
+			        <select id="adType" name="adCostNo">
+			        <option value=""></option>
+			        <option value="ad_cost_01">옷</option>
+			        <option value="ad_cost_03">아이템</option>
+			        </select> 
+		    </div>
+		    <div class="form-group">
+		            <label for="adPlace">광고위치</label>
+		            <select id="adPlace" name="adContractPlace">
+		            <option value=""></option>
+		            <option value="1">첫번째</option>
+		            <option value="2">두번째</option>
+		            <option value="3">세번째</option>
+		            </select> 
+		        </div>
+		    <div class="form-group">
+		            <label for="date">계약일수</label>
+		            <select id="date" name="adDcNo">
+		            <option value=""></option>
+		            <option value="ad_dc_01">3일</option>
+		            <option value="ad_dc_02">7일</option>
+		            <option value="ad_dc_03">30일</option>
+		            </select> 
+		        </div>
+		        <div class="form-group">
+		            <label for="boardPw">시작일자</label>
+		            <input type="text" id="datepicker" name="adContractStart">  
+		        </div>
+		        <div class="form-group">
+		            <label for="boardPw">종료일자</label>
+		            <input type="text" id="datepicker2" name="adContractEnd">  
+		        </div>
+		        
+		        <div class="form-group">
+		            <label for="pricePerDay">하루당 광고금액 :</label>
+		            <input type="text" id="pricePerDay" readonly>
+		        </div>
+		        <div class="form-group">
+		            <label for="dcForPrice">할인율 :</label>
+		            <input type="text" id="dcForPrice" readonly>
+		        </div>
+		        <div class="form-group">
+		            <label for="priceTotal">총 금액 :</label>
+		            <input type="text" id="priceTotal" name="adContractPrice" readonly>
+		        </div>
+		        <div>
+		        <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#payModal" id="priceOk">결제하기</button>
+		            <input class="btn btn-default" id="totalComplete" type="button" value="완료"/>
+		            <input class="btn btn-default" type="reset" value="초기화"/>
+		        </div>
+		        </form>
 			</div>	
-		 
+		<div class="col-xs-1"></div> 
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
@@ -178,3 +184,5 @@ jQuery.browser = {};
     </div>
     <!-- 하단 인클루드 -->
     <c:import url="../../module/footer.jsp"></c:import>
+</body>
+</html>

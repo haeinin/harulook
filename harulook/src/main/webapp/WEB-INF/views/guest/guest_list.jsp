@@ -162,11 +162,14 @@
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
 	    <div id="div1" class="col-xs-9">
-			<input class="btn btn-default" id="dailyButton" type="button" value="일일방문자수"/>
-			<input class="btn btn-default" id="weeklyButton" type="button" value="주간방문자수"/>
-			<input class="btn btn-default" id="monthlyButton" type="button" value="월간방문자수"/>
-	  	 
-			
+	    	<div class="row">
+	    	<div class="col-xs-2"></div>
+				<div class="col-xs-8">
+					<input class="btn btn-default" id="dailyButton" type="button" value="일일방문자수"/>
+					<input class="btn btn-default" id="weeklyButton" type="button" value="주간방문자수"/>
+					<input class="btn btn-default" id="monthlyButton" type="button" value="월간방문자수"/>
+	  	 	</div>
+			</div>
 			<div id="chart_div" style="width: 100%; height: 500px;"></div>
 			<!-- 일일게스트수 -->
 			<div id="dailyGuest">

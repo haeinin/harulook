@@ -81,7 +81,7 @@
 	$(document).ready(function(){
 		/* 받아온 아이피 */
 		/* console.log(ip()); */
-
+		
 		var ipimsi = "123.123.123.123";
 
 		var addr;
@@ -186,9 +186,14 @@
     	</div>
    	
    		<div class="col-xs-9">
+   			<!-- 게시물검색 -->
    			<c:import url="/WEB-INF/views/sns/board/sns_board_search.jsp"></c:import>
+   			
+           	<!-- 인기게시물 -->
            	<c:import url="/boardPopList"></c:import>
+           	<!-- 최근게시물 -->
            	<c:import url="/boardList"></c:import>
+           	
            </div>
    		
    		<!-- 우측 베너 인클루드 -->

@@ -105,97 +105,32 @@
 </script>
 </head>
 <body>
-
-	<!-- 해더인클루드 -->
-	<c:import url="../module/header.jsp"></c:import>	
+	<div class="row">
+		<!-- 해더인클루드 -->
+		<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+	</div>		
 	<!-- 바디 인클루드 -->
     <div class="row">
 	    <!-- 좌측 베너 인클루드 -->
     	<div class="col-xs-1">
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
-	    
-	    <div id="div1" class="col-xs-9">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-7">
 		    <c:import url="/WEB-INF/views/point/point_modal.jsp"></c:import>
 			<!-- <input class="btn btn-default" id="pointPolicyButton" type="button" value="포인트사용하기"/> -->
 			<input class="btn btn-default" id="pointUseButton" type="button" value="포인트 사용 내역"/>
 			<input class="btn btn-default" id="pointGetButton" type="button" value="포인트 취득 내역"/>
 			
-			<!-- 포인트 정책 쓰기-->
-			<div class="modal fade" id="pointPolicyModal" role="dialog">
-			  	<div class="modal-dialog">
-		 			<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header" style="padding:35px 50px;">
-						   <!-- 포인트 정책-->
-							
-							<div class="container">
-							    <h1>포인트 정책</h1>
-							    <div class="col-xs-5">
-								    <table class="table">
-								        <thead>
-								            <tr>
-								                <th>포인트</th>
-								                <th>제도</th>
-								            </tr>
-								        </thead>
-								        <tbody>
-								            <c:forEach var="p" items="${pointPolicy}">
-								                <tr>
-									                <td>${p.pointPolicyValue}</td>
-											      	<td>${p.pointPolicyReason}</td>
-											    </tr>
-								            </c:forEach>
-								        </tbody>
-								   </table>
-							   </div>
-							</div>
-							
-							<!-- 포인트 사용 쿠폰-->
-							<div class="container">
-							    <h1>포인트 사용 쿠폰</h1>
-							    <!-- 보유포인트-->
-							    
-								<span id="myPointMsgB"></span><br>
-								<div class="col-xs-5">
-								    <table class="table">
-								        <thead>
-								            <tr>
-								                <th>포인트</th>
-								                <th>쿠폰</th>
-								                <th>사용하기</th>
-							                </tr>
-								        </thead>
-								        <tbody>
-								            <c:forEach var="pu" items="${pointUsePolicy}">
-								                <tr>
-								                	<td><span class="pointPolicyValue" id="pointPolicyValue" value="${pu.pointPolicyValue}">${pu.pointPolicyValue}</span></td>
-											      	<td>${pu.pointPolicyReason}</td>
-											      	<td><button class="btn btn-default kuponButton" id="kuponButton" type="button" value="${pu.pointPolicyValue}" >사용하기</button></td>
-										      	</tr>
-										    </c:forEach>
-								        			
-											      
-								        </tbody>
-								   </table>
-							   </div>
-							</div>
-						</div>
-			       	</div>
-			 	 </div>
-			</div>
-			
-			
-			
 			<!-- 포인트 사용 내역-->
-			<div class="container" id="pointUse">
+			<div class="row" id="pointUse">
 			    <h1>포인트 사용 내역</h1>
 			    <%-- <div>전체행의 수 : ${pointUseCount}</div> --%>
 			    <table class="table table-striped">
 			        <thead>
 			            <tr>
 			                <th>쿠폰</th>
-			                <th>쿠폰번호</th>	<!-- ///////////////////////////////////////////////////////////////랜덤생성만들자///// -->
+			                <th>쿠폰번호</th>	
 			                <th>사용포인트</th>
 			                <th>날짜</th>
 		            	  </tr>
@@ -204,7 +139,7 @@
 			            <c:forEach var="u" items="${pointUse}">
 			                <tr>
 				                <td>${u.pointPolicyReason}</td>
-				                <th>${u.pointGoodsCode}</th>	<!-- ///////////////////////////////////////////////////////////////랜덤생성만들자///// -->
+				                <th>${u.pointGoodsCode}</th>	
 						      	<td>${u.pointPolicyValue}</td>
 						      	<td>${u.pointDate}</td>
 						    </tr>
@@ -222,7 +157,7 @@
 			</div>
 			
 			<!-- 포인트 취득내역 정책-->
-			<div class="container" id="pointGet">
+			<div class="row" id="pointGet">
 			    <h1>포인트 취득 내역</h1>
 			    <%-- <div>전체행의 수 : ${pointGetCount}</div> --%>
 			    <table class="table table-striped">
@@ -253,7 +188,7 @@
 				</ul>
 			</div>	
 	    </div>
-	    
+	    <div class="col-xs-1"></div>
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>

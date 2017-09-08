@@ -154,7 +154,7 @@ $(function(){
 	
 	likeAndComment();
 	showDetail(null);
-	
+	currentPage = 1;
 
 	
 	/*  현재 페이지 값을 받아 number타입으로 변환  */
