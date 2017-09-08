@@ -173,6 +173,9 @@ function currentWeather(allData) {
 		console.log(data);
 		$('#tempur').text('현재 기온 : '+data.temp1hour+'℃');	// 현재 기온 표시
 		var sessionWeather = '';
+		var sessionSky = '';
+		var sessionRain = '';
+		
 		// 하늘 상태 
 		if(data.thunder == '1') {    // 낙뢰가 있는 경우
 		    $('#weaterIcon').attr('class','thundery');
@@ -181,22 +184,18 @@ function currentWeather(allData) {
 		    switch(data.sky) {
 		    case '1' :     // 맑음
 		        $('#weaterIcon').attr('class','sunny');
-		        sessionWeather = '맑음';
 		        break;
 		    case '2' :     // 구름 조금
 		        $('#weaterIcon').attr('class','partly_cloudy');
 		        $('#sun').attr('class','partly_cloudy__sun');
 		        $('#cloud').attr('class','partly_cloudy__cloud');
-		        sessionWeather = '구름 조금';
 		        break;
 		    case '3' :    // 구름 많음
 		        $('#weaterIcon').attr('class','cloudy');
-		        sessionWeather = '흐림';
 		        break;
 		    case '4' :    // 흐림
 		        $('#weaterIcon').attr('class','rainy');
 		        $('#cloud').attr('class','rainy__cloud');
-		        sessionWeather = '흐림';
 		        break;
 		    default :
 		        $('#weaterIcon').attr('class','');
@@ -213,7 +212,7 @@ function currentWeather(allData) {
 		        $('#rain').attr('class','rainy__rain');
 		    }
 		    break;
-		case '2' :    // 눈 (가져온 날씨 css에 눈 그림이 없어서 폭우 그림으로 대체. 눈 그림은 추후에 추가 예정)
+		case '3' :    // 눈 (가져온 날씨 css에 눈 그림이 없어서 폭우 그림으로 대체. 눈 그림은 추후에 추가 예정)
 		    $('#rain').attr('class','thundery__rain');
 		    break;
 		default :    //없음
@@ -221,7 +220,6 @@ function currentWeather(allData) {
 		    break;
 		}
 	});
-	
 }
 //-->		
 
@@ -658,11 +656,11 @@ $(document).ready(function(){
 				
 		</div>
 
-			<c:if test="${sessionScope.level != null}">
+			<%-- <c:if test="${sessionScope.level != null}">
 				
 			<!-- 마이페이지 드롭다운 -->
 			
-			</c:if>
+			</c:if> --%>
 
 		</div>
 </body>

@@ -35,6 +35,8 @@
 <c:set value="${sessionScope.CcAge}" var="CcAge"></c:set>
 <c:set value="${sessionScope.CcuserColor}" var="CcuserColor"></c:set>
 <c:set value="${sessionScope.CcuserStyle}" var="CcuserStyle"></c:set>
+<c:set value="${sessionScope.apiAdd}" var="apiAdd"></c:set>
+<c:set value="${sessionScope.sessionWeather}" var="sessionWeather"></c:set>
 <script type="text/javascript">
 
 
@@ -110,9 +112,9 @@ function boardSearch(){
 				,'snsBoardLoc'		: $('#snsBoardLoc').val()
 				,'snsBoardGender'	: $(":input:radio[name=snsBoardGender]:checked").val()
 				,'snsBoardAge'		: $('#snsBoardAge').val()
-					,'colorValue'		: colorValue
-					,'styleValue'		: styleValue
-					,'situationValue'	: situationValue
+				,'colorValue'		: colorValue
+				,'styleValue'		: styleValue
+				,'situationValue'	: situationValue
 				},
 		datatype : 'json',
 		success : function(data){
@@ -156,6 +158,8 @@ $(function(){
 	var userAge = '<c:out value="${CcAge}"/>';
 	var userColor = '<c:out value="${CcuserColor}"/>';
 	var userStyle = '<c:out value="${CcuserStyle}"/>';
+	var apiAdd = '<c:out value="${apiAdd}"/>';
+	var sessionWeather = '<c:out value="${sessionWeather}"/>';
 
 	/* 검색 초기화 버튼 클릭 */
 	$('#initBtn').click(function(){
@@ -170,7 +174,9 @@ $(function(){
 		$('input:checkbox[name="colorValue"]').prop('checked',false);
 		$('input:checkbox[name="situationValue"]').prop('checked',false);
 		boardSearch();
+		popBoardSearch();
 	});
+	
 	
 	/* 맞춤 추천 버튼 클릭 */
 	$('#recommendationBtn').click(function(){
@@ -181,6 +187,8 @@ $(function(){
 		console.log('userColor : ',userColor);
 		console.log('userStyle : ',userStyle);
 		
+		$('#snsBoardWeather').val(sessionWeather);
+		$('#snsBoardLoc').val(apiAdd);
 		$('#snsBoardTall').val(userTall);
 		$('#snsBoardSize').val(userSize);
 		if(userGender == '여') {

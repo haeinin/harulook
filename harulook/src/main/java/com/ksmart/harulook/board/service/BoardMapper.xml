@@ -125,7 +125,7 @@
 		 	ORDER BY snsLikeCount DESC 
 		 </if>
 		 <if test="popularity == 0">
-		 	ORDER BY sns_board.sns_board_no DESC 
+		 	ORDER BY sns_board.sns_board_date DESC 
 		 </if>
 		LIMIT #{beginRow}, #{pagePerRow}
 	</select>
@@ -292,7 +292,7 @@
 		 	ORDER BY snsLikeCount DESC 
 		 </if>
 		 <if test="popularity == 0">
-		 	ORDER BY sns_board.sns_board_no DESC 
+		 	ORDER BY sns_board.sns_board_date DESC 
 		 </if>
 		 LIMIT #{beginRow}, #{pagePerRow}
 	</select>
@@ -384,7 +384,7 @@
 		 	,#{snsBoardTall}
 		 	,#{snsBoardSize}
 		 	,#{snsBoardLoc}
-		 	,date(now())
+		 	,now()
 		 	,#{snsBoardGender}
 		 	,#{snsBoardAge}
 	 	)

@@ -29,7 +29,7 @@ $(function(){
 		}
 	});
 	
-	//지역 입력 여부 검사
+	//날씨 입력 여부 검사
 	$('#snsBoardWeather').change(function(){
 		if($('#snsBoardWeather').val() == '') { 
 			$('#weatherFail').show();
@@ -107,7 +107,7 @@ $(function(){
 		        <div class="form-group">
 		            <label for="snsBoardWeather">snsBoardWeather :</label>
 		            <select class="form-control" name="snsBoardWeather" id="snsBoardWeather">
-		            	<option></option>
+		            	<option>${sessionScope.sessionWeather}</option>
 		            	<option>맑음</option>
 		            	<option>구름조금</option>
 		            	<option>흐림</option>
