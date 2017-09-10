@@ -6,7 +6,6 @@
 <head>
 <!-- 색상 카테고리 아이콘 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<c:set value="${sessionScope.id}" var="sessionId" />
 <c:set value="${sessionScope.CcTall}" var="CcTall"></c:set>
 <c:set value="${sessionScope.CcSize}" var="CcSize"></c:set>
 <c:set value="${sessionScope.CcGender}" var="CcGender"></c:set>
@@ -16,6 +15,8 @@
 <c:set value="${sessionScope.apiAdd}" var="apiAdd"></c:set>
 <c:set value="${sessionScope.sessionWeather}" var="sessionWeather"></c:set>
 <script type="text/javascript">
+
+var currentPage = 1; // 현재 페이지 선언 및 초기화
 
 /* 색상별 토글 버튼  */
 function toggleColor(color) { //color: 선택한 색상
@@ -32,11 +33,15 @@ function toggleColor(color) { //color: 선택한 색상
 		$('#circle'+color+'').attr('class','fa fa-circle');						// 색상 버튼 체크 해제 상태 그림으로 
 		console.log('searchColor'+color+' check : ',$('#searchColor'+color+'').is(':checked'));
 	}
+	currentPage = 1;	// 현재 페이지 1로 초기화
+	console.log('currentPage : ',currentPage);
 	boardSearch();		// 최신 게시물 검색 함수 호출
 	popBoardSearch();	// 인기 게시물 검색 함수 호출
 } 
 
 $(function(){
+
+	console.log('currentPage : ',currentPage);
 	
 	// 빨간색 버튼 클릭
 	$('#circleRed').click(function(){
@@ -46,7 +51,6 @@ $(function(){
 	// 주황색 버튼 클릭
 	$('#circleOrange').click(function(){
 		toggleColor('Orange');
-		
 	});
 	
 	// 노란색 버튼 클릭
@@ -121,9 +125,9 @@ $(function(){
 		$('#snsBoardTall').val('');
 		$('#snsBoardSize').val('');
 		$('#snsBoardLoc').val('');
+		$('#snsBoardAge').val('');
 		$('#snsGenderMale').prop('checked',false);
 		$('#snsGenderFemale').prop('checked',false);
-		$('#snsBoardAge').val('');
 		$('input:checkbox[name="styleValue"]').prop('checked', false);
 		$('input:checkbox[name="colorValue"]').prop('checked',false);
 		$('input:checkbox[name="situationValue"]').prop('checked',false);
@@ -140,6 +144,7 @@ $(function(){
 		$('#circleBrown').attr('class','fa fa-circle');
 		$('#circleBeige').attr('class','fa fa-circle');
 		$('#circlePink').attr('class','fa fa-circle');
+		currentPage = 1;
 		boardSearch();
 		popBoardSearch();
 	});
@@ -159,6 +164,8 @@ $(function(){
 		$('input:checkbox[name="styleValue"]').prop('checked', false);
 		$('input:checkbox[name="colorValue"]').prop('checked',false);
 		$('input:checkbox[name="situationValue"]').prop('checked',false);
+		
+		/* 색상 버튼 초기화 */
 		$('#circleRed').attr('class','fa fa-circle');
 		$('#circleOrange').attr('class','fa fa-circle');
 		$('#circleYellow').attr('class','fa fa-circle');
@@ -174,17 +181,20 @@ $(function(){
 		$('#circlePink').attr('class','fa fa-circle');
 		
 		/* 세션에 셋팅된 사용자 정보를 필터에 적용 */
-		$('#snsBoardWeather').val(sessionWeather);
+		$('#snsBoardWeather').val(sessionWeather);	// 현재 날씨
+		$('#snsBoardLoc').val(apiAdd);				// 접속 지역
+		$('#snsBoardTall').val(userTall);			// 키
+		$('#snsBoardSize').val(userSize);			// 체형
+		
 		console.log('sessionWeather : ',sessionWeather);
-		$('#snsBoardLoc').val(apiAdd);
-		$('#snsBoardTall').val(userTall);
-		$('#snsBoardSize').val(userSize);
+		
+		// 성별 - 라디오 버튼이라 조건문으로 처리
 		if(userGender == '여') {
 			$('#snsGenderMale').prop('checked',true);
 		} else {
 			$('#snsGenderFemale').prop('checked',true);
 		}
-		$('#snsBoardAge').val(userAge);
+		$('#snsBoardAge').val(userAge);				// 연령대
 		
 		/* 사용자 스타일 체크 판별 */
 		if(userStyle.indexOf('클래식') != -1) {
@@ -271,6 +281,7 @@ $(function(){
 			$('input:checkbox[id="searchColorPink"]').prop("checked", true);
 			$('#circlePink').attr('class','fa fa-check-circle');
 		}
+		currentPage = 1;
 		boardSearch();
 		popBoardSearch();
 	});
