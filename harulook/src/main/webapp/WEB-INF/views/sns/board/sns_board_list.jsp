@@ -155,6 +155,12 @@ $(function(){
 	likeAndComment();	// 검색 결과 게시물의 추천수, 댓글수 감추기 및 보이기 함수 호출 
 	showDetail(null);	// 게시물 상세보기 활성화 함수에 null갑을 대입하여 호출
 	
+	/*  현재 페이지 값을 받아 number타입으로 변환  */
+	var currentPage = '<c:out value="${currentPage}" />';
+	currentPage = Number(currentPage);
+	console.log('currentPage : ',currentPage);
+	console.log('typeof currentPage : ',typeof currentPage);
+	
 	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
 	$('.searchCategory').change(function(){
 		currentPage = 1;	// 현재 페이지를 1페이지로 초기화

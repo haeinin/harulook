@@ -21,6 +21,7 @@ public class MemberDto {
 	private String userBsName;
 	private String userUrl;
 	private int userPoint;
+	private String userImg;
 	private String userDate;
 	
 	private String colorValue;
@@ -28,6 +29,7 @@ public class MemberDto {
 	
 	private String colorNo;
 	private String styleNo;
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -148,6 +150,12 @@ public class MemberDto {
 	public void setUserPoint(int userPoint) {
 		this.userPoint = userPoint;
 	}
+	public String getUserImg() {
+		return userImg;
+	}
+	public void setUserImg(String userImg) {
+		this.userImg = userImg;
+	}
 	public String getUserDate() {
 		return userDate;
 	}
@@ -164,7 +172,6 @@ public class MemberDto {
 		return styleValue;
 	}
 	public void setStyleValue(String styleValue) {
-			System.out.println(styleValue);
 		this.styleValue = styleValue;
 	}
 	public String getColorNo() {
@@ -186,9 +193,9 @@ public class MemberDto {
 				+ ", userGender=" + userGender + ", userAge=" + userAge + ", userTall=" + userTall + ", userSize="
 				+ userSize + ", userQ=" + userQ + ", userA=" + userA + ", userLevel=" + userLevel + ", userBsNo="
 				+ userBsNo + ", userBsType=" + userBsType + ", userBsStatus=" + userBsStatus + ", userBsName="
-				+ userBsName + ", userUrl=" + userUrl + ", userPoint=" + userPoint + ", userDate=" + userDate
-				+ ", colorValue=" + colorValue + ", styleValue=" + styleValue + ", colorNo=" + colorNo + ", styleNo="
-				+ styleNo + "]";
+				+ userBsName + ", userUrl=" + userUrl + ", userPoint=" + userPoint + ", userImg=" + userImg
+				+ ", userDate=" + userDate + ", colorValue=" + colorValue + ", styleValue=" + styleValue + ", colorNo="
+				+ colorNo + ", styleNo=" + styleNo + "]";
 	}
 	
 	

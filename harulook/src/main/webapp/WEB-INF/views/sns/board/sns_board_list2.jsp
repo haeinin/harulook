@@ -152,6 +152,64 @@ function boardSearch(){
 
 $(function(){     
 	
+	var requestFollowList = $.ajax({
+		  url: "./followCheck", //호출 경로
+		  method: "POST",	//전송방식
+		  data:  { 'followId' : $('#userId').val() } , //전송해줄값
+		  dataType: "text" //결과값 타입 (리턴)
+	});		//친구등록 성공여부에 따라서 버튼 체인지나 쇼 하이드 필요할듯
+	requestFollowList.done(function( msg ) {
+		msg = msg.trim();
+		console.log(msg);	//친구 등록 체크
+		if($('#levelCheck').val() == '일반회원'){
+			if(!msg){	//등록되지않은 친구
+				followInsertButton
+				$('#followInsertButtonList').show();
+				$('#followCheckOverlapList').hide();
+			}else{	//등록되어있는 친구
+				$('#followInsertButtonList').hide();
+				$('#followCheckOverlapList').show();
+			}
+		}else{	//로그인접속자가 일반회원이 아닌경우
+			$('#BlankList').show();	
+			$('#followInsertButtonList').hide();
+			$('#followCheckOverlapList').hide();
+		}
+	});
+	
+	//친구등록버튼 리스트에서 버튼
+	$('#followInsertButtonList').click(function(){
+		var request = $.ajax({
+			  url: "./followInsert", //호출 경로
+			  method: "POST",	//전송방식
+			  data:  { 'followId' : $('#userId').val() } , //전송해줄값
+			  dataType: "text", //결과값 타입 (리턴)
+			  success : function(msg) {
+				  $('#followInsertButton').hide();
+				  $('#followCheckOverlap').show();
+				  alert('친구등록완료');
+			  }
+		});	
+		request.done(function( msg ) {
+			msg = msg.trim();
+			console.log(msg);	//친구 등록 체크
+			if($('#levelCheck').val() == '일반회원'){
+				if(!msg){	//등록되지않은 친구
+					followInsertButton
+					$('#followInsertButtonList').show();
+					$('#followCheckOverlapList').hide();
+				}else{	//등록되어있는 친구
+					$('#followInsertButtonList').hide();
+					$('#followCheckOverlapList').show();
+				}
+			}else{	//로그인접속자가 일반회원이 아닌경우
+				$('#BlankList').show();	
+				$('#followInsertButtonList').hide();
+				$('#followCheckOverlapList').hide();
+			}
+		});
+	});
+	
 	likeAndComment();
 	showDetail(null);
 	
@@ -251,7 +309,6 @@ $(function(){
     	<!-- sns게시물 검색 결과 -->
 	    <div class="col-xs-9">
             	<!-- sns 게시물 검색 항목 -->	    
-		
 		<div class="row">
 			<c:import url="/WEB-INF/views/sns/board/sns_board_search.jsp"></c:import>
 		</div>
@@ -264,7 +321,9 @@ $(function(){
 		    <div class="col-xs-9">
 		        <div class="instagram-content">
 		        	
+		        	 
 		            <h3>최근 게시물</h3>
+		           
 		            <!-- The following HTML will be our template inside instafeed -->
 					<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
 					<c:forEach items="${list}" var="b">

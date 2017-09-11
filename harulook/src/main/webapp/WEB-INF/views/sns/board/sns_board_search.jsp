@@ -412,8 +412,31 @@ $(function(){
 	<div class="row">
 		<div class="col-xs-2"></div>
 		<div class="col-xs-9">
+			
 			<!-- sns 게시물 검색 항목 -->	    
-			<h5><a href="#demo" data-toggle="collapse" style="color: black;">게시물 필터 <i class="fa fa-bars"></i></a></h5>
+			
+	        <h5><a href="#demo" data-toggle="collapse" style="color: black;">게시물 필터 <i class="fa fa-bars"></i></a></h5>
+			
+			<c:if test="${userDetail.userId != null}">
+				<div class="row">
+					<div class="col-xs-1"></div>
+					<div class="col-xs-2">
+					<!-- 아이디로 게시물 검색 했을때 프로필-->
+					<img style="height: 150px; max-width: 150px; max-height: 150px; width: 150px;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${userDetail.userImg}">
+		       		</div>
+		       		<div class="col-xs-1"></div>
+		       		<div class="col-xs-8">
+			        
+			        <h1>${userDetail.userId} (${userDetail.userNick})</h1>
+			        <br>
+			       	<h4>팔로우 : ${followListCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;팔로워 : ${followMeListCount}</h4>
+			       	<button id="followInsertButtonList" class="btn btn-default">팔로우</button>
+					<span id="followCheckOverlapList">&nbsp;</span>
+					<span id="BlankList">&nbsp;</span>
+			       	</div>
+			</div>
+	        </c:if>
+	        
 			<div id="demo" class="collapse">
 				<div class="searchGroup">
 					<label for="snsBoardWeather">날씨 :</label>

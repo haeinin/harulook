@@ -24,7 +24,7 @@ public class FollowRestController {
 	public String followCheck(Model model,
 		HttpSession session,
 		HttpServletRequest request,
-	@RequestParam("followId") String followId ) {
+		@RequestParam("followId") String followId ) {
 		System.out.println("팔로우 체크");
 		String userId = (String) session.getAttribute("id");
 		System.out.println("FollowController 세션아이디 == " + userId);

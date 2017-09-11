@@ -80,9 +80,9 @@
 
 	$(document).ready(function(){
 		/* 받아온 아이피 */
-		/* console.log(ip()); */
+		console.log(ip());
 		
-		var ipimsi = "123.123.123.123";
+		/* var ipimsi = "123.123.123.123"; */
 
 		var addr;
 		var x = 37.532353;
@@ -123,7 +123,7 @@
 			        var request = $.ajax({	//아이디와 지역 입력
 						  url: "./guestAdd", //호출 경로
 						  method: "POST",	//전송방식
-						  data: { 'ip' : ipimsi, 'apiAdd' : apiAdd }, //전송해줄값	///////////////////////////////////////////////////아이피 수정시 ipimsi수정
+						  data: { 'ip' : ip(), 'apiAdd' : apiAdd }, //전송해줄값	///////////////////////////////////////////////////아이피 수정시 ipimsi수정
 						  dataType: "text" //결과값 타입 (리턴)
 					});
 				
@@ -155,7 +155,7 @@
 		        var request = $.ajax({	//아이디와 지역 입력
 					  url: "./guestAdd", //호출 경로
 					  method: "POST",	//전송방식
-					  data: { 'ip' : ipimsi, 'apiAdd' : apiAdd }, //전송해줄값  ///////////////////////////////////////////////////아이피 수정시 ipimsi수정
+					  data: { 'ip' : ip(), 'apiAdd' : apiAdd }, //전송해줄값  ///////////////////////////////////////////////////아이피 수정시 ipimsi수정
 					  dataType: "text" //결과값 타입 (리턴)
 				});
 			

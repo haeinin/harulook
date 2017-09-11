@@ -17,6 +17,8 @@ import com.ksmart.harulook.board.service.BoardDto;
 import com.ksmart.harulook.comment.service.CommentDao;
 import com.ksmart.harulook.comment.service.CommentDto;
 import com.ksmart.harulook.like.service.LikeDao;
+import com.ksmart.harulook.member.service.MemberDao;
+import com.ksmart.harulook.member.service.MemberDto;
 
 // RestController를 이용한 ajax 처리
 @RestController
@@ -30,6 +32,9 @@ public class BoardRestController {
 	
 	@Autowired
 	private LikeDao likeDao;
+	
+	@Autowired
+	private MemberDao memberDao;
 	
 	/* sns게시물 더 읽어들이기 */
 	@RequestMapping(value="/boardListMore", method = RequestMethod.GET)
@@ -93,6 +98,8 @@ public class BoardRestController {
 		List<CommentDto> commentList = commentDao.selectCommentList(boardNo);
 		System.out.println("comment : "+ commentList);
 		
+		MemberDto userDetail = memberDao.userDetail(board.getUserId());	//프로필 사진 받아오기
+		
 		List<String> snsStyle = boardDao.selectBoardStyle(boardNo);
 		List<String> snsColor = boardDao.selectBoardColor(boardNo);
 		List<String> snsSituation = boardDao.selectBoardSituation(boardNo);
@@ -107,6 +114,7 @@ public class BoardRestController {
 		}
 		
 		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userDetail", userDetail);
 		map.put("snsColor", snsColor);
 		map.put("snsSituation", snsSituation);
 		map.put("snsStyle", snsStyle);

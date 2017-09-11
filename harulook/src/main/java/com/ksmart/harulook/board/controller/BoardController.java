@@ -21,7 +21,10 @@ import com.ksmart.harulook.board.service.BoardDao;
 import com.ksmart.harulook.board.service.BoardDto;
 import com.ksmart.harulook.comment.service.CommentDao;
 import com.ksmart.harulook.comment.service.CommentDto;
+import com.ksmart.harulook.follow.service.FollowDao;
 import com.ksmart.harulook.like.service.LikeDao;
+import com.ksmart.harulook.member.service.MemberDao;
+import com.ksmart.harulook.member.service.MemberDto;
 import com.ksmart.harulook.point.service.PointDao;
 import com.ksmart.harulook.util.UtilFile;
 
@@ -39,6 +42,12 @@ public class BoardController {
 	
 	@Autowired
     private PointDao pointDao;
+	
+	@Autowired
+    private MemberDao memberDao;
+	
+	@Autowired
+    private FollowDao followDao;
 	
 	/* sns게시물 태그 검색 */
 	@RequestMapping(value="/boardTagSearch", method = RequestMethod.GET)
@@ -68,13 +77,20 @@ public class BoardController {
 		System.out.println("boardTagSearch --> "+board);
 		
 		int popularity = 0;
-		int boardCount = boardDao.selectBoardCount();
+		int boardCount = boardDao.selectBoardCount();	
         int pagePerRow = 9;
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
 		
+		MemberDto userDetail = new MemberDto();	// 내게시물 보기에서 프로필 사진 보기위함
+        int followListCount = 0;
+        int followMeListCount = 0;
 		if(board.getUserId().equals("")) {
 			board.setUserId(null);
-		} 
+		}else{
+			userDetail = memberDao.userDetail(board.getUserId()); // 내게시물 보기에서 프로필 사진 보기위함
+			followListCount = followDao.followListCount(board.getUserId());	//팔로우수
+			followMeListCount = followDao.followMeListCount(board.getUserId());	//팔로워수
+		}
 		if(board.getSnsBoardAge().equals("")) {
 			board.setSnsBoardAge(null);
 		} 
@@ -95,6 +111,9 @@ public class BoardController {
 		model.addAttribute("colorValueList",colorValueList);
 		model.addAttribute("styleValueList",styleValueList);
 		model.addAttribute("situationValueList",situationValueList);
+		model.addAttribute("followListCount", followListCount);
+		model.addAttribute("followMeListCount", followMeListCount);
+		model.addAttribute("userDetail", userDetail);
 		model.addAttribute("board",board);
 		model.addAttribute("list", list);
 		System.out.println("boardTagSearch --> "+list);

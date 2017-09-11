@@ -366,7 +366,7 @@
 					<div id="" class="col-md-7">
 					<h2 id="loginTitle" left="300px">일반회원가입</h2>
 						<div class="login-box well">
-							 <form id="addFormUser" action="${pageContext.request.contextPath}/userAdd" method="post">
+							 <form id="addFormUser" action="${pageContext.request.contextPath}/userAdd" method="post" enctype="multipart/form-data">
 								<!-- 아이디 -->
 					           	<label style="letter-spacing:11.3px" for="user_id">아이디</label>
 					            <input name="userId" id="user_id" type="text"/>  
@@ -374,7 +374,14 @@
 					            	<span id="idsuccess" >사용가능한 아이디입니다</span>
 					            	<span id="idfail" >사용불가능한 아이디입니다</span>
 					            	<span id="idre" >아이디 다시 입력해주세요</span><br>
-					            	
+					            
+					            <!-- 프로필사진 -->
+					            <div class="form-group">
+					            <label style="letter-spacing:11.3px" for="userImg">프로필</label>
+					            <input class="form-control" name="userImg" id="userImg" type="file"/>
+					            <span id="imgFail" >사진을 올려주세요.</span><br>
+						        </div>
+					            	 
 					            <!-- 비밀번호 -->
 					        	<label style="letter-spacing:5px" for="user_pw">비밀번호</label>
 					            <input name="userPw" id="user_pw" type="password"/><br>
@@ -387,15 +394,15 @@
 					            	<span id="pwfail" >비밀번호 불일치</span>
 					            	<span id="pwre" >비밀번호 다시입력해주세요</span><br>
 					            	
-					            <!-- 닉네임 -->	        
-					       		<label style="letter-spacing:11.3px" for="user_nick">닉네임</label>
+					            <!-- 닉네임 -->	     	   
+					       		<label style="letter-spacing:11.8px" for="user_nick">닉네임</label>
 					            <input name="userNick" id="user_nick" type="text"/>
 					           		<span id="nicksuccess" >사용가능한 닉네임입니다</span>
 					            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
 					            	<span id="nickre" >닉네임 다시 입력해주세요</span><br>
 				            	
 				            	<!-- 이름 -->
-					        	<label style="letter-spacing:10px" for="user_name">이&nbsp;&nbsp;름</label>
+					        	<label style="letter-spacing:11.3px" for="user_name">이&nbsp;&nbsp;름</label>
 					            <input name="userName" id="user_name" type="text"/><br>
 								           
 				           		<!-- 전화번호 -->
@@ -406,13 +413,13 @@
 					            	<span id="telfail" >사용불가능한 전화번호입니다</span><br>	
 					                      
 				           		<!--  이메일 -->
-					        	<label style="letter-spacing:11.3px" for="user_email">이메일</label>
+					        	<label style="letter-spacing:11.8px" for="user_email">이메일</label>
 					            <input name="userEmail" id="user_email" type="text"/>
 					           		<span id="emailsuccess" >사용가능한 이메일입니다</span>
 					            	<span id="emailfail" >사용불가능한 이메일입니다</span><br>
 					            
 				            	<!-- 주소 -->
-					        	<label style="letter-spacing:10px" for="user_addr">주&nbsp;&nbsp;소</label>
+					        	<label style="letter-spacing:11.3px" for="user_addr">주&nbsp;&nbsp;소</label>
 					            <!-- <input name="userAddr" id="user_addr" type="text"/><br> -->
 					        	
 					        	<input type="text" id="sample4_postcode" placeholder="우편번호">
@@ -423,7 +430,7 @@
 					        	
 					        	<!-- 성별 -->
 					        	<div>
-						        	<label style="letter-spacing:10px" for="user_gender" >성&nbsp;&nbsp;별</label>
+						        	<label style="letter-spacing:11.3px" for="user_gender" >성&nbsp;&nbsp;별</label>
 						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userGender" id="user_gender">
 										<option>${userDetail.userGender}</option>
 						            	<option>남</option>
@@ -432,7 +439,7 @@
 								</div>
 								<!-- 나이 -->	   
 								<div>     	
-					        	<label style="letter-spacing:10px" for="user_age">나&nbsp;&nbsp;이</label>
+					        	<label style="letter-spacing:11.3px" for="user_age">나&nbsp;&nbsp;이</label>
 						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userAge" id="user_age">
 										<option>${userDetail.userAge}</option>
 						            	<option>10</option>
@@ -445,7 +452,7 @@
 					        	</div>
 					        	<!-- 키 -->
 					        	<div>
-					        	<label style="letter-spacing:11.3px" for="user_tall">본인키</label>
+					        	<label style="letter-spacing:11.5px" for="user_tall">본인키</label>
 					            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userTall" id="user_tall">
 									<option>${userDetail.userTall}</option>
 					            	<option>큰키</option>
@@ -455,7 +462,7 @@
 					      		</div>
 					      		<!-- 사이즈 -->
 					        	<div>
-						        	<label style="letter-spacing:11.3px" for="user_size">사이즈</label>
+						        	<label style="letter-spacing:11.5px" for="user_size">사이즈</label>
 						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userSize" id="user_size">
 										<option>${userDetail.userSize}</option>
 						            	<option>마른</option>
@@ -465,7 +472,7 @@
 							    </div>
 							    <!-- 질문 -->
 					        	<div>
-						        	<label style="letter-spacing:10px" for="user_q">질&nbsp;&nbsp;문</label>
+						        	<label style="letter-spacing:11.3px" for="user_q">질&nbsp;&nbsp;문</label>
 						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userQ" id="user_q">
 										<option>${userDetail.userQ}</option>
 						            	<option>나의 보물은</option>
