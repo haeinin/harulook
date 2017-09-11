@@ -26,13 +26,13 @@ function toggleColor(color) { //color: 선택한 색상
 	// 해당되는 색상 체크박스가 체크되지 않았을 때
 	if($('#searchColor'+color+'').is(':checked') == false) { 
 		$('input:checkbox[id="searchColor'+color+'"]').prop('checked',true);	// 체크박스 체크
-		$('#circle'+color+'').attr('class','fa fa-check-circle');				// 색상 버튼 체크 상태 그림으로 
+		$('#circle'+color+'').attr('class','fa fa-check-circle cursor-click');				// 색상 버튼 체크 상태 그림으로 
 		console.log('searchColor'+color+' check : ',$('#searchColor'+color+'').is(':checked'));
 		
 	// 해당되는 색상 체크박스가 이미 체크되었을 때
 	} else if($('#searchColor'+color+'').is(':checked') == true) {
 		$('input:checkbox[id="searchColor'+color+'"]').prop('checked',false);	// 체크박스 체크 해제
-		$('#circle'+color+'').attr('class','fa fa-circle');						// 색상 버튼 체크 해제 상태 그림으로 
+		$('#circle'+color+'').attr('class','fa fa-circle cursor-click');						// 색상 버튼 체크 해제 상태 그림으로 
 		console.log('searchColor'+color+' check : ',$('#searchColor'+color+'').is(':checked'));
 	}
 } 
@@ -170,6 +170,23 @@ $(function(){
 	// 분홍색 버튼 클릭
 	$('#circlePink').click(function(){
 		toggleColor('Pink');
+	});
+	
+	// 초기화 버튼 클릭
+	$('#resetBtn').click(function(){
+		$('#circleRed').attr('class','fa fa-circle');
+		$('#circleOrange').attr('class','fa fa-circle');
+		$('#circleYellow').attr('class','fa fa-circle');
+		$('#circleGreen').attr('class','fa fa-circle');
+		$('#circleBlue').attr('class','fa fa-circle');
+		$('#circleNavy').attr('class','fa fa-circle');
+		$('#circlePurple').attr('class','fa fa-circle');
+		$('#circleBlack').attr('class','fa fa-circle');
+		$('#circleGrey').attr('class','fa fa-circle');
+		$('#circleWhite').attr('class','fa fa-circle');
+		$('#circleBrown').attr('class','fa fa-circle');
+		$('#circleBeige').attr('class','fa fa-circle');
+		$('#circlePink').attr('class','fa fa-circle');
 	});
 });
 </script>
@@ -317,19 +334,19 @@ $(function(){
 				<div class="form-group">
 			       	<label class="col-xs-3 control-label" for="searchSnsBoardColor">색상 :</label>
 			       	<div class="col-xs-6">
-				       	<i id="circleRed" class="fa fa-circle cursor-click" style="font-size: 24px; color: red; background-color: black; border-radius: 47%; width: 22px;"></i>
-				     	<i id="circleOrange" class="fa fa-circle cursor-click" style="font-size: 24px; color: orange; background-color: black; border-radius: 47%; width: 22px;"></i>
-				     	<i id="circleYellow" class="fa fa-circle cursor-click" style="font-size: 24px; color: yellow; background-color: black; border-radius: 47%; width: 22px;"></i>
-				     	<i id="circleGreen" class="fa fa-circle cursor-click" style="font-size: 24px; color: green; background-color: black; border-radius: 47%; width: 22px;"></i>
-				     	<i id="circleBlue" class="fa fa-circle cursor-click" style="font-size: 24px; color: deepskyblue; background-color: black; border-radius: 47%; width: 22px;"></i>
-				     	<i id="circleNavy" class="fa fa-circle cursor-click" style="font-size: 28px; color: navy;"></i>
-				     	<i id="circlePurple" class="fa fa-circle cursor-click" style="font-size: 28px; color: purple;"></i>
-				     	<i id="circleBlack" class="fa fa-circle cursor-click" style="font-size: 28px; color: black;"></i>
-				     	<i id="circleGrey" class="fa fa-circle cursor-click" style="font-size: 24px; color: grey; background-color: black; border-radius: 47%; width: 22px;"></i>
-				     	<i id="circleWhite" class="fa fa-circle cursor-click" style="font-size: 24px; color: white; background-color: black; border-radius: 47%; width: 22px;"></i>
-				     	<i id="circleBrown" class="fa fa-circle cursor-click" style="font-size: 24px; color: brown; background-color: black; border-radius: 47%; width: 22px;"></i>
-				     	<i id="circleBeige" class="fa fa-circle cursor-click" style="font-size: 24px; color: beige; background-color: black; border-radius: 47%; width: 22px;"></i>
-				     	<i id="circlePink" class="fa fa-circle cursor-click" style="font-size: 24px; color: pink; background-color: black; border-radius: 47%; width: 22px;"></i>
+				       	<i id="circleRed" class="fa fa-circle cursor-click" title="빨강" style="font-size: 24px; color: red; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleOrange" class="fa fa-circle cursor-click" title="주황" style="font-size: 24px; color: orange; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleYellow" class="fa fa-circle cursor-click" title="노랑" style="font-size: 24px; color: yellow; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleGreen" class="fa fa-circle cursor-click" title="초록" style="font-size: 24px; color: green; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleBlue" class="fa fa-circle cursor-click" title="파랑" style="font-size: 24px; color: deepskyblue; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleNavy" class="fa fa-circle cursor-click" title="남색(네이비)" style="font-size: 28px; color: navy;"></i>
+				     	<i id="circlePurple" class="fa fa-circle cursor-click" title="보라" style="font-size: 28px; color: purple;"></i>
+				     	<i id="circleBlack" class="fa fa-circle cursor-click" title="검정" style="font-size: 28px; color: black;"></i>
+				     	<i id="circleGrey" class="fa fa-circle cursor-click" title="회색" style="font-size: 24px; color: grey; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleWhite" class="fa fa-circle cursor-click" title="흰색" style="font-size: 24px; color: white; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleBrown" class="fa fa-circle cursor-click" title="갈색" style="font-size: 24px; color: brown; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleBeige" class="fa fa-circle cursor-click" title="베이지" style="font-size: 24px; color: beige; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circlePink" class="fa fa-circle cursor-click" title="분홍" style="font-size: 24px; color: pink; background-color: black; border-radius: 47%; width: 22px;"></i>
 				     	
 				     	<div style="display:none;">
 					       	<input type="checkbox" id="searchColorRed" name="colorValue" value="color_01">빨강
@@ -372,8 +389,8 @@ $(function(){
 			    <div class="col-xs-6"></div>
 		        <div class="col-xs-3">
 		            <input class="btn btn-default" id="addButton" type="submit" value="글입력"/>
-		            <input class="btn btn-default" type="reset" value="초기화"/>
-		            <a class="btn btn-default" href="${pageContext.request.contextPath}/boardList">글목록</a>
+		            <input id="resetBtn" class="btn btn-default" type="reset" value="초기화"/>
+		            <a class="btn btn-default" href="${pageContext.request.contextPath}/home">홈으로</a>
 		        </div>
 		    </form>
 		    </div>
