@@ -18,11 +18,11 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="${pageContext.request.contextPath}/mallMain">Beautiful Closet</a>
+      <a class="navbar-brand" href="${pageContext.request.contextPath}/beautifulCloset">Beautiful Closet</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="${pageContext.request.contextPath}/mallMain">HOME</a></li>
+        <li><a href="${pageContext.request.contextPath}/beautifulCloset">HOME</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">CATEGORY
           <span class="caret"></span></a>

@@ -95,7 +95,7 @@
 					class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand"
-				href="${pageContext.request.contextPath}/mallMain">Beautiful
+				href="${pageContext.request.contextPath}/beautifulCloset">Beautiful
 				Closet</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">

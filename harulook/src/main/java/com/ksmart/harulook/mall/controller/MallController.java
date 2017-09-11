@@ -83,8 +83,8 @@ public class MallController {
 	}
 
 	/*쇼핑몰 메인화면*/
-	@RequestMapping(value = "/mallMain", method = RequestMethod.GET)
-	public String mallMain() {
+	@RequestMapping(value = "/beautifulCloset", method = RequestMethod.GET)
+	public String beautifulCloset() {
 		return "mall/mall_main";
 	}
 

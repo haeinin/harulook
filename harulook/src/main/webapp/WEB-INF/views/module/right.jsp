@@ -50,7 +50,7 @@ $.ajax({
 	<div class="row" style="height: 40px;"></div>
 	<div class="row" style="height: 400px;">
 		<div id=add>
-			<a href="${pageContext.request.contextPath}/mallMain" target="_blank">
+			<a href="${pageContext.request.contextPath}/beautifulCloset" target="_blank">
 			<img src="resources/beaneo2.png" >
 			</a>
 		</div>
