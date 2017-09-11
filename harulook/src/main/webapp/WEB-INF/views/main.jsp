@@ -1,484 +1,376 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
-<head>
-<!-- Theme Made By www.w3schools.com - No Copyright -->
-<title>4조 프로젝트 메인화면</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <head>
 
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<script>
-	$(document).ready(function(){
-		$("#member1").click(function(){	//이해인
-			$("#myModal1").modal();
-	    });
-		$("#member2").click(function(){	//황인준
-			$("#myModal2").modal();
-	    });
-		$("#member3").click(function(){	//박종빈
-			$("#myModal3").modal();
-	    });
-		$("#member4").click(function(){	//김민구
-			$("#myModal4").modal();
-	    });
-		
-		$("#projectbutton1").click(function(){	//프로젝트소개
-			$("#project1").modal();
-	    });
-		$("#projectbutton2").click(function(){	//프로젝트환경
-			$("#project2").modal();
-	    });
-	 });
+    <title>4조 하나미치</title>
 
-</script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
-	<style>
-	.bg-1 { 
-	    background-color: #1abc9c;
-	    color: #ffffff;
-	}
-	.bg-2 { 
-	    background-color: #474e5d;
-	    color: #ffffff;
-	}
-	.bg-3 { 
-	    background-color: #ffffff;
-	    color: #555555;
-	}
-	.container-fluid {
-	    padding-top: 70px;
-	    padding-bottom: 70px;
-	}
-	</style>
-  
-	<style>
-	table, th, td {
-	    border: 1px solid black;
-	    border-collapse: collapse;
-	}
-	th, td {
-	    padding: 5px;
-	    text-align: left;
-	}
-	</style>
-</head>
-<body>
+    <!-- Custom fonts for this template -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
-<div class="container-fluid bg-1 text-center">
-  <h1>하루룩</h1>
-  <a href="./home">포트폴리오 보러가기</a>
-  <h3>하나미치</h3>
-  
-</div>
-
-<div class="container-fluid bg-2 text-center">
-  <h3>포트폴리오 소개</h3>
-  <a href="https://github.com/haeinin/harulook.git">깃허브 보러가기</a>
-  	<div>
-		<input class="btn btn-default" id="projectbutton1" type="button" value="프로젝트소개"/>
-	</div>
-	<div>
-		<input class="btn btn-default" id="projectbutton2" type="button" value="개발환경"/>
-	</div>
-</div>
-
-<div class="container-fluid bg-3 text-center">    
-  <h3>조 원</h3><br>
-  <div class="row">
-    <div class="col-sm-3">
-      <p>이해인</p>
-      <p>블로그주소</p>
-      <p>깃허브주소</p>
-      <div>
-		<input class="btn btn-default" id="member1" type="button" value="역할보기"/>
-   	  </div>	
-    </div>
-    <div class="col-sm-3"> 
-      <p>황인준</p>
-      <p>블로그주소</p>
-      <p>깃허브주소</p>
-      <div>
-		<input class="btn btn-default" id="member2" type="button" value="역할보기"/>
-   	  </div>
-    </div>
-    <div class="col-sm-3"> 
-      <p>박종빈</p>
-      <p>블로그주소</p>
-      <p>깃허브주소</p>
-      <div>
-		<input class="btn btn-default" id="member3" type="button" value="역할보기"/>
-   	  </div>
-    </div>
-    <div class="col-sm-3"> 
-      <p>김민구</p>
-      <p>블로그주소</p>
-      <p>깃허브주소</p>
-      <div>
-		<input class="btn btn-default" id="member4" type="button" value="역할보기"/>
-   	  </div>
-    </div>
-  </div>
-</div>
-
-<!-- 마이페이지 Modal 프로젝트 소개 -->
-  <div class="modal fade" id="project1" role="dialog">
-    <div class="modal-dialog">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="<c:url value="resources/css/agency.min.css" />" type="text/css">
     
-      <!-- Modal content-->
-      <div class="modal-content">
-     	 
-        <div class="modal-body" style="padding:40px 50px;">
-          	<table style="width:80%">
-			  <caption>프로젝트소개</caption>
-			  <tr>
-			    <th>프로젝트 주제</th>
-			  </tr>
-			  <tr>
-			    <td>ㅁㄴㅇㄻㄴㅇㄹ</td>
-			  </tr>
-			  <tr>
-			    <th>프로젝트 목표</th>
-			  </tr>
-			  <tr>
-			    <td>ㅁㄴㅇㄻㄴㅇㄹ</td>
-			  </tr>
-			
-			</table>
-		</div>
-      </div>
-    </div>
-  </div> 
-  
-  <!-- 마이페이지 Modal 개발환경 -->
-  <div class="modal fade" id="project2" role="dialog">
-    <div class="modal-dialog">
+     <!-- Bootstrap core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     
-      <!-- Modal content-->
-      <div class="modal-content">
-     	 
-        <div class="modal-body" style="padding:40px 50px;">
-          	<table style="width:80%">
-			  <caption>개발환경</caption>
-			  <tr>
-			  	<td>OS</td>
-			    <td>Windows 7</td>
-			  </tr>
-			  <tr>
-			  	<td>웹브라우저</td>
-			    <td>Crome</td>
-			  </tr>
-			  <tr>
-			  	<td>WAS</td>
-			    <td>apache-tomcat-8.0.38</td>
-			  </tr>
-			  <tr>
-			  	<td>DB</td>
-			    <td>MySQL 5.7</td>
-			  </tr>
-			  <tr>
-			  	<td>DB관리툴</td>
-			    <td>HeidiSQL 9.4.0</td>
-			  </tr>
-			  <tr>
-			  	<td>버전관리,협업 툴</td>
-			    <td>GitHub</td>
-			  </tr>
-			  <tr>
-			  	<td>java</td>
-			    <td>java 1.8</td>
-			  </tr>
-			  <tr>
-			  	<td>프레임워크</td>
-			    <td>springframework 4.3.9, spring-webmvc 4.3.9,</td>
-			  </tr>
-			  <tr>
-			  	<td>프레임워크</td>
-			    <td>Maven, mybatis 3.3.1, mybatis-spring 1.2.2, bootstrap</td>
-			  </tr>
-			  <tr>
-			  	<td>API</td>
-			    <td>보류</td>
-			  </tr>
-			</table>
-		</div>
-      </div>
-    </div>
-  </div> 
+    <!-- Bootstrap core JavaScript -->
+    <script src="resources/js/popper.min.js"></script>
+    <script src="resources/js/bootstrap.min.js"></script>
+ 
+    <script src="resources/js/agency.min.js"></script>
 
-<!-- 마이페이지 Modal 이해인 -->
-  <div class="modal fade" id="myModal1" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-     	 <!-- 역할 분담 -->
-        <div class="modal-body" style="padding:40px 50px;">
-          	<table style="width:80%">
-			  <caption>이해인</caption>
-			  <tr>
-			    <th>1.제휴계약관리</th>
-			  </tr>
-			  <tr>
-			    <td>제휴 계약 신청 폼</td>
-			  </tr>
-			  <tr>
-			    <td>제휴 계약 수정</td>
-			  </tr>
-			  <tr>
-			    <td>제휴 계약 목록 보기</td>
-			  </tr>
-			  <tr>
-			    <td>제휴 계약 상세보기</td>
-			  </tr>
-			  <tr>
-			    <td>제휴 계약 상세보기</td>
-			  </tr>
-			  <tr>
-			    <th>2.제휴결제관리</th>
-			  </tr>
-			  <tr>
-			    <td>제휴 결제 예정금액 조회</td>
-			  </tr>
-			  <tr>
-			    <td>제휴 결제 화면</td>
-			  </tr>
-			  <tr>
-			    <td>제휴 결제 내역조회</td>
-			  </tr>
-			  <tr>
-			    <th>3.제휴쇼핑몰</th>
-			  </tr>
-			  <tr>
-			    <td>상품 목록 보기</td>
-			  </tr>
-			  <tr>
-			    <td>상품 상세 보기</td>
-			  </tr>
-			  <tr>
-			    <th>4.명예의 전당 관리</th>
-			  </tr>
-			  <tr>
-			    <td>명예의 전당 목록 보기</td>
-			  </tr>
-			  <tr>
-			    <td>명예의 전당 상품 발송 내역</td>
-			  </tr>
-			</table>
-		</div>
+  </head>
+
+  <body id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg  navbar-fixed-top" id="mainNav">
+	  <div class="container">
+	    <div class="navbar-header">
+	      <a class="navbar-brand js-scroll-trigger" href="#page-top">hanamichi</a>
+	    </div>
+	    <div class="collapse navbar-collapse">
+	      <ul class="nav navbar-nav navbar-right">
+	        <li class="nav-item">
+	          <a class="nav-link js-scroll-trigger" href="#link">Portfolio</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link js-scroll-trigger" href="#about">About</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link js-scroll-trigger" href="#team">Team</a>
+	        </li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+
+    <!-- Header -->
+    <header class="masthead">
+      <div class="container">
+        <div class="intro-text">
+          <div class="intro-lead-in">Welcome!<br> It's Nice To Meet You</div>
+          <div class="intro-heading">4조 하나미치</div>
+          <a class="btn btn-xl js-scroll-trigger" href="#link">더 알아보기</a>
+        </div>
       </div>
-    </div>
-  </div> 
-<!-- 마이페이지 Modal 황인준 -->
-  <div class="modal fade" id="myModal2" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-     	 <!-- 역할 분담 -->
-       <div class="modal-body" style="padding:40px 50px;">
-          	<table style="width:80%">
-			  <caption>황인준</caption>
-			  <tr>
-			    <th>1.sns게시물관리</th>
-			  </tr>
-			  <tr>
-			    <td>게시물 작성 폼</td>
-			  </tr>
-			  <tr>
-			    <td>게시물 수정 폼</td>
-			  </tr>
-			  <tr>
-			    <td>게시물 상세보기</td>
-			  </tr>
-			  <tr>
-			    <td>게시물 목록보기</td>
-			  </tr>
-			  <tr>
-			    <td>게시물 검색 폼</td>
-			  </tr>
-			  <tr>
-			    <th>2.sns댓글관리</th>
-			  </tr>
-			  <tr>
-			    <td>댓글 등록</td>
-			  </tr>
-			  <tr>
-			    <td>댓글 목록보기</td>
-			  </tr>
-			  <tr>
-			    <th>2.sns추천관리</th>
-			  </tr>
-			  <tr>
-			    <td>추천 등록</td>
-			  </tr>
-			  <tr>
-			    <td>추천인 목록</td>
-			  </tr>
-			</table>
-		</div>
+    </header>
+
+    <!-- Services -->
+    <section id="link">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">Portfolio</h2>
+            <h3 class="section-subheading explain">날씨기반 패션 SNS '하루룩'입니다</h3>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-md-4">
+            <span class="fa-stack fa-4x">
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <a href="https://github.com/haeinin/harulook">
+              <i class="fa fa-git fa-stack-1x fa-inverse"></i></a>
+            </span>
+            <h4 class="service-heading">하루룩 GitHub</h4>
+            <p class="explain">클릭하면 harulook/master로 이동합니다</p>
+          </div>
+          <div class="col-md-4">
+            <span class="fa-stack fa-4x">
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <a href="./home"><i class="fa fa-umbrella fa-stack-1x fa-inverse"></i></a>
+            </span>
+            <h4 class="service-heading">하루룩 바로가기</h4>
+            <p class="explain">하루룩 홈페이지 입니다</p>
+          </div>
+           <div class="col-md-4">
+            <span class="fa-stack fa-4x">
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <i class="fa fa-sticky-note-o fa-stack-1x fa-inverse"></i>
+            </span>
+            <h4 class="service-heading">하루룩 개발문서</h4>
+            <p class="explain">프로젝트 완료 보고서를 다운로드하여<br>개발상세내용을 볼 수 있습니다</p>
+          </div>
       </div>
-    </div>
-  </div> 
-  <!-- 마이페이지 Modal 박종빈 -->
-  <div class="modal fade" id="myModal3" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-     	 <!-- 역할 분담 -->
-        <div class="modal-body" style="padding:40px 50px;">
-          	<table style="width:80%">
-			  <caption>박종빈</caption>
-			  <tr>
-			    <th>1.광고계약관리</th>
-			  </tr>
-			  <tr>
-			    <td>광고 계약 신청 폼</td>
-			  </tr>
-			  <tr>
-			    <td>사업자 회원 광고 계약 목록 보기</td>
-			  </tr>
-			  <tr>
-			    <td>관리자 회원 광고 계약 목록 보기</td>
-			  </tr>
-			  <tr>
-			    <td>광고 계약 상세 보기</td>
-			  </tr>
-			  <tr>
-			    <th>2.광고결제관리</th>
-			  </tr>
-			  <tr>
-			    <td>광고 결제 화면</td>
-			  </tr>
-			  <tr>
-			    <td>광고 결제내역 보기</td>
-			  </tr>
-			  <tr>
-			    <th>3.광고환불관리</th>
-			  </tr>
-			  <tr>
-			    <td>광고 환불 신청 폼</td>
-			  </tr>
-			  <tr>
-			    <td>광고 환불 결제 화면</td>
-			  </tr>
-			  <tr>
-			    <td>광고 환불 목록 보기</td>
-			  </tr>
-			  <tr>
-			    <th>4.광고게시물관리</th>
-			  </tr>
-			  <tr>
-			    <td>광고 게시물 등록</td>
-			  </tr>
-			  <tr>
-			    <td>광고 게시물 수정</td>
-			  </tr>
-			  <tr>
-			    <td>광고 게시물 목록 보기</td>
-			  </tr>
-			  <tr>
-			    <td>광고 게시물 상세 보기</td>
-			  </tr>
-			</table>
-		</div>
       </div>
-    </div>
-  </div> 
-  <!-- 마이페이지 Modal 김민구 -->
-  <div class="modal fade" id="myModal4" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-     	 <!-- 역할 분담 -->
-        <div class="modal-body" style="padding:40px 50px;">
-          	<table style="width:80%">
-			  <caption>김민구</caption>
-			  <tr>
-			    <th>1.회원관리</th>
-			  </tr>
-			  <tr>
-			    <td>일반회원가입</td>
-			  </tr>
-			  <tr>
-			    <td>사업자회원가입</td>
-			  </tr>
-			  <tr>
-			    <td>관리자회원가입</td>
-			  </tr>
-			  <tr>
-			    <td>사업자회원수정</td>
-			  </tr>
-			  <tr>
-			    <td>사업자회원정보보기</td>
-			  </tr>
-			  <tr>
-			    <td>일반회원 목록보기</td>
-			  </tr>
-			  <tr>
-			    <td>사업자 회원 목록보기</td>
-			  </tr>
-			  <tr>
-			    <td>관리자 회원 목록보기</td>
-			  </tr>
-			  <tr>
-			    <td>전체회원 목록보기</td>
-			  </tr>
-			  <tr>
-			    <td>회원 검색 폼</td>
-			  </tr>
-			  <tr>
-			    <th>2.로그인관리</th>
-			  </tr>
-			  <tr>
-			    <td>로그인</td>
-			  </tr>
-			  <tr>
-			    <td>아이디찾기</td>
-			  </tr>
-			  <tr>
-			    <td>비밀번호찾기</td>
-			  </tr>
-			  <tr>
-			    <th>3.포인트관리</th>
-			  </tr>
-			  <tr>
-			    <td>포인트 내역조회</td>
-			  </tr>
-			  <tr>
-			    <td>포인트 상품 목록 보기</td>
-			  </tr>
-			  <tr>
-			    <td>포인트 교환 신청</td>
-			  </tr>
-			  <tr>
-			    <td>포인트 교환 내역</td>
-			  </tr>
-			  <tr>
-			    <th>4.팔로우관리</th>
-			  </tr>
-			  <tr>
-			    <td>팔로우 목록 보기</td>
-			  </tr>
-			  <tr>
-			    <td>팔로잉 목록 보기</td>
-			  </tr>
-			  <tr>
-			    <th>5.방문자관리</th>
-			  </tr>
-			  <tr>
-			    <td>기간별 방문자 목록 보기</td>
-			  </tr>
-			</table>
-		 </div>
+    </section>
+     <!-- About -->
+    <section id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">About Project</h2>
+            <h3 class="section-subheading explain">프로젝트 소개입니다</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <ul class="timeline">
+            <li>
+                <div class="timeline-image">
+                  <img class="rounded-circle img-fluid" src="resources/about1.jpg" alt="">
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <h4>프로젝트명</h4>
+                    <h4 class="subheading">'하루룩'</h4>
+                  </div>
+                  <div class="timeline-body">
+                    <p class="explain" style="font-size:15px">
+                    기상 데이터를 활용한 스타일 공유 SNS '하루룩'은
+                    <br>'하루'와 스타일을 뜻하는 'look'의 합성어입니다
+                    <br>인스타그램을 본 떠 날씨라는 옷을 입혔습니다
+                    </p>
+                  </div>
+                </div>
+              </li>
+            <li class="timeline-inverted">
+                <div class="timeline-image">
+                   <img class="rounded-circle img-fluid" src="resources/about2.jpg" alt="">
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                  <h4>  </h4>
+                    <h4 >프로젝트목적</h4>
+                  </div>
+                  <div class="timeline-body">
+                    <p class="explain">
+                    지역과 날씨를 기반으로 데일리룩을 공유하고 
+                    <br>그에 맞는 패션 & 아이템 추천광고를 통해 
+                    <br>수익을 창출할 수 있습니다.
+                    </p>
+                    </div>
+                </div>
+              </li>
+              <li>
+                <div class="timeline-image">
+                  <img class="rounded-circle img-fluid" src="resources/about3.jpg" alt="">
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                  	<h4>  </h4>
+                    <h4>프로젝트기능</h4>
+                  </div>
+                  <div class="timeline-body">
+                    <p class="explain">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                  </div>
+                </div>
+              </li>
+              <li class="timeline-inverted">
+                <div class="timeline-image">
+                  <img class="rounded-circle img-fluid" src="resources/about4.jpg" alt="">
+                </div>
+                <div class="timeline-panel">
+                  <div class="timeline-heading">
+                    <h4>개발환경</h4>
+                  </div>
+                  <div class="timeline-body">
+                  <p class="explain">
+                    [ OS ] Windows 7
+                    <br>[ Browser ] Crome
+					<br>[ WAS ] Apache Tomcat 8.0.35
+					</p>
+                  
+                  <a data-toggle="collapse" data-target="#demo">more....</a>
+                  <div id="demo" class="collapse">
+                  <p class="explain">
+					<br>[Language] 
+					<br>Java Script,JQuery,Java,Ajax,JSP,Json,JSTL
+					<br>[FrameWork]
+					<br>springframework 4.3.9, MyBatis, bootstrapspring-webmvc 4.3.9,Maven, mybatis 3.4.1, <br>mybatis-spring 1.2.2
+					<br>[API]
+                    </p>
+                  </div>
+                    
+                    </div>
+                </div>
+              </li>
+              <li class="timeline-inverted">
+                <div class="timeline-image">
+                  <h4><br>harulook</h4>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-  </div> 
-</body>
+    </section>
+
+ 
+    <!-- Team -->
+    <section class="bg-light" id="team">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">Our Team</h2>
+            <h3 class="section-subheading explain">하나미치 조원과 역할분담입니다<br>조원들의 블로그와 github도 소개합니다</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <div class="team-member">
+              <!-- <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt=""> -->
+              <h4>이해인</h4>
+              <p class="explain">
+              <br>제휴계약/결제 관리
+              <br>제휴 쇼핑몰
+              <br>명예의전당 관리</p>
+              <br>
+              <ul class="list-inline social-buttons">
+                <li class="list-inline-item">
+                  <a href="#">
+                    <i class="fa fa-user-o"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#">
+                    <i class="fa fa-github"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="team-member">
+              <!-- <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt=""> -->
+              <h4>황인준</h4>
+              <p class="explain">
+              <br>SNS게시물 관리
+              <br>SNS추천&댓글 관리
+              <br>날씨API</p>
+              <br>
+              <ul class="list-inline social-buttons">
+               <li class="list-inline-item">
+                  <a href="http://blog.naver.com/acddde9">
+                    <i class="fa fa-user-o"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#">
+                    <i class="fa fa-github"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="team-member">
+              <!-- <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt=""> -->
+              <h4>김민구</h4>
+              <p class="explain">
+              <br>회원 / 로그인 관리
+              <br>포인트/팔로우/방문자 관리</p>
+              <br>
+              <ul class="list-inline social-buttons">
+                <li class="list-inline-item">
+                  <a href="#">
+                    <i class="fa fa-user-o"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#">
+                    <i class="fa fa-github"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="team-member">
+              <!-- <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt=""> -->
+              <h4>박종빈</h4>
+              <p class="explain">
+              <br>광고계약/결제/환불 관리
+              <br>광고 게시물 관리
+              </p>
+              <br>
+              <ul class="list-inline social-buttons">
+                <li class="list-inline-item">
+                  <a href="#">
+                    <i class="fa fa-user-o"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#">
+                    <i class="fa fa-github"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+           
+          </div>
+        </div>
+      </div>
+    </section>
+
+   
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <span class="copyright">Copyright &copy; haruloook 2017</span>
+          </div>
+          <div class="col-md-4">
+            <!-- <ul class="list-inline social-buttons">
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-twitter"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-facebook"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+              </li>
+            </ul> -->
+          </div>
+          <div class="col-md-4">
+            <ul class="list-inline quicklinks">
+              <li class="list-inline-item">
+                <a href="#">Privacy Policy</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">Terms of Use</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+
+
+
+   
+  </body>
+
+ 
+    
 </html>
