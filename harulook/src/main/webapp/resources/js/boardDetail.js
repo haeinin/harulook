@@ -15,7 +15,8 @@ function boardDetail(msg) {
 	/* 게시물 상세정보 */
 	var snsDetailContent = '';
 	snsDetailContent += '<div style="float: left;">';
-	snsDetailContent += '<h4>'+msg.board.userNick+'(<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+msg.board.userId+'">'+msg.board.userId+'</a>)</h4>';
+	snsDetailContent += '<h4>'+ '<img style="height: 40px; max-width: 40px; max-height: 40px; width: 40px;" alt="no image" onError="this.src=\' resources/files/images/defaut.jpg \';" src='+ msg.userDetail.userImg +'>'
+							 + msg.board.userNick+'(<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+msg.board.userId+'">'+msg.board.userId+'</a>)</h4>';
 	snsDetailContent += '</div>';
 	snsDetailContent += '<button id="followInsertButton" class="btn btn-default">팔로우</button>';
 	snsDetailContent += '<span id="followCheckOverlap">&nbsp;</span>';

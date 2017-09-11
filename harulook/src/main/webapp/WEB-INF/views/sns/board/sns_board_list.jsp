@@ -143,8 +143,6 @@ $(function(){
 	likeAndComment();
 	showDetail(null);
 	
-
-	
 	/*  현재 페이지 값을 받아 number타입으로 변환  */
 	var currentPage = '<c:out value="${currentPage}" />';
 	currentPage = Number(currentPage);

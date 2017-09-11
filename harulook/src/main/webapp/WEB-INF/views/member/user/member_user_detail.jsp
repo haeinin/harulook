@@ -66,6 +66,10 @@
 						 	<!-- 아이디 -->
 				           	<label style="letter-spacing:11.3px" for="user_id">아이디:</label>${userDetail.userId}
 				            <br>
+				            <!-- 프로필사진 -->
+				            <label style="letter-spacing:11.3px" for="user_id">프로필사진</label><br>
+				            <img style="height: 50px; max-width: 50px; max-height: 50px; width: 50px;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${userDetail.userImg}">
+							<br>
 				            <!-- 닉네임 -->	        
 				       		<label style="letter-spacing:11.3px" for="user_nick">닉네임:</label>${userDetail.userNick}
 				         	<br>

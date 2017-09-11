@@ -27,6 +27,7 @@
 		<result property="userUrl" column="user_url"/>
 		
 		<result property="userPoint" column="user_point"/>
+		<result property="userImg" column="user_img"/>
 		<result property="userDate" column="user_date"/>
 		
 		<result property="colorValue" column="color_value"/>
@@ -154,7 +155,8 @@
 				,user_level
 				,user_date
 				,user_q
-				,user_a 
+				,user_a
+				,user_img 
 			from user
 			where user_id = #{userId}
 			;
@@ -420,6 +422,7 @@
 				,user_level
 				,user_point
 				,user_date
+				,user_img
 			) 
 			values(
 				#{userId}
@@ -438,6 +441,7 @@
 				,'일반회원'
 				,0
 				,date(now())
+				,#{userImg}
 			);
 		</insert>
       
