@@ -65,7 +65,7 @@
 <link rel="stylesheet" href="<c:url value="resources/css/cartoony-weather.css" />" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat' rel='stylesheet' type='text/css'>
 
-<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+<link rel="stylesheet" type="text/css" href="resources/css/style.css?ver=1">
 <!-- w3아이콘  -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script type="text/javascript" src="resources/js/modernizr.js"></script>

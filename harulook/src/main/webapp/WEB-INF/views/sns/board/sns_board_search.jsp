@@ -6,7 +6,6 @@
 <head>
 <!-- 색상 카테고리 아이콘 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<c:set value="${sessionScope.id}" var="sessionId" />
 <c:set value="${sessionScope.CcTall}" var="CcTall"></c:set>
 <c:set value="${sessionScope.CcSize}" var="CcSize"></c:set>
 <c:set value="${sessionScope.CcGender}" var="CcGender"></c:set>
@@ -15,7 +14,12 @@
 <c:set value="${sessionScope.CcuserStyle}" var="CcuserStyle"></c:set>
 <c:set value="${sessionScope.apiAdd}" var="apiAdd"></c:set>
 <c:set value="${sessionScope.sessionWeather}" var="sessionWeather"></c:set>
+<c:set value="${colorValueList}" var="searchColor"></c:set>
+<c:set value="${styleValueList}" var="searchStyle"></c:set>
+<c:set value="${situationValueList}" var="searchSituation"></c:set>
 <script type="text/javascript">
+
+var currentPage = 1; // 현재 페이지 선언 및 초기화
 
 /* 색상별 토글 버튼  */
 function toggleColor(color) { //color: 선택한 색상
@@ -23,20 +27,142 @@ function toggleColor(color) { //color: 선택한 색상
 	// 해당되는 색상 체크박스가 체크되지 않았을 때
 	if($('#searchColor'+color+'').is(':checked') == false) { 
 		$('input:checkbox[id="searchColor'+color+'"]').prop('checked',true);	// 체크박스 체크
-		$('#circle'+color+'').attr('class','fa fa-check-circle');				// 색상 버튼 체크 상태 그림으로 
+		$('#circle'+color+'').attr('class','fa fa-check-circle cursor-click');				// 색상 버튼 체크 상태 그림으로 
 		console.log('searchColor'+color+' check : ',$('#searchColor'+color+'').is(':checked'));
 		
 	// 해당되는 색상 체크박스가 이미 체크되었을 때
 	} else if($('#searchColor'+color+'').is(':checked') == true) {
 		$('input:checkbox[id="searchColor'+color+'"]').prop('checked',false);	// 체크박스 체크 해제
-		$('#circle'+color+'').attr('class','fa fa-circle');						// 색상 버튼 체크 해제 상태 그림으로 
+		$('#circle'+color+'').attr('class','fa fa-circle cursor-click');						// 색상 버튼 체크 해제 상태 그림으로 
 		console.log('searchColor'+color+' check : ',$('#searchColor'+color+'').is(':checked'));
 	}
+	currentPage = 1;	// 현재 페이지 1로 초기화
+	console.log('currentPage : ',currentPage);
 	boardSearch();		// 최신 게시물 검색 함수 호출
 	popBoardSearch();	// 인기 게시물 검색 함수 호출
 } 
 
 $(function(){
+
+	// 태그 검색 시 체크박스 체크를 위한 리스트 선언
+	var searchColor= '<c:out value="${searchColor}" />';
+	var searchStyle = '<c:out value="${searchStyle}" />';
+	var searchSituation = '<c:out value="${searchSituation}" />';
+	
+	console.log('currentPage : ',currentPage);
+	
+	console.log('searchColor : ',searchColor);
+	console.log('searchStyle : ',searchStyle);
+	console.log('searchSituation : ',searchSituation);
+	
+	/* 스타일 체크 판별 */
+	if(searchStyle.indexOf('style_01') != -1) {
+		$('input:checkbox[id="searchStyleClassic"]').prop("checked", true);
+	}
+	if(searchStyle.indexOf('style_02') != -1) {
+		$('input:checkbox[id="searchStyleCasual"]').prop("checked", true);
+	}
+	if(searchStyle.indexOf('style_03') != -1) {
+		$('input:checkbox[id="searchStyleVintage"]').prop("checked", true);
+	} 
+	if(searchStyle.indexOf('style_04') != -1) {
+		$('input:checkbox[id="searchStyleStreet"]').prop("checked", true);
+	}
+	if(searchStyle.indexOf('style_05') != -1) {
+		$('input:checkbox[id="searchStyleDandy"]').prop("checked", true);
+	} 
+	if(searchStyle.indexOf('style_06') != -1) {
+		$('input:checkbox[id="searchStyleLuxury"]').prop("checked", true);
+	}
+	if(searchStyle.indexOf('style_07') != -1) {
+		$('input:checkbox[id="searchStyleLovely"]').prop("checked", true);
+	} 
+	if(searchStyle.indexOf('style_08') != -1) {
+		$('input:checkbox[id="searchStyleLomantic"]').prop("checked", true);
+	}
+	if(searchStyle.indexOf('style_09') != -1) {
+		$('input:checkbox[id="searchStyleSimple"]').prop("checked", true);
+	} 
+	if(searchStyle.indexOf('style_10') != -1) {
+		$('input:checkbox[id="searchStyleActive"]').prop("checked", true);
+	}
+	
+	/* 색상 체크 판별 */
+	if(searchColor.indexOf('color_01') != -1) {
+		$('input:checkbox[id="searchColorRed"]').prop("checked", true);
+		$('#circleRed').attr('class','fa fa-check-circle');
+	} 
+	if(searchColor.indexOf('color_02') != -1) {
+		$('input:checkbox[id="searchColorOrange"]').prop("checked", true);
+		$('#circleOrange').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_03') != -1) {
+		$('input:checkbox[id="searchColorYellow"]').prop("checked", true);
+		$('#circleYellow').attr('class','fa fa-check-circle');
+	} 
+	if(searchColor.indexOf('color_04') != -1) {
+		$('input:checkbox[id="searchColorGreen"]').prop("checked", true);
+		$('#circleGreen').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_05') != -1) {
+		$('input:checkbox[id="searchColorBlue"]').prop("checked", true);
+		$('#circleBlue').attr('class','fa fa-check-circle');
+	} 
+	if(searchColor.indexOf('color_06') != -1) {
+		$('input:checkbox[id="searchColorNavy"]').prop("checked", true);
+		$('#circleNavy').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_07') != -1) {
+		$('input:checkbox[id="searchColorPurple"]').prop("checked", true);
+		$('#circlePurple').attr('class','fa fa-check-circle');
+	} 
+	if(searchColor.indexOf('color_08') != -1) {
+		$('input:checkbox[id="searchColorBlack"]').prop("checked", true);
+		$('#circleBlack').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_09') != -1) {
+		$('input:checkbox[id="searchColorGrey"]').prop("checked", true);
+		$('#circleGrey').attr('class','fa fa-check-circle');
+	} 
+	if(searchColor.indexOf('color_10') != -1) {
+		$('input:checkbox[id="searchColorWhite"]').prop("checked", true);
+		$('#circleWhite').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_11') != -1) {
+		$('input:checkbox[id="searchColorBrown"]').prop("checked", true);
+		$('#circleBrown').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_12') != -1) {
+		$('input:checkbox[id="searchColorBeige"]').prop("checked", true);
+		$('#circleBeige').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_13') != -1) {
+		$('input:checkbox[id="searchColorPink"]').prop("checked", true);
+		$('#circlePink').attr('class','fa fa-check-circle');
+	}
+	
+	/* 상황 체크 판별 */
+	if(searchSituation.indexOf('situation_01') != -1) {
+		$('input:checkbox[id="searchSituationSchool"]').prop("checked", true);
+	}
+	if(searchSituation.indexOf('situation_02') != -1) {
+		$('input:checkbox[id="searchSituationOffice"]').prop("checked", true);
+	}
+	if(searchSituation.indexOf('situation_03') != -1) {
+		$('input:checkbox[id="searchSituationParty"]').prop("checked", true);
+	} 
+	if(searchSituation.indexOf('situation_04') != -1) {
+		$('input:checkbox[id="searchSituationTraval"]').prop("checked", true);
+	}
+	if(searchSituation.indexOf('situation_05') != -1) {
+		$('input:checkbox[id="searchSituationSporty"]').prop("checked", true);
+	} 
+	if(searchSituation.indexOf('situation_06') != -1) {
+		$('input:checkbox[id="searchSituationPicnic"]').prop("checked", true);
+	}
+	if(searchSituation.indexOf('situation_07') != -1) {
+		$('input:checkbox[id="searchSituationGuest"]').prop("checked", true);
+	} 
 	
 	// 빨간색 버튼 클릭
 	$('#circleRed').click(function(){
@@ -46,7 +172,6 @@ $(function(){
 	// 주황색 버튼 클릭
 	$('#circleOrange').click(function(){
 		toggleColor('Orange');
-		
 	});
 	
 	// 노란색 버튼 클릭
@@ -121,9 +246,9 @@ $(function(){
 		$('#snsBoardTall').val('');
 		$('#snsBoardSize').val('');
 		$('#snsBoardLoc').val('');
+		$('#snsBoardAge').val('');
 		$('#snsGenderMale').prop('checked',false);
 		$('#snsGenderFemale').prop('checked',false);
-		$('#snsBoardAge').val('');
 		$('input:checkbox[name="styleValue"]').prop('checked', false);
 		$('input:checkbox[name="colorValue"]').prop('checked',false);
 		$('input:checkbox[name="situationValue"]').prop('checked',false);
@@ -140,6 +265,7 @@ $(function(){
 		$('#circleBrown').attr('class','fa fa-circle');
 		$('#circleBeige').attr('class','fa fa-circle');
 		$('#circlePink').attr('class','fa fa-circle');
+		currentPage = 1;
 		boardSearch();
 		popBoardSearch();
 	});
@@ -159,6 +285,8 @@ $(function(){
 		$('input:checkbox[name="styleValue"]').prop('checked', false);
 		$('input:checkbox[name="colorValue"]').prop('checked',false);
 		$('input:checkbox[name="situationValue"]').prop('checked',false);
+		
+		/* 색상 버튼 초기화 */
 		$('#circleRed').attr('class','fa fa-circle');
 		$('#circleOrange').attr('class','fa fa-circle');
 		$('#circleYellow').attr('class','fa fa-circle');
@@ -174,17 +302,20 @@ $(function(){
 		$('#circlePink').attr('class','fa fa-circle');
 		
 		/* 세션에 셋팅된 사용자 정보를 필터에 적용 */
-		$('#snsBoardWeather').val(sessionWeather);
+		$('#snsBoardWeather').val(sessionWeather);	// 현재 날씨
+		$('#snsBoardLoc').val(apiAdd);				// 접속 지역
+		$('#snsBoardTall').val(userTall);			// 키
+		$('#snsBoardSize').val(userSize);			// 체형
+		
 		console.log('sessionWeather : ',sessionWeather);
-		$('#snsBoardLoc').val(apiAdd);
-		$('#snsBoardTall').val(userTall);
-		$('#snsBoardSize').val(userSize);
+		
+		// 성별 - 라디오 버튼이라 조건문으로 처리
 		if(userGender == '여') {
 			$('#snsGenderMale').prop('checked',true);
 		} else {
 			$('#snsGenderFemale').prop('checked',true);
 		}
-		$('#snsBoardAge').val(userAge);
+		$('#snsBoardAge').val(userAge);				// 연령대
 		
 		/* 사용자 스타일 체크 판별 */
 		if(userStyle.indexOf('클래식') != -1) {
@@ -271,6 +402,7 @@ $(function(){
 			$('input:checkbox[id="searchColorPink"]').prop("checked", true);
 			$('#circlePink').attr('class','fa fa-check-circle');
 		}
+		currentPage = 1;
 		boardSearch();
 		popBoardSearch();
 	});
@@ -359,19 +491,19 @@ $(function(){
 				</div>
 				<div class="form-group">
 			      	<label>색상 :</label>
-			     	<a href="#"><i id="circleRed" class="fa fa-circle" style="font-size: 24px; color: red; background-color: black; border-radius: 47%; width: 22px;"></i></a>
-			     	<a href="#"><i id="circleOrange" class="fa fa-circle" style="font-size: 24px; color: orange; background-color: black; border-radius: 47%; width: 22px;"></i></a>
-			     	<a href="#"><i id="circleYellow" class="fa fa-circle" style="font-size: 24px; color: yellow; background-color: black; border-radius: 47%; width: 22px;"></i></a>
-			     	<a href="#"><i id="circleGreen" class="fa fa-circle" style="font-size: 24px; color: green; background-color: black; border-radius: 47%; width: 22px;"></i></a>
-			     	<a href="#"><i id="circleBlue" class="fa fa-circle" style="font-size: 24px; color: deepskyblue; background-color: black; border-radius: 47%; width: 22px;"></i></a>
-			     	<a href="#"><i id="circleNavy" class="fa fa-circle" style="font-size: 28px; color: navy;"></i></a>
-			     	<a href="#"><i id="circlePurple" class="fa fa-circle" style="font-size: 28px; color: purple;"></i></a>
-			     	<a href="#"><i id="circleBlack" class="fa fa-circle" style="font-size: 28px; color: black;"></i></a>
-			     	<a href="#"><i id="circleGrey" class="fa fa-circle" style="font-size: 24px; color: grey; background-color: black; border-radius: 47%; width: 22px;"></i></a>
-			     	<a href="#"><i id="circleWhite" class="fa fa-circle" style="font-size: 24px; color: white; background-color: black; border-radius: 47%; width: 22px;"></i></a>
-			     	<a href="#"><i id="circleBrown" class="fa fa-circle" style="font-size: 24px; color: brown; background-color: black; border-radius: 47%; width: 22px;"></i></a>
-			     	<a href="#"><i id="circleBeige" class="fa fa-circle" style="font-size: 24px; color: beige; background-color: black; border-radius: 47%; width: 22px;"></i></a>
-			     	<a href="#"><i id="circlePink" class="fa fa-circle" style="font-size: 24px; color: pink; background-color: black; border-radius: 47%; width: 22px;"></i></a>
+			     	<i id="circleRed" class="fa fa-circle cursor-click" title="빨강" style="font-size: 24px; color: red; background-color: black; border-radius: 47%; width: 22px;"></i>
+			     	<i id="circleOrange" class="fa fa-circle cursor-click" title="주황" style="font-size: 24px; color: orange; background-color: black; border-radius: 47%; width: 22px;"></i>
+			     	<i id="circleYellow" class="fa fa-circle cursor-click" title="노랑" style="font-size: 24px; color: yellow; background-color: black; border-radius: 47%; width: 22px;"></i>
+			     	<i id="circleGreen" class="fa fa-circle cursor-click" title="초록" style="font-size: 24px; color: green; background-color: black; border-radius: 47%; width: 22px;"></i>
+			     	<i id="circleBlue" class="fa fa-circle cursor-click" title="파랑" style="font-size: 24px; color: deepskyblue; background-color: black; border-radius: 47%; width: 22px;"></i>
+			     	<i id="circleNavy" class="fa fa-circle cursor-click" title="남색(네이비)" style="font-size: 28px; color: navy;"></i>
+			     	<i id="circlePurple" class="fa fa-circle cursor-click" title="보라" style="font-size: 28px; color: purple;"></i>
+			     	<i id="circleBlack" class="fa fa-circle cursor-click" title="검정" style="font-size: 28px; color: black;"></i>
+			     	<i id="circleGrey" class="fa fa-circle cursor-click" title="회색" style="font-size: 24px; color: grey; background-color: black; border-radius: 47%; width: 22px;"></i>
+			     	<i id="circleWhite" class="fa fa-circle cursor-click" title="흰색" style="font-size: 24px; color: white; background-color: black; border-radius: 47%; width: 22px;"></i>
+			     	<i id="circleBrown" class="fa fa-circle cursor-click" title="갈색" style="font-size: 24px; color: brown; background-color: black; border-radius: 47%; width: 22px;"></i>
+			     	<i id="circleBeige" class="fa fa-circle cursor-click" title="베이지" style="font-size: 24px; color: beige; background-color: black; border-radius: 47%; width: 22px;"></i>
+			     	<i id="circlePink" class="fa fa-circle cursor-click" title="분홍" style="font-size: 24px; color: pink; background-color: black; border-radius: 47%; width: 22px;"></i>
 			     	
 			     	<!-- 색상 체크박스는 보이지 않게 설정 -->
 			     	<div style="display: none;">
@@ -392,13 +524,13 @@ $(function(){
 			    </div>
 			    <div class="form-group">
 			      	<label class="searchCategory" for="searchSnsBoardSituation">상황 :</label>
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_01">학교
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_02">출근
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_03">파티
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_04">여행
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_05">운동
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객    	
+			      	<input class="searchCategory" type="checkbox" id="searchSituationSchool" name="situationValue" value="situation_01">학교
+			      	<input class="searchCategory" type="checkbox" id="searchSituationOffice" name="situationValue" value="situation_02">출근
+			      	<input class="searchCategory" type="checkbox" id="searchSituationParty" name="situationValue" value="situation_03">파티
+			      	<input class="searchCategory" type="checkbox" id="searchSituationTraval" name="situationValue" value="situation_04">여행
+			      	<input class="searchCategory" type="checkbox" id="searchSituationSporty" name="situationValue" value="situation_05">운동
+			      	<input class="searchCategory" type="checkbox" id="searchSituationPicnic" name="situationValue" value="situation_06">나들이
+			      	<input class="searchCategory" type="checkbox" id="searchSituationGuest" name="situationValue" value="situation_07">하객    	
 			    </div>
 			    <div class="form-group">
 			    	<label class="searchCategory" for="userId">아이디 :</label>

@@ -154,14 +154,6 @@ $(function(){
 	
 	likeAndComment();
 	showDetail(null);
-	currentPage = 1;
-
-	
-	/*  현재 페이지 값을 받아 number타입으로 변환  */
-	var currentPage = '<c:out value="${currentPage}" />';
-	currentPage = Number(currentPage);
-	console.log('currentPage : ',currentPage);
-	console.log('typeof currentPage : ',typeof currentPage);
 	
 	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
 	$('.searchCategory').change(function(){

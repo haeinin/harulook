@@ -15,9 +15,30 @@
 <!-- bootstrap javascript소스를 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 색상 카테고리 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>~하루룩~</title>
 <script type="text/javascript">
+
+/* 색상별 토글 버튼  */
+function toggleColor(color) { //color: 선택한 색상
+	
+	// 해당되는 색상 체크박스가 체크되지 않았을 때
+	if($('#searchColor'+color+'').is(':checked') == false) { 
+		$('input:checkbox[id="searchColor'+color+'"]').prop('checked',true);	// 체크박스 체크
+		$('#circle'+color+'').attr('class','fa fa-check-circle cursor-click');				// 색상 버튼 체크 상태 그림으로 
+		console.log('searchColor'+color+' check : ',$('#searchColor'+color+'').is(':checked'));
+		
+	// 해당되는 색상 체크박스가 이미 체크되었을 때
+	} else if($('#searchColor'+color+'').is(':checked') == true) {
+		$('input:checkbox[id="searchColor'+color+'"]').prop('checked',false);	// 체크박스 체크 해제
+		$('#circle'+color+'').attr('class','fa fa-circle cursor-click');						// 색상 버튼 체크 해제 상태 그림으로 
+		console.log('searchColor'+color+' check : ',$('#searchColor'+color+'').is(':checked'));
+	}
+} 
+
 $(function(){
+	
 	//이미지 파일 입력 여부 검사
 	$('#uploadFile').change(function(){
 		if($('#uploadFile').val() == '') { 
@@ -29,8 +50,20 @@ $(function(){
 		}
 	});
 	
+	//내용 입력 여부 검사
+	$('#snsBoardContent').change(function(){
+		if($('#snsBoardContent').val() == '') { 
+			$('#contentFail').show();
+			$('#snsBoardContent').focus();
+		return false;
+		}else{
+			$('#contentFail').hide();
+		}
+	});
+	
 	//날씨 입력 여부 검사
 	$('#snsBoardWeather').change(function(){
+		
 		if($('#snsBoardWeather').val() == '') { 
 			$('#weatherFail').show();
 			$('#snsBoardWeather').focus();
@@ -42,6 +75,7 @@ $(function(){
 	
 	//지역 입력 여부 검사
 	$('#snsBoardLoc').change(function(){
+		
 		if($('#snsBoardLoc').val() == '') { 
 			$('#locFail').show();
 			$('#snsBoardLoc').focus();
@@ -49,6 +83,110 @@ $(function(){
 		}else{
 			$('#locFail').hide();
 		}
+	});
+	
+	$('#addButton').click(function(){	//회원가입버튼
+		
+		if(!$('#uploadFile').val()){	//아이디입력 안했을때
+			alert('사진을 올려주세요.');
+			$('#uploadFile').focus();
+			return false;
+		}else if(!$('#snsBoardWeather').val()){	//비밀번호 입력 안했을때
+			alert('날씨를 입력해주세요');
+			$('#snsBoardWeather').focus();
+			return false;
+		}else if(!$('#snsBoardLoc').val()){	//닉네임
+			alert('지역을 입력해주세요');
+			$('#snsBoardLoc').focus();
+			return false;
+		}else{
+			$('#insertForm').submit();
+		}
+		
+		
+    });
+	
+
+	// 빨간색 버튼 클릭
+	$('#circleRed').click(function(){
+		toggleColor('Red');
+	});
+	
+	// 주황색 버튼 클릭
+	$('#circleOrange').click(function(){
+		toggleColor('Orange');
+	});
+	
+	// 노란색 버튼 클릭
+	$('#circleYellow').click(function(){
+		toggleColor('Yellow');
+	});
+	
+	// 초록색 버튼 클릭
+	$('#circleGreen').click(function(){
+		toggleColor('Green');
+	});
+	
+	// 파란색 버튼 클릭
+	$('#circleBlue').click(function(){
+		toggleColor('Blue');
+	});
+	
+	// 남색 버튼 클릭
+	$('#circleNavy').click(function(){
+		toggleColor('Navy');
+	});
+	
+	// 보라색 버튼 클릭
+	$('#circlePurple').click(function(){
+		toggleColor('Purple');
+	});
+	
+	// 검정색 버튼 클릭
+	$('#circleBlack').click(function(){
+		toggleColor('Black');
+	});
+	
+	// 회색 버튼 클릭
+	$('#circleGrey').click(function(){
+		toggleColor('Grey');
+	});
+	
+	// 흰색 버튼 클릭
+	$('#circleWhite').click(function(){
+		toggleColor('White');
+	});
+	
+	// 갈색 버튼 클릭
+	$('#circleBrown').click(function(){
+		toggleColor('Brown');
+	});
+	
+	// 베이지색 버튼 클릭
+	$('#circleBeige').click(function(){
+		toggleColor('Beige');
+	});
+	
+	// 분홍색 버튼 클릭
+	$('#circlePink').click(function(){
+		toggleColor('Pink');
+	});
+	
+	// 초기화 버튼 클릭
+	$('#resetBtn').click(function(){
+		$('#circleRed').attr('class','fa fa-circle');
+		$('#circleOrange').attr('class','fa fa-circle');
+		$('#circleYellow').attr('class','fa fa-circle');
+		$('#circleGreen').attr('class','fa fa-circle');
+		$('#circleBlue').attr('class','fa fa-circle');
+		$('#circleNavy').attr('class','fa fa-circle');
+		$('#circlePurple').attr('class','fa fa-circle');
+		$('#circleBlack').attr('class','fa fa-circle');
+		$('#circleGrey').attr('class','fa fa-circle');
+		$('#circleWhite').attr('class','fa fa-circle');
+		$('#circleBrown').attr('class','fa fa-circle');
+		$('#circleBeige').attr('class','fa fa-circle');
+		$('#circlePink').attr('class','fa fa-circle');
 	});
 });
 </script>
@@ -65,134 +203,194 @@ $(function(){
     	<div class="col-xs-1">
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
-	    <div id="div1" class="col-xs-9">
-		게시물 입력 화면
-			<div class="container">
-			<form id="insertForm" action="${pageContext.request.contextPath}/boardInsert" method="post" enctype="multipart/form-data">
+    	<div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-8">
+	    	<div class="col-xs-12">
+			<form class="form-horizontal" id="insertForm" action="${pageContext.request.contextPath}/boardInsert" method="post" enctype="multipart/form-data">
 		        <input class="form-control" name="userId" id="userId" type="hidden" value="${sessionScope.id}"/>
 		        <div class="form-group">
-		            <label for="uploadFile">snsBoardImg :</label>
-		            <input class="form-control" name="uploadFile" id="uploadFile" type="file"/>
-		            <span id="imgFail" >사진을 올려주세요.</span>
+		            <label class="col-xs-3 control-label" for="uploadFile">사진 :</label>
+			        <div class="col-xs-6">
+			            <input class="form-control" name="uploadFile" id="uploadFile" type="file"/>
+			            <span id="imgFail" >사진을 올려주세요.</span>
+		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label for="snsBoardContent">snsBoardContent :</label>
-		            <input class="form-control" name="snsBoardContent" id="snsBoardContent" type="text"/>
+		            <label class="col-xs-3 control-label" for="snsBoardContent">내용 :</label>
+		            <div class="col-xs-6">
+			            <input class="form-control" name="snsBoardContent" id="snsBoardContent" type="text"/>
+			            <span id="contentFail" >내용을 입력해주세요.</span>
+		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label for="snsBoardLoc">snsBoardLoc :</label>
-		            <select class="form-control" name="snsBoardLoc" id="snsBoardLoc">
-		            	<option>${sessionScope.apiAdd}</option>
-		            	<option>서울</option>
-		            	<option>부산</option>
-		            	<option>울산</option>
-		            	<option>대구</option>
-		            	<option>인천</option>
-		            	<option>대전</option>
-		            	<option>광주</option>
-		            	<option>제주</option>
-		            	<option>세종</option>
-		            	<option>경기</option>
-		            	<option>강원</option>
-		            	<option>충북</option>
-		            	<option>충남</option>
-		            	<option>경북</option>
-		            	<option>경남</option>
-		            	<option>전북</option>
-		            	<option>전남</option>
-		            	
-		            </select>
-		            <span id="locFail" >지역을 선택해주세요.</span>
+		            <label class="col-xs-3 control-label" for="snsBoardLoc">지역 :</label>
+		            <div class="col-xs-6">
+			            <select class="form-control" name="snsBoardLoc" id="snsBoardLoc">
+			            	<option>${sessionScope.apiAdd}</option>
+			            	<option>서울</option>
+			            	<option>부산</option>
+			            	<option>울산</option>
+			            	<option>대구</option>
+			            	<option>인천</option>
+			            	<option>대전</option>
+			            	<option>광주</option>
+			            	<option>제주</option>
+			            	<option>세종</option>
+			            	<option>경기</option>
+			            	<option>강원</option>
+			            	<option>충북</option>
+			            	<option>충남</option>
+			            	<option>경북</option>
+			            	<option>경남</option>
+			            	<option>전북</option>
+			            	<option>전남</option>
+			            </select>
+			            <span id="locFail" >지역을 선택해주세요.</span>
+		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label for="snsBoardWeather">snsBoardWeather :</label>
-		            <select class="form-control" name="snsBoardWeather" id="snsBoardWeather">
-		            	<option>${sessionScope.sessionWeather}</option>
-		            	<option>맑음</option>
-		            	<option>구름조금</option>
-		            	<option>흐림</option>
-		            	<option>비</option>
-		            	<option>눈</option>
-		            </select>
-	            	<span id="weatherFail" >현재 날씨를 선택해주세요.</span>
+		            <label class="col-xs-3 control-label" for="snsBoardWeather">날씨 :</label>
+		            <div class="col-xs-6">
+			            <select class="form-control" name="snsBoardWeather" id="snsBoardWeather">
+			            	<option>${sessionScope.sessionWeather}</option>
+			            	<option>맑음</option>
+			            	<option>구름조금</option>
+			            	<option>흐림</option>
+			            	<option>비</option>
+			            	<option>눈</option>
+			            </select>
+		            	<span id="weatherFail" >현재 날씨를 선택해주세요.</span>
+	            	</div>
 		        </div>
 		        <div class="form-group">
-		            <label for="snsBoardTall">snsBoardTall :</label>
-		            <select class="form-control" name="snsBoardTall" id="snsBoardTall">
-		            	<option></option>
-		            	<option>큰키</option>
-		            	<option>보통키</option>
-		            	<option>작은키</option>
-		            </select>
+		            <label class="col-xs-3 control-label" for="snsBoardTall">키 :</label>
+		            <div class="col-xs-6">
+			            <select class="form-control" name="snsBoardTall" id="snsBoardTall">
+			            	<option></option>
+			            	<option>큰키</option>
+			            	<option>보통키</option>
+			            	<option>작은키</option>
+			            </select>
+		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label for="snsBoardSize">snsBoardSize :</label>
-		            <select class="form-control" name="snsBoardSize" id="snsBoardSize">
-		            	<option></option>
-		            	<option>마른</option>
-		            	<option>보통</option>
-		            	<option>뚱뚱</option>
-		            </select>
+		            <label class="col-xs-3 control-label" for="snsBoardSize">체형 :</label>
+		            <div class="col-xs-6">
+			            <select class="form-control" name="snsBoardSize" id="snsBoardSize">
+			            	<option></option>
+			            	<option>마른</option>
+			            	<option>보통</option>
+			            	<option>뚱뚱</option>
+			            </select>
+		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label for="snsBoardGender">snsBoardGender :</label>
-		            <input name="snsBoardGender" id="snsBoardGender" type="radio" value="남">남
-		            <input name="snsBoardGender" id="snsBoardGender" type="radio" value="여">여
+		            <label class="col-xs-3 control-label" for="snsBoardGender">성별 :</label>
+		            <div class="col-xs-6">
+			            <input name="snsBoardGender" id="snsBoardGender" type="radio" value="남">남
+			            <input name="snsBoardGender" id="snsBoardGender" type="radio" value="여">여
+			        </div>
 		        </div>
 		        <div class="form-group">
-		            <label for="snsBoardAge">snsBoardAge :</label>
-		            <select class="form-control" name="snsBoardAge" id="snsBoardAge">
-		            	<option></option>
-		            	<option>10</option>
-		            	<option>20</option>
-		            	<option>30</option>
-		            	<option>40</option>
-		            	<option>50</option>
-		            </select>
+		            <label class="col-xs-3 control-label" for="snsBoardAge">연령대 :</label>
+		            <div class="col-xs-6">
+			            <select class="form-control" name="snsBoardAge" id="snsBoardAge">
+			            	<option></option>
+			            	<option>10</option>
+			            	<option>20</option>
+			            	<option>30</option>
+			            	<option>40</option>
+			            	<option>50</option>
+			            </select>
+		            </div>
 		        </div>
 		        <div class="form-group">
-				<label for="searchSnsBoardStyle">snsBoardStyle :</label>
-			  	<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브
-				<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플
-				<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱
-				<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리
-				<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리
-				<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디
-				<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트
-				<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지
-				<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼
-				<input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식
-			</div>
-			<div class="form-group">
-		       	<label for="searchSnsBoardColor">snsBoardColor :</label>
-		      	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01">빨강
-		       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02">주황
-		       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03">노랑
-		       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04">초록
-		       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05">파랑
-		       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06">남색
-		       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07">보라
-		       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13">핑크
-		       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11">갈색
-		       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12">베이지
-		       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08">검정
-		       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09">회색
-		     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10">흰색
-		     </div>
-		     <div class="form-group">
-		       	<label for="searchSnsBoardSituation">snsBoardSituation :</label>
-		       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_01">학교
-		       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객
-		       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이
-		       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_05">운동
-		       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_04">여행
-		       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_03">파티
-		       	<input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_02">출근
-		     </div>
-		        <div>
+					<label class="col-xs-3 control-label" for="searchSnsBoardStyle">스타일 :</label>
+					<div class="col-xs-6">
+					<table>
+						<tr>
+							<td><input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식</td>
+							<td><input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_02">캐쥬얼</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_03">빈티지</td>
+							<td><input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_04">스트리트</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_05">댄디</td>
+							<td><input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_06">럭셔리</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_07">러블리</td>
+							<td><input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_08">로맨틱</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_09">심플</td>
+							<td><input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_10">액티브</td>
+						</tr>
+					</table>
+					</div>
+				</div>
+				<div class="form-group">
+			       	<label class="col-xs-3 control-label" for="searchSnsBoardColor">색상 :</label>
+			       	<div class="col-xs-6">
+				       	<i id="circleRed" class="fa fa-circle cursor-click" title="빨강" style="font-size: 24px; color: red; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleOrange" class="fa fa-circle cursor-click" title="주황" style="font-size: 24px; color: orange; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleYellow" class="fa fa-circle cursor-click" title="노랑" style="font-size: 24px; color: yellow; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleGreen" class="fa fa-circle cursor-click" title="초록" style="font-size: 24px; color: green; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleBlue" class="fa fa-circle cursor-click" title="파랑" style="font-size: 24px; color: deepskyblue; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleNavy" class="fa fa-circle cursor-click" title="남색(네이비)" style="font-size: 28px; color: navy;"></i>
+				     	<i id="circlePurple" class="fa fa-circle cursor-click" title="보라" style="font-size: 28px; color: purple;"></i>
+				     	<i id="circleBlack" class="fa fa-circle cursor-click" title="검정" style="font-size: 28px; color: black;"></i>
+				     	<i id="circleGrey" class="fa fa-circle cursor-click" title="회색" style="font-size: 24px; color: grey; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleWhite" class="fa fa-circle cursor-click" title="흰색" style="font-size: 24px; color: white; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleBrown" class="fa fa-circle cursor-click" title="갈색" style="font-size: 24px; color: brown; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circleBeige" class="fa fa-circle cursor-click" title="베이지" style="font-size: 24px; color: beige; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	<i id="circlePink" class="fa fa-circle cursor-click" title="분홍" style="font-size: 24px; color: pink; background-color: black; border-radius: 47%; width: 22px;"></i>
+				     	
+				     	<div style="display:none;">
+					       	<input type="checkbox" id="searchColorRed" name="colorValue" value="color_01">빨강
+							<input type="checkbox" id="searchColorOrange" name="colorValue" value="color_02">주황
+							<input type="checkbox" id="searchColorYellow" name="colorValue" value="color_03">노랑
+							<input type="checkbox" id="searchColorGreen" name="colorValue" value="color_04">초록
+							<input type="checkbox" id="searchColorBlue" name="colorValue" value="color_05">파랑
+							<input type="checkbox" id="searchColorNavy" name="colorValue" value="color_06">남색
+							<input type="checkbox" id="searchColorPurple" name="colorValue" value="color_07">보라
+							<input type="checkbox" id="searchColorBlack" name="colorValue" value="color_08">검정
+							<input type="checkbox" id="searchColorGrey" name="colorValue" value="color_09">회색
+							<input type="checkbox" id="searchColorWhite" name="colorValue" value="color_10">흰색
+							<input type="checkbox" id="searchColorBrown" name="colorValue" value="color_11">갈색
+							<input type="checkbox" id="searchColorBeige" name="colorValue" value="color_12">베이지
+							<input type="checkbox" id="searchColorPink" name="colorValue" value="color_13">핑크
+				     	</div>
+			     	</div>
+			     </div>
+			     <div class="form-group">
+			       	<label class="col-xs-3 control-label" for="searchSnsBoardSituation">상황 :</label>
+			       	<div class="col-xs-6">
+			       	<table>
+						<tr>
+							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_01">학교</td>
+							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_02">출근</td>
+							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_03">파티</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_04">여행</td>
+							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_05">운동</td>
+							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객</td>
+						</tr>
+					</table>
+					</div>
+			     </div>
+			    <br>
+			    <div class="col-xs-6"></div>
+		        <div class="col-xs-3">
 		            <input class="btn btn-default" id="addButton" type="submit" value="글입력"/>
-		            <input class="btn btn-default" type="reset" value="초기화"/>
-		            <a class="btn btn-default" href="${pageContext.request.contextPath}/boardList">글목록</a>
+		            <input id="resetBtn" class="btn btn-default" type="reset" value="초기화"/>
+		            <a class="btn btn-default" href="${pageContext.request.contextPath}/home">홈으로</a>
 		        </div>
 		    </form>
 		    </div>

@@ -9,7 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>~하루룩~</title>
 
-<!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- jquery를 사용하기위한 CDN주소 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- Latest compiled and minified JavaScript -->
@@ -31,58 +30,70 @@
 <script type="text/javascript">
 
 
-/* 게시글 추천수, 댓글수 보이기 및 감추기 */
+/* 게시물 목록에서 게시글 추천수, 댓글수 보이기 및 감추기 */
 function likeAndComment() {
-	$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기
+	$('.likes').hide();	// 게시글 추천수, 댓글 수 감추기(초기화)
+	
+	// 해당 게시물에 마우스를 올렸을 때, 추천수와 댓글수 보이기 
 	$('.sns-photo-box').mouseenter(function(){
 		$(this).find('.likes').show();
 	});
+	
+	// 마우스가 해당 게시물 영역을 벗어났을 때, 추천수와 댓글수 감추기
 	$('.sns-photo-box').mouseleave(function(){
 		$(this).find('.likes').hide();
 	});
 }
 
-/*  게시물 클릭  */
-function showDetail(data) {
+/* 게시물 상세보기 기능을 활성화 해주는 함수  */
+function showDetail(data) {	// data: 게시물 필터를 이용한 검색 시 ajax 응답
+	
+	// 게시물 목록에서 게시물 클릭
 	$('.sns-photo-box').click(function(){
-		var index = $('.sns-photo-box').index(this);
-		if(data != null) {
-			var boardNo = data[index].snsBoardNo;
-		} else {
-			var boardNo = $(this).children().eq(0).val();
+		var index = $('.sns-photo-box').index(this); // 검색 결과로 나온 게시물들의 index
+		
+		// 게시물 필터 이용 여부에 따른 분기문
+		if(data != null) {	// 게시물 필터로 검색한 경우
+			var boardNo = data[index].snsBoardNo;	//	게시물 검색 ajax 결과의 index번째 게시물 번호 
+		} else {			// 게시물 검색하지 않은 경우
+			var boardNo = $(this).children().eq(0).val(); // 선택한 게시물 영역의 첫 번째 자식 요소가 가지는 값()
 		}
 		
 		console.log('index : ',index);
 		console.log('data[',index,'].snsBoardNo : ',boardNo,'');
 		
-		
+		// 게시물 상세보기를 위한 데이터를 요청하는  ajax
 		var boardDetailRequest = $.ajax({
 			url : './boardDetail',
 			method : 'get',
-			data :{'boardNo' : boardNo},
+			data :{'boardNo' : boardNo},	// 위의 과정에서 얻은 게시물 번호를 넘긴다.
 			datatype : 'json',
 			success : function(msg) {
-				boardDetail(msg);
-				followCheck(msg);
+				boardDetail(msg);	// 게시물 상세보기 함수 호출
+				followCheck(msg);	// 해당 게시물 등록자와 팔로우 유무 검색 함수
 			}
 		});
-		$('#snsModal').modal();
+		$('#snsModal').modal();	// 모달 실행
 	});
 }
 
+/* 게시물 검색 */
 function boardSearch(){
 	
 	/* 체크박스 체크 유무를 배열로 처리  */
 	var colorValue=[], styleValue=[], situationValue=[];
 	
+	// 색상 체크박스에서 선택된 항목을 배열에 추가
 	$(":checkbox[name='colorValue']:checked").each(function(i){
 		colorValue.push($(this).val());
 	  });
 	
+	// 스타일 체크박스에서 선택된 항목을 배열에 추가
 	$(":checkbox[name='styleValue']:checked").each(function(i){
 		styleValue.push($(this).val());
 	  });
 	
+	// 상황 체크박스에서 선택된 항목을 배열에 추가
 	$(":checkbox[name='situationValue']:checked").each(function(i){
 		situationValue.push($(this).val());
 	  });
@@ -93,25 +104,26 @@ function boardSearch(){
 	
 	$.ajaxSettings.traditional = true; //배열 형태로 서버쪽 전송을 위한 설정
 	
+	// 검색 조건에 맞는 게시물 목록을 요청하는 ajax
 	$.ajax({
 		url : './boardSearchList',
 		method : 'get',
-		data : { 'userId'		: $('#userId').val()
-				,'snsBoardWeather'	: $('#snsBoardWeather').val()
-				,'snsBoardTall'		: $('#snsBoardTall').val()
-				,'snsBoardSize'		: $('#snsBoardSize').val()
-				,'snsBoardLoc'		: $('#snsBoardLoc').val()
-				,'snsBoardGender'	: $(":input:radio[name=snsBoardGender]:checked").val()
-				,'snsBoardAge'		: $('#snsBoardAge').val()
-				,'colorValue'		: colorValue
-				,'styleValue'		: styleValue
-				,'situationValue'	: situationValue
+		data : { 'userId'		: $('#userId').val()	// 검색창에 입력한 게시자 아이디
+				,'snsBoardWeather'	: $('#snsBoardWeather').val()	// 선택한 날씨
+				,'snsBoardTall'		: $('#snsBoardTall').val()		// 선택한 키
+				,'snsBoardSize'		: $('#snsBoardSize').val()		// 선택한 체형
+				,'snsBoardLoc'		: $('#snsBoardLoc').val()		// 선택한 지형
+				,'snsBoardGender'	: $(":input:radio[name=snsBoardGender]:checked").val() // 선택한 성별(라디오 버튼)
+				,'snsBoardAge'		: $('#snsBoardAge').val()		// 선택한 연령대
+				,'colorValue'		: colorValue					// 선택한 색상 체크박스 배열
+				,'styleValue'		: styleValue					// 선택한 스타일 체크박스 배열 
+				,'situationValue'	: situationValue				// 선택한 상황 체크박스 배열
 				},
 		datatype : 'json',
 		success : function(data){
 			console.log(data);
-			var boardHtml = '';
-			if(data.length > 0) {
+			var boardHtml = '';	// 검색 결과를 html으로 나타낼 변수 초기화
+			if(data.length > 0) {	// 검색 조건에 해당하는 검색 결과가 존재하는 경우
 				for(var i=0; i<data.length; i++) {
 					boardHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
 					boardHtml += '<div class="sns-photo-box" value="'+data[i].snsBoardNo+'">';
@@ -128,34 +140,26 @@ function boardSearch(){
 					boardHtml += '</div>';
 					
 				}
-			} else {
+			} else {	// 검색 조건에 해당하는 결과가 없을 경우
 				boardHtml += '<span>일치하는 결과가 없습니다.</span>';
 			}	
-			$('#boardOutput').html(boardHtml);
-			likeAndComment();
-			showDetail(data);
+			$('#boardOutput').html(boardHtml);	// 작성한 문장을 출력
+			likeAndComment();	// 검색 결과 게시물의 추천수, 댓글수 감추기 및 보이기 함수 호출
+			showDetail(data);	// 게시물 상세보기 활성화 함수에 검색 결과를 대입하여 호출
 		}
 	});
 }
 
 $(function(){     
 	
-	likeAndComment();
-	showDetail(null);
-	
-
-	
-	/*  현재 페이지 값을 받아 number타입으로 변환  */
-	var currentPage = '<c:out value="${currentPage}" />';
-	currentPage = Number(currentPage);
-	console.log('currentPage : ',currentPage);
-	console.log('typeof currentPage : ',typeof currentPage);
+	likeAndComment();	// 검색 결과 게시물의 추천수, 댓글수 감추기 및 보이기 함수 호출 
+	showDetail(null);	// 게시물 상세보기 활성화 함수에 null갑을 대입하여 호출
 	
 	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
 	$('.searchCategory').change(function(){
-		currentPage = 1;
+		currentPage = 1;	// 현재 페이지를 1페이지로 초기화
 		console.log('currentPage : ',currentPage);
-		boardSearch();
+		boardSearch();		// 게시물 검색 함수 호출
 	});
 	
 	/* 더 읽어들이기 버튼 클릭 */
@@ -163,14 +167,17 @@ $(function(){
  		/* 체크박스 체크 유무를 배열로 처리  */
  		var colorValue=[], styleValue=[], situationValue=[];
  		
+ 		// 색상 체크박스에서 선택된 항목을 배열에 추가
  		$(":checkbox[name='colorValue']:checked").each(function(i){
  			colorValue.push($(this).val());
  		  });
  		
+ 		// 스타일 체크박스에서 선택된 항목을 배열에 추가
  		$(":checkbox[name='styleValue']:checked").each(function(i){
  			styleValue.push($(this).val());
  		  });
  		
+ 		// 상황 체크박스에서 선택된 항목을 배열에 추가
  		$(":checkbox[name='situationValue']:checked").each(function(i){
  			situationValue.push($(this).val());
  		  });
@@ -181,8 +188,10 @@ $(function(){
  		
  		$.ajaxSettings.traditional = true; //배열 형태로 서버쪽 전송을 위한 설정
  		
- 		currentPage += 1;
+ 		currentPage += 1; // 현재 페이지 1 증가
  		console.log('currentPage : ',currentPage);
+ 		
+ 		// 현재 페이지의 다음 페이지 게시물 목록을 요청하는 ajax
 		var readMoreRequest = $.ajax({
 			url: './boardListMore',
 			data:{ 'currentPage' : currentPage
@@ -219,10 +228,10 @@ $(function(){
 					readMoreHtml += '</div>';
 					readMoreHtml += '</div>';
 				}
-				$('#boardOutput').append(readMoreHtml);
+				$('#boardOutput').append(readMoreHtml);	// 작성된 html문장을 현재 페이지 밑에 추가
 				
-				likeAndComment();
-				showDetail(null);
+				likeAndComment();	// 검색 결과 게시물의 추천수, 댓글수 감추기 및 보이기 함수 호출 
+				showDetail(null);	// 게시물 상세보기 활성화 함수에 null갑을 대입하여 호출
 			}
 		});
 	}); 
@@ -234,6 +243,7 @@ $(function(){
 
 	<div class="row">
 		<div class="col-xs-2"></div>
+		
 		<!-- sns 게시물 목록 영역 -->
 	    <div class="col-xs-9">
 	        <div class="instagram-content">

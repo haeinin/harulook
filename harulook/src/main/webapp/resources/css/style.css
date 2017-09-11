@@ -6864,8 +6864,8 @@ header .social a.instagram {
 }
 
 .instagram-content .photo-box .image-wrap {
-  width: 300px;
-  height: 300px;
+  max-width: 300px;
+  max-height: 300px;
   display: table-cell;
   vertical-align: middle;
   background-color: white;
@@ -7087,4 +7087,7 @@ footer .contact-now-btn:hover {
 
 #submenu a:hover {
 	background-color: grey;
+}
+.cursor-click {
+	cursor: pointer;
 }

@@ -139,23 +139,9 @@ $(function(){
 	popLikeAndComment();
 	popShowDetail(null);
 	
-	/* 검색 초기화 버튼 클릭 */
-	$('#initBtn').click(function(){
-		$('#snsBoardWeather').val('');
-		$('#snsBoardTall').val('');
-		$('#snsBoardSize').val('');
-		$('#snsBoardLoc').val('');
-		$('#snsGenderMale').prop('checked',false);
-		$('#snsGenderFemale').prop('checked',false);
-		$('#snsBoardAge').val('');
-		$('input:checkbox[name="styleValue"]').prop('checked', false);
-		$('input:checkbox[name="colorValue"]').prop('checked',false);
-		$('input:checkbox[name="situationValue"]').prop('checked',false);
-		popBoardSearch();
-	});
-	
 	/* 게시글 검색 (ajax - searchCategory 클래스에 변화가 발생할 때) */
 	$('.searchCategory').change(function(){
+		currentPage = 1;	// 현재 페이지를 1페이지로 초기화
 		popBoardSearch();
 	});
 });
