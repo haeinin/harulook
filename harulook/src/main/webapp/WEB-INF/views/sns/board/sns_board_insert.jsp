@@ -37,16 +37,33 @@ function toggleColor(color) { //color: 선택한 색상
 	}
 } 
 
+
+function readURL(input, id) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function(e) {
+			$("#" + id).attr('src', e.target.result);
+		}
+
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
 $(function(){
 	
 	//이미지 파일 입력 여부 검사
-	$('#uploadFile').change(function(){
-		if($('#uploadFile').val() == '') { 
+	$('#snsBoardImg').change(function(){
+		if($('#snsBoardImg').val() == '') { 
 			$('#imgFail').show();
-			$('#uploadFile').focus();
+			$('#snsBoardImg').focus();
 		return false;
 		}else{
 			$('#imgFail').hide();
+			var id = $(this).attr('id');
+			id = id + "View";
+			console.log(id);
+			readURL(this, id);
 		}
 	});
 	
@@ -85,17 +102,18 @@ $(function(){
 		}
 	});
 	
-	$('#addButton').click(function(){	//회원가입버튼
+	// 게시물 등록버튼 클릭
+	$('#addButton').click(function(){	
 		
-		if(!$('#uploadFile').val()){	//아이디입력 안했을때
+		if(!$('#snsBoardImg').val()){	//사진 업로드 안했을때
 			alert('사진을 올려주세요.');
-			$('#uploadFile').focus();
+			$('#snsBoardImg').focus();
 			return false;
-		}else if(!$('#snsBoardWeather').val()){	//비밀번호 입력 안했을때
+		}else if(!$('#snsBoardWeather').val()){	//날씨 입력 안했을때
 			alert('날씨를 입력해주세요');
 			$('#snsBoardWeather').focus();
 			return false;
-		}else if(!$('#snsBoardLoc').val()){	//닉네임
+		}else if(!$('#snsBoardLoc').val()){	//지역
 			alert('지역을 입력해주세요');
 			$('#snsBoardLoc').focus();
 			return false;
@@ -106,6 +124,10 @@ $(function(){
 		
     });
 	
+	/* 사진 올리는 버튼이 바뀔경우 readURL메서드를 실행시켜 사진을 미리보기 시켜줌 */
+	$('#snsBoardImg').on('change', function() {
+		
+	});
 
 	// 빨간색 버튼 클릭
 	$('#circleRed').click(function(){
@@ -211,14 +233,15 @@ $(function(){
 		        <div class="form-group">
 		            <label class="col-xs-3 control-label" for="uploadFile">사진 :</label>
 			        <div class="col-xs-6">
-			            <input class="form-control" name="uploadFile" id="uploadFile" type="file"/>
+			            <img id="snsBoardImgView" class="img-responsive" src="#" alt="your image" />
+			            <input class="form-control" name="uploadFile" id="snsBoardImg" type="file"/>
 			            <span id="imgFail" >사진을 올려주세요.</span>
 		            </div>
 		        </div>
 		        <div class="form-group">
 		            <label class="col-xs-3 control-label" for="snsBoardContent">내용 :</label>
 		            <div class="col-xs-6">
-			            <input class="form-control" name="snsBoardContent" id="snsBoardContent" type="text"/>
+			            <textarea class="form-control" name="snsBoardContent" id="snsBoardContent" rows="4" cols="50"></textarea>
 			            <span id="contentFail" >내용을 입력해주세요.</span>
 		            </div>
 		        </div>
@@ -406,5 +429,6 @@ $(function(){
 	    <!-- 하단 인클루드 -->
 	    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>   
 	</div>
+	
 </body>
 </html>
