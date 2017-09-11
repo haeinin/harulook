@@ -1,5 +1,8 @@
 package com.ksmart.harulook.board.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +48,20 @@ public class BoardController {
 		String[] colorValue = request.getParameterValues("colorValue");
 		String[] styleValue = request.getParameterValues("styleValue");
 		String[] situationValue = request.getParameterValues("situationValue");
+		List<String> colorValueList = new ArrayList<String>();
+		List<String> styleValueList = new ArrayList<String>();
+		List<String> situationValueList = new ArrayList<String>();
+		
+		if(colorValue != null) {
+			Collections.addAll(colorValueList, colorValue);
+		}
+		if(styleValue != null) {
+			Collections.addAll(styleValueList, styleValue);
+		}
+		if(situationValue != null) {
+			Collections.addAll(situationValueList, situationValue);
+		}
+		
 		board.setColorValue(colorValue);
 		board.setStyleValue(styleValue);
 		board.setSituationValue(situationValue);
@@ -75,6 +92,9 @@ public class BoardController {
 		}
 		System.out.println("boardTagSearch --> "+board);
 		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow, popularity);
+		model.addAttribute("colorValueList",colorValueList);
+		model.addAttribute("styleValueList",styleValueList);
+		model.addAttribute("situationValueList",situationValueList);
 		model.addAttribute("board",board);
 		model.addAttribute("list", list);
 		System.out.println("boardTagSearch --> "+list);

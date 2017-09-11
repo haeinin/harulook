@@ -7088,3 +7088,6 @@ footer .contact-now-btn:hover {
 #submenu a:hover {
 	background-color: grey;
 }
+.cursor-click {
+	cursor: pointer;
+}

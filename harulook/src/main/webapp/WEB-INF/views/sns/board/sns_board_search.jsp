@@ -14,6 +14,9 @@
 <c:set value="${sessionScope.CcuserStyle}" var="CcuserStyle"></c:set>
 <c:set value="${sessionScope.apiAdd}" var="apiAdd"></c:set>
 <c:set value="${sessionScope.sessionWeather}" var="sessionWeather"></c:set>
+<c:set value="${colorValueList}" var="searchColor"></c:set>
+<c:set value="${styleValueList}" var="searchStyle"></c:set>
+<c:set value="${situationValueList}" var="searchSituation"></c:set>
 <script type="text/javascript">
 
 var currentPage = 1; // 현재 페이지 선언 및 초기화
@@ -41,7 +44,125 @@ function toggleColor(color) { //color: 선택한 색상
 
 $(function(){
 
+	// 태그 검색 시 체크박스 체크를 위한 리스트 선언
+	var searchColor= '<c:out value="${searchColor}" />';
+	var searchStyle = '<c:out value="${searchStyle}" />';
+	var searchSituation = '<c:out value="${searchSituation}" />';
+	
 	console.log('currentPage : ',currentPage);
+	
+	console.log('searchColor : ',searchColor);
+	console.log('searchStyle : ',searchStyle);
+	console.log('searchSituation : ',searchSituation);
+	
+	/* 스타일 체크 판별 */
+	if(searchStyle.indexOf('style_01') != -1) {
+		$('input:checkbox[id="searchStyleClassic"]').prop("checked", true);
+	}
+	if(searchStyle.indexOf('style_02') != -1) {
+		$('input:checkbox[id="searchStyleCasual"]').prop("checked", true);
+	}
+	if(searchStyle.indexOf('style_03') != -1) {
+		$('input:checkbox[id="searchStyleVintage"]').prop("checked", true);
+	} 
+	if(searchStyle.indexOf('style_04') != -1) {
+		$('input:checkbox[id="searchStyleStreet"]').prop("checked", true);
+	}
+	if(searchStyle.indexOf('style_05') != -1) {
+		$('input:checkbox[id="searchStyleDandy"]').prop("checked", true);
+	} 
+	if(searchStyle.indexOf('style_06') != -1) {
+		$('input:checkbox[id="searchStyleLuxury"]').prop("checked", true);
+	}
+	if(searchStyle.indexOf('style_07') != -1) {
+		$('input:checkbox[id="searchStyleLovely"]').prop("checked", true);
+	} 
+	if(searchStyle.indexOf('style_08') != -1) {
+		$('input:checkbox[id="searchStyleLomantic"]').prop("checked", true);
+	}
+	if(searchStyle.indexOf('style_09') != -1) {
+		$('input:checkbox[id="searchStyleSimple"]').prop("checked", true);
+	} 
+	if(searchStyle.indexOf('style_10') != -1) {
+		$('input:checkbox[id="searchStyleActive"]').prop("checked", true);
+	}
+	
+	/* 색상 체크 판별 */
+	if(searchColor.indexOf('color_01') != -1) {
+		$('input:checkbox[id="searchColorRed"]').prop("checked", true);
+		$('#circleRed').attr('class','fa fa-check-circle');
+	} 
+	if(searchColor.indexOf('color_02') != -1) {
+		$('input:checkbox[id="searchColorOrange"]').prop("checked", true);
+		$('#circleOrange').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_03') != -1) {
+		$('input:checkbox[id="searchColorYellow"]').prop("checked", true);
+		$('#circleYellow').attr('class','fa fa-check-circle');
+	} 
+	if(searchColor.indexOf('color_04') != -1) {
+		$('input:checkbox[id="searchColorGreen"]').prop("checked", true);
+		$('#circleGreen').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_05') != -1) {
+		$('input:checkbox[id="searchColorBlue"]').prop("checked", true);
+		$('#circleBlue').attr('class','fa fa-check-circle');
+	} 
+	if(searchColor.indexOf('color_06') != -1) {
+		$('input:checkbox[id="searchColorNavy"]').prop("checked", true);
+		$('#circleNavy').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_07') != -1) {
+		$('input:checkbox[id="searchColorPurple"]').prop("checked", true);
+		$('#circlePurple').attr('class','fa fa-check-circle');
+	} 
+	if(searchColor.indexOf('color_08') != -1) {
+		$('input:checkbox[id="searchColorBlack"]').prop("checked", true);
+		$('#circleBlack').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_09') != -1) {
+		$('input:checkbox[id="searchColorGrey"]').prop("checked", true);
+		$('#circleGrey').attr('class','fa fa-check-circle');
+	} 
+	if(searchColor.indexOf('color_10') != -1) {
+		$('input:checkbox[id="searchColorWhite"]').prop("checked", true);
+		$('#circleWhite').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_11') != -1) {
+		$('input:checkbox[id="searchColorBrown"]').prop("checked", true);
+		$('#circleBrown').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_12') != -1) {
+		$('input:checkbox[id="searchColorBeige"]').prop("checked", true);
+		$('#circleBeige').attr('class','fa fa-check-circle');
+	}
+	if(searchColor.indexOf('color_13') != -1) {
+		$('input:checkbox[id="searchColorPink"]').prop("checked", true);
+		$('#circlePink').attr('class','fa fa-check-circle');
+	}
+	
+	/* 상황 체크 판별 */
+	if(searchSituation.indexOf('situation_01') != -1) {
+		$('input:checkbox[id="searchSituationSchool"]').prop("checked", true);
+	}
+	if(searchSituation.indexOf('situation_02') != -1) {
+		$('input:checkbox[id="searchSituationOffice"]').prop("checked", true);
+	}
+	if(searchSituation.indexOf('situation_03') != -1) {
+		$('input:checkbox[id="searchSituationParty"]').prop("checked", true);
+	} 
+	if(searchSituation.indexOf('situation_04') != -1) {
+		$('input:checkbox[id="searchSituationTraval"]').prop("checked", true);
+	}
+	if(searchSituation.indexOf('situation_05') != -1) {
+		$('input:checkbox[id="searchSituationSporty"]').prop("checked", true);
+	} 
+	if(searchSituation.indexOf('situation_06') != -1) {
+		$('input:checkbox[id="searchSituationPicnic"]').prop("checked", true);
+	}
+	if(searchSituation.indexOf('situation_07') != -1) {
+		$('input:checkbox[id="searchSituationGuest"]').prop("checked", true);
+	} 
 	
 	// 빨간색 버튼 클릭
 	$('#circleRed').click(function(){
@@ -403,13 +524,13 @@ $(function(){
 			    </div>
 			    <div class="form-group">
 			      	<label class="searchCategory" for="searchSnsBoardSituation">상황 :</label>
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_01">학교
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_02">출근
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_03">파티
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_04">여행
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_05">운동
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이
-			      	<input class="searchCategory" type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_07">하객    	
+			      	<input class="searchCategory" type="checkbox" id="searchSituationSchool" name="situationValue" value="situation_01">학교
+			      	<input class="searchCategory" type="checkbox" id="searchSituationOffice" name="situationValue" value="situation_02">출근
+			      	<input class="searchCategory" type="checkbox" id="searchSituationParty" name="situationValue" value="situation_03">파티
+			      	<input class="searchCategory" type="checkbox" id="searchSituationTraval" name="situationValue" value="situation_04">여행
+			      	<input class="searchCategory" type="checkbox" id="searchSituationSporty" name="situationValue" value="situation_05">운동
+			      	<input class="searchCategory" type="checkbox" id="searchSituationPicnic" name="situationValue" value="situation_06">나들이
+			      	<input class="searchCategory" type="checkbox" id="searchSituationGuest" name="situationValue" value="situation_07">하객    	
 			    </div>
 			    <div class="form-group">
 			    	<label class="searchCategory" for="userId">아이디 :</label>
