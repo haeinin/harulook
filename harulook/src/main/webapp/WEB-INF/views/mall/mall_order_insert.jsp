@@ -6,24 +6,17 @@
 
 <head>
 <title>Beautiful Closet</title>
-<!-- bootstrap을 사용하기 위한 CDN주소 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="<c:url value="resources/css/mall-style.css" />" type="text/css">
 
-<!-- jquery를 사용하기위한 CDN주소 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="resources/css/mall-style.css" type="text/css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-<!-- jQuery UI 라이브러리 js파일 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
 	$(document).ready(function() {
 		
 		var influx = sessionStorage.getItem('influx');
-		
 		
 		$('#account').hide();
 		$('#card').hide();
@@ -36,8 +29,15 @@
 			$('#account').show();
 			$('#card').hide();
 		})
-
+		
+		if( influx == 'haruloook'){
+			$('#msg').text("하루룩회원님은 꼭 쿠폰적용하기 눌러주세요!");
+			$('#Code').val('dal');
+		}
+		
 		$('#validCheck').click(function() {
+			
+			
 			var request = $.ajax({
 				url : "./validCooContractCode", //호출 경로
 				method : "POST", //전송방식
@@ -145,20 +145,19 @@
 				<label for="cooContractCode">할인쿠폰코드</label> 
 				<input class="form-control " name="cooContractCode" id="cooContractCode" type="text" readonly="readonly" />
 				<%-- <c:choose>
-				<c:when test="${sessionScope.influx == 'harulook'}">
+				<c:when test="${sessionScope.influx == 'haruloook'}">
 				<input class="form-control " name="cooContractCode" id="cooContractCode"  value="dal" type="text" readonly="readonly" />
 				</c:when>
-				<c:when test="${sessionScope.influx != 'harulook'}">
+				<c:when test="${sessionScope.influx != 'haruloook'}">
 				<input class="form-control " name="cooContractCode" id="cooContractCode" type="text" readonly="readonly" />
 				</c:when>
 				</c:choose> --%>
-				
 			</div>
 
 		</form>
 		<div>
-			<button class="btn btn-info btn-sm" data-toggle="modal"
-				data-target="#vaildCode">할인코드입력</button>
+			<button class="btn btn-info btn-sm" data-toggle="modal" data-target="#vaildCode">할인코드입력</button>
+				<p id="msg"></p>
 		</div>
 
 		<div class="form-group">
@@ -184,10 +183,10 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="Code">할인쿠폰코드</label> <input class="form-control"
-								id="Code" type="text" />
-
+							<label for="Code">할인쿠폰코드</label> 
+							<input class="form-control" id="Code" type="text" />
 						</div>
+						
 						<button type="button" id="validCheck"
 							class="btn btn-warning btn-sm">할인코드 입력</button>
 

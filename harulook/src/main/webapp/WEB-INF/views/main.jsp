@@ -23,7 +23,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="<c:url value="resources/css/agency.min.css" />" type="text/css">
+    <link rel="stylesheet" href="resources/css/agency.min.css" type="text/css">
     
      <!-- Bootstrap core JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

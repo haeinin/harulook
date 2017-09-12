@@ -104,18 +104,20 @@ $(function(){
 	    <div class="col-xs-2"></div>
 
 	    <div class="col-xs-9">
-	    <c:forEach var="b" items="${list}" >
+	    <div class="row">
+	    <div class="col-md-2"></div>
+	    <div class="col-md-6">
+	   
 	    
-	    <c:if test="${b.hofRank} == 3">
-	    <div class="row"></div>
-	    </c:if>
-			<h3>${b.hofRank}등</h3>
+	    <h2>명예의전당</h2>
+	    <p>이번 달의 베스트 포토를 소개합니다</p>
+	    <c:forEach var="b" items="${list}" >
+			<%-- <h3><img src="resources/medal${b.hofRank}.jpg"></h3> --%>
 				<table>
 
 				
 				<%-- <input type="hidden" class="boardNumber" value="${b.boardNo}"> --%>
-					
-						
+					<tr><td><img src="resources/medal${b.hofRank}.jpg"></td></tr>
 					
 					<tr>
 						<td>
@@ -134,6 +136,8 @@ $(function(){
 		
 			</c:forEach>
 		</div>
+		 </div>
+	    </div>
 	</div>
 
 	<div class="row">

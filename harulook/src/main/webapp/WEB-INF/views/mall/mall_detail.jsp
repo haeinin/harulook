@@ -9,7 +9,7 @@
 <title>Beautiful Closet</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="<c:url value="resources/css/mall-style.css" />" type="text/css">
+<link rel="stylesheet" href= "resources/css/mall-style.css" type="text/css">
 <style>
 
 .nav-tabs li a {
