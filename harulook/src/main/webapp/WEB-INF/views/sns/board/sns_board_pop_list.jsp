@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
 <c:set value="${sessionScope.id}" var="sessionId" />
-<script type="text/javascript" src="resources/js/boardDetail.js"></script>
+<script type="text/javascript" src="resources/js/boardDetail.js?ver=2"></script>
 <script type="text/javascript" src="resources/js/followCheck.js"></script>
 
 <c:set value="${boardCount}" var="boardCount"></c:set>
@@ -61,6 +61,8 @@ function popShowDetail(data) {
 			}
 		});
 		$('#snsModal').modal();
+		var detailImgHeight = $('#detailImg').outerHeight();
+		console.log('detailImgHeight : ', detailImgHeight);
 	});
 }
 
@@ -191,20 +193,24 @@ $(function(){
 	    <div class="modal-dialog modal-lg" >
 			<div id="snsDetail" class="modal-content">
 		        <div class="row">
-		        
+       
 		        	<!-- 게시물 이미지 영역 -->
-			        <div class="modal-body col-xs-8" style="padding-bottom: 0; padding-top: 0;">
+			        <div class="modal-body col-xs-12 col-md-8" style="padding-bottom: 0; padding-top: 0;">
 						<div id="snsDetailImg"></div>
 		        	</div>
 		        	<!-- 게시물 이미지 영역 -->
 		        	
 		        	<!-- 게시물 내용 영역 -->
-			        <div class="modal-body col-xs-4">
+			        <div id="contentArea" class="modal-body col-xs-12 col-md-4" style="padding-left: 30px;">
 			        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
-			        	<div id="snsDetailContent"></div>
-			        	<hr>
-			        	<div id="snsDetailLike"></div>
-			        	<div id="snsDetailComment">
+			        	<div id="snsDetailHeader"></div>
+		        		<div id="scrollActive" style="overflow-y: auto;">
+			        		<div id="snsDetailContent"></div>
+			        		<hr>
+			        	
+				        	<div id="snsDetailLike"></div>
+				        	<hr>
+				        	<div id="snsDetailComment"></div>
 			        	</div>
 			        	<hr>
 			        	<c:if test="${sessionScope.id != null}">
@@ -212,6 +218,10 @@ $(function(){
 			        	<div id="snsDetailCommentControll">
 			        	</div>
 			        	</c:if>
+			        	<div style="text-align: right; padding-right: 20px;">
+			        		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			        	</div>
+			        	
 					</div>
 					<!-- 게시물 내용 영역 -->
 					

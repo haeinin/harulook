@@ -44,7 +44,7 @@
   position: absolute;
   width: 85px;
   height: 85px;
-  bottom: 7px;
+  /* bottom: 7px; */
 }
 .sunny:before,
 .partly_cloudy__sun:before {

@@ -18,7 +18,7 @@
 <!-- 댓글 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <!-- sns스타일 탬플릿 css-->
-<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+<link rel="stylesheet" type="text/css" href="resources/css/style.css?ver=1">
 <!-- 예뻐요 아이콘 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- 게시글 필터 버튼 모양 -->
@@ -262,7 +262,7 @@ $(function(){
 					<div class="sns-photo-box">
 						<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
 						<div class="image-wrap">
-							<img style="height: auto; max-width: 300px; max-height: 300px; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
+							<img style="height: auto; max-width: 100%; max-height: 100%; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
 							<div class="likes">
 								<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>
 								<span class="center">&nbsp;${b.snsLikeCount}&nbsp;&nbsp;&nbsp;</span>
@@ -291,25 +291,31 @@ $(function(){
 			        <div class="row">
 			        
 			        	<!-- 게시물 이미지 영역 -->
-				        <div id="snsDetailImgArea" class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
+				        <div id="snsDetailImgArea" class="modal-body col-xs-12 col-md-8" style="padding-bottom: 0; padding-top: 0;">
 							<div id="snsDetailImg"></div>
 			        	</div>
 			        	<!-- 게시물 이미지 영역 -->
 			        	
 			        	<!-- 게시물 내용 영역 -->
-				        <div id="contentArea" class="modal-body col-xs-12 col-sm-6">
+				        <div id="contentArea" class="modal-body col-xs-12 col-md-4" style="padding-left: 30px;">
 				        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
-			        		<div id="snsDetailContent"></div>
-			        		<hr>
-			        	
-				        	<div id="snsDetailLike"></div>
-				        	<hr>
-				        	<div id="snsDetailComment"></div>
+			        		<div id="snsDetailHeader"></div>
+			        		<div >
+				        		<div id="snsDetailContent"></div>
+				        		<hr>
+				        	
+					        	<div id="snsDetailLike"></div>
+					        	<hr>
+					        	<div id="snsDetailComment"></div>
+				        	</div>
 				        	<c:if test="${sessionScope.id != null}">
 				        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">
 				        	<div id="snsDetailCommentControll">
 				        	</div>
 				        	</c:if>
+				        	<div style="text-align: right; padding-right: 20px;">
+				        		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+				        	</div>
 						</div>
 						<!-- 게시물 내용 영역 -->
 						

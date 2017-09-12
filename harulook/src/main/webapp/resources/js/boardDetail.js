@@ -9,31 +9,33 @@ function boardDetail(msg) {
 	
 	/* 게시물 상세보기 이미지 */
 	var snsDetailImg = '';
-	snsDetailImg += '<img id="detailImg" alt="no image" style="width: 100%; height: 100%;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.board.snsBoardImg+'">';
+	snsDetailImg += '<img id="detailImg" alt="no image" style="border-radius: 1%; width: 100%; height: 100%;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.board.snsBoardImg+'">';
 	
 	$('#snsDetailImg').html(snsDetailImg);
 	/* 게시물 상세정보 */
-	var snsDetailContent = '';
-	snsDetailContent += '<div style="float: left;">';
-	snsDetailContent += '<h4>'+ '<img style="border-radius: 50%; height: 40px; max-width: 40px; max-height: 40px; width: 40px;" alt="no image" onError="this.src=\' resources/files/images/defaut.jpg \';" src='+ msg.userDetail.userImg +'>'
+	var snsDetailHeader = '';
+	snsDetailHeader += '<h4 style="float: left;">'+ '<img style=" background-color: grey; border-radius: 50%; height: 40px; max-width: 40px; max-height: 40px; width: 40px;" alt="no image" onError="this.src=\' resources/files/images/pofile_default_1.png \';" src='+ msg.userDetail.userImg +'>'
 							 + msg.board.userNick+'(<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+msg.board.userId+'">'+msg.board.userId+'</a>)</h4>';
-	snsDetailContent += '</div>';
-	snsDetailContent += '<button id="followInsertButton" class="btn btn-default">팔로우</button>';
-	snsDetailContent += '<span id="followCheckOverlap">&nbsp;</span>';
-	snsDetailContent += '<span id="Blank">&nbsp;</span>';
+	snsDetailHeader += '<button id="followInsertButton" class="btn btn-default" style="position: absolute; top: 20%;">팔로우</button>';
+	snsDetailHeader += '<span id="followCheckOverlap">&nbsp;</span>';
+	snsDetailHeader += '<span id="Blank">&nbsp;</span>';
 	if(msg.board.userId == $('#sessionUserId').val()) {
-		snsDetailContent += '<div class="dropdown">';
-		snsDetailContent += '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example';
-		snsDetailContent += '<span class="caret"></span></button>';
-		snsDetailContent += '<ul class="dropdown-menu">';
-		snsDetailContent += '<li><a href="./boardUpdate?boardNo='+msg.board.snsBoardNo+'">수정</a></li>';
-		snsDetailContent += '<li><a href="./boardDelete?boardNo='+msg.board.snsBoardNo+'">삭제</a></li>';
-		snsDetailContent += '</ul>';
-		snsDetailContent += '</div>';
-		snsDetailContent += '</div>';
+		snsDetailHeader += '<div class="dropdown">';
+		snsDetailHeader += '<button class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown"><i class="material-icons" style="font-size:18px">more_horiz</i>';
+		snsDetailHeader += '<span class="caret"></span></button>';
+		snsDetailHeader += '<ul class="dropdown-menu">';
+		snsDetailHeader += '<li><a href="./boardUpdate?boardNo='+msg.board.snsBoardNo+'">수정</a></li>';
+		snsDetailHeader += '<li><a href="./boardDelete?boardNo='+msg.board.snsBoardNo+'">삭제</a></li>';
+		snsDetailHeader += '</ul>';
+		snsDetailHeader += '</div>';
 	}
-	snsDetailContent += '<hr>';
+	snsDetailHeader += '<hr>';
+	
+	
+	$('#snsDetailHeader').html(snsDetailHeader);
+	
 	snsDetailContent += '<div>';
+	var snsDetailContent = '';
 	
 	if(msg.board.snsBoardWeather != '') {
 		snsDetailContent += '<span>날씨&nbsp:&nbsp'+msg.board.snsBoardWeather+'</span><br>';
@@ -222,10 +224,9 @@ function boardDetail(msg) {
 	
 	var snsDetailCommentControll = '';
 	snsDetailCommentControll += '<input type="text" id="commentValue">';
-	snsDetailCommentControll += '<button type="button" id="commentBtn">등록</button>';
+	snsDetailCommentControll += '<button class="" type="button" id="commentBtn">등록</button>';
 	$('#snsDetailCommentControll').html(snsDetailCommentControll);
 	
-	$('#contentArea').height($('#detailImg').height());
 	console.log('contentArea height : ',$('#detailImg').height());
 	/* 댓글 등록 버튼 클릭 */
 	$('#commentBtn').click(function(){
@@ -269,13 +270,6 @@ function boardDetail(msg) {
 		}
 	});
 	
-	/* 게시물 수정,삭제 dropdown */
-	$('#submenu').hide();
-	
-	$('#item').click(function(){
-		$('#submenu').slideToggle(500);
-	});
-	
 	/* 예뻐요(추천) 버튼 클릭 */
 	$("#likeBtn").click(function(){
 		
@@ -296,6 +290,6 @@ function boardDetail(msg) {
             	}
             }
         });
-	})
+	});
 }
 

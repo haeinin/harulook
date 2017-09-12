@@ -360,14 +360,15 @@ $(function(){
 		        <div class="row">
 		        
 		        	<!-- 게시물 이미지 영역 -->
-			        <div class="modal-body col-xs-8" style="padding-bottom: 0; padding-top: 0;">
+			        <div class="modal-body col-xs-12 col-md-8" style="padding-bottom: 0; padding-top: 0;">
 						<div id="snsDetailImg"></div>
 		        	</div>
 		        	<!-- 게시물 이미지 영역 -->
 		        	
 		        	<!-- 게시물 내용 영역 -->
-			        <div class="modal-body col-xs-4">
+			        <div class="modal-body col-xs-12 col-md-4" style="padding-left: 30px;">
 			        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
+			        	<div id="snsDetailHeader"></div>
 			        	<div id="snsDetailContent"></div>
 			        	<hr>
 			        	<div id="snsDetailComment">
@@ -378,6 +379,9 @@ $(function(){
 			        	<div id="snsDetailCommentControll">
 			        	</div>
 			        	</c:if>
+			        	<div style="text-align: right; padding-right: 20px;">
+			        		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			        	</div>
 					</div>
 					<!-- 게시물 내용 영역 -->
 			     </div>

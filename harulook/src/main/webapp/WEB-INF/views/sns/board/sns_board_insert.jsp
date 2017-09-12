@@ -411,11 +411,11 @@ $(function(){
 					</div>
 			     </div>
 			    <br>
-			    <div class="col-xs-6"></div>
-		        <div class="col-xs-3">
+			    <div style="text-align: center;">
 		            <input class="btn btn-default" id="addButton" type="submit" value="글입력"/>
 		            <input id="resetBtn" class="btn btn-default" type="reset" value="초기화"/>
 		            <a class="btn btn-default" href="${pageContext.request.contextPath}/home">홈으로</a>
+		            <br>
 		        </div>
 		    </form>
 		    </div>
