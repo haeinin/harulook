@@ -99,21 +99,20 @@ $(function(){
 	</div>
     
     <!-- 바디 인클루드 -->
-    <div class="row">
+    <div class="row" >
 
 	    <div class="col-xs-2"></div>
 
 	    <div class="col-xs-9">
 	    <div class="row">
 	    <div class="col-md-2"></div>
-	    <div class="col-md-6">
+	    <div class="col-md-6" >
 	   
+	    <img src="resources/hofmain.png">
 	    
-	    <h2>명예의전당</h2>
-	    <p>이번 달의 베스트 포토를 소개합니다</p>
 	    <c:forEach var="b" items="${list}" >
 			<%-- <h3><img src="resources/medal${b.hofRank}.jpg"></h3> --%>
-				<table>
+				<table style="background:white;">
 
 				
 				<%-- <input type="hidden" class="boardNumber" value="${b.boardNo}"> --%>

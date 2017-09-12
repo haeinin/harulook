@@ -235,7 +235,7 @@
               <br>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                  <a href="#">
+                  <a href="http://sun-p.tistory.com/" target="_blank">
                     <i class="fa fa-user-o"></i>
                   </a>
                 </li>
@@ -258,7 +258,7 @@
               <br>
               <ul class="list-inline social-buttons">
                <li class="list-inline-item">
-                  <a href="http://blog.naver.com/acddde9">
+                  <a href="http://blog.naver.com/acddde9" target="_blank">
                     <i class="fa fa-user-o"></i>
                   </a>
                 </li>
@@ -280,7 +280,7 @@
               <br>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                  <a href="#">
+                  <a href="http://blog.naver.com/alsrn880311" target="_blank">
                     <i class="fa fa-user-o"></i>
                   </a>
                 </li>
@@ -303,7 +303,7 @@
               <br>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                  <a href="#">
+                  <a href="http://blog.naver.com/qkr456whd" target="_blank">
                     <i class="fa fa-user-o"></i>
                   </a>
                 </li>
