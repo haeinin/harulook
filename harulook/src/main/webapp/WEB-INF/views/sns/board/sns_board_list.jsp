@@ -24,7 +24,7 @@
 <!-- 게시글 필터 버튼 모양 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<script type="text/javascript" src="resources/js/boardDetail.js?ver=1"></script>
+<script type="text/javascript" src="resources/js/boardDetail.js?ver=2"></script>
 <script type="text/javascript" src="resources/js/followCheck.js"></script>
 
 <script type="text/javascript">

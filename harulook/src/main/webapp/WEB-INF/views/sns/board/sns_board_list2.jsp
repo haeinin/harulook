@@ -37,7 +37,7 @@
 
 <title>BOARD LIST</title>
 <c:set value="${sessionScope.id}" var="sessionId" />
-<script type="text/javascript" src="resources/js/boardDetail.js"></script>
+<script type="text/javascript" src="resources/js/boardDetail.js?ver=1"></script>
 <script type="text/javascript" src="resources/js/followCheck.js"></script>
 <c:set value="${boardCount}" var="boardCount"></c:set>
 <script type="text/javascript">

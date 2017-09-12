@@ -15,18 +15,20 @@ function boardDetail(msg) {
 	/* 게시물 상세정보 */
 	var snsDetailContent = '';
 	snsDetailContent += '<div style="float: left;">';
-	snsDetailContent += '<h4>'+ '<img style="height: 40px; max-width: 40px; max-height: 40px; width: 40px;" alt="no image" onError="this.src=\' resources/files/images/defaut.jpg \';" src='+ msg.userDetail.userImg +'>'
+	snsDetailContent += '<h4>'+ '<img style="border-radius: 50%; height: 40px; max-width: 40px; max-height: 40px; width: 40px;" alt="no image" onError="this.src=\' resources/files/images/defaut.jpg \';" src='+ msg.userDetail.userImg +'>'
 							 + msg.board.userNick+'(<a href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+msg.board.userId+'">'+msg.board.userId+'</a>)</h4>';
 	snsDetailContent += '</div>';
 	snsDetailContent += '<button id="followInsertButton" class="btn btn-default">팔로우</button>';
 	snsDetailContent += '<span id="followCheckOverlap">&nbsp;</span>';
 	snsDetailContent += '<span id="Blank">&nbsp;</span>';
 	if(msg.board.userId == $('#sessionUserId').val()) {
-		snsDetailContent += '<div class="menu">';
-		snsDetailContent += '<div id="item">&nbsp<i class="fa fa-ellipsis-h" style="font-size:24px"></i></div>';
-		snsDetailContent += '<div id="submenu">';
-		snsDetailContent += '<a href="./boardUpdate?boardNo='+msg.board.snsBoardNo+'">수정</a>';
-		snsDetailContent += '<a href="./boardDelete?boardNo='+msg.board.snsBoardNo+'">삭제</a>';
+		snsDetailContent += '<div class="dropdown">';
+		snsDetailContent += '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example';
+		snsDetailContent += '<span class="caret"></span></button>';
+		snsDetailContent += '<ul class="dropdown-menu">';
+		snsDetailContent += '<li><a href="./boardUpdate?boardNo='+msg.board.snsBoardNo+'">수정</a></li>';
+		snsDetailContent += '<li><a href="./boardDelete?boardNo='+msg.board.snsBoardNo+'">삭제</a></li>';
+		snsDetailContent += '</ul>';
 		snsDetailContent += '</div>';
 		snsDetailContent += '</div>';
 	}

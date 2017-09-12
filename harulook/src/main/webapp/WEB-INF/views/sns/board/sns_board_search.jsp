@@ -422,7 +422,7 @@ $(function(){
 					<div class="col-xs-1"></div>
 					<div class="col-xs-2">
 					<!-- 아이디로 게시물 검색 했을때 프로필-->
-					<img style="height: 150px; max-width: 150px; max-height: 150px; width: 150px;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${userDetail.userImg}">
+					<img style="border-radius: 50%; height: 150px; max-width: 150px; max-height: 150px; width: 150px;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${userDetail.userImg}">
 		       		</div>
 		       		<div class="col-xs-1"></div>
 		       		<div class="col-xs-8">

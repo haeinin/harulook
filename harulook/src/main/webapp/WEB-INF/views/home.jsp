@@ -174,17 +174,19 @@
 
 </head>
 <body>
+
 	<div class="row">
 	    <!-- 상단 인클루드 -->
 	    <c:import url="./module/header.jsp"></c:import>
 	</div>
 	<!-- 바디 인클루드 -->
+	
    	<div class="row">
    		<!-- 좌측 베너 인클루드 -->
     	<div class="col-xs-1">
     		<c:import url="./module/left.jsp"></c:import>
     	</div>
-   	
+   
    		<div class="col-xs-9">
    			<!-- 게시물검색 -->
    			<c:import url="/WEB-INF/views/sns/board/sns_board_search.jsp"></c:import>
@@ -194,15 +196,16 @@
            	<!-- 최근게시물 -->
            	<c:import url="/boardList"></c:import>
            	
-           </div>
-   		
+           
+   		</div>
    		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="./module/right.jsp"></c:import>
        	</div>
 	</div>
-		
+	
     <!-- 하단 인클루드 -->
     <c:import url="./module/footer.jsp"></c:import>
+
 </body>
 </html>
