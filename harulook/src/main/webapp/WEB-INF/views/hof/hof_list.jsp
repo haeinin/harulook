@@ -99,23 +99,24 @@ $(function(){
 	</div>
     
     <!-- 바디 인클루드 -->
-    <div class="row">
+    <div class="row" >
 
 	    <div class="col-xs-2"></div>
 
 	    <div class="col-xs-9">
-	    <c:forEach var="b" items="${list}" >
+	    <div class="row">
+	    <div class="col-md-2"></div>
+	    <div class="col-md-6" >
+	   
+	    <img src="resources/hofmain.png">
 	    
-	    <c:if test="${b.hofRank} == 3">
-	    <div class="row"></div>
-	    </c:if>
-			<h3>${b.hofRank}등</h3>
-				<table>
+	    <c:forEach var="b" items="${list}" >
+			<%-- <h3><img src="resources/medal${b.hofRank}.jpg"></h3> --%>
+				<table style="background:white;">
 
 				
 				<%-- <input type="hidden" class="boardNumber" value="${b.boardNo}"> --%>
-					
-						
+					<tr><td><img src="resources/medal${b.hofRank}.jpg"></td></tr>
 					
 					<tr>
 						<td>
@@ -134,6 +135,8 @@ $(function(){
 		
 			</c:forEach>
 		</div>
+		 </div>
+	    </div>
 	</div>
 
 	<div class="row">

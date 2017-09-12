@@ -13,15 +13,15 @@
 </div>
     <!-- 바디 인클루드 -->
     <div class="row">
-	    <div class="col-xs-1">
+	    <div class="col-xs-2">
 	    <c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
 	    </div>
 	    
-	    <div class="col-xs-9">
+	    <div class="col-xs-8">
 	    <div class="row" >
-				<div class="col-md-2"></div>
-				<div class="col-md-7" style="margin-top:50px">
-	<table class="table">
+				<div class="col-md-1"></div>
+				<div class="col-md-9" style="margin-top:50px">
+	<table class="table table-bordered">
 		<tr>
 			<td></td>
 			<td>스키니진</td>

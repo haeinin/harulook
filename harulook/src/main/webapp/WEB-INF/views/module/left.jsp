@@ -28,11 +28,8 @@
 	<div class="col-xs-12 col-sm-4">
 	   <!-- 게시물등록하기버튼 -->
 		<c:if test="${sessionScope.level == '일반회원'}">
-			<form id="snsInsertForm" action="${pageContext.request.contextPath}/boardInsert" method="get">
-			
-				<button class="btn btn-default" id="snsInsertButton" value="sns게시물등록하기">
-				<img src="./resources/sns_Insert.png" class="img-rounded" alt="Cinque Terre" width="50" height="40"></button>
-			</form>
+			<a href="${pageContext.request.contextPath}/boardInsert"><i class="fa fa-plus-circle" style="font-size:60px;color:gray;margin-left:50px;"></i></a>
+
 		</c:if>
 	</div>
 </div>

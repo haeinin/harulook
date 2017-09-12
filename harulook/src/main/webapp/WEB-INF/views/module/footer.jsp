@@ -23,8 +23,8 @@
         
             <div class="row">
                 <div class="col-xs-12">
-                <h4>회사주소등 전화번호</h4>
-                <p class="about-text">등등등 등등등 </p>
+                <h4>(주)하루룩</h4>
+                <p class="about-text">사업자등록번호 333-444555-6666 </p>
                 </div>
             </div>
         </div>

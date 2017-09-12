@@ -1,0 +1,541 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ksmart.harulook.partner.service.PartnerMapper">
+
+	<resultMap type="com.ksmart.harulook.partner.service.PartnerDto" id="partner">
+		<result property="cooContractNo" column="coo_contract_no"></result>
+		<result property="userId" column="user_id"></result>
+		<result property="managerId" column="manager_id"></result>
+		<result property="cooContractDc" column="coo_contract_dc"></result>
+		<result property="cooContractFee" column="coo_contract_fee"></result>
+		<result property="cooContractStart" column="coo_contract_start"></result>
+		<result property="cooContractEnd" column="coo_contract_end"></result>
+		<result property="cooContractDate" column="coo_contract_date"></result>
+		<result property="cooContractPayDay" column="coo_contract_pay_date"></result>
+		<result property="cooContractCode" column="coo_contract_code"></result>
+		<result property="cooContractImg" column="coo_contract_img"></result>
+		<result property="cooContractLink" column="coo_contract_link"></result>
+		<result property="cooContractStat" column="coo_contract_stat"></result>
+		<result property="cooContractPayStat" column="coo_contract_pay_stat"></result>
+	</resultMap>
+	<resultMap type="com.ksmart.harulook.partner.service.PartnerBillDto" id="partnerBill">
+		<result property="cooBillNo" column="coo_bill_no"></result>
+		<result property="cooContractNo" column="coo_contract_no"></result>
+		<result property="cooBillValue" column="coo_bill_value"></result>
+		<result property="cooBillMonth" column="coo_bill_month"></result>
+		<result property="cooBillDate" column="coo_bill_date"></result>
+	</resultMap>
+	<resultMap type="com.ksmart.harulook.partner.service.PartnerPayDto" id="partnerPay">
+		<result property="cooPayNo" column="coo_pay_no"></result>
+		<result property="cooContractNo" column="coo_contract_no"></result>
+		<result property="cooPayDate" column="coo_pay_date"></result>
+		<result property="cooPayTotal" column="coo_pay_total"></result>
+	</resultMap>
+	
+	<resultMap type="com.ksmart.harulook.member.service.MemberDto" id="partnerCompany">
+		<result property="userBsNo" column="user_bs_no"></result>
+		<result property="userBsType" column="user_bs_type"></result>
+		<result property="userBsStatus" column="user_bs_status"></result>
+		<result property="userBsName" column="user_bs_name"></result>
+		<result property="userUrl" column="user_url"></result>
+	</resultMap>
+	
+	<resultMap type="com.ksmart.harulook.partner.service.PartnerStatsDto" id="statistics">
+		<result property="statsDate" column="date" ></result>
+		<result property="statsAmount" column="amount" ></result>	
+		<result property="statsStartDate" column="start" ></result>
+		<result property="statsEndDate" column="end" ></result>
+
+	</resultMap>
+	<resultMap type="java.util.HashMap" id="rate">
+        <result javaType="java.lang.Integer" property="total" column="total" />
+        <result javaType="java.lang.Integer" property="influx" column="influx"/>
+    </resultMap>
+    <resultMap type="java.util.HashMap" id="banner">
+        <result javaType="java.lang.String" property="link" column="coo_contract_link" />
+        <result javaType="java.lang.String" property="img" column="coo_contract_img"/>
+    </resultMap>
+
+
+	<!-- 제휴계약신청 -->
+	<insert id="cooContractInsert" parameterType="com.ksmart.harulook.partner.service.PartnerDto">
+		INSERT INTO
+		coo_contract(
+		coo_contract_no
+		,user_id
+		,coo_contract_dc
+		,coo_contract_fee
+		,coo_contract_start
+		,coo_contract_end
+		,coo_contract_date
+		,coo_contract_pay_date
+		,coo_contract_code
+		,coo_contract_img
+		,coo_contract_link
+		,coo_contract_stat
+		,coo_contract_pay_stat
+		)
+		VALUES (
+		#{cooContractNo}
+		,#{userId}
+		,#{cooContractDc}
+		,#{cooContractFee}
+		,#{cooContractStart}
+		,#{cooContractEnd}
+		,date(now())
+		,#{cooContractPayDay}
+		,#{cooContractCode}
+		,#{cooContractImg}
+		,#{cooContractLink}
+		,'제휴신청'
+		,'결제대기'
+
+		)
+	</insert>
+	<!-- 제휴계약번호 가져오기 -->
+	<select id="getLastCooContractNo" resultType="String">
+		SELECT
+		max(CAST(substring(coo_contract_no,14) AS DECIMAL))
+		FROM coo_contract
+	</select>
+
+	<!-- 제휴계약 전체목록보기 -->
+	<select id="cooContractAllList" resultMap="partner">
+		SELECT
+		coo_contract_no
+		,user_id
+		,manager_id
+		,coo_contract_dc
+		,coo_contract_fee
+		,coo_contract_start
+		,coo_contract_end
+		,coo_contract_date
+		,coo_contract_pay_date
+		,coo_contract_code
+		,coo_contract_img
+		,coo_contract_link
+		,coo_contract_stat
+		,coo_contract_pay_stat
+		FROM
+		coo_contract
+
+		</select>
+
+	<!-- 제휴계약 목록보기(개인) -->
+	<select id="cooContractList" parameterType="String" resultMap="partner">
+		SELECT
+		coo_contract_no
+		,user_id
+		,manager_id
+		,coo_contract_dc
+		,coo_contract_fee
+		,coo_contract_start
+		,coo_contract_end
+		,coo_contract_date
+		,coo_contract_pay_date
+		,coo_contract_code
+		,coo_contract_img
+		,coo_contract_link
+		,coo_contract_stat
+		,coo_contract_pay_stat
+		FROM
+		coo_contract
+		WHERE user_id=#{userID}
+
+	</select>
+	<!-- 제휴계약 상세보기 -->
+	<select id="cooContractDetail" parameterType="String" resultMap="partner">
+		SELECT
+		coo_contract_no
+		, user_id
+		, manager_id
+		, coo_contract_dc
+		,coo_contract_fee
+		,coo_contract_start
+		, coo_contract_end
+		,coo_contract_date
+		,coo_contract_pay_date
+		, coo_contract_code
+		,coo_contract_img
+		,coo_contract_link
+		, coo_contract_stat
+		,coo_contract_pay_stat
+		FROM
+		coo_contract
+		WHERE
+		coo_contract_no=#{cooContractNo}
+	</select>
+	<!-- 제휴계약 수정 -->
+	<update id="cooContractUpdate" parameterType="com.ksmart.harulook.partner.service.PartnerDto">
+		UPDATE
+		coo_contract
+		SET
+		coo_contract_dc=#{cooContractDc}
+		,coo_contract_fee=#{cooContractFee}
+		,coo_contract_start=#{cooContractStart}
+		,coo_contract_end=#{cooContractEnd}
+		,coo_contract_pay_date=#{cooContractPayDay}
+		,coo_contract_img=#{cooContractImg}
+		,coo_contract_link=#{cooContractLink}
+		,coo_contract_stat='수정신청'
+		WHERE
+		coo_contract_no=#{cooContractNo}
+	</update>
+	
+	<!-- 제휴 결제 폼 -->
+	<select id="cooContractPayForm" parameterType="String" resultMap="partnerBill">
+		SELECT
+		coo_bill_no
+		,coo_contract_no
+		,coo_bill_value
+		,coo_bill_month
+		,coo_bill_date
+		FROM
+		coo_bill
+		WHERE coo_bill_no = #{cooBillNo}
+	</select>
+	
+	<!-- 제휴 결제 처리 -->
+	<insert id="cooContractPayinsert" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
+		INSERT INTO coo_pay
+		(
+		coo_contract_no
+		, coo_pay_date
+		,coo_pay_total
+		)
+		VALUES 
+		( 
+		#{cooContractNo}
+		,DATE(NOW())
+		,(
+			SELECT 
+				coo_bill_value
+			FROM 
+				coo_bill 
+			WHERE 
+				coo_bill_no = #{cooBillNo}
+			)
+		)
+	</insert>
+	<!-- 제휴결제처리 후 제휴예정데이터 삭제 -->
+	<delete id="cooContractBillDelete" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
+		DELETE 
+		FROM coo_bill 
+		WHERE coo_bill_no = #{cooBillNo}
+	</delete>
+	
+	<!-- 제휴 결제상태 변경 -->
+	<update id="cooContractPayStatUpdate" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
+	UPDATE coo_contract
+	SET
+		coo_contract_pay_stat='결제완료'
+	WHERE 
+	coo_contract_no = (SELECT coo_contract_no
+						FROM coo_bill
+						WHERE coo_bill_no = #{cooBillNo});
+
+	</update>
+	
+	<!-- 결제 후 제휴정지 상태 해제 -->
+	<update id ="updateCooContractRelieve" parameterType="com.ksmart.harulook.partner.service.PartnerBillDto">
+	UPDATE coo_contract
+	SET
+		coo_contract_stat='제휴진행'
+	WHERE 
+	coo_contract_no = (SELECT coo_contract_no
+						FROM coo_bill
+						WHERE coo_bill_no = #{cooBillNo});
+	</update> 
+	
+	<!-- 제휴 업체 상세보기 -->
+	<select id = "cooContractCompany" parameterType="String" resultMap="partnerCompany">
+	SELECT 
+	user_bs_no
+	,user_bs_type
+	,user_bs_status
+	,user_bs_name
+	,user_url
+	FROM user
+	WHERE user_id=#{userId}
+	</select>
+	
+	<!-- 제휴 수수료 계산 -->
+	<insert id="cooContractBillInsert" parameterType="java.util.Map">
+	
+		INSERT INTO coo_bill
+		(
+		coo_bill_no
+		,coo_contract_no
+		,coo_bill_value
+		,coo_bill_month
+		,coo_bill_date
+		)
+		VALUES
+		(
+		#{cooBillNo}
+		,#{cooContractNo}
+		,(
+			SELECT sum(mall_sale_total)
+			*
+			(SELECT coo_contract_fee/100
+			FROM coo_contract
+			WHERE coo_contract_no=#{cooContractNo}
+			)
+			FROM mall_sale
+			WHERE coo_contract_no= #{cooContractNo} AND MONTH(mall_sale_date) = MONTH(NOW())-1)
+		)
+		,(MONTH(NOW())-1)
+		,(
+			SELECT
+				DATE_ADD(DATE_SUB(DATE(NOW()) ,interval DAY(NOW()) day),interval coo_contract_pay_date day)
+			FROM 
+				coo_contract
+			WHERE
+				coo_contract_no=#{cooContractNo}
+			)
+		);
+	</insert>
+	<!-- 제휴종료시 수수료계산 -->
+	<insert id="insertEndBill" parameterType="java.util.Map">
+	INSERT INTO coo_bill
+		(
+		coo_bill_no
+		,coo_contract_no
+		,coo_bill_value
+		,coo_bill_month
+		,coo_bill_date
+		)
+		VALUES
+		(
+		#{cooBillNo}
+		,#{cooContractNo}
+		,(SELECT sum(mall_sale_total)
+			*
+			(SELECT coo_contract_fee/100
+			FROM coo_contract
+			WHERE coo_contract_no=#{cooContractNo}
+			)
+			FROM mall_sale
+			WHERE coo_contract_no= #{cooContractNo} AND MONTH(mall_sale_date) = MONTH(NOW()))
+		,MONTH(NOW())
+		,DATE_ADD(DATE(NOW()) ,INTERVAL 10 DAY)
+		)
+		
+	</insert>
+
+
+	<!-- 제휴 결제예정 금액 조회 -->
+	<select id="cooContractBill" parameterType="String" resultMap="partnerBill">
+		SELECT
+		coo_bill_no
+		,coo_contract_no
+		,coo_bill_value
+		,coo_bill_month
+		,coo_bill_date
+		FROM
+		coo_bill
+		WHERE coo_contract_no = #{cooContractNo}
+	</select>
+
+	<!-- 제휴신청 승인 -->
+	<update id="cooContractAdmit" parameterType="com.ksmart.harulook.partner.service.PartnerDto">
+		UPDATE
+		coo_contract
+		SET
+		manager_id=#{managerId}
+		,coo_contract_stat='제휴승인'
+		WHERE
+		coo_contract_no = #{cooContractNo}
+
+	</update>
+	
+	<!-- 제휴결제내역보기 -->
+	<select id="cooContractPayList" parameterType="String" resultMap="partnerPay">
+		SELECT 
+		coo_contract_no
+		,coo_pay_date
+		,coo_pay_total
+		FROM 
+		coo_pay
+		WHERE coo_contract_no = #{cooContractNo}
+	</select>
+	
+	<!-- 결제예정수수료 생성할 제휴계약 이름 가져오기-->
+	<select id="getCooContractNo" resultType="String">
+	SELECT coo_contract_no
+	FROM coo_contract
+	WHERE coo_contract_stat ='제휴진행'
+	</select>
+	
+	<!-- 제휴결제예정 번호 가져오기 -->
+	<select id="getLastCooBillNo" resultType="String">
+		SELECT
+		max(CAST(substring(coo_bill_no,10) AS DECIMAL))
+		FROM coo_bill
+	</select>
+
+	<!-- 제휴업체 일별 방문자 수 가져오기 -->
+	<select id="getDailyVisitor" parameterType="java.util.Map" resultMap="statistics">
+	SELECT 
+		DATE(coo_visitor_datetime)AS date
+		,count(coo_visitor_no)AS amount
+	FROM 
+		coo_visitor
+	WHERE 
+		coo_contract_no = #{cooContractNo}
+		AND 
+		MONTH(coo_visitor_datetime) = #{month}
+	GROUP BY 
+		date
+
+	</select>
+	
+	<!-- 제휴업체 월별 방문자 수 가져오기 -->
+	<select id="getMonthlyVisitor" parameterType="String" resultMap="statistics" >
+	SELECT 
+		month(coo_visitor_datetime) as date
+		,count(coo_visitor_no)as amount
+	FROM 
+		coo_visitor
+	WHERE 
+	coo_contract_no = #{cooContractNo} AND YEAR(NOW())
+	GROUP BY 
+		date
+	</select>
+	<!-- 제휴업체 월별 유입 방문자 수 가져오기 -->
+	<select id="getMonthlyInflux" parameterType="String" resultMap="statistics" >
+	SELECT 
+		month(coo_visitor_datetime) as date
+		,count(coo_visitor_no)as amount
+	FROM 
+		coo_visitor
+	WHERE 
+	coo_contract_no = #{cooContractNo} AND coo_visitor_influx ='harulook' AND YEAR(NOW())
+	GROUP BY 
+		date
+	</select>
+	
+	<!-- 제휴업체 주별 방문자 수 가져오기 -->
+	<select id="getWeeklyVisitor" parameterType="String" resultMap="statistics" >
+	SELECT
+		DATE_FORMAT(DATE_SUB(`coo_visitor_datetime`, INTERVAL (DAYOFWEEK(`coo_visitor_datetime`)-1) DAY), '%Y/%m/%d') as start
+		,DATE_FORMAT(DATE_SUB(`coo_visitor_datetime`, INTERVAL (DAYOFWEEK(`coo_visitor_datetime`)-7) DAY), '%Y/%m/%d') as end
+		,DATE_FORMAT(`coo_visitor_datetime`, '%Y%U') as 'date'
+		,COUNT(coo_visitor_no) as amount
+	FROM 
+		coo_visitor
+	WHERE
+		coo_contract_no = #{cooContractNo} 
+	GROUP BY 
+		date
+	ORDER BY
+		date DESC LIMIT 0,6;
+	
+	</select>
+	<!-- 제휴업체 주별 유입 방문자 수 가져오기 -->
+	<select id="getWeeklyInflux" parameterType="String" resultMap="statistics" >
+	SELECT
+		DATE_FORMAT(DATE_SUB(`coo_visitor_datetime`, INTERVAL (DAYOFWEEK(`coo_visitor_datetime`)-1) DAY), '%Y/%m/%d') as start
+		,DATE_FORMAT(DATE_SUB(`coo_visitor_datetime`, INTERVAL (DAYOFWEEK(`coo_visitor_datetime`)-7) DAY), '%Y/%m/%d') as end
+		,DATE_FORMAT(`coo_visitor_datetime`, '%Y%U') as 'date'
+		,COUNT(coo_visitor_no) as amount
+	FROM 
+		coo_visitor
+	WHERE
+		coo_contract_no = #{cooContractNo} 
+		AND 
+		coo_visitor_influx ='harulook'
+	GROUP BY 
+		date
+	ORDER BY
+		date DESC LIMIT 0,6;
+	
+	</select>
+	<!-- 제휴 쿠폰번호 중복체크 -->
+	<select id="duplicateCode" resultType="int">
+	SELECT 
+		COUNT(coo_contract_no)
+	FROM 
+		coo_contract
+	WHERE 
+		coo_contract_code = #{cooContractCode}
+	</select>
+	
+	<!-- 상품별 구매량 불러오기 -->
+	<select id="getBuyStats" parameterType="String" resultMap="rate">
+	SELECT COUNT(mall_sale_no)as total,(SELECT COUNT(mall_sale_no) FROM mall_sale WHERE coo_contract_no='coo_contract_1' AND MONTH(mall_sale_date)=MONTH(NOW()) AND mall_pro_no =#{mallProNo})as influx
+	FROM mall_sale
+	WHERE MONTH(mall_sale_date)=MONTH(NOW()) AND mall_pro_no =#{mallProNo}
+	</select>
+	<select id="getMallProNo" resultType="String">
+	SELECT mall_pro_no
+	FROM mall_pro
+	</select>
+	
+	<!-- 배너이미지 불러오기 -->
+	<select id="getBanner" resultMap="banner">
+	SELECT coo_contract_img,coo_contract_link
+	FROM coo_contract
+	WHERE coo_contract_stat='제휴진행'
+	</select>
+	
+	<!-- 제휴 시작할 계약 조회 -->
+	<select id="getStartCooContract" resultType="String">
+	SELECT 
+		coo_contract_no
+	FROM 
+		coo_contract
+	WHERE 
+		coo_contract_stat ='제휴승인' 
+	AND 
+		DATE(NOW()) > coo_contract_start
+	</select>
+	
+	<!-- 제휴진행 상태로 변경 -->
+	<update id="updateStartCooContract" parameterType="String">
+	UPDATE coo_contract
+	SET
+		coo_contract_stat='제휴진행'
+	WHERE 
+	   coo_contract_no =#{cooContractNo} 
+	</update>
+	
+	<!-- 기간 만료된 제휴계약 조회 -->
+	<select id="getEndCooContractList" resultType="String">
+	SELECT coo_contract_no
+	FROM coo_contract
+	WHERE DATE(NOW()) > coo_contract_end  AND coo_contract_stat != '제휴종료'
+	</select>
+	
+	<!-- 기간만료 된 제휴계약 상태변경 -->
+	<update id="updateEndCooContract" parameterType="String">
+	UPDATE coo_contract
+	SET
+		coo_contract_stat='제휴종료'
+	WHERE
+		coo_contract_no = #{cooContractNo}
+	</update>
+	
+	<!-- 납부기한이 밀린 제휴계약 정지 -->
+	<update id="updateOverDue" parameterType="String">
+	UPDATE coo_contract
+	SET
+		coo_contract_stat='제휴정지'
+	WHERE 
+	   coo_contract_no = #{cooContractNo}
+	</update>
+	
+	<!-- 납부기한이 밀린 제휴계약 조회 -->
+	<select id="getOverDueList" resultType="String">
+	SELECT coo_contract_no
+	FROM coo_bill
+	WHERE DATE(NOW()) > coo_bill_date
+	</select>
+	
+	
+
+
+
+</mapper>

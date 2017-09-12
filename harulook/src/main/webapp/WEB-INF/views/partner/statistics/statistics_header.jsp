@@ -31,11 +31,10 @@ canvas {
 
 	
 	<div class="row">
-		<div class="col-xs-1">
-		
+		<div class="col-xs-2">
 			<c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
 		</div>
-			<div class="col-xs-9" style="margin-top:20px;">
+			<div class="col-xs-8" style="margin-top:20px;">
 			<div class="col-md-1"></div>
 			<div class="container">
 
@@ -47,7 +46,7 @@ canvas {
 
 
 
-			<div id="graph" style="width: 80%; margin: 20px;">
+			<div id="graph" style="width: 80%; margin: 30px;">
 				<div>
 					<canvas id="canvas" height="350" width="600"></canvas>
 				</div>

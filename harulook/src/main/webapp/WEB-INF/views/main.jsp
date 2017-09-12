@@ -23,7 +23,7 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
 
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" href="<c:url value="resources/css/agency.min.css" />" type="text/css">
+    <link rel="stylesheet" href="resources/css/agency.min.css" type="text/css">
     
      <!-- Bootstrap core JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -228,14 +228,14 @@
             <div class="team-member">
               <!-- <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt=""> -->
               <h4>이해인</h4>
-              <p class="explain">
+              <p class="text-muted">
               <br>제휴계약/결제 관리
               <br>제휴 쇼핑몰
               <br>명예의전당 관리</p>
               <br>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                  <a href="#">
+                  <a href="http://sun-p.tistory.com/" target="_blank">
                     <i class="fa fa-user-o"></i>
                   </a>
                 </li>
@@ -251,14 +251,14 @@
             <div class="team-member">
               <!-- <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt=""> -->
               <h4>황인준</h4>
-              <p class="explain">
+              <p class="text-muted">
               <br>SNS게시물 관리
               <br>SNS추천&댓글 관리
               <br>날씨API</p>
               <br>
               <ul class="list-inline social-buttons">
                <li class="list-inline-item">
-                  <a href="http://blog.naver.com/acddde9">
+                  <a href="http://blog.naver.com/acddde9" target="_blank">
                     <i class="fa fa-user-o"></i>
                   </a>
                 </li>
@@ -274,13 +274,13 @@
             <div class="team-member">
               <!-- <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt=""> -->
               <h4>김민구</h4>
-              <p class="explain">
+              <p class="text-muted">
               <br>회원 / 로그인 관리
               <br>포인트/팔로우/방문자 관리</p>
               <br>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                  <a href="#">
+                  <a href="http://blog.naver.com/alsrn880311" target="_blank">
                     <i class="fa fa-user-o"></i>
                   </a>
                 </li>
@@ -296,14 +296,14 @@
             <div class="team-member">
               <!-- <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt=""> -->
               <h4>박종빈</h4>
-              <p class="explain">
+              <p class="text-muted">
               <br>광고계약/결제/환불 관리
               <br>광고 게시물 관리
               </p>
               <br>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                  <a href="#">
+                  <a href="http://blog.naver.com/qkr456whd" target="_blank">
                     <i class="fa fa-user-o"></i>
                   </a>
                 </li>

@@ -1,0 +1,86 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.ksmart.harulook.guest.service.GuestMapper">
+     
+    <resultMap type="com.ksmart.harulook.guest.service.GuestDto" id="guest">
+		<result property="guestNo" column="guest_no"/>
+		<result property="guestIp" column="guest_ip"/>
+		<result property="guestDate" column="guest_date"/>
+		<result property="guestLoc" column="guest_loc"/>
+		<result property="dailyDate" column="daily_date"/>
+		<result property="weeklyStart" column="weekly_start"/>
+		<result property="weeklyEnd" column="weekly_end"/>
+		<result property="monthlyDate" column="monthly_date"/>
+		<result property="guestCount" column="guest_count"/>
+	</resultMap>
+		
+		<!-- 월간방문자수조회 -->
+     	<select id="monthlyGuest" resultMap="guest">
+			select month(guest_date) as 'monthly_date'
+				,count(guest_no) guest_count
+			from guest 
+			group by monthly_date
+			order by monthly_date desc
+			; 
+    	</select>
+		
+		<!-- 주간방문자수조회 -->
+     	<select id="weeklyGuest" resultMap="guest">
+			select DATE_FORMAT(DATE_SUB(`guest_date`, INTERVAL (DAYOFWEEK(`guest_date`)-1) DAY), '%Y/%m/%d') as weekly_start
+				,DATE_FORMAT(DATE_SUB(`guest_date`, INTERVAL (DAYOFWEEK(`guest_date`)-7) DAY), '%Y/%m/%d') as weekly_end
+				,DATE_FORMAT(`guest_date`, '%Y%U') as 'date'
+				,count(guest_no) guest_count
+			from guest
+			group by date
+			order by date desc
+			; 
+    	</select>
+		
+		<!-- 일일방문자수조회 -->
+     	<select id="dailyGuest" resultMap="guest">
+			select date(guest_date) as 'daily_date'
+				,count(guest_no) guest_count
+			from guest
+			group by daily_date
+			order by daily_date desc
+			; 
+    	</select>
+		
+		<!-- 손님입력 no검색 -->
+     	<select id="guestSelect" parameterType="java.util.Map" resultType="String">
+			select guest_ip
+			from guest
+			where 
+			guest_ip = #{guestIp} 
+			and guest_date = date(NOW());
+			;
+    	</select>
+			
+		<!-- 손님입력 no검색 -->
+     	<select id="guestSelectNo" resultType="String">
+			select MAX(CAST(substring(guest_no, 7) AS DECIMAL))
+			from guest
+			;
+    	</select>	
+			
+		<!-- 손님입력 -->
+     	<insert id="guestinsert" parameterType="java.util.Map">
+			INSERT INTO guest(
+				guest_no
+				,guest_ip
+				,guest_date
+				,guest_loc
+			)
+			VALUES (
+				#{guestInsertNo}
+				,#{guestIp}
+				,date(NOW())
+				,'ddddasdfas'
+			);
+		</insert>
+      
+</mapper>
+
+
