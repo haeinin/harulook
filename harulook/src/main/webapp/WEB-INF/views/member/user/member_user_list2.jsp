@@ -644,9 +644,10 @@ $(document).ready(function(){
     	<div class="col-xs-1">
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
-	    <div id="div1" class="col-xs-9">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-7">
 	
-		<div class="container">
+		<div>
 		    <h1>${sessionScope.searchLevel} 리스트</h1>
 		    <div>회원 수 : ${boardCount}</div>
 		    <%-- <!-- 회원아이디검색 -->
@@ -715,6 +716,7 @@ $(document).ready(function(){
 			   </table>
 			</div>
 		</div>
+		<div class="col-xs-1"></div>
 		
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">

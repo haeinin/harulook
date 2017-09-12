@@ -368,6 +368,26 @@
 			toggleColor('Pink');
 		});
 		
+		//이미지 실시간 띄우기
+		$('#userImgFile').on('change', function(){
+     	   var id = $(this).attr('id');
+     	   id = id + "View";
+     	   console.log(id);
+             readURL(this , id);
+
+         });
+		function readURL(input ,id) {
+            if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                    $("#" + id).attr('src', e.target.result);
+                }
+
+              reader.readAsDataURL(input.files[0]);
+            }
+        }
+		
     });
 	
 	
@@ -460,8 +480,9 @@
 					            
 					            <!-- 프로필사진 -->
 					            <div class="form-group">
-					            <label style="letter-spacing:11.3px" for="userImg">프로필</label>
-					            <input class="form-control" name="userImg" id="userImg" type="file"/>
+					            <label style="letter-spacing:11.3px" for="userImgFile">프로필</label>
+					            <img id="userImgFileView" src="#" alt="" class="img-responsive" style="max-width: 100px;" />
+					            <input name="userImgFile" id="userImgFile" type="file"/>
 					            <span id="imgFail" >사진을 올려주세요.</span><br>
 						        </div>
 					            	 
@@ -535,7 +556,7 @@
 					        	</div>
 					        	<!-- 키 -->
 					        	<div>
-					        	<label style="letter-spacing:11.5px" for="user_tall">본인키</label>
+					        	<label style="letter-spacing:11.8px" for="user_tall">본인키</label>
 					            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userTall" id="user_tall">
 									<option>${userDetail.userTall}</option>
 					            	<option>큰키</option>
@@ -545,7 +566,7 @@
 					      		</div>
 					      		<!-- 사이즈 -->
 					        	<div>
-						        	<label style="letter-spacing:11.5px" for="user_size">사이즈</label>
+						        	<label style="letter-spacing:11.8px" for="user_size">사이즈</label>
 						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userSize" id="user_size">
 										<option>${userDetail.userSize}</option>
 						            	<option>마른</option>
@@ -621,7 +642,7 @@
 										<input type="checkbox" id="searchColorWhite" name="colorValue" value="color_10">흰색
 										<input type="checkbox" id="searchColorBrown" name="colorValue" value="color_11">갈색
 										<input type="checkbox" id="searchColorBeige" name="colorValue" value="color_12">베이지
-										<input type="checkbox" id="searchColorPink" name="colorValue" value="color_13">핑크
+										<input type="checkbox" id="searchColorPink" name="colorValue" value="color_13">분홍
 							     	</div>
 							     </div>
 				            	<!-- 회원가입버튼 -->
