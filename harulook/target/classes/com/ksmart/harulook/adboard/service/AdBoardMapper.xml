@@ -28,7 +28,20 @@
 	 WHERE ad_contract_no=#{adContractNo}
 
  </select>
- 
+ <select id="selectAdBoardDetail" resultMap="AdBoardList">
+	 SELECT ad_board_no
+			,ad_contract_no
+			,ad_board_goods_1
+			,ad_board_goods_2
+			,ad_board_temp_min
+			,ad_board_temp_max
+			,ad_board_img
+			,ad_board_content
+			,ad_board_date
+	 FROM ad_board
+	 WHERE ad_board_no=#{adBoardNo}
+
+ </select>
   <select id="selectAdBoardListbyContractId" resultMap="AdBoardList">
  	SELECT ad_board_no
  		  ,ad_contract_no
@@ -82,7 +95,7 @@
 	,#{adBoardGoods2}
 	,#{adBoardTempMin}
 	,#{adBoardTempMax}
-	,#{adBoardImage}
+	,#{adBoardImg}
 	,#{adBoardContent}
 	,NOW())
   </insert>
@@ -92,4 +105,175 @@
   	FROM ad_board 
   WHERE ad_board_no=#{adBoardNo}
   </delete>
+  <select id="getPlace1TempCount" resultType="String">
+  SELECT COUNT(ad_board_no)
+	FROM ad_board
+	JOIN ad_contract
+	  ON ad_board.ad_contract_no = ad_contract.ad_contract_no
+	WHERE ad_board.ad_board_temp_min &lt;= #{temp}
+	  AND ad_board.ad_board_temp_max >= #{temp}
+	  AND ad_contract.ad_contract_place = '1'
+	  AND ad_contract.ad_contract_stat = '광고진행중'
+  </select>
+  <select id="getPlace2TempCount" resultType="String">
+  SELECT COUNT(ad_board_no)
+	FROM ad_board
+	JOIN ad_contract
+	  ON ad_board.ad_contract_no = ad_contract.ad_contract_no
+	WHERE ad_board.ad_board_temp_min &lt;= #{temp}
+	  AND ad_board.ad_board_temp_max >= #{temp}
+	  AND ad_contract.ad_contract_place = '2'
+	  AND ad_contract.ad_contract_stat = '광고진행중'
+  </select>
+  <select id="getPlace3TempCount" resultType="String">
+  SELECT COUNT(ad_board_no)
+	FROM ad_board
+	JOIN ad_contract
+	  ON ad_board.ad_contract_no = ad_contract.ad_contract_no
+	WHERE ad_board.ad_board_temp_min &lt;= #{temp}
+	  AND ad_board.ad_board_temp_max >= #{temp}
+	  AND ad_contract.ad_contract_place = '3'
+	  AND ad_contract.ad_contract_stat = '광고진행중'
+  </select>
+  <select id="selectBoardPlace1WhenCount0" resultMap="AdBoardList">
+  	SELECT ad_board.ad_board_no
+  		,ad_board.ad_contract_no
+		,ad_board.ad_board_goods_1
+		,ad_board.ad_board_goods_2
+		,ad_board.ad_board_temp_min
+		,ad_board.ad_board_temp_max
+		,ad_board.ad_board_img
+		,ad_board.ad_board_content 
+	FROM ad_board
+	JOIN ad_contract
+	ON ad_board.ad_contract_no = ad_contract.ad_contract_no
+	WHERE ad_contract.ad_contract_place = '1'
+	  AND ad_contract.ad_contract_stat = '광고진행중'
+	ORDER BY RAND() limit 1;
+	</select>
+	  <select id="selectBoardPlace1WhenCount1" resultMap="AdBoardList">
+	SELECT ad_board.ad_board_no
+	  		,ad_board.ad_contract_no
+			,ad_board.ad_board_goods_1
+			,ad_board.ad_board_goods_2
+			,ad_board.ad_board_temp_min
+			,ad_board.ad_board_temp_max
+			,ad_board.ad_board_img
+			,ad_board.ad_board_content 
+	FROM ad_board
+	JOIN ad_contract
+	ON ad_board.ad_contract_no = ad_contract.ad_contract_no
+	WHERE ad_contract.ad_contract_place = '1'
+	AND ad_contract.ad_contract_stat = '광고진행중'
+	</select>
+	  <select id="selectBoardPlace1WhenCount2" resultMap="AdBoardList">
+	SELECT ad_board.ad_board_no
+	  		,ad_board.ad_contract_no
+			,ad_board.ad_board_goods_1
+			,ad_board.ad_board_goods_2
+			,ad_board.ad_board_temp_min
+			,ad_board.ad_board_temp_max
+			,ad_board.ad_board_img
+			,ad_board.ad_board_content 
+	FROM ad_board
+	JOIN ad_contract
+	ON ad_board.ad_contract_no = ad_contract.ad_contract_no
+	WHERE ad_contract.ad_contract_place = '1'
+	AND ad_contract.ad_contract_stat = '광고진행중'
+	ORDER BY RAND() LIMIT 1;
+	</select>
+	  <select id="selectBoardPlace2WhenCount0" resultMap="AdBoardList">
+  	SELECT ad_board.ad_board_no
+  	  	,ad_board.ad_contract_no
+		,ad_board.ad_board_goods_1
+		,ad_board.ad_board_goods_2
+		,ad_board.ad_board_temp_min
+		,ad_board.ad_board_temp_max
+		,ad_board.ad_board_img
+		,ad_board.ad_board_content 
+	FROM ad_board
+	JOIN ad_contract
+	ON ad_board.ad_contract_no = ad_contract.ad_contract_no
+	WHERE ad_contract.ad_contract_place = '2'
+	  AND ad_contract.ad_contract_stat = '광고진행중'
+	ORDER BY RAND() limit 1;
+	</select>
+	  <select id="selectBoardPlace2WhenCount1" resultMap="AdBoardList">
+	SELECT ad_board.ad_board_no
+	  		,ad_board.ad_contract_no
+			,ad_board.ad_board_goods_1
+			,ad_board.ad_board_goods_2
+			,ad_board.ad_board_temp_min
+			,ad_board.ad_board_temp_max
+			,ad_board.ad_board_img
+			,ad_board.ad_board_content 
+	FROM ad_board
+	JOIN ad_contract
+	ON ad_board.ad_contract_no = ad_contract.ad_contract_no
+	WHERE ad_contract.ad_contract_place = '2'
+	AND ad_contract.ad_contract_stat = '광고진행중'
+	</select>
+	  <select id="selectBoardPlace2WhenCount2" resultMap="AdBoardList">
+	SELECT ad_board.ad_board_no
+	  		,ad_board.ad_contract_no
+			,ad_board.ad_board_goods_1
+			,ad_board.ad_board_goods_2
+			,ad_board.ad_board_temp_min
+			,ad_board.ad_board_temp_max
+			,ad_board.ad_board_img
+			,ad_board.ad_board_content 
+	FROM ad_board
+	JOIN ad_contract
+	ON ad_board.ad_contract_no = ad_contract.ad_contract_no
+	WHERE ad_contract.ad_contract_place = '2'
+	AND ad_contract.ad_contract_stat = '광고진행중'
+	ORDER BY RAND() LIMIT 1;
+	</select>
+	  <select id="selectBoardPlace3WhenCount0" resultMap="AdBoardList">
+  	SELECT ad_board.ad_board_no
+  	  		,ad_board.ad_contract_no
+			,ad_board.ad_board_goods_1
+			,ad_board.ad_board_goods_2
+			,ad_board.ad_board_temp_min
+			,ad_board.ad_board_temp_max
+			,ad_board.ad_board_img
+			,ad_board.ad_board_content 
+	FROM ad_board
+	JOIN ad_contract
+	ON ad_board.ad_contract_no = ad_contract.ad_contract_no
+	WHERE ad_contract.ad_contract_place = '3'
+	  AND ad_contract.ad_contract_stat = '광고진행중'
+	ORDER BY RAND() limit 1;
+	</select>
+	  <select id="selectBoardPlace3WhenCount1" resultMap="AdBoardList">
+	SELECT ad_board.ad_board_no
+	  		,ad_board.ad_contract_no
+			,ad_board.ad_board_goods_1
+			,ad_board.ad_board_goods_2
+			,ad_board.ad_board_temp_min
+			,ad_board.ad_board_temp_max
+			,ad_board.ad_board_img
+			,ad_board.ad_board_content 
+	FROM ad_board
+	JOIN ad_contract
+	ON ad_board.ad_contract_no = ad_contract.ad_contract_no
+	WHERE ad_contract.ad_contract_place = '3'
+	AND ad_contract.ad_contract_stat = '광고진행중'
+	</select>
+	  <select id="selectBoardPlace3WhenCount2" resultMap="AdBoardList">
+	SELECT ad_board.ad_board_no
+	  		,ad_board.ad_contract_no
+			,ad_board.ad_board_goods_1
+			,ad_board.ad_board_goods_2
+			,ad_board.ad_board_temp_min
+			,ad_board.ad_board_temp_max
+			,ad_board.ad_board_img
+			,ad_board.ad_board_content 
+	FROM ad_board
+	JOIN ad_contract
+	ON ad_board.ad_contract_no = ad_contract.ad_contract_no
+	WHERE ad_contract.ad_contract_place = '3'
+	AND ad_contract.ad_contract_stat = '광고진행중'
+	ORDER BY RAND() LIMIT 1;
+	</select>
 </mapper>

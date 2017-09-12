@@ -8,22 +8,44 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>광고리스트</title>
+<<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<!-- Latest compiled and minified JavaScript -->
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="resources/css/style.css">
+
+<!-- jquery를 사용하기위한 CDN주소 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="resources/js/adBoardDetail.js"></script>
+<script>
+
+$(document).ready(function(){
+	$('.adBoards').click(function(){
+		alert('됨?');
+		var index = $('.adBoards').index(this);
+		var adBoardNo = adBoardNoVal[index].value;
+		console.log('index : ',index);
+		console.log('data[',index,'].adBoardNo : ',adBoardNo,'');
+		
+		
+ 		var boardDetailRequest = $.ajax({
+			url : './adBoardDetail',
+			method : 'get',
+			data :{'adBoardNo' : adBoardNo},
+			datatype : 'json',
+			success : function(msg) {
+				adBoardDetail(msg);
+			}
+		});
+		$('#adModal').modal(); 
+	});
+});
+</script>
 
 </head>
-<body>
-<!-- <div class="row">
-	<div class="col-xs-2"></div>
-		
-	sns 게시물 목록 영역
-    <div class="col-xs-9">
-        <div class="instagram-content"> -->
- 
-			        	
+<body>			        	
             <h3>광고 게시물</h3>
         	
             <!-- The following HTML will be our template inside instafeed -->
@@ -31,56 +53,16 @@
 			<c:forEach var="b" items="${adboardlist}" begin="0" end="2" step="1">
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
 				<div class="ad-pop-photo-box"><!-- ddddddddddddddddddddddddddddddddddd  모달 클릭 클래스네임 -->
-					<input type="hidden" id="adContractNo" value="${b.adContractNo}">
+					<input type="hidden" id="adBoardNoVal" value="${b.adBoardNo}">
 					<div class="image-wrap">
-						<img style="max-width: 300px; max-height: 300px; width: auto; height: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.adBoardImage}">
-						
+					<c:choose>
+						   <c:when test="${b.adBoardNo == null}"><img class="adBoards" style="max-width: 300px; max-height: 300px; width: auto; height: auto;" alt="no image" onError="this.src='resources/files/images/noAD.png';" src="this.src='resources/files/images/defaut.jpg';"> </c:when>
+						   <c:otherwise><img class="adBoards" style="max-width: 300px; max-height: 300px; width: auto; height: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.adBoardImg}"></c:otherwise>
+							</c:choose>
 					</div>
 				</div>
 			</div>
 			</c:forEach>
 			</div>
-   <!--     	</div>
-	</div>
-</div> -->
-
-
-<%-- <div class="container">
-    <h1>광고 목록</h1>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>광고 게시물 번호</th>
-                <th>계약번호</th>
-                <th>광고 상품1</th>
-                <th>광고 상품2</th>
-                <th>최저온도</th>
-                <th>최고온도</th>
-                <th>이미지</th>
-                <th>광고등록일자</th>
-                <th>광고내용</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="b" items="${adboardlist}">
-
-            <tr>
-                    <td>${b.adBoardNo}</td>
-                    <td>${b.adContractNo}</td>
-                    <td><a href="./selectAdBoardGoods?adBoardGoodsNo=${b.adBoardGoods1}">${b.adBoardGoods1}</a></td>
-                    <td><a href="./selectAdBoardGoods?adBoardGoodsNo=${b.adBoardGoods2}">${b.adBoardGoods2}</a></td>
-                    <td>${b.adBoardTempMin}</td>
-                    <td>${b.adBoardTempMax}</td>
-                    <td><img alt="no Image" src="${b.adBoardImage}"></td>
-                    <td>${b.adBoardDate}</td>
-                    <td>${b.adBoardContent}</td>
-                    <td><a>광고 수정</a></td>
-                </tr>
-                </c:forEach>
-        </tbody>
-    </table>
-    <div>
-        <a class="btn btn-default" href="${pageContext.request.contextPath}/adPay">광고 결제</a>
-    </div> --%>
 </body>
 </html>

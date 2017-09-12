@@ -24,15 +24,9 @@
 						<div id="adDetailImg"></div>
 		        	</div>
 		        	<!-- 게시물 이미지 영역 -->
-		        	
 		        	<!-- 게시물 내용 영역 -->
 			        <div id="contentArea" class="modal-body col-xs-12 col-sm-6">
 			        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
-		        		<div id="adDetailContent"></div>
-		        		<hr>
-		        	
-			        	<div id="adDetailLike"></div>
-			        	<div id="adDetailComment"></div>
 			        	<hr>
 			        	<c:if test="${sessionScope.id != null}">
 			        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">

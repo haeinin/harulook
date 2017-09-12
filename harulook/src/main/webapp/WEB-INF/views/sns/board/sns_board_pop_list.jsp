@@ -172,6 +172,7 @@ $(function(){
 			        	<h2>게시물 : ${boardCount}</h2>
 			<!-- 광고게시물 -->
    			<c:import url="/adBoardList"></c:import>
+   			
             <br>
             <br>
             <h3>인기 게시물</h3>
@@ -234,6 +235,28 @@ $(function(){
 		</div>
 	</div>
 	<!-- sns 게시물 상세보기 모달 -->
+	<!-- 광고 게시물 상세보기 모달 -->
+		<div class="modal fade" id="adModal" role="dialog">
+		    <div id="modalFrame" class="modal-dialog modal-lg" >
+				<div id="adDetail" class="modal-content">
+			        <div class="row">
+			        
+			        	<!-- 광고 메인 이미지 영역 -->
+				        <div id="adDetailImgArea" class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
+							<div id="adMainImg"></div>
+			        	</div>
+			        	<!-- 광고 메인 이미지 영역 -->
+			        	<!-- 광고 상세 상품 내용 영역 -->
+				        <div id="adDetailContent" class="modal-body col-xs-12 col-sm-6">
+						</div>
+						<hr>
+						<!-- 강고 상세 상품 내용 영역 -->
+						
+				     </div>
+				</div>
+			</div>
+		</div>
+	<!-- 광고 게시물 상세보기 모달 -->
 	
 <!-- 로그인권한별로 버튼을 나누기 위한 세션 아이디 -->
 <input id="levelCheck" type="hidden" value="${sessionScope.level}"/>

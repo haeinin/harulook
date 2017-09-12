@@ -7,7 +7,8 @@
 <!-- 해더인클루드 -->
 	<c:import url="../../module/header.jsp"></c:import>	
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
-	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script> 
+	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
 	<script type="text/javascript">
 jQuery.browser = {};
 (function () {
@@ -22,6 +23,21 @@ jQuery.browser = {};
 	
 <script>
     $(function() {
+        $('#approveCancel').click(function(){
+    		var result = confirm("정말로 취소 하시겟습니까?");
+    		if(result==true){
+    			$.ajax({
+        			type : "GET",
+        			url : "./deleteContract",
+        			data : { adContractNo : '${adcontract.adContractNo}' },
+        			success : function(data){
+        				 location.replace('./adContractList');
+        			}
+        		})
+    		}else{
+    			location.replace('./adContractList');
+    		}
+    	});
     	var price = $('#pricePerDay').val();
     	var dc = $('#dcForPrice').val();
     	var period;
@@ -36,21 +52,6 @@ jQuery.browser = {};
     	var enddate;
     	var calcplace;
     	calc();
-    	$('#approveCancel').click(function(){
-    		var result = confirm("정말로 취소 하시겟습니까?");
-    		if(result==true){
-    			$.ajax({
-        			type : "GET",
-        			url : "./deleteContract",
-        			data : { adContractNo : '${adcontract.adContractNo}' },
-        			success : function(data){
-        				 location.replace('./adContractList');
-        			}
-        		})
-    		}else{
-    			location.replace('./adContractList');
-    		}
-
     	});
     	$('#totalComplete').click(function(){
     		$('#contractForm').submit();
@@ -150,11 +151,7 @@ jQuery.browser = {};
     		console.log('상품종류 코드 : ' + price);
 			$('#priceTotal').val(calcprice);
     			
-   	}
-    });
-
-   
-    	
+   	}   	
 </script> 
 </head>
 
@@ -258,7 +255,7 @@ jQuery.browser = {};
         </div>
         <div>
             <button class="btn btn-default" id="totalComplete">완료</button>
-            <button class="btn btn-danger" id="approveCancel">계약취소</button>
+            <button class="btn btn-danger" id="approveCancel" type="button">계약취소</button>
             
         </div>
         </form>

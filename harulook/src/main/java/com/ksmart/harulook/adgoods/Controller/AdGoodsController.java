@@ -31,7 +31,7 @@ public class AdGoodsController {
 		String adgoodsimage = utilfile.fileUpload(multipartRequest, img);
 		String adgoodslink = request.getParameter("adGoodsLink");
 		adgoods.setAdGoodsNo(adgoodsno);
-		adgoods.setAdGoodsImage(adgoodsimage);
+		adgoods.setAdGoodsImg(adgoodsimage);
 		adgoods.setAdGoodsLink(adgoodslink);
 		System.out.println("adgoodsno : " + adgoodsno);
 		System.out.println("adgoodsimage : " + adgoodsimage);

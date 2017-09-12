@@ -20,8 +20,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <!-- 드롭다운과충돌 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-<script type="text/javascript" src="resources/js/adBoardDetail.js"></script>
+<script type="text/javascript" src="resources/js/adContractDetail.js"></script>
 
 <script>
 function showDetail(data) {
@@ -29,13 +28,13 @@ function showDetail(data) {
 		var adContractNo = '${adContractPlace1.adContractNo}';
 		console.log('adContractNo : ',adContractNo,'');
 		var boardDetailRequest = $.ajax({
-			url : './adBoardDetail',
+			url : './adContractDetail',
 			method : 'get',
 			data :{'adContractNo' : adContractNo},
 			datatype : 'json',
 			success : function(contractData) {
 				console.log(contractData);
-				adBoardDetail(contractData);
+				adContractDetail(contractData);
 
 				
 			}
@@ -46,13 +45,13 @@ function showDetail(data) {
 		var adContractNo = '${adContractPlace2.adContractNo}';
 		console.log('adContractNo : ',adContractNo,'');
 		var boardDetailRequest = $.ajax({
-			url : './adBoardDetail',
+			url : './adContractDetail',
 			method : 'get',
 			data :{'adContractNo' : adContractNo},
 			datatype : 'json',
 			success : function(contractData) {
 				console.log(contractData);
-				adBoardDetail(contractData);
+				adContractDetail(contractData);
 				
 			}
 		});
@@ -62,13 +61,13 @@ function showDetail(data) {
 		var adContractNo = '${adContractPlace3.adContractNo}';
 		console.log('adContractNo : ',adContractNo,'');
 		var boardDetailRequest = $.ajax({
-			url : './adBoardDetail',
+			url : './adContractDetail',
 			method : 'get',
 			data :{'adContractNo' : adContractNo},
 			datatype : 'json',
 			success : function(contractData) {
 				console.log(contractData);
-				adBoardDetail(contractData);
+				adContractDetail(contractData);
 				
 			}
 		});

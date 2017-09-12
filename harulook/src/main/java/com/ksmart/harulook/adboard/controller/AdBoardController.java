@@ -72,7 +72,6 @@ public class AdBoardController {
 		for(int i = 0; i<adGoodsNo.length; i++){
 			adgoodsdao.deleteAdGoods(adGoodsNo[i]);
 		}
-		
 		for(int i = 0; i < adBoardCount; i++){
 			int initBoardno = 1;
 			AdBoardDto adboard = new AdBoardDto();
@@ -80,10 +79,9 @@ public class AdBoardController {
 			if(lastboardno != null){
 				initBoardno = Integer.parseInt(lastboardno) + initBoardno;
 			}
-			
 			System.out.println("입력될 BoardNo : " + "ad_board_" + initBoardno);
 			adboard.setAdBoardNo("ad_board_" + initBoardno);
-			adboard.setAdBoardImage(utilfile.fileUpload(multipartRequest, adGoodsImages.get(i)));
+			adboard.setAdBoardImg(utilfile.fileUpload(multipartRequest, adBoardImages.get(i)));
 			adboard.setAdContractNo(adcontractno);
 			adboard.setAdBoardTempMax(maxTemp[i]);
 			adboard.setAdBoardTempMin(minTemp[i]);
@@ -95,33 +93,36 @@ public class AdBoardController {
 				if(lastgoodsno != null ){
 					initGoodsno = Integer.parseInt(lastgoodsno) + initGoodsno;
 				}
-				System.out.println("입력될 GoodsNo : " + "ad_goods_" + initGoodsno);
 				System.out.println("입력되는 정보 ");
 				System.out.println("goods_no : " + "ad_goods_"+initGoodsno);
-				if(links[j].equals("")){
-					links[j] = links[j+1];
-					adGoodsImages.set(j, adBoardImages.get(j+1));
-					k=k+1;
-					System.out.println("한개 더함");
-					adboard.setAdBoardGoods1("ad_goods_"+initGoodsno);
-					adboard.setAdBoardGoods2(null);
-				}else{
-				System.out.println("링크 : " + links[j]);
-				System.out.println("이미지 : "+ adGoodsImages.get(j) );
+				System.out.println("goods_link : " + links[j]);
+				System.out.println("goods_img : "+ adGoodsImages.get(j));
 				adgoods.setAdGoodsNo("ad_goods_"+initGoodsno);
 				adgoods.setAdGoodsLink(links[j]);
-				adgoods.setAdGoodsImage(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j)));
-				adboard.setAdBoardGoods1("ad_goods_"+(initGoodsno-1));
-				adboard.setAdBoardGoods2("ad_goods_"+(initGoodsno));
+				adgoods.setAdGoodsImg(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j)));
 				adgoodsdao.insertAdGoods(adgoods);
+				adboard.setAdBoardGoods1(adgoods.getAdGoodsNo());
+				if(Integer.parseInt(adGoodsCount[i])==1){
+					adboard.setAdBoardGoods2(null);
+					System.out.println("한개 건너뜀");
+					System.out.println("i : " + i + " j :" + j + "k : " + k);
+					k=k+1;
+					break;
+				}else{
+				adgoods.setAdGoodsNo("ad_goods_"+(initGoodsno+1));
+				adgoods.setAdGoodsLink(links[j+1]);
+				adgoods.setAdGoodsImg(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j+1)));
+				adgoodsdao.insertAdGoods(adgoods);
+				adboard.setAdBoardGoods2(adgoods.getAdGoodsNo());
+				System.out.println("i : " + i + " j :" + j + "k : " + k);
+				break;
 				}
 			}
 			k = k + Integer.parseInt(adGoodsCount[i]);
-			
 			System.out.println(adboard.toString());
 			adboarddao.insertAdBoard(adboard);
-			adcontractdao.adWait(adcontractno);
 		}
+		
 		System.out.println(adBoardImages.get(0));
 		return "redirect:/adContractList";
 	}
@@ -138,34 +139,28 @@ public class AdBoardController {
 		System.out.println("adContractNo : " + adcontractno);
 		List<AdBoardDto> adboard = adboarddao.selectAdBoardByContractId(adcontractno);
 		System.out.println("게시물 갯수 : " + adboard.size());
-		AdBoardDto[] adboardlist = new AdBoardDto[adboard.size()];
-		System.out.println("게시물 갯수 : " + adboardlist.length);
+		adboardcount = adboard.size();
+		AdBoardDto[] adboardlist = new AdBoardDto[adboardcount];
 		String[] goodsno = new String[adboardlist.length*2];
-		int [] goodscount = new int[adboardlist.length];
-		for(int j=0; j<adboard.size(); j++){
+		AdGoodsDto[] adgoods = new AdGoodsDto[goodsno.length];
+		int [] goodscount = new int[adboardcount];
+		for(int j=0; j<adboardcount; j++){
 			adboardlist[j] = adboard.get(j);
 		}
-		for(int j=0; j<adboardlist.length; j++){
+		for(int j=0; j<adboardcount; j++){
 				goodsno[k] = adboardlist[j].getAdBoardGoods1();
 				System.out.println(k);
-				if(adboardlist[j].getAdBoardGoods1()!=null){
 					if(adboardlist[j].getAdBoardGoods2()!=null){
 						goodsno[k+1] = adboardlist[j].getAdBoardGoods2();
 						k=k+2;
-						adboardcount=2;
 						goodscount[j]=2;
 						continue;
 					}else{
 						k++;
 						goodscount[j]=1;
 					}
-				}else{
-					adboardcount=1;
-					break;
-				}
-
-		}
-		AdGoodsDto[] adgoods = new AdGoodsDto[goodsno.length];
+			}
+		
 		for(int i=0; i<goodsno.length; i++){
 			adgoods[i] = adgoodsdao.selectAdGoods(goodsno[i]);
 		}
@@ -178,10 +173,53 @@ public class AdBoardController {
 	}
 	
 	@RequestMapping(value="/adBoardList",method = RequestMethod.GET)
-	public String selectAdBoardList(Model model) {
+	public String selectAdBoardList(Model model
+								   ,HttpSession session) {
 		System.out.println("광고 게시물 목록 요청");
-		List<AdBoardDto> adboardlist = adboarddao.selectAdBoard();
-		model.addAttribute("adboardlist", adboardlist);
+		String temp = (String)session.getAttribute("sessionTemp");
+		System.out.println("세션에 담겨있는 온도 : " + temp);
+		String[] correctAdBoardCount = new String[3];
+		correctAdBoardCount[0] = adboarddao.getPlace1TempCount(temp);
+		correctAdBoardCount[1] = adboarddao.getPlace2TempCount(temp);
+		correctAdBoardCount[2] = adboarddao.getPlace3TempCount(temp);
+		AdBoardDto[] adBoardlist = new AdBoardDto[3];
+		switch (correctAdBoardCount[0]) {
+		case "0":
+			adBoardlist[0] = adboarddao.selectBoardPlace1WhenCount0();			
+			break;
+		case "1":
+			adBoardlist[0] = adboarddao.selectBoardPlace1WhenCount1();
+			break;
+		case "2":
+			adBoardlist[0] = adboarddao.selectBoardPlace1WhenCount2();	
+			break;
+		}
+		switch (correctAdBoardCount[1]) {
+		case "0":
+			adBoardlist[1] = adboarddao.selectBoardPlace2WhenCount0();	
+			break;
+		case "1":
+			adBoardlist[1] = adboarddao.selectBoardPlace2WhenCount1();
+			break;
+		case "2":
+			adBoardlist[1] = adboarddao.selectBoardPlace2WhenCount2();
+			break;
+		}
+		switch (correctAdBoardCount[2]) {
+		case "0":
+			adBoardlist[2] = adboarddao.selectBoardPlace3WhenCount0();
+			break;
+		case "1":
+			adBoardlist[2] = adboarddao.selectBoardPlace3WhenCount1();
+			break;
+		case "2":
+			adBoardlist[2] = adboarddao.selectBoardPlace3WhenCount2();
+			break;
+		}
+		System.out.println("첫번째 위치에 해당하는 광고게시물의 갯수 : " + correctAdBoardCount[0]);
+		System.out.println("두번째 위치에 해당하는 광고게시물의 갯수 : " + correctAdBoardCount[1]);
+		System.out.println("세번째 위치에 해당하는 광고게시물의 갯수 : " + correctAdBoardCount[2]);	
+		model.addAttribute("adboardlist", adBoardlist);
 		System.out.println(model);
 		return "ad/board/ad_board_list";	
 	}
@@ -233,7 +271,7 @@ public class AdBoardController {
 			}
 			System.out.println("입력될 BoardNo : " + "ad_board_" + initBoardno);
 			adboard.setAdBoardNo("ad_board_" + initBoardno);
-			adboard.setAdBoardImage(utilfile.fileUpload(multipartRequest, adGoodsImages.get(i)));
+			adboard.setAdBoardImg(utilfile.fileUpload(multipartRequest, adBoardImages.get(i)));
 			adboard.setAdContractNo(adcontractno);
 			adboard.setAdBoardTempMax(maxTemp[i]);
 			adboard.setAdBoardTempMin(minTemp[i]);
@@ -245,41 +283,36 @@ public class AdBoardController {
 				if(lastgoodsno != null ){
 					initGoodsno = Integer.parseInt(lastgoodsno) + initGoodsno;
 				}
-				System.out.println("입력될 GoodsNo : " + "ad_goods_" + initGoodsno);
 				System.out.println("입력되는 정보 ");
 				System.out.println("goods_no : " + "ad_goods_"+initGoodsno);
-				if(Integer.parseInt(adGoodsCount[i])==1){
-					System.out.println("링크 : " + links[j]);
-					System.out.println("이미지 : "+ adGoodsImages.get(j));
-					adgoods.setAdGoodsNo("ad_goods_"+initGoodsno);
-					adgoods.setAdGoodsLink(links[j]);
-					adgoods.setAdGoodsImage(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j)));
-/*					links[j] = links[j+1];
-					adGoodsImages.set(j, adBoardImages.get(j+1));*/
-					k=k+2;
-					System.out.println("한개 건너뜀");
-					adboard.setAdBoardGoods1("ad_goods_"+initGoodsno);
-					adboard.setAdBoardGoods2(null);
-					adgoodsdao.insertAdGoods(adgoods);
-					break;
-				}else{
-				System.out.println("링크 : " + links[j]);
-				System.out.println("이미지 : "+ adGoodsImages.get(j));
+				System.out.println("goods_link : " + links[j]);
+				System.out.println("goods_img : "+ adGoodsImages.get(j));
 				adgoods.setAdGoodsNo("ad_goods_"+initGoodsno);
 				adgoods.setAdGoodsLink(links[j]);
-				adgoods.setAdGoodsImage(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j)));
-				adboard.setAdBoardGoods1("ad_goods_"+(initGoodsno-1));
-				adboard.setAdBoardGoods2("ad_goods_"+(initGoodsno));
+				adgoods.setAdGoodsImg(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j)));
 				adgoodsdao.insertAdGoods(adgoods);
+				adboard.setAdBoardGoods1(adgoods.getAdGoodsNo());
+				if(Integer.parseInt(adGoodsCount[i])==1){
+					adboard.setAdBoardGoods2(null);
+					System.out.println("한개 건너뜀");
+					System.out.println("i : " + i + " j :" + j + "k : " + k);
+					k=k+1;
+					break;
+				}else{
+				adgoods.setAdGoodsNo("ad_goods_"+(initGoodsno+1));
+				adgoods.setAdGoodsLink(links[j+1]);
+				adgoods.setAdGoodsImg(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j+1)));
+				adgoodsdao.insertAdGoods(adgoods);
+				adboard.setAdBoardGoods2(adgoods.getAdGoodsNo());
+				System.out.println("i : " + i + " j :" + j + "k : " + k);
+				break;
 				}
 			}
 			k = k + Integer.parseInt(adGoodsCount[i]);
-			
 			System.out.println(adboard.toString());
 			adboarddao.insertAdBoard(adboard);
-			adcontractdao.adWait(adcontractno);
 		}
-		System.out.println(adBoardImages.get(0));
+		adcontractdao.adWait(adcontractno);
 		return "redirect:/adContractList";	
 	}	
 	}

@@ -53,11 +53,11 @@ public class AdBoardDto {
 	public void setAdBoardTempMax(String adBoardTempMax) {
 		this.adBoardTempMax = adBoardTempMax;
 	}
-	public String getAdBoardImage() {
+	public String getAdBoardImg() {
 		return adBoardImg;
 	}
-	public void setAdBoardImage(String adBoardImage) {
-		this.adBoardImg = adBoardImage;
+	public void setAdBoardImg(String adBoardImg) {
+		this.adBoardImg = adBoardImg;
 	}
 	public String getAdBoardDate() {
 		return adBoardDate;
@@ -69,7 +69,7 @@ public class AdBoardDto {
 	public String toString() {
 		return "AdBoardDto [adBoardNo=" + adBoardNo + ", adContractNo=" + adContractNo + ", adBoardGoods1="
 				+ adBoardGoods1 + ", adBoardGoods2=" + adBoardGoods2 + ", adBoardTempMin=" + adBoardTempMin
-				+ ", adBoardTempMax=" + adBoardTempMax + ", adBoardImage=" + adBoardImg + ", adBoardDate="
+				+ ", adBoardTempMax=" + adBoardTempMax + ", adBoardImg=" + adBoardImg + ", adBoardDate="
 				+ adBoardDate + ", adBoardContent=" + adBoardContent + "]";
 	}
 	
