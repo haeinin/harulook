@@ -89,7 +89,6 @@ public class WeatherDao {
 		    Element e = (Element)node;
 		    category = e.getElementsByTagName("category").item(0).getTextContent();
 		    obsrValue = e.getElementsByTagName("obsrValue").item(0).getTextContent();
-		    
 		    if(category.equals("T1H")) {
 		    	weather.setTemp1hour(obsrValue);
 		    } else if(category.equals("SKY")) {

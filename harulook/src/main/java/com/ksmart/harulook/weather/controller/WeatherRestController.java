@@ -54,6 +54,7 @@ public class WeatherRestController {
 			}
 		}
 		session.setAttribute("sessionWeather", sessionWeather);
+		session.setAttribute("sessionTemp", weather.getTemp1hour());
 		
 		return weather;
 	}

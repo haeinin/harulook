@@ -10,11 +10,11 @@ public class AdGoodsDto {
 	public void setAdGoodsNo(String adGoodsNo) {
 		this.adGoodsNo = adGoodsNo;
 	}
-	public String getAdGoodsImage() {
+	public String getAdGoodsImg() {
 		return adGoodsImg;
 	}
-	public void setAdGoodsImage(String adGoodsImage) {
-		this.adGoodsImg = adGoodsImage;
+	public void setAdGoodsImg(String adGoodsImg) {
+		this.adGoodsImg = adGoodsImg;
 	}
 	public String getAdGoodsLink() {
 		return adGoodsLink;

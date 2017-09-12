@@ -26,8 +26,8 @@
 		console.log('${goodscount[1]}');
 		var i = ${adboardcount};
 		$('#ad-2').hide();
-		if ('${adboardcount==2}') {
-			$('#ad-2').show();
+		if ('${adboardcount==1}') {
+			$('#ad-2').hide();
 		}
 
 		$('#adAdd').click(function() {
@@ -133,19 +133,6 @@
 				console.log('최저온도 : ' + $('#ad-1adBoardTempMin').val());
 			}
 
-			/* 	case 'temp-55':
-				
-			   case 'temp515':
-				
-				case 'temp1524':
-				
-				case 'temp2430':
-				
-				case 'temp30':
-				
-				}
-				
-			}); */
 			if ($('#ad-2tempselect').val() == 'temp-5') {
 				$('#ad-2adBoardTempMax').val('-5');
 				$('#ad-2adBoardTempMin').val('-100');
@@ -226,8 +213,8 @@
 
 			<div id="container">
 				<h2>광고 게시물 수정하기</h2>
-				계약 번호 : ${sessionScope.adContractNo} <br> 게시물 수 :
-				${adboardcount} <br>
+				계약 번호 : ${sessionScope.adContractNo} <br>
+				게시물 수 :	${adboardcount} <br>
 
 				<form id='insert' action="./adBoardUpdate" enctype="multipart/form-data" method="post">
 					<div id='ad-1'>
@@ -258,33 +245,27 @@
 							<option value="temp2430">24도~30도</option>
 							<option value="temp30">30도 이상</option>
 						</select><br> <br> 대표이미지 등록<br>
-						<br> <img id="ad-1adBoardImgView" src="#" alt="your image"
-							width="50px" height="50px" class="ad-1" /> <input type='file'
-							id="ad-1adBoardImg" class="ad-1" name="adBoardImage" /><br>
+						<br> <img id="ad-1adBoardImgView" src="${adboardlist[0].adBoardImg}" alt="your image" width="300px" height="300px" class="ad-1" />
+							 <input type='file' id="ad-1adBoardImg" class="ad-1" name="adBoardImage" value="${adboardlist[0].adBoardImg}" /><br>
 						<br>
 						<br> 상세상품이미지 등록<br>
-						<br> 상세제품1 이미지<br> <img id="ad-1adGoods1ImgView" src="#"
-							alt="your image" width="50px" height="50px" class="ad-1" /> <input
-							type='file' id="ad-1adGoods1Img" class="ad-1" name="adGoodsImage" /><br>
+						<br> 상세제품1 이미지<br> 
+							 <img id="ad-1adGoods1ImgView" src="${adgoods[0].adGoodsImg}" alt="your image" width="300px" height="300px" class="ad-1" />
+					    	 <input type='file' id="ad-1adGoods1Img" class="ad-1" name="adGoodsImage" value="${adgoods[0].adGoodsImg}"/><br>
 						<br> 상세제품1에 해당하는 링크<br>
-						<br> <input type="text" id="ad-1adGoods1Link" class="ad-1"
-							name="adGoodsLink" value="${adgoods[0].adGoodsLink}"><br>
-						<br> 상세제품2 이미지<br> <img id="ad-1adGoods2ImgView" src="#"
-							alt="your image" width="50px" height="50px" class="ad-1" /> <input
-							type='file' id="ad-1adGoods2Img" class="ad-1" name="adGoodsImage" /><br>
+						<br> <input type="text" id="ad-1adGoods1Link" class="ad-1" name="adGoodsLink" value="${adgoods[0].adGoodsLink}"><br>
+						<br> 상세제품2 이미지<br>
+							 <img id="ad-1adGoods2ImgView" src="${adgoods[1].adGoodsImg}" alt="your image" width="300px" height="300px" class="ad-1" />
+							 <input type='file' id="ad-1adGoods2Img" class="ad-1" name="adGoodsImage" value="${adgoods[1].adGoodsImg}"/><br>
 						<br> 상세제품2에 해당하는 링크<br>
-						<br> <input type="text" id="ad-1adGoods2Link" class="ad-1"
-							name="adGoodsLink" value="${adgoods[1].adGoodsLink}"><br>
-						<br> <input type="hidden" name="adBoardTempMax"
-							id="ad-1adBoardTempMax"> <input type="hidden"
-							name="adBoardTempMin" id="ad-1adBoardTempMin"> <input
-							type="hidden" value="" name='adGoodsCount' id='ad1GoodsCount'
-							value="${goodscount[0]}"> <input type="hidden"
-							value="${adgoods[0].adGoodsNo}" name="adGoodsNo"> <input
-							type="hidden" value="${adgoods[1].adGoodsNo}" name="adGoodsNo">
-						<input type="hidden" value="${adboardlist[0].adBoardNo}"
-							name="adBoardNo"> <input type="hidden"
-							value="${adboardlist[1].adBoardNo}" name="adBoardNo"> <br>
+						<br> <input type="text" id="ad-1adGoods2Link" class="ad-1" name="adGoodsLink" value="${adgoods[1].adGoodsLink}"><br>
+						<br> <input type="hidden" name="adBoardTempMax" id="ad-1adBoardTempMax" value="${adboardlist[0].adBoardTempMax}">
+							 <input type="hidden" name="adBoardTempMin" id="ad-1adBoardTempMin" value="${adboardlist[0].adBoardTempMin}"> 
+							 <input	type="hidden" name='adGoodsCount' id='ad1GoodsCount' value="${goodscount[0]}">
+							 <input type="hidden" value="${adgoods[0].adGoodsNo}" name="adGoodsNo">
+							 <input	type="hidden" value="${adgoods[1].adGoodsNo}" name="adGoodsNo">
+							 <input type="hidden" value="${adboardlist[0].adBoardNo}" name="adBoardNo">
+							 <input type="hidden" value="${adboardlist[1].adBoardNo}" name="adBoardNo"> <br>
 						게시물 설명<br>
 						<br> <input type="text" id="temp-5adBoardContent"
 							name="adBoardContent" class="ad-1"
@@ -315,191 +296,32 @@
 							<option value="temp2430">24도~30도</option>
 							<option value="temp30">30도 이상</option>
 						</select><br> <br> 대표이미지 수정<br> <img id="ad-2adBoardImgView"
-							src="#" alt="your image" width="100px" height="100px"
+							src="#" alt="your image" width="300PX" height="300PX"
 							class="ad-2" /> <input type='file' id="ad-2adBoardImg"
 							class="ad-2" name="adBoardImage" /><br> <br>
 						<br> 상세상품이미지 등록<br>
-						<br> 상세제품1 이미지 <img id="ad-2adGoods1ImgView" src="#"
-							alt="your image" width="100px" height="100px" class="ad-2" /> <input
-							type='file' id="ad-2adGoods1Img" class="ad-2" name="adGoodsImage" /><br>
+						<br> 상세제품1 이미지 <br>
+						 	<img id="ad-2adGoods1ImgView" src="${adgoods[2].adGoodsImg}" alt="your image" width="300PX" height="300PX" class="ad-2" />
+							<input type='file' id="ad-2adGoods1Img" class="ad-2" name="adGoodsImage" value="${adgoods[2].adGoodsImg}" /><br>
 						<br> 상세제품1에 해당하는 링크<br>
-						<br> <input type="text" id="ad-2adGoods1Link" class="ad-2"
-							name="adGoodsLink" value="${adgoods[2].adGoodsLink }"><br>
-						<br> 상세제품2 이미지 <img id="ad-2adGoods2ImgView" src="#"
-							alt="your image" width="100px" height="100px" class="ad-2" /> <input
-							type='file' id="ad-2adGoods2Img" class="ad-2" name="adGoodsImage" /><br>
+						<br> <input type="text" id="ad-2adGoods1Link" class="ad-2" name="adGoodsLink" value="${adgoods[2].adGoodsLink }"><br>
+						<br> 상세제품2 이미지 <img id="ad-2adGoods2ImgView" src="${adgoods[3].adGoodsImg}" alt="your image" width="300PX" height="300PX" class="ad-2" />
+							<input type='file' id="ad-2adGoods2Img" class="ad-2" name="adGoodsImage" value="${adgoods[3].adGoodsImg}" /><br>
 						<br> 상세제품2에 해당하는 링크<br>
-						<br> <input type="text" class="ad-2" name="adGoodsLink"
-							value="${adgoods[3].adGoodsLink}"><br>
-						<br> <input type="hidden" name="adBoardTempMax"
-							id="ad-2adBoardTempMax"> <input type="hidden"
-							name="adBoardTempMin" id="ad-2adBoardTempMin"> <input
-							type="hidden" value="" name='adGoodsCount' id='ad2GoodsCount'
-							value="${goodscount[1]}"> <input type="hidden"
-							value="${adgoods[2].adGoodsNo}" name="adGoodsNo"> <input
-							type="hidden" value="${adgoods[3].adGoodsNo}" name="adGoodsNo">
-						<input type="hidden" value="${adboardlist[2].adBoardNo}"
-							name="adBoardNo"> <input type="hidden"
-							value="${adboardlist[3].adBoardNo}" name="adBoardNo"> <br>
+						<br> <input type="text" class="ad-2" name="adGoodsLink" value="${adgoods[3].adGoodsLink}"><br>
+						<br> <input type="hidden" name="adBoardTempMax" id="ad-2adBoardTempMax" value="${adboardlist[1].adBoardTempMax}">
+							 <input type="hidden" name="adBoardTempMin" id="ad-2adBoardTempMin" value="${adboardlist[1].adBoardTempMin}">
+							 <input type="hidden" value="" name='adGoodsCount' id='ad2GoodsCount' value="${goodscount[1]}">
+							 <input type="hidden" value="${adgoods[2].adGoodsNo}" name="adGoodsNo">
+							 <input	type="hidden" value="${adgoods[3].adGoodsNo}" name="adGoodsNo">
+							 <input type="hidden" value="${adboardlist[2].adBoardNo}" name="adBoardNo">
+							 <input type="hidden" value="${adboardlist[3].adBoardNo}" name="adBoardNo"> <br>
 						게시물 설명<br>
-						<br> <input type="text" id="ad-2adBoardContent"
-							name="adBoardContent" class="ad-2"
-							value="${adboardlist[1].adBoardContent}"><br>
-						<br>
-						<button type="button" id="ad-2cancel" class="cancel">취소</button>
+						<br> <input type="text" id="ad-2adBoardContent" name="adBoardContent" class="ad-2" value="${adboardlist[1].adBoardContent}"><br>
+						<br> <button type="button" id="ad-2cancel" class="cancel">취소</button>
 					</div>
-					<!-- <div id='ad-3'>
-			온도 : 온도선택
-			<select name="temp" id="ad-3tempselect">
-				<option></option>
-				<option value="temp-5">-5도 이하</option>
-				<option value="temp-55">-5도~5도</option>
-				<option value="temp515">5도~15도</option>
-				<option value="temp1524">15도~24도</option>
-				<option value="temp2430">24도~30도</option>
-				<option value="temp30">30도 이상</option>
-			</select><br>
-			<br>
-			대표이미지 등록
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-3"/>
-			        <input type='file' id="ad-3adBoardImage" class="ad-3" name="adBoardImage"/><br>
-			
-			<br><br>
-			상세상품이미지 등록<br><br>
-			
-			상세제품1 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-3"/>
-			        <input type='file' id="ad-3adGoods1Image" class="ad-3" name="adGoodsImage"/><br><br>
-			상세제품1에 해당하는 링크<br><br>
-					<input type="text" class="ad-3" name="adGoodsLink"><br><br>
-					
-			상세제품2 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-3"/>
-			        <input type='file' id="ad-3adGoods1Link" class="ad-3" name="adGoodsImage"/><br><br>
-			상세제품2에 해당하는 링크<br><br>
-					<input type="text" class="ad-3" name="adGoodsLink"><br><br>
-					<input type="hidden"  name="adBoardTempMax" id="ad-3adBoardTempMax">
-					<input type="hidden"  name="adBoardTempMin" id="ad-3adBoardTempMin">
-					<br>
-			게시물 설명<br><br>
-					<input type="text" id="ad-3adBoardContent" name="adBoardContent" class="ad-3"><br><br>
-					<button id="ad-3cancel">취소</button>
-			</div>
-			<div id='ad-4'>
-			온도 : 온도선택
-			<select name="temp" id="ad-4tempselect">
-				<option></option>
-				<option value="temp-5">-5도 이하</option>
-				<option value="temp-55">-5도~5도</option>
-				<option value="temp515">5도~15도</option>
-				<option value="temp1524">15도~24도</option>
-				<option value="temp2430">24도~30도</option>
-				<option value="temp30">30도 이상</option>
-			</select><br>
-			<br>
-			대표이미지 등록<br>
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-4"/>
-			        <input type='file' id="ad-4adBoardImage" class="ad-4" name="adBoardImage" name="adBoardImage"/><br>
-			
-			<br><br>
-			상세상품이미지 등록<br><br>
-			
-			상세제품1 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-4"/>
-			        <input type='file' id="ad-4adGoods1Image" class="ad-4" name="adGoodsImage"/><br><br>
-			상세제품1에 해당하는 링크<br><br>
-					<input type="text" id="ad-4adGoods1Link" class="ad-4" name="adGoodsLink"><br><br>
-					
-			상세제품2 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-4"/>
-			        <input type='file' id="ad-4adGoods2Image" class="ad-4" name="adGoodsImage"/><br><br>
-			상세제품2에 해당하는 링크<br><br>
-					<input type="text" id="ad-4adGoods2Link" class="ad-4" name="adGoodsLink"><br><br>
-					<input type="hidden"  name="adBoardTempMax" id="ad-4adBoardTempMax">
-					<input type="hidden"  name="adBoardTempMin" id="ad-4adBoardTempMin">
-					<br>
-			게시물 설명<br><br>
-					<input type="text" id="ad-4adBoardContent" name="adBoardContent" class="ad-4"><br><br>
-					<button id="ad1524cancel">취소</button>
-			</div>
-			<div id='ad-5'>
-			온도 : 온도선택
-			<select name="temp" id="ad-5tempselect">
-				<option></option>
-				<option value="temp-5">-5도 이하</option>
-				<option value="temp-55">-5도~5도</option>
-				<option value="temp515">5도~15도</option>
-				<option value="temp1524">15도~24도</option>
-				<option value="temp2430">24도~30도</option>
-				<option value="temp30">30도 이상</option>
-			</select><br>
-			<br>
-			대표이미지 등록<br>
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-5"/>
-			        <input type='file' id="imgInp" class="ad-5" name="adBoardImage" name="adBoardImage"/><br>
-			
-			<br><br>
-			상세상품이미지 등록<br><br>
-			
-			상세제품1 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-5"/>
-			        <input type='file' id="imgInp" class="ad-5" name="adGoodsImage"/><br><br>
-			상세제품1에 해당하는 링크<br><br>
-					<input type="text" class="ad-5" name="adGoodsLink"><br><br>
-					
-			상세제품2 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-5"/>
-			        <input type='file' id="imgInp" class="ad-5" name="adGoodsImage"/><br><br>
-			상세제품2에 해당하는 링크<br><br>
-					<input type="text" class="ad-5" name="adGoodsLink"><br><br>
-					<input type="hidden"  name="adBoardTempMax" id="ad-5adBoardTempMax">
-					<input type="hidden" name="adBoardTempMin" id="ad-5adBoardTempMin">
-					<br>
-			게시물 설명<br><br>
-					<input type="text" id="ad-5adBoardContent" name="adBoardContent" class="ad-5"><br><br>
-					<button id="ad-5cancel" class="ad-5">취소</button>
-			</div>
-			<div id='ad-6'>
-			온도 : 온도선택
-			<select name="temp" id="ad-6tempselect">
-				<option></option>
-				<option value="temp-5">-5도 이하</option>
-				<option value="temp-55">-5도~5도</option>
-				<option value="temp515">5도~15도</option>
-				<option value="temp1524">15도~24도</option>
-				<option value="temp2430">24도~30도</option>
-				<option value="temp30">30도 이상</option>
-			</select><br>
-			<br>
-			대표이미지 등록<br>
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px" class="ad-6" class="ad-6"/>
-			        <input type='file' id="imgInp" class="ad-6" name="adBoardImage" name="adBoardImage"/><br>
-			
-			<br><br>
-			상세상품이미지 등록<br><br>
-			
-			상세제품1 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px"/>
-			        <input type='file' id="imgInp" class="ad-6" name="adGoodsImage"/><br><br>
-			상세제품1에 해당하는 링크<br><br>
-					<input type="text" class="ad-6" name="adGoodsLink"><br><br>
-					
-			상세제품2 이미지
-					<img id="uploadimage" src="#" alt="your image" width="100px" height="100px"/>
-			        <input type='file' id="imgInp" class="ad-6" name="adGoodsImage"/><br><br>
-			상세제품2에 해당하는 링크<br><br>
-					<input type="text" class="ad-6" name="adGoodsLink"><br><br>
-					<input type="hidden"  name="adBoardTempMax" id="ad-6adBoardTempMax" class="ad-6">
-					<input type="hidden"  name="adBoardTempMin" id="ad-6adBoardTempMin" class="ad-6">
-					<br>
-			게시물 설명<br><br>
-					<input type="text" id="ad-6adBoardContent" name="adBoardContent" class="ad-6"><br><br>
-					<button id="ad-6cancel" class="ad-6">취소</button>
-			</div>
-			<br><br>-->
 					<button id="adAdd" type="button">추가</button>
-					<br> <input type="hidden" id="adBoardCount"
-						name="adBoardCount" value="${adboardcount}"> <input
+					<br> <input type="hidden" id="adBoardCount"	name="adBoardCount" value="${adboardcount}"> <input
 						type="button" id="ok" value="등록">
 				</form>
 

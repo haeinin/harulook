@@ -188,7 +188,6 @@
    		<div class="col-xs-9">
    			<!-- 게시물검색 -->
    			<c:import url="/WEB-INF/views/sns/board/sns_board_search.jsp"></c:import>
-   			
            	<!-- 인기게시물 -->
            	<c:import url="/boardPopList"></c:import>
            	<!-- 최근게시물 -->

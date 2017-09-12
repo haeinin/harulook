@@ -1,7 +1,6 @@
 package com.ksmart.harulook.adboard.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -24,34 +23,22 @@ public class AdBoardRestController {
 	@Autowired
 	AdGoodsDao adGoodsDao;
 	
-	/* 광고 게시물  상세보기 */
+	/* 광고 계약 게시물  상세보기 */
 	@RequestMapping(value="/adBoardDetail", method = RequestMethod.GET)
-	public Map<String, Object[]> adBoardDetail(HttpSession session
-            , @RequestParam(value="adContractNo", required=true) String adContractNo) {
+	public Map<String, Object> adBoardDetail(HttpSession session
+            , @RequestParam(value="adBoardNo", required=true) String adBoardNo) {
 		System.out.println("adBoardDeatil 화면 요청");
-		System.out.println("광고 계약 번호 : " + adContractNo);
-		int k=0;
-		List<AdBoardDto> adBoardList = adBoardDao.selectBoardDetail(adContractNo);
-		AdBoardDto[] adBoardArray = new AdBoardDto[adBoardList.size()];
-		for(int i=0; i<adBoardArray.length; i++){
-			adBoardArray[i]= adBoardList.get(i);
-		}
-		System.out.println("광고 게시물 갯수 : " + adBoardArray.length);
-		AdGoodsDto[] adGoodsArray = new  AdGoodsDto[adBoardList.size()*2];
-		for(int i=0; i<adBoardList.size(); i++){
-			System.out.println("i : " + i);
-			adGoodsArray[k] = adGoodsDao.selectAdGoods(adBoardArray[i].getAdBoardGoods1());
-			System.out.println(adGoodsDao.selectAdGoods(adBoardArray[i].getAdBoardGoods1()));
-			adGoodsArray[k+1] =  adGoodsDao.selectAdGoods(adBoardArray[i].getAdBoardGoods2());
-			System.out.println(adGoodsDao.selectAdGoods(adBoardArray[i].getAdBoardGoods2()));
-			k=k+2;
-		}
-		Map<String, Object[]> adBoardDetail = new HashMap<String, Object[]>();
-		adBoardDetail.put("adBoard", adBoardArray);
-		adBoardDetail.put("goods", adGoodsArray);
+		System.out.println("광고 게시물 번호 : " + adBoardNo);
+		AdBoardDto adBoard = adBoardDao.selectBoardDetail(adBoardNo);
+		AdGoodsDto[] adGoods = new AdGoodsDto[2];
+			adGoods[0] = adGoodsDao.selectAdGoods(adBoard.getAdBoardGoods1());
+			adGoods[1] = adGoodsDao.selectAdGoods(adBoard.getAdBoardGoods2());
+			System.out.println(adBoard);
+			Map<String, Object> adBoardDetail = new HashMap<String, Object>();
+			adBoardDetail.put("adBoard", adBoard);
+			adBoardDetail.put("adGoods", adGoods);
 			System.out.println(adBoardDetail);
-			return adBoardDetail;
-		}
-		
+			return adBoardDetail;		
 	}
+}
 

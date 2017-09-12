@@ -5,6 +5,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ksmart.harulook.adboard.service.AdBoardDto;
 import com.ksmart.harulook.adcontract.service.AdContractDto;
 import com.ksmart.harulook.adrefund.service.AdRefundDto;
 @Repository
@@ -159,6 +160,11 @@ public class AdContractDao {
 		System.out.println("광고 대기 요청 in Dao");
 		 System.out.println(adcontractno);
 		return sqlSessionTemplate.update("com.ksmart.harulook.adcontract.service.AdContractMapper.adWait", adcontractno);	
+	}
+
+	public List<AdBoardDto> selectContractDetail(String adContractNo) {
+		System.out.println("광고 상세 보기 내용 요청 in Dao");
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.adboard.service.AdBoardMapper.selectAdBoard", adContractNo);
 	}
 	
 }
