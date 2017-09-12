@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -140,12 +142,15 @@ jQuery.browser = {};
 	<div class="row">
 		<!-- 해더인클루드 -->
 		<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
-	</div>	
+	</div>
 	<!-- 바디 인클루드 -->
     <div class="row">
-
+		<!-- 좌측 베너 인클루드 -->
+    	<div class="col-xs-1">
+    		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+    	</div>
 	    <div class="col-xs-1"></div>
-	    <div id="div1" class="col-xs-9">    
+	    <div id="div1" class="col-xs-7">   
 		 	<form id="contractForm" action="./adContractInsert" method="POST">
 		    <div class="form-group">
 			        <label for="adType">광고종류</label>
@@ -201,6 +206,7 @@ jQuery.browser = {};
 		        </form>
 
 			</div>	
+		
 		<div class="col-xs-1"></div> 
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">

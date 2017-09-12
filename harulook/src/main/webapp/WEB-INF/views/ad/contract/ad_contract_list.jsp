@@ -129,29 +129,29 @@ $(document).ready(function(){
     	</div>
 		<div class="col-xs-1"></div>
 		<div class="col-xs-7">
-		<h1>현재 광고 목록</h1>
-		<c:import url="../contract/ad_contract_list_current.jsp"></c:import>
-		<button id="adcontractsoonBtn" class="btn btn-primary btn-md">광고 예정목록</button>&nbsp;&nbsp;<button id="adcontractapprovewaitBtn" class="btn btn-primary btn-md">광고계약승인대기목록</button>&nbsp;&nbsp;<button id="adcontractadboardinsertwaitBtn" class="btn btn-primary btn-md">광고등록대기목록</button>&nbsp;&nbsp;<button id="adcontractcancelrequestBtn" class="btn btn-primary btn-md">광고취소요청목록</button>
-		<div id="adcontractsoonlist">
-		<h1>광고예정 목록</h1>
-		<c:import url="../contract/ad_contract_list_soon.jsp"></c:import>
-		</div>
-		<div id="adcontractapprovewaitlist">
-		<h1>광고계약승인대기 목록</h1>
-		<c:import url="../contract/ad_contract_list_approve_wait.jsp"></c:import>
-		</div>
-		<div id="adcontractadboardinsertwaitlist">
-		<h1>광고등록대기 목록</h1>
-		<c:import url="../contract/ad_contract_list_adboard_insert_wait.jsp"></c:import>
-		</div>
-		<div id="adcontractcancelrequestlist">
-		<h1>광고취소요청 목록</h1>
-		<c:import url="../contract/ad_contract_list_cancel_request.jsp"></c:import>
-		</div>
-		<h1>광고 계약하기</h1>
-		<form action="./adContractInsert" method="GET">
-		<button class="btn btn-info">광고 계약</button>
-		</form>
+			<h1>현재 광고 목록</h1>
+			<c:import url="../contract/ad_contract_list_current.jsp"></c:import>
+			<button id="adcontractsoonBtn" class="btn btn-primary btn-md">광고 예정목록</button>&nbsp;&nbsp;<button id="adcontractapprovewaitBtn" class="btn btn-primary btn-md">광고계약승인대기목록</button>&nbsp;&nbsp;<button id="adcontractadboardinsertwaitBtn" class="btn btn-primary btn-md">광고등록대기목록</button>&nbsp;&nbsp;<button id="adcontractcancelrequestBtn" class="btn btn-primary btn-md">광고취소요청목록</button>
+			<div id="adcontractsoonlist">
+			<h1>광고예정 목록</h1>
+			<c:import url="../contract/ad_contract_list_soon.jsp"></c:import>
+			</div>
+			<div id="adcontractapprovewaitlist">
+			<h1>광고계약승인대기 목록</h1>
+			<c:import url="../contract/ad_contract_list_approve_wait.jsp"></c:import>
+			</div>
+			<div id="adcontractadboardinsertwaitlist">
+			<h1>광고등록대기 목록</h1>
+			<c:import url="../contract/ad_contract_list_adboard_insert_wait.jsp"></c:import>
+			</div>
+			<div id="adcontractcancelrequestlist">
+			<h1>광고취소요청 목록</h1>
+			<c:import url="../contract/ad_contract_list_cancel_request.jsp"></c:import>
+			</div>
+			<h1>광고 계약하기</h1>
+			<form action="./adContractInsert" method="GET">
+			<button class="btn btn-info">광고 계약</button>
+			</form>
 		</div>
 		<div class="col-xs-1"></div>
 			
@@ -176,13 +176,17 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-	<!-- 광고 게시물 상세보기 모달 -->
+		<!-- 광고 게시물 상세보기 모달 -->
+		
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
        	</div>
-    </div>   	
-    <!-- 하단 인클루드 -->
-    <c:import url="../../module/footer.jsp"></c:import>
+    </div>
+
+    <div class="row">
+	    <!-- 하단 인클루드 -->
+	    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>   
+	</div>  	
 </body>
 </html>
