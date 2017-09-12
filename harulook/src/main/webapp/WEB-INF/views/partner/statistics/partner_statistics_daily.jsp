@@ -81,6 +81,7 @@ canvas {
 						labels : chartLabels,
 						datasets : [ {
 							label : "일별 방문자 수",
+							backgroundColor:"#bfdaf9",
 							borderColor: "#80b6f4",
 				            pointBorderColor: "#80b6f4",
 				            pointBackgroundColor: "#80b6f4",
@@ -109,10 +110,10 @@ canvas {
 
 	
 	<div class="row">
-		<div class="col-xs-1">
+		<div class="col-xs-2">
 			<c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
 		</div>
-			<div class="col-xs-9" style="margin-top:20px;">
+			<div class="col-xs-8" style="margin-top:20px;">
 			<div class="col-md-1"></div>
 			<div class="container">
 
@@ -120,7 +121,7 @@ canvas {
 				<input type="button" id="monthlyBtn" name="btn" value="월별보기" onclick="location.href='././monthly'"> 
 				<input type="button" id="weeklyBtn" name="btn" value="주별보기" onclick="location.href='././getWeeklyVisitorTable?cooContractNo=${cooContractNo}'">
 
-				<div style="margin-top:20px; margin-left:50px">
+				<div style="margin-top:20px; margin-left:80px">
 					<select name="selectMonth" id="selectMonth">
 
 						<option value="1">JAN</option>
@@ -142,7 +143,7 @@ canvas {
 
 
 
-			<div id="graph" style="width: 80%; margin: 20px;">
+			<div id="graph" style="width: 80%; margin: 30px;">
 				<div>
 					<canvas id="canvas" height="350" width="600"></canvas>
 				</div>

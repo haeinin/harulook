@@ -18,17 +18,17 @@
 	</div>
 	
 	<div class="row">
-		<div class="col-xs-1">
+		<div class="col-xs-2">
 			<!-- 제휴전용 메뉴 -->
 			<c:if test="${sessionScope.level != '관리자' }">
 			<c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
 			</c:if>
 		</div>
-		<div class="col-xs-9">
+		<div class="col-xs-8">
 			<div class="row">
 				<div class="col-md-1">
 				<c:if test="${sessionScope.level == '관리자' }">
-				<a href="${pageContext.request.contextPath}/partnerContractAllList"><img src="./resources/bkarrow.png" alt="back" width="30px" height="30px"></a>
+				<a href="${pageContext.request.contextPath}/partnerContractAllList"><i class="fa fa-arrow-circle-left" style="font-size:36px;color:lightgray"></i></a>
 				</c:if>
 				</div>
 				<div class="col-md-6">

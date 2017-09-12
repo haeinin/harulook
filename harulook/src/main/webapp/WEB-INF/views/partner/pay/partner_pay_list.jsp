@@ -16,14 +16,14 @@
         <c:import url="/WEB-INF/views/module/header.jsp"></c:import>
         </div>
             <div class="row">
-                <div class="col-xs-1">
+                <div class="col-xs-2">
                     <c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
                 </div>
 
-                <div class="col-xs-9" >
+                <div class="col-xs-8" >
                 <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-7">
+                <div class="col-md-1"></div>
+                <div class="col-md-8">
                         <table class="table table-striped" id="table">
 
                             <thead>

@@ -228,7 +228,7 @@
             <div class="team-member">
               <!-- <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt=""> -->
               <h4>이해인</h4>
-              <p class="explain">
+              <p class="text-muted">
               <br>제휴계약/결제 관리
               <br>제휴 쇼핑몰
               <br>명예의전당 관리</p>
@@ -251,7 +251,7 @@
             <div class="team-member">
               <!-- <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt=""> -->
               <h4>황인준</h4>
-              <p class="explain">
+              <p class="text-muted">
               <br>SNS게시물 관리
               <br>SNS추천&댓글 관리
               <br>날씨API</p>
@@ -274,7 +274,7 @@
             <div class="team-member">
               <!-- <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt=""> -->
               <h4>김민구</h4>
-              <p class="explain">
+              <p class="text-muted">
               <br>회원 / 로그인 관리
               <br>포인트/팔로우/방문자 관리</p>
               <br>
@@ -296,7 +296,7 @@
             <div class="team-member">
               <!-- <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt=""> -->
               <h4>박종빈</h4>
-              <p class="explain">
+              <p class="text-muted">
               <br>광고계약/결제/환불 관리
               <br>광고 게시물 관리
               </p>

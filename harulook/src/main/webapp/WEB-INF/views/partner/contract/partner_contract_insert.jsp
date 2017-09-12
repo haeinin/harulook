@@ -43,14 +43,15 @@ $(function(){
     </div>
     <!-- 바디 인클루드 -->
     <div class="row">
-	    <div class="col-xs-1">
+	    <div class="col-xs-2">
 	    <c:import url="/WEB-INF/views/partner/partner_left.jsp"></c:import>
 	    </div>
-	    <div class="col-xs-1"></div>
-	    <div class="col-xs-8">
+	    <div class="col-xs-8"></div>
+	   <div class="col-md-1"></div>
+	   <div class="col-md-6">
 	    <div class="container">
 
-<form id="addForm" action="${pageContext.request.contextPath}/partnerContractInsert" method="post" enctype="multipart/form-data">
+		<form id="addForm" action="${pageContext.request.contextPath}/partnerContractInsert" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="cooContractDc">제공할 쿠폰 할인율 </label>
             <input class="form-control" name="cooContractDc" id="cooContractDc" type="text"/>
@@ -86,7 +87,8 @@ $(function(){
         </div>
     </form>
     </div>
+    </div>
 </div>
-</div>
+
 </body>
 </html>
