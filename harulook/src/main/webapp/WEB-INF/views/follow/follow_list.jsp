@@ -62,7 +62,7 @@
 	    <div id="div1" class="col-xs-7">
 			<!-- 친구 리스트 -->
 			<div class="row">
-			    <h1>내가 등록한 친구 목록</h1>
+			    <h1>팔로우 리스트</h1>
 			    <div>팔로우 수 : ${followListCount}</div>
 			    <table class="table table-striped">
 			        <thead>
