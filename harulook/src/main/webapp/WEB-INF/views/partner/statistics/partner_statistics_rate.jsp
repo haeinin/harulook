@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <!-- 상단 인클루드 -->
@@ -21,6 +22,9 @@
 	    <div class="row" >
 				<div class="col-md-1"></div>
 				<div class="col-md-9" style="margin-top:50px">
+				<h2>상품별 구매율</h2>
+				<br>
+				
 	<table class="table table-bordered">
 		<tr>
 			<td></td>

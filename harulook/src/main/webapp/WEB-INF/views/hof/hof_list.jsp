@@ -37,8 +37,15 @@
 <script type="text/javascript" src="resources/js/boardDetail.js"></script>
 <script type="text/javascript" src="resources/js/followCheck.js"></script>
 <style>
+h4{
+font-style:italic;
+}
 .container{
 margin:50px;
+}
+.p-text{
+margin-top:100px;
+margin-bottom:100px;
 }
 </style>
 <script type="text/javascript">
@@ -109,6 +116,15 @@ $(function(){
 	    <div class="col-md-6" >
 	   
 	    <img src="resources/hofmain.png">
+	    <div class="p-text">
+	    <h4>매 월 1일 마다 가장 많은 예뻐요를 받은 사진이 명예의 전당에 선정됩니다</h4>
+	    <br>
+	    <p>1등 : 10000 포인트 지급 </p>
+	    <p>2등 : 7000 포인트 지급</p>
+	    <p>3등 : 5000 포인트 지급</p>
+	    <hr>
+	    </div>
+	    
 	    
 	    <c:forEach var="b" items="${list}" >
 			<%-- <h3><img src="resources/medal${b.hofRank}.jpg"></h3> --%>
