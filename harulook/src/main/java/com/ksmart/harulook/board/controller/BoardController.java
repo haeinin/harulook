@@ -80,6 +80,7 @@ public class BoardController {
 		int boardCount = boardDao.selectBoardCount();	
         int pagePerRow = 9;
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
+        int boardSearchCount = 0;
 		
 		MemberDto userDetail = new MemberDto();	// 내게시물 보기에서 프로필 사진 보기위함
         int followListCount = 0;
@@ -108,6 +109,7 @@ public class BoardController {
 		}
 		System.out.println("boardTagSearch --> "+board);
 		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow, popularity);
+		boardSearchCount = boardDao.selectBoardSearchListCount(board);
 		model.addAttribute("colorValueList",colorValueList);
 		model.addAttribute("styleValueList",styleValueList);
 		model.addAttribute("situationValueList",situationValueList);
@@ -116,6 +118,7 @@ public class BoardController {
 		model.addAttribute("userDetail", userDetail);
 		model.addAttribute("board",board);
 		model.addAttribute("list", list);
+		model.addAttribute("boardSearchCount", boardSearchCount);
 		System.out.println("boardTagSearch --> "+list);
 		return "sns/board/sns_board_list2";
 	}

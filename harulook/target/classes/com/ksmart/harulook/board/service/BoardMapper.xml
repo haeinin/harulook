@@ -130,6 +130,96 @@
 		LIMIT #{beginRow}, #{pagePerRow}
 	</select>
 	
+	<!-- sns게시물 검색 결과 카운트 -->
+	<select id="boardSearchListCount" parameterType="com.ksmart.harulook.board.service.BoardDto" resultType="int">
+		SELECT
+			COUNT(sns_board.sns_board_no)
+		FROM sns_board
+			 ,(
+			 SELECT 
+			  b.sns_board_no
+			  ,count(c.sns_comment_no) 댓글수
+			 FROM sns_board b
+			 LEFT JOIN sns_comment c
+			 ON c.sns_board_no = b.sns_board_no
+			 GROUP BY b.sns_board_no
+			 ) AS cc
+			 ,(
+			 SELECT
+				  b.sns_board_no
+				  ,count(l.sns_like_no) 추천수
+			 FROM sns_board b
+			 LEFT JOIN sns_like l
+			 ON l.sns_board_no = b.sns_board_no
+			 GROUP BY b.sns_board_no
+			 ) AS lc
+			 <if test="situationValue != null">
+			  ,(
+			 SELECT sns_board_no 
+			 FROM sns_situation
+			 <trim prefix="WHERE" prefixOverrides="AND|OR">
+			 	OR situation_no IN (
+			 	<foreach collection="situationValue" item="situationValue" separator=",">#{situationValue}</foreach>
+			 	)
+			 </trim>
+			 ) AS ssit
+			 </if>
+			 <if test="styleValue != null">
+			   , (
+			 SELECT sns_board_no 
+			 FROM sns_style
+			 <trim prefix="WHERE" prefixOverrides="AND|OR">
+			 OR style_no IN (
+			 	<foreach collection="styleValue" item="styleValue" separator=",">#{styleValue}</foreach>
+			 	)
+			 </trim>
+			 ) AS ss
+			 </if>
+			 <if test="colorValue != null">
+			   , (
+			 SELECT sns_board_no 
+			 FROM sns_color
+			 <trim prefix="WHERE" prefixOverrides="AND|OR">
+			 OR color_no IN (
+			 	<foreach collection="colorValue" item="colorValue" separator=",">#{colorValue}</foreach>
+			 	)
+			 </trim>
+			 ) AS sc
+			 </if>
+		WHERE sns_board.sns_board_no = cc.sns_board_no 
+		AND sns_board.sns_board_no = lc.sns_board_no
+		<if test="situationValue != null">
+			AND sns_board.sns_board_no = ssit.sns_board_no
+		</if>
+		<if test="styleValue != null">
+			AND sns_board.sns_board_no = ss.sns_board_no
+		</if>
+		<if test="colorValue != null">
+			AND sns_board.sns_board_no = sc.sns_board_no
+		</if>
+		<if test="snsBoardWeather != null">
+			AND sns_board.sns_board_weather = #{snsBoardWeather}
+		</if>
+		<if test="snsBoardLoc != null">
+			AND sns_board.sns_board_loc = #{snsBoardLoc}
+		</if>
+		<if test="snsBoardTall != null">
+			AND sns_board.sns_board_tall = #{snsBoardTall}
+		</if>
+		<if test="snsBoardSize != null">
+			AND sns_board.sns_board_size = #{snsBoardSize}
+		</if>
+		<if test="snsBoardGender != null">
+			AND sns_board.sns_board_gender = #{snsBoardGender}
+		</if>
+		<if test="snsBoardAge != null">
+			AND sns_board.sns_board_age = #{snsBoardAge}
+		</if>
+		<if test="userId != null">
+			AND sns_board.user_id = #{userId}
+		</if>
+	</select>
+	
 	<!-- sns게시물 상황별 분류 삭제 -->
 	<delete id="snsSituationDelete" parameterType="String">
 		DELETE 
