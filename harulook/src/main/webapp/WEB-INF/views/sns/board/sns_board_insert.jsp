@@ -231,23 +231,23 @@ $(function(){
 			<form class="form-horizontal" id="insertForm" action="${pageContext.request.contextPath}/boardInsert" method="post" enctype="multipart/form-data">
 		        <input class="form-control" name="userId" id="userId" type="hidden" value="${sessionScope.id}"/>
 		        <div class="form-group">
-		            <label class="col-xs-3 control-label" for="uploadFile">사진 :</label>
-			        <div class="col-xs-6">
+		            <label class="col-xs-2 control-label" for="uploadFile">사진 </label>
+			        <div class="col-xs-7">
 			            <img id="snsBoardImgView" class="img-responsive" src="#" alt="your image" />
 			            <input class="form-control" name="uploadFile" id="snsBoardImg" type="file"/>
 			            <span id="imgFail" >사진을 올려주세요.</span>
 		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label class="col-xs-3 control-label" for="snsBoardContent">내용 :</label>
-		            <div class="col-xs-6">
+		            <label class="col-xs-2 control-label" for="snsBoardContent">내용 </label>
+		            <div class="col-xs-7">
 			            <textarea class="form-control" name="snsBoardContent" id="snsBoardContent" rows="4" cols="50"></textarea>
 			            <span id="contentFail" >내용을 입력해주세요.</span>
 		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label class="col-xs-3 control-label" for="snsBoardLoc">지역 :</label>
-		            <div class="col-xs-6">
+		            <label class="col-xs-2 control-label" for="snsBoardLoc">지역 </label>
+		            <div class="col-xs-7">
 			            <select class="form-control" name="snsBoardLoc" id="snsBoardLoc">
 			            	<option>${sessionScope.apiAdd}</option>
 			            	<option>서울</option>
@@ -272,8 +272,8 @@ $(function(){
 		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label class="col-xs-3 control-label" for="snsBoardWeather">날씨 :</label>
-		            <div class="col-xs-6">
+		            <label class="col-xs-2 control-label" for="snsBoardWeather">날씨 </label>
+		            <div class="col-xs-7">
 			            <select class="form-control" name="snsBoardWeather" id="snsBoardWeather">
 			            	<option>${sessionScope.sessionWeather}</option>
 			            	<option>맑음</option>
@@ -286,8 +286,8 @@ $(function(){
 	            	</div>
 		        </div>
 		        <div class="form-group">
-		            <label class="col-xs-3 control-label" for="snsBoardTall">키 :</label>
-		            <div class="col-xs-6">
+		            <label class="col-xs-2 control-label" for="snsBoardTall">키 </label>
+		            <div class="col-xs-7">
 			            <select class="form-control" name="snsBoardTall" id="snsBoardTall">
 			            	<option></option>
 			            	<option>큰키</option>
@@ -297,8 +297,8 @@ $(function(){
 		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label class="col-xs-3 control-label" for="snsBoardSize">체형 :</label>
-		            <div class="col-xs-6">
+		            <label class="col-xs-2 control-label" for="snsBoardSize">체형 </label>
+		            <div class="col-xs-7">
 			            <select class="form-control" name="snsBoardSize" id="snsBoardSize">
 			            	<option></option>
 			            	<option>마른</option>
@@ -308,15 +308,15 @@ $(function(){
 		            </div>
 		        </div>
 		        <div class="form-group">
-		            <label class="col-xs-3 control-label" for="snsBoardGender">성별 :</label>
-		            <div class="col-xs-6">
+		            <label class="col-xs-2 control-label" for="snsBoardGender">성별 </label>
+		            <div class="col-xs-7">
 			            <input name="snsBoardGender" id="snsBoardGender" type="radio" value="남">남
 			            <input name="snsBoardGender" id="snsBoardGender" type="radio" value="여">여
 			        </div>
 		        </div>
 		        <div class="form-group">
-		            <label class="col-xs-3 control-label" for="snsBoardAge">연령대 :</label>
-		            <div class="col-xs-6">
+		            <label class="col-xs-2 control-label" for="snsBoardAge">연령대 </label>
+		            <div class="col-xs-7">
 			            <select class="form-control" name="snsBoardAge" id="snsBoardAge">
 			            	<option></option>
 			            	<option>10</option>
@@ -328,8 +328,8 @@ $(function(){
 		            </div>
 		        </div>
 		        <div class="form-group">
-					<label class="col-xs-3 control-label" for="searchSnsBoardStyle">스타일 :</label>
-					<div class="col-xs-6">
+					<label class="col-xs-2 control-label" for="searchSnsBoardStyle">스타일 </label>
+					<div class="col-xs-7">
 					<table>
 						<tr>
 							<td><input type="checkbox" id="searchSnsBoardStyle" name="styleValue" value="style_01">클래식</td>
@@ -355,8 +355,8 @@ $(function(){
 					</div>
 				</div>
 				<div class="form-group">
-			       	<label class="col-xs-3 control-label" for="searchSnsBoardColor">색상 :</label>
-			       	<div class="col-xs-6">
+			       	<label class="col-xs-2 control-label" for="searchSnsBoardColor">색상 </label>
+			       	<div class="col-xs-7">
 				       	<i id="circleRed" class="fa fa-circle cursor-click" title="빨강" style="font-size: 24px; color: red; background-color: black; border-radius: 47%; width: 22px;"></i>
 				     	<i id="circleOrange" class="fa fa-circle cursor-click" title="주황" style="font-size: 24px; color: orange; background-color: black; border-radius: 47%; width: 22px;"></i>
 				     	<i id="circleYellow" class="fa fa-circle cursor-click" title="노랑" style="font-size: 24px; color: yellow; background-color: black; border-radius: 47%; width: 22px;"></i>
@@ -389,16 +389,18 @@ $(function(){
 			     	</div>
 			     </div>
 			     <div class="form-group">
-			       	<label class="col-xs-3 control-label" for="searchSnsBoardSituation">상황 :</label>
-			       	<div class="col-xs-6">
+			       	<label class="col-xs-2 control-label" for="searchSnsBoardSituation">상황 </label>
+			       	<div class="col-xs-7">
 			       	<table>
 						<tr>
 							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_01">학교</td>
 							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_02">출근</td>
-							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_03">파티</td>
 						</tr>
 						<tr>
+							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_03">파티</td>
 							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_04">여행</td>
+						</tr>
+						<tr>
 							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_05">운동</td>
 							<td><input type="checkbox" id="searchSnsBoardSituation" name="situationValue" value="situation_06">나들이</td>
 						</tr>
@@ -409,11 +411,11 @@ $(function(){
 					</div>
 			     </div>
 			    <br>
-			    <div class="col-xs-6"></div>
-		        <div class="col-xs-3">
+			    <div style="text-align: center;">
 		            <input class="btn btn-default" id="addButton" type="submit" value="글입력"/>
 		            <input id="resetBtn" class="btn btn-default" type="reset" value="초기화"/>
 		            <a class="btn btn-default" href="${pageContext.request.contextPath}/home">홈으로</a>
+		            <br>
 		        </div>
 		    </form>
 		    </div>

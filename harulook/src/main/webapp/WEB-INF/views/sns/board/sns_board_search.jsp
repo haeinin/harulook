@@ -422,14 +422,14 @@ $(function(){
 					<div class="col-xs-1"></div>
 					<div class="col-xs-2">
 					<!-- 아이디로 게시물 검색 했을때 프로필-->
-					<img style="height: 150px; max-width: 150px; max-height: 150px; width: 150px;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${userDetail.userImg}">
+					<img style="border-radius: 50%; height: 150px; max-width: 150px; max-height: 150px;  background-color: grey;" alt="no image" onError="this.src='resources/files/images/pofile_default_1.png';" src="${userDetail.userImg}">
 		       		</div>
 		       		<div class="col-xs-1"></div>
 		       		<div class="col-xs-8">
 			        
 			        <h1>${userDetail.userId} (${userDetail.userNick})</h1>
 			        <br>
-			       	<h4>팔로우 : ${followListCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;팔로워 : ${followMeListCount}</h4>
+			       	<h4>게시물 : ${boardSearchCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;팔로우 : ${followListCount} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;팔로워 : ${followMeListCount}</h4>
 			       	<button id="followInsertButtonList" class="btn btn-default">팔로우</button>
 					<span id="followCheckOverlapList">&nbsp;</span>
 					<span id="BlankList">&nbsp;</span>
@@ -555,16 +555,28 @@ $(function(){
 			      	<input class="searchCategory" type="checkbox" id="searchSituationPicnic" name="situationValue" value="situation_06">나들이
 			      	<input class="searchCategory" type="checkbox" id="searchSituationGuest" name="situationValue" value="situation_07">하객    	
 			    </div>
+			    
 			    <div class="form-group">
+			    
 			    	<label class="searchCategory" for="userId">아이디 :</label>
-			    	<input type="text" class="searchCategory" id="userId" name="userId" value="${board.userId}">
+			    	<c:if test="${userDetail.userId == null}">
+			    		<input type="text" class="searchCategory" id="userId" name="userId" value="${board.userId}">
+			    	</c:if>
+			    	<c:if test="${userDetail.userId != null}">
+			    		<input type="text" class="searchCategory" id="userId" name="userId" value="${board.userId}" readonly="readonly">
+			    	</c:if>
 			    	<input class="btn btn-default" type="button" value="검색">
+			    	
+			    	<c:if test="${userDetail.userId == null}">
+			    		<button class="btn btn-default" type="button" id="initBtn">초기화</button>
+			    	</c:if>
+			    
 			    	<c:if test="${sessionScope.level == '일반회원'}">
 			    		<button class="btn btn-default" type="button" id="recommendationBtn">맞춤 추천</button>
 			    	</c:if>
-			    	<button class="btn btn-default" type="button" id="initBtn">초기화</button>
-
+			    	
 			    </div>
+			    
 			</div>
 			<!-- sns 게시물 검색 항목 -->
 		</div>

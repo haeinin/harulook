@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>BOARD LIST(spring mvc + mybatis 방식)</title>
 <c:set value="${sessionScope.id}" var="sessionId" />
-<script type="text/javascript" src="resources/js/boardDetail.js"></script>
+<script type="text/javascript" src="resources/js/boardDetail.js?ver=2"></script>
 <script type="text/javascript" src="resources/js/followCheck.js"></script>
 
 <c:set value="${boardCount}" var="boardCount"></c:set>
@@ -41,7 +41,7 @@ function popShowDetail(data) {
 	$('.sns-pop-photo-box').click(function(){
 		var index = $('.sns-pop-photo-box').index(this);
 		if(data != null) {
-			var boardNo = data[index].snsBoardNo;
+			var boardNo = data.list[index].snsBoardNo;
 		} else {
 			var boardNo = $(this).children().eq(0).val();
 		}
@@ -105,17 +105,18 @@ function popBoardSearch(){
 		success : function(data){
 			console.log(data);
 			var popBoardHtml = '';
-			if(data.length > 0) {
-				for(var i=0; i<data.length; i++) {
+			var boardCountHtml = '';
+			if(data.list.length > 0) {
+				for(var i=0; i<data.list.length; i++) {
 					popBoardHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
-					popBoardHtml += '<div class="sns-pop-photo-box" value="'+data[i].snsBoardNo+'">';
+					popBoardHtml += '<div class="sns-pop-photo-box" value="'+data.list[i].snsBoardNo+'">';
 					popBoardHtml += '<div class="image-wrap">';
-					popBoardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
+					popBoardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.list[i].snsBoardImg+'">';
 					popBoardHtml += '<div class="likes">';
 					popBoardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
-					popBoardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
+					popBoardHtml += '<span class="center">&nbsp;'+data.list[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
 					popBoardHtml += '<i class="fa fa-commenting center" style="font-size:24px"></i>';
-					popBoardHtml += '<span class="center">&nbsp;'+data[i].snsCommentCount+'</span>';
+					popBoardHtml += '<span class="center">&nbsp;'+data.list[i].snsCommentCount+'</span>';
 					popBoardHtml += '</div>';
 					popBoardHtml += '</div>';
 					popBoardHtml += '</div>';
@@ -125,7 +126,9 @@ function popBoardSearch(){
 			} else {
 				popBoardHtml += '<span>일치하는 결과가 없습니다.</span>';
 			}	
+			boardCountHtml += '게시물 : '+data.boardSearchCount
 			$('#popBoardOutput').html(popBoardHtml);
+			$('#boardCount').html(boardCountHtml);
 			popLikeAndComment();
 			popShowDetail(data);
 		}
@@ -155,7 +158,7 @@ $(function(){
     <div class="col-xs-9">
         <div class="instagram-content">
         <h1>#하루룩</h1><br>
-			        	<h2>게시물 : ${boardCount}</h2>
+			        	<h2 id="boardCount">게시물 : ${boardCount}</h2>
 			<!-- 광고게시물 -->
    			<c:import url="/adBoardList"></c:import>
    			
@@ -192,20 +195,24 @@ $(function(){
 	    <div class="modal-dialog modal-lg" >
 			<div id="snsDetail" class="modal-content">
 		        <div class="row">
-		        
+       
 		        	<!-- 게시물 이미지 영역 -->
-			        <div class="modal-body col-xs-8" style="padding-bottom: 0; padding-top: 0;">
+			        <div class="modal-body col-xs-12 col-md-8" style="padding-bottom: 0; padding-top: 0;">
 						<div id="snsDetailImg"></div>
 		        	</div>
 		        	<!-- 게시물 이미지 영역 -->
 		        	
 		        	<!-- 게시물 내용 영역 -->
-			        <div class="modal-body col-xs-4">
+			        <div id="contentArea" class="modal-body col-xs-12 col-md-4" style="padding-left: 30px;">
 			        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
-			        	<div id="snsDetailContent"></div>
-			        	<hr>
-			        	<div id="snsDetailLike"></div>
-			        	<div id="snsDetailComment">
+			        	<div id="snsDetailHeader"></div>
+		        		<div id="scrollActive" style="overflow-y: auto;">
+			        		<div id="snsDetailContent"></div>
+			        		<hr>
+			        	
+				        	<div id="snsDetailLike"></div>
+				        	<hr>
+				        	<div id="snsDetailComment"></div>
 			        	</div>
 			        	<hr>
 			        	<c:if test="${sessionScope.id != null}">
@@ -213,6 +220,10 @@ $(function(){
 			        	<div id="snsDetailCommentControll">
 			        	</div>
 			        	</c:if>
+			        	<div style="text-align: right; padding-right: 20px;">
+			        		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			        	</div>
+			        	
 					</div>
 					<!-- 게시물 내용 영역 -->
 					

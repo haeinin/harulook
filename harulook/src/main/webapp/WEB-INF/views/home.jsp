@@ -58,7 +58,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="resources/css/style.css?ver=1">
+<link rel="stylesheet" type="text/css" href="resources/css/style.css?ver=2">
 
 <!-- jquery를 사용하기위한 CDN주소 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -167,6 +167,8 @@
 		};
 
 		geocoder.coord2Address(coord.getLng(), coord.getLat(), callback);
+		
+		console.log('window width : ',$(window).width()/5);
 	});   
    
 </script>
@@ -179,28 +181,28 @@
 	    <c:import url="./module/header.jsp"></c:import>
 	</div>
 	<!-- 바디 인클루드 -->
+	
    	<div class="row">
    		<!-- 좌측 베너 인클루드 -->
     	<div class="col-xs-1">
     		<c:import url="./module/left.jsp"></c:import>
     	</div>
-   	
+   
    		<div class="col-xs-9">
+   		
    			<!-- 게시물검색 -->
    			<c:import url="/WEB-INF/views/sns/board/sns_board_search.jsp"></c:import>
            	<!-- 인기게시물 -->
            	<c:import url="/boardPopList"></c:import>
            	<!-- 최근게시물 -->
            	<c:import url="/boardList"></c:import>
-           	
-           </div>
-   		
+   		</div>
    		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="./module/right.jsp"></c:import>
        	</div>
 	</div>
-		
+	
     <!-- 하단 인클루드 -->
     <c:import url="./module/footer.jsp"></c:import>
 </body>

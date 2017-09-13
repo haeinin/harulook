@@ -15,6 +15,11 @@ public class BoardDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
+	/* sns게시물 카운트 검색 */
+	public int selectBoardSearchListCount( BoardDto board) {
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.board.service.BoardMapper.boardSearchListCount", board);
+	}
+	
 	/* 포인트등록 게시물 검색  */
 	public int selectBoardPointCheck(String userId) {
 		Map<String, String> map = new HashMap<String, String>();

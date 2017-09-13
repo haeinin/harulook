@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.css" />
-<link rel="stylesheet" href="<c:url value="resources/css/cartoony-weather.css" />" type="text/css">
+<link rel="stylesheet" href="<c:url value="resources/css/cartoony-weather.css?ver=2" />" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700|Kaushan+Script|Montserrat' rel='stylesheet' type='text/css'>
 <!-- <link rel="stylesheet" type="text/css" href="resources/css/style.css"> -->
 

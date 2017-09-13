@@ -127,7 +127,7 @@ public class BoardRestController {
 	
 	/* sns 게시물 검색 ajax 처리 */
 	@RequestMapping(value="/boardPopSearchList", method = RequestMethod.GET)
-	public List<BoardDto> boardPopSearchList(
+	public Map<String,Object> boardPopSearchList(
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
 			,BoardDto board
 			,HttpServletRequest request) {
@@ -137,6 +137,7 @@ public class BoardRestController {
 		int boardCount = boardDao.selectBoardCount();
         int pagePerRow = 6;
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
+        int boardSearchCount = 0;
 		
 		String[] colorValue = request.getParameterValues("colorValue");
 		String[] styleValue = request.getParameterValues("styleValue");
@@ -168,8 +169,13 @@ public class BoardRestController {
 		}
 		System.out.println("boardPopSearchList --> "+board);
 		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow, popularity);
+		boardSearchCount = boardDao.selectBoardSearchListCount(board);
 		System.out.println("boardPopSearchList --> "+list);
-		return list;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("list", list);
+		map.put("boardSearchCount", boardSearchCount);
+		return map;
 	}
 	
 	/* sns 게시물 검색 ajax 처리 */
