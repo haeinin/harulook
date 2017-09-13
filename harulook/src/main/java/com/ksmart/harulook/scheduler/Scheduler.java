@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.ksmart.harulook.adcontract.service.AdContractDao;
 import com.ksmart.harulook.adcontract.service.AdContractDto;
 import com.ksmart.harulook.hof.service.HofDao;
-import com.ksmart.harulook.partner.service.PartnerDao;
+import com.ksmart.harulook.partner.service.PartnerInterface;
 
 @Component
 public class Scheduler {
@@ -18,7 +18,7 @@ public class Scheduler {
 	private HofDao hofdao;
 	
 	@Autowired
-	private PartnerDao partnerdao;
+	private PartnerInterface partnerdao;
 	
 	@Autowired
 	private AdContractDao adcontractdao;
@@ -50,15 +50,15 @@ public class Scheduler {
 	@Scheduled(cron="6 0 0 * * *")
 	public void CooContractScheduler() {
 		try{
-			List<String> startList = partnerdao.getStartCooContract();
-			List<String> endList = partnerdao.getEndCooContractList();
-			List<String> overList = partnerdao.getOverDueList();
+			List<String> startList = partnerdao.selectStartCooContract();
+			List<String> endList = partnerdao.selectEndCooContractList();
+			List<String> overList = partnerdao.selectOverDueList();
 			
 			for(int i =0; i < endList.size(); i++){
 				partnerdao.updateEndCooContract(endList.get(i));
 				
 				/*기간만료와 동시에 결제예정수수료 생성*/
-				String LastCooBillNo = partnerdao.getLastCooBillNo();
+				String LastCooBillNo = partnerdao.selectLastCooBillNo();
 				int setNo=1;
 				if(LastCooBillNo !=null){
 					setNo=Integer.parseInt(LastCooBillNo)+1;
@@ -100,18 +100,18 @@ public class Scheduler {
 	@Scheduled(cron="0 10 0 1 * *")
 	public void PartnerScheduler() {
 		try{
-			List<String> cooContractNoList = partnerdao.getCooContractNo();
+			List<String> cooContractNoList = partnerdao.selectCooContractNo();
 			/*기본키 자동생성*/
 			for(int i =0; i < cooContractNoList.size() ; i++){
 				String cooContractNo = cooContractNoList.get(i);
-				String LastCooBillNo = partnerdao.getLastCooBillNo();
+				String LastCooBillNo = partnerdao.selectLastCooBillNo();
 				int setNo=1;
 				if(LastCooBillNo !=null){
 					setNo=Integer.parseInt(LastCooBillNo)+1;
 				}
 				String cooBillNo = "coo_bill_"+setNo;
 			/******************/
-				partnerdao.cooContractBillInsert(cooBillNo, cooContractNo);
+				partnerdao.insertCooContractBill(cooBillNo, cooContractNo);
 
 			}
 	

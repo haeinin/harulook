@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
-import com.ksmart.harulook.partner.service.PartnerDao;
+import com.ksmart.harulook.partner.service.PartnerInterface;
 import com.ksmart.harulook.partner.service.PartnerStatsDto;
 
 @RestController
 public class PartnerRestController {
 
 	@Autowired
-	private PartnerDao partnerDao;
+	private PartnerInterface partnerDao;
 
 	/*제휴업체사이트 월별 방문자 조회*/
 	@RequestMapping(value = "/getMonthlyVisitor", method = RequestMethod.GET)
 	public String getMonthlyVisitor(String cooContractNo) {
 		//String cooContractNo = (String) session.getAttribute("setNo");
 		Gson gson = new Gson();
-		List<PartnerStatsDto> list= partnerDao.getMonthlyVisitor(cooContractNo);
+		List<PartnerStatsDto> list= partnerDao.selectMonthlyVisitor(cooContractNo);
 		System.out.println(list.toString());
 		return gson.toJson(list);
 
@@ -36,7 +36,7 @@ public class PartnerRestController {
 	public String getMonthlyInflux(HttpSession session) {
 		String cooContractNo = (String) session.getAttribute("setNo");
 		Gson gson = new Gson();
-		List<PartnerStatsDto> list= partnerDao.getMonthlyInflux(cooContractNo);
+		List<PartnerStatsDto> list= partnerDao.selectMonthlyInflux(cooContractNo);
 		System.out.println(list.toString());
 		return gson.toJson(list);
 
@@ -47,7 +47,7 @@ public class PartnerRestController {
 	public String getWeeklyVisitor(HttpSession session) {
 		String cooContractNo = (String) session.getAttribute("setNo");
 		Gson gson = new Gson();
-		List<PartnerStatsDto> list= partnerDao.getWeeklyVisitor(cooContractNo);
+		List<PartnerStatsDto> list= partnerDao.selectWeeklyVisitor(cooContractNo);
 		System.out.println("그래프"+list.toString());
 		return gson.toJson(list);
 
@@ -57,7 +57,7 @@ public class PartnerRestController {
 	public String getWeeklyInflux(HttpSession session) {
 		String cooContractNo = (String) session.getAttribute("setNo");
 		Gson gson = new Gson();
-		List<PartnerStatsDto> list= partnerDao.getWeeklyInflux(cooContractNo);
+		List<PartnerStatsDto> list= partnerDao.selectWeeklyInflux(cooContractNo);
 		System.out.println("그래프"+list.toString());
 		return gson.toJson(list);
 
@@ -74,7 +74,7 @@ public class PartnerRestController {
 		
 		map.put("cooContractNo",cooContractNo);
 		map.put("month", month);
-		List<PartnerStatsDto> list= partnerDao.getDailyVisitor(map);
+		List<PartnerStatsDto> list= partnerDao.selectDailyVisitor(map);
 		
 		System.out.println("list==>"+list);
 		
@@ -85,7 +85,7 @@ public class PartnerRestController {
 	@RequestMapping(value = "/getBanner", method = RequestMethod.GET)
 	public List<HashMap<String, String>> getBanner(Model model) {
 		
-		List<HashMap<String, String>> map = partnerDao.getBanner();
+		List<HashMap<String, String>> map = partnerDao.selectBanner();
 		model.addAttribute("m",map);
 
 		return map;

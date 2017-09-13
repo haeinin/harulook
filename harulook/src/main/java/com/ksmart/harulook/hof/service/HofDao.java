@@ -7,27 +7,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class HofDao {
+public class HofDao implements HofInterface {
 	
 	@Autowired
 	 private SqlSessionTemplate sqlSessionTemplate;
 	
 	/*이번 달 좋아요 랭크보기*/
-	public List<HofRankDto> getBoardLikeRank(){
-		return sqlSessionTemplate.selectList("com.ksmart.harulook.hof.service.HofMapper.getBoardLikeRank");
+	/* (non-Javadoc)
+	 * @see com.ksmart.harulook.hof.service.HofInterface#selectBoardLikeRank()
+	 */
+	@Override
+	public List<HofRankDto> selectBoardLikeRank(){
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.hof.service.HofMapper.selectBoardLikeRank");
 	}
 	/*명예의전당 등록처리*/
+	/* (non-Javadoc)
+	 * @see com.ksmart.harulook.hof.service.HofInterface#insertHof(com.ksmart.harulook.hof.service.HofDto)
+	 */
+	@Override
 	public int insertHof(HofDto dto){
 		return sqlSessionTemplate.insert("com.ksmart.harulook.hof.service.HofMapper.insertHof",dto);
 	}
 	/*이번 달 명예의전당 목록보기*/
-	public List<HofDto> getHofList(){
-		return sqlSessionTemplate.selectList("com.ksmart.harulook.hof.service.HofMapper.getHofList");
+	/* (non-Javadoc)
+	 * @see com.ksmart.harulook.hof.service.HofInterface#selectHofList()
+	 */
+	@Override
+	public List<HofDto> selectHofList(){
+		return sqlSessionTemplate.selectList("com.ksmart.harulook.hof.service.HofMapper.selectHofList");
 	}
 	/*명예의전당 중복체크*/
+	/* (non-Javadoc)
+	 * @see com.ksmart.harulook.hof.service.HofInterface#selectDuplicateHof(java.lang.String)
+	 */
+	@Override
 	public int selectDuplicateHof(String boardNo){
 		return sqlSessionTemplate.selectOne("com.ksmart.harulook.hof.service.HofMapper.dupliacteHof",boardNo);
 	}
+	/* (non-Javadoc)
+	 * @see com.ksmart.harulook.hof.service.HofInterface#insertHofPoint(com.ksmart.harulook.hof.service.HofDto)
+	 */
+	@Override
 	public int insertHofPoint(HofDto dto){
 		return sqlSessionTemplate.insert("com.ksmart.harulook.hof.service.HofMapper.insertHofPoint",dto);
 	}
@@ -36,7 +56,7 @@ public class HofDao {
 	/*이번 달 명예의전당 선정방법*/
 	public void insertHof(){
 		HofDto dto = new HofDto();
-		List<HofRankDto> list = getBoardLikeRank();
+		List<HofRankDto> list = selectBoardLikeRank();
 		for(int n =0,rank=1; rank<4;n++){
 			
 			String boardNo = list.get(n).getBoardNo();

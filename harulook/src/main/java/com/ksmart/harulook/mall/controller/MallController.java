@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ksmart.harulook.mall.service.MallDao;
 import com.ksmart.harulook.mall.service.MallDto;
+import com.ksmart.harulook.mall.service.MallInterface;
 import com.ksmart.harulook.mall.service.MallSaleDto;
 import com.ksmart.harulook.mall.service.MallVisitorDto;
 
@@ -22,12 +22,12 @@ import com.ksmart.harulook.mall.service.MallVisitorDto;
 public class MallController {
 
 	@Autowired
-	private MallDao dao;
+	private MallInterface dao;
 
 	/*상품상세보기*/
 	@RequestMapping(value = "/mallDetail", method = RequestMethod.GET)
 	public String mallDetail(Model model, @RequestParam(value = "mallProNo", required = true) String mallProNo) {
-		MallDto dto = dao.getMallPro(mallProNo);
+		MallDto dto = dao.selectMallPro(mallProNo);
 		model.addAttribute("dto", dto);
 		System.out.println("controller : " + mallProNo);
 		return "mall/mall_detail";
@@ -36,7 +36,7 @@ public class MallController {
 	/*상품주문 폼 요청*/
 	@RequestMapping(value = "/mallProOrder", method = RequestMethod.GET)
 	public String mallProOrder(Model model, @RequestParam(value = "mallProNo", required = true) String mallProNo) {
-		MallDto dto = dao.getMallPro(mallProNo);
+		MallDto dto = dao.selectMallPro(mallProNo);
 		model.addAttribute("dto", dto);
 		return "mall/mall_order_insert";
 	}
@@ -60,7 +60,7 @@ public class MallController {
 			dto.toString();
 			dao.insertMallSale(dto);
 		}
-		MallSaleDto getDto = dao.getMallBuyNow();
+		MallSaleDto getDto = dao.selectMallBuyNow();
 		model.addAttribute("getDto",getDto);
 		
 		
@@ -76,7 +76,7 @@ public class MallController {
 		String id = (String) session.getAttribute("id");
 		System.out.println("id=>"+id);
 		
-		List<MallSaleDto> list = dao.getMallBuyList(id);
+		List<MallSaleDto> list = dao.selectMallBuyList(id);
 		model.addAttribute("list",list);
 		
 		return "mall/mall_order_list";
@@ -96,7 +96,7 @@ public class MallController {
         System.out.println("컨트롤러:방문자 IP => " + ip);
         
         /*제휴계약번호 자동입력*/
-		String lastMallVisitor = dao.getLastMallVisitor();
+		String lastMallVisitor = dao.selectLastMallVisitor();
 		int setNo = 1;
 		if(lastMallVisitor != null){
 			setNo = Integer.parseInt(lastMallVisitor)+1;
