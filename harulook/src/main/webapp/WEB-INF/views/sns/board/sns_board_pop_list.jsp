@@ -61,8 +61,6 @@ function popShowDetail(data) {
 			}
 		});
 		$('#snsModal').modal();
-		var detailImgHeight = $('#detailImg').outerHeight();
-		console.log('detailImgHeight : ', detailImgHeight);
 	});
 }
 
@@ -107,17 +105,18 @@ function popBoardSearch(){
 		success : function(data){
 			console.log(data);
 			var popBoardHtml = '';
-			if(data.length > 0) {
-				for(var i=0; i<data.length; i++) {
+			var boardCountHtml = '';
+			if(data.list.length > 0) {
+				for(var i=0; i<data.list.length; i++) {
 					popBoardHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
-					popBoardHtml += '<div class="sns-pop-photo-box" value="'+data[i].snsBoardNo+'">';
+					popBoardHtml += '<div class="sns-pop-photo-box" value="'+data.list[i].snsBoardNo+'">';
 					popBoardHtml += '<div class="image-wrap">';
-					popBoardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
+					popBoardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.list[i].snsBoardImg+'">';
 					popBoardHtml += '<div class="likes">';
 					popBoardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
-					popBoardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
+					popBoardHtml += '<span class="center">&nbsp;'+data.list[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
 					popBoardHtml += '<i class="fa fa-commenting center" style="font-size:24px"></i>';
-					popBoardHtml += '<span class="center">&nbsp;'+data[i].snsCommentCount+'</span>';
+					popBoardHtml += '<span class="center">&nbsp;'+data.list[i].snsCommentCount+'</span>';
 					popBoardHtml += '</div>';
 					popBoardHtml += '</div>';
 					popBoardHtml += '</div>';
@@ -127,7 +126,9 @@ function popBoardSearch(){
 			} else {
 				popBoardHtml += '<span>일치하는 결과가 없습니다.</span>';
 			}	
+			boardCountHtml += '게시물 : '+data.boardSearchCount
 			$('#popBoardOutput').html(popBoardHtml);
+			$('#boardCount').html(boardCountHtml);
 			popLikeAndComment();
 			popShowDetail(data);
 		}
@@ -157,7 +158,7 @@ $(function(){
     <div class="col-xs-9">
         <div class="instagram-content">
         <h1>#하루룩</h1><br>
-			        	<h2>게시물 : ${boardCount}</h2>
+			        	<h2 id="boardCount">게시물 : ${boardCount}</h2>
 			<!-- 광고게시물 -->
    			<c:import url="/adBoardList"></c:import>
             <br>
