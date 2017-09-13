@@ -416,7 +416,7 @@
 						<div class="login-box well">
 							 <form id="addFormManager" action="${pageContext.request.contextPath}/managerAdd" method="post">
 								<!-- 아이디 -->
-					           	<label style="letter-spacing:11.3px" for="user_id">아이디</label>
+					           	<label style="letter-spacing:11.8px" for="user_id">아이디</label>
 					            <input name="userId" id="user_id" type="text"/>  
 						            <span id="idsfirst" >5자~16자 이내 영문과 숫자만가능</span>
 					            	<span id="idsuccess" >사용가능한 아이디입니다</span>
@@ -436,14 +436,14 @@
 					            	<span id="pwre" >비밀번호 다시입력해주세요</span><br>
 					            	
 					            <!-- 닉네임 -->	        
-					       		<label style="letter-spacing:11.3px" for="user_nick">닉네임</label>
+					       		<label style="letter-spacing:11.8px" for="user_nick">닉네임</label>
 					            <input name="userNick" id="user_nick" type="text"/>
 					           		<span id="nicksuccess" >사용가능한 닉네임입니다</span>
 					            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
 					            	<span id="nickre" >닉네임 다시 입력해주세요</span><br>
 				            	
 				            	<!-- 이름 -->
-					        	<label style="letter-spacing:10px" for="user_name">이&nbsp;&nbsp;름</label>
+					        	<label style="letter-spacing:11.3px" for="user_name">이&nbsp;&nbsp;름</label>
 					            <input name="userName" id="user_name" type="text"/><br>
 								           
 				           		<!-- 전화번호 -->
@@ -454,13 +454,13 @@
 					            	<span id="telfail" >사용불가능한 전화번호입니다</span><br>	
 					                      
 				           		<!--  이메일 -->
-					        	<label style="letter-spacing:11.3px" for="user_email">이메일</label>
+					        	<label style="letter-spacing:11.8px" for="user_email">이메일</label>
 					            <input name="userEmail" id="user_email" type="text"/>
 					           		<span id="emailsuccess" >사용가능한 이메일입니다</span>
 					            	<span id="emailfail" >사용불가능한 이메일입니다</span><br>
 					            
 				            	<!-- 주소 -->
-					        	<label style="letter-spacing:10px" for="user_addr">주&nbsp;&nbsp;소</label>
+					        	<label style="letter-spacing:11.3px" for="user_addr">주&nbsp;&nbsp;소</label>
 					            <!-- <input name="userAddr" id="user_addr" type="text"/><br> -->
 					        	
 					        	<input type="text" id="sample4_postcode" placeholder="우편번호">
@@ -472,7 +472,7 @@
 					        	
 							    <!-- 질문 -->
 					        	<div>
-						        	<label style="letter-spacing:10px" for="user_q">질&nbsp;&nbsp;문</label>
+						        	<label style="letter-spacing:11.3px" for="user_q">질&nbsp;&nbsp;문</label>
 						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userQ" id="user_q">
 										<option>${userDetail.userQ}</option>
 						            	<option>나의 보물은</option>
@@ -489,24 +489,17 @@
 					            <input name="userA" id="user_a" type="text"/>
 				        			<span id="userAfail" >답을 입력하세요</span><br>
 					        	
-					        	<!-- 사업자번호 -->
-					        	<label style="letter-spacing:1.1px" for="user_bs_no">사업자번호</label>
-					            <input name="userBsNo" id="user_bs_no" type="text"/>
-					        		<span id="Bsfirst" > 000-00-00000 -은빼고 입력하세요</span>
-					            	<span id="BsNosuccess" >사용가능한 사업자번호입니다</span>
-					            	<span id="BsNofail" >사용불가능한 사업자번호입니다</span><br>
-					           
-					            
+					        	
 					        	<!-- 업종 -->
-					        	<label style="letter-spacing:10px" for="user_bs_type">업&nbsp;&nbsp;종</label>
+					        	<label style="letter-spacing:11.3px" for="user_bs_type">업&nbsp;&nbsp;종</label>
 					            <input name="userBsType" id="user_bs_type" type="text"/><br>
 					            
 					            <!-- 업태 -->
-					        	<label style="letter-spacing:10px" for="user_bs_status">업&nbsp;&nbsp;태</label>
+					        	<label style="letter-spacing:11.3px" for="user_bs_status">업&nbsp;&nbsp;태</label>
 					            <input name="userBsStatus" id="user_bs_status" type="text"/><br>
 					            
 					            <!-- 업체명 -->
-					        	<label style="letter-spacing:11.3px" for="user_bs_name">업체명</label>
+					        	<label style="letter-spacing:11.8px" for="user_bs_name">업체명</label>
 					            <input name="userBsName" id="user_bs_name" type="text"/><br>
 					            
 					            <!-- 업체홈페이지 -->
@@ -514,6 +507,14 @@
 					            <input name="userUrl" id="user_url" type="text"/>
 					     			<span id="Urlsuccess" >사용가능한 주소입니다</span>
 					            	<span id="Urlfail" >사용불가능한 주소입니다</span><br>
+					            	
+					            <!-- 사업자번호 -->
+					        	<label style="letter-spacing:1px" for="user_bs_no">사업자번호</label>
+					            <input name="userBsNo" id="user_bs_no" type="text"/>
+					        		<span id="Bsfirst" > 000-00-00000 -은빼고 입력하세요</span>
+					            	<span id="BsNosuccess" >사용가능한 사업자번호입니다</span>
+					            	<span id="BsNofail" >사용불가능한 사업자번호입니다</span><br>
+					           
 					            <br>
 		            			<!-- 사업자등록버튼 -->
 						     	<div>

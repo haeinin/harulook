@@ -28,8 +28,8 @@ public class MemberController {
 	@Autowired
     private PointDao pointDao;
 	
-	@Autowired
-    private UtilFile utilFile;
+	/*@Autowired
+    private UtilFile utilFile;*/
 	
 	/*회원삭제처리후 탈퇴회원리스트에입력*/
 	@RequestMapping(value="/userDeleteAdd", method = RequestMethod.POST)
@@ -252,8 +252,19 @@ public class MemberController {
 	@RequestMapping(value="/addUserUpdate", method = RequestMethod.POST)
 	public String userUpdateAdd(MemberDto memberDto,
 			HttpServletRequest request,
-			HttpSession session) {
+			HttpSession session,
+			@RequestParam("userImgFile") MultipartFile userImg,
+			MultipartHttpServletRequest multipartRequest) {
         System.out.println("MemberController 회원정보수정하기" + memberDto);
+        
+    	if(!(userImg.getOriginalFilename()).equals("")){	// 이미지 수정했나 구분
+	        System.out.println("MemberController 이미지 수정 했을때");
+	        UtilFile utilFile = new UtilFile();
+			String userImgFile = utilFile.fileUpload(multipartRequest, userImg);	//이미지파일이름으로 주소받아오기
+	        System.out.println("MemberController 이미지파일업로드 : " + userImgFile);
+	    	memberDto.setUserImg(userImgFile);	//이미지파일 주소 입력
+    	}
+    	System.out.println("MemberController 이미지 수정하지 않았을때");
         memberDao.userUpdate(memberDto);	//일반회원가입 기타 입력데이터
         //유저컬러와 스타일 내용 삭제
         memberDao.userColorDelete(memberDto.getUserId());
@@ -308,22 +319,19 @@ public class MemberController {
 	@RequestMapping(value="/userAdd", method = RequestMethod.POST)
 	public String userAdd(MemberDto memberDto,
 			HttpServletRequest request,
-			@RequestParam("userImg") MultipartFile userImg,
+			@RequestParam("userImgFile") MultipartFile userImg,
 			MultipartHttpServletRequest multipartRequest) {
-	/*	MultipartHttpServletRequest multipartrequest = (MultipartHttpServletRequest)request;
-		MultipartFile userImg = multipartrequest.getFile("userImg");
-       */
 		System.out.println("일반회원가입 처리 요청");
 		System.out.println("MemberController 회원가입시 받아오는 데이터" + memberDto);
-        memberDao.userInsert(memberDto);	//일반회원가입 기타 입력데이터
-        /*memberDto.setUserImg(utilFile.fileUpload(multipartrequest, userImg));
-        */
-        String userImgFile = utilFile.fileUpload(multipartRequest, userImg);	//이미지파일이름으로 주소받아오기
+		
+		UtilFile utilFile = new UtilFile();
+		String userImgFile = utilFile.fileUpload(multipartRequest, userImg);	//이미지파일이름으로 주소받아오기
         System.out.println("MemberController 이미지파일업로드 : " + userImgFile);
     	memberDto.setUserImg(userImgFile);	//이미지파일 주소 입력
         
+    	memberDao.userInsert(memberDto);	//일반회원가입 기타 입력데이터
         
-        if(memberDto.getColorValue() != null){	//체크박스에 값이 있을때만 실행
+    	if(memberDto.getColorValue() != null){	//체크박스에 값이 있을때만 실행
 	        //체크박스 컬러 배열로 받음
 	        String[] colorValue = request.getParameterValues("colorValue");
 	        for( int i = 0; i < colorValue.length; i++ ){	//컬러 체크 리스트 갯수만큼 for문 실행

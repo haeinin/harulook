@@ -343,6 +343,9 @@
 				  ,user_size = #{userSize}
 				  ,user_q = #{userQ}
 				  ,user_a = #{userA}
+				  <if test="userImg != null">
+				  ,user_img = #{userImg}
+				  </if>
 			  WHERE user_id = #{userId}
 			  ;
 		</insert>

@@ -72,51 +72,7 @@
 			
 			//회원탈퇴비밀번호오류메시지
 			$('#modalpwfail').hide();
-		//아이디중복체크버튼
-		/* $('#user_id').blur(function(){	
-			var request = $.ajax({
-				  url: "./idcheck", //호출 경로
-				  method: "POST",	//전송방식
-				  data: { 'idcheck' : $('#user_id').val() }, //전송해줄값
-				  dataType: "text" //결과값 타입 (리턴)
-			
-			});
-			request.done(function( msg ) {
-				msg = msg.trim();
-				console.log(msg);	//아이디 중복체크한후 아이디
-				console.log($('#user_id').val());	//중복체크 입력한 아이디
-				
-				if (re_id.test(uid.val()) != true) { // 아이디 입력 양식이 틀렸을때
-					$('#idsfirst').hide();
-					$('#idre').show();
-					$('#idsuccess').hide();
-					$('#idfail').hide();
-					$('#user_id').val("");
-					return false;
-				}else{	//아이디 입력양식이 맞을때
-					if($('#user_id').val() == msg){	//아이디가 중복될때 메시지
-						$('#idsfirst').hide();
-						$('#idfail').show();
-						$('#idsuccess').hide();
-						$('#idre').hide();
-						$('#user_id').val("");
-						uid.focus();
-					}else if(msg == ""){	//아이디가 중복안될때 메시지
-						$('#idsfirst').hide();
-						$('#idsuccess').show();
-						$('#idfail').hide();
-						$('#idre').hide();
-					}else{					//오류일때
-						$('#idsfirst').hide();
-						$('#idre').show();
-						$('#idsuccess').hide();
-						$('#idfail').hide();
-						$('#user_id').val("");
-						uid.focus();
-					}
-				}
-			});
-	  	}); */
+		
 		
 		//닉네임 중복체크버튼
 		$('#user_nick').blur(function(){	
@@ -321,6 +277,152 @@
 				}
 			});
 		});
+		
+		
+		/* 색상별 토글 버튼  */
+		function toggleColor(color) { //color: 선택한 색상
+			
+			// 해당되는 색상 체크박스가 체크되지 않았을 때
+			if($('#searchColor'+color+'').is(':checked') == false) { 
+				$('input:checkbox[id="searchColor'+color+'"]').prop('checked',true);	// 체크박스 체크
+				$('#circle'+color+'').attr('class','fa fa-check-circle cursor-click');				// 색상 버튼 체크 상태 그림으로 
+				console.log('searchColor'+color+' check : ',$('#searchColor'+color+'').is(':checked'));
+				
+			// 해당되는 색상 체크박스가 이미 체크되었을 때
+			} else if($('#searchColor'+color+'').is(':checked') == true) {
+				$('input:checkbox[id="searchColor'+color+'"]').prop('checked',false);	// 체크박스 체크 해제
+				$('#circle'+color+'').attr('class','fa fa-circle cursor-click');						// 색상 버튼 체크 해제 상태 그림으로 
+				console.log('searchColor'+color+' check : ',$('#searchColor'+color+'').is(':checked'));
+			}
+		} 
+		
+		// 빨간색 버튼 클릭
+		$('#circleRed').click(function(){
+			toggleColor('Red');
+		});
+		
+		// 주황색 버튼 클릭
+		$('#circleOrange').click(function(){
+			toggleColor('Orange');
+		});
+		
+		// 노란색 버튼 클릭
+		$('#circleYellow').click(function(){
+			toggleColor('Yellow');
+		});
+		
+		// 초록색 버튼 클릭
+		$('#circleGreen').click(function(){
+			toggleColor('Green');
+		});
+		
+		// 파란색 버튼 클릭
+		$('#circleBlue').click(function(){
+			toggleColor('Blue');
+		});
+		
+		// 남색 버튼 클릭
+		$('#circleNavy').click(function(){
+			toggleColor('Navy');
+		});
+		
+		// 보라색 버튼 클릭
+		$('#circlePurple').click(function(){
+			toggleColor('Purple');
+		});
+		
+		// 검정색 버튼 클릭
+		$('#circleBlack').click(function(){
+			toggleColor('Black');
+		});
+		
+		// 회색 버튼 클릭
+		$('#circleGrey').click(function(){
+			toggleColor('Grey');
+		});
+		
+		// 흰색 버튼 클릭
+		$('#circleWhite').click(function(){
+			toggleColor('White');
+		});
+		
+		// 갈색 버튼 클릭
+		$('#circleBrown').click(function(){
+			toggleColor('Brown');
+		});
+		
+		// 베이지색 버튼 클릭
+		$('#circleBeige').click(function(){
+			toggleColor('Beige');
+		});
+		
+		// 분홍색 버튼 클릭
+		$('#circlePink').click(function(){
+			toggleColor('Pink');
+		});
+		
+		/* 사용자 색상 체크 판별 */
+		if($('#searchColorRed').is(':checked') == true) {
+			$('#circleRed').attr('class','fa fa-check-circle');
+		} 
+		if($('#searchColorOrange').is(':checked') == true) {
+			$('#circleOrange').attr('class','fa fa-check-circle');
+		}
+		if($('#searchColorYellow').is(':checked') == true) {
+			$('#circleYellow').attr('class','fa fa-check-circle');
+		} 
+		if($('#searchColorGreen').is(':checked') == true) {
+			$('#circleGreen').attr('class','fa fa-check-circle');
+		}
+		if($('#searchColorBlue').is(':checked') == true) {
+			$('#circleBlue').attr('class','fa fa-check-circle');
+		} 
+		if($('#searchColorNavy').is(':checked') == true) {
+			$('#circleNavy').attr('class','fa fa-check-circle');
+		}
+		if($('#searchColorPurple').is(':checked') == true) {
+			$('#circlePurple').attr('class','fa fa-check-circle');
+		} 
+		if($('#searchColorBlack').is(':checked') == true) {
+			$('#circleBlack').attr('class','fa fa-check-circle');
+		}
+		if($('#searchColorGrey').is(':checked') == true) {
+			$('#circleGrey').attr('class','fa fa-check-circle');
+		} 
+		if($('#searchColorWhite').is(':checked') == true) {
+			$('#circleWhite').attr('class','fa fa-check-circle');
+		}
+		if($('#searchColorBrown').is(':checked') == true) {
+			$('#circleBrown').attr('class','fa fa-check-circle');
+		}
+		if($('#searchColorBeige').is(':checked') == true) {
+			$('#circleBeige').attr('class','fa fa-check-circle');
+		}
+		if($('#searchColorPink').is(':checked') == true) {
+			$('#circlePink').attr('class','fa fa-check-circle');
+		}
+		
+		
+		//이미지 실시간 띄우기
+		$('#userImgFile').on('change', function(){
+     	   var id = $(this).attr('id');
+     	   id = id + "View";
+     	   console.log(id);
+             readURL(this , id);
+             $('#userImgFileUpdate').hide();
+         });
+		function readURL(input ,id) {
+            if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                    $("#" + id).attr('src', e.target.result);
+                }
+
+              reader.readAsDataURL(input.files[0]);
+            }
+        }
+		
     });
 	
 	//다음 주소 api
@@ -400,7 +502,7 @@
 					<div id="" class="col-md-7">
 					<h2 id="loginTitle" left="300px">회원수정하기</h2>
 						<div class="login-box well">
-							 <form id="addUserUpdate" action="${pageContext.request.contextPath}/addUserUpdate" method="post">
+							 <form id="addUserUpdate" action="${pageContext.request.contextPath}/addUserUpdate" method="post" enctype="multipart/form-data">
 								<!-- 아이디 -->
 					           	<label style="letter-spacing:11.3px" for="user_id">아이디</label>
 					            <input name="userId" id="user_id" type="text" readonly value="${userDetail.userId}"/>  
@@ -408,6 +510,15 @@
 					            	<span id="idsuccess" >사용가능한 아이디입니다</span>
 					            	<span id="idfail" >사용불가능한 아이디입니다</span>
 					            	<span id="idre" >아이디 다시 입력해주세요</span><br>
+					            
+					            <!-- 프로필사진 -->
+					            <div class="form-group">
+					            <label style="letter-spacing:11.3px" for="userImgFile">프로필</label>
+					            <img id="userImgFileView" src="#" alt="" class="img-responsive" style="max-width: 100px;"/>
+					            <img id="userImgFileUpdate" class="img-responsive" style="max-width: 100px; " alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${userDetail.userImg}">
+								<input name="userImgFile" id="userImgFile" type="file"/>
+					            <span id="imgFail" >사진을 올려주세요.</span><br>
+						        </div>
 					            					            	
 					            <!-- 비밀번호 -->
 					        	<label style="letter-spacing:5px" for="user_pw">비밀번호</label>
@@ -422,14 +533,14 @@
 					            	<span id="pwre" >비밀번호 다시입력해주세요</span><br>
 					            	
 					            <!-- 닉네임 -->	        
-					       		<label style="letter-spacing:11.3px" for="user_nick">닉네임</label>
+					       		<label style="letter-spacing:11.8px" for="user_nick">닉네임</label>
 					            <input name="userNick" id="user_nick" type="text" value="${userDetail.userNick}"/>
 					           		<span id="nicksuccess" >사용가능한 닉네임입니다</span>
 					            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
 					            	<span id="nickre" >닉네임 다시 입력해주세요</span><br>
 				            	
 				            	<!-- 이름 -->
-					        	<label style="letter-spacing:10px" for="user_name">이&nbsp;&nbsp;름</label>
+					        	<label style="letter-spacing:11.3px" for="user_name">이&nbsp;&nbsp;름</label>
 					            <input name="userName" id="user_name" type="text" value="${userDetail.userName}"/><br>
 								
 								<!-- 전화번호 -->
@@ -440,13 +551,13 @@
 					            	<span id="telfail" >사용불가능한 전화번호입니다</span><br>	
 					            
 					            <!--  이메일 -->
-					        	<label style="letter-spacing:11.3px" for="user_email">이메일</label>
+					        	<label style="letter-spacing:11.8px" for="user_email">이메일</label>
 					            <input name="userEmail" id="user_email" type="text" value="${userDetail.userEmail}"/>
 					           		<span id="emailsuccess" >사용가능한 이메일입니다</span>
 					            	<span id="emailfail" >사용불가능한 이메일입니다</span><br>
 					            					            
 				            	<!-- 주소 -->
-					        	<label style="letter-spacing:10px" for="user_addr">주&nbsp;&nbsp;소</label>
+					        	<label style="letter-spacing:11.3px" for="user_addr">주&nbsp;&nbsp;소</label>
 					            <!-- <input name="userAddr" id="user_addr" type="text"/><br> -->
 					        	
 					        	<input type="text" id="sample4_postcode" placeholder="우편번호">
@@ -457,7 +568,7 @@
 					        	    	
 					        	<!-- 성별 -->
 					        	<div>
-						        	<label style="letter-spacing:10px" for="user_gender" >성&nbsp;&nbsp;별</label>
+						        	<label style="letter-spacing:11.3px" for="user_gender" >성&nbsp;&nbsp;별</label>
 						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userGender" id="user_gender">
 										<option>${userDetail.userGender}</option>
 						            	<option>남</option>
@@ -467,7 +578,7 @@
 								
 								<!-- 나이 -->	   
 								<div>     	
-					        	<label style="letter-spacing:10px" for="user_age">나&nbsp;&nbsp;이</label>
+					        	<label style="letter-spacing:11.3px" for="user_age">나&nbsp;&nbsp;이</label>
 						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userAge" id="user_age">
 										<option>${userDetail.userAge}</option>
 						            	<option>10</option>
@@ -480,7 +591,7 @@
 					        	</div>
 					        	<!-- 키 -->
 					        	<div>
-					        	<label style="letter-spacing:11.3px" for="user_tall">본인키</label>
+					        	<label style="letter-spacing:11.8px" for="user_tall">본인키</label>
 					            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userTall" id="user_tall">
 									<option>${userDetail.userTall}</option>
 					            	<option>큰키</option>
@@ -490,7 +601,7 @@
 					      		</div>
 					      		<!-- 사이즈 -->
 					        	<div>
-						        	<label style="letter-spacing:11.3px" for="user_size">사이즈</label>
+						        	<label style="letter-spacing:11.8px" for="user_size">사이즈</label>
 						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userSize" id="user_size">
 										<option>${userDetail.userSize}</option>
 						            	<option>마른</option>
@@ -500,7 +611,7 @@
 							    </div>
 							    <!-- 질문 -->
 					        	<div>
-						        	<label style="letter-spacing:10px" for="user_q">질&nbsp;&nbsp;문</label>
+						        	<label style="letter-spacing:11.3px" for="user_q">질&nbsp;&nbsp;문</label>
 						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userQ" id="user_q">
 										<option>${userDetail.userQ}</option>
 						            	<option>나의 보물은</option>
@@ -617,122 +728,139 @@
 								<div class="form-group">
 							       	<label style="letter-spacing:5px" for="userColor">회원선호컬러</label>
 							       	<br>
-							       	<c:choose>
-								  		<c:when test="${userColor.contains('빨강')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01" class="checkSelectColor" checked="checked">빨강
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01" class="checkSelectColor">빨강
-								  		</c:otherwise>
-									</c:choose>
+							       	<i id="circleRed" class="fa fa-circle cursor-click" title="빨강" style="font-size: 24px; color: red; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleOrange" class="fa fa-circle cursor-click" title="주황" style="font-size: 24px; color: orange; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleYellow" class="fa fa-circle cursor-click" title="노랑" style="font-size: 24px; color: yellow; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleGreen" class="fa fa-circle cursor-click" title="초록" style="font-size: 24px; color: green; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleBlue" class="fa fa-circle cursor-click" title="파랑" style="font-size: 24px; color: deepskyblue; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleNavy" class="fa fa-circle cursor-click" title="남색(네이비)" style="font-size: 28px; color: navy;"></i>
+							     	<i id="circlePurple" class="fa fa-circle cursor-click" title="보라" style="font-size: 28px; color: purple;"></i>
+							     	<i id="circleBlack" class="fa fa-circle cursor-click" title="검정" style="font-size: 28px; color: black;"></i>
+							     	<i id="circleGrey" class="fa fa-circle cursor-click" title="회색" style="font-size: 24px; color: grey; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleWhite" class="fa fa-circle cursor-click" title="흰색" style="font-size: 24px; color: white; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleBrown" class="fa fa-circle cursor-click" title="갈색" style="font-size: 24px; color: brown; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleBeige" class="fa fa-circle cursor-click" title="베이지" style="font-size: 24px; color: beige; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circlePink" class="fa fa-circle cursor-click" title="분홍" style="font-size: 24px; color: pink; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	
 							       	
-							       	<c:choose>
-								  		<c:when test="${userColor.contains('주황')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02" class="checkSelectColor" checked="checked">주황
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02" class="checkSelectColor">주황
-								  		</c:otherwise>
-									</c:choose>
-									
-									<c:choose>
-								  		<c:when test="${userColor.contains('노랑')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03" class="checkSelectColor" checked="checked">노랑
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03" class="checkSelectColor">노랑
-								  		</c:otherwise>
-									</c:choose>
-							       	
-							       	<c:choose>
-								  		<c:when test="${userColor.contains('초록')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04" class="checkSelectColor" checked="checked">초록
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04" class="checkSelectColor">초록
-								  		</c:otherwise>
-									</c:choose>
-									
-									<c:choose>
-								  		<c:when test="${userColor.contains('파랑')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05" class="checkSelectColor" checked="checked">파랑
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05" class="checkSelectColor">파랑
-								  		</c:otherwise>
-									</c:choose>
-									
-									<c:choose>
-								  		<c:when test="${userColor.contains('남색')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06" class="checkSelectColor" checked="checked">남색
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06" class="checkSelectColor">남색
-								  		</c:otherwise>
-									</c:choose>
-									
-									<c:choose>
-								  		<c:when test="${userColor.contains('보라')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07" class="checkSelectColor" checked="checked">보라
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07" class="checkSelectColor">보라
-								  		</c:otherwise>
-									</c:choose>
-							       	<br>
-							       	<c:choose>
-								  		<c:when test="${userColor.contains('검정')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08" class="checkSelectColor" checked="checked">검정
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08" class="checkSelectColor">검정
-								  		</c:otherwise>
-									</c:choose>
-							       	
-							       	<c:choose>
-								  		<c:when test="${userColor.contains('회색')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09" class="checkSelectColor" checked="checked">회색
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09" class="checkSelectColor">회색
-								  		</c:otherwise>
-									</c:choose>
-							       	
-							       	<c:choose>
-								  		<c:when test="${userColor.contains('흰색')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10" class="checkSelectColor" checked="checked">흰색
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10" class="checkSelectColor">흰색
-								  		</c:otherwise>
-									</c:choose>
-									
-									<c:choose>
-								  		<c:when test="${userColor.contains('갈색')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11" class="checkSelectColor" checked="checked">갈색
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11" class="checkSelectColor">갈색
-								  		</c:otherwise>
-									</c:choose>
-							       	
-							       	<c:choose>
-								  		<c:when test="${userColor.contains('베이지')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12" class="checkSelectColor" checked="checked">베이지
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12" class="checkSelectColor">베이지
-								  		</c:otherwise>
-									</c:choose>
-									
-									<c:choose>
-								  		<c:when test="${userColor.contains('핑크')}">
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13" class="checkSelectColor" checked="checked">핑크
-								  		</c:when>
-								  		<c:otherwise>
-								  			<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13" class="checkSelectColor">핑크
-								  		</c:otherwise>
-									</c:choose>
+							       	<div style="display:none;">
+								       	<c:choose>
+									  		<c:when test="${userColor.contains('빨강')}">
+									  			<input type="checkbox" id="searchColorRed" name="colorValue" value="color_01" class="checkSelectColor" checked="checked">빨강
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorRed" name="colorValue" value="color_01" class="checkSelectColor">빨강
+									  		</c:otherwise>
+										</c:choose>
+								       	
+								       	<c:choose>
+									  		<c:when test="${userColor.contains('주황')}">
+									  			<input type="checkbox" id="searchColorOrange" name="colorValue" value="color_02" class="checkSelectColor" checked="checked">주황
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorOrange" name="colorValue" value="color_02" class="checkSelectColor">주황
+									  		</c:otherwise>
+										</c:choose>
+										
+										<c:choose>
+									  		<c:when test="${userColor.contains('노랑')}">
+									  			<input type="checkbox" id="searchColorYellow" name="colorValue" value="color_03" class="checkSelectColor" checked="checked">노랑
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorYellow" name="colorValue" value="color_03" class="checkSelectColor">노랑
+									  		</c:otherwise>
+										</c:choose>
+								       	
+								       	<c:choose>
+									  		<c:when test="${userColor.contains('초록')}">
+									  			<input type="checkbox" id="searchColorGreen" name="colorValue" value="color_04" class="checkSelectColor" checked="checked">초록
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorGreen" name="colorValue" value="color_04" class="checkSelectColor">초록
+									  		</c:otherwise>
+										</c:choose>
+										
+										<c:choose>
+									  		<c:when test="${userColor.contains('파랑')}">
+									  			<input type="checkbox" id="searchColorBlue" name="colorValue" value="color_05" class="checkSelectColor" checked="checked">파랑
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorBlue" name="colorValue" value="color_05" class="checkSelectColor">파랑
+									  		</c:otherwise>
+										</c:choose>
+										
+										<c:choose>
+									  		<c:when test="${userColor.contains('남색')}">
+									  			<input type="checkbox" id="searchColorNavy" name="colorValue" value="color_06" class="checkSelectColor" checked="checked">남색
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorNavy" name="colorValue" value="color_06" class="checkSelectColor">남색
+									  		</c:otherwise>
+										</c:choose>
+										
+										<c:choose>
+									  		<c:when test="${userColor.contains('보라')}">
+									  			<input type="checkbox" id="searchColorPurple" name="colorValue" value="color_07" class="checkSelectColor" checked="checked">보라
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorPurple" name="colorValue" value="color_07" class="checkSelectColor">보라
+									  		</c:otherwise>
+										</c:choose>
+								       	<br>
+								       	<c:choose>
+									  		<c:when test="${userColor.contains('검정')}">
+									  			<input type="checkbox" id="searchColorBlack" name="colorValue" value="color_08" class="checkSelectColor" checked="checked">검정
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorBlack" name="colorValue" value="color_08" class="checkSelectColor">검정
+									  		</c:otherwise>
+										</c:choose>
+								       	
+								       	<c:choose>
+									  		<c:when test="${userColor.contains('회색')}">
+									  			<input type="checkbox" id="searchColorGrey" name="colorValue" value="color_09" class="checkSelectColor" checked="checked">회색
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorGrey" name="colorValue" value="color_09" class="checkSelectColor">회색
+									  		</c:otherwise>
+										</c:choose>
+								       	
+								       	<c:choose>
+									  		<c:when test="${userColor.contains('흰색')}">
+									  			<input type="checkbox" id="searchColorWhite" name="colorValue" value="color_10" class="checkSelectColor" checked="checked">흰색
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorWhite" name="colorValue" value="color_10" class="checkSelectColor">흰색
+									  		</c:otherwise>
+										</c:choose>
+										
+										<c:choose>
+									  		<c:when test="${userColor.contains('갈색')}">
+									  			<input type="checkbox" id="searchColorBrown" name="colorValue" value="color_11" class="checkSelectColor" checked="checked">갈색
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorBrown" name="colorValue" value="color_11" class="checkSelectColor">갈색
+									  		</c:otherwise>
+										</c:choose>
+								       	
+								       	<c:choose>
+									  		<c:when test="${userColor.contains('베이지')}">
+									  			<input type="checkbox" id="searchColorBeige" name="colorValue" value="color_12" class="checkSelectColor" checked="checked">베이지
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorBeige" name="colorValue" value="color_12" class="checkSelectColor">베이지
+									  		</c:otherwise>
+										</c:choose>
+										
+										<c:choose>
+									  		<c:when test="${userColor.contains('분홍')}">
+									  			<input type="checkbox" id="searchColorPink" name="colorValue" value="color_13" class="checkSelectColor" checked="checked">분홍
+									  		</c:when>
+									  		<c:otherwise>
+									  			<input type="checkbox" id="searchColorPink" name="colorValue" value="color_13" class="checkSelectColor">분홍
+									  		</c:otherwise>
+										</c:choose>
+									 </div>
 							     </div>
 			            	</form>	
 			            	<!-- 회원가입버튼 -->

@@ -285,6 +285,109 @@
 			
         });
 		
+		
+		/* 색상별 토글 버튼  */
+		function toggleColor(color) { //color: 선택한 색상
+			
+			// 해당되는 색상 체크박스가 체크되지 않았을 때
+			if($('#searchColor'+color+'').is(':checked') == false) { 
+				$('input:checkbox[id="searchColor'+color+'"]').prop('checked',true);	// 체크박스 체크
+				$('#circle'+color+'').attr('class','fa fa-check-circle cursor-click');				// 색상 버튼 체크 상태 그림으로 
+				console.log('searchColor'+color+' check : ',$('#searchColor'+color+'').is(':checked'));
+				
+			// 해당되는 색상 체크박스가 이미 체크되었을 때
+			} else if($('#searchColor'+color+'').is(':checked') == true) {
+				$('input:checkbox[id="searchColor'+color+'"]').prop('checked',false);	// 체크박스 체크 해제
+				$('#circle'+color+'').attr('class','fa fa-circle cursor-click');						// 색상 버튼 체크 해제 상태 그림으로 
+				console.log('searchColor'+color+' check : ',$('#searchColor'+color+'').is(':checked'));
+			}
+		} 
+		
+		// 빨간색 버튼 클릭
+		$('#circleRed').click(function(){
+			toggleColor('Red');
+		});
+		
+		// 주황색 버튼 클릭
+		$('#circleOrange').click(function(){
+			toggleColor('Orange');
+		});
+		
+		// 노란색 버튼 클릭
+		$('#circleYellow').click(function(){
+			toggleColor('Yellow');
+		});
+		
+		// 초록색 버튼 클릭
+		$('#circleGreen').click(function(){
+			toggleColor('Green');
+		});
+		
+		// 파란색 버튼 클릭
+		$('#circleBlue').click(function(){
+			toggleColor('Blue');
+		});
+		
+		// 남색 버튼 클릭
+		$('#circleNavy').click(function(){
+			toggleColor('Navy');
+		});
+		
+		// 보라색 버튼 클릭
+		$('#circlePurple').click(function(){
+			toggleColor('Purple');
+		});
+		
+		// 검정색 버튼 클릭
+		$('#circleBlack').click(function(){
+			toggleColor('Black');
+		});
+		
+		// 회색 버튼 클릭
+		$('#circleGrey').click(function(){
+			toggleColor('Grey');
+		});
+		
+		// 흰색 버튼 클릭
+		$('#circleWhite').click(function(){
+			toggleColor('White');
+		});
+		
+		// 갈색 버튼 클릭
+		$('#circleBrown').click(function(){
+			toggleColor('Brown');
+		});
+		
+		// 베이지색 버튼 클릭
+		$('#circleBeige').click(function(){
+			toggleColor('Beige');
+		});
+		
+		// 분홍색 버튼 클릭
+		$('#circlePink').click(function(){
+			toggleColor('Pink');
+		});
+		
+		//이미지 실시간 띄우기
+		$('#userImgFile').on('change', function(){
+     	   var id = $(this).attr('id');
+     	   id = id + "View";
+     	   console.log(id);
+             readURL(this , id);
+
+         });
+		function readURL(input ,id) {
+            if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                    $("#" + id).attr('src', e.target.result);
+                }
+
+              reader.readAsDataURL(input.files[0]);
+            }
+        }
+		
     });
 	
 	
@@ -377,8 +480,9 @@
 					            
 					            <!-- 프로필사진 -->
 					            <div class="form-group">
-					            <label style="letter-spacing:11.3px" for="userImg">프로필</label>
-					            <input class="form-control" name="userImg" id="userImg" type="file"/>
+					            <label style="letter-spacing:11.3px" for="userImgFile">프로필</label>
+					            <img id="userImgFileView" src="#" alt="" class="img-responsive" style="max-width: 100px;" />
+					            <input name="userImgFile" id="userImgFile" type="file"/>
 					            <span id="imgFail" >사진을 올려주세요.</span><br>
 						        </div>
 					            	 
@@ -452,7 +556,7 @@
 					        	</div>
 					        	<!-- 키 -->
 					        	<div>
-					        	<label style="letter-spacing:11.5px" for="user_tall">본인키</label>
+					        	<label style="letter-spacing:11.8px" for="user_tall">본인키</label>
 					            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userTall" id="user_tall">
 									<option>${userDetail.userTall}</option>
 					            	<option>큰키</option>
@@ -462,7 +566,7 @@
 					      		</div>
 					      		<!-- 사이즈 -->
 					        	<div>
-						        	<label style="letter-spacing:11.5px" for="user_size">사이즈</label>
+						        	<label style="letter-spacing:11.8px" for="user_size">사이즈</label>
 						            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userSize" id="user_size">
 										<option>${userDetail.userSize}</option>
 						            	<option>마른</option>
@@ -511,20 +615,35 @@
 								<div class="form-group">
 							       	<label style="letter-spacing:5px" for="userColor">회원선호컬러</label>
 							       	<br>
-							       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_01" class="checkSelectColor">빨강
-							       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_02" class="checkSelectColor">주황
-							       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_03" class="checkSelectColor">노랑
-							       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_04" class="checkSelectColor">초록
-							       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_05" class="checkSelectColor">파랑
-							       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_06" class="checkSelectColor">남색
-							       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_07" class="checkSelectColor">보라
-							       	<br>
-							       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_08" class="checkSelectColor">검정
-							       	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_09" class="checkSelectColor">회색
-							     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_10" class="checkSelectColor">흰색
-							     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_11" class="checkSelectColor">갈색
-							     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_12" class="checkSelectColor">베이지
-							     	<input type="checkbox" id="searchSnsBoardColor" name="colorValue" value="color_13" class="checkSelectColor">핑크
+							       	<i id="circleRed" class="fa fa-circle cursor-click" title="빨강" style="font-size: 24px; color: red; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleOrange" class="fa fa-circle cursor-click" title="주황" style="font-size: 24px; color: orange; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleYellow" class="fa fa-circle cursor-click" title="노랑" style="font-size: 24px; color: yellow; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleGreen" class="fa fa-circle cursor-click" title="초록" style="font-size: 24px; color: green; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleBlue" class="fa fa-circle cursor-click" title="파랑" style="font-size: 24px; color: deepskyblue; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleNavy" class="fa fa-circle cursor-click" title="남색(네이비)" style="font-size: 28px; color: navy;"></i>
+							     	<i id="circlePurple" class="fa fa-circle cursor-click" title="보라" style="font-size: 28px; color: purple;"></i>
+							     	<i id="circleBlack" class="fa fa-circle cursor-click" title="검정" style="font-size: 28px; color: black;"></i>
+							     	<i id="circleGrey" class="fa fa-circle cursor-click" title="회색" style="font-size: 24px; color: grey; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleWhite" class="fa fa-circle cursor-click" title="흰색" style="font-size: 24px; color: white; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleBrown" class="fa fa-circle cursor-click" title="갈색" style="font-size: 24px; color: brown; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circleBeige" class="fa fa-circle cursor-click" title="베이지" style="font-size: 24px; color: beige; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	<i id="circlePink" class="fa fa-circle cursor-click" title="분홍" style="font-size: 24px; color: pink; background-color: black; border-radius: 47%; width: 22px;"></i>
+							     	
+									<div style="display:none;">	       	
+								       	<input type="checkbox" id="searchColorRed" name="colorValue" value="color_01">빨강
+										<input type="checkbox" id="searchColorOrange" name="colorValue" value="color_02">주황
+										<input type="checkbox" id="searchColorYellow" name="colorValue" value="color_03">노랑
+										<input type="checkbox" id="searchColorGreen" name="colorValue" value="color_04">초록
+										<input type="checkbox" id="searchColorBlue" name="colorValue" value="color_05">파랑
+										<input type="checkbox" id="searchColorNavy" name="colorValue" value="color_06">남색
+										<input type="checkbox" id="searchColorPurple" name="colorValue" value="color_07">보라
+										<input type="checkbox" id="searchColorBlack" name="colorValue" value="color_08">검정
+										<input type="checkbox" id="searchColorGrey" name="colorValue" value="color_09">회색
+										<input type="checkbox" id="searchColorWhite" name="colorValue" value="color_10">흰색
+										<input type="checkbox" id="searchColorBrown" name="colorValue" value="color_11">갈색
+										<input type="checkbox" id="searchColorBeige" name="colorValue" value="color_12">베이지
+										<input type="checkbox" id="searchColorPink" name="colorValue" value="color_13">분홍
+							     	</div>
 							     </div>
 				            	<!-- 회원가입버튼 -->
 						     	<div>

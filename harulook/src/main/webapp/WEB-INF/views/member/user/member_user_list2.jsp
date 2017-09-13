@@ -438,7 +438,7 @@ $(document).ready(function(){
 								method="post">
 								<div>
 									<input class="btn btn-default" id="userlistbutton"
-										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="일반회원검색" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="일반회원 리스트" />
 								</div>
 							</form>
 
@@ -448,7 +448,7 @@ $(document).ready(function(){
 								method="post">
 								<div>
 									<input class="btn btn-default" id="businesslistbutton"
-										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="사업자검색" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="사업자 리스트" />
 								</div>
 							</form>
 
@@ -458,7 +458,7 @@ $(document).ready(function(){
 								method="post">
 								<div>
 									<input class="btn btn-default" id="managerlistbutton"
-										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="관리자검색" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="관리자 리스트" />
 								</div>
 							</form>
 
@@ -602,7 +602,7 @@ $(document).ready(function(){
 									method="get">
 									<div>
 										<input class="btn btn-default" id="followListButton"
-											type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="내 친구 보기" />
+											type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="팔로우 리스트" />
 									</div>
 								</form>
 	
@@ -612,7 +612,7 @@ $(document).ready(function(){
 									method="get">
 									<div>
 										<input class="btn btn-default" id="followMeListButton"
-											type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="나를 등록한 친구 목록" />
+											type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="팔로워 리스트" />
 									</div>
 								</form>
 							</c:if>
@@ -644,9 +644,10 @@ $(document).ready(function(){
     	<div class="col-xs-1">
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
-	    <div id="div1" class="col-xs-9">
+	    <div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-7">
 	
-		<div class="container">
+		<div>
 		    <h1>${sessionScope.searchLevel} 리스트</h1>
 		    <div>회원 수 : ${boardCount}</div>
 		    <%-- <!-- 회원아이디검색 -->
@@ -715,6 +716,7 @@ $(document).ready(function(){
 			   </table>
 			</div>
 		</div>
+		<div class="col-xs-1"></div>
 		
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">

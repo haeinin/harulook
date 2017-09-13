@@ -31,7 +31,10 @@ public class FollowRestController {
 		System.out.println("FollowController 월래는게시판아이디 == " + followId);
 		
 		String checkFollow = null;	//게시판 아이디와 로그인 아이디 중복검사
-		if(userId.equals(followId)){
+		if(userId == null){
+		System.out.println("FollowController 아이디 로그인 안했을때 ");
+			checkFollow = "samId";	
+		}else if(userId.equals(followId)){
 		System.out.println("FollowController 게시판아이디 로그인아이디같음 ");
 			checkFollow = "samId";
 		}else{
