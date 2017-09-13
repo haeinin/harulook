@@ -98,7 +98,7 @@ public class BoardRestController {
 		List<CommentDto> commentList = commentDao.selectCommentList(boardNo);
 		System.out.println("comment : "+ commentList);
 		
-		MemberDto userDetail = memberDao.userDetail(board.getUserId());	//프로필 사진 받아오기
+		MemberDto userDetail = memberDao.selectUserDetail(board.getUserId());	//프로필 사진 받아오기
 		
 		List<String> snsStyle = boardDao.selectBoardStyle(boardNo);
 		List<String> snsColor = boardDao.selectBoardColor(boardNo);

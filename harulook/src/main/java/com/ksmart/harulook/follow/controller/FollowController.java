@@ -31,7 +31,7 @@ public class FollowController {
 		System.out.println("FollowMeController 팔로우 아이디= " + followId);
         String userId = (String) session.getAttribute("id");
         	System.out.println("FollowMeController 세션 아이디= " + userId);
-        followDao.followDelete(followId, userId);	
+        followDao.deleteFollow(followId, userId);	
         	
         return "follow/follow_me_list";  
     }
@@ -45,7 +45,7 @@ public class FollowController {
 		System.out.println("FollowController 팔로우 아이디= " + followId);
         String userId = (String) session.getAttribute("id");
         	System.out.println("FollowController 세션 아이디= " + userId);
-        followDao.followDelete(userId, followId);	
+        followDao.deleteFollow(userId, followId);	
         	
         return "follow/follow_list";  
     }
@@ -58,11 +58,11 @@ public class FollowController {
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		System.out.println("팔로우 미 리스트");
 		String userId = (String) session.getAttribute("id");
-		int followListCount = followDao.followMeListCount(userId);
+		int followListCount = followDao.selectFollowMeListCount(userId);
 		int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
         int lastPage = (int)(Math.ceil(followListCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
         
-		List<FollowDto> followMeList = followDao.followMeList(currentPage, pagePerRow, userId);	//팔로우 리스트
+		List<FollowDto> followMeList = followDao.selectFollowMeList(currentPage, pagePerRow, userId);	//팔로우 리스트
 		model.addAttribute("currentPage", currentPage);
         model.addAttribute("followListCount", followListCount);
         model.addAttribute("lastPage", lastPage);
@@ -80,11 +80,11 @@ public class FollowController {
 				@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		System.out.println("팔로우 리스트");
 		String userId = (String) session.getAttribute("id");
-		int followListCount = followDao.followListCount(userId);
+		int followListCount = followDao.selectFollowListCount(userId);
 		int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
         int lastPage = (int)(Math.ceil(followListCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
 		
-		List<FollowDto> followList = followDao.followList(currentPage, pagePerRow, userId);	//팔로우 리스트
+		List<FollowDto> followList = followDao.selectFollowList(currentPage, pagePerRow, userId);	//팔로우 리스트
 		model.addAttribute("currentPage", currentPage);
         model.addAttribute("followListCount", followListCount);
         model.addAttribute("lastPage", lastPage);
@@ -104,17 +104,17 @@ public class FollowController {
 			@RequestParam("followId") String followId ) {
 		String userId = (String) session.getAttribute("id");
 			System.out.println("세션아이디 == "+ userId);
-        String followNo = followDao.followNo();	//팔로우번호 마지막 +1 입력
+        String followNo = followDao.selectFollowNo();	//팔로우번호 마지막 +1 입력
         	System.out.println("팔로우넘버 == "+ followNo);
         	System.out.println("팔로우아이디 == "+ followId);
-    	String checkFollow = followDao.followCheck(userId, followId);	//	친구등록 중복 방지 셀렉트
+    	String checkFollow = followDao.selectFollowCheck(userId, followId);	//	친구등록 중복 방지 셀렉트
 	    if(checkFollow != null){	//팔로우 이미 된상태이면 추가입력불가
 	    	return "home"; 
 	    }else if(checkFollow == null){
     		int followInsertNo = 1;    //DB에 등록된 팔로우 없을 때 번호의 초기값
 	    	if(followNo != null) {
 	    		followInsertNo = Integer.parseInt(followNo)+1;	//마지막no +1
-	    		followDao.followInsert("follow_"+followInsertNo, userId, followId);	//팔로우입력 
+	    		followDao.insertFollow("follow_"+followInsertNo, userId, followId);	//팔로우입력 
 	    		return "follow/follow_list";
 	    	}
 	    }

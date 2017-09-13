@@ -29,18 +29,18 @@ public class GuestController {
 			@RequestParam("ip") String ip,
 			@RequestParam("apiAdd") String apiAdd ) {
         System.out.println("GuestController 아이피= " + ip);
-        String guestSelectIp = guestDao.guestSelect(ip);	//	게스트 중복 방지 셀렉트
+        String guestSelectIp = guestDao.selectGuest(ip);	//	게스트 중복 방지 셀렉트
     	
         session.setAttribute("apiAdd", apiAdd);	//지역 이름 세션 저장
         System.out.println("GuestController 세션에 저장된 지역 이름 = " + session.getAttribute("apiAdd"));
         if(guestSelectIp != null) {	// 게시트가 중복이면 입력 불가능
         	return "home";
 		}else if(guestSelectIp == null) {	//	게스트가 첫방문이면 입력
-			String guestSelectNo = guestDao.guestSelectNo(request.getParameter("guestSelectNo"));	//게스트 번호 마지막 +1 입력
+			String guestSelectNo = guestDao.selectGuestNo(request.getParameter("guestSelectNo"));	//게스트 번호 마지막 +1 입력
 	        int guestInsertNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
 	    	if(guestSelectNo != null) {
 	    		guestInsertNo = Integer.parseInt(guestSelectNo)+1;	//마지막no +1
-	    		guestDao.guestInsert(ip, "guest_"+guestInsertNo );	//게스트입력 ip, no
+	    		guestDao.insertGuest(ip, "guest_"+guestInsertNo );	//게스트입력 ip, no
 	    		return "home";
 	    	}	
     	}
@@ -51,9 +51,9 @@ public class GuestController {
 	@RequestMapping(value="/guestList", method = RequestMethod.GET)
 	public String guestList(Model model) {
 		System.out.println("방문자 리스트 폼");
-		List<GuestDto> monthlyGuest = guestDao.monthlyGuest();	//월간
-		List<GuestDto> weeklyGuest = guestDao.weeklyGuest();	//주간
-		List<GuestDto> dailyGuest = guestDao.dailyGuest();	//일일
+		List<GuestDto> monthlyGuest = guestDao.selectMonthlyGuest();	//월간
+		List<GuestDto> weeklyGuest = guestDao.selectWeeklyGuest();	//주간
+		List<GuestDto> dailyGuest = guestDao.selectdailyGuest();	//일일
 			System.out.println("GuestController dailyGuest == " + dailyGuest);
 		
 		model.addAttribute("monthlyGuest", monthlyGuest);

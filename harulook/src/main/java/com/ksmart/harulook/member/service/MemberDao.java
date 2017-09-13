@@ -18,7 +18,7 @@ public class MemberDao {
     private SqlSessionTemplate sqlSessionTemplate;
     
     /*비밀번호찾기 */
-    public String pwFindForm(MemberDto memberDto) {
+    public String selectPwFind(MemberDto memberDto) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
     	map.put("userId", memberDto.getUserId());
     	map.put("userNick", memberDto.getUserNick());
@@ -29,7 +29,7 @@ public class MemberDao {
     }
     
     /*아이디찾기 */
-    public String idFindForm(MemberDto memberDto) {
+    public String selectIdFind(MemberDto memberDto) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
     	map.put("userNick", memberDto.getUserNick());
     	map.put("userPw", memberDto.getUserPw());
@@ -40,23 +40,21 @@ public class MemberDao {
     }
     
     /*삭제된회원리스트입력 */
-    public String deleteUserInsert(String id) {
-	    	Map<String, String> map = new HashMap<String, String>();
-	    	map.put("userId", id);
-	    	System.out.println("MemeberDao 로그인 == " + map);
-        return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.deleteUserInsert", map);
+    public String insertDeleteUser(String id) {
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("userId", id);
+    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.deleteUserInsert", map);
     }
     
     /*회원삭제 */
-    public String userDeleteAdd(String id) {
-	    	Map<String, String> map = new HashMap<String, String>();
-	    	map.put("userId", id);
-	    	System.out.println("MemeberDao 로그인 == " + map);
-        return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.userDeleteAdd", map);
+    public String deleteUserAdd(String id) {
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("userId", id);
+    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.userDeleteAdd", map);
     }
     
     /*회원탈퇴비밀번호체크 */
-    public String userDeletePw(String userId) {
+    public String selectUserDeletePwCheck(String userId) {
 		Map<String, String> map = new HashMap<String, String>();
     	map.put("userId", userId);
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.userDeletePw", map);
@@ -72,14 +70,14 @@ public class MemberDao {
     }
     
     /*사업자회원정보보기 + 관리자 회원정보 */
-    public MemberDto businessDetail(String userId) {
+    public MemberDto selectBusinessDetail(String userId) {
 		Map<String, String> map = new HashMap<String, String>();
     	map.put("userId", userId);
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.businessDetail", map);
     }
     
 	/*일반회원 스타일 */
-	public List<String> userStyle(String userId) {
+	public List<String> selectUserStyle(String userId) {
 		Map<String, String> map = new HashMap<String, String>();
 	    map.put("userId", userId);
 	    return sqlSessionTemplate.selectList("com.ksmart.harulook.member.service.MemberMapper.userStyle", map);
@@ -87,7 +85,7 @@ public class MemberDao {
 
 
     /*일반회원 색상 */
-    public List<String> userColor(String userId) {
+    public List<String> selectUserColor(String userId) {
     	System.out.println("색상고를때");
 		Map<String, String> map = new HashMap<String, String>();
         map.put("userId", userId);
@@ -95,7 +93,7 @@ public class MemberDao {
     }
     
     /*일반회원정보보기 */
-    public MemberDto userDetail(String userId) {
+    public MemberDto selectUserDetail(String userId) {
 		Map<String, String> map = new HashMap<String, String>();
     	map.put("userId", userId);
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.userDetail", map);
@@ -103,7 +101,7 @@ public class MemberDao {
     
   
     /*전체회원리스트 */
-    public List<MemberDto> userList(int currentPage, int pagePerRow, String level, String userId) {
+    /*public List<MemberDto> selectUserList(int currentPage, int pagePerRow, String level, String userId) {
 		
         Map<Object, Object> map = new HashMap<Object, Object>();
         map.put("beginRow", (currentPage-1)*pagePerRow);
@@ -112,9 +110,10 @@ public class MemberDao {
         map.put("userId", userId);
         	System.out.println(map + " ==MemberDao 전체회원리스트 map");
         return sqlSessionTemplate.selectList("com.ksmart.harulook.member.service.MemberMapper.userList", map);
-    }
+    }*/
+    
     /*전체회원리스트 페이지 없이 */
-    public List<MemberDto> allUserList(String level, String userId) {
+    public List<MemberDto> selectAllUserList(String level, String userId) {
 		
         Map<Object, Object> map = new HashMap<Object, Object>();
         map.put("level", level);
@@ -124,13 +123,13 @@ public class MemberDao {
     }
     
     /*회원게시물들의 카운트 매서드 */
-    public int getBoardCount(String level) {
+    public int selectBoardCount(String level) {
     		
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.getBoardCount", level);
     }
 
     /*닉네임중복체크 */
-    public String userNickCheck(String nickcheck) {
+    public String selectUserNickCheck(String nickcheck) {
     	System.out.println("MemberDao 아이디중복체크 아이디값==" + nickcheck);
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("nickcheck", nickcheck);
@@ -139,7 +138,7 @@ public class MemberDao {
     }
     
     /*아이디중복체크 */
-    public String userIdCheck(String idcheck) {
+    public String selectUserIdCheck(String idcheck) {
     	System.out.println("MemberDao 아이디중복체크 아이디값==" + idcheck);
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("idcheck", idcheck);
@@ -148,19 +147,19 @@ public class MemberDao {
     }
     
     /*관리자가입입력 */
-    public int managerInsert(MemberDto memberDto) {
+    public int insertManager(MemberDto memberDto) {
     	System.out.println("MemberDao 사입자가입내용" + memberDto);
         return sqlSessionTemplate.insert("com.ksmart.harulook.member.service.MemberMapper.managerinsert", memberDto);
     }
     
     /*사업자가입입력 */
-    public int businessInsert(MemberDto memberDto) {
+    public int insertBusiness(MemberDto memberDto) {
     	System.out.println("MemberDao 사입자가입내용" + memberDto);
         return sqlSessionTemplate.insert("com.ksmart.harulook.member.service.MemberMapper.businessinsert", memberDto);
     }
     
     /*회원컬러배열입력 */
-    public int userColorInsert(String userColorInsert, String userColorNo, String userId) {
+    public int insertUserColor(String userColorInsert, String userColorNo, String userId) {
     	System.out.println("MemberDao 컬러배열" + userColorInsert);
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("userColorInsert", userColorInsert);
@@ -171,7 +170,7 @@ public class MemberDao {
     }
     
     /*회원스타일배열입력 */
-    public int userStyleInsert(String userStyleInsert, String userStyleNo, String userId) {
+    public int insertUserStyle(String userStyleInsert, String userStyleNo, String userId) {
     	System.out.println("MemberDao 스타일배열" + userStyleInsert);
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("userStyleInsert", userStyleInsert);
@@ -181,7 +180,7 @@ public class MemberDao {
     }
     
     /*회원컬러삭제 */
-    public int userColorDelete(String userId) {
+    public int deleteUserColor(String userId) {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("userId", userId);
         return sqlSessionTemplate.insert("com.ksmart.harulook.member.service.MemberMapper.userColorDelete", map);
@@ -189,37 +188,37 @@ public class MemberDao {
     }
     
     /*회원스타일삭제 */
-    public int userStyleDelete(String userId) {
+    public int deleteUserStyle(String userId) {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("userId", userId);
         return sqlSessionTemplate.insert("com.ksmart.harulook.member.service.MemberMapper.userStyleDelete", map);
     }
     
     /*컬러검색 */
-    public String colorSelect(String a) {
+    public String selectColor(String a) {
     	return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.userColorSelect");
     	
     }
     
     /*컬러검색 */
-    public String styleSelct(String a) {
+    public String selctStyle(String a) {
     	return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.userStyleSelect");
     }
     
     /*관리자 사업자 정보수정 */
-    public int businessUpdate(MemberDto memberDto) {
+    public int updateBusiness(MemberDto memberDto) {
     	System.out.println("MemberDao 일반회원수정내용" + memberDto);
         return sqlSessionTemplate.insert("com.ksmart.harulook.member.service.MemberMapper.businessUpdate", memberDto);
     }
     
     /*일반회원정보수정 */
-    public int userUpdate(MemberDto memberDto) {
+    public int updateUser(MemberDto memberDto) {
     	System.out.println("MemberDao 일반회원수정내용" + memberDto);
         return sqlSessionTemplate.insert("com.ksmart.harulook.member.service.MemberMapper.userUpdate", memberDto);
     }
     
     /*회원가입입력 */
-    public int userInsert(MemberDto memberDto) {
+    public int insertUser(MemberDto memberDto) {
     	System.out.println("MemberDao 회원가입내용" + memberDto);
         return sqlSessionTemplate.insert("com.ksmart.harulook.member.service.MemberMapper.userinsert", memberDto);
     }

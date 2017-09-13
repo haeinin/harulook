@@ -87,9 +87,9 @@ public class BoardController {
 		if(board.getUserId().equals("")) {
 			board.setUserId(null);
 		}else{
-			userDetail = memberDao.userDetail(board.getUserId()); // 내게시물 보기에서 프로필 사진 보기위함
-			followListCount = followDao.followListCount(board.getUserId());	//팔로우수
-			followMeListCount = followDao.followMeListCount(board.getUserId());	//팔로워수
+			userDetail = memberDao.selectUserDetail(board.getUserId()); // 내게시물 보기에서 프로필 사진 보기위함
+			followListCount = followDao.selectFollowListCount(board.getUserId());	//팔로우수
+			followMeListCount = followDao.selectFollowMeListCount(board.getUserId());	//팔로워수
 		}
 		if(board.getSnsBoardAge().equals("")) {
 			board.setSnsBoardAge(null);
@@ -393,12 +393,12 @@ public class BoardController {
         String pointPolicyNo = "point_ex_1";	//게시물 등록 포인트 no
         int boardPointCheck = boardDao.selectBoardPointCheck(board.getUserId());	//today 게시물 검색
         	System.out.println("BoardController 포인트 입력하기 위한 게시물 검색 = " + boardPointCheck);
-        String pointCehck = pointDao.pointCehck(board.getUserId(), pointPolicyNo);	//today 포인트 취득 검색
+        String pointCehck = pointDao.selectPointCehck(board.getUserId(), pointPolicyNo);	//today 포인트 취득 검색
         	System.out.println("BoardController 포인트 입력하기 위한 오늘 포인트 검색 = " + pointCehck);
        
         if(boardPointCheck > 0 && pointCehck == null){	//하루 + 게시물 1 이상 등록하면 포인트 제공 포인트 중복 취득 불가 조건문
         	System.out.println("BoardController 게시물 등록할때 하루 첫번째 등록 포인트도 같이 등록 ");
-        	pointDao.pointGetInsert(board.getUserId(), pointPolicyNo);	//취득포인트입력
+        	pointDao.insertPointGet(board.getUserId(), pointPolicyNo);	//취득포인트입력
         }	
         return "redirect:/home";
     }

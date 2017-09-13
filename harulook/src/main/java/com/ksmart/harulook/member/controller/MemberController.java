@@ -35,8 +35,8 @@ public class MemberController {
 	@RequestMapping(value="/userDeleteAdd", method = RequestMethod.POST)
 	public String userDeleteAdd(Model model,
 			@RequestParam(value="deleteid", required=true) String userId) {
-		memberDao.userDeleteAdd(userId);	//회원삭제
-		memberDao.deleteUserInsert(userId);	//삭제된회원리스트입력
+		memberDao.deleteUserAdd(userId);	//회원삭제
+		memberDao.insertDeleteUser(userId);	//삭제된회원리스트입력
 		System.out.println("MemberController 회원탈퇴시 user목록삭제후 delete_user 입력");
 		return "home"; //사업자 관리자 수정폼
 	}
@@ -62,7 +62,7 @@ public class MemberController {
 		
 		MemberDto loginCheck = memberDao.login(id);
 			System.out.println("MemeberController 로그인시 체크되어 받은 아이디loginCheck== " + loginCheck);
-		
+		System.out.println("asdfasdfsadf = = == = = " + loginCheck.getUserPw());
 		if(loginCheck == null){
 			loginCheck = null;
 			System.out.println("아이디틀림");
@@ -80,14 +80,14 @@ public class MemberController {
 					String pointAttendDay = "point_ex_3";
 					String pointAttendMonth = "point_ex_2";
 					//일반회원일경우에만
-					String attenCheckSelect = pointDao.attenCheckSelect(loginCheck.getUserId());	
+					String attenCheckSelect = pointDao.selectAttenCheck(loginCheck.getUserId());	
 						System.out.println("MemeberController 출석체크 중복검사== " + attenCheckSelect);
-					int attenCheckSelectMonth = pointDao.attenCheckSelectMonth(loginCheck.getUserId());
+					int attenCheckSelectMonth = pointDao.selectAttenCheckMonth(loginCheck.getUserId());
 						System.out.println("MemeberController 출석체크 한달== " + attenCheckSelectMonth);
 					//맞춤추천을 위해 세션에 정보 저장	
-					MemberDto userDetail = memberDao.userDetail(id);
-					List<String> userColor = memberDao.userColor(id);
-					List<String> userStyle = memberDao.userStyle(id);	
+					MemberDto userDetail = memberDao.selectUserDetail(id);
+					List<String> userColor = memberDao.selectUserColor(id);
+					List<String> userStyle = memberDao.selectUserStyle(id);	
 					session.setAttribute("CcTall", userDetail.getUserTall());		//키
 					session.setAttribute("CcSize", userDetail.getUserSize());		//체형
 					session.setAttribute("CcGender", userDetail.getUserGender());	//성별
@@ -96,11 +96,11 @@ public class MemberController {
 					session.setAttribute("CcuserStyle", userStyle);					//스타일
 						
 					if(attenCheckSelect == null){	//하루출석
-						pointDao.attenCheckInsert(loginCheck.getUserId());	//출석체크 입력
-						pointDao.pointGetInsert(loginCheck.getUserId(), pointAttendDay);	//출석체크 포인트입력
+						pointDao.insertAttenCheck(loginCheck.getUserId());	//출석체크 입력
+						pointDao.insertPointGet(loginCheck.getUserId(), pointAttendDay);	//출석체크 포인트입력
 					}else if(attenCheckSelectMonth > 29){	//30일출석
-						pointDao.attenCheckDelete(loginCheck.getUserId());	//한달출석 기존 출석내용 삭제	
-						pointDao.pointGetInsert(loginCheck.getUserId(), pointAttendMonth);	//한달출석 포인트 입력
+						pointDao.deleteAttenCheck(loginCheck.getUserId());	//한달출석 기존 출석내용 삭제	
+						pointDao.insertPointGet(loginCheck.getUserId(), pointAttendMonth);	//한달출석 포인트 입력
 					}
 				}
 				return "redirect:/home";
@@ -114,80 +114,47 @@ public class MemberController {
 	}
 	
 	/*관리자회원정보*/
-	@RequestMapping(value="/member_manager_detail", method = RequestMethod.GET)
+	@RequestMapping(value="/memberManagerDetail", method = RequestMethod.GET)
 	public String managerDetail(Model model,
 			@RequestParam(value="userId", required=true) String userId) {
-			System.out.println("member_user_detail 일반회원정보보기할때 받아온 아이디 == " + userId);
-			MemberDto businessDetail = memberDao.businessDetail(userId);
-			model.addAttribute("businessDetail", businessDetail);
-				System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
+		System.out.println("member_user_detail 일반회원정보보기할때 받아온 아이디 == " + userId);
+		MemberDto businessDetail = memberDao.selectBusinessDetail(userId);
+		model.addAttribute("businessDetail", businessDetail);
+			System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
 		return "member/manager/member_manager_detail"; //일반회원가입폼화면
 	}
 	
 	/*사업자회원정보보기*/
-	@RequestMapping(value="/member_business_detail", method = RequestMethod.GET)
+	@RequestMapping(value="/memberBusinessDetail", method = RequestMethod.GET)
 	public String businessDetail(Model model,
 			@RequestParam(value="userId", required=true) String userId) {
-			System.out.println("member_user_detail 일반회원정보보기할때 받아온 아이디 == " + userId);
-			MemberDto businessDetail = memberDao.businessDetail(userId);
-			model.addAttribute("businessDetail", businessDetail);
-				System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
+		System.out.println("member_user_detail 일반회원정보보기할때 받아온 아이디 == " + userId);
+		MemberDto businessDetail = memberDao.selectBusinessDetail(userId);
+		model.addAttribute("businessDetail", businessDetail);
+			System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
 		return "member/business/member_business_detail"; //일반회원가입폼화면
 	}
 	
 	/*일반회원정보보기*/
-	@RequestMapping(value="/member_user_detail", method = RequestMethod.GET)
+	@RequestMapping(value="/memberUserDetail", method = RequestMethod.GET)
 	public String userDetail(Model model,
 			@RequestParam(value="userId", required=true) String userId) {
-			System.out.println("member_user_detail 일반회원정보보기할때 받아온 아이디 == " + userId);
-			MemberDto userDetail = memberDao.userDetail(userId);
-			model.addAttribute("userDetail", userDetail);
-				System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
-				
-			List<String> userColor = memberDao.userColor(userId);	
-			model.addAttribute("userColor", userColor);
+		System.out.println("member_user_detail 일반회원정보보기할때 받아온 아이디 == " + userId);
+		MemberDto userDetail = memberDao.selectUserDetail(userId);
+		model.addAttribute("userDetail", userDetail);
+			System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
 			
-			List<String> userStyle = memberDao.userStyle(userId);	
-			model.addAttribute("userStyle", userStyle);
-				System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러==" + userColor);
-				System.out.println("MemeberController 회원정보보기로 받아온 회원의스타일==" + userStyle);
-				System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러와스타일 model==" + model);
+		List<String> userColor = memberDao.selectUserColor(userId);	
+		model.addAttribute("userColor", userColor);
+		
+		List<String> userStyle = memberDao.selectUserStyle(userId);	
+		model.addAttribute("userStyle", userStyle);
+			System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러==" + userColor);
+			System.out.println("MemeberController 회원정보보기로 받아온 회원의스타일==" + userStyle);
+			System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러와스타일 model==" + model);
 				
 		return "member/user/member_user_detail"; //일반회원가입폼화면
 	}
-	
-	
-	/*전체회원리스트(기존)*/
-	@RequestMapping(value={"member_user_list"}, produces = "application/text; charset=utf8", method = {RequestMethod.GET, RequestMethod.POST})
-    public String userList(Model model,
-    		 HttpSession session,
-    		 @RequestParam(value="userId", required=false) String userId,
-    		 @RequestParam(value="level", required=false) String levelList,	//권한을 null로도 받을수 있게 false
-             @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		System.out.println(userId + " == 검색 아이디");
-		
-		if(userId == ""){	//검색 아이디가 공백일 경우 null로 바꾸어 전체 리스트 나열
-			userId = null;
-		}
-		System.out.println(levelList + " == 권한별로 리스트");
-		if(levelList != null){	//관리자가 회원리스트 버튼으로 접속할때 권한을 세션에 세팅하기위함  *리스트 다음 이전버튼클릭시 권한이 null로 세팅되는걸 막기 위함
-			session.setAttribute("searchLevel", levelList);
-		}
-		String level = (String) session.getAttribute("searchLevel");
-		System.out.println(level + " ==  세션 권한별로 리스트");
-		
-		int boardCount = memberDao.getBoardCount(level);	// 일반회원 게시물 수
-        int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
-        int lastPage = (int)(Math.ceil(boardCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
-        List<MemberDto> list = memberDao.userList(currentPage, pagePerRow, level, userId);
-		model.addAttribute("currentPage", currentPage);
-        model.addAttribute("boardCount", boardCount);
-        model.addAttribute("lastPage", lastPage);
-        
-        model.addAttribute("list", list);
-        	System.out.println("MemeberController 셀렉트해서 받아온 일반 회원 리스트 model값 == "+model);
-        return "member/user/member_user_list";  //아이디중복체크후 화면 그대로
-    }
 	
 	/*전체회원리스트*/
 	@RequestMapping(value={"allUserList"}, produces = "application/text; charset=utf8", method = {RequestMethod.GET, RequestMethod.POST})
@@ -208,9 +175,9 @@ public class MemberController {
 		String level = (String) session.getAttribute("searchLevel");
 		System.out.println(level + " ==  세션 권한별로 리스트");
 		
-		int boardCount = memberDao.getBoardCount(level);	// 일반회원 게시물 수
+		int boardCount = memberDao.selectBoardCount(level);	// 일반회원 게시물 수
        
-        List<MemberDto> list = memberDao.allUserList(level, userId);
+        List<MemberDto> list = memberDao.selectAllUserList(level, userId);
 
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("list", list);
@@ -226,7 +193,7 @@ public class MemberController {
 	@RequestMapping(value="/managerAdd", method = RequestMethod.POST)
 	public String managerAdd(MemberDto memberDto) {
         System.out.println("MemberController 회원가입시 받아오는 데이터" + memberDto);
-        memberDao.managerInsert(memberDto);	//일반회원가입 기타 입력데이터
+        memberDao.insertManager(memberDto);	//일반회원가입 기타 입력데이터
         return "redirect:/home";  //회원가입후 홈화면으로
     }
 	
@@ -234,7 +201,7 @@ public class MemberController {
 	@RequestMapping(value="/businessAdd", method = RequestMethod.POST)
 	public String businessAdd(MemberDto memberDto) {
         System.out.println("MemberController 회원가입시 받아오는 데이터" + memberDto);
-        memberDao.businessInsert(memberDto);	//일반회원가입 기타 입력데이터
+        memberDao.insertBusiness(memberDto);	//일반회원가입 기타 입력데이터
         return "redirect:/home";  //회원가입후 홈화면으로
     }
 	
@@ -243,7 +210,7 @@ public class MemberController {
 	public String businessUpdateAdd(MemberDto memberDto,
 			HttpServletRequest request) {
         System.out.println("MemberController 회원정보수정하기" + memberDto);
-        memberDao.businessUpdate(memberDto);	// 관리자 광주고 입력데이터
+        memberDao.updateBusiness(memberDto);	// 관리자 광주고 입력데이터
        
         return "redirect:/home";  //회원가입후 홈화면으로
     }
@@ -265,24 +232,22 @@ public class MemberController {
 	    	memberDto.setUserImg(userImgFile);	//이미지파일 주소 입력
     	}
     	System.out.println("MemberController 이미지 수정하지 않았을때");
-        memberDao.userUpdate(memberDto);	//일반회원가입 기타 입력데이터
+        memberDao.updateUser(memberDto);	//일반회원가입 기타 입력데이터
         //유저컬러와 스타일 내용 삭제
-        memberDao.userColorDelete(memberDto.getUserId());
-        memberDao.userStyleDelete(memberDto.getUserId());
-        
-        	System.out.println(memberDto.getColorValue() + " == sadlkjfaslkdfjlaskdfjlsakfjlksadfjlkasjflksajdflkasjflksajkfd");
+        memberDao.deleteUserColor(memberDto.getUserId());
+        memberDao.deleteUserStyle(memberDto.getUserId());
         
         if(memberDto.getColorValue() != null){	//체크박스에 값이 있을때만 실행
 	        //체크박스 컬러 배열로 받음
 	        String[] colorValue = request.getParameterValues("colorValue");
 	        for( int i = 0; i < colorValue.length; i++ ){	//컬러 체크 리스트 갯수만큼 for문 실행
 	        	
-	        	String lastColorNo = memberDao.colorSelect(colorValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	String lastColorNo = memberDao.selectColor(colorValue[i]);	//for문 갯수만큼 마지막 no찾아오기
 	        	int insertColorNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
 	        	if(lastColorNo != null) {
 	        		insertColorNo = Integer.parseInt(lastColorNo)+1;	//마지막no +1
 	    		}
-	        	memberDao.userColorInsert("user_color_"+insertColorNo, colorValue[i], memberDto.getUserId());
+	        	memberDao.insertUserColor("user_color_"+insertColorNo, colorValue[i], memberDto.getUserId());
 	        	System.out.println(colorValue[i] + " == 컬러배열");
 	        }
         }
@@ -292,19 +257,19 @@ public class MemberController {
 	        String[] styleValue = request.getParameterValues("styleValue");
 	        for( int i = 0; i < styleValue.length; i++ ){
 	        	
-	        	String lastStyleNo = memberDao.styleSelct(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	String lastStyleNo = memberDao.selctStyle(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
 	        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
 	        	if(lastStyleNo != null) {
 	        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
 	    		}
-	        	memberDao.userStyleInsert("user_style_"+insertStyleNo, styleValue[i], memberDto.getUserId());
+	        	memberDao.insertUserStyle("user_style_"+insertStyleNo, styleValue[i], memberDto.getUserId());
 	        	System.out.println(styleValue[i] + " == 스타일배열");
 	        }
         }
         
-        MemberDto userDetail = memberDao.userDetail(memberDto.getUserId());
-		List<String> userColor = memberDao.userColor(memberDto.getUserId());
-		List<String> userStyle = memberDao.userStyle(memberDto.getUserId());	
+        MemberDto userDetail = memberDao.selectUserDetail(memberDto.getUserId());
+		List<String> userColor = memberDao.selectUserColor(memberDto.getUserId());
+		List<String> userStyle = memberDao.selectUserStyle(memberDto.getUserId());	
 		session.setAttribute("CcTall", userDetail.getUserTall());		//키
 		session.setAttribute("CcSize", userDetail.getUserSize());		//체형
 		session.setAttribute("CcGender", userDetail.getUserGender());	//성별
@@ -329,19 +294,19 @@ public class MemberController {
         System.out.println("MemberController 이미지파일업로드 : " + userImgFile);
     	memberDto.setUserImg(userImgFile);	//이미지파일 주소 입력
         
-    	memberDao.userInsert(memberDto);	//일반회원가입 기타 입력데이터
+    	memberDao.insertUser(memberDto);	//일반회원가입 기타 입력데이터
         
     	if(memberDto.getColorValue() != null){	//체크박스에 값이 있을때만 실행
 	        //체크박스 컬러 배열로 받음
 	        String[] colorValue = request.getParameterValues("colorValue");
 	        for( int i = 0; i < colorValue.length; i++ ){	//컬러 체크 리스트 갯수만큼 for문 실행
 	        	
-	        	String lastColorNo = memberDao.colorSelect(colorValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	String lastColorNo = memberDao.selectColor(colorValue[i]);	//for문 갯수만큼 마지막 no찾아오기
 	        	int insertColorNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
 	        	if(lastColorNo != null) {
 	        		insertColorNo = Integer.parseInt(lastColorNo)+1;	//마지막no +1
 	    		}
-	        	memberDao.userColorInsert("user_color_"+insertColorNo, colorValue[i], memberDto.getUserId());
+	        	memberDao.insertUserColor("user_color_"+insertColorNo, colorValue[i], memberDto.getUserId());
 	        	System.out.println(colorValue[i] + " == 컬러배열");
 	        }
         }
@@ -351,12 +316,12 @@ public class MemberController {
 	        String[] styleValue = request.getParameterValues("styleValue");
 	        for( int i = 0; i < styleValue.length; i++ ){
 	        	
-	        	String lastStyleNo = memberDao.styleSelct(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	String lastStyleNo = memberDao.selctStyle(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
 	        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
 	        	if(lastStyleNo != null) {
 	        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
 	    		}
-	        	memberDao.userStyleInsert("user_style_"+insertStyleNo, styleValue[i], memberDto.getUserId());
+	        	memberDao.insertUserStyle("user_style_"+insertStyleNo, styleValue[i], memberDto.getUserId());
 	        	System.out.println(styleValue[i] + " == 스타일배열");
 	        }
         }    
@@ -364,14 +329,14 @@ public class MemberController {
     }
 	
 	/*member_manager_insert(관리자등록 폼)*/
-	@RequestMapping(value="/member_manager_insert", method = RequestMethod.GET)
+	@RequestMapping(value="/memberManagerInsert", method = RequestMethod.GET)
 	public String managerAdd() {
 		System.out.println("member_manager_insert 관리자등록");
 		return "member/manager/member_manager_insert"; //관리자등록화면 
 	}
 	
 	/*member_business_insert(사업자등록 폼)*/
-	@RequestMapping(value="/member_business_insert", method = RequestMethod.GET)
+	@RequestMapping(value="/memberBusinessInsert", method = RequestMethod.GET)
 	public String businessAdd() {
 		System.out.println("member_business_insert 사업자등록폼");
 		return "member/business/member_business_insert"; //사업자등록폼화면
@@ -387,7 +352,7 @@ public class MemberController {
 			String sessionId = (String) session.getAttribute("id");
 			userId = sessionId;
 		}
-		MemberDto businessDetail = memberDao.businessDetail(userId);
+		MemberDto businessDetail = memberDao.selectBusinessDetail(userId);
 		model.addAttribute("businessDetail", businessDetail);
 			System.out.println(businessDetail + " == 1280937120398109238102938109381209381093810923089");
 		return "member/business/member_business_update"; //사업자 관리자 수정폼
@@ -405,14 +370,14 @@ public class MemberController {
 			userId = sessionId;
 		}
 		
-		MemberDto userDetail = memberDao.userDetail(userId);
+		MemberDto userDetail = memberDao.selectUserDetail(userId);
 		model.addAttribute("userDetail", userDetail);
 			System.out.println("MemeberController 일반회원수정폼 받아온 회원상세데이터들 model==" + model);
 			
-		List<String> userColor = memberDao.userColor(userId);	
+		List<String> userColor = memberDao.selectUserColor(userId);	
 		model.addAttribute("userColor", userColor);
 		
-		List<String> userStyle = memberDao.userStyle(userId);	
+		List<String> userStyle = memberDao.selectUserStyle(userId);	
 		model.addAttribute("userStyle", userStyle);
 			System.out.println("MemeberController 일반회원수정폼 받아온 회원의컬러와스타일 model==" + model);
 			System.out.println("member_user_update 일반회원수정홈화면");
@@ -420,7 +385,7 @@ public class MemberController {
 	}
 	
 	/*member_user_insert(일반회원가입폼)*/
-	@RequestMapping(value="/member_user_insert", method = RequestMethod.GET)
+	@RequestMapping(value="/memberUserInsert", method = RequestMethod.GET)
 	public String userAdd() {
 		System.out.println("member_user_insert 일반회원가입홈화면");
 		return "member/user/member_user_insert"; //일반회원가입폼화면

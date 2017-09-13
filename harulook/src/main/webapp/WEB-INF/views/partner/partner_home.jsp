@@ -24,51 +24,54 @@
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
 	    <div class="col-xs-9">
-	    <div class="row">
+	    <div class="row" >
 	    <div class="col-md-2"></div>
 	    <div class="col-md-7">
 	    
 			<c:if test="${!empty list}">
-
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>제휴계약번호</th>
-							<th>제휴 시작 날짜</th>
-							<th>제휴 종료 날짜</th>
-							<th>제휴상태</th>
-
-							<c:if test="${sessionScope.level == '관리자'}">
-								<th>관리자승인</th>
-							</c:if>
-						</tr>
-					</thead>
-
-					<tbody>
-						<c:forEach var="b" items="${list}">
+				<div style="width: 100%; height: 600px;">
+					<table class="table table-hover" >
+						<thead>
 							<tr>
-							<c:if test="${b.cooContractStat == '제휴정지'}">
-							<td>
-								<a href="${pageContext.request.contextPath}/partnerOverdue?setNo=${b.cooContractNo}">${b.cooContractNo}</a>
-							</td>
-							</c:if>
-							<c:if test="${b.cooContractStat != '제휴정지'}">
-							<td>
-								<a href="${pageContext.request.contextPath}/partnerMain?setNo=${b.cooContractNo}">${b.cooContractNo}</a>
-								</td>
-							</c:if>
-								
-								<td>${b.cooContractStart}</td>
-								<td>${b.cooContractEnd}</td>
-								<td>${b.cooContractStat}</td>
+								<th>제휴계약번호</th>
+								<th>제휴 시작 날짜</th>
+								<th>제휴 종료 날짜</th>
+								<th>제휴상태</th>
+	
+								<c:if test="${sessionScope.level == '관리자'}">
+									<th>관리자승인</th>
+								</c:if>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+	
+						<tbody>
+							<c:forEach var="b" items="${list}">
+								<tr>
+								<c:if test="${b.cooContractStat == '제휴정지'}">
+								<td>
+									<a href="${pageContext.request.contextPath}/partnerOverdue?setNo=${b.cooContractNo}">${b.cooContractNo}</a>
+								</td>
+								</c:if>
+								<c:if test="${b.cooContractStat != '제휴정지'}">
+								<td>
+									<a href="${pageContext.request.contextPath}/partnerMain?setNo=${b.cooContractNo}">${b.cooContractNo}</a>
+									</td>
+								</c:if>
+									
+									<td>${b.cooContractStart}</td>
+									<td>${b.cooContractEnd}</td>
+									<td>${b.cooContractStat}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>	
 			</c:if>
 			<c:if test="${empty list}">
+				<div style="width: 100%; height: 600px;">
 				<p>신청한 제휴계약이 없습니다</p>
 				<a href="${pageContext.request.contextPath}/partnerContractInsert">제휴계약신청하기</a>
+				</div>
 			</c:if>
 			</div>
 			</div>

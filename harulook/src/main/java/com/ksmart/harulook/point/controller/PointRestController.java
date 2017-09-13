@@ -22,7 +22,7 @@ public class PointRestController {
 		String sessionLevel = (String) session.getAttribute("level");///////////////////////////////////권한별 작동
 		if(sessionLevel.equals("일반회원")){
 			System.out.println("PointController 일반회원");
-			int myPoint = pointDao.myPoint(sessionId);	//로그인 성공시 해당 회원 포인트 받아옴
+			int myPoint = pointDao.selectMyPoint(sessionId);	//로그인 성공시 해당 회원 포인트 받아옴
 			System.out.println("PointController 마myPointmyPointmyPointmyPointmyPoint == " + myPoint);
 			return myPoint;
 		}
