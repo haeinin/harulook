@@ -126,7 +126,7 @@ function boardSearch(){
 			if(data.length > 0) {	// 검색 조건에 해당하는 검색 결과가 존재하는 경우
 				for(var i=0; i<data.length; i++) {
 					boardHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
-					boardHtml += '<div class="sns-photo-box" value="'+data[i].snsBoardNo+'">';
+					boardHtml += '<div class="sns-photo-box cursor-click" value="'+data[i].snsBoardNo+'">';
 					boardHtml += '<div class="image-wrap">';
 					boardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
 					boardHtml += '<div class="likes">';
@@ -215,10 +215,10 @@ $(function(){
 				
 				for(var i=0; i < data.list.length; i++) {
 					readMoreHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
-					readMoreHtml += '<div class="sns-photo-box">';
+					readMoreHtml += '<div class="sns-photo-box cursor-click">';
 					readMoreHtml += '<input type="hidden" id="boardNo" value="'+data.list[i].snsBoardNo+'">';
-					readMoreHtml += '<div class="image-wrap">';
-					readMoreHtml += '<img style="height: auto; max-width: 300px; max-height: 300px; width: auto;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.list[i].snsBoardImg+'">';
+					readMoreHtml += '<div class="image-wrap" style="float: left; margin: 5px; overflow: hidden;">';
+					readMoreHtml += '<img style="display: inline-block; width: 100%; min-height: 100%;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.list[i].snsBoardImg+'">';
 					readMoreHtml += '<div class="likes">';
 					readMoreHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
 					readMoreHtml += '<span class="center">&nbsp;'+data.list[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
@@ -240,6 +240,7 @@ $(function(){
 </script>
 </head>
 <body>
+<div class="container">
 	<br>
 
 	<div class="row">
@@ -254,7 +255,7 @@ $(function(){
 				<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
 				<c:forEach items="${list}" var="b">
 				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
-					<div class="sns-photo-box">
+					<div class="sns-photo-box cursor-click">
 						<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
 						<div class="image-wrap">
 							<img style="height: auto; max-width: 100%; max-height: 100%; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
@@ -308,6 +309,7 @@ $(function(){
 				        	<div id="snsDetailCommentControll">
 				        	</div>
 				        	</c:if>
+				        	<br>
 				        	<div style="text-align: right; padding-right: 20px;">
 				        		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 				        	</div>
@@ -323,5 +325,6 @@ $(function(){
 		<!-- 로그인권한별로 버튼을 나누기 위한 세션 아이디 -->
 		<input id="levelCheck" type="hidden" value="${sessionScope.level}"/>
 	</div>
+</div>
 </body>
 </html>

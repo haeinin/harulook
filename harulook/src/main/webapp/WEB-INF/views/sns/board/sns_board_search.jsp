@@ -90,55 +90,55 @@ $(function(){
 	/* 색상 체크 판별 */
 	if(searchColor.indexOf('color_01') != -1) {
 		$('input:checkbox[id="searchColorRed"]').prop("checked", true);
-		$('#circleRed').attr('class','fa fa-check-circle');
+		$('#circleRed').attr('class','fa fa-check-circle cursor-click');
 	} 
 	if(searchColor.indexOf('color_02') != -1) {
 		$('input:checkbox[id="searchColorOrange"]').prop("checked", true);
-		$('#circleOrange').attr('class','fa fa-check-circle');
+		$('#circleOrange').attr('class','fa fa-check-circle cursor-click');
 	}
 	if(searchColor.indexOf('color_03') != -1) {
 		$('input:checkbox[id="searchColorYellow"]').prop("checked", true);
-		$('#circleYellow').attr('class','fa fa-check-circle');
+		$('#circleYellow').attr('class','fa fa-check-circle cursor-click');
 	} 
 	if(searchColor.indexOf('color_04') != -1) {
 		$('input:checkbox[id="searchColorGreen"]').prop("checked", true);
-		$('#circleGreen').attr('class','fa fa-check-circle');
+		$('#circleGreen').attr('class','fa fa-check-circle cursor-click');
 	}
 	if(searchColor.indexOf('color_05') != -1) {
 		$('input:checkbox[id="searchColorBlue"]').prop("checked", true);
-		$('#circleBlue').attr('class','fa fa-check-circle');
+		$('#circleBlue').attr('class','fa fa-check-circle cursor-click');
 	} 
 	if(searchColor.indexOf('color_06') != -1) {
 		$('input:checkbox[id="searchColorNavy"]').prop("checked", true);
-		$('#circleNavy').attr('class','fa fa-check-circle');
+		$('#circleNavy').attr('class','fa fa-check-circle cursor-click');
 	}
 	if(searchColor.indexOf('color_07') != -1) {
 		$('input:checkbox[id="searchColorPurple"]').prop("checked", true);
-		$('#circlePurple').attr('class','fa fa-check-circle');
+		$('#circlePurple').attr('class','fa fa-check-circle cursor-click');
 	} 
 	if(searchColor.indexOf('color_08') != -1) {
 		$('input:checkbox[id="searchColorBlack"]').prop("checked", true);
-		$('#circleBlack').attr('class','fa fa-check-circle');
+		$('#circleBlack').attr('class','fa fa-check-circle cursor-click');
 	}
 	if(searchColor.indexOf('color_09') != -1) {
 		$('input:checkbox[id="searchColorGrey"]').prop("checked", true);
-		$('#circleGrey').attr('class','fa fa-check-circle');
+		$('#circleGrey').attr('class','fa fa-check-circle cursor-click');
 	} 
 	if(searchColor.indexOf('color_10') != -1) {
 		$('input:checkbox[id="searchColorWhite"]').prop("checked", true);
-		$('#circleWhite').attr('class','fa fa-check-circle');
+		$('#circleWhite').attr('class','fa fa-check-circle cursor-click');
 	}
 	if(searchColor.indexOf('color_11') != -1) {
 		$('input:checkbox[id="searchColorBrown"]').prop("checked", true);
-		$('#circleBrown').attr('class','fa fa-check-circle');
+		$('#circleBrown').attr('class','fa fa-check-circle cursor-click');
 	}
 	if(searchColor.indexOf('color_12') != -1) {
 		$('input:checkbox[id="searchColorBeige"]').prop("checked", true);
-		$('#circleBeige').attr('class','fa fa-check-circle');
+		$('#circleBeige').attr('class','fa fa-check-circle cursor-click');
 	}
 	if(searchColor.indexOf('color_13') != -1) {
 		$('input:checkbox[id="searchColorPink"]').prop("checked", true);
-		$('#circlePink').attr('class','fa fa-check-circle');
+		$('#circlePink').attr('class','fa fa-check-circle cursor-click');
 	}
 	
 	/* 상황 체크 판별 */
@@ -453,16 +453,22 @@ $(function(){
 				    <select class="searchCategory" name="snsBoardLoc" id="snsBoardLoc">
 				    	<option></option>
 				    	<option>서울</option>
-				    	<option>경기</option>
-				    	<option>강원</option>
-				    	<option>충남</option>
-				    	<option>충북</option>
-				    	<option>전북</option>
-				    	<option>전남</option>
-				    	<option>경북</option>
-				    	<option>경남</option>
-				    	<option>제주</option>
-				    	<option>세종</option>
+		            	<option>부산</option>
+		            	<option>울산</option>
+		            	<option>대구</option>
+		            	<option>인천</option>
+		            	<option>대전</option>
+		            	<option>광주</option>
+		            	<option>제주</option>
+		            	<option>세종</option>
+		            	<option>경기</option>
+		            	<option>강원</option>
+		            	<option>충북</option>
+		            	<option>충남</option>
+		            	<option>경북</option>
+		            	<option>경남</option>
+		            	<option>전북</option>
+		            	<option>전남</option>
 				    </select>
 				</div>
 				<div class="searchGroup">

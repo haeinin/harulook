@@ -52,7 +52,7 @@ $(document).ready(function(){
 			<div id="adBoardOutput" class="row photos-wrap"  style="text-align: center;">
 			<c:forEach var="b" items="${adboardlist}" begin="0" end="2" step="1">
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
-				<div class="ad-pop-photo-box"><!-- ddddddddddddddddddddddddddddddddddd  모달 클릭 클래스네임 -->
+				<div class="ad-pop-photo-box cursor-click"><!-- ddddddddddddddddddddddddddddddddddd  모달 클릭 클래스네임 -->
 					<input type="hidden" id="adBoardNoVal" value="${b.adBoardNo}">
 					<div class="image-wrap">
 					<c:choose>

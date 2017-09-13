@@ -126,7 +126,7 @@ function boardSearch(){
 			if(data.length > 0) {
 				for(var i=0; i<data.length; i++) {
 					boardHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
-					boardHtml += '<div class="sns-photo-box" value="'+data[i].snsBoardNo+'">';
+					boardHtml += '<div class="sns-photo-box cursor-click" value="'+data[i].snsBoardNo+'">';
 					boardHtml += '<div class="image-wrap">';
 					boardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
 					boardHtml += '<div class="likes">';
@@ -268,7 +268,7 @@ $(function(){
 				
 				for(var i=0; i < data.list.length; i++) {
 					readMoreHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
-					readMoreHtml += '<div class="sns-photo-box">';
+					readMoreHtml += '<div class="sns-photo-box cursor-click">';
 					readMoreHtml += '<input type="hidden" id="boardNo" value="'+data.list[i].snsBoardNo+'">';
 					readMoreHtml += '<div class="image-wrap">';
 					readMoreHtml += '<img style="height: auto; max-width: 300px; max-height: 300px; width: auto;" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.list[i].snsBoardImg+'">';
@@ -328,7 +328,7 @@ $(function(){
 					<div id="boardOutput" class="row photos-wrap"  style="text-align: center;">
 					<c:forEach items="${list}" var="b">
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" >
-						<div class="sns-photo-box">
+						<div class="sns-photo-box cursor-click">
 							<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
 							<div class="image-wrap">
 								<img style="height: auto; max-width: 300px; max-height: 300px; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
@@ -360,25 +360,29 @@ $(function(){
 		        <div class="row">
 		        
 		        	<!-- 게시물 이미지 영역 -->
-			        <div class="modal-body col-xs-12 col-md-8" style="padding-bottom: 0; padding-top: 0;">
+			        <div id="snsDetailImgArea" class="modal-body col-xs-12 col-md-8" style="padding-bottom: 0; padding-top: 0;">
 						<div id="snsDetailImg"></div>
 		        	</div>
 		        	<!-- 게시물 이미지 영역 -->
 		        	
 		        	<!-- 게시물 내용 영역 -->
-			        <div class="modal-body col-xs-12 col-md-4" style="padding-left: 30px;">
+			        <div id="contentArea" class="modal-body col-xs-12 col-md-4" style="padding-left: 30px;">
 			        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
-			        	<div id="snsDetailHeader"></div>
-			        	<div id="snsDetailContent"></div>
-			        	<hr>
-			        	<div id="snsDetailComment">
+		        		<div id="snsDetailHeader"></div>
+		        		<div >
+			        		<div id="snsDetailContent"></div>
+			        		<hr>
+			        	
+				        	<div id="snsDetailLike"></div>
+				        	<hr>
+				        	<div id="snsDetailComment"></div>
 			        	</div>
-			        	<hr>
 			        	<c:if test="${sessionScope.id != null}">
 			        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">
 			        	<div id="snsDetailCommentControll">
 			        	</div>
 			        	</c:if>
+			        	<br>
 			        	<div style="text-align: right; padding-right: 20px;">
 			        		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 			        	</div>
