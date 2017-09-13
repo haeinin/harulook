@@ -55,7 +55,7 @@ public class PointController {
 	        }
 	    }
 	    String pointGoodsCode = randomGoodsCode.toString();	//StringBuffer로 생성된 쿠폰 코드를 데이터베이스에 들어갈수 있도록 String으로 변환
-	    String couponCheck = pointDao.couponCheck(pointGoodsCode);	//랜덤생성코드 중복검사
+	    String couponCheck = pointDao.selectCouponCheck(pointGoodsCode);	//랜덤생성코드 중복검사
 			System.out.println(couponCheck + "  == PointController 랜덤생성코드 중복검사");
 		
 		while(pointGoodsCode.equals(couponCheck)){	//랜덤생성코드가 중복되면 중복안될때까지 재생성
@@ -66,7 +66,7 @@ public class PointController {
 		        	randomGoodsCode.append((rnd.nextInt(10)));
 		        }
 		    }
-			couponCheck = pointDao.couponCheck(pointGoodsCode);
+			couponCheck = pointDao.selectCouponCheck(pointGoodsCode);
 		}
 		
 		/*String pointNo = pointDao.pointNo();	//쿠폰번호 검색 후 마지막 +1 입력
@@ -74,7 +74,7 @@ public class PointController {
 		int pointInserNO = 1;    //DB에 등록된 쿠폰 없을 때 번호의 초기값
     	if(pointNo != null) {
     		pointInserNO = Integer.parseInt(pointNo)+1;	//마지막no +1
-*/    		pointDao.couponInset(/*"point_"+pointInserNO, */userId, pointPolicyValue, pointGoodsCode);	//쿠폰사용입력 
+*/    		pointDao.insetCoupon(/*"point_"+pointInserNO, */userId, pointPolicyValue, pointGoodsCode);	//쿠폰사용입력 
     	/*	return "point/point_list";
     	}*/
         return "point/point_list";  
@@ -90,27 +90,27 @@ public class PointController {
 				@RequestParam(value="currentPageUse", required=false, defaultValue="1") int currentPageUse,
 				@RequestParam(value="currentPageGet", required=false, defaultValue="1") int currentPageGet) {
 		String userId = (String) session.getAttribute("id");
-		List<PointDto> pointPolicy = pointDao.pointPolicy();	//포인트 정책 리스트
+		List<PointDto> pointPolicy = pointDao.selectPointPolicy();	//포인트 정책 리스트
 		model.addAttribute("pointPolicy", pointPolicy);
 			System.out.println("PointController 1 포인트정책 " + pointPolicy);
 		
-		List<PointDto> pointUsePolicy = pointDao.pointUsePolicy();	//포인트 쿠폰 정책
+		List<PointDto> pointUsePolicy = pointDao.selectPointUsePolicy();	//포인트 쿠폰 정책
 			System.out.println("PointController 2 쿠폰 정책 " + pointPolicy);
 		model.addAttribute("pointUsePolicy", pointUsePolicy);
 		
-		int pointUseCount = pointDao.pointUseCount(userId);	// 포인트사용내역 게시물 수
+		int pointUseCount = pointDao.selectPointUseCount(userId);	// 포인트사용내역 게시물 수
 		int pagePerRow = 10;
 		int lastPageUse = (int)(Math.ceil(pointUseCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
-        List<PointDto> pointUse = pointDao.pointUse(currentPageUse, pagePerRow, userId);	//포인트 사용 내역
+        List<PointDto> pointUse = pointDao.selectPointUse(currentPageUse, pagePerRow, userId);	//포인트 사용 내역
 		model.addAttribute("currentPageUse", currentPageUse);
         model.addAttribute("pointUseCount", pointUseCount);
         model.addAttribute("lastPageUse", lastPageUse);
         model.addAttribute("pointUse", pointUse);
 			System.out.println("PointController 3 포인트 사용 내역 " + pointUse);
 		
-		int pointGetCount = pointDao.pointGetCount(userId);	// 포인트취득내역 게시물 수
+		int pointGetCount = pointDao.selectPointGetCount(userId);	// 포인트취득내역 게시물 수
 		int lastPageGet = (int)(Math.ceil(pointGetCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
-        List<PointDto> pointGet = pointDao.pointGet(currentPageGet, pagePerRow, userId);	//포인트 취득내역
+        List<PointDto> pointGet = pointDao.selectPointGet(currentPageGet, pagePerRow, userId);	//포인트 취득내역
 		model.addAttribute("currentPageGet", currentPageGet);
         model.addAttribute("pointGetCount", pointGetCount);
         model.addAttribute("lastPageGet", lastPageGet);

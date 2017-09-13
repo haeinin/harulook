@@ -38,7 +38,7 @@ public class FollowRestController {
 		System.out.println("FollowController 게시판아이디 로그인아이디같음 ");
 			checkFollow = "samId";
 		}else{
-			checkFollow = followDao.followCheck(userId, followId);	//	친구등록 중복 방지 셀렉트
+			checkFollow = followDao.selectFollowCheck(userId, followId);	//	친구등록 중복 방지 셀렉트
 		System.out.println("FollowController 친구 체크 후 == " +checkFollow);
 		}
 		/*	model.addAttribute("checkFollow", checkFollow);

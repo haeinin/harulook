@@ -16,7 +16,7 @@ public class FollowDao {
     private SqlSessionTemplate sqlSessionTemplate;
 	
 	/*팔로우삭제 */
-    public String followDelete(String userId, String followId) {
+    public String deleteFollow(String userId, String followId) {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("userId", userId);
     	map.put("followId", followId);
@@ -24,19 +24,19 @@ public class FollowDao {
     }
 	  
     /*나를 팔로우한 리스트 카운트 매서드 */
-    public int followMeListCount(String userId) {
+    public int selectFollowMeListCount(String userId) {
     		
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.follow.service.FollowMapper.followMeListCount", userId);
     }
     
     /*팔로우리스트 카운트 매서드 */
-    public int followListCount(String userId) {
+    public int selectFollowListCount(String userId) {
     		
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.follow.service.FollowMapper.followListCount", userId);
     }
     
     /*팔로우미리스트 */
-    public List<FollowDto> followMeList(int currentPage, int pagePerRow, String followId) {
+    public List<FollowDto> selectFollowMeList(int currentPage, int pagePerRow, String followId) {
     	Map<Object, Object> map = new HashMap<Object, Object>();
     	map.put("beginRow", (currentPage-1)*pagePerRow);
         map.put("pagePerRow", pagePerRow);
@@ -45,7 +45,7 @@ public class FollowDao {
     }
     
 	/*팔로우리스트 */
-    public List<FollowDto> followList(int currentPage, int pagePerRow, String followId) {
+    public List<FollowDto> selectFollowList(int currentPage, int pagePerRow, String followId) {
     	Map<Object, Object> map = new HashMap<Object, Object>();
     	map.put("beginRow", (currentPage-1)*pagePerRow);
         map.put("pagePerRow", pagePerRow);
@@ -55,7 +55,7 @@ public class FollowDao {
     }
     
     /*팔로우체크 */
-    public String followCheck(String userId, String followId) {
+    public String selectFollowCheck(String userId, String followId) {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("userId", userId);
     	map.put("followId", followId);
@@ -65,13 +65,13 @@ public class FollowDao {
     }
 	 
 	/*팔로우no검색*/
-    public String followNo() {
+    public String selectFollowNo() {
     	return sqlSessionTemplate.selectOne("com.ksmart.harulook.follow.service.FollowMapper.followNo");
     	
     }
 	 
 	/*팔로우입력 */
-    public int followInsert(String followNo, String userId, String followId) {
+    public int insertFollow(String followNo, String userId, String followId) {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("followNo", followNo);
     	map.put("userId", userId);

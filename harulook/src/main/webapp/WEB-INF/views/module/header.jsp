@@ -437,7 +437,7 @@ $(document).ready(function(){
 
 							<!-- 새관리자 등록하기 -->
 							<form id="newManagerInsert"
-								action="${pageContext.request.contextPath}/member_manager_insert"
+								action="${pageContext.request.contextPath}/memberManagerInsert"
 								method="get">
 								<div>
 									<input class="btn btn-default" id="managerInsertbutton"

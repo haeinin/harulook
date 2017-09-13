@@ -206,12 +206,12 @@
 									   
 									
 									 <!-- 회원가입하기 -->
-									<form id=userinserform action="${pageContext.request.contextPath}/member_user_insert" method="get">
+									<form id=userinserform action="${pageContext.request.contextPath}/memberUserInsert" method="get">
 										<input class="btn btn-default btn-login-submit btn-block m-t-md" type="submit" value="회원가입"/>
 									</form>
 									
 									<!-- 사업자등록하기 -->
-									<form id=businessinserform action="${pageContext.request.contextPath}/member_business_insert" method="get">
+									<form id=businessinserform action="${pageContext.request.contextPath}/memberBusinessInsert" method="get">
 										<input class="btn btn-default btn-login-submit btn-block m-t-md" type="submit" value="사업자등록하기"/>
 									</form>
 									

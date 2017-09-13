@@ -649,7 +649,7 @@ $(document).ready(function(){
 	
 		<div>
 		    <h1>${sessionScope.searchLevel} 리스트</h1>
-		    <div>회원 수 : ${boardCount}</div>
+		    <div>${sessionScope.searchLevel} 회원 수 : ${boardCount}</div>
 		    <%-- <!-- 회원아이디검색 -->
 	  		<c:import url="../search/user_search.jsp"></c:import> --%>
 		    
@@ -682,15 +682,15 @@ $(document).ready(function(){
 		            <c:forEach var="b" items="${list}">
 		                <tr>
 		                    <c:if test="${sessionScope.searchLevel == '일반회원'}">
-		                    <td><a href="${pageContext.request.contextPath}/member_user_detail?userId=${b.userId}">${b.userId}</a></td>
+		                    <td><a href="${pageContext.request.contextPath}/memberUserDetail?userId=${b.userId}">${b.userId}</a></td>
 		                    </c:if>
 		                    
 		                    <c:if test="${sessionScope.searchLevel == '관리자'}">
-		                    <td><a href="${pageContext.request.contextPath}/member_manager_detail?userId=${b.userId}">${b.userId}</a></td> <!-- 연결되는주소 수정하여라 -->
+		                    <td><a href="${pageContext.request.contextPath}/memberManagerDetail?userId=${b.userId}">${b.userId}</a></td> <!-- 연결되는주소 수정하여라 -->
 		                    </c:if>
 		                    
 		                    <c:if test="${sessionScope.searchLevel == '사업자'}">
-		                    <td><a href="${pageContext.request.contextPath}/member_business_detail?userId=${b.userId}">${b.userId}</a></td> <!-- 연결되는주소 수정하여라 -->
+		                    <td><a href="${pageContext.request.contextPath}/memberBusinessDetail?userId=${b.userId}">${b.userId}</a></td> <!-- 연결되는주소 수정하여라 -->
 			                </c:if>    
 		                    
 		                    <td>${b.userNick}</td>

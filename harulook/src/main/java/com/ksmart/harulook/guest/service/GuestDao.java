@@ -16,22 +16,22 @@ public class GuestDao {
     private SqlSessionTemplate sqlSessionTemplate;
 	
 	/*월간방문자수조회 */
-    public List<GuestDto> monthlyGuest() {
+    public List<GuestDto> selectMonthlyGuest() {
     	return sqlSessionTemplate.selectList("com.ksmart.harulook.guest.service.GuestMapper.monthlyGuest");
     }
 	 
 	/*주간방문자수조회 */
-    public List<GuestDto> weeklyGuest() {
+    public List<GuestDto> selectWeeklyGuest() {
     	return sqlSessionTemplate.selectList("com.ksmart.harulook.guest.service.GuestMapper.weeklyGuest");
     }
 	 
 	 /*일일방문자수조회 */
-    public List<GuestDto> dailyGuest() {
+    public List<GuestDto> selectdailyGuest() {
     	return sqlSessionTemplate.selectList("com.ksmart.harulook.guest.service.GuestMapper.dailyGuest");
     }
 	 
 	/*중복접속체크 */
-    public String guestSelect(String guestIp) {
+    public String selectGuest(String guestIp) {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("guestIp", guestIp);
     	return sqlSessionTemplate.selectOne("com.ksmart.harulook.guest.service.GuestMapper.guestSelect", map);
@@ -39,13 +39,13 @@ public class GuestDao {
     }
 	 
 	/*게스트no검색 */
-    public String guestSelectNo(String a) {
+    public String selectGuestNo(String a) {
     	return sqlSessionTemplate.selectOne("com.ksmart.harulook.guest.service.GuestMapper.guestSelectNo");
     	
     }
 	 
 	/*게스트입력 */
-    public int guestInsert(String guestIp, String guestInsertNo) {
+    public int insertGuest(String guestIp, String guestInsertNo) {
     	System.out.println("GuestDto 회원가입내용" + guestIp);
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("guestIp", guestIp);
