@@ -28,7 +28,7 @@
 	<div class="col-xs-12 col-sm-4">
 	   <!-- 게시물등록하기버튼 -->
 		<c:if test="${sessionScope.level == '일반회원'}">
-			<a href="${pageContext.request.contextPath}/boardInsert"><i class="fa fa-plus-circle" style="font-size:60px;color:gray;margin-left:50px;"></i></a>
+			<a href="${pageContext.request.contextPath}/boardInsert"><i class="fa fa-plus-circle" style="font-size:60px;color:gray;margin-left:20px;"></i></a>
 
 		</c:if>
 	</div>

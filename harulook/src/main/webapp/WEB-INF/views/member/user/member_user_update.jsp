@@ -596,7 +596,7 @@
 					            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userTall" id="user_tall">
 									<option>${userDetail.userTall}</option>
 					            	<option>큰키</option>
-					            	<option>보통</option>
+					            	<option>보통키</option>
 					            	<option>작은키</option>
 				            	</select>
 					      		</div>
