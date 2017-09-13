@@ -62,7 +62,7 @@ public class MemberController {
 		
 		MemberDto loginCheck = memberDao.login(id);
 			System.out.println("MemeberController 로그인시 체크되어 받은 아이디loginCheck== " + loginCheck);
-		
+		System.out.println("asdfasdfsadf = = == = = " + loginCheck.getUserPw());
 		if(loginCheck == null){
 			loginCheck = null;
 			System.out.println("아이디틀림");

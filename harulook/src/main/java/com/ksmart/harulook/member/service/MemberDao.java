@@ -41,18 +41,16 @@ public class MemberDao {
     
     /*삭제된회원리스트입력 */
     public String deleteUserInsert(String id) {
-	    	Map<String, String> map = new HashMap<String, String>();
-	    	map.put("userId", id);
-	    	System.out.println("MemeberDao 로그인 == " + map);
-        return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.deleteUserInsert", map);
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("userId", id);
+    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.deleteUserInsert", map);
     }
     
     /*회원삭제 */
     public String userDeleteAdd(String id) {
-	    	Map<String, String> map = new HashMap<String, String>();
-	    	map.put("userId", id);
-	    	System.out.println("MemeberDao 로그인 == " + map);
-        return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.userDeleteAdd", map);
+    	Map<String, String> map = new HashMap<String, String>();
+    	map.put("userId", id);
+    	return sqlSessionTemplate.selectOne("com.ksmart.harulook.member.service.MemberMapper.userDeleteAdd", map);
     }
     
     /*회원탈퇴비밀번호체크 */

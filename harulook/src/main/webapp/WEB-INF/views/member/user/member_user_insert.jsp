@@ -112,7 +112,7 @@
 	  	});
 		
 		//닉네임 중복체크버튼
-		$('#user_nick').blur(function(){	
+		$('#userNickCheckButton').click(function(){	
 			var request = $.ajax({
 				  url: "./nickcheck", //호출 경로
 				  method: "POST",	//전송방식
@@ -501,6 +501,7 @@
 					            <!-- 닉네임 -->	     	   
 					       		<label style="letter-spacing:11.8px" for="user_nick">닉네임</label>
 					            <input name="userNick" id="user_nick" type="text"/>
+					            <input class="btn btn-default" id="userNickCheckButton" type="button" value="Check"/>
 					           		<span id="nicksuccess" >사용가능한 닉네임입니다</span>
 					            	<span id="nickfail" >사용불가능한 닉네임입니다</span>
 					            	<span id="nickre" >닉네임 다시 입력해주세요</span><br>

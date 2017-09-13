@@ -238,22 +238,22 @@
 	           		<h2>&nbsp;간편 로그인</h2>
 					<!-- 일반회원자동로그인 -->
 				    <form id=loginAddUser action="${pageContext.request.contextPath}/loginAdd" method="post">
-				    	<input name="userId" id="user_id" type="hidden" value="id003" />
-			            <input name="userPw" id="user_pw" type="hidden" value="pw003"/>
+				    	<input name="userId" id="user_id" type="hidden" value="new01" />
+			            <input name="userPw" id="user_pw" type="hidden" value="321321"/>
 			            <input class="btn btn-warning" style="WIDTH: 130pt; HEIGHT: 27pt" id="loginUser" type="button" value="일반회원자동로그인"/>
 				    </form>
 				    
 				    <!-- 관리자자동로그인 -->
 				    <form id=loginAddManager action="${pageContext.request.contextPath}/loginAdd" method="post">
-				    	<input name="userId" id="user_id" type="hidden" value="id001"/>
+				    	<input name="userId" id="user_id" type="hidden" value="new03"/>
 			            <input name="userPw" id="user_pw" type="hidden" value="321321"/>
 			            <input class="btn btn-warning" style="WIDTH: 130pt; HEIGHT: 27pt" id="loginManager" type="button" value="관리자자동로그인"/>
 				    </form>
 				    
 				    <!-- 사업자자동로그인 -->
 				    <form id=loginAddBusiness action="${pageContext.request.contextPath}/loginAdd" method="post">
-				    	<input name="userId" id="user_id" type="hidden" value="id004"/>
-			            <input name="userPw" id="user_pw" type="hidden" value="pw004"/>
+				    	<input name="userId" id="user_id" type="hidden" value="new02"/>
+			            <input name="userPw" id="user_pw" type="hidden" value="321321"/>
 			            <input class="btn btn-warning" style="WIDTH: 130pt; HEIGHT: 27pt" id="loginBusiness" type="button" value="사업자자동로그인"/>
 				    </form>
 				    </div>
