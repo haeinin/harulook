@@ -75,7 +75,7 @@
     	</div>
 	    <div id="div1" class="col-xs-9">
 			 <div align="center">
-			 <form action="./adPayInsert" action="post" id="payInsert" method="POST">
+			 <form class="well well-sm" action="./adPayInsert" action="post" id="payInsert" method="POST">
 	          	<table border="1" width="70%" align="center">
 	          	<tr><td height="10%">결제금액 :  </td><td><input type="text" id="pricePayTotal" width="100%" name="adPayPrice" value="${priceTotal}" readonly></td></tr>
 	          	</table>

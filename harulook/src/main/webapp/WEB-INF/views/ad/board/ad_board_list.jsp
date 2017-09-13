@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>광고리스트</title>
-<<!-- Latest compiled and minified CSS -->
+<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -23,7 +23,6 @@
 
 $(document).ready(function(){
 	$('.adBoards').click(function(){
-		alert('됨?');
 		var index = $('.adBoards').index(this);
 		var adBoardNo = adBoardNoVal[index].value;
 		console.log('index : ',index);
@@ -37,9 +36,10 @@ $(document).ready(function(){
 			datatype : 'json',
 			success : function(msg) {
 				adBoardDetail(msg);
+				$('#adModal').modal(); 
 			}
 		});
-		$('#adModal').modal(); 
+		
 	});
 });
 </script>
@@ -64,5 +64,29 @@ $(document).ready(function(){
 			</div>
 			</c:forEach>
 			</div>
+			<!-- 광고 게시물 상세보기 모달 -->
+		<div class="modal fade" id="adModal" role="dialog">
+		    <div id="modalFrame" class="modal-dialog modal-lg" >
+				<div id="adDetail" class="modal-content">
+			        <div class="row">
+			        	<div class="col-sm-8">
+			        	<!-- 광고 메인 이미지 영역 -->
+				        <div class="modal-body" style="padding-bottom: 0; padding-top: 0;">
+							<div id="adMainImg"></div>
+			        	</div>
+			        	</div>
+			        	<!-- 광고 메인 이미지 영역 -->
+			        	<div class="col-xs-4">
+			        	<!-- 광고 상세 상품 내용 영역 -->
+				        <div id="adDetailContent">
+						</div>
+						</div>
+						<!-- 강고 상세 상품 내용 영역 -->
+				     </div>
+				</div>
+			</div>
+		</div>
+	<!-- 광고 게시물 상세보기 모달 -->
+	
 </body>
 </html>

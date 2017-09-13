@@ -162,7 +162,7 @@ jQuery.browser = {};
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
 	    <div id="div1" class="col-xs-9">    
- <form id="contractForm" action="./adContractUpdate" method="POST">
+ <form id="contractForm" class="well well-sm" action="./adContractUpdate" method="POST">
     <div class="form-group">
 	        <label for="adType">광고종류</label>
 	        <select id="adType" name="adCostNo">

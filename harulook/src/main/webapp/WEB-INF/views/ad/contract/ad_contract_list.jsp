@@ -74,8 +74,11 @@ function showDetail(data) {
 		$('#adModal').modal();
 	});
 }
-
+$(document).on('click', '.modal-backdrop', function() {
+    alert(0); 
+}); 
 $(document).ready(function(){
+
 	showDetail(null);
 	$('#next').click(function(){
 		$('.board1goods').hide();
@@ -153,39 +156,33 @@ $(document).ready(function(){
 			</form>
 		</div>
 		<div class="col-xs-1"></div>
-			
-		<!-- 광고 게시물 상세보기 모달 -->
-		<div class="modal fade" id="adModal" role="dialog">
-		    <div id="modalFrame" class="modal-dialog modal-lg" >
-				<div id="adDetail" class="modal-content">
-			        <div class="row">
-			        
-			        	<!-- 광고 메인 이미지 영역 -->
-				        <div id="adDetailImgArea" class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
-							<div id="adMainImg"></div>
-			        	</div>
-			        	<!-- 광고 메인 이미지 영역 -->
-			        	<!-- 광고 상세 상품 내용 영역 -->
-				        <div id="adDetailContent" class="modal-body col-xs-12 col-sm-6">
-						</div>
-						<hr>
-						<!-- 강고 상세 상품 내용 영역 -->
-						
-				     </div>
-				</div>
-			</div>
-		</div>
-		<!-- 광고 게시물 상세보기 모달 -->
-		
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
        	</div>
     </div>
-
-    <div class="row">
-	    <!-- 하단 인클루드 -->
-	    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>   
-	</div>  	
+			<!-- 광고 게시물 상세보기 모달 -->
+		<div class="modal fade" id="adModal" role="dialog">
+		    <div id="modalFrame" class="modal-dialog modal-lg" >
+				<div id="adDetail" class="modal-content">
+			        <div class="row">
+			        	<div class="col-sm-8">
+			        	<!-- 광고 메인 이미지 영역 -->
+				        <div class="modal-body" style="padding-bottom: 0; padding-top: 0;">
+							<div id="adMainImg"></div>
+			        	</div>
+			        	</div>
+			        	<!-- 광고 메인 이미지 영역 -->
+			        	<div class="col-xs-4">
+			        	<!-- 광고 상세 상품 내용 영역 -->
+				        <div id="adDetailContent">
+						</div>
+						</div>
+						<!-- 강고 상세 상품 내용 영역 -->
+				     </div>
+				</div>
+			</div>
+		</div>
+	<!-- 광고 게시물 상세보기 모달 -->
 </body>
 </html>

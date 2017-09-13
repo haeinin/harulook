@@ -202,14 +202,17 @@
 </head>
 <body>
 	<!-- 해더인클루드 -->
+	<div class="row">
 	<c:import url="../../module/header.jsp"></c:import>
+	</div>
 	<!-- 바디 인클루드 -->
 	<div class="row">
 		<!-- 좌측 베너 인클루드 -->
     	<div class="col-xs-1">
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
-		<div id="div1" class="col-xs-9">
+    	<div class="col-xs-1"></div>
+		<div id="div1" class="col-xs-7">
 
 			<div id="container">
 				<h2>광고 게시물 수정하기</h2>
@@ -217,7 +220,7 @@
 				게시물 수 :	${adboardcount} <br>
 
 				<form id='insert' action="./adBoardUpdate" enctype="multipart/form-data" method="post">
-					<div id='ad-1'>
+					<div id='ad-1' class="well">
 						온도 : 온도선택 <select id="ad-1tempselect" class="ad-1">
 							<c:if test="${adboardlist[0].adBoardTempMin==-100}">
 								<option value="temp-5">-5도 이하</option>
@@ -273,7 +276,7 @@
 						<br>
 						<button type="button" id="ad-1cancel" class="cancel">취소</button>
 					</div>
-					<div id='ad-2'>
+					<div id='ad-2' class="well">
 						<br> 온도 : 온도선택 <select name="temp" id="ad-2tempselect" class="ad-2">
 							<option
 								<c:if test="${adboardlist[1].adBoardTempMin==-100}">

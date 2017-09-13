@@ -48,7 +48,6 @@ public class AdContractController {
 			System.out.println("잔여 일자 : " + caldate);
 			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		adrefund.setRefundPrice(caldate*100000*0.9);
@@ -83,7 +82,6 @@ public class AdContractController {
 			caldate = Math.abs(caldate);
 			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		adrefund.setRefundPrice(caldate*100000*0.5);

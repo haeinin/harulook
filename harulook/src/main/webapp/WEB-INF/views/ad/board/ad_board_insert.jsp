@@ -5,13 +5,21 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <title>광고등록</title>
- <!-- jquery를 사용하기위한 CDN주소 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <!-- 모달을 쓰기위한 부트스트랩 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+ 
+<!-- jquery를 사용하기위한 CDN주소 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- bootstrap javascript소스를 사용하기 위한 CDN주소 -->
+<!-- Latest compiled and minified JavaScript -->
+<!-- 드롭다운과충돌 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script>
     $(document).ready(function(){
     	/*처음에 광고 한개만 빼고 모두 숨김 */
@@ -205,22 +213,22 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 	<!-- 해더인클루드 -->
+	 <div class="row">
 	<c:import url="../../module/header.jsp"></c:import>	
 	<!-- 바디 인클루드 -->
+	</div>
     <div class="row">
 	    <!-- 좌측 베너 인클루드 -->
     	<div class="col-xs-1">
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
-	    <div id="div1" class="col-xs-9">
-	    
-			<div id="container">
+    	<div class="col-xs-1"></div>
+	    <div class="col-xs-7">
 			<h2>광고 게시물 등록하기</h2>
 			계약 번호 : ${sessionScope.adContractNo}
 			<br>
-			
 			<form id='insert' action="./insertAdBoard" enctype="multipart/form-data" method="post">
-			<div id='ad-1'>
+			<div id='ad-1' class="well">
 			온도 : 온도선택
 			<select id="ad-1tempselect">
 				<option></option>
@@ -233,22 +241,22 @@ pageEncoding="UTF-8"%>
 			</select><br>
 			<br>
 			대표이미지 등록<br><br>
-					<img id="ad-1adBoardImgView" src="#" alt="your image?" width="50px" height="50px" class="ad-1"/>
+					<img id="ad-1adBoardImgView" src="#" alt="your image?" class="ad-1 img-thumbnail"/>
 			        <input type='file' id="ad-1adBoardImg" class="ad-1" name="adBoardImage"/><br>
 			<br><br>
 			상세상품이미지 등록a<br><br>
 			
 			상세제품1 이미지<br>
-					<img id="ad-1adGoods1ImgView" src="#" alt="your image" width="50px" height="50px" class="ad-1"/>
-			        <input type='file' id="ad-1adGoods1Img" class="ad-1" name="adGoodsImage"/><br><br>
+					<img id="ad-1adGoods1ImgView" src="#" alt="your image"  class="ad-1 img-thumbnail"/>
+			        <input type='file' id="ad-1adGoods1Img" class="ad-1 form-control" name="adGoodsImage"/><br><br>
 			상세제품1에 해당하는 링크<br><br>
-					<input type="text" id="ad-1adGoods1Link" class="ad-1" name="adGoodsLink"><br><br>
+					<input type="text" id="ad-1adGoods1Link" class="ad-1 form-control" name="adGoodsLink"><br><br>
 					
 			상세제품2 이미지<br>
-					<img id="ad-1adGoods2ImgView" src="#" alt="your image" width="50px" height="50px" class="ad-1"/>
+					<img id="ad-1adGoods2ImgView" src="#" alt="your image"  class="ad-1 img-thumbnail"/>
 			        <input type='file' id="ad-1adGoods2Img" class="ad-1" name="adGoodsImage"/><br><br>
 			상세제품2에 해당하는 링크<br><br>
-					<input type="text" id="ad-1adGoods2Link" class="ad-1" name="adGoodsLink"><br><br>
+					<input type="text" id="ad-1adGoods2Link" class="ad-1 form-control" name="adGoodsLink"><br><br>
 					<input type="hidden"  name="adBoardTempMax" id="ad-1adBoardTempMax">
 					<input type="hidden"  name="adBoardTempMin" id="ad-1adBoardTempMin">
 					<input type="hidden" value="" name='adGoodsCount' id='ad1GoodsCount'>
@@ -271,20 +279,20 @@ pageEncoding="UTF-8"%>
 			</select><br>
 			<br>
 			대표이미지 등록<br>
-					<img id="ad-2adBoardImgView" src="#" alt="your image" width="100px" height="100px" class="ad-2"/>
+					<img id="ad-2adBoardImgView" src="#" alt="your image" width="100px" height="100px" class="ad-2 img-thumbnail"/>
 			        <input type='file' id="ad-2adBoardImg" class="ad-2" name="adBoardImage"/><br>
 			
 			<br><br>
 			상세상품이미지 등록<br><br>
 			
 			상세제품1 이미지
-					<img id="ad-2adGoods1ImgView" src="#" alt="your image" width="100px" height="100px" class="ad-2"/>
+					<img id="ad-2adGoods1ImgView" src="#" alt="your image" width="100px" height="100px" class="ad-2 img-thumbnail"/>
 			        <input type='file' id="ad-2adGoods1Img" class="ad-2" name="adGoodsImage"/><br><br>
 			상세제품1에 해당하는 링크<br><br>
 					<input type="text" id="ad-2adGoods1Link" class="ad-2" name="adGoodsLink"><br><br>
 					
 			상세제품2 이미지
-					<img id="ad-2adGoods2ImgView" src="#" alt="your image" width="100px" height="100px" class="ad-2"/>
+					<img id="ad-2adGoods2ImgView" src="#" alt="your image" width="100px" height="100px" class="ad-2 img-thumbnail"/>
 			        <input type='file' id="ad-2adGoods2Img" class="ad-2" name="adGoodsImage"/><br><br>
 			상세제품2에 해당하는 링크<br><br>
 					<input type="text" id="ad-1adGoods2Link" class="ad-2" name="adGoodsLink"><br><br>
@@ -302,15 +310,14 @@ pageEncoding="UTF-8"%>
 			<input type="hidden" id="adBoardCount" name="adBoardCount">
 			<input type="button" id="ok" value="등록">
 			</form>
-			
 			</div>
-		</div>	
-	    
+			
+	    <div class="col-xs-1"></div>
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
        	</div>
-    </div>
+       	</div>
     <!-- 하단 인클루드 -->
     <c:import url="../../module/footer.jsp"></c:import> 
 </body>

@@ -151,7 +151,7 @@ jQuery.browser = {};
     	</div>
 	    <div class="col-xs-1"></div>
 	    <div id="div1" class="col-xs-7">   
-		 	<form id="contractForm" action="./adContractInsert" method="POST">
+		 	<form id="contractForm" class="well well-sm" action="./adContractInsert" method="POST">
 		    <div class="form-group">
 			        <label for="adType">광고종류</label>
 			        <select id="adType" name="adCostNo">
