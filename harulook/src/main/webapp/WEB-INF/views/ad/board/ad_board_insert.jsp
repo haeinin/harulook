@@ -23,13 +23,73 @@ pageEncoding="UTF-8"%>
     <script>
     $(document).ready(function(){
     	/*처음에 광고 한개만 빼고 모두 숨김 */
+    	$('#ad-1tempselectalert').hide();
     	var i = 1;
+    	var ok;
 	    	$('#ad-2').hide();
 	    /* 등록버튼을 눌렀을 경우 i에 담겨있는 게시물의 값을 adBoardCount를 아이디로 가지는 input에 옮긴다 
 	    그리고 서브밋을 한다. */
 	    	$('#ok').click(function(){
 	    		$('#adBoardCount').val(i);
-	    		$('#insert').submit();
+	    		if($('#ad-1adBoardContent').val()==''){
+	    			alert('첫번째 게시물의 설명을 입력해주세요');
+	    			$('#ad-1adBoardContent').focus();
+	    		}
+	    		if($('#ad-1tempselect').val()==''){
+	    			alert('첫번째 게시물의 온도를 설정하세요.');
+	    			$('#ad-1tempselect').focus();
+	    			$('#ad-1tempselectalert').show();
+	    		}
+	    		if($('#ad-1adBoardImg').val()==''){
+	    			alert('첫번째 게시물의 메인사진을 입력해주세요.');
+	    			$('#ad-1adBoardImg').focus();
+	    		}
+	    		if($('#ad-1adGoods1Img').val()==''){
+	    			alert('첫번째 게시물의 첫번째 상품의 사진을 입력해주세요.');
+	    			$('#ad-1adGoods1Img').focus();
+	    		}if($('#ad-1adGoods1Img').val()!=''){	    			
+	    			if($('#ad-1adGoods1Link').val()==''){
+	    			alert('첫번째 게시물의 첫번째 상품의 링크를 입력해주세요.');
+	    			$('#ad-1adGoods1Link').focus();
+	    				}
+	    		}if($('#ad-1adGoods2Img').val()!=''){
+	    			if($('#ad-1adGoods2Link').val()==''){
+	    				alert('첫번째 게시물의 두번째 상품의 링크를 입력해주세요.');
+	    				$('#ad-1adGoods2Link').focus();
+	    			}
+	    		}
+	    		if(i==1){
+	    			if($('#ad-1adBoardContent').val()!='' && $('#ad-1tempselect').val()!='' && $('#ad-1adBoardImg').val()!='' && $('#ad-1adGoods1Img').val()!=''){
+	    				$('#insert').submit();
+	    			}
+	    		}
+	    		if(i==2){
+	    			if($('#ad-2tempselect').val()==''){
+	    				alert('두번째 게시물의 온도를 설정하세요.');
+	    				$('#ad-2tempselect').focus();
+	    			}if($('#ad-2adBoardImg').val()==''){
+	    				alert('두번째 게시물의 메인 사진을 입력해주세요.');
+	    				$('#ad-2adBoardImg').focus();
+	    			}if($('#ad-2adGoods1Img').val==''){
+	    				alert('두번째 게시물의 첫번째 상품의 사진을 입력해주세요.');
+	    				$('#ad-2adGoods1Img').focus();
+	    			}if($('#ad-2adGoods1Img').val()!==''){
+    					if($('#ad-2adGoods1Link').val()==''){
+    						alert('두번째 게시물의 첫번째 상품의 링크를 입력해주세요.');
+    						$('#ad-2adGoods1Link').focus();
+    					}
+    				}if($('#ad-2adGoods2Img').val()!=''){
+    					if($('#ad-2adGoods2Link').val()==''){
+    						alert('두번째 게시물의 두번째 상품의 링크를 입력해주세요.');
+    						$('#ad-2adGoods2Link').focus();
+    					}
+    				}if($('#ad-2adBoardContent').val()!='' && $('#ad-2tempselect').val()!='' && $('#ad-2adBoardImg').val()!='' && $('#ad-2adGoods1Img').val()!=''){
+	    				$('#insert').submit();
+	    			}
+	    		}
+	    			
+	    		
+	    		
 	                	
 	    	});
 	    /***********************/
@@ -112,7 +172,6 @@ pageEncoding="UTF-8"%>
             	case 2 :
             		$('#ad-2').show();
             		$('#adAdd').hide();
-            		break;
             	}
             });
            /*****************************************/
@@ -238,7 +297,7 @@ pageEncoding="UTF-8"%>
 				<option value="temp1524">15도~24도</option>
 				<option value="temp2430">24도~30도</option>
 				<option value="temp30">30도 이상</option>
-			</select><br>
+			</select><span id="ad-1tempselectalert" class="alert-danger">온도가 입력해주세요</span><br>
 			<br>
 			대표이미지 등록<br><br>
 					<img id="ad-1adBoardImgView" src="#" alt="your image?" class="ad-1 img-thumbnail"/>
@@ -251,7 +310,6 @@ pageEncoding="UTF-8"%>
 			        <input type='file' id="ad-1adGoods1Img" class="ad-1 form-control" name="adGoodsImage"/><br><br>
 			상세제품1에 해당하는 링크<br><br>
 					<input type="text" id="ad-1adGoods1Link" class="ad-1 form-control" name="adGoodsLink"><br><br>
-					
 			상세제품2 이미지<br>
 					<img id="ad-1adGoods2ImgView" src="#" alt="your image"  class="ad-1 img-thumbnail"/>
 			        <input type='file' id="ad-1adGoods2Img" class="ad-1" name="adGoodsImage"/><br><br>
@@ -265,7 +323,7 @@ pageEncoding="UTF-8"%>
 					<input type="text" id="ad-1adBoardContent" name="adBoardContent" class="ad-1"><br><br>
 					<button id="ad-1cancel" type="button">취소</button>
 			</div>
-			<div id='ad-2'>
+			<div id='ad-2' class='well'>
 			<br>
 			온도 : 온도선택
 			<select name="temp" id="ad-2tempselect">

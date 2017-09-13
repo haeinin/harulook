@@ -66,12 +66,12 @@ public class AdBoardController {
 		System.out.println("adBoardImage : " + adBoardImages);
 		System.out.println("adGoodsImage : " + adGoodsImages);
 		System.out.println("adGoodsLink : " + request.getParameterValues("adGoodsLink"));
-		for(int i = 0; i<adBoardNo.length; i++){
+/*		for(int i = 0; i<adBoardNo.length; i++){
 			adboarddao.deleteAdBoard(adBoardNo[i]);
 		}
 		for(int i = 0; i<adGoodsNo.length; i++){
 			adgoodsdao.deleteAdGoods(adGoodsNo[i]);
-		}
+		}*/
 		for(int i = 0; i < adBoardCount; i++){
 			int initBoardno = 1;
 			AdBoardDto adboard = new AdBoardDto();
