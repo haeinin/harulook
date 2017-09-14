@@ -1,0 +1,210 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.ksmart.harulook.point.service.PointMapper">
+     
+    <resultMap type="com.ksmart.harulook.point.service.PointDto" id="Point">
+		<result property="pointPolicyNo" column="point_policy_no"/>
+		<result property="pointPolicyValue" column="point_policy_value"/>
+		<result property="pointPolicyReason" column="point_policy_reason"/>
+		<result property="pointNo" column="point_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="pointDate" column="point_date"/>
+		<result property="pointGoodsCode" column="point_goods_code"/>
+		
+		<result property="attenCheckNo" column="atten_check_no"/>
+		<result property="attenCheckDate" column="atten_check_date"/>
+	</resultMap>
+	
+	<!-- 30일이상 출석체크 삭제-->
+	<select id="attenCheckDelete" parameterType="java.util.Map" resultType="int">
+		DELETE 
+		FROM atten_check 
+		WHERE user_id = #{userId}
+		;
+	</select>
+	
+	<!-- 한달출석체크검색-->
+	<select id="attenCheckSelectMonth" parameterType="java.util.Map" resultType="int">
+		SELECT count(atten_check_no) atten_check_no
+		FROM atten_check
+		WHERE user_id = #{userId}
+		;
+	</select>
+	
+	<!-- 출석체크검색-->
+	<select id="attenCheckSelect" parameterType="java.util.Map" resultType="String">
+		SELECT atten_check_no
+		FROM atten_check
+		WHERE user_id = #{userId}
+		AND atten_check_date = date(now())
+		;
+	</select>
+	
+	<!-- 출석체크입력-->
+   	<select id="attenCheckInsert" parameterType="java.util.Map" >
+		INSERT INTO atten_check	(
+			user_id
+			,atten_check_date
+			)
+		VALUES (
+			#{userId}, 
+			DATE(NOW())
+		);
+   	</select>
+	
+	<!-- 포인트 취득 -->
+   	<select id="pointGetInsert" parameterType="java.util.Map" >
+		INSERT INTO point (
+			user_id
+			,point_date
+			,point_policy_no
+			)
+		VALUES (
+			#{userId}
+			,DATE(NOW())
+			,#{pointPolicyNo}
+		);
+   	</select>
+	
+	<!-- 포인트등록 게시물 검색 -->
+	<select id="pointCehck" parameterType="java.util.Map" resultType="String">
+		SELECT point_no
+		FROM point
+		WHERE user_id = #{userId}
+		AND point_date = date(now())
+		AND point_policy_no = #{pointPolicyNo}
+		;
+	</select>
+	
+	<!-- 쿠폰 중복 검사 -->
+   	<select id="couponCheck" parameterType="java.util.Map" resultType="String">
+		SELECT point_goods_code
+		FROM point
+		WHERE point_goods_code = #{pointGoodsCode}
+		;
+	</select>
+	
+	<!-- 쿠폰 사용 -->
+   	<select id="couponInset" parameterType="java.util.Map" >
+		INSERT INTO point (
+			<!-- point_no -->
+			user_id
+			,point_date
+			,point_policy_no
+			,point_goods_code
+			)
+		VALUES (
+			<!-- #{pointNo} -->
+			#{userId}
+			,DATE(NOW())
+			,(select point_policy_no
+			from point_policy
+			where point_policy_value = #{pointPolicyValue})
+			,#{pointGoodsCode}
+		);
+   	</select>
+	
+	<!-- 포인트 사용 취득 내역 번호 -->
+   	<!-- <select id="pointNo" resultType="String">
+		select MAX(CAST(substring(point_no, 7) AS DECIMAL))
+		from point
+		;
+   	</select> -->
+	
+	
+	<!-- 나의 포인트 -->
+   	<select id="myPoint" parameterType="java.util.Map" resultType="int">
+		SELECT sum(point_policy.point_policy_value) point_policy_value
+		FROM point
+		JOIN point_policy
+		ON point.point_policy_no = point_policy.point_policy_no
+		WHERE point.user_id = #{userId}
+		;
+	</select>	
+	
+	<!-- 포인트 사용 내역 카운트 조회 -->
+   	<select id="pointUseCount" parameterType="java.util.Map" resultType="int">
+		SELECT count(*) 
+		FROM point
+		JOIN point_policy
+		ON point.point_policy_no = point_policy.point_policy_no
+		WHERE point.user_id = #{userId}
+		AND point_policy.point_policy_value &lt; 0 
+		ORDER BY point.point_date desc
+		;
+   	</select>
+	
+	<!-- 포인트 사용 내역 -->
+   	<select id="pointUse" parameterType="java.util.Map" resultMap="Point">
+		SELECT point.point_no
+			,point.point_date
+			,point.point_policy_no
+			,point.point_goods_code
+			,point_policy.point_policy_reason
+			,point_policy.point_policy_value
+		FROM point
+		JOIN point_policy
+		ON point.point_policy_no = point_policy.point_policy_no
+		WHERE point.user_id = #{userId} 
+		AND point_policy.point_policy_value &lt; 0 
+		ORDER BY point.point_date desc
+		LIMIT #{beginRow}, #{pagePerRow}
+		;
+	</select>
+	
+	<!-- 포인트 취득내역 카운트 조회 -->
+   	<select id="pointGetCount" parameterType="java.util.Map" resultType="int">
+		SELECT count(*) 
+		FROM point
+		JOIN point_policy
+		ON point.point_policy_no = point_policy.point_policy_no
+		WHERE point.user_id = #{userId}
+		AND point_policy.point_policy_value > 0 
+		ORDER BY point.point_date desc
+		;
+   	</select>
+    	
+	<!-- 포인트 취득 내역 -->
+   	<select id="pointGet" parameterType="java.util.Map" resultMap="Point">
+		SELECT point.point_no
+			,point.point_date
+			,point.point_policy_no
+			,point_policy.point_policy_reason
+			,point_policy.point_policy_value
+		FROM point
+		JOIN point_policy
+		ON point.point_policy_no = point_policy.point_policy_no
+		WHERE point.user_id = #{userId} 
+		AND point_policy.point_policy_value > 0 
+		ORDER BY point.point_date desc
+		LIMIT #{beginRow}, #{pagePerRow}
+		;
+	</select>
+	
+	<!-- 포인트 쿠폰 정책 -->
+   	<select id="pointUsePolicy" parameterType="java.util.Map" resultMap="Point">
+		SELECT point_policy_no
+			,point_policy_value
+			,point_policy_reason
+		FROM point_policy
+		WHERE point_policy_value &lt; 0 
+		ORDER BY point_policy_value desc 
+		;
+	</select>	
+	
+	<!-- 포인트 정책 리스트 -->
+   	<select id="pointPolicy" parameterType="java.util.Map" resultMap="Point">
+		SELECT point_policy_no
+			,point_policy_value
+			,point_policy_reason
+		FROM point_policy
+		WHERE point_policy_value > 0
+		ORDER BY point_policy_value desc 
+		;
+	</select>	
+	
+</mapper>
+
+

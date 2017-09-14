@@ -43,10 +43,8 @@ $(function(){
     </div>
     <!-- 바디 인클루드 -->
     <div class="row">
-	    <div class="col-xs-2">
-	    </div>
-	    <div class="col-xs-8"></div>
-	   <div class="col-md-1"></div>
+	    <div class="col-xs-2"></div>
+	    <div class="col-xs-8">
 	   <div class="col-md-6">
 	    <div class="container">
 
@@ -85,6 +83,7 @@ $(function(){
             <a class="btn btn-default" href="${pageContext.request.contextPath}/partnerContractList">계약목록</a>
         </div>
     </form>
+    </div>
     </div>
     </div>
 </div>

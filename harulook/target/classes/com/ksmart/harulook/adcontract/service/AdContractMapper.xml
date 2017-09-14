@@ -1,0 +1,360 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.ksmart.harulook.adcontract.service.AdContractMapper">
+ 
+ <resultMap type="com.ksmart.harulook.adcontract.service.AdContractDto" id="AdContractList">
+ 	<result property="adContractNo" column="ad_contract_no"/>
+ 	<result property="adContractPlace" column="ad_contract_place"/>
+ 	<result property="userBsName" column="user_bs_name"/>
+ 	<result property="userId" column="user_id"/>
+ 	<result property="adContractStart" column="ad_contract_start"/>
+ 	<result property="adContractEnd" column="ad_contract_end"/>
+ 	<result property="adContractPrice" column="ad_contract_price"/>
+ 	<result property="adContractStat" column="ad_contract_stat"/> 	
+ 	<result property="adCostNo" column="ad_cost_no"/>
+ 	<result property="adDcNo" column="ad_dc_no"/>	
+ </resultMap>
+ 
+ 
+	<update id="updateBadAdContract">
+ 		UPDATE ad_contract
+		SET	ad_contract_stat='계약파기'
+		WHERE ad_contract_no=#{adContractNo}
+ 	</update>
+ 
+ 	<update id="updateAdContract">
+ 		UPDATE ad_contract
+		SET
+			ad_contract_place=#{adContractPlace}
+	   	   ,ad_contract_start=#{adContractStart}
+	       ,ad_contract_end=#{adContractEnd}
+	   	   ,ad_contract_date=date(now())
+	   	   ,ad_cost_no=#{adCostNo}
+	       ,ad_dc_no=#{adDcNo}
+	       ,ad_contract_price=#{adContractPrice}
+		WHERE ad_contract_no=#{adContractNo}
+ 	</update>
+ 
+ 	<select id="SelectAdContractByContractNo" resultMap="AdContractList">
+ 		SELECT ad_contract_no
+			  ,user_id
+			  ,ad_contract_place
+			  ,ad_contract_start
+			  ,ad_contract_end
+			  ,ad_contract_date
+			  ,ad_cost_no
+			  ,ad_dc_no
+			  ,ad_contract_price
+		FROM ad_contract
+		WHERE ad_contract_no = #{adcontractno}
+ 	</select>
+ <!-- 광고 상태 변경(광고중 -> 계약만료)해야하는 변경 -->
+ 	<update id="UpdateIngContract">
+		UPDATE ad_contract
+		SET	ad_contract_stat='광고진행중'
+		WHERE ad_contract_no=#{adContractNo}
+ 	</update>
+  <!-- 광고 상태 변경(광고중 -> 계약만료)해야하는 계약번호 조회 -->
+ 	<select id ="selectUpdateEndContract" resultMap="AdContractList">
+		SELECT ad_contract_no
+		FROM ad_contract
+		WHERE ad_contract.ad_contract_stat='광고진행중'
+		AND (ad_contract.ad_contract_start >= now()
+		OR ad_contract.ad_contract_end &lt;= now())
+ 	</select>
+  <!-- 광고 상태 변경(광고중 -> 계약만료)해야하는 계약번호 조회 -->
+ 	<update id="UpdateEndContract">
+		UPDATE ad_contract
+		SET	ad_contract_stat='계약만료'
+		WHERE ad_contract_no=#{adContractNo}
+ 	</update>
+ <!-- 광고 상태 변경(광고대기 -> 광고중)해야되는 계약번호 조회 -->
+	<select id ="selectUpdateIngContract" resultMap="AdContractList">
+		SELECT ad_contract_no
+		FROM ad_contract
+		WHERE ad_contract.ad_contract_start &lt;= now()
+		AND ad_contract.ad_contract_end >= now()
+		AND ad_contract.ad_contract_stat='진행대기'
+ 	</select>
+ <!-- 위치1에 해당하는 현재진행중인 광고 목록 조회 -->
+ 	<select id ="selectAdContractListCurrentPlace1"  resultMap="AdContractList">
+		SELECT
+			ad_contract.ad_contract_no
+		   ,ad_contract.ad_contract_place
+		   ,user.user_bs_name
+		   ,ad_contract.ad_contract_start
+		   ,ad_contract.ad_contract_end
+		   ,ad_contract.user_id
+		   ,ad_contract.ad_contract_stat
+		   ,ad_contract.ad_contract_price
+		FROM ad_contract
+		JOIN user
+		ON ad_contract.user_id = user.user_id
+		WHERE ad_contract_place='1'
+		AND ad_contract_stat='광고진행중'
+ </select>
+ <!-- 위치2에 해당하는 현재진행중인 광고 목록 조회 -->
+ 	<select id ="selectAdContractListCurrentPlace2"  resultMap="AdContractList">
+		SELECT 
+			ad_contract.ad_contract_no
+		   ,ad_contract.ad_contract_place
+	 	   ,user.user_bs_name
+	  	   ,ad_contract.ad_contract_start
+	  	   ,ad_contract.ad_contract_end
+	  	   ,ad_contract.user_id
+	  	   ,ad_contract.ad_contract_stat
+	  	   ,ad_contract.ad_contract_price
+		FROM ad_contract
+		JOIN user
+		ON ad_contract.user_id = user.user_id
+		WHERE ad_contract_place='2' 
+		AND ad_contract_stat='광고진행중'
+	</select>
+ <!-- 위치3에 해당하는 현재진행중인 광고 목록 조회 -->
+ 	<select id ="selectAdContractListCurrentPlace3"  resultMap="AdContractList">
+		SELECT 
+			ad_contract.ad_contract_no
+		   ,ad_contract.ad_contract_place
+	  	   ,user.user_bs_name
+	       ,ad_contract.ad_contract_start
+	       ,ad_contract.ad_contract_end
+	       ,ad_contract.user_id
+	       ,ad_contract.ad_contract_stat
+	       ,ad_contract.ad_contract_price
+		FROM ad_contract
+		JOIN user
+		ON ad_contract.user_id = user.user_id
+		WHERE ad_contract_place='3' 
+		AND ad_contract_stat='광고진행중'
+ 	</select>
+  <!-- 관리자로 접속헀을때 진행될 예정인 모든광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외 로 -->
+ 	<select id ="selectAdContractListAdBoardInsertWait"  resultMap="AdContractList">
+		SELECT 
+			ad_contract.ad_contract_place
+		   ,ad_contract.ad_contract_no
+		   ,user.user_bs_name
+		   ,ad_contract.user_id
+		   ,ad_contract.ad_contract_start
+		   ,ad_contract.ad_contract_end
+		   ,ad_contract.ad_contract_price
+		   ,ad_contract.ad_contract_stat
+		FROM ad_contract
+		JOIN user
+		ON ad_contract.user_id = user.user_id
+		WHERE ad_contract.ad_contract_end > date(now())
+		AND ad_contract.ad_contract_stat = '광고등록대기'
+		ORDER BY ad_contract.ad_contract_start asc
+ 	</select>
+   <select id ="selectAdContractListAdBoardInsertWaitByUser"  resultMap="AdContractList">
+		SELECT 
+			ad_contract.ad_contract_place
+		   ,ad_contract.ad_contract_no
+		   ,user.user_bs_name
+		   ,ad_contract.user_id
+		   ,ad_contract.ad_contract_start
+		   ,ad_contract.ad_contract_end
+		   ,ad_contract.ad_contract_price
+		   ,ad_contract.ad_contract_stat
+	  	FROM ad_contract
+		JOIN user
+		ON ad_contract.user_id = user.user_id
+		WHERE user.user_id = #{SID}
+		AND ad_contract.ad_contract_end > date(now())
+		AND ad_contract.ad_contract_stat = '광고등록대기'
+		ORDER BY ad_contract.ad_contract_start asc
+ 	</select>
+ <!-- 관리자로 접속헀을때 진행될 예정인 모든광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외 로 -->
+ 	<select id ="selectAdContractListSoon"  resultMap="AdContractList">
+		SELECT 
+			ad_contract.ad_contract_place
+		   ,ad_contract.ad_contract_no
+		   ,user.user_bs_name
+		   ,ad_contract.user_id
+		   ,ad_contract.ad_contract_start
+		   ,ad_contract.ad_contract_end
+		   ,ad_contract.ad_contract_price
+		   ,ad_contract.ad_contract_stat
+	  	FROM ad_contract
+		JOIN user
+		ON ad_contract.user_id = user.user_id
+		WHERE ad_contract.ad_contract_end > date(now())
+		AND ad_contract.ad_contract_stat = '광고대기'
+		ORDER BY ad_contract.ad_contract_start asc
+ 	</select>
+  	<select id ="selectAdContractListSoonByUser"  resultMap="AdContractList">
+		SELECT 
+			ad_contract.ad_contract_place
+		   ,ad_contract.ad_contract_no
+		   ,user.user_bs_name
+		   ,ad_contract.user_id
+		   ,ad_contract.ad_contract_start
+		   ,ad_contract.ad_contract_end
+		   ,ad_contract.ad_contract_price
+		   ,ad_contract.ad_contract_stat
+	  	FROM ad_contract
+		JOIN user
+		ON ad_contract.user_id = user.user_id
+		WHERE user.user_id = #{SID}
+		AND ad_contract.ad_contract_end > date(now())
+		AND ad_contract.ad_contract_stat = '광고대기'
+		ORDER BY ad_contract.ad_contract_start asc
+ 	</select>
+ <!-- 관리자로 접속헀을때 진행될 예정인 모든광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외 로 -->
+	 <select id ="selectAdContractListCancelRequest"  resultMap="AdContractList">
+		SELECT 
+			ad_contract.ad_contract_place
+		   ,ad_contract.ad_contract_no
+		   ,user.user_bs_name
+		   ,ad_contract.user_id
+		   ,ad_contract.ad_contract_start
+		   ,ad_contract.ad_contract_end
+		   ,ad_contract.ad_contract_price
+		   ,ad_contract.ad_contract_stat 
+	 	FROM ad_contract
+		JOIN user
+		ON ad_contract.user_id = user.user_id
+		WHERE ad_contract.ad_contract_stat = '취소요청'
+		ORDER BY ad_contract.ad_contract_start asc
+ 	</select>
+   <!-- 사업주로 접속했을때 진행될 예정인 자신의 광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외로 -->
+	<select id ="selectAdContractListCancelRequestByUser"  resultMap="AdContractList">
+		SELECT 
+			ad_contract.ad_contract_no
+		   ,ad_contract.ad_contract_place
+		   ,user.user_bs_name
+		   ,ad_contract.user_id
+		   ,ad_contract.ad_contract_start
+		   ,ad_contract.ad_contract_end
+		   ,ad_contract.ad_contract_price
+		   ,ad_contract.ad_contract_stat
+	  	FROM ad_contract
+		JOIN user
+		ON ad_contract.user_id = user.user_id
+		WHERE user.user_id = #{SID}
+		AND ad_contract.ad_contract_stat = '취소요청'
+		ORDER BY ad_contract.ad_contract_start asc
+ 	</select>
+ <!-- 관리자로 접속헀을때 진행될 예정인 모든광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외 로 -->
+ 	<select id ="selectAdContractListAdWait"  resultMap="AdContractList">
+		SELECT 
+			ad_contract.ad_contract_place
+		   ,ad_contract.ad_contract_no
+		   ,user.user_bs_name
+		   ,ad_contract.user_id
+		   ,ad_contract.ad_contract_start
+		   ,ad_contract.ad_contract_end
+		   ,ad_contract.ad_contract_price
+		   ,ad_contract.ad_contract_stat
+		FROM ad_contract
+		JOIN user
+		ON ad_contract.user_id = user.user_id
+		WHERE ad_contract.ad_contract_end > date(now())
+		AND ad_contract.ad_contract_stat = '승인대기'
+		ORDER BY ad_contract.ad_contract_start asc
+ 	</select>
+  <!-- 사업주로 접속했을때 진행될 예정인 자신의 광고들을 조회하는 쿼리문인데 구분이 필요한듯 진행대기 and 그 외로 -->
+   	<select id ="selectAdContractListAdWaitByUser"  resultMap="AdContractList">
+		SELECT 
+			ad_contract.ad_contract_no
+		   ,ad_contract.ad_contract_place
+		   ,user.user_bs_name
+		   ,ad_contract.user_id
+		   ,ad_contract.ad_contract_start
+		   ,ad_contract.ad_contract_end
+		   ,ad_contract.ad_contract_price
+		   ,ad_contract.ad_contract_stat
+	  	FROM ad_contract
+		JOIN user
+		ON ad_contract.user_id = user.user_id
+		WHERE user.user_id = #{SID}
+		AND ad_contract.ad_contract_stat = '승인대기'
+		ORDER BY ad_contract.ad_contract_start asc
+ 	</select>
+ <!-- 광고 계약 입력 쿼리 -->
+ 	<insert id ="insertAdContract" parameterType="com.ksmart.harulook.adcontract.service.AdContractDto">
+		INSERT INTO ad_contract
+			(ad_contract_no
+		    ,user_id
+		    ,ad_contract_place
+		    ,ad_contract_start
+		    ,ad_contract_end
+		    ,ad_contract_date
+	 	    ,ad_cost_no
+	 	    ,ad_dc_no
+	 	    ,ad_contract_price
+	 	    ,ad_contract_stat)
+	  	VALUES 
+		  (#{adContractNo}
+		  ,#{userId}
+		  ,#{adContractPlace}
+		  ,#{adContractStart}
+		  ,#{adContractEnd}
+		  ,date(now())
+		  ,#{adCostNo}
+		  ,#{adDcNo}
+		  ,#{adContractPrice}
+		  ,'승인대기')
+	 </insert>
+ <!-- 광고 결제 입력 쿼리 -->
+ 	<insert id ="insertAdPay" parameterType="com.ksmart.harulook.adcontract.service.AdContractDto">
+		INSERT INTO ad_pay
+			(ad_pay_no
+	  	  	,ad_contract_no
+		  	,ad_pay_way
+		  	,ad_pay_name
+		  	,ad_pay_price
+		  	,ad_pay_date
+		  	,ad_pay_bank)
+		VALUES 
+		  	(#{adPayNo}
+		  	,#{adContractNo}
+		  	,#{adPayWay}
+		  	,#{adPayName}
+		  	,#{adPayPrice}
+		  	,NOW()
+		  	,#{adPayBank})
+ </insert>
+ <!-- 계약 번호중 가장 높은번호를 불러오는 쿼리 -->
+ 	<select id="getContractNo" resultType="String">
+    	SELECT max(CAST(substring(ad_contract_no,13) AS DECIMAL))  
+    	FROM ad_contract
+    </select>
+ <!-- 결제번호중 가장 높은번호를 불러오는 쿼리 -->
+ 	<select id="getPayNo" resultType="String">
+    	SELECT max(CAST(substring(ad_pay_no,8) AS DECIMAL))  
+    	FROM ad_pay
+ 	</select>
+ <!-- 광고종류를 선택했을때 하루당얼마인지를 불러오는 쿼리 -->
+ 	<select id="getPrice" resultType="String">
+		SELECT ad_cost_value
+		FROM ad_cost
+		WHERE ad_cost_no = #{adtype}
+ 	</select>
+ <!-- 광고기간을 선택했을때 할인율이 얼마인지를 불러오는 쿼리 -->
+ 	<select id="getDc" resultType="String">
+		SELECT ad_dc_rate
+		FROM ad_dc
+		WHERE ad_dc_no = #{adCostNo}
+ 	</select>
+ 	<update id="modifyContract">
+ 		UPDATE ad_contract
+		SET ad_contract_stat='취소요청'
+		WHERE ad_contract_no = #{contractno}
+ 	</update>
+ 	<update id="approveContract">
+	 	UPDATE ad_contract
+		SET ad_contract_stat='광고등록대기'
+		WHERE ad_contract_no = #{contractno}
+ 	</update>
+ 	<update id="approveCancel">
+ 		UPDATE ad_contract
+		SET ad_contract_stat='계약만료'
+		WHERE ad_contract_no = #{contractno}
+ 	</update>
+ 	<update id="adWait">
+	 	UPDATE ad_contract
+		SET ad_contract_stat='광고대기'
+		WHERE ad_contract_no = #{contractno}
+ 	</update>
+</mapper>

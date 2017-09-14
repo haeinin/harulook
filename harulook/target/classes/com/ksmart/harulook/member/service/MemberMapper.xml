@@ -1,0 +1,456 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.ksmart.harulook.member.service.MemberMapper">
+     
+    <resultMap type="com.ksmart.harulook.member.service.MemberDto" id="member">
+		<result property="userId" column="user_id"/>
+		<result property="userPw" column="user_pw"/>
+		<result property="userNick" column="user_nick"/>
+		<result property="userName" column="user_name"/>
+		<result property="userTel" column="user_tel"/>
+		<result property="userEmail" column="user_email"/>
+		<result property="userAddr" column="user_addr"/>
+		<result property="userGender" column="user_gender"/>
+		<result property="userAge" column="user_age"/>
+		<result property="userTall" column="user_tall"/>
+		<result property="userSize" column="user_size"/>
+		<result property="userQ" column="user_q"/>
+		<result property="userA" column="user_a"/>
+		<result property="userLevel" column="user_level"/>
+		
+		<result property="userBsNo" column="user_bs_no"/>
+		<result property="userBsType" column="user_bs_type"/>
+		<result property="userBsStatus" column="user_bs_status"/>
+		<result property="userBsName" column="user_bs_name"/>
+		<result property="userUrl" column="user_url"/>
+		
+		<result property="userPoint" column="user_point"/>
+		<result property="userImg" column="user_img"/>
+		<result property="userDate" column="user_date"/>
+		
+		<result property="colorValue" column="color_value"/>
+		<result property="styleValue" column="style_value"/>
+		
+		<result property="colorNo" column="user_color_no"/>
+		<result property="styleNo" column="user_style_no"/>
+	</resultMap>
+		
+		<!-- 비밀번호찾기 -->
+     	<select id="pwFindForm" parameterType="java.util.Map" resultType="String">
+			SELECT user_level
+			FROM user
+			WHERE user_id = #{userId}
+			AND user_nick = #{userNick}
+			AND user_q = #{userQ}
+			AND user_a = #{userA}
+			;
+    	</select>
+		
+		<!-- 아이디찾기 -->
+     	<select id="idFindForm" parameterType="java.util.Map" resultType="String">
+			SELECT user_id
+			FROM user
+			WHERE user_nick = #{userNick}
+			AND user_pw = (HEX(AES_ENCRYPT(#{userPw},'MINGU')))
+			AND user_q = #{userQ}
+			AND user_a = #{userA}
+			;
+    	</select>
+		
+		<!-- 삭제된회원리스트입력 -->
+     	<select id="deleteUserInsert" parameterType="java.util.Map">
+			INSERT INTO delete_user(
+				user_id
+				,delete_date
+			)
+			VALUES (
+				#{userId}
+				,date(now())
+			);
+    	</select>
+		
+		<!-- user회원삭제 -->
+     	<select id="userDeleteAdd" parameterType="java.util.Map">
+			DELETE 
+			FROM user
+			WHERE user_id = #{userId}
+			;
+    	</select>
+		
+		<!-- 회원탈퇴비밀번호체크 -->
+     	<select id="userDeletePw" parameterType="java.util.Map" resultType="String">
+			SELECT (AES_DECRYPT(UNHEX(user_pw),'MINGU')) as user_pw
+			FROM user
+			WHERE user_id = #{userId}
+			;
+		</select>
+		
+		<!-- 로그인 -->
+     	<select id="login" parameterType="java.util.Map" resultMap="member">
+			SELECT user_id, (AES_DECRYPT(UNHEX(user_pw),'MINGU')) as user_pw, user_level, user_nick
+			FROM user
+			WHERE user_id = #{userId}
+			;
+    	</select>
+		
+		<!-- 사업자회원정보보기  + 관리자 회원정보-->
+     	<select id="businessDetail" parameterType="java.util.Map" resultMap="member">
+			SELECT user_id
+				,user_nick
+				,user_name
+				,user_email
+				,user_tel
+				,user_addr
+				,user_level
+				,user_bs_no
+				,user_bs_type
+				,user_bs_status
+				,user_bs_name
+				,user_url
+				,user_date
+				,user_q
+				,user_a 
+			FROM user
+			WHERE user_id = #{userId}
+			;
+		</select>
+		
+		<!-- 회원스타일 -->
+     	<select id="userStyle" parameterType="java.util.Map" resultType="String">
+			select style.style_value
+			from user
+			join user_style
+			on user.user_id = user_style.user_id
+			join style
+			on style.style_no = user_style.style_no 
+			where user_style.user_id = #{userId}
+			;
+		</select>
+		
+		<!-- 회원색상보기 -->
+     	<select id="userColor" parameterType="java.util.Map" resultType="String">
+			SELECT color.color_value
+			FROM user
+			JOIN user_color
+			ON user.user_id = user_color.user_id
+			JOIN color
+			ON color.color_no = user_color.color_no 
+			WHERE user_color.user_id = #{userId}
+			;
+		</select>
+		
+		<!-- 일반회원상세정보보기 -->
+     	<select id="userDetail" parameterType="java.util.Map" resultMap="member">
+			SELECT user_id
+				,user_nick
+				,user_name
+				,user_gender
+				,user_email
+				,user_tel
+				,user_addr
+				,user_age
+				,user_tall
+				,user_size
+				,user_level
+				,user_date
+				,user_q
+				,user_a
+				,user_img 
+			FROM user
+			WHERE user_id = #{userId}
+			;
+		</select>
+		
+		<!-- 회원리스트 카운트 조회 -->
+     	<select id="getBoardCount" parameterType="com.ksmart.harulook.member.service.MemberDto" resultType="int">
+			SELECT COUNT(*) 
+			FROM user 
+			WHERE user_level = #{level}
+			;
+    	</select>
+		
+		<!-- 전체회원리스트쿼리 -->
+     	<select id="userList" parameterType="java.util.Map" resultMap="member">
+			SELECT user_id
+					,user_nick
+					,user_name
+					,user_point
+					,user_date
+					,user_bs_name
+					,user_tel 
+			FROM user
+			WHERE user_level = #{level}
+			<if test="userId != null">
+			AND user_id = #{userId}
+			</if>
+			ORDER BY user_date DESC 
+       		LIMIT #{beginRow}, #{pagePerRow}
+			;
+    	</select>
+    	<!-- 전체회원리스트쿼리 페이지없이 -->
+     	<select id="allUserList" parameterType="java.util.Map" resultMap="member">
+			SELECT user_id
+					,user_nick
+					,user_name
+					,user_point
+					,user_date
+					,user_bs_name
+					,user_tel 
+			FROM user
+			WHERE user_level = #{level}
+			<if test="userId != null">
+			AND user_id = #{userId}
+			</if>
+			ORDER BY user_date DESC 
+			;
+    	</select>
+
+		<!-- 닉네임중복체크 -->
+     	<select id="nickcheck" parameterType="java.util.Map" resultType="String">
+			SELECT user_nick
+			FROM user
+			WHERE user_nick = #{nickcheck}
+			;
+    	</select>
+
+		<!-- 아이디중복체크 -->
+     	<select id="idcheck" parameterType="java.util.Map" resultType="String">
+			SELECT user_id
+			FROM user
+			WHERE user_id = #{idcheck}
+			UNION
+			SELECT user_id
+			FROM delete_user
+			WHERE user_id = #{idcheck}
+			;
+    	</select>
+
+		<!-- 관리자가입입력 -->
+     	<insert id="managerinsert" parameterType="com.ksmart.harulook.member.service.MemberDto">
+			INSERT INTO user(
+				user_id
+				,user_pw
+				,user_nick
+				,user_name
+				,user_tel
+				,user_email
+				,user_addr
+				,user_bs_no
+				,user_bs_type
+				,user_bs_status
+				,user_bs_name
+				,user_url
+				,user_q
+				,user_a
+				,user_level
+				,user_date
+			) 
+			VALUES(
+				#{userId}
+				,(HEX(AES_ENCRYPT(#{userPw},'MINGU')))
+				,#{userNick}
+				,#{userName}
+				,#{userTel}
+				,#{userEmail}
+				,#{userAddr}
+				,#{userBsNo}
+				,#{userBsType}
+				,#{userBsStatus}
+				,#{userBsName}
+				,#{userUrl}
+				,#{userQ}
+				,#{userA}
+				,'관리자'
+				,date(now())
+			);
+		</insert>
+
+		<!-- 사업자가입입력 -->
+     	<insert id="businessinsert" parameterType="com.ksmart.harulook.member.service.MemberDto">
+			INSERT INTO user(
+				user_id
+				,user_pw
+				,user_nick
+				,user_name
+				,user_tel
+				,user_email
+				,user_addr
+				,user_bs_no
+				,user_bs_type
+				,user_bs_status
+				,user_bs_name
+				,user_url
+				,user_q
+				,user_a
+				,user_level
+				,user_date
+			) 
+			VALUES(
+				#{userId}
+				,(HEX(AES_ENCRYPT(#{userPw},'MINGU')))
+				,#{userNick}
+				,#{userName}
+				,#{userTel}
+				,#{userEmail}
+				,#{userAddr}
+				,#{userBsNo}
+				,#{userBsType}
+				,#{userBsStatus}
+				,#{userBsName}
+				,#{userUrl}
+				,#{userQ}
+				,#{userA}
+				,'사업자'
+				,date(now())
+			);
+		</insert>
+		
+		<!-- 관리자 사업자 정보수정 -->
+     	<insert id="businessUpdate" parameterType="com.ksmart.harulook.member.service.MemberDto">
+			 UPDATE user
+			 SET
+				  user_pw = (HEX(AES_ENCRYPT(#{userPw},'MINGU')))
+				  ,user_nick = #{userNick}
+				  ,user_name = #{userName}
+				  ,user_email = #{userEmail}
+				  ,user_tel = #{userTel}
+				  ,user_addr = #{userAddr}
+				  ,user_bs_no = #{userBsNo}
+				  ,user_bs_type = #{userBsType}
+				  ,user_bs_status = #{userBsStatus}
+				  ,user_bs_name = #{userBsName}
+				  ,user_url = #{userUrl}
+				  ,user_q = #{userQ}
+				  ,user_a = #{userA}
+			  WHERE user_id = #{userId}
+			  ;
+		</insert>
+		
+		<!-- 일반회원정보수정 -->
+     	<insert id="userUpdate" parameterType="com.ksmart.harulook.member.service.MemberDto">
+			 UPDATE user
+			 SET
+				  user_pw = (HEX(AES_ENCRYPT(#{userPw},'MINGU')))
+				  ,user_nick = #{userNick}
+				  ,user_name = #{userName}
+				  ,user_email = #{userEmail}
+				  ,user_tel = #{userTel}
+				  ,user_addr = #{userAddr}
+				  ,user_gender = #{userGender}
+				  ,user_age = #{userAge}
+				  ,user_tall = #{userTall}
+				  ,user_size = #{userSize}
+				  ,user_q = #{userQ}
+				  ,user_a = #{userA}
+				  <if test="userImg != null">
+				  ,user_img = #{userImg}
+				  </if>
+			  WHERE user_id = #{userId}
+			  ;
+		</insert>
+		
+		<!-- 회원컬러입력 -->
+     	<select id="userColorInsert" parameterType="java.util.Map" resultType="String">
+			 INSERT INTO user_color(
+				user_color_no
+				,color_no
+				,user_id
+			 )
+			 VALUES(
+			 	#{userColorInsert}
+			 	,#{userColorNo}
+			 	,#{userId}
+			 );
+    	</select>
+		
+		<!-- 회원스타일입력 -->
+     	<select id="userStyleInsert" parameterType="java.util.Map" resultType="String">
+			 INSERT INTO user_style(
+				user_style_no
+				,style_no
+				,user_id
+			 )
+			 VALUES(
+			 	#{userStyleInsert}
+			 	,#{userStyleNo}
+			 	,#{userId}
+			 );
+    	</select>
+    	
+    	<!-- 회원컬러넘버검색 -->
+     	<select id="userColorSelect" resultType="String">
+			SELECT MAX(CAST(substring(user_color_no, 12) AS DECIMAL))
+			FROM user_color
+			;
+    	</select>
+		
+		<!-- 회원스타일넘버검색 -->
+     	<select id="userStyleSelect" resultType="String">
+			SELECT MAX(CAST(substring(user_style_no, 12) AS DECIMAL))
+			FROM user_style
+			;
+		</select>
+		
+		<!-- 회원컬러삭제 -->
+     	<select id="userColorDelete" parameterType="java.util.Map">
+			DELETE 
+			FROM user_color 
+			WHERE user_id = #{userId}
+			;
+    	</select>
+		
+		<!-- 회원스타일삭제 -->
+     	<select id="userStyleDelete" parameterType="java.util.Map">
+			DELETE 
+			FROM user_style 
+			WHERE user_id = #{userId}
+			;
+		</select>
+		
+		<!-- 일반회원가입입력 -->
+     	<insert id="userinsert" parameterType="com.ksmart.harulook.member.service.MemberDto">
+			INSERT INTO user(
+				user_id
+				,user_pw
+				,user_nick
+				,user_name
+				,user_tel
+				,user_email
+				,user_addr
+				,user_gender
+				,user_age
+				,user_tall
+				,user_size
+				,user_q
+				,user_a
+				,user_level
+				,user_point
+				,user_date
+				,user_img
+			) 
+			VALUES(
+				#{userId}
+				,(HEX(AES_ENCRYPT(#{userPw},'MINGU')))      
+				,#{userNick}
+				,#{userName}
+				,#{userTel}
+				,#{userEmail}
+				,#{userAddr}
+				,#{userGender}
+				,#{userAge}
+				,#{userTall}
+				,#{userSize}
+				,#{userQ}
+				,#{userA}
+				,'일반회원'
+				,0
+				,date(now())
+				,#{userImg}
+			);
+		</insert>
+      
+</mapper>
+
+
