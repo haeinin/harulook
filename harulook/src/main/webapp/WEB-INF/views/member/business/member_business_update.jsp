@@ -499,10 +499,10 @@
 					        	<label style="letter-spacing:11.3px" for="user_addr">주&nbsp;&nbsp;소</label>
 					            <!-- <input name="userAddr" id="user_addr" type="text"/><br> -->
 					        	
-					        	<input type="text" id="sample4_postcode" placeholder="우편번호">
+					        	<input type="text" id="sample4_postcode" placeholder="우편번호" value="579379" readonly>
 								<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-								<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-								<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소" value="${businessDetail.userAddr}"><br><br>
+								<input type="text" id="sample4_roadAddress" placeholder="도로명주소" value="${businessDetail.userAddr}" readonly>
+								<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소" value="${businessDetail.userAddr}" readonly><br><br>
 								<span id="guide" style="color:#999"></span>
 					        	
 					  			<!-- 질문 -->
