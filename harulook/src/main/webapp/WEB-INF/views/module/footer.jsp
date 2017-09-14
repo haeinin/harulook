@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,6 +24,7 @@
                 <div class="col-xs-12">
                 <h4>(주)하루룩</h4>
                 <p class="about-text">사업자등록번호 333-444555-6666 </p>
+                <a href="${pageContext.request.contextPath}/policy">이용약관</a>
                 </div>
             </div>
         </div>

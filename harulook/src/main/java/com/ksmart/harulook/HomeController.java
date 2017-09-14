@@ -38,5 +38,9 @@ public class HomeController {
 		session.setAttribute("influx", "harulook");
 		return "home";
 	}
+	@RequestMapping(value = "/policy", method = RequestMethod.GET)
+	public String policy(){
+		return "module/agreement";
+	}
 	
 }
