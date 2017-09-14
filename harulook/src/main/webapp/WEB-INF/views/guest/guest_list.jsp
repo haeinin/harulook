@@ -5,11 +5,27 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+/* 방문기록차트 */
+#snsChartButton {
+	position: fixed; 
+	z-index:2;
+}
+
+
+#divChart1{
+	position: relative; 
+	z-index:1;
+}
+
+</style>
 <title>방문자차트</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- 드롭다운 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 위치이동 -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -31,33 +47,10 @@
 <!-- 구글 차트  -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
+
 <script type="text/javascript">
 	$(document).ready(function(){
-		//일일방문자수
-		$('#chart_div').show();
-		$('#chart_div_weekly').show();
-		$('#chart_div_month').show();
-		
-		$('#dailyButton').click(function(){	//일일차트
-			$('#chart_div').show();
-			$('#chart_div_weekly').hide();
-			$('#chart_div_month').hide();
-		});
-		
-		$('#weeklyButton').click(function(){	//주간차트
-			$('#chart_div').hide();
-			$('#chart_div_weekly').show();
-			$('#chart_div_month').hide();
-		});
-		
-		$('#monthlyButton').click(function(){	//월간차트
-			$('#chart_div').hide();
-			$('#chart_div_weekly').hide();
-			$('#chart_div_month').show();
-		});
-		
-		
-		
+		/* 구글차트 */
 		google.charts.load('current', {'packages':['corechart']});
 		google.charts.setOnLoadCallback(drawChart);
 		
@@ -147,6 +140,12 @@
 		
 	});
 	
+	/* 버튼 해당 차트 위치로 이동 */
+	function fnMove(seq){
+		var offset = $("#divChart" + seq).offset();
+        $('html, body').animate({scrollTop : offset.top}, 400);
+    }
+	
 </script>
 </head>
 <body>
@@ -160,17 +159,23 @@
 	    <!-- 좌측 베너 인클루드 -->
     	<div class="col-xs-1">
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
-    	</div>
-	    <div id="div1" class="col-xs-9">
-	    	<div class="row">
-	    	<div class="col-xs-2"></div>
-				<div class="col-xs-8">
-					<input class="btn btn-default" id="dailyButton" type="button" value="일일방문자수"/>
-					<input class="btn btn-default" id="weeklyButton" type="button" value="주간방문자수"/>
-					<input class="btn btn-default" id="monthlyButton" type="button" value="월간방문자수"/>
-	  	 	</div>
+    		<div class="row">
+	    		<div class="col-sm-4"></div>
+				<div class="col-sm-1">
+		    		<div id="snsChartButton">
+			    		<button class="btn btn-default" onclick="fnMove('1')" >일일방문자수</button><br>
+						<button class="btn btn-default" onclick="fnMove('2')" >주간방문자수</button><br>
+						<button class="btn btn-default" onclick="fnMove('3')" >월간방문자수</button>
+					</div>
+				</div>
+			</div>	
+		</div>
+    	
+    	
+    	<div id="div1" class="col-xs-9">
+	    	<div id="divChart1">
+				<div class="googleChart" id="chart_div" style="width: 100%; height: 500px;"></div>
 			</div>
-			<div id="chart_div" style="width: 100%; height: 500px;"></div>
 			<!-- 일일게스트수 -->
 			<div id="dailyGuest">
 				<table>
@@ -183,8 +188,12 @@
 					</c:forEach>
 				</table>
 			</div>
+			<br>
+			<br>
 			
-			<div id="chart_div_weekly" style="width: 100%; height: 500px;"></div>
+			<div id="divChart2">
+				<div class="googleChart" id="chart_div_weekly" style="width: 100%; height: 500px;"></div>
+			</div>
 			<!-- 주간게스트수 -->
 			<div id="weeklyGuest">
 				<table>
@@ -200,8 +209,12 @@
 					</c:forEach>
 				</table>
 			</div>
+			<br>
+			<br>
 			
-			<div id="chart_div_month" style="width: 100%; height: 500px;"></div>
+			<div id="divChart3">
+				<div class="googleChart" id="chart_div_month" style="width: 100%; height: 500px;"></div>
+			</div>
 			<!-- 월간게스트수 -->
 			<div id="monthlyGuest">
 				<table>
@@ -215,6 +228,9 @@
 					</c:forEach>
 				</table>
 			</div>
+			<br>
+			<br>
+			<br>
 		</div>
 		
 		<!-- 우측 베너 인클루드 -->
