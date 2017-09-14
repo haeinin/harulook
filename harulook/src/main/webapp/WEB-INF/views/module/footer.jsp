@@ -22,10 +22,12 @@
         <div class="container">
         
             <div class="row">
-                <div class="col-xs-12">
-                <h4>(주)하루룩</h4>
-                <p class="about-text">사업자등록번호 333-444555-6666 </p>
+         	    <div class="col-xs-2"></div>
+                <div class="col-xs-8">
+                <p class="about-text">대표 : 이해인 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 전라북도 전주시 덕진구 기린대로 446  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사업자번호 : 402-21-80224 </p>
+                <p class="about-text">TEL : 063-717-1008 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FAX : 063-717-1122  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  E-mail : hyoung814@daum.net  </p>
                 </div>
+                <div class="col-xs-2"></div>
             </div>
         </div>
     </div>

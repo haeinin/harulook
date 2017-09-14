@@ -73,12 +73,12 @@
     	<div class="col-xs-1">
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
-	    <div id="div1" class="col-xs-9">
-			 <div align="center">
-			 <form class="well well-sm" action="./adPayInsert" action="post" id="payInsert" method="POST">
-	          	<table border="1" width="70%" align="center">
-	          	<tr><td height="10%">결제금액 :  </td><td><input type="text" id="pricePayTotal" width="100%" name="adPayPrice" value="${priceTotal}" readonly></td></tr>
-	          	</table>
+    	<div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-7">
+			<form class="well well-sm" action="./adPayInsert" action="post" id="payInsert" method="POST">
+	          	<br>
+	          	<label height="10%">결제금액 :  </label><input type="text" id="pricePayTotal" width="100%" name="adPayPrice" value="${priceTotal}원" readonly/>
+	          	
 	          	<h4>결제 방법</h4>
 	          	<input type="hidden" name="adContractNo" value="${contractNo}">
 	          	<input type="hidden" name="adPayWay" id="payWay">
@@ -92,16 +92,19 @@
 	
 	            <input class="btn btn-default" id="payComplete" type="button" value="완료"/>
 	            <input class="btn btn-default" type="reset" value="초기화"/>
-	
+				
 	          <button type="button" class="btn btn-default" data-dismiss="payModal">닫기</button>
-			  </div>
+	          </div>
 	    </div>
+	    <br>
+	    <div class="col-xs-1"></div>
 	    
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
        	</div>
     </div>
+    
     <!-- 하단 인클루드 -->
     <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>  
 	
