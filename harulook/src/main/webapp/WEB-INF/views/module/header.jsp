@@ -333,6 +333,17 @@ $(document).ready(function(){
 			hour = 23;
 		}
 	}
+	
+	var RequestHour = hour;
+	var apiTime = hour % 3;
+	console.log('hour % 3 = '+apiTime);
+	if(apiTime == 0) {
+		RequestHour = hour - 1;
+	} else if(apiTime == 1) {
+		RequestHour = hour - 2;
+	} 
+	console.log('RequestHour : ',RequestHour);
+	
 	if(hour < 10) {
 		hour = '0'+hour;
 	}

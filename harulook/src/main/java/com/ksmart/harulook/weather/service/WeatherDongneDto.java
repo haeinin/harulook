@@ -5,10 +5,10 @@ public class WeatherDongneDto {
 	private String sky;				// 하늘 상태 : 맑음, 흐림 등
 	private String rainStat;		// 강수형태 : 비, 눈
 	private String humidity;		// 습도
-	private String rainProbability;
+	private String rainProbability;	// 강수확률
 	private String precipitation;	// 강수량
-	private String tempMax;
-	private String tempMin;
+	private String tempMax;			// 최고 기온
+	private String tempMin;			// 최저 기온
 	public String getRainProbability() {
 		return rainProbability;
 	}
