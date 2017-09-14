@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+
 
 <!-- 드롭다운 -->
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -52,7 +52,9 @@ jQuery.browser = {};
     			alert('시작일자를 선택하세요');
     			$('#datepicker').focus();
     		}
-    		$('#contractForm').submit();
+    		if($('#adType').val()!="" && $('#adPlace').val()!="" && $('#date').val()!="" && $('#datepicker').val()!="" ){
+				$('#contractForm').submit();
+			}
     	})
     	/****************************/
     	/* 총 합계를 계산해 놓으면 텍스트박스에 NaN이라는 값이 출력되서 날짜를 선택해야 총 합계가 나오게 만듬 */
@@ -79,7 +81,23 @@ jQuery.browser = {};
     				$('#priceTotal').val(calcprice);
     			}
     		})
-    	/****************************************/	
+    		enddate = new Date($('#datepicker').val());
+        	enddate.setDate(enddate.getDate() + period);
+        	var year = enddate.getFullYear();
+        	var month = ((enddate.getMonth()+101)+"").substring(1,3);
+			var day = enddate.getDate();
+        	console.log('년 :' + year);
+        	console.log('월 :' + month);
+        	console.log('일 :' + day);
+        	console.log(enddate);
+        	console.log(year + '-' + month + '-' + day);
+        	if(day < 10)
+        	$('#datepicker2').val(year+'-'+month+'-0'+day);
+        	else
+        	$('#datepicker2').val(year+'-'+month+'-'+day);
+        	calc();
+    	/****************************************/
+    	calc();
     	})
     	/*****************************************************************/
     	/* 광고종류를 선택했을때 ajax를 이용하여 광고에 해당하는 하루 금액을 전송받음 */
@@ -105,12 +123,18 @@ jQuery.browser = {};
         	dateFormat: 'yy-mm-dd'
         });
         $("#datepicker").change(function(){
+        	if($('#date').val() == 'ad_dc_01'){
+				period = 3;
+			}else if($('#date').val() == 'ad_dc_02'){
+				period = 7;
+			}else if($('#date').val() == 'ad_dc_03'){
+				period = 30;
+			}
         	enddate = new Date($(this).val());
         	enddate.setDate(enddate.getDate() + period);
         	var year = enddate.getFullYear();
         	var month = ((enddate.getMonth()+101)+"").substring(1,3);
 			var day = enddate.getDate();
-			calc();
         	console.log('년 :' + year);
         	console.log('월 :' + month);
         	console.log('일 :' + day);
@@ -119,7 +143,8 @@ jQuery.browser = {};
         	if(day < 10)
         	$('#datepicker2').val(year+'-'+month+'-0'+day);
         	else
-        	$('#datepicker2').val(year+'-'+month+'-'+day);	
+        	$('#datepicker2').val(year+'-'+month+'-'+day);
+        	calc();
         });
         $("#datepicker2").datepicker({
         	dateFormat: 'yy-mm-dd'
@@ -130,7 +155,14 @@ jQuery.browser = {};
     			
   
 	function calc(){
-		calcprice = period*price*(1-dc/100);
+		if($('#date').val() == 'ad_dc_01'){
+			period = 3;
+		}else if($('#date').val() == 'ad_dc_02'){
+			period = 7;
+		}else if($('#date').val() == 'ad_dc_03'){
+			period = 30;
+		}
+		calcprice = $('#pricePerDay').val()*period*(1-$('#dcForPrice').val()/100);
 		console.log('총 계산된 금액 ' + calcprice);
 	};
  	});
@@ -151,6 +183,7 @@ jQuery.browser = {};
     	</div>
 	    <div class="col-xs-1"></div>
 	    <div id="div1" class="col-xs-7">   
+	    	<h1>광고 계약 입력</h1><br>
 		 	<form id="contractForm" class="well well-sm" action="./adContractInsert" method="POST">
 		    <div class="form-group">
 			        <label for="adType">광고종류</label>
