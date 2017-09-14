@@ -76,9 +76,9 @@
 	    <div id="div1" class="col-xs-9">
 			 <div align="center">
 			 <form class="well well-sm" action="./adPayInsert" action="post" id="payInsert" method="POST">
-	          	<table border="1" width="70%" align="center">
-	          	<tr><td height="10%">결제금액 :  </td><td><input type="text" id="pricePayTotal" width="100%" name="adPayPrice" value="${priceTotal}" readonly></td></tr>
-	          	</table>
+	          	
+	          	<label height="10%">결제금액 :  </label><input type="text" id="pricePayTotal" width="100%" name="adPayPrice" value="${priceTotal}원" readonly/>
+	          	
 	          	<h4>결제 방법</h4>
 	          	<input type="hidden" name="adContractNo" value="${contractNo}">
 	          	<input type="hidden" name="adPayWay" id="payWay">
