@@ -52,12 +52,12 @@ $(document).ready(function(){
 			<div id="adBoardOutput" class="row photos-wrap"  style="text-align: center;">
 			<c:forEach var="b" items="${adboardlist}" begin="0" end="2" step="1">
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
-				<div class="ad-pop-photo-box"><!-- ddddddddddddddddddddddddddddddddddd  모달 클릭 클래스네임 -->
+				<div class="ad-pop-photo-box cursor-click"><!-- ddddddddddddddddddddddddddddddddddd  모달 클릭 클래스네임 -->
 					<input type="hidden" id="adBoardNoVal" value="${b.adBoardNo}">
 					<div class="image-wrap">
 					<c:choose>
-						   <c:when test="${b.adBoardNo == null}"><img class="adBoards" style="max-width: 300px; max-height: 300px; width: auto; height: auto;" alt="no image" onError="this.src='resources/files/images/noAD.png';" src="this.src='resources/files/images/defaut.jpg';"> </c:when>
-						   <c:otherwise><img class="adBoards" style="max-width: 300px; max-height: 300px; width: auto; height: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.adBoardImg}"></c:otherwise>
+						   <c:when test="${b.adBoardNo == null}"><img class="adBoards" style="height: auto; max-width: 100%; max-height: 100%; width: auto;" alt="no image" onError="this.src='resources/files/images/noAD.png';" src="this.src='resources/files/images/defaut.jpg';"> </c:when>
+						   <c:otherwise><img class="adBoards" style="height: auto; max-width: 100%; max-height: 100%; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.adBoardImg}"></c:otherwise>
 							</c:choose>
 					</div>
 				</div>

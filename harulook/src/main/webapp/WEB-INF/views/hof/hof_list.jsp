@@ -42,6 +42,7 @@ margin:50px;
 }
 </style>
 <script type="text/javascript">
+
 /*  게시물 클릭  */
 function showDetail(data) {
 	$('.sns-photo-box').click(function(){
@@ -120,10 +121,11 @@ $(function(){
 					
 					<tr>
 						<td>
-							<div class="sns-photo-box">
+							<div class="sns-photo-box cursor-click">
 								<input type="hidden" id="boardNo" value="${b.boardNo}">
 								<div class="image-wrap">
 									<img style="height: auto; max-width: 300px; max-height: 300px; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.boardImg}">
+									</div>
 								</div>
 							</div>
 						</td>
@@ -150,27 +152,34 @@ $(function(){
 			        <div class="row">
 			        
 			        	<!-- 게시물 이미지 영역 -->
-				        <div id="snsDetailImgArea" class="modal-body col-xs-12 col-sm-6" style="padding-bottom: 0; padding-top: 0;">
-							<div id="snsDetailImg"></div>
-			        	</div>
-			        	<!-- 게시물 이미지 영역 -->
-			        	
-			        	<!-- 게시물 내용 영역 -->
-				        <div id="contentArea" class="modal-body col-xs-12 col-sm-6">
-				        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
+			        <div id="snsDetailImgArea" class="modal-body col-xs-12 col-md-8" style="padding-bottom: 0; padding-top: 0;">
+						<div id="snsDetailImg"></div>
+		        	</div>
+		        	<!-- 게시물 이미지 영역 -->
+		        	
+		        	<!-- 게시물 내용 영역 -->
+			        <div id="contentArea" class="modal-body col-xs-12 col-md-4" style="padding-left: 30px;">
+			        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
+		        		<div id="snsDetailHeader"></div>
+		        		<div >
 			        		<div id="snsDetailContent"></div>
 			        		<hr>
 			        	
 				        	<div id="snsDetailLike"></div>
 				        	<hr>
 				        	<div id="snsDetailComment"></div>
-				        	<c:if test="${sessionScope.id != null}">
-				        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">
-				        	<div id="snsDetailCommentControll">
-				        	</div>
-				        	</c:if>
-						</div>
-						<!-- 게시물 내용 영역 -->
+			        	</div>
+			        	<c:if test="${sessionScope.id != null}">
+			        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">
+			        	<div id="snsDetailCommentControll">
+			        	</div>
+			        	</c:if>
+			        	<br>
+			        	<div style="text-align: right; padding-right: 20px;">
+			        		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+			        	</div>
+					</div>
+					<!-- 게시물 내용 영역 -->
 						
 				     </div>
 				</div>

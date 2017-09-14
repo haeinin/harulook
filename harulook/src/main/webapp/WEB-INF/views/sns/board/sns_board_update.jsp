@@ -59,43 +59,43 @@ $(function(){
 	
 	/* 색상 체크 판별 */
 	if($('input:checkbox[id="searchColorRed"]').is(":checked")) {
-		$('#circleRed').attr('class','fa fa-check-circle');
+		$('#circleRed').attr('class','fa fa-check-circle cursor-click');
 	} 
 	if($('input:checkbox[id="searchColorOrange"]').is(":checked")) {
-		$('#circleOrange').attr('class','fa fa-check-circle');
+		$('#circleOrange').attr('class','fa fa-check-circle cursor-click');
 	}
 	if($('input:checkbox[id="searchColorYellow"]').is(":checked")) {
-		$('#circleYellow').attr('class','fa fa-check-circle');
+		$('#circleYellow').attr('class','fa fa-check-circle cursor-click');
 	} 
 	if($('input:checkbox[id="searchColorGreen"]').is(":checked")) {
-		$('#circleGreen').attr('class','fa fa-check-circle');
+		$('#circleGreen').attr('class','fa fa-check-circle cursor-click');
 	}
 	if($('input:checkbox[id="searchColorBlue"]').is(":checked")) {
-		$('#circleBlue').attr('class','fa fa-check-circle');
+		$('#circleBlue').attr('class','fa fa-check-circle cursor-click');
 	} 
 	if($('input:checkbox[id="searchColorNavy"]').is(":checked")) {
-		$('#circleNavy').attr('class','fa fa-check-circle');
+		$('#circleNavy').attr('class','fa fa-check-circle cursor-click');
 	}
 	if($('input:checkbox[id="searchColorPurple"]').is(":checked")) {
 		$('#circlePurple').attr('class','fa fa-check-circle');
 	} 
 	if($('input:checkbox[id="searchColorBlack"]').is(":checked")) {
-		$('#circleBlack').attr('class','fa fa-check-circle');
+		$('#circleBlack').attr('class','fa fa-check-circle cursor-click');
 	}
 	if($('input:checkbox[id="searchColorGrey"]').is(":checked")) {
-		$('#circleGrey').attr('class','fa fa-check-circle');
+		$('#circleGrey').attr('class','fa fa-check-circle cursor-click');
 	} 
 	if($('input:checkbox[id="searchColorWhite"]').is(":checked")) {
-		$('#circleWhite').attr('class','fa fa-check-circle');
+		$('#circleWhite').attr('class','fa fa-check-circle cursor-click');
 	}
 	if($('input:checkbox[id="searchColorBrown"]').is(":checked")) {
-		$('#circleBrown').attr('class','fa fa-check-circle');
+		$('#circleBrown').attr('class','fa fa-check-circle cursor-click');
 	}
 	if($('input:checkbox[id="searchColorBeige"]').is(":checked")) {
-		$('#circleBeige').attr('class','fa fa-check-circle');
+		$('#circleBeige').attr('class','fa fa-check-circle cursor-click');
 	}
 	if($('input:checkbox[id="searchColorPink"]').is(":checked")) {
-		$('#circlePink').attr('class','fa fa-check-circle');
+		$('#circlePink').attr('class','fa fa-check-circle cursor-click');
 	}
 	
 	// 빨간색 버튼 클릭
