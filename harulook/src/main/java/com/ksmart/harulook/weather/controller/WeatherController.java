@@ -34,6 +34,7 @@ public class WeatherController {
 		HashMap<String,WeatherDongneDto> map = new HashMap<String,WeatherDongneDto>();
 		map = weatherDao.getDongneItemList(date, hour, nx, ny);
 		model.addAttribute("map", map);
+		System.out.println("model : "+model+" in forecastWeather");
 		return "weather/forecast_weather";
 	}
 }

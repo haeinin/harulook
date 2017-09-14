@@ -26,7 +26,13 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 public class WeatherDao {
 
 	public HashMap<String,WeatherDongneDto> getDongneItemList(String date, String hour, String nx, String ny) throws IOException, ParserConfigurationException, SAXException, ParseException {
-        String xml = this.dongneXmlDownload(date, hour, nx, ny);
+		System.out.println("date : "+date);
+		System.out.println("hour : "+hour);
+		System.out.println("nx : "+nx);
+		System.out.println("ny : "+ny);
+		
+		String xml = this.dongneXmlDownload(date, hour, nx, ny);
+        System.out.println(xml);
         int dateInt = Integer.parseInt(date);
         String tomorrow = String.valueOf(dateInt+1);
         String moere = String.valueOf(dateInt+2);
@@ -188,17 +194,17 @@ public class WeatherDao {
 	            +URLEncoder.encode(date,"UTF-8")+"&"
 	            +URLEncoder.encode("base_time","UTF-8")+"="
 	            +URLEncoder.encode(hour,"UTF-8")+"&"
-	            + URLEncoder.encode(nx,"UTF-8")+"="
-	            +URLEncoder.encode("63","UTF-8")+"&"
-	            + URLEncoder.encode(ny,"UTF-8")+"="
-	            + URLEncoder.encode("89","UTF-8")+"&"
+	            +URLEncoder.encode("nx","UTF-8")+"="
+	            + URLEncoder.encode(nx,"UTF-8")+"&"
+	            +URLEncoder.encode("ny","UTF-8")+"="
+	            + URLEncoder.encode(ny,"UTF-8")+"&"
 	    		+ URLEncoder.encode("numOfRows","UTF-8")+"="
 	            + URLEncoder.encode("216","UTF-8")+"&"
 	    		+ URLEncoder.encode("_type","UTF-8")+"="
 	            + URLEncoder.encode("xml","UTF-8")+"&"
 	            + URLEncoder.encode("serviceKey","UTF-8")
 	            +"=U2ZPWtp9VT8Nt8wxB%2FEQGSjuQ2oDzwM2Lmv0mDtUHC0wrm6%2F25ZXZAp7vBkv5zqpoiNGDHTJHSBjxsf3fw9D7g%3D%3D";
-	      
+	    System.out.println("host : "+host);
 		StringBuilder urlBuilder = new StringBuilder(host); /*URL*/
 		 
 		URL url = new URL(urlBuilder.toString());
