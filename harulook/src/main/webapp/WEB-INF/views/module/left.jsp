@@ -19,6 +19,7 @@
 </script>
 </head>
 <body>
+	<br><br><br>
 	<div class="row" style="height: 150px; z-index:2;">
 		<div class="col-sm-4"></div>
 		<div class="col-sm-1">
@@ -27,6 +28,7 @@
 			</a>
 		</div>
 	</div>
+	
 	<div class="row">
 	<div class="col-sm-4">
 	</div>
