@@ -21,7 +21,7 @@
 	</resultMap>
 	
 	<!-- 이번 달 명예의전당 -->
-	<select id="getHofList" resultMap="hof">
+	<select id="selectHofList" resultMap="hof">
 	SELECT 
 		hof.hof_month
 		,hof.hof_rank
@@ -37,7 +37,7 @@
 	</select>
 	
 	<!-- 이번 달 좋아요 랭크 보기 -->
-	<select id = "getBoardLikeRank" resultMap="hofRank">
+	<select id = "selectBoardLikeRank" resultMap="hofRank">
 	SELECT 
 		sns_board_no, 
 		CASE
