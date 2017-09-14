@@ -162,7 +162,7 @@ public class MemberDao implements MemberInterface {
         Map<Object, Object> map = new HashMap<Object, Object>();
         map.put("level", level);
         map.put("userId", userId);
-        	System.out.println(map + " ==MemberDao 전체회원리스트 map");
+    	System.out.println(map + " ==MemberDao 전체회원리스트 map");
         return sqlSessionTemplate.selectList("com.ksmart.harulook.member.service.MemberMapper.allUserList", map);
     }
     

@@ -54,12 +54,12 @@ public class GuestController {
 		List<GuestDto> monthlyGuest = guestDao.selectMonthlyGuest();	//월간
 		List<GuestDto> weeklyGuest = guestDao.selectWeeklyGuest();	//주간
 		List<GuestDto> dailyGuest = guestDao.selectdailyGuest();	//일일
-			System.out.println("GuestController dailyGuest == " + dailyGuest);
+		System.out.println("GuestController dailyGuest == " + dailyGuest);
 		
 		model.addAttribute("monthlyGuest", monthlyGuest);
 		model.addAttribute("weeklyGuest", weeklyGuest);
 		model.addAttribute("dailyGuest", dailyGuest);
-			System.out.println("GuestController model == " + model);
+		System.out.println("GuestController model == " + model);
 		return "guest/guest_list"; //방문자 리스트
 	}
 }

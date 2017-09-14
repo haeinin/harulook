@@ -30,7 +30,7 @@ public class FollowController {
 			@RequestParam("followId") String followId ) {
 		System.out.println("FollowMeController 팔로우 아이디= " + followId);
         String userId = (String) session.getAttribute("id");
-        	System.out.println("FollowMeController 세션 아이디= " + userId);
+        System.out.println("FollowMeController 세션 아이디= " + userId);
         followDao.deleteFollow(followId, userId);	
         	
         return "follow/follow_me_list";  
@@ -44,7 +44,7 @@ public class FollowController {
 			@RequestParam("followId") String followId ) {
 		System.out.println("FollowController 팔로우 아이디= " + followId);
         String userId = (String) session.getAttribute("id");
-        	System.out.println("FollowController 세션 아이디= " + userId);
+        System.out.println("FollowController 세션 아이디= " + userId);
         followDao.deleteFollow(userId, followId);	
         	
         return "follow/follow_list";  
@@ -103,10 +103,10 @@ public class FollowController {
 			HttpServletRequest request,
 			@RequestParam("followId") String followId ) {
 		String userId = (String) session.getAttribute("id");
-			System.out.println("세션아이디 == "+ userId);
+		System.out.println("세션아이디 == "+ userId);
         String followNo = followDao.selectFollowNo();	//팔로우번호 마지막 +1 입력
-        	System.out.println("팔로우넘버 == "+ followNo);
-        	System.out.println("팔로우아이디 == "+ followId);
+        System.out.println("팔로우넘버 == "+ followNo);
+        System.out.println("팔로우아이디 == "+ followId);
     	String checkFollow = followDao.selectFollowCheck(userId, followId);	//	친구등록 중복 방지 셀렉트
 	    if(checkFollow != null){	//팔로우 이미 된상태이면 추가입력불가
 	    	return "home"; 

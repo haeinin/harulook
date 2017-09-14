@@ -23,18 +23,6 @@ public class PointController {
 
 	@Autowired
     private PointInterface pointDao;
-	/*
-	쿠폰 사용
-	@RequestMapping(value="/kuponUse", method = RequestMethod.POST)
-	public String kuponUse(
-			HttpSession session,
-			HttpServletRequest request,
-			@RequestParam("pointPolicyValue") int pointPolicyValue ) {
-		String userId = (String) session.getAttribute("id");
-			System.out.println("PointController kuponUse 세션아이디 == "+ userId);
-			
-        return "home";  
-    }*/
 	
 	/*쿠폰 입력*/
 	@RequestMapping(value="/couponUse", produces = "application/text; charset=utf8", method = RequestMethod.POST)
@@ -56,7 +44,7 @@ public class PointController {
 	    }
 	    String pointGoodsCode = randomGoodsCode.toString();	//StringBuffer로 생성된 쿠폰 코드를 데이터베이스에 들어갈수 있도록 String으로 변환
 	    String couponCheck = pointDao.selectCouponCheck(pointGoodsCode);	//랜덤생성코드 중복검사
-			System.out.println(couponCheck + "  == PointController 랜덤생성코드 중복검사");
+		System.out.println(couponCheck + "  == PointController 랜덤생성코드 중복검사");
 		
 		while(pointGoodsCode.equals(couponCheck)){	//랜덤생성코드가 중복되면 중복안될때까지 재생성
 			for(int i = 0; i < 10; i++){
@@ -69,14 +57,8 @@ public class PointController {
 			couponCheck = pointDao.selectCouponCheck(pointGoodsCode);
 		}
 		
-		/*String pointNo = pointDao.pointNo();	//쿠폰번호 검색 후 마지막 +1 입력
-		System.out.println("PointController pointNo = " + pointNo);
-		int pointInserNO = 1;    //DB에 등록된 쿠폰 없을 때 번호의 초기값
-    	if(pointNo != null) {
-    		pointInserNO = Integer.parseInt(pointNo)+1;	//마지막no +1
-*/    		pointDao.insertCoupon(/*"point_"+pointInserNO, */userId, pointPolicyValue, pointGoodsCode);	//쿠폰사용입력 
-    	/*	return "point/point_list";
-    	}*/
+  		pointDao.insertCoupon(userId, pointPolicyValue, pointGoodsCode);	//쿠폰사용입력 
+    	
         return "point/point_list";  
     }
 	
@@ -92,10 +74,10 @@ public class PointController {
 		String userId = (String) session.getAttribute("id");
 		List<PointDto> pointPolicy = pointDao.selectPointPolicy();	//포인트 정책 리스트
 		model.addAttribute("pointPolicy", pointPolicy);
-			System.out.println("PointController 1 포인트정책 " + pointPolicy);
+		System.out.println("PointController 1 포인트정책 " + pointPolicy);
 		
 		List<PointDto> pointUsePolicy = pointDao.selectPointUsePolicy();	//포인트 쿠폰 정책
-			System.out.println("PointController 2 쿠폰 정책 " + pointPolicy);
+		System.out.println("PointController 2 쿠폰 정책 " + pointPolicy);
 		model.addAttribute("pointUsePolicy", pointUsePolicy);
 		
 		int pointUseCount = pointDao.selectPointUseCount(userId);	// 포인트사용내역 게시물 수
@@ -106,7 +88,7 @@ public class PointController {
         model.addAttribute("pointUseCount", pointUseCount);
         model.addAttribute("lastPageUse", lastPageUse);
         model.addAttribute("pointUse", pointUse);
-			System.out.println("PointController 3 포인트 사용 내역 " + pointUse);
+		System.out.println("PointController 3 포인트 사용 내역 " + pointUse);
 		
 		int pointGetCount = pointDao.selectPointGetCount(userId);	// 포인트취득내역 게시물 수
 		int lastPageGet = (int)(Math.ceil(pointGetCount / pagePerRow)+1);	//총 게시물 숫자에 한페이지당 게시물 숫자 나눈값이 총 페이지 숫자
@@ -115,7 +97,7 @@ public class PointController {
         model.addAttribute("pointGetCount", pointGetCount);
         model.addAttribute("lastPageGet", lastPageGet);
         model.addAttribute("pointGet", pointGet);
-			System.out.println("PointController 3 포인트 사용 내역 " + pointGet);	
+		System.out.println("PointController 3 포인트 사용 내역 " + pointGet);	
 		
 		return "point/point_list"; //포인트 리스트
 	}
