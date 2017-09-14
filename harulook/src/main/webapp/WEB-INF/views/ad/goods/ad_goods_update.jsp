@@ -39,7 +39,7 @@ function readURL(input ,id) {
 <body>
 <div class="container">
     <h1>상품 상세보기</h1>
-    <form action="./updateGoods" method="POST" enctype="multipart/form-data">
+    <form class="well well-sm" action="./updateGoods" method="POST" enctype="multipart/form-data">
     <table class="table">
             <tr>
                 <td>상품번호</td>
@@ -48,7 +48,7 @@ function readURL(input ,id) {
             </tr>
             <tr>
                     <th>이미지</th>
-                    <td><img alt="no Image" src="${adgoods.adGoodsImage}" width="500px" height="500px" id="imgView">
+                    <td><img alt="no Image" class="img img-thumbnail" src="${adgoods.adGoodsImage}" width="500px" height="500px" id="imgView">
                     	<input type='file' id="img" class="ad-1" name="adGoodsImage"/><br><br></td>
             </tr>
             <tr>

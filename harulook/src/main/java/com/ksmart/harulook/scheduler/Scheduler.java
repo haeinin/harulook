@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.ksmart.harulook.adcontract.service.AdContractDao;
 import com.ksmart.harulook.adcontract.service.AdContractDto;
+import com.ksmart.harulook.adcontract.service.AdContractInterface;
 import com.ksmart.harulook.hof.service.HofDao;
 import com.ksmart.harulook.partner.service.PartnerDao;
 
@@ -21,15 +21,15 @@ public class Scheduler {
 	private PartnerDao partnerdao;
 	
 	@Autowired
-	private AdContractDao adcontractdao;
+	private AdContractInterface adcontractdao;
 	
 	
 	/*매일 0시 0분 5초에 광고 상태 갱신*/
 	@Scheduled(cron="5 0 0 * * *")
 	public void AdContractScheduler() {
 		try{
-			List<AdContractDto> adContractEndList = adcontractdao.getUpdateEndContract();
-			List<AdContractDto> adContractIngList = adcontractdao.getUpdateIngContract();
+			List<AdContractDto> adContractEndList = adcontractdao.selectUpdateEndContract();
+			List<AdContractDto> adContractIngList = adcontractdao.selectUpdateIngContract();
 			for(int i = 0 ; i<adContractIngList.size(); i++){
 				System.out.println("광고대기 -> 광고진행중 바뀌어야할 갯수 : " + adContractIngList.size());
 				String contractno = adContractIngList.get(i).getAdContractNo();

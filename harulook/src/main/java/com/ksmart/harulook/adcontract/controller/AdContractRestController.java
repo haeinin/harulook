@@ -12,28 +12,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ksmart.harulook.adboard.service.AdBoardDao;
 import com.ksmart.harulook.adboard.service.AdBoardDto;
-import com.ksmart.harulook.adcontract.service.AdContractDao;
-import com.ksmart.harulook.adgoods.service.AdGoodsDao;
+import com.ksmart.harulook.adboard.service.AdBoardInterface;
+import com.ksmart.harulook.adcontract.service.AdContractInterface;
 import com.ksmart.harulook.adgoods.service.AdGoodsDto;
+import com.ksmart.harulook.adgoods.service.AdGoodsInterface;
 
 @RestController
 public class AdContractRestController {
 	
 	@Autowired
-	private AdContractDao adcontractdao;
+	private AdContractInterface adcontractdao;
 	@Autowired
-	private AdBoardDao adBoardDao;
+	private AdBoardInterface adBoardDao;
 	@Autowired
-	private AdGoodsDao adGoodsDao;
+	private AdGoodsInterface adGoodsDao;
 
 	/*광고 종류를 선택했을때 해당광고별 금액 산출(AJAX)*/
 	@RequestMapping(value="/getPrice",method = RequestMethod.POST)
 	public String getPrice(@RequestParam("adtype") String adtype) {
 		System.out.println("광고종류별 금액 요청");
 		System.out.println(adtype);
-		String price = adcontractdao.getPrice(adtype);
+		String price = adcontractdao.selectPrice(adtype);
 		return price;
 	}
 	/*계약기간을 선택헀을때 기간별 할인율 산출(AJAX)*/
@@ -41,7 +41,7 @@ public class AdContractRestController {
 	public String getDc(@RequestParam("adCostNo") String dc) {
 		System.out.println("계약일별 수수료 비율 요청");
 		System.out.println(dc);
-		String dcrate = adcontractdao.getDc(dc);
+		String dcrate = adcontractdao.selectDc(dc);
 		return dcrate;
 	}
 	/* 광고 계약 게시물  상세보기 */

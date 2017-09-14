@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ksmart.harulook.adrefund.service.AdRefundDao;
 import com.ksmart.harulook.adrefund.service.AdRefundDto;
+import com.ksmart.harulook.adrefund.service.AdRefundInterface;
 
 @RestController
 public class AdRefuncdRestController {
 
 	@Autowired
-	private AdRefundDao adrefunddao;
+	private AdRefundInterface adrefunddao;
 	
 	@RequestMapping(value="/insertRefund",method = RequestMethod.POST)
 	public void insertRefund(@RequestParam("conractNo") String contractno
@@ -21,7 +21,7 @@ public class AdRefuncdRestController {
 		System.out.println("광고 환불 등록 요청");
 		System.out.println("계약 번호 : " + contractno + "계약금액 : " + contractprice);
 		AdRefundDto adrefund = new AdRefundDto();
-		String lastrefundNo=adrefunddao.getRefundNo();
+		String lastrefundNo=adrefunddao.selectAdRefundNo();
 		int initRefundNo=1;
 		if(lastrefundNo != null){
 			initRefundNo = Integer.parseInt(lastrefundNo)+1;
@@ -29,6 +29,6 @@ public class AdRefuncdRestController {
 		adrefund.setRefundNo("refund_"+initRefundNo);
 		adrefund.setAdContractNo(contractno);
 		adrefund.setRefundPrice(contractprice);
-		adrefunddao.insertRefund(adrefund);
+		adrefunddao.insertAdRefund(adrefund);
 	}
 }

@@ -22,16 +22,36 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 </head>
 <body>
-	<div id="container">
-	<form action="./insertRefundValue" method="POST">
-		 환불 번호 : <input type="text" name="refundNo" value="${refundNo}"><br><br>
-		 환불 받을 계좌 은행 : <input name="refundPayBank" type="text"><br><br>
-		 환불 받을 계좌 : <input name="refundPayAccount" type="text"><br><br>
-		 예금주  : <input name="refundPayName" type="text"><br><br>
+	<div class="row">
+		<!-- 해더인클루드 -->
+		<c:import url="/WEB-INF/views/module/header.jsp"></c:import>
+	</div>
+		
+	<div class="row">
+		<!-- 좌측 베너 인클루드 -->
+    	<div class="col-xs-1">
+    		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+    	</div>
+    	<div class="col-xs-1"></div>
+	    <div id="div1" class="col-xs-7">
+	    <h1>환불 결제 정보2 </h1>
+	    	<form class="well well-sm" action="./insertRefundValue" method="POST">
+		 		환불 번호 : <input type="text" name="refundNo" value="${refundNo}"><br><br>
+		 		환불 받을 계좌 은행 : <input name="refundPayBank" type="text" value="농협"><br><br>
+		 		환불 받을 계좌 : <input name="refundPayAccount" type="text" value="3333-3333-3333-3333"><br><br>
+		 		예금주  : <input name="refundPayName" type="text" value="하루룩"><br><br>
 		 <button>확인</button>
 	</form>
-	</div>
-	
+	       	</div>
+		<div class="col-xs-1"></div>
+		<!-- 우측 베너 인클루드 -->
+        <div class="col-xs-2">
+    		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
+       	</div>
+
+ 	</div>
+	    <!-- 하단 인클루드 -->
+	    <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>   
 	
 	
 </body>

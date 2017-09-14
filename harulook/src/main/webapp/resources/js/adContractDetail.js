@@ -38,7 +38,7 @@ function adContractDetail(msg) {
 		adDetailContent += '<a href='+msg.goods[3].adGoodsLink+'><img id="adGoods2Img" alt="no image" style="width: 250px; height: 250px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.goods[3].adGoodsImg+'"></a><br><br>';
 	}	
 	adDetailContent += '광고 설명 : ' +msg.adBoard[1].adBoardContent+'<br>';
-	adDetailContent += '<a class="btn btn-info" href="./adBoardUpdate?adContractNo='+msg.adBoard[0].adContractNo+'">수정</a>'
+	adDetailContent += '<a float: right class="btn btn-info" href="./adBoardUpdate?adContractNo='+msg.adBoard[0].adContractNo+'">수정</a>'
 	adDetailContent += '</div>';
 	$('#adDetailContent').html(adDetailContent);
 	}

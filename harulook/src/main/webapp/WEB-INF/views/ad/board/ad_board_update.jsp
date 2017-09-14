@@ -25,9 +25,11 @@
 		console.log('${goodscount[0]}');
 		console.log('${goodscount[1]}');
 		var i = ${adboardcount};
-		$('#ad-2').hide();
-		if ('${adboardcount==1}') {
+		if (i==1) {
 			$('#ad-2').hide();
+		}else if(i==2){
+			$('#ad-2').show();
+			$('#adAdd').hide();
 		}
 
 		$('#adAdd').click(function() {
@@ -72,7 +74,6 @@
 			console.log(id);
 			readURL(this, id);
 			ad2GoodsCount = 1;
-			i++;
 			$('#ad2GoodsCount').val(ad2GoodsCount);
 			console.log('ad-2 광고 갯수 : ' + ad2GoodsCount);
 		});
@@ -108,6 +109,7 @@
 		})
 		/* 등록버튼을 눌렀을 경우 i에 담겨있는 게시물의 값을 adBoardCount를 아이디로 가지는 input에 옮긴다  그리고 서브밋을 한다. */
 		$('#ok').click(function() {
+			$('#adBoardCount').val(i);
 
 			/* 온도선택에서 온도를 골랐을때 숨겨진 input상자에다가 최저온도 최고온도를 셋팅 */
 
@@ -154,9 +156,65 @@
 			}
 			console.log('최고온도1: ' + $('#ad-2adBoardTempMax').val());
 			console.log('최저온도 : ' + $('#ad-2adBoardTempMin').val());
-			$('#adBoardCount').val(i);
-			$('#insert').submit();
-		});
+	    		if($('#ad-1adBoardContent').val()==''){
+	    			alert('첫번째 게시물의 설명을 입력해주세요');
+	    			$('#ad-1adBoardContent').focus();
+	    		}
+	    		if($('#ad-1tempselect').val()==''){
+	    			alert('첫번째 게시물의 온도를 설정하세요.');
+	    			$('#ad-1tempselect').focus();
+	    			$('#ad-1tempselectalert').show();
+	    		}
+	    		if($('#ad-1adBoardImg').val()==''){
+	    			alert('첫번째 게시물의 메인사진을 입력해주세요.');
+	    			$('#ad-1adBoardImg').focus();
+	    		}
+	    		if($('#ad-1adGoods1Img').val()==''){
+	    			alert('첫번째 게시물의 첫번째 상품의 사진을 입력해주세요.');
+	    			$('#ad-1adGoods1Img').focus();
+	    		}if($('#ad-1adGoods1Img').val()!=''){	    			
+	    			if($('#ad-1adGoods1Link').val()==''){
+	    			alert('첫번째 게시물의 첫번째 상품의 링크를 입력해주세요.');
+	    			$('#ad-1adGoods1Link').focus();
+	    				}
+	    		}if($('#ad-1adGoods2Img').val()!=''){
+	    			if($('#ad-1adGoods2Link').val()==''){
+	    				alert('첫번째 게시물의 두번째 상품의 링크를 입력해주세요.');
+	    				$('#ad-1adGoods2Link').focus();
+	    			}
+	    		}
+	    		if(i==1){
+	    			if($('#ad-1adBoardContent').val()!='' && $('#ad-1tempselect').val()!='' && $('#ad-1adBoardImg').val()!='' && $('#ad-1adGoods1Img').val()!=''){
+	    				$('#insert').submit();
+	    			}
+	    		}
+	    		if(i==2){
+	    			if($('#ad-2tempselect').val()==''){
+	    				alert('두번째 게시물의 온도를 설정하세요.');
+	    				$('#ad-2tempselect').focus();
+	    			}if($('#ad-2adBoardImg').val()==''){
+	    				alert('두번째 게시물의 메인 사진을 입력해주세요.');
+	    				$('#ad-2adBoardImg').focus();
+	    			}if($('#ad-2adGoods1Img').val()==''){
+	    				alert('두번째 게시물의 첫번째 상품의 사진을 입력해주세요.');
+	    				$('#ad-2adGoods1Img').focus();
+	    			}if($('#ad-2adGoods1Img').val()!==''){
+    					if($('#ad-2adGoods1Link').val()==''){
+    						alert('두번째 게시물의 첫번째 상품의 링크를 입력해주세요.');
+    						$('#ad-2adGoods1Link').focus();
+    					}
+    				}if($('#ad-2adGoods2Img').val()!=''){
+    					if($('#ad-2adGoods2Link').val()==''){
+    						alert('두번째 게시물의 두번째 상품의 링크를 입력해주세요.');
+    						$('#ad-2adGoods2Link').focus();
+    					}
+    				}
+    				
+	    		}
+	    		if($('#ad-2adBoardContent').val()!='' && $('#ad-2tempselect').val()!='' && $('#ad-2adBoardImg').val()!='' && $('#ad-2adGoods1Img').val()!=''){
+    				$('#insert').submit();
+    			}
+	    	});
 		/***************************************************/
 		/* 취소 버튼을 눌렀을때 광고 숨김 및 내용 삭제 */
 		$('#ad-1cancel').click(function() {
@@ -202,23 +260,28 @@
 </head>
 <body>
 	<!-- 해더인클루드 -->
+	<div class="row">
 	<c:import url="../../module/header.jsp"></c:import>
+	</div>
 	<!-- 바디 인클루드 -->
 	<div class="row">
 		<!-- 좌측 베너 인클루드 -->
     	<div class="col-xs-1">
     		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
-		<div id="div1" class="col-xs-9">
+    	<div class="col-xs-1"></div>
+		<div id="div1" class="col-xs-7">
 
 			<div id="container">
 				<h2>광고 게시물 수정하기</h2>
 				계약 번호 : ${sessionScope.adContractNo} <br>
 				게시물 수 :	${adboardcount} <br>
+				하이 : ${adboardlist[1].adBoardTempMin}
 
 				<form id='insert' action="./adBoardUpdate" enctype="multipart/form-data" method="post">
-					<div id='ad-1'>
-						온도 : 온도선택 <select id="ad-1tempselect" class="ad-1">
+					<div id='ad-1' class="well">
+						온도 : 온도선택
+						<select id="ad-1tempselect" class="ad-1">
 							<c:if test="${adboardlist[0].adBoardTempMin==-100}">
 								<option value="temp-5">-5도 이하</option>
 							</c:if>
@@ -245,17 +308,17 @@
 							<option value="temp2430">24도~30도</option>
 							<option value="temp30">30도 이상</option>
 						</select><br> <br> 대표이미지 등록<br>
-						<br> <img id="ad-1adBoardImgView" src="${adboardlist[0].adBoardImg}" alt="your image" width="300px" height="300px" class="ad-1" />
+						<br> <img id="ad-1adBoardImgView" src="${adboardlist[0].adBoardImg}" alt="your image" width="300px" class="ad-1 img-responsive" />
 							 <input type='file' id="ad-1adBoardImg" class="ad-1" name="adBoardImage" value="${adboardlist[0].adBoardImg}" /><br>
 						<br>
 						<br> 상세상품이미지 등록<br>
 						<br> 상세제품1 이미지<br> 
-							 <img id="ad-1adGoods1ImgView" src="${adgoods[0].adGoodsImg}" alt="your image" width="300px" height="300px" class="ad-1" />
+							 <img id="ad-1adGoods1ImgView" src="${adgoods[0].adGoodsImg}" alt="your image" width="300px" class="ad-1 img-responsive" />
 					    	 <input type='file' id="ad-1adGoods1Img" class="ad-1" name="adGoodsImage" value="${adgoods[0].adGoodsImg}"/><br>
 						<br> 상세제품1에 해당하는 링크<br>
 						<br> <input type="text" id="ad-1adGoods1Link" class="ad-1" name="adGoodsLink" value="${adgoods[0].adGoodsLink}"><br>
 						<br> 상세제품2 이미지<br>
-							 <img id="ad-1adGoods2ImgView" src="${adgoods[1].adGoodsImg}" alt="your image" width="300px" height="300px" class="ad-1" />
+							 <img id="ad-1adGoods2ImgView" src="${adgoods[1].adGoodsImg}" alt="your image" width="300px" class="ad-1 img-responsive" />
 							 <input type='file' id="ad-1adGoods2Img" class="ad-1" name="adGoodsImage" value="${adgoods[1].adGoodsImg}"/><br>
 						<br> 상세제품2에 해당하는 링크<br>
 						<br> <input type="text" id="ad-1adGoods2Link" class="ad-1" name="adGoodsLink" value="${adgoods[1].adGoodsLink}"><br>
@@ -273,21 +336,26 @@
 						<br>
 						<button type="button" id="ad-1cancel" class="cancel">취소</button>
 					</div>
-					<div id='ad-2'>
+					<div id='ad-2' class="well">
 						<br> 온도 : 온도선택 <select name="temp" id="ad-2tempselect" class="ad-2">
-							<option
-								<c:if test="${adboardlist[1].adBoardTempMin==-100}">
-						<option value="temp-5">-5도 이하</option></c:if>
-								<c:if test="${adboardlist[1].adBoardTempMin==5}">
-						<option value="temp-55">-5도~5도</option></c:if>
-								<c:if test="${adboardlist[1].adBoardTempMin==5}">
-						<option value="temp515">5도~15도</option></c:if>
-								<c:if test="${adboardlist[1].adBoardTempMin==15}">
-						<option value="temp1524">15도~24도</option></c:if>
-								<c:if test="${adboardlist[1].adBoardTempMin==24}">
-						<option value="temp2430">24도~30도</option></c:if>
-								<c:if test="${adboardlist[1].adBoardTempMin==30}">
-						<option value="temp30">30도 이상</option></c:if>></option>
+						<c:if test="${adboardlist[1].adBoardTempMin==-100}">
+							<option value="temp-5">-5도 이하</option>
+						</c:if>
+						<c:if test="${adboardlist[1].adBoardTempMin==5}">
+							<option value="temp-55">-5도~5도</option>
+						</c:if>
+						<c:if test="${adboardlist[1].adBoardTempMin==5}">
+							<option value="temp515">5도~15도</option>
+						</c:if>
+						<c:if test="${adboardlist[1].adBoardTempMin==15}">
+							<option value="temp1524">15도~24도</option>
+						</c:if>
+						<c:if test="${adboardlist[1].adBoardTempMin==24}">
+							<option value="temp2430">24도~30도</option>
+						</c:if>
+						<c:if test="${adboardlist[1].adBoardTempMin==30}">
+							<option value="temp30">30도 이상</option>
+						</c:if>
 							<option></option>
 							<option value="temp-5">-5도 이하</option>
 							<option value="temp-55">-5도~5도</option>
@@ -296,16 +364,16 @@
 							<option value="temp2430">24도~30도</option>
 							<option value="temp30">30도 이상</option>
 						</select><br> <br> 대표이미지 수정<br> <img id="ad-2adBoardImgView"
-							src="#" alt="your image" width="300PX" height="300PX"
-							class="ad-2" /> <input type='file' id="ad-2adBoardImg"
+							src="${adboardlist[1].adBoardImg}" alt="your image" width="300PX"
+							class="ad-2 img-responsive" /> <input type='file' id="ad-2adBoardImg"
 							class="ad-2" name="adBoardImage" /><br> <br>
 						<br> 상세상품이미지 등록<br>
 						<br> 상세제품1 이미지 <br>
-						 	<img id="ad-2adGoods1ImgView" src="${adgoods[2].adGoodsImg}" alt="your image" width="300PX" height="300PX" class="ad-2" />
+						 	<img id="ad-2adGoods1ImgView" src="${adgoods[2].adGoodsImg}" alt="your image" width="300px" class="ad-2 img-responsive" />
 							<input type='file' id="ad-2adGoods1Img" class="ad-2" name="adGoodsImage" value="${adgoods[2].adGoodsImg}" /><br>
 						<br> 상세제품1에 해당하는 링크<br>
 						<br> <input type="text" id="ad-2adGoods1Link" class="ad-2" name="adGoodsLink" value="${adgoods[2].adGoodsLink }"><br>
-						<br> 상세제품2 이미지 <img id="ad-2adGoods2ImgView" src="${adgoods[3].adGoodsImg}" alt="your image" width="300PX" height="300PX" class="ad-2" />
+						<br> 상세제품2 이미지 <img id="ad-2adGoods2ImgView" src="${adgoods[3].adGoodsImg}" alt="your image" width="300px" class="ad-2 img-responsive" />
 							<input type='file' id="ad-2adGoods2Img" class="ad-2" name="adGoodsImage" value="${adgoods[3].adGoodsImg}" /><br>
 						<br> 상세제품2에 해당하는 링크<br>
 						<br> <input type="text" class="ad-2" name="adGoodsLink" value="${adgoods[3].adGoodsLink}"><br>

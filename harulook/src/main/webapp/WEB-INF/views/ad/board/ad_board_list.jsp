@@ -23,7 +23,6 @@
 
 $(document).ready(function(){
 	$('.adBoards').click(function(){
-		alert('됨?');
 		var index = $('.adBoards').index(this);
 		var adBoardNo = adBoardNoVal[index].value;
 		console.log('index : ',index);
@@ -37,9 +36,10 @@ $(document).ready(function(){
 			datatype : 'json',
 			success : function(msg) {
 				adBoardDetail(msg);
+				$('#adModal').modal(); 
 			}
 		});
-		$('#adModal').modal(); 
+		
 	});
 });
 </script>
@@ -64,5 +64,29 @@ $(document).ready(function(){
 			</div>
 			</c:forEach>
 			</div>
+			<!-- 광고 게시물 상세보기 모달 -->
+		<div class="modal fade" id="adModal" role="dialog">
+		    <div id="modalFrame" class="modal-dialog modal-lg" >
+				<div id="adDetail" class="modal-content">
+			        <div class="row">
+			        	<div class="col-sm-8">
+			        	<!-- 광고 메인 이미지 영역 -->
+				        <div class="modal-body" style="padding-bottom: 0; padding-top: 0;">
+							<div id="adMainImg"></div>
+			        	</div>
+			        	</div>
+			        	<!-- 광고 메인 이미지 영역 -->
+			        	<div class="col-xs-4">
+			        	<!-- 광고 상세 상품 내용 영역 -->
+				        <div id="adDetailContent">
+						</div>
+						</div>
+						<!-- 강고 상세 상품 내용 영역 -->
+				     </div>
+				</div>
+			</div>
+		</div>
+	<!-- 광고 게시물 상세보기 모달 -->
+	
 </body>
 </html>

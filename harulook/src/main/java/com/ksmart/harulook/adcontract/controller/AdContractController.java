@@ -12,26 +12,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.ksmart.harulook.adcontract.service.AdContractDao;
+
 import com.ksmart.harulook.adcontract.service.AdContractDto;
-import com.ksmart.harulook.adrefund.service.AdRefundDao;
+import com.ksmart.harulook.adcontract.service.AdContractInterface;
 import com.ksmart.harulook.adrefund.service.AdRefundDto;
+import com.ksmart.harulook.adrefund.service.AdRefundInterface;
 
 
 @Controller
 public class AdContractController {
 	@Autowired
-	private AdContractDao adcontractdao;
+	private AdContractInterface adcontractdao;
 	
 	@Autowired
-	private AdRefundDao adrefunddao;
+	private AdRefundInterface adrefunddao;
 	/************/
 	@RequestMapping(value="/contractDoingCancel",method = RequestMethod.GET)
 	public String contractDoingCancel(@RequestParam("adContractNo") String adcontractno
 								   ,@RequestParam("adContractEnd") String adcontractend
 								   ,HttpSession session){
 		System.out.println("진행중인 광고 게시물 취소 요청");
-		adcontractdao.modifyContractStat(adcontractno);
+		adcontractdao.updateContractStat(adcontractno);
 		AdRefundDto adrefund = new AdRefundDto();
 		adrefund.setAdContractNo(adcontractno);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -48,18 +49,17 @@ public class AdContractController {
 			System.out.println("잔여 일자 : " + caldate);
 			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		adrefund.setRefundPrice(caldate*100000*0.9);
 		int initRefundNo = 1;
-		String lastRefundNo = adrefunddao.getRefundNo();
+		String lastRefundNo = adrefunddao.selectAdRefundNo();
 		if(lastRefundNo != null){
 			initRefundNo = Integer.parseInt(lastRefundNo) + initRefundNo;
 		}
 		adrefund.setRefundNo("refund_"+initRefundNo);
 		adrefund.setUserId((String)session.getAttribute("id"));
-		adrefunddao.insertRefund(adrefund);
+		adrefunddao.insertAdRefund(adrefund);
 		return "redirect:/adContractList";
 	}
 	@RequestMapping(value="/contractBadCancel",method = RequestMethod.GET)
@@ -83,18 +83,17 @@ public class AdContractController {
 			caldate = Math.abs(caldate);
 			
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		adrefund.setRefundPrice(caldate*100000*0.5);
 		int initRefundNo = 1;
-		String lastRefundNo = adrefunddao.getRefundNo();
+		String lastRefundNo = adrefunddao.selectAdRefundNo();
 		if(lastRefundNo != null){
 			initRefundNo = Integer.parseInt(lastRefundNo) + initRefundNo;
 		}
 		adrefund.setRefundNo("refund_"+initRefundNo);
 		adrefund.setUserId((String)session.getAttribute("id"));
-		adrefunddao.insertRefund(adrefund);
+		adrefunddao.insertAdRefund(adrefund);
 		return "redirect:/adContractList";
 	}
 	
@@ -126,9 +125,9 @@ public class AdContractController {
 		List<AdContractDto> adContractListApproveWait = null;
 		List<AdContractDto> adContractListAdBoardInsertWait = null;
 		List<AdContractDto> adContractCancelRequest = null;
-		AdContractDto adContractPlace1 = adcontractdao.getAdContractListCurrentPlace1();
-		AdContractDto adContractPlace2 = adcontractdao.getAdContractListCurrentPlace2();
-		AdContractDto adContractPlace3 = adcontractdao.getAdContractListCurrentPlace3();
+		AdContractDto adContractPlace1 = adcontractdao.selectAdContractListCurrentPlace1();
+		AdContractDto adContractPlace2 = adcontractdao.selectAdContractListCurrentPlace2();
+		AdContractDto adContractPlace3 = adcontractdao.selectAdContractListCurrentPlace3();
 		
 		System.out.println("현재 진행중인 광고 리스트 요청");
 		String SA = (String)session.getAttribute("level");
@@ -136,16 +135,16 @@ public class AdContractController {
 			System.out.println(SA);
 			System.out.println(SID);
 		if(SA.equals("관리자")){
-			adContractListSoon = adcontractdao.getAdContractSoonList();
-			adContractListApproveWait = adcontractdao.getAdContractApproveWaitList();
-			adContractListAdBoardInsertWait = adcontractdao.getAdContractAdBoardInsertWaitList();
-			adContractCancelRequest = adcontractdao.getAdContractCancelRequestList();
+			adContractListSoon = adcontractdao.selectAdContractSoonList();
+			adContractListApproveWait = adcontractdao.selectAdContractApproveWaitList();
+			adContractListAdBoardInsertWait = adcontractdao.selectAdBoardAdContractStatInsertWaitList();
+			adContractCancelRequest = adcontractdao.selectAdContractCancelRequestList();
 			System.out.println("권한 : " + SA + "모든광고 예정 계약 리스트 출력");
 		}else if(SA.equals("사업자")){
-			adContractListSoon = adcontractdao.getAdContractSoonList(SID);
-			adContractListApproveWait = adcontractdao.getAdContractApproveWaitListByUser(SID);
-			adContractListAdBoardInsertWait = adcontractdao.getAdContractAdBoardInsertWaitListByUser(SID);
-			adContractCancelRequest = adcontractdao.getAdContractCancelRequestList(SID);
+			adContractListSoon = adcontractdao.selectAdContractSoonList(SID);
+			adContractListApproveWait = adcontractdao.selectAdContractApproveWaitListByUser(SID);
+			adContractListAdBoardInsertWait = adcontractdao.selectAdBoardAdContractStatInsertWaitListByUser(SID);
+			adContractCancelRequest = adcontractdao.selectAdContractCancelRequestList(SID);
 			System.out.println("권한 : " + SA + "광고주 ID에 해당하는 광고 예정 계약 리스트 출력");
 		}
 		model.addAttribute("adcontractsoonlist", adContractListSoon);
@@ -168,7 +167,7 @@ public class AdContractController {
 	@RequestMapping(value="/adContractInsert",method = RequestMethod.POST)
 	public String adContractInsert(AdContractDto adcontract,@RequestParam("adDcNo") String adDcNo, Model model, HttpSession session) throws ParseException {
 		System.out.println("세션에 담긴 아이디 : " + (String)session.getAttribute("id"));
-		String lastContractNo=adcontractdao.getContractNo();
+		String lastContractNo=adcontractdao.selectContractNo();
 		int initContractNo=1;
 		int date = 0;
 		if(lastContractNo!=null){
@@ -209,7 +208,7 @@ public class AdContractController {
 	@RequestMapping(value="/deleteContract", method = RequestMethod.GET)
 	public String modifyContractStat(@RequestParam("adContractNo") String adcontractno) {
 		System.out.println("adContractNo : " + adcontractno );
-		adcontractdao.modifyContractStat(adcontractno);
+		adcontractdao.updateContractStat(adcontractno);
 		System.out.println("취소 요청 완료");
 		return "redirect:/adContractList";
 	}
@@ -217,7 +216,7 @@ public class AdContractController {
 	@RequestMapping(value="/approveContract",method = RequestMethod.GET)
 	public String approveContract(@RequestParam("adContractNo") String adcontractno) {
 		System.out.println("adContractNo : " + adcontractno);
-		adcontractdao.approveContractStat(adcontractno);
+		adcontractdao.updateContractStatApprove(adcontractno);
 		System.out.println("광고 승인 완료");
 		return "redirect:/adContractList";	
 	} 
@@ -226,10 +225,10 @@ public class AdContractController {
 	public String approveCancel(@RequestParam("adContractNo") String adcontractno
 							   ,@RequestParam("adConTractPrice") int adcontractprice) {
 		System.out.println("adContractNo : " + adcontractno);
-		adcontractdao.approveCancel(adcontractno);
+		adcontractdao.updateContractStatApproveCancel(adcontractno);
 		System.out.println("계약 취소 승인 완료");
 		int initRefundNo = 1;
-		String lastRefundNo = adrefunddao.getRefundNo();
+		String lastRefundNo = adrefunddao.selectAdRefundNo();
 		if(lastRefundNo != null){
 			initRefundNo = Integer.parseInt(lastRefundNo) + initRefundNo;
 		}
@@ -237,7 +236,7 @@ public class AdContractController {
 		adrefund.setRefundNo("refund_"+initRefundNo);
 		adrefund.setAdContractNo(adcontractno);
 		adrefund.setRefundPrice(adcontractprice);
-		adrefunddao.insertRefund(adrefund);
+		adrefunddao.insertAdRefund(adrefund);
 		System.out.println("환불정보 입력 완료");
 		return "redirect:/adContractList";	
 	} 

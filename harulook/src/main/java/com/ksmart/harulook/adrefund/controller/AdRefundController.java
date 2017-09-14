@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.ksmart.harulook.adrefund.service.AdRefundDao;
 import com.ksmart.harulook.adrefund.service.AdRefundDto;
+import com.ksmart.harulook.adrefund.service.AdRefundInterface;
 import com.ksmart.harulook.adrefundpay.service.AdRefundPayDao;
 import com.ksmart.harulook.adrefundpay.service.AdRefundPayDto;
 @Controller
 public class AdRefundController {
 	@Autowired
-	private AdRefundDao adrefunddao;
+	private AdRefundInterface adrefunddao;
 	
 	@RequestMapping(value="/selectRefund", method = RequestMethod.GET)
 	public String getRefundList(Model model, HttpSession session){
@@ -28,9 +28,9 @@ public class AdRefundController {
 		String SID = (String)session.getAttribute("id");
 		List<AdRefundDto> adrefundlist = null;
 		if(SLEVEL.equals("관리자")){
-			adrefundlist = adrefunddao.getRefundList();
+			adrefundlist = adrefunddao.selectAdRefundList();
 		}else if(SLEVEL.equals("사업자")){
-			adrefundlist = adrefunddao.getRefundList(SID);
+			adrefundlist = adrefunddao.selectAdRefundList(SID);
 		}
 		model.addAttribute("adrefundlist", adrefundlist);
 		System.out.println(adrefundlist);
@@ -48,7 +48,7 @@ public class AdRefundController {
 							  ,@RequestParam("refundNo") String refundNo){
 		System.out.println("환불번호 : " + refundNo);
 		model.addAttribute("refundNo", refundNo);
-		adrefunddao.approveRefund(refundNo);
+		adrefunddao.updateAdContractStatApproveRefund(refundNo);
 		return "redirect:/selectRefund";
 	}
 	
