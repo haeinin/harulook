@@ -128,7 +128,7 @@ function boardSearch(){
 					boardHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
 					boardHtml += '<div class="sns-photo-box cursor-click" value="'+data[i].snsBoardNo+'">';
 					boardHtml += '<div class="image-wrap">';
-					boardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
+					boardHtml += '<img style="display: inline-block; width: 100%; min-height: 100%;" height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data[i].snsBoardImg+'">';
 					boardHtml += '<div class="likes">';
 					boardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
 					boardHtml += '<span class="center">&nbsp;'+data[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
@@ -257,8 +257,8 @@ $(function(){
 				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
 					<div class="sns-photo-box cursor-click">
 						<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
-						<div class="image-wrap">
-							<img style="height: auto; max-width: 100%; max-height: 100%; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
+						<div class="image-wrap" style="float: left; margin: 5px; overflow: hidden;">
+							<img style="display: inline-block; width: 100%; min-height: 100%;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
 							<div class="likes">
 								<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>
 								<span class="center">&nbsp;${b.snsLikeCount}&nbsp;&nbsp;&nbsp;</span>

@@ -110,8 +110,8 @@ function popBoardSearch(){
 				for(var i=0; i<data.list.length; i++) {
 					popBoardHtml += '<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >';
 					popBoardHtml += '<div class="sns-pop-photo-box cursor-click" value="'+data.list[i].snsBoardNo+'">';
-					popBoardHtml += '<div class="image-wrap">';
-					popBoardHtml += '<img style="max-width: 300px; max-height: 300px; width: auto; height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.list[i].snsBoardImg+'">';
+					popBoardHtml += '<div class="image-wrap" style="float: left; margin: 5px; overflow: hidden;">';
+					popBoardHtml += '<img style="display: inline-block; width: 100%; min-height: 100%;" height: auto" alt="no image" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+data.list[i].snsBoardImg+'">';
 					popBoardHtml += '<div class="likes">';
 					popBoardHtml += '<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>';
 					popBoardHtml += '<span class="center">&nbsp;'+data.list[i].snsLikeCount+'&nbsp;&nbsp;&nbsp;</span>';
@@ -173,8 +173,8 @@ $(function(){
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
 				<div class="sns-pop-photo-box cursor-click">
 					<input type="hidden" id="boardNo" value="${b.snsBoardNo}">
-					<div class="image-wrap">
-						<img style="max-width: 300px; max-height: 300px; width: auto; height: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
+					<div class="image-wrap" style="float: left; margin: 5px; overflow: hidden;">
+						<img style="display: inline-block; width: 100%; min-height: 100%;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.snsBoardImg}">
 						<div class="likes">
 							<i class="material-icons center" style="color:#FFB2F5;font-size:24px;">thumb_up</i>
 							<span class="center">&nbsp;${b.snsLikeCount}&nbsp;&nbsp;&nbsp;</span>
