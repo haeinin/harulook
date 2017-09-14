@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ksmart.harulook.point.service.PointDao;
+import com.ksmart.harulook.point.service.PointInterface;
 
 @RestController
 public class PointRestController {
 	@Autowired
-    private PointDao pointDao;
+    private PointInterface pointDao;
 
 	/*마이페이지 포인트확인*/
 	@RequestMapping(value="/myPagePoint", method = {RequestMethod.GET, RequestMethod.POST})

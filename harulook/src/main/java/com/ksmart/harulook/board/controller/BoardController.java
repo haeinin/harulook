@@ -20,11 +20,11 @@ import com.ksmart.harulook.board.service.BoardDao;
 import com.ksmart.harulook.board.service.BoardDto;
 import com.ksmart.harulook.comment.service.CommentDao;
 import com.ksmart.harulook.comment.service.CommentDto;
-import com.ksmart.harulook.follow.service.FollowDao;
+import com.ksmart.harulook.follow.service.FollowInterface;
 import com.ksmart.harulook.like.service.LikeDao;
-import com.ksmart.harulook.member.service.MemberDao;
 import com.ksmart.harulook.member.service.MemberDto;
-import com.ksmart.harulook.point.service.PointDao;
+import com.ksmart.harulook.member.service.MemberInterface;
+import com.ksmart.harulook.point.service.PointInterface;
 import com.ksmart.harulook.util.UtilFile;
 
 @Controller
@@ -40,13 +40,13 @@ public class BoardController {
 	private LikeDao likeDao;
 	
 	@Autowired
-    private PointDao pointDao;
+    private PointInterface pointDao;
 	
 	@Autowired
-    private MemberDao memberDao;
+    private MemberInterface memberDao;
 	
 	@Autowired
-    private FollowDao followDao;
+    private FollowInterface followDao;
 	
 	/* sns게시물 태그 검색 */
 	@RequestMapping(value="/boardTagSearch", method = RequestMethod.GET)
@@ -396,7 +396,7 @@ public class BoardController {
         String pointCehck = pointDao.selectPointCehck(board.getUserId(), pointPolicyNo);	//today 포인트 취득 검색
         	System.out.println("BoardController 포인트 입력하기 위한 오늘 포인트 검색 = " + pointCehck);
        
-        if(boardPointCheck > 0 && pointCehck == null){	//하루 + 게시물 1 이상 등록하면 포인트 제공 포인트 중복 취득 불가 조건문
+        if(boardPointCheck == 0 && pointCehck == null){	//하루 + 게시물 1 이상 등록하면 포인트 제공 포인트 중복 취득 불가 조건문
         	System.out.println("BoardController 게시물 등록할때 하루 첫번째 등록 포인트도 같이 등록 ");
         	pointDao.insertPointGet(board.getUserId(), pointPolicyNo);	//취득포인트입력
         }	

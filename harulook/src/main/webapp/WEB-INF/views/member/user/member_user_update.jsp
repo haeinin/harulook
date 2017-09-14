@@ -561,10 +561,10 @@
 					        	<label style="letter-spacing:11.3px" for="user_addr">주&nbsp;&nbsp;소</label>
 					            <!-- <input name="userAddr" id="user_addr" type="text"/><br> -->
 					        	
-					        	<input type="text" id="sample4_postcode" placeholder="우편번호">
+					        	<input type="text" id="sample4_postcode" placeholder="우편번호" value="579379" readonly>
 								<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-								<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-								<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소" value="${userDetail.userAddr}"><br><br>
+								<input type="text" id="sample4_roadAddress" placeholder="도로명주소" value="${userDetail.userAddr}" readonly>
+								<input name="userAddr" type="text" id="sample4_jibunAddress" placeholder="지번주소" value="${userDetail.userAddr}" readonly><br><br>
 								<span id="guide" style="color:#999"></span>
 					        	    	
 					        	<!-- 성별 -->
@@ -596,7 +596,7 @@
 					            <select class="" style="WIDTH: 131pt; HEIGHT: 20pt" name="userTall" id="user_tall">
 									<option>${userDetail.userTall}</option>
 					            	<option>큰키</option>
-					            	<option>보통</option>
+					            	<option>보통키</option>
 					            	<option>작은키</option>
 				            	</select>
 					      		</div>

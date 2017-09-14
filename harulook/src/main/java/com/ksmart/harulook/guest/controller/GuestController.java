@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ksmart.harulook.guest.service.GuestDao;
 import com.ksmart.harulook.guest.service.GuestDto;
+import com.ksmart.harulook.guest.service.GuestInterface;
 
 @Controller
 public class GuestController {
 	
 	@Autowired
-    private GuestDao guestDao;
+    private GuestInterface guestDao;
 	
 	/*게스트입력*/
 	@RequestMapping(value="/guestAdd", produces = "application/text; charset=utf8", method = RequestMethod.POST)
@@ -54,12 +54,12 @@ public class GuestController {
 		List<GuestDto> monthlyGuest = guestDao.selectMonthlyGuest();	//월간
 		List<GuestDto> weeklyGuest = guestDao.selectWeeklyGuest();	//주간
 		List<GuestDto> dailyGuest = guestDao.selectdailyGuest();	//일일
-			System.out.println("GuestController dailyGuest == " + dailyGuest);
+		System.out.println("GuestController dailyGuest == " + dailyGuest);
 		
 		model.addAttribute("monthlyGuest", monthlyGuest);
 		model.addAttribute("weeklyGuest", weeklyGuest);
 		model.addAttribute("dailyGuest", dailyGuest);
-			System.out.println("GuestController model == " + model);
+		System.out.println("GuestController model == " + model);
 		return "guest/guest_list"; //방문자 리스트
 	}
 }

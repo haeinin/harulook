@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ksmart.harulook.follow.service.FollowDao;
+import com.ksmart.harulook.follow.service.FollowInterface;
 
 @RestController
 public class FollowRestController {
 
 	@Autowired
-    private FollowDao followDao;
+    private FollowInterface followDao;
 	
 	/////////////////////////////////////////게시판이랑 연동되도록 수정 요망
 	/*팔로우 체크*/

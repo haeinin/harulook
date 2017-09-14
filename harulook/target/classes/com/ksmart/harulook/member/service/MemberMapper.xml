@@ -39,23 +39,23 @@
 		
 		<!-- 비밀번호찾기 -->
      	<select id="pwFindForm" parameterType="java.util.Map" resultType="String">
-			select user_level
-			from user
-			where user_id = #{userId}
-			and user_nick = #{userNick}
-			and user_q = #{userQ}
-			and user_a = #{userA}
+			SELECT user_level
+			FROM user
+			WHERE user_id = #{userId}
+			AND user_nick = #{userNick}
+			AND user_q = #{userQ}
+			AND user_a = #{userA}
 			;
     	</select>
 		
 		<!-- 아이디찾기 -->
      	<select id="idFindForm" parameterType="java.util.Map" resultType="String">
-			select user_id
-			from user
-			where user_nick = #{userNick}
-			and user_pw = (HEX(AES_ENCRYPT(#{userPw},'MINGU')))
-			and user_q = #{userQ}
-			and user_a = #{userA}
+			SELECT user_id
+			FROM user
+			WHERE user_nick = #{userNick}
+			AND user_pw = (HEX(AES_ENCRYPT(#{userPw},'MINGU')))
+			AND user_q = #{userQ}
+			AND user_a = #{userA}
 			;
     	</select>
 		
@@ -63,40 +63,41 @@
      	<select id="deleteUserInsert" parameterType="java.util.Map">
 			INSERT INTO delete_user(
 				user_id
-				, delete_date
+				,delete_date
 			)
 			VALUES (
 				#{userId}
-				, date(now())
+				,date(now())
 			);
     	</select>
 		
 		<!-- user회원삭제 -->
      	<select id="userDeleteAdd" parameterType="java.util.Map">
-			DELETE FROM user
-			where user_id = #{userId}
+			DELETE 
+			FROM user
+			WHERE user_id = #{userId}
 			;
     	</select>
 		
 		<!-- 회원탈퇴비밀번호체크 -->
      	<select id="userDeletePw" parameterType="java.util.Map" resultType="String">
-			select (AES_DECRYPT(UNHEX(user_pw),'MINGU')) as user_pw
-			from user
-			where user_id = #{userId}
+			SELECT (AES_DECRYPT(UNHEX(user_pw),'MINGU')) as user_pw
+			FROM user
+			WHERE user_id = #{userId}
 			;
 		</select>
 		
 		<!-- 로그인 -->
      	<select id="login" parameterType="java.util.Map" resultMap="member">
-			select user_id, (AES_DECRYPT(UNHEX(user_pw),'MINGU')) as user_pw, user_level, user_nick
-			from user
-			where user_id = #{userId}
+			SELECT user_id, (AES_DECRYPT(UNHEX(user_pw),'MINGU')) as user_pw, user_level, user_nick
+			FROM user
+			WHERE user_id = #{userId}
 			;
     	</select>
 		
 		<!-- 사업자회원정보보기  + 관리자 회원정보-->
      	<select id="businessDetail" parameterType="java.util.Map" resultMap="member">
-			select user_id
+			SELECT user_id
 				,user_nick
 				,user_name
 				,user_email
@@ -111,8 +112,8 @@
 				,user_date
 				,user_q
 				,user_a 
-			from user
-			where user_id = #{userId}
+			FROM user
+			WHERE user_id = #{userId}
 			;
 		</select>
 		
@@ -130,19 +131,19 @@
 		
 		<!-- 회원색상보기 -->
      	<select id="userColor" parameterType="java.util.Map" resultType="String">
-			select color.color_value
-			from user
-			join user_color
-			on user.user_id = user_color.user_id
-			join color
-			on color.color_no = user_color.color_no 
-			where user_color.user_id = #{userId}
+			SELECT color.color_value
+			FROM user
+			JOIN user_color
+			ON user.user_id = user_color.user_id
+			JOIN color
+			ON color.color_no = user_color.color_no 
+			WHERE user_color.user_id = #{userId}
 			;
 		</select>
 		
 		<!-- 일반회원상세정보보기 -->
      	<select id="userDetail" parameterType="java.util.Map" resultMap="member">
-			select user_id
+			SELECT user_id
 				,user_nick
 				,user_name
 				,user_gender
@@ -157,8 +158,8 @@
 				,user_q
 				,user_a
 				,user_img 
-			from user
-			where user_id = #{userId}
+			FROM user
+			WHERE user_id = #{userId}
 			;
 		</select>
 		
@@ -172,15 +173,15 @@
 		
 		<!-- 전체회원리스트쿼리 -->
      	<select id="userList" parameterType="java.util.Map" resultMap="member">
-			select user_id
+			SELECT user_id
 					,user_nick
 					,user_name
 					,user_point
 					,user_date
 					,user_bs_name
 					,user_tel 
-			from user
-			where user_level = #{level}
+			FROM user
+			WHERE user_level = #{level}
 			<if test="userId != null">
 			AND user_id = #{userId}
 			</if>
@@ -190,15 +191,15 @@
     	</select>
     	<!-- 전체회원리스트쿼리 페이지없이 -->
      	<select id="allUserList" parameterType="java.util.Map" resultMap="member">
-			select user_id
+			SELECT user_id
 					,user_nick
 					,user_name
 					,user_point
 					,user_date
 					,user_bs_name
 					,user_tel 
-			from user
-			where user_level = #{level}
+			FROM user
+			WHERE user_level = #{level}
 			<if test="userId != null">
 			AND user_id = #{userId}
 			</if>
@@ -208,27 +209,27 @@
 
 		<!-- 닉네임중복체크 -->
      	<select id="nickcheck" parameterType="java.util.Map" resultType="String">
-			select user_nick
-			from user
-			where user_nick = #{nickcheck}
+			SELECT user_nick
+			FROM user
+			WHERE user_nick = #{nickcheck}
 			;
     	</select>
 
 		<!-- 아이디중복체크 -->
      	<select id="idcheck" parameterType="java.util.Map" resultType="String">
-			select user_id
-			from user
-			where user_id = #{idcheck}
-			union
-			select user_id
-			from delete_user
-			where user_id = #{idcheck}
+			SELECT user_id
+			FROM user
+			WHERE user_id = #{idcheck}
+			UNION
+			SELECT user_id
+			FROM delete_user
+			WHERE user_id = #{idcheck}
 			;
     	</select>
 
 		<!-- 관리자가입입력 -->
      	<insert id="managerinsert" parameterType="com.ksmart.harulook.member.service.MemberDto">
-			insert into user(
+			INSERT INTO user(
 				user_id
 				,user_pw
 				,user_nick
@@ -246,7 +247,7 @@
 				,user_level
 				,user_date
 			) 
-			values(
+			VALUES(
 				#{userId}
 				,(HEX(AES_ENCRYPT(#{userPw},'MINGU')))
 				,#{userNick}
@@ -268,7 +269,7 @@
 
 		<!-- 사업자가입입력 -->
      	<insert id="businessinsert" parameterType="com.ksmart.harulook.member.service.MemberDto">
-			insert into user(
+			INSERT INTO user(
 				user_id
 				,user_pw
 				,user_nick
@@ -286,7 +287,7 @@
 				,user_level
 				,user_date
 			) 
-			values(
+			VALUES(
 				#{userId}
 				,(HEX(AES_ENCRYPT(#{userPw},'MINGU')))
 				,#{userNick}
@@ -352,12 +353,12 @@
 		
 		<!-- 회원컬러입력 -->
      	<select id="userColorInsert" parameterType="java.util.Map" resultType="String">
-			 insert into user_color(
+			 INSERT INTO user_color(
 				user_color_no
 				,color_no
 				,user_id
 			 )
-			 values(
+			 VALUES(
 			 	#{userColorInsert}
 			 	,#{userColorNo}
 			 	,#{userId}
@@ -366,12 +367,12 @@
 		
 		<!-- 회원스타일입력 -->
      	<select id="userStyleInsert" parameterType="java.util.Map" resultType="String">
-			 insert into user_style(
+			 INSERT INTO user_style(
 				user_style_no
 				,style_no
 				,user_id
 			 )
-			 values(
+			 VALUES(
 			 	#{userStyleInsert}
 			 	,#{userStyleNo}
 			 	,#{userId}
@@ -380,35 +381,37 @@
     	
     	<!-- 회원컬러넘버검색 -->
      	<select id="userColorSelect" resultType="String">
-			select MAX(CAST(substring(user_color_no, 12) AS DECIMAL))
-			from user_color
+			SELECT MAX(CAST(substring(user_color_no, 12) AS DECIMAL))
+			FROM user_color
 			;
     	</select>
 		
 		<!-- 회원스타일넘버검색 -->
      	<select id="userStyleSelect" resultType="String">
-			select MAX(CAST(substring(user_style_no, 12) AS DECIMAL))
-			from user_style
+			SELECT MAX(CAST(substring(user_style_no, 12) AS DECIMAL))
+			FROM user_style
 			;
 		</select>
 		
 		<!-- 회원컬러삭제 -->
      	<select id="userColorDelete" parameterType="java.util.Map">
-			DELETE FROM user_color 
+			DELETE 
+			FROM user_color 
 			WHERE user_id = #{userId}
 			;
     	</select>
 		
 		<!-- 회원스타일삭제 -->
      	<select id="userStyleDelete" parameterType="java.util.Map">
-			DELETE FROM user_style 
+			DELETE 
+			FROM user_style 
 			WHERE user_id = #{userId}
 			;
 		</select>
 		
 		<!-- 일반회원가입입력 -->
      	<insert id="userinsert" parameterType="com.ksmart.harulook.member.service.MemberDto">
-			insert into user(
+			INSERT INTO user(
 				user_id
 				,user_pw
 				,user_nick
@@ -427,7 +430,7 @@
 				,user_date
 				,user_img
 			) 
-			values(
+			VALUES(
 				#{userId}
 				,(HEX(AES_ENCRYPT(#{userPw},'MINGU')))      
 				,#{userNick}

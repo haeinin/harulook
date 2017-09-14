@@ -14,19 +14,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.ksmart.harulook.member.service.MemberDao;
 import com.ksmart.harulook.member.service.MemberDto;
-import com.ksmart.harulook.point.service.PointDao;
+import com.ksmart.harulook.member.service.MemberInterface;
+import com.ksmart.harulook.point.service.PointInterface;
 import com.ksmart.harulook.util.UtilFile;
 
 @Controller
 public class MemberController {
 	
 	@Autowired
-    private MemberDao memberDao;
+    private MemberInterface memberDao;
 	
 	@Autowired
-    private PointDao pointDao;
+    private PointInterface pointDao;
 	
 	/*@Autowired
     private UtilFile utilFile;*/
@@ -59,10 +59,8 @@ public class MemberController {
 			@RequestParam(value="userId", required=true) String id,
 			@RequestParam(value="userPw", required=true) String pw) {
 		System.out.println("MemberController 로그인시 == " + id);
-		
-		MemberDto loginCheck = memberDao.login(id);
-			System.out.println("MemeberController 로그인시 체크되어 받은 아이디loginCheck== " + loginCheck);
-		System.out.println("asdfasdfsadf = = == = = " + loginCheck.getUserPw());
+		MemberDto loginCheck = memberDao.selectlogin(id);
+		System.out.println("MemeberController 로그인시 체크되어 받은 아이디loginCheck== " + loginCheck);
 		if(loginCheck == null){
 			loginCheck = null;
 			System.out.println("아이디틀림");
@@ -81,9 +79,9 @@ public class MemberController {
 					String pointAttendMonth = "point_ex_2";
 					//일반회원일경우에만
 					String attenCheckSelect = pointDao.selectAttenCheck(loginCheck.getUserId());	
-						System.out.println("MemeberController 출석체크 중복검사== " + attenCheckSelect);
+					System.out.println("MemeberController 출석체크 중복검사== " + attenCheckSelect);
 					int attenCheckSelectMonth = pointDao.selectAttenCheckMonth(loginCheck.getUserId());
-						System.out.println("MemeberController 출석체크 한달== " + attenCheckSelectMonth);
+					System.out.println("MemeberController 출석체크 한달== " + attenCheckSelectMonth);
 					//맞춤추천을 위해 세션에 정보 저장	
 					MemberDto userDetail = memberDao.selectUserDetail(id);
 					List<String> userColor = memberDao.selectUserColor(id);
@@ -120,7 +118,7 @@ public class MemberController {
 		System.out.println("member_user_detail 일반회원정보보기할때 받아온 아이디 == " + userId);
 		MemberDto businessDetail = memberDao.selectBusinessDetail(userId);
 		model.addAttribute("businessDetail", businessDetail);
-			System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
+		System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
 		return "member/manager/member_manager_detail"; //일반회원가입폼화면
 	}
 	
@@ -131,7 +129,7 @@ public class MemberController {
 		System.out.println("member_user_detail 일반회원정보보기할때 받아온 아이디 == " + userId);
 		MemberDto businessDetail = memberDao.selectBusinessDetail(userId);
 		model.addAttribute("businessDetail", businessDetail);
-			System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
+		System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
 		return "member/business/member_business_detail"; //일반회원가입폼화면
 	}
 	
@@ -142,16 +140,16 @@ public class MemberController {
 		System.out.println("member_user_detail 일반회원정보보기할때 받아온 아이디 == " + userId);
 		MemberDto userDetail = memberDao.selectUserDetail(userId);
 		model.addAttribute("userDetail", userDetail);
-			System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
+		System.out.println("MemeberController 회원정보보기로 받아온 회원상세데이터들 model==" + model);
 			
 		List<String> userColor = memberDao.selectUserColor(userId);	
 		model.addAttribute("userColor", userColor);
 		
 		List<String> userStyle = memberDao.selectUserStyle(userId);	
 		model.addAttribute("userStyle", userStyle);
-			System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러==" + userColor);
-			System.out.println("MemeberController 회원정보보기로 받아온 회원의스타일==" + userStyle);
-			System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러와스타일 model==" + model);
+		System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러==" + userColor);
+		System.out.println("MemeberController 회원정보보기로 받아온 회원의스타일==" + userStyle);
+		System.out.println("MemeberController 회원정보보기로 받아온 회원의컬러와스타일 model==" + model);
 				
 		return "member/user/member_user_detail"; //일반회원가입폼화면
 	}
@@ -181,12 +179,10 @@ public class MemberController {
 
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("list", list);
-        	System.out.println("MemeberController 셀렉트해서 받아온 일반 회원 리스트 model값 == "+model);
-        return "member/user/member_user_list2";  //아이디중복체크후 화면 그대로
+    	System.out.println("MemeberController 셀렉트해서 받아온 일반 회원 리스트 model값 == "+model);
+        
+    	return "member/user/member_user_list2";  //아이디중복체크후 화면 그대로
     }
-	
-	
-	
 	
 	
 	/*관리자등록액션*/
@@ -211,7 +207,6 @@ public class MemberController {
 			HttpServletRequest request) {
         System.out.println("MemberController 회원정보수정하기" + memberDto);
         memberDao.updateBusiness(memberDto);	// 관리자 광주고 입력데이터
-       
         return "redirect:/home";  //회원가입후 홈화면으로
     }
 	
@@ -257,7 +252,7 @@ public class MemberController {
 	        String[] styleValue = request.getParameterValues("styleValue");
 	        for( int i = 0; i < styleValue.length; i++ ){
 	        	
-	        	String lastStyleNo = memberDao.selctStyle(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	String lastStyleNo = memberDao.selectStyle(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
 	        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
 	        	if(lastStyleNo != null) {
 	        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
@@ -316,7 +311,7 @@ public class MemberController {
 	        String[] styleValue = request.getParameterValues("styleValue");
 	        for( int i = 0; i < styleValue.length; i++ ){
 	        	
-	        	String lastStyleNo = memberDao.selctStyle(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	String lastStyleNo = memberDao.selectStyle(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
 	        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
 	        	if(lastStyleNo != null) {
 	        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
@@ -354,7 +349,7 @@ public class MemberController {
 		}
 		MemberDto businessDetail = memberDao.selectBusinessDetail(userId);
 		model.addAttribute("businessDetail", businessDetail);
-			System.out.println(businessDetail + " == 1280937120398109238102938109381209381093810923089");
+		System.out.println(businessDetail + " == 1280937120398109238102938109381209381093810923089");
 		return "member/business/member_business_update"; //사업자 관리자 수정폼
 	}
 	
@@ -372,15 +367,15 @@ public class MemberController {
 		
 		MemberDto userDetail = memberDao.selectUserDetail(userId);
 		model.addAttribute("userDetail", userDetail);
-			System.out.println("MemeberController 일반회원수정폼 받아온 회원상세데이터들 model==" + model);
+		System.out.println("MemeberController 일반회원수정폼 받아온 회원상세데이터들 model==" + model);
 			
 		List<String> userColor = memberDao.selectUserColor(userId);	
 		model.addAttribute("userColor", userColor);
 		
 		List<String> userStyle = memberDao.selectUserStyle(userId);	
 		model.addAttribute("userStyle", userStyle);
-			System.out.println("MemeberController 일반회원수정폼 받아온 회원의컬러와스타일 model==" + model);
-			System.out.println("member_user_update 일반회원수정홈화면");
+		System.out.println("MemeberController 일반회원수정폼 받아온 회원의컬러와스타일 model==" + model);
+		System.out.println("member_user_update 일반회원수정홈화면");
 		return "member/user/member_user_update"; //일반회원가입폼화면
 	}
 	

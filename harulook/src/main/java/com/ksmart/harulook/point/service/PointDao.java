@@ -9,18 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class PointDao {
+public class PointDao implements PointInterface {
 	@Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 	
 	/*출석체크삭제 */
-    public int deleteAttenCheck(String userId) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#deleteAttenCheck(java.lang.String)
+	 */
+    @Override
+	public int deleteAttenCheck(String userId) {
     	Map<String, String> map = new HashMap<String, String>();
         map.put("userId", userId);
         return sqlSessionTemplate.insert("com.ksmart.harulook.point.service.PointMapper.attenCheckDelete", map);
     }
 	
 	/* 출석체크 한달검색  */
+	/* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#selectAttenCheckMonth(java.lang.String)
+	 */
+	@Override
 	public int selectAttenCheckMonth(String userId) {
 		Map<String, String> map = new HashMap<String, String>();
         map.put("userId", userId);
@@ -28,6 +36,10 @@ public class PointDao {
 	}
 	
 	/* 출석체크검색  */
+	/* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#selectAttenCheck(java.lang.String)
+	 */
+	@Override
 	public String selectAttenCheck(String userId) {
 		Map<String, String> map = new HashMap<String, String>();
         map.put("userId", userId);
@@ -35,14 +47,22 @@ public class PointDao {
 	}
 	
 	/*출석체크입력 */
-    public int insertAttenCheck(String userId) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#insertAttenCheck(java.lang.String)
+	 */
+    @Override
+	public int insertAttenCheck(String userId) {
     	Map<String, String> map = new HashMap<String, String>();
         map.put("userId", userId);
         return sqlSessionTemplate.insert("com.ksmart.harulook.point.service.PointMapper.attenCheckInsert", map);
     }
 	
 	/*포인트취득 */
-    public int insertPointGet(String userId, String pointPolicyNo) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#insertPointGet(java.lang.String, java.lang.String)
+	 */
+    @Override
+	public int insertPointGet(String userId, String pointPolicyNo) {
     	Map<String, String> map = new HashMap<String, String>();
         map.put("userId", userId);
         map.put("pointPolicyNo", pointPolicyNo);
@@ -50,6 +70,10 @@ public class PointDao {
     }
 	
 	/* 포인트등록 게시물 검색  */
+	/* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#selectPointCehck(java.lang.String, java.lang.String)
+	 */
+	@Override
 	public String selectPointCehck(String userId, String pointPolicyNo) {
 		Map<String, String> map = new HashMap<String, String>();
         map.put("userId", userId);
@@ -58,7 +82,11 @@ public class PointDao {
 	}
 	
 	/*쿠폰 중복 검사 */
-    public String selectCouponCheck(String pointGoodsCode) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#selectCouponCheck(java.lang.String)
+	 */
+    @Override
+	public String selectCouponCheck(String pointGoodsCode) {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("pointGoodsCode", pointGoodsCode);
     	return sqlSessionTemplate.selectOne("com.ksmart.harulook.point.service.PointMapper.couponCheck", map);
@@ -71,7 +99,11 @@ public class PointDao {
     }*/
 	
 	/*쿠폰사용 */
-    public int insetCoupon(/*String pointNo, */String userId, int pointPolicyValue, String pointGoodsCode) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#insetCoupon(java.lang.String, int, java.lang.String)
+	 */
+    @Override
+	public int insertCoupon(/*String pointNo, */String userId, int pointPolicyValue, String pointGoodsCode) {
     	Map<Object, Object> map = new HashMap<Object, Object>();
     	/*map.put("pointNo", pointNo);*/
     	map.put("userId", userId);
@@ -82,24 +114,40 @@ public class PointDao {
     }
 	
     /*나의 포인트*/
-    public int selectMyPoint(String userId) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#selectMyPoint(java.lang.String)
+	 */
+    @Override
+	public int selectMyPoint(String userId) {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("userId", userId);
     	return sqlSessionTemplate.selectOne("com.ksmart.harulook.point.service.PointMapper.myPoint", map);
     }
 	
 	/*포인트 정책 리스트*/
-    public List<PointDto> selectPointPolicy() {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#selectPointPolicy()
+	 */
+    @Override
+	public List<PointDto> selectPointPolicy() {
     	return sqlSessionTemplate.selectList("com.ksmart.harulook.point.service.PointMapper.pointPolicy");
     }
     
     /*포인트 쿠폰 정책*/
-    public List<PointDto> selectPointUsePolicy() {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#selectPointUsePolicy()
+	 */
+    @Override
+	public List<PointDto> selectPointUsePolicy() {
     	return sqlSessionTemplate.selectList("com.ksmart.harulook.point.service.PointMapper.pointUsePolicy");
     }
     
     /*포인트 사용 내역*/
-    public List<PointDto> selectPointUse(int currentPage, int pagePerRow, String userId) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#selectPointUse(int, int, java.lang.String)
+	 */
+    @Override
+	public List<PointDto> selectPointUse(int currentPage, int pagePerRow, String userId) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("beginRow", (currentPage-1)*pagePerRow);
 	    map.put("pagePerRow", pagePerRow);
@@ -109,14 +157,22 @@ public class PointDao {
     }
     
     /*포인트 사용 내역 카운트 */
-    public int selectPointUseCount(String userId) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#selectPointUseCount(java.lang.String)
+	 */
+    @Override
+	public int selectPointUseCount(String userId) {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("userId", userId);	
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.point.service.PointMapper.pointUseCount", map);
     }
     
     /*포인트 취득 내역*/
-    public List<PointDto> selectPointGet(int currentPage, int pagePerRow, String userId) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#selectPointGet(int, int, java.lang.String)
+	 */
+    @Override
+	public List<PointDto> selectPointGet(int currentPage, int pagePerRow, String userId) {
     	Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("beginRow", (currentPage-1)*pagePerRow);
 	    map.put("pagePerRow", pagePerRow);
@@ -126,7 +182,11 @@ public class PointDao {
     }
     
     /*포인트 취득 내역 카운트 */
-    public int selectPointGetCount(String userId) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.point.service.PointInterface#selectPointGetCount(java.lang.String)
+	 */
+    @Override
+	public int selectPointGetCount(String userId) {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("userId", userId);	
         return sqlSessionTemplate.selectOne("com.ksmart.harulook.point.service.PointMapper.pointGetCount", map);

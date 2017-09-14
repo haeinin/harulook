@@ -17,8 +17,8 @@ import com.ksmart.harulook.board.service.BoardDto;
 import com.ksmart.harulook.comment.service.CommentDao;
 import com.ksmart.harulook.comment.service.CommentDto;
 import com.ksmart.harulook.like.service.LikeDao;
-import com.ksmart.harulook.member.service.MemberDao;
 import com.ksmart.harulook.member.service.MemberDto;
+import com.ksmart.harulook.member.service.MemberInterface;
 
 // RestController를 이용한 ajax 처리
 @RestController
@@ -34,7 +34,7 @@ public class BoardRestController {
 	private LikeDao likeDao;
 	
 	@Autowired
-	private MemberDao memberDao;
+	private MemberInterface memberDao;
 	
 	/* sns게시물 더 읽어들이기 */
 	@RequestMapping(value="/boardListMore", method = RequestMethod.GET)
