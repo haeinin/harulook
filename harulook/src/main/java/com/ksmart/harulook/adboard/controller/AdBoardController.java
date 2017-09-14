@@ -14,22 +14,22 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ksmart.harulook.util.UtilFile;
-import com.ksmart.harulook.adboard.service.AdBoardDao;
 import com.ksmart.harulook.adboard.service.AdBoardDto;
-import com.ksmart.harulook.adcontract.service.AdContractDao;
-import com.ksmart.harulook.adgoods.service.AdGoodsDao;
+import com.ksmart.harulook.adboard.service.AdBoardInterface;
+import com.ksmart.harulook.adcontract.service.AdContractInterface;
 import com.ksmart.harulook.adgoods.service.AdGoodsDto;
+import com.ksmart.harulook.adgoods.service.AdGoodsInterface;
 
 @Controller
 public class AdBoardController {
 	@Autowired
-	private AdBoardDao adboarddao;
+	private AdBoardInterface adboarddao;
 	@Autowired
 	private UtilFile utilfile;
 	@Autowired
-	private AdContractDao adcontractdao;
+	private AdContractInterface adcontractdao;
 	@Autowired
-	private AdGoodsDao adgoodsdao;
+	private AdGoodsInterface adgoodsdao;
 	
 	
 	@RequestMapping(value="/adBoardUpdate",method = RequestMethod.POST)
@@ -66,16 +66,16 @@ public class AdBoardController {
 		System.out.println("adBoardImage : " + adBoardImages);
 		System.out.println("adGoodsImage : " + adGoodsImages);
 		System.out.println("adGoodsLink : " + request.getParameterValues("adGoodsLink"));
-/*		for(int i = 0; i<adBoardNo.length; i++){
+		for(int i = 0; i<adBoardNo.length; i++){
 			adboarddao.deleteAdBoard(adBoardNo[i]);
 		}
 		for(int i = 0; i<adGoodsNo.length; i++){
 			adgoodsdao.deleteAdGoods(adGoodsNo[i]);
-		}*/
+		}
 		for(int i = 0; i < adBoardCount; i++){
 			int initBoardno = 1;
 			AdBoardDto adboard = new AdBoardDto();
-			String lastboardno = adboarddao.getBoardNo();
+			String lastboardno = adboarddao.selectBoardNo();
 			if(lastboardno != null){
 				initBoardno = Integer.parseInt(lastboardno) + initBoardno;
 			}
@@ -89,7 +89,7 @@ public class AdBoardController {
 			for(int j = k; j < k+Integer.parseInt(adGoodsCount[i]); j++){
 				int initGoodsno = 1;
 				AdGoodsDto adgoods = new AdGoodsDto();
-				String lastgoodsno = adboarddao.getGoodsNo();
+				String lastgoodsno = adboarddao.selectGoodsNo();
 				if(lastgoodsno != null ){
 					initGoodsno = Integer.parseInt(lastgoodsno) + initGoodsno;
 				}
@@ -109,13 +109,13 @@ public class AdBoardController {
 					k=k+1;
 					break;
 				}else{
-				adgoods.setAdGoodsNo("ad_goods_"+(initGoodsno+1));
-				adgoods.setAdGoodsLink(links[j+1]);
-				adgoods.setAdGoodsImg(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j+1)));
-				adgoodsdao.insertAdGoods(adgoods);
-				adboard.setAdBoardGoods2(adgoods.getAdGoodsNo());
-				System.out.println("i : " + i + " j :" + j + "k : " + k);
-				break;
+					adgoods.setAdGoodsNo("ad_goods_"+(initGoodsno+1));
+					adgoods.setAdGoodsLink(links[j+1]);
+					adgoods.setAdGoodsImg(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j+1)));
+					adgoodsdao.insertAdGoods(adgoods);
+					adboard.setAdBoardGoods2(adgoods.getAdGoodsNo());
+					System.out.println("i : " + i + " j :" + j + "k : " + k);
+					break;
 				}
 			}
 			k = k + Integer.parseInt(adGoodsCount[i]);
@@ -179,9 +179,9 @@ public class AdBoardController {
 		String temp = (String)session.getAttribute("sessionTemp");
 		System.out.println("세션에 담겨있는 온도 : " + temp);
 		String[] correctAdBoardCount = new String[3];
-		correctAdBoardCount[0] = adboarddao.getPlace1TempCount(temp);
-		correctAdBoardCount[1] = adboarddao.getPlace2TempCount(temp);
-		correctAdBoardCount[2] = adboarddao.getPlace3TempCount(temp);
+		correctAdBoardCount[0] = adboarddao.selectPlace1TempCount(temp);
+		correctAdBoardCount[1] = adboarddao.selectPlace2TempCount(temp);
+		correctAdBoardCount[2] = adboarddao.selectPlace3TempCount(temp);
 		AdBoardDto[] adBoardlist = new AdBoardDto[3];
 		switch (correctAdBoardCount[0]) {
 		case "0":
@@ -265,7 +265,7 @@ public class AdBoardController {
 		for(int i = 0; i < adBoardCount; i++){
 			int initBoardno = 1;
 			AdBoardDto adboard = new AdBoardDto();
-			String lastboardno = adboarddao.getBoardNo();
+			String lastboardno = adboarddao.selectBoardNo();
 			if(lastboardno != null){
 				initBoardno = Integer.parseInt(lastboardno) + initBoardno;
 			}
@@ -279,7 +279,7 @@ public class AdBoardController {
 			for(int j = k; j < k+Integer.parseInt(adGoodsCount[i]); j++){
 				int initGoodsno = 1;
 				AdGoodsDto adgoods = new AdGoodsDto();
-				String lastgoodsno = adboarddao.getGoodsNo();
+				String lastgoodsno = adboarddao.selectGoodsNo();
 				if(lastgoodsno != null ){
 					initGoodsno = Integer.parseInt(lastgoodsno) + initGoodsno;
 				}
@@ -312,7 +312,7 @@ public class AdBoardController {
 			System.out.println(adboard.toString());
 			adboarddao.insertAdBoard(adboard);
 		}
-		adcontractdao.adWait(adcontractno);
+		adcontractdao.updateContractStatAdWait(adcontractno);
 		return "redirect:/adContractList";	
 	}	
 	}

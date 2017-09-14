@@ -9,36 +9,35 @@
  	<result property="adGoodsLink" column="ad_goods_link"/>
  </resultMap>
   <!-- 광고 상태 변경(광고중 -> 계약만료)해야하는 계약번호 조회 -->
- 	<select id ="selectAdGoods" resultMap="AdGoodsList">
-	SELECT ad_goods_no
-		  ,ad_goods_img
-		  ,ad_goods_link
-	FROM ad_goods
-	WHERE ad_goods_no = #{adGoodsNo}
+	<select id ="selectAdGoods" resultMap="AdGoodsList">
+		SELECT ad_goods_no
+		  	  ,ad_goods_img
+		  	  ,ad_goods_link
+		FROM ad_goods
+		WHERE ad_goods_no = #{adGoodsNo}
 	 </select>
 	 
 	 
-	 <update id="updateAdGoods">
-	 UPDATE ad_goods
+ 	<update id="updateAdGoods">
+	 	UPDATE ad_goods
 		SET
-			ad_goods_img=#{adGoodsImg},
-			ad_goods_link=#{adGoodsLink}
+			ad_goods_img=#{adGoodsImg}
+		   ,ad_goods_link=#{adGoodsLink}
 		WHERE 
 			ad_goods_no = #{adGoodsNo}
-	 </update>
-	   <insert id="insertGoods">
-  INSERT INTO ad_goods
- 			(ad_goods_no
- 			,ad_goods_img
- 			,ad_goods_link)
-	 VALUES (#{adGoodsNo}
- 			,#{adGoodsImg}
- 			,#{adGoodsLink});
-  </insert>
-  <delete id="deleteAdGoods">
-  DELETE 
-  FROM ad_goods 
-  WHERE ad_goods_no=#{adGoodsNo}			
-  
-  </delete>
+ </update>
+ 	<insert id="insertGoods">
+  		INSERT INTO ad_goods
+ 				(ad_goods_no
+ 				,ad_goods_img
+ 				,ad_goods_link)
+	 	VALUES (#{adGoodsNo}
+ 			   ,#{adGoodsImg}
+ 			   ,#{adGoodsLink});
+  	</insert>
+	<delete id="deleteAdGoods">
+ 	 	DELETE 
+  	 	FROM ad_goods 
+  	 	WHERE ad_goods_no=#{adGoodsNo}			
+ 	</delete>
 </mapper>

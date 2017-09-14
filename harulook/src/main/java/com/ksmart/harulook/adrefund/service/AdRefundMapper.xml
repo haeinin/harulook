@@ -11,7 +11,7 @@
  	<result property="refundStat" column="refund_stat"/>
  	<result property="userId" column="user_id"/>
  </resultMap>
- <select id="selectRefundList" resultMap="refundList">
+ 	<select id="selectRefundList" resultMap="refundList">
  		SELECT refund.refund_no
  			  ,ad_contract.user_id
  			  ,refund.ad_contract_no
@@ -22,8 +22,8 @@
 		FROM refund
 		JOIN ad_contract
 		ON ad_contract.ad_contract_no = refund.ad_contract_no	
- </select>
-  <select id="selectRefundListAdUser" resultMap="refundList">
+ 	</select>
+  	<select id="selectRefundListAdUser" resultMap="refundList">
  		SELECT refund.refund_no
  			  ,ad_contract.user_id
  			  ,refund.ad_contract_no
@@ -37,15 +37,14 @@
 		WHERE ad_contract.user_id = #{SID}
 		      
 			  
- </select>
- <select id="getRefundNo" resultType="String">
- 		 SELECT
-            max(CAST(substring(refund_no,8) AS DECIMAL))  
-        FROM refund 
+ 	</select>
+ 	<select id="getRefundNo" resultType="String">
+ 		 SELECT max(CAST(substring(refund_no,8) AS DECIMAL))  
+         FROM refund 
  
- </select>
+ 	</select>
  
- <insert id="insertRefund">
+ 	<insert id="insertRefund">
  		INSERT INTO refund
 			(refund_no
 			,ad_contract_no
@@ -53,14 +52,14 @@
 			,refund_date
 			,refund_stat
 			,refund_request_date)
-			VALUES (#{refundNo}
-				   ,#{adContractNo}
-				   ,#{refundPrice}
-				   ,null
-				   ,'결제정보입력대기'
-				   ,NOW()) 
- </insert>
-  <insert id="insertBadRefund">
+		VALUES (#{refundNo}
+			   ,#{adContractNo}
+			   ,#{refundPrice}
+			   ,null
+			   ,'결제정보입력대기'
+			   ,NOW()) 
+ 	</insert>
+  	<insert id="insertBadRefund">
  		INSERT INTO refund
 			(refund_no
 			,ad_contract_no
@@ -68,27 +67,24 @@
 			,refund_date
 			,refund_stat
 			,refund_request_date)
-			VALUES (#{refundNo}
-				   ,#{adContractNo}
-				   ,#{refundPrice}
-				   ,null
-				   ,'결제정보입력대기'
-				   ,NOW()) 
- </insert>
- <update id="updateRefund">
+		VALUES (#{refundNo}
+			   ,#{adContractNo}
+			   ,#{refundPrice}
+			   ,null
+			   ,'결제정보입력대기'
+			   ,NOW()) 
+	 </insert>
+ 	<update id="updateRefund">
 		UPDATE refund
-	SET
+		SET
 		refund_stat='환불정보입력완료',
 		refund_date= now()
-	WHERE 
-		refund_no=#{refundNo}	
+		WHERE refund_no=#{refundNo}	
  </update>
   <update id="approveRefund">
 		UPDATE refund
-	SET
-		refund_stat='환불완료'
-	WHERE 
-		refund_no=#{refundNo}
+		SET	refund_stat='환불완료'
+		WHERE refund_no=#{refundNo}
  </update>
  
 </mapper>		

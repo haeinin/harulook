@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.ksmart.harulook.adgoods.service.AdGoodsDao;
 import com.ksmart.harulook.adgoods.service.AdGoodsDto;
+import com.ksmart.harulook.adgoods.service.AdGoodsInterface;
 import com.ksmart.harulook.util.UtilFile;
 
 @Controller
 public class AdGoodsController {
 	@Autowired
-	private AdGoodsDao adgoodsdao;
+	private AdGoodsInterface adgoodsdao;
 	@Autowired
 	private UtilFile utilfile;
 	

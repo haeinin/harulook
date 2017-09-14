@@ -303,7 +303,7 @@ pageEncoding="UTF-8"%>
 					<img id="ad-1adBoardImgView" src="#" alt="your image?" class="ad-1 img-thumbnail"/>
 			        <input type='file' id="ad-1adBoardImg" class="ad-1" name="adBoardImage"/><br>
 			<br><br>
-			상세상품이미지 등록a<br><br>
+			상세상품이미지 등록<br><br>
 			
 			상세제품1 이미지<br>
 					<img id="ad-1adGoods1ImgView" src="#" alt="your image"  class="ad-1 img-thumbnail"/>

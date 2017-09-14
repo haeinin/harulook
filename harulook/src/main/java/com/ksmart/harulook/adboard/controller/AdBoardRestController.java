@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ksmart.harulook.adboard.service.AdBoardDao;
 import com.ksmart.harulook.adboard.service.AdBoardDto;
-import com.ksmart.harulook.adgoods.service.AdGoodsDao;
+import com.ksmart.harulook.adboard.service.AdBoardInterface;
 import com.ksmart.harulook.adgoods.service.AdGoodsDto;
+import com.ksmart.harulook.adgoods.service.AdGoodsInterface;
 
 @RestController
 public class AdBoardRestController {
 	@Autowired
-	AdBoardDao adBoardDao;
+	AdBoardInterface adBoardDao;
 	@Autowired
-	AdGoodsDao adGoodsDao;
+	AdGoodsInterface adGoodsDao;
 	
 	/* 광고 계약 게시물  상세보기 */
 	@RequestMapping(value="/adBoardDetail", method = RequestMethod.GET)
