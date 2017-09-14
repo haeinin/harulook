@@ -14,19 +14,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.ksmart.harulook.member.service.MemberDao;
 import com.ksmart.harulook.member.service.MemberDto;
-import com.ksmart.harulook.point.service.PointDao;
+import com.ksmart.harulook.member.service.MemberInterface;
+import com.ksmart.harulook.point.service.PointInterface;
 import com.ksmart.harulook.util.UtilFile;
 
 @Controller
 public class MemberController {
 	
 	@Autowired
-    private MemberDao memberDao;
+    private MemberInterface memberDao;
 	
 	@Autowired
-    private PointDao pointDao;
+    private PointInterface pointDao;
 	
 	/*@Autowired
     private UtilFile utilFile;*/
@@ -60,7 +60,7 @@ public class MemberController {
 			@RequestParam(value="userPw", required=true) String pw) {
 		System.out.println("MemberController 로그인시 == " + id);
 		
-		MemberDto loginCheck = memberDao.login(id);
+		MemberDto loginCheck = memberDao.selectlogin(id);
 			System.out.println("MemeberController 로그인시 체크되어 받은 아이디loginCheck== " + loginCheck);
 		System.out.println("asdfasdfsadf = = == = = " + loginCheck.getUserPw());
 		if(loginCheck == null){
@@ -257,7 +257,7 @@ public class MemberController {
 	        String[] styleValue = request.getParameterValues("styleValue");
 	        for( int i = 0; i < styleValue.length; i++ ){
 	        	
-	        	String lastStyleNo = memberDao.selctStyle(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	String lastStyleNo = memberDao.selectStyle(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
 	        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
 	        	if(lastStyleNo != null) {
 	        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1
@@ -316,7 +316,7 @@ public class MemberController {
 	        String[] styleValue = request.getParameterValues("styleValue");
 	        for( int i = 0; i < styleValue.length; i++ ){
 	        	
-	        	String lastStyleNo = memberDao.selctStyle(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
+	        	String lastStyleNo = memberDao.selectStyle(styleValue[i]);	//for문 갯수만큼 마지막 no찾아오기
 	        	int insertStyleNo = 1;    //DB에 등록된 게시물이 없을 때 번호의 초기값
 	        	if(lastStyleNo != null) {
 	        		insertStyleNo = Integer.parseInt(lastStyleNo)+1;	//마지막no +1

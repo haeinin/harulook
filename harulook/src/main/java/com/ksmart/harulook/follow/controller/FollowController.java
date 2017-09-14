@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ksmart.harulook.follow.service.FollowDao;
 import com.ksmart.harulook.follow.service.FollowDto;
+import com.ksmart.harulook.follow.service.FollowInterface;
 
 @Controller
 public class FollowController {
 
 	@Autowired
-    private FollowDao followDao;
+    private FollowInterface followDao;
 	
 	/*나를등록한 팔로우삭제*/
 	@RequestMapping(value="/followMeDelete", method = RequestMethod.POST)

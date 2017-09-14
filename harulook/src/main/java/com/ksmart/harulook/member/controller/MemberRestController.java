@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ksmart.harulook.member.service.MemberDao;
 import com.ksmart.harulook.member.service.MemberDto;
+import com.ksmart.harulook.member.service.MemberInterface;
 
 @RestController
 public class MemberRestController {
 
 	@Autowired
-    private MemberDao memberDao;
+    private MemberInterface memberDao;
 	
 	/*비밀번호찾기*/
 	@RequestMapping(value="/pwFindFormAdd", produces = "application/text; charset=utf8", method = RequestMethod.POST)

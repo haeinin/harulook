@@ -11,27 +11,43 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class GuestDao {
+public class GuestDao implements GuestInterface {
 	 @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 	
 	/*월간방문자수조회 */
-    public List<GuestDto> selectMonthlyGuest() {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.guest.service.GuestInterface#selectMonthlyGuest()
+	 */
+    @Override
+	public List<GuestDto> selectMonthlyGuest() {
     	return sqlSessionTemplate.selectList("com.ksmart.harulook.guest.service.GuestMapper.monthlyGuest");
     }
 	 
 	/*주간방문자수조회 */
-    public List<GuestDto> selectWeeklyGuest() {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.guest.service.GuestInterface#selectWeeklyGuest()
+	 */
+    @Override
+	public List<GuestDto> selectWeeklyGuest() {
     	return sqlSessionTemplate.selectList("com.ksmart.harulook.guest.service.GuestMapper.weeklyGuest");
     }
 	 
 	 /*일일방문자수조회 */
-    public List<GuestDto> selectdailyGuest() {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.guest.service.GuestInterface#selectdailyGuest()
+	 */
+    @Override
+	public List<GuestDto> selectdailyGuest() {
     	return sqlSessionTemplate.selectList("com.ksmart.harulook.guest.service.GuestMapper.dailyGuest");
     }
 	 
 	/*중복접속체크 */
-    public String selectGuest(String guestIp) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.guest.service.GuestInterface#selectGuest(java.lang.String)
+	 */
+    @Override
+	public String selectGuest(String guestIp) {
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("guestIp", guestIp);
     	return sqlSessionTemplate.selectOne("com.ksmart.harulook.guest.service.GuestMapper.guestSelect", map);
@@ -39,13 +55,21 @@ public class GuestDao {
     }
 	 
 	/*게스트no검색 */
-    public String selectGuestNo(String a) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.guest.service.GuestInterface#selectGuestNo(java.lang.String)
+	 */
+    @Override
+	public String selectGuestNo(String a) {
     	return sqlSessionTemplate.selectOne("com.ksmart.harulook.guest.service.GuestMapper.guestSelectNo");
     	
     }
 	 
 	/*게스트입력 */
-    public int insertGuest(String guestIp, String guestInsertNo) {
+    /* (non-Javadoc)
+	 * @see com.ksmart.harulook.guest.service.GuestInterface#insertGuest(java.lang.String, java.lang.String)
+	 */
+    @Override
+	public int insertGuest(String guestIp, String guestInsertNo) {
     	System.out.println("GuestDto 회원가입내용" + guestIp);
     	Map<String, String> map = new HashMap<String, String>();
     	map.put("guestIp", guestIp);

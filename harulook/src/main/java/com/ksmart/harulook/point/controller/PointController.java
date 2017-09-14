@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ksmart.harulook.follow.service.FollowDto;
 import com.ksmart.harulook.member.service.MemberDto;
-import com.ksmart.harulook.point.service.PointDao;
 import com.ksmart.harulook.point.service.PointDto;
+import com.ksmart.harulook.point.service.PointInterface;
 
 @Controller
 public class PointController {
 
 	@Autowired
-    private PointDao pointDao;
+    private PointInterface pointDao;
 	/*
 	쿠폰 사용
 	@RequestMapping(value="/kuponUse", method = RequestMethod.POST)
@@ -74,7 +74,7 @@ public class PointController {
 		int pointInserNO = 1;    //DB에 등록된 쿠폰 없을 때 번호의 초기값
     	if(pointNo != null) {
     		pointInserNO = Integer.parseInt(pointNo)+1;	//마지막no +1
-*/    		pointDao.insetCoupon(/*"point_"+pointInserNO, */userId, pointPolicyValue, pointGoodsCode);	//쿠폰사용입력 
+*/    		pointDao.insertCoupon(/*"point_"+pointInserNO, */userId, pointPolicyValue, pointGoodsCode);	//쿠폰사용입력 
     	/*	return "point/point_list";
     	}*/
         return "point/point_list";  

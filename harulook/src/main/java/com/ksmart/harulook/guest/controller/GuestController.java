@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ksmart.harulook.guest.service.GuestDao;
 import com.ksmart.harulook.guest.service.GuestDto;
+import com.ksmart.harulook.guest.service.GuestInterface;
 
 @Controller
 public class GuestController {
 	
 	@Autowired
-    private GuestDao guestDao;
+    private GuestInterface guestDao;
 	
 	/*게스트입력*/
 	@RequestMapping(value="/guestAdd", produces = "application/text; charset=utf8", method = RequestMethod.POST)
