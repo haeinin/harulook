@@ -68,7 +68,7 @@
 			</c:if>
 			<c:if test="${empty list}">
 				<p>신청한 제휴계약이 없습니다</p>
-				<a href="${pageContext.request.contextPath}/partnerContractInsert">제휴계약신청하기</a>
+				<a href="${pageContext.request.contextPath}/partnerContractNewInsert">제휴계약신청하기</a>
 			</c:if>
 			</div>
 			</div>

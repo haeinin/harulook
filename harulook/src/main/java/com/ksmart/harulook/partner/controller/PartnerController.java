@@ -74,6 +74,12 @@ public class PartnerController {
 		System.out.println("제휴계약 신청 폼 요청");
 		return "partner/contract/partner_contract_insert";
 	}
+	/*제휴계약신청 폼 요청(신규)*/
+	@RequestMapping(value = "/partnerContractNewInsert", method = RequestMethod.GET)
+	public String partnerContractNewInsert() {
+		return "partner/contract/partner_contract_insert2";
+	}
+	
 	/*제휴계약신청 승인하기*/
 	@RequestMapping(value = "/partnerContractAdmit", method = RequestMethod.GET)
 	public String cooContractAdmit(PartnerDto dto){
