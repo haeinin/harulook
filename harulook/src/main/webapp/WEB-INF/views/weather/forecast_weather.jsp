@@ -117,12 +117,6 @@ $(function(){
    					<td>${wl.updateHour}</td>
    				</c:forEach>
    			</tr>
-   			<tr>
-   				<td>기온</td>
-   				<c:forEach items="${weatherList}" var="wl">
-   					<td>${wl.temp3hour}℃</td>
-   				</c:forEach>
-   			</tr>
    			<tr id="forecastSky">
    				<td>날씨</td>
    				<c:forEach items="${weatherList}" var="wl">
@@ -140,6 +134,19 @@ $(function(){
    				</c:forEach>
    			</tr>
    			<tr>
+   				<td>기온</td>
+   				<c:forEach items="${weatherList}" var="wl">
+   					<td>${wl.temp3hour}℃</td>
+   				</c:forEach>
+   			</tr>
+   			<tr>
+   				<td style="display: inline-flex;"><p style="color: blue; float: left">최저</p>/<p style="color: red;">최고</p></td>
+   				<c:forEach items="${weatherList}" var="wl">
+   					<td><p style="color: blue; float: left">${wl.tempMin}</p><p style="color: red;">${wl.tempMax}</p></td>
+   				</c:forEach>
+   			</tr>
+   			
+   			<tr>
    				<td>습도</td>
    				<c:forEach items="${weatherList}" var="wl">
    					<td>${wl.humidity}%</td>
@@ -151,23 +158,13 @@ $(function(){
    					<td>${wl.rainProbability}%</td>
    				</c:forEach>
    			</tr>
-   			<tr>
-   				<td>최저기온</td>
-   				<c:forEach items="${weatherList}" var="wl">
-   					<td style="color: blue;">${wl.tempMin}</td>
-   				</c:forEach>
-   			</tr>
-   			<tr>
-   				<td>최고기온</td>
-   				<c:forEach items="${weatherList}" var="wl">
-   					<td style="color: red;">${wl.tempMax}</td>
-   				</c:forEach>
-   			</tr>
+
    		</table>
 		</div>
    		</div>
+   		<div class="col-xs-1"></div>
    		<!-- 우측 베너 인클루드 -->
-        <div class="col-xs-2">
+        <div class="col-xs-1">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
        	</div>
 	</div>

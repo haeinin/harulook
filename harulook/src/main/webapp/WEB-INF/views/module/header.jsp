@@ -201,6 +201,10 @@ function currentWeather(allData) {
 //-->		
 $(document).ready(function(){
 	
+	$('.weather_body').click(function(){	//사업자가 광고 리스트 보기
+		$('#forecastForm').submit();
+       });
+	
 	$('#loginbutton').click(function(){	//로그인버튼
 		$('#login').submit();
        });
@@ -321,6 +325,23 @@ $(document).ready(function(){
 			hour = 23;
 		}
 	}
+	
+	var RequestHour = hour;
+	var apiTime = hour % 3;
+	console.log('hour % 3 = '+apiTime);
+	if(apiTime == 0) {
+		RequestHour = hour - 1;
+	} else if(apiTime == 1) {
+		RequestHour = hour - 2;
+	} 
+	
+	
+	if(RequestHour < 10) {
+		RequestHour = '0'+RequestHour;
+	}
+	RequestHour = RequestHour+'00';
+	console.log('RequestHour : ',RequestHour);
+	
 	if(hour < 10) {
 		hour = '0'+hour;
 	}
@@ -338,6 +359,11 @@ $(document).ready(function(){
 	console.log('allData : ',allData); 
 	currentWeather(allData);	// 실시간 날씨 api 받아오는 ajax	
 	
+	$('#date').val(date);
+	$('#hour').val(RequestHour);
+	$('#nx').val(nx);
+	$('#ny').val(ny);
+	
 	/* 현재 접속한 아이피로 위치 받아오는 이벤트 */
 	navigator.geolocation.getCurrentPosition(function(position){
 	
@@ -347,7 +373,8 @@ $(document).ready(function(){
 		var rs = dfs_xy_conv("toXY",lat,lng); // 위도경도 값을 xy격자 값으로 변환
 		
 		allData = { 'date': date, 'hour': hour, 'nx': rs.x, 'ny': rs.y};	// api에 입력할 데이터 
-		
+		$('#nx').val(rs.x);
+		$('#ny').val(rs.y);
 		console.log('allData : ',allData);
 		currentWeather(allData);	// 실시간 날씨 api 받아오는 ajax
 		});
@@ -360,7 +387,7 @@ $(document).ready(function(){
 			<div class="col-xs-3 ">
 
 			<!-- 현재 날씨  -->
-			<div class="weather_body">
+			<div class="weather_body cursor-click">
 				<div id="weaterIcon">
 					<div id="sun"></div>
 					<div id="cloud"></div>
@@ -370,7 +397,13 @@ $(document).ready(function(){
 
 			<h2 style="margin-left: 20px;" id="tempur" class="tempur"></h2>
 			<h2 style="margin-left: 20px;" class="tempur"> 접속 지역 : ${sessionScope.apiAdd}</h2>
-
+			
+			<form id="forecastForm" action="./forecastWeather" method="get">
+				<input type="hidden" id="date" name="date">
+				<input type="hidden" id="hour" name="hour">
+				<input type="hidden" id="nx" name="nx">
+				<input type="hidden" id="ny" name="ny">
+			</form>
 			<!-- 세션에 있는 아이디 권한 받기 -->
 			<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
 			<%-- 권한 : <c:out value='${sessionScope.level}'/><br> --%>

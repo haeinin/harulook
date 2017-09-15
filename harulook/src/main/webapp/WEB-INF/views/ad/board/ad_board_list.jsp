@@ -54,7 +54,7 @@ $(document).ready(function(){
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4" >
 				<div class="ad-pop-photo-box cursor-click"><!-- 모달 클릭 클래스네임 -->
 					<input type="hidden" id="adBoardNoVal" value="${b.adBoardNo}">
-					<div class="image-wrap">
+					<div class="image-wrap" style="float: left; margin: 5px; overflow: hidden;">
 					<c:choose>
 						   <c:when test="${b.adBoardNo == null}"><img class="adBoards" style="height: auto; max-width: 100%; max-height: 100%; width: auto;" alt="no image" onError="this.src='resources/files/images/noAD.png';" src="this.src='resources/files/images/defaut.jpg';"> </c:when>
 						   <c:otherwise><img class="adBoards" style="height: auto; max-width: 100%; max-height: 100%; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.adBoardImg}"></c:otherwise>
