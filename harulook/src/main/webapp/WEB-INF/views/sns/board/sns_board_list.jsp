@@ -75,6 +75,7 @@ function showDetail(data) {	// data: 게시물 필터를 이용한 검색 시 aj
 				
 				imgname = msg.board.snsBoardImg;
 				
+				// 게시물 상세보기 내용 부분 세로 길이 지정 ajax
 				var request = $.ajax({
 					url : "./getSize", //호출 경로
 					method : "POST", //전송방식
@@ -85,10 +86,10 @@ function showDetail(data) {	// data: 게시물 필터를 이용한 검색 시 aj
 					success : function(msg){
 						
 						console.log('와배고프당당당'+msg);
-						var width = msg+"px";
-						$('.scroll').css("max-height", width);
+						var height = msg+"px";	// px단위로 설정
+						$('.scroll').css("max-height", height); // 스크롤 추가할 영역의 최대높이로 설정
 					}
-					});
+				});
 			}
 		});
 		$('#snsModal').modal();	// 모달 실행

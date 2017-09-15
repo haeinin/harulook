@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.xml.sax.SAXException;
 
-import com.ksmart.harulook.weather.service.WeatherDao;
+import com.ksmart.harulook.weather.service.WeatherService;
 import com.ksmart.harulook.weather.service.WeatherDto;
 
 @RestController
 public class WeatherRestController {
 
 	@Autowired
-	private WeatherDao weatherDao; 
+	private WeatherService weatherService; 
 	
 	@RequestMapping(value="/currentWeather", method = RequestMethod.GET)
 	public WeatherDto currentWeather(
@@ -34,7 +34,7 @@ public class WeatherRestController {
 		System.out.println("hour : "+hour);
 		System.out.println("nx : "+nx);
 		System.out.println("ny : "+ny);
-		weather = weatherDao.getItemList(date, hour, nx, ny);
+		weather = weatherService.getItemList(date, hour, nx, ny);
 		System.out.println("weather : "+weather+" in currentWeather");
 		
 		/* 현재 날씨 상태를 세션에 셋팅(게시물 등록, 맞춤 추천에 사용) */

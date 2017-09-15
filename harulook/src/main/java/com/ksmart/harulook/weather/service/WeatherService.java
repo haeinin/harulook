@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,7 +22,7 @@ import org.xml.sax.SAXException;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 @Repository
-public class WeatherDao {
+public class WeatherService {
 
 	/* 동네예보 API에서 필요한 데이터만 추출 */
 	public WeatherDongneDto getDongneItemList(
@@ -32,8 +30,8 @@ public class WeatherDao {
 			, String hour	// 요청 시간
 			, String nx		// x좌표
 			, String ny		// y좌표
-			, String updateHour	
-			, String updateDate
+			, String updateHour	// 예보 날짜
+			, String updateDate	// 예보 시각
 			) throws IOException, ParserConfigurationException, SAXException, ParseException {
 		System.out.println("date : "+date);
 		System.out.println("hour : "+hour);
@@ -45,15 +43,14 @@ public class WeatherDao {
 		String xml = this.dongneXmlDownload(date, hour, nx, ny); // 동네 예보 API 요청
         System.out.println(xml);
         
-        
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
 		NodeList nodeList = doc.getElementsByTagName("item");
 		
-		 WeatherDongneDto weatherDongneDto = new WeatherDongneDto(); // 동네예보 데이터를 저장할 Dto
+		WeatherDongneDto weatherDongneDto = new WeatherDongneDto(); // 동네예보 데이터를 저장할 Dto
 		
-			for(int i=0; i<nodeList.getLength(); i++) {
+		for(int i=0; i<nodeList.getLength(); i++) {
 	    
 		    String category = "";	// 카테고리 에보하는 데이터의 종류(T3H, SKY, PTY 등의 구분)
 		    String fcstValue = "";	// 예보 값
@@ -66,119 +63,32 @@ public class WeatherDao {
 		    category = e.getElementsByTagName("category").item(0).getTextContent();		// 요청받은 xml의 <category> 태그 값
 		    fcstValue = e.getElementsByTagName("fcstValue").item(0).getTextContent();	// 요청받은 xml의 <fcstValue> 태그 값
 		    
-		    // 오늘 날짜의 예보 데이터 추출
+		    // 입력 받은 예보 날짜에 해당하는 데이터 추출
 		    if(fcstDate.equals(updateDate)) {
-		    		// 예보 시간마다 해당 데이터 추출
-		    		if(fcstTime.equals(updateHour)) {	
-		    			
-		    			if(category.equals("T3H")) {	// 3시간 간격의 예보 기온
-		    				weatherDongneDto.setTemp3hour(fcstValue);
-		    	        } else if(category.equals("SKY")) {	// 하늘 상태 - 1: 맑음, 2: 구름 조금, 3: 구름 많음, 4: 흐림
-		    	        	weatherDongneDto.setSky(fcstValue);
-		    	        } else if(category.equals("PTY")) {	// 강수형태
-		    	        	weatherDongneDto.setRainStat(fcstValue);
-		    	        } else if(category.equals("REH")) {	// 습도
-		    	        	weatherDongneDto.setHumidity(fcstValue);
-		    	        } else if(category.equals("R06")) {	// 6시간 동안 강우량
-		    	        	weatherDongneDto.setPrecipitation(fcstValue);
-		    	        } else if(category.equals("POP")) {	// 강수 확률
-		    	        	weatherDongneDto.setRainProbability(fcstValue);
-		    	        } else if(category.equals("TMN")) {	// 최저 기온 - 0600에 예보
-		    	        	weatherDongneDto.setTempMin(fcstValue);
-		    	        } else if(category.equals("TMX")) {	// 최고 기온 - 1500에 예보
-		    	        	weatherDongneDto.setTempMax(fcstValue);
-		    	        } else {
-		    		        continue;
-		    		    }
-		    		}
+	    		// 입력 받은 예보 시각에 해당하는 데이터 추출
+	    		if(fcstTime.equals(updateHour)) {	
+	    			
+	    			if(category.equals("T3H")) {	// 3시간 간격의 예보 기온
+	    				weatherDongneDto.setTemp3hour(fcstValue);
+	    	        } else if(category.equals("SKY")) {	// 하늘 상태 - 1: 맑음, 2: 구름 조금, 3: 구름 많음, 4: 흐림
+	    	        	weatherDongneDto.setSky(fcstValue);
+	    	        } else if(category.equals("PTY")) {	// 강수형태
+	    	        	weatherDongneDto.setRainStat(fcstValue);
+	    	        } else if(category.equals("REH")) {	// 습도
+	    	        	weatherDongneDto.setHumidity(fcstValue);
+	    	        } else if(category.equals("R06")) {	// 6시간 동안 강우량
+	    	        	weatherDongneDto.setPrecipitation(fcstValue);
+	    	        } else if(category.equals("POP")) {	// 강수 확률
+	    	        	weatherDongneDto.setRainProbability(fcstValue);
+	    	        } else if(category.equals("TMN")) {	// 최저 기온 - 0600에 예보
+	    	        	weatherDongneDto.setTempMin(fcstValue);
+	    	        } else if(category.equals("TMX")) {	// 최고 기온 - 1500에 예보
+	    	        	weatherDongneDto.setTempMax(fcstValue);
+	    	        } else {
+	    		        continue;
+	    		    }
+	    		}
 		    }
-		    
-		    // 내일 날짜의 예보 데이터 추출
-		    /*if(fcstDate.equals(tomorrow)) {
-		    	for(int j=0; j<24; j +=3) {
-		    		WeatherDongneDto weatherDongneDto = new WeatherDongneDto(); // 동네예보 데이터를 저장할 Dto
-		    		String updateHour = String.valueOf(j);
-		    		if(j < 10) {
-		    			updateHour = "0"+updateHour;
-		    		}
-		    		updateHour = updateHour+"00";
-		    		if(fcstTime.equals(updateHour)) {
-		    			if(category.equals("T3H")) {
-		    	        	weatherDongneDto.setTemp3hour(fcstValue);
-		    	        }
-		    			if(category.equals("SKY")) {
-		    	        	weatherDongneDto.setSky(fcstValue);
-		    	        }
-		    			if(category.equals("PTY")) {
-		    	        	weatherDongneDto.setRainStat(fcstValue);
-		    	        }
-		    			if(category.equals("REH")) {
-		    	        	weatherDongneDto.setHumidity(fcstValue);
-		    	        }
-		    			if(category.equals("R06")) {
-		    	        	weatherDongneDto.setPrecipitation(fcstValue);
-		    	        }
-		    			if(category.equals("POP")) {
-		    	        	weatherDongneDto.setRainProbability(fcstValue);
-		    	        }
-		    			if(category.equals("TMN")) {
-		    	        	weatherDongneDto.setTempMin(fcstValue);
-		    	        }
-		    			if(category.equals("TMX")) {
-		    	        	weatherDongneDto.setTempMax(fcstValue);
-		    	        } 
-		    			if(category.equals("WSD")) {
-		    				System.out.print(tomorrow+" "+fcstTime+" ");
-		    				System.out.println("tomorrow : "+weatherDongneDto);
-		    				weatherList.add(weatherDongneDto);
-		    	        } 
-		    		}
-		    	}
-		    }
-	
-		    // 모레 날짜의 예보 데이터 추출
-		    if(fcstDate.equals(moere)) {
-		    	
-		    	for(int j=0; j<24; j +=3) {
-		    		WeatherDongneDto weatherDongneDto = new WeatherDongneDto(); // 동네예보 데이터를 저장할 Dto
-		    		String updateHour = String.valueOf(j);
-		    		if(j < 10) {
-		    			updateHour = "0"+updateHour;
-		    		}
-		    		updateHour = updateHour+"00";
-		    		if(fcstTime.equals(updateHour)) {
-		    			if(category.equals("T3H")) {
-		    	        	weatherDongneDto.setTemp3hour(fcstValue);
-		    	        }
-		    			if(category.equals("SKY")) {
-		    	        	weatherDongneDto.setSky(fcstValue);
-		    	        }
-		    			if(category.equals("PTY")) {
-		    	        	weatherDongneDto.setRainStat(fcstValue);
-		    	        }
-		    			if(category.equals("REH")) {
-		    	        	weatherDongneDto.setHumidity(fcstValue);
-		    	        }
-		    			if(category.equals("R06")) {
-		    	        	weatherDongneDto.setPrecipitation(fcstValue);
-		    	        }
-		    			if(category.equals("POP")) {
-		    	        	weatherDongneDto.setRainProbability(fcstValue);
-		    	        }
-		    			if(category.equals("TMN")) {
-		    	        	weatherDongneDto.setTempMin(fcstValue);
-		    	        }
-		    			if(category.equals("TMX")) {
-		    	        	weatherDongneDto.setTempMax(fcstValue);
-		    	        } 
-		    			if(category.equals("WSD")) {
-		    				System.out.print(moere+" "+fcstTime+" ");
-		    				System.out.println("moere : "+weatherDongneDto);
-		    				weatherList.add(weatherDongneDto);
-		    	        } 
-		    		}
-		    	}
-		    }*/
 	    }
 	  return weatherDongneDto;
 	}

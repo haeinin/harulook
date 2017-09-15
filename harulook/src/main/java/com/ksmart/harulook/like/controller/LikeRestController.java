@@ -50,6 +50,7 @@ public class LikeRestController {
 		return likeToggle;
 	}
 	
+	/* 게시물 상세보기 이미지의 세로 사이즈 구하기 */
 	@RequestMapping(value = "/getSize", method = RequestMethod.POST)
 	public float getSize(@RequestParam(value="imgroot", required=true) String imgroot, HttpServletRequest request){
 	    // 이미지 읽기
@@ -58,7 +59,6 @@ public class LikeRestController {
 	    // 이미지 파일 위치
 	    String filename = root+imgroot;
 	
-	 
 	    // 이미지 읽기
 	    Image img = new ImageIcon(filename).getImage();
 	 
