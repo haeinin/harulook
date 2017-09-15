@@ -56,7 +56,7 @@ $(document).ready(function(){
 					<input type="hidden" id="adBoardNoVal" value="${b.adBoardNo}">
 					<div class="image-wrap" style="float: left; margin: 5px; overflow: hidden;">
 					<c:choose>
-						   <c:when test="${b.adBoardNo == null}"><img class="adBoards" style="height: auto; max-width: 100%; max-height: 100%; width: auto;" alt="no image" onError="this.src='resources/files/images/noAD.png';" src="this.src='resources/files/images/defaut.jpg';"> </c:when>
+						   <c:when test="${b.adBoardNo == null}"><img class="adBoards" style="display: inline-block; width: 100%; min-height: 100%;" alt="no image" onError="this.src='resources/files/images/noAD.png';" src="this.src='resources/files/images/defaut.jpg';"> </c:when>
 						   <c:otherwise><img class="adBoards" style="height: auto; max-width: 100%; max-height: 100%; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.adBoardImg}"></c:otherwise>
 							</c:choose>
 					</div>
