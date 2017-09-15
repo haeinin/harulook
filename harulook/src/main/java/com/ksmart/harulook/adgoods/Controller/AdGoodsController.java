@@ -21,7 +21,7 @@ public class AdGoodsController {
 	private AdGoodsInterface adgoodsdao;
 	@Autowired
 	private UtilFile utilfile;
-	
+	/*광고 상품 수정*/
 	@RequestMapping(value="/updateGoods", method = RequestMethod.POST)
 	public String updateGoods(HttpServletRequest request){
 		AdGoodsDto adgoods = new AdGoodsDto();
@@ -39,7 +39,7 @@ public class AdGoodsController {
 		adgoodsdao.updateAdGoods(adgoods);
 		return "redirect:/adBoardList";
 	}
-	
+	/*광고 상품 수정 화면*/
 	@RequestMapping(value="/updateGoodsForm", method = RequestMethod.POST)
 	public String updateGoodsForm(Model model
 									,@RequestParam("adBoardGoodsNo") String adGoodsNo){
@@ -49,6 +49,7 @@ public class AdGoodsController {
 		System.out.println("수정화면");
 		return "ad/goods/ad_goods_update";
 	}
+	/*광고 상품 입력*/
 	@RequestMapping(value="/selectAdBoardGoods", method = RequestMethod.GET)
 	public String selectAdBoardGoods(Model model
 									,@RequestParam("adBoardGoodsNo") String adGoodsNo){

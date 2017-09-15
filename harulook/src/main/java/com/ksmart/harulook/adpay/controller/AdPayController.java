@@ -11,7 +11,7 @@ import com.ksmart.harulook.adpay.service.AdPayInterface;
 public class AdPayController {
 	@Autowired
 	AdPayInterface adpaydao;
-	
+	/*광고 결제 입력*/
 	@RequestMapping(value="/adPayInsert",method = RequestMethod.POST)
 	public String adPayInsert(AdPayDto adpay) {
 		int initPayNo=1;

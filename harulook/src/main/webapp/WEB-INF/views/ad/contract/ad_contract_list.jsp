@@ -18,9 +18,14 @@
 <!-- 드롭다운과충돌 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/adContractDetail.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css"/>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 
 <script>
 function showDetail(data) {
+	/* 광고위치1에 있는 상세복 버튼을 눌렀을 때 상세내용을 AJAX로 불러온다음 모달화면에 출력  */
  	$('#place1detail').click(function(){
 		var adContractNo = '${adContractPlace1.adContractNo}';
 		console.log('adContractNo : ',adContractNo,'');
@@ -36,8 +41,9 @@ function showDetail(data) {
 				
 			}
 		});
-		$('#adModal').modal();
+		$('#adContractModal').modal();
 	});
+ 	/* 광고위치2에 있는 상세복 버튼을 눌렀을 때 상세내용을 AJAX로 불러온다음 모달화면에 출력  */
  	$('#place2detail').click(function(){
 		var adContractNo = '${adContractPlace2.adContractNo}';
 		console.log('adContractNo : ',adContractNo,'');
@@ -54,6 +60,7 @@ function showDetail(data) {
 		});
 		$('#adModal').modal();
 	});
+ 	/* 광고위치3에 있는 상세복 버튼을 눌렀을 때 상세내용을 AJAX로 불러온다음 모달화면에 출력  */
  	$('#place3detail').click(function(){
 		var adContractNo = '${adContractPlace3.adContractNo}';
 		console.log('adContractNo : ',adContractNo,'');
@@ -71,20 +78,11 @@ function showDetail(data) {
 		$('#adModal').modal();
 	});
 }
-$(document).on('click', '.modal-backdrop', function() {
-    alert(0); 
-}); 
-$(document).ready(function(){
 
+$(document).ready(function(){
+	$('#table').DataTable();
 	showDetail(null);
-	$('#next').click(function(){
-		$('.board1goods').hide();
-		$('.board2goods').show();
-	});
-	$('#back').click(function(){
-		$('.board1goods').show();
-		$('.board2goods').hide();
-	})
+	/* 광고 상태에 맞는 리스트들을 버튼을 클릭했을때 보여줌  */
 	$('#adcontractsoonlist').hide();
 	$('#adcontractapprovewaitlist').hide();
 	$('#adcontractadboardinsertwaitlist').hide();
@@ -158,8 +156,8 @@ $(document).ready(function(){
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
        	</div>
     </div>
-			<!-- 광고 게시물 상세보기 모달 -->
-		<div class="modal fade" id="adModal" role="dialog">
+			<!-- 광고 계약 게시물 상세보기 모달 -->
+		<div class="modal fade" id="adContractModal" role="dialog">
 		    <div id="modalFrame" class="modal-dialog modal-lg" >
 				<div id="adDetail" class="modal-content">
 			        <div class="row">

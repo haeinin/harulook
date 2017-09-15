@@ -23,137 +23,6 @@ jQuery.browser = {};
     }
 })();
 </script>
-<!-- <script>
-    $(function() {
-        $('#approveCancel').click(function(){
-    		var result = confirm("정말로 취소 하시겟습니까?");
-    		if(result==true){
-    			$.ajax({
-        			type : "GET",
-        			url : "./deleteContract",
-        			data : { adContractNo : '${adcontract.adContractNo}' },
-        			success : function(data){
-        				 location.replace('./adContractList');
-        			}
-        		})
-    		}else{
-    			location.replace('./adContractList');
-    		}
-    	});
-    	var price = $('#pricePerDay').val();
-    	var dc = $('#dcForPrice').val();
-    	var period = $('#date').val();
-    	if($('#date').val() == 'ad_dc_01'){
-			period = 3;
-		}else if($('#date').val() == 'ad_dc_02'){
-			period = 7;
-		}else if($('#date').val() == 'ad_dc_03'){
-			period = 30;
-		}
-    	var startdate;
-    	var enddate;
-    	var calcplace;
-    	});
-    	$('#totalComplete').click(function(){
-    		$('#contractForm').submit();
-    	});
-    	/* 누락된 값이 없게 하기 위한 유효성 검사 */
-    	$('#priceOk').click(function(){
-    		if($('#adType').val()==""){
-    			alert('광고종류를 선택하세요');
-    			$('#adType').focus();
-    		}else if($('#adPlace').val()==""){
-    			alert('광고기간을 선택하세요');
-    			$('#adPlace').focus();
-    		}else if($('#date').val()==""){
-    			alert('계약일수를 선택하세요');
-    			$('#date').focus();
-    		}else if($('#datepicker').val()==""){
-    			alert('시작일자를 선택하세요');
-    			$('#datepicker').focus();
-    		}
-    		$('#contractForm').submit();
-    	})
-    	/****************************/
-    	/* 총 합계를 계산해 놓으면 텍스트박스에 NaN이라는 값이 출력되서 날짜를 선택해야 총 합계가 나오게 만듬 */
-    	$('#date').change(function(){
-
-			if($('#date').val() == 'ad_dc_01'){
-				period = 3;
-			}else if($('#date').val() == 'ad_dc_02'){
-				period = 7;
-			}else if($('#date').val() == 'ad_dc_03'){
-				period = 30;
-			}
-			
-		/* 기간을 선택했을때 ajax를 이용하여 기간별 할인율을 전송받음*/
-			$.ajax({
-    			type : "POST",
-    			url : "./getDc",
-    			data : { adCostNo : $('#date').val()},
-    			success : function(data){
-    				console.log("수수료 : " + data);
-    				dc = data;
-    				$('#dcForPrice').val(data);
-    			}
-    		})
-    	/****************************************/	
-    	calc();
-    	})
-    	/*****************************************************************/
-    	/* 광고종류를 선택했을때 ajax를 이용하여 광고에 해당하는 하루 금액을 전송받음 */
-    	$("#adType").change(function(){
-    		$.ajax({
-    			type : "POST",
-    			url : "./getPrice",
-    			data : { adtype : $('#adType').val()},
-    			success : function(data){
-    				console.log("하루당 광고비용 : " + data);
-    				price = data;
-    				$('#pricePerDay').val(data);
-    			}
-    		})
-    		calc();
-    	});
-    	/***********************************************/
-    	
-    	/* 날짜 선택시 옵션 지정 (선택가능한 최소날짜 오늘부터, 날짜 형식 지정)*/
-        $("#datepicker").datepicker({
-        	minDate: +0,
-        	dateFormat: 'yy-mm-dd'
-        });
-        $("#datepicker").change(function(){
-        	enddate = new Date($(this).val());
-        	enddate.setDate(enddate.getDate() + period);
-        	var year = enddate.getFullYear();
-        	var month = ((enddate.getMonth()+101)+"").substring(1,3);
-			var day = enddate.getDate();
-        	console.log('년 :' + year);
-        	console.log('월 :' + month);
-        	console.log('일 :' + day);
-        	console.log(enddate);
-        	console.log(year + '-' + month + '-' + day);
-        	if(day < 10)
-        	$('#datepicker2').val(year+'-'+month+'-0'+day);
-        	else
-        	$('#datepicker2').val(year+'-'+month+'-'+day);	
-        });
-        $("#datepicker2").datepicker({
-        	dateFormat: 'yy-mm-dd'
-        });
-    	/**********************************************/
-    	/* 광고 계약 취소 시 환불테이블과 계약 상태를 바꿔줌 */
-        function calc(){
-    		calcprice = period*price*(1-dc/100);
-    		console.log('기간 : ' + period);
-    		console.log('하루당 광고 금액 : ' + price);
-    		console.log('할인율(%) : ' + dc);
-    		console.log('총 계산된 금액 ' + calcprice);
-    		console.log('상품종류 코드 : ' + price);
-			$('#priceTotal').val(calcprice);
-    			
-   	}   	
-</script>  -->
 <script>
     $(function() {
     	var price;
@@ -384,6 +253,7 @@ jQuery.browser = {};
             </c:if>
         </div>
         <div class="form-group">
+        	<!-- 할인율 코드에 맞는 할인율 표시  -->
             <label for="dcForPrice">할인율 :</label>
             <c:if test="${adcontract.adDcNo=='ad_dc_01'}">
             <input type="text" id="dcForPrice" value="1" readonly>

@@ -9,9 +9,11 @@
                 <th>시작 날짜</th>
                 <th>종료 날짜</th>
                 <th>계약 상태</th>
+                <!-- 세션에 담겨있는 권한이 관리자 일때는 계약 강제 취소 열 표시  -->
                 <c:if test="${sessionScope.level=='관리자'}">
                 <th>계약 강제 취소</th>
                 </c:if>
+                <!-- 세션에 담겨있는 권한이 사업자 일때는 계약 중도 취소 열 표시  -->
                 <c:if test="${sessionScope.level=='사업자'}">
                 <th>계약 중도 취소</th>
                 </c:if>
@@ -30,12 +32,14 @@
                 	<td>${adContractPlace1.adContractStart}</td>
                 	<td>${adContractPlace1.adContractEnd}</td>
                 	<td>${adContractPlace1.adContractStat}</td>
+                <!-- 세션에 담겨있는 권한이 관리자 일때는 계약 강제 취소 버튼 표시  -->
                 <c:if test="${sessionScope.level=='관리자'}">
-            		<td><a href="./contractBadCancel?adContractNo=${adContractPlace1.adContractNo}&adContractEnd=${adContractPlace1.adContractEnd}">계약 강제 취소</a></td>
+            		<td><a href="./contractBadCancel?adContractNo=${adContractPlace1.adContractNo}&adContractEnd=${adContractPlace1.adContractEnd}" class="btn btn-danger">계약 강제 취소</a></td>
             	</c:if>
+            	<!-- 세션에 담겨있는 아이디와 광고 위치 1에 해당하는 아이디가 일치하면 계약 중도 신청 버튼 표시  -->
 				<c:if test="${sessionScope.id==adContractPlace1.userId}">
-            		<td><a href="./contractDoingCancel?adContractNo=${adContractPlace1.adContractNo}&adContractEnd=${adContractPlace1.adContractEnd}">계약 중도 취소 신청</a></td>
-            		<td><button id="place1detail" type="button">상세보기</button></td>
+            		<td><a href="./contractDoingCancel?adContractNo=${adContractPlace1.adContractNo}&adContractEnd=${adContractPlace1.adContractEnd}" class="btn btn-danger">계약 중도 취소 신청</a></td>
+            		<td><button id="place1detail" type="button" class="btn btn-warning">상세보기</button></td>
             	</c:if>
                 </c:if>
                 
@@ -51,12 +55,14 @@
                 	<td>${adContractPlace2.adContractStart}</td>
                 	<td>${adContractPlace2.adContractEnd}</td>
                 	<td>${adContractPlace2.adContractStat}</td>
+                <!-- 세션에 담겨있는 권한이 관리자 일때는 계약 강제 취소 버튼 표시  -->
                 <c:if test="${sessionScope.level=='관리자'}">
-            		<td><a href="./contractBadCancel?adContractNo=${adContractPlace2.adContractNo}&adContractEnd=${adContractPlace2.adContractEnd}">계약 강제 취소</a></td>	
+            		<td><a href="./contractBadCancel?adContractNo=${adContractPlace2.adContractNo}&adContractEnd=${adContractPlace2.adContractEnd}" class="btn btn-danger">계약 강제 취소</a></td>	
             	</c:if>
-	<c:if test="${sessionScope.id==adContractPlace2.userId}">
-            		<td><a href="./contractDoingCancel?adContractNo=${adContractPlace2.adContractNo}&adContractEnd=${adContractPlace2.adContractEnd}">계약 중도 취소 신청</a></td>
-            	    <td><button id="place2detail" type="button">상세보기</button></td>  
+            	<!-- 세션에 담겨있는 아이디와 광고 위치 2에 해당하는 아이디가 일치하면 계약 중도 신청 버튼 표시  -->
+				<c:if test="${sessionScope.id==adContractPlace2.userId}">
+            		<td><a href="./contractDoingCancel?adContractNo=${adContractPlace2.adContractNo}&adContractEnd=${adContractPlace2.adContractEnd}" class="btn btn-danger">계약 중도 취소 신청</a></td>
+            	    <td><button id="place2detail" type="button" class="btn btn-warning">상세보기</button></td>  
             	</c:if>
                 </c:if>
   
@@ -74,12 +80,14 @@
             		<td>${adContractPlace3.adContractStart}</td>
             		<td>${adContractPlace3.adContractEnd}</td>
             		<td>${adContractPlace3.adContractStat}</td>
+            	<!-- 세션에 담겨있는 권한이 관리자 일때는 계약 강제 취소 버튼 표시  -->
              	<c:if test="${sessionScope.level=='관리자'}">
-        			<td><a href="./contractBadCancel?adContractNo=${adContractPlace3.adContractNo}&adContractEnd=${adContractPlace3.adContractEnd}">계약 강제 취소</a></td>
+        			<td><a href="./contractBadCancel?adContractNo=${adContractPlace3.adContractNo}&adContractEnd=${adContractPlace3.adContractEnd}" class="btn btn-danger">계약 강제 취소</a></td>
         		</c:if>
+        		<!-- 세션에 담겨있는 아이디와 광고 위치 3에 해당하는 아이디가 일치하면 계약 중도 신청 버튼 표시  -->
         		<c:if test="${sessionScope.id==adContractPlace3.userId}">
-        			<td><a href="./contractDoingCancel?adContractNo=${adContractPlace3.adContractNo}&adContractEnd=${adContractPlace3.adContractEnd}">계약 중도 취소 신청</a></td>
-        			<td><button id="place3detail" type="button">상세보기</button></td>
+        			<td><a href="./contractDoingCancel?adContractNo=${adContractPlace3.adContractNo}&adContractEnd=${adContractPlace3.adContractEnd}" class="btn btn-danger">계약 중도 취소 신청</a></td>
+        			<td><button id="place3detail" type="button" class="btn btn-warning">상세보기</button></td>
         		</c:if>
         		</c:if>
 

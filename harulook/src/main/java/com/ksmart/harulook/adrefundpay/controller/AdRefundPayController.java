@@ -15,6 +15,7 @@ public class AdRefundPayController {
 	AdRefundPayInterface adrefundpaydao;
 	@Autowired
 	AdRefundInterface adrefunddao;
+	/*광고 홥불정보 입력*/
 	@RequestMapping(value="/insertRefundValue", method = RequestMethod.POST)
 	public String insertRefundValue(AdRefundPayDto adrefundpay){
 		int initRefundPayNo = 1;

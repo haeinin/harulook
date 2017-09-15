@@ -35,6 +35,7 @@
                     <td>${b.adContractPrice}</td>
                     <td>${b.adContractStat}</td>
                     <td>
+                    <!-- 세션에 담겨있는 아이디와 광고 위치 1에 해당하는 아이디가 일치하면 계약 중도 신청 버튼 표시  -->
                     <c:if test="${sessionScope.level=='관리자'}">
                     	 <c:if test="${b.adContractStat=='승인대기'}"><a class="btn btn-info" href="./approveContract?adContractNo=${b.adContractNo}">계약 승인</a></c:if>
                     	 <c:if test="${b.adContractStat=='취소요청'}"><a class="btn btn-info" href="./approveCancel?adContractNo=${b.adContractNo}&adConTractPrice=${b.adContractPrice}">취소 승인</a></c:if>

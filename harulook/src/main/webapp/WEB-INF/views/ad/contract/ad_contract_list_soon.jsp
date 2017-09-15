@@ -11,7 +11,10 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
  
 </head>
-    <table class="table table-striped">
+    <table table"
+               data-toggle="table"
+               data-pagination="true"
+               data-search="true">
         <thead>
             <tr>
                 <th>위치</th>

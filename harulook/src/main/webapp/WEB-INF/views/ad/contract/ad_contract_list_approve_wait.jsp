@@ -9,9 +9,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
  
 </head>
-    <table class="table table-striped">
+    <table id="table"
+               data-toggle="table"
+               data-pagination="true"
+               data-search="true">
         <thead>
             <tr>
                 <th>위치</th>
@@ -24,8 +28,7 @@
                 <th>수정하기</th>
                 <th></th>
             </tr>
-        </thead>
-        <tbody>							
+        </thead>							
             <c:forEach var="b" items="${adcontractlistapprovewait}">
             <tr>
                     <td>${b.adContractPlace}</td>
@@ -45,14 +48,17 @@
                     	<c:if test="${b.adContractStat=='광고등록대기'}"><a class="btn btn-info" href="./insertAdBoard?adContractNo=${b.adContractNo}">광고&nbsp;등록</a></c:if>
                     </c:if>
                     </td>
+                    <td>
 					<c:if test="${sessionScope.level=='사업자'}">
                     <c:if test="${b.adContractStat=='광고대기'}">
-                    <td>
+                    
                     <a class="btn btn-info" href="./adBoardUpdate?adContractNo=${b.adContractNo}">수정하기</a>
-                    </td>
+                    
                     </c:if>
                     </c:if>                         
+                    </td>
                 </tr>
                 </c:forEach>
-        </tbody>
+        
+        
     </table>

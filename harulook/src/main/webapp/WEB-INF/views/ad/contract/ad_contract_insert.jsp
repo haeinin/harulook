@@ -153,7 +153,7 @@ jQuery.browser = {};
     	/* 광고 계약 취소 시 환불테이블과 계약 상태를 바꿔줌 */
 
     			
-  
+  /* input에 담겨있는 값을 가지고 총 결제금액에 계산 해주는 메서드  */
 	function calc(){
 		if($('#date').val() == 'ad_dc_01'){
 			period = 3;

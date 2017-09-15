@@ -31,7 +31,7 @@ public class AdBoardController {
 	@Autowired
 	private AdGoodsInterface adgoodsdao;
 	
-	
+	/*광고게시물 수정*/
 	@RequestMapping(value="/adBoardUpdate",method = RequestMethod.POST)
 	public String selectAdBoardUpdate(HttpServletRequest request
 									 ,HttpSession session) {
@@ -127,7 +127,7 @@ public class AdBoardController {
 		return "redirect:/adContractList";
 	}
 	
-	
+	/*광고게시물 수정 화면*/
 	@RequestMapping(value="/adBoardUpdate",method = RequestMethod.GET)
 	public String selectAdBoardUpdateForm(Model model
 										 ,@RequestParam("adContractNo") String adcontractno
@@ -171,7 +171,7 @@ public class AdBoardController {
 		System.out.println(model.toString());
 		return "ad/board/ad_board_update";	
 	}
-	
+	/*현재 진행중인 광고 게시물 목록*/
 	@RequestMapping(value="/adBoardList",method = RequestMethod.GET)
 	public String selectAdBoardList(Model model
 								   ,HttpSession session) {
@@ -223,7 +223,7 @@ public class AdBoardController {
 		System.out.println(model);
 		return "ad/board/ad_board_list";	
 	}
-	
+	/*광고 게시물 입력 화면*/
 	@RequestMapping(value="/insertAdBoard",method = RequestMethod.GET)
 	public String insertAdBoardView(@RequestParam("adContractNo") String adcontractno
 								 ,HttpSession session) {
@@ -232,6 +232,7 @@ public class AdBoardController {
 		System.out.println("광고 게시물 입력 폼 요청");
 		return "ad/board/ad_board_insert";	
 	}
+	/*광고 게시물 입력*/
 	@RequestMapping(value="/insertAdBoard",method = RequestMethod.POST)
 	public String insertAdBoard(HttpServletRequest request
 							   ,HttpSession session) {

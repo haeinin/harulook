@@ -24,14 +24,16 @@
 		/*입력과는 다르게 처음에 광고 모두 표시 */
 		console.log('${goodscount[0]}');
 		console.log('${goodscount[1]}');
+		/* 변수 i에 광고 게시물의 갯수를 선언한다. */
 		var i = ${adboardcount};
+		/* 광고 게시물의 갯수가 1개면 두번째 광고게시물에 해당하는 내용을 hide 시키고 2개면 모두 보여주면서 추가버튼을 숨긴다. */
 		if (i==1) {
 			$('#ad-2').hide();
 		}else if(i==2){
 			$('#ad-2').show();
 			$('#adAdd').hide();
 		}
-
+		/* 추가버튼을 눌렀을때 두번째 게시물을 보여준다.  */
 		$('#adAdd').click(function() {
 			$('#ad-2').show();
 		})
@@ -103,6 +105,7 @@
 		}
 		 });
 		/*****************************************/
+		취소버튼을 눌렀을때 광고 게시물의 갯수를 1개 감소시켜준다
 		$('.cancel').click(function(){
 			i--;
 			console.log('광고게시물 갯수 : ' + i);
@@ -156,6 +159,7 @@
 			}
 			console.log('최고온도1: ' + $('#ad-2adBoardTempMax').val());
 			console.log('최저온도 : ' + $('#ad-2adBoardTempMin').val());
+			/* 유효성 검사  */
 	    		if($('#ad-1adBoardContent').val()==''){
 	    			alert('첫번째 게시물의 설명을 입력해주세요');
 	    			$('#ad-1adBoardContent').focus();
@@ -214,6 +218,7 @@
 	    		if($('#ad-2adBoardContent').val()!='' && $('#ad-2tempselect').val()!='' && $('#ad-2adBoardImg').val()!='' && $('#ad-2adGoods1Img').val()!=''){
     				$('#insert').submit();
     			}
+	    		/* 유효성 검사 끝 */
 	    	});
 		/***************************************************/
 		/* 취소 버튼을 눌렀을때 광고 숨김 및 내용 삭제 */
@@ -225,26 +230,10 @@
 			$('#ad-2').hide();
 			$('.ad-2').val("");
 		});
-		$('#ad-3cancel').click(function() {
-			$('#ad-3').hide();
-			$('.ad-3').val("");
-		});
-		$('#ad-4cancel').click(function() {
-			$('#ad-4').hide();
-			$('.ad-4').val("");
-		});
-		$('#ad-5cancel').click(function() {
-			$('#ad-5').hide();
-			$('.ad-5').val("");
-		});
-		$('#ad-6cancel').click(function() {
-			$('#ad-6').hide();
-			$('.ad-6').val("");
-		});
 		/******************************/
 
 	});
-
+	/* 사진 미리보기 처리 메서드 */
 	function readURL(input, id) {
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();

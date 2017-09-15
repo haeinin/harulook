@@ -22,6 +22,7 @@
 <script>
 
 $(document).ready(function(){
+	/*메인에서 광고 게시물을 클릭했을때 그 광고에 맞는 상세보기 화면을 모달 화면으로 출력해준다.*/
 	$('.adBoards').click(function(){
 		var index = $('.adBoards').index(this);
 		var adBoardNo = adBoardNoVal[index].value;

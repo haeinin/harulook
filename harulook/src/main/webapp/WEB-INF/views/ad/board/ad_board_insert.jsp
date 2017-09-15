@@ -22,15 +22,16 @@ pageEncoding="UTF-8"%>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script>
     $(document).ready(function(){
-    	/*처음에 광고 한개만 빼고 모두 숨김 */
     	$('#ad-1tempselectalert').hide();
     	var i = 1;
     	var ok;
+    	/* 맨 처음 열었을때 두번째 게시물을 입력하는 폼은 보이지 않도록 해놓는다. */
 	    	$('#ad-2').hide();
 	    /* 등록버튼을 눌렀을 경우 i에 담겨있는 게시물의 값을 adBoardCount를 아이디로 가지는 input에 옮긴다 
 	    그리고 서브밋을 한다. */
 	    	$('#ok').click(function(){
 	    		$('#adBoardCount').val(i);
+	    		/*유효성 검사*/
 	    		if($('#ad-1adBoardContent').val()==''){
 	    			alert('첫번째 게시물의 설명을 입력해주세요');
 	    			$('#ad-1adBoardContent').focus();
@@ -57,7 +58,7 @@ pageEncoding="UTF-8"%>
 	    				alert('첫번째 게시물의 두번째 상품의 링크를 입력해주세요.');
 	    				$('#ad-1adGoods2Link').focus();
 	    			}
-	    		}
+	    		}	    		
 	    		if(i==1){
 	    			if($('#ad-1adBoardContent').val()!='' && $('#ad-1tempselect').val()!='' && $('#ad-1adBoardImg').val()!='' && $('#ad-1adGoods1Img').val()!=''){
 	    				$('#insert').submit();
@@ -87,6 +88,7 @@ pageEncoding="UTF-8"%>
 	    				$('#insert').submit();
 	    			}
 	    		}
+	    		/*유효성 검사 끝*/
 	    			
 	    		
 	    		
@@ -162,7 +164,6 @@ pageEncoding="UTF-8"%>
            /* 추가버튼을 눌렀을때 온도별 광고 한개씩 늘어나게 해주는 기능 */
  			$('#adAdd').click(function(){
  				i++;
-
  				console.log('게시물의 갯수 :' + i);
  				
             	switch(i){
@@ -256,7 +257,7 @@ pageEncoding="UTF-8"%>
        		/******************************/
             		
         });
-
+		/* 사진 미리보기 처리 메서드 */
         function readURL(input ,id) {
             if (input.files && input.files[0]) {
             var reader = new FileReader();

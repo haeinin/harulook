@@ -14,7 +14,7 @@ public class AdRefuncdRestController {
 
 	@Autowired
 	private AdRefundInterface adrefunddao;
-	
+	/*광고 환불 등록*/
 	@RequestMapping(value="/insertRefund",method = RequestMethod.POST)
 	public void insertRefund(@RequestParam("conractNo") String contractno
 						    ,@RequestParam("contractPrice")int contractprice){

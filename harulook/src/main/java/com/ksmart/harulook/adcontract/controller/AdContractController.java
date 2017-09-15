@@ -26,7 +26,7 @@ public class AdContractController {
 	
 	@Autowired
 	private AdRefundInterface adrefunddao;
-	/************/
+	/*진햊중인 광고 취소*/
 	@RequestMapping(value="/contractDoingCancel",method = RequestMethod.GET)
 	public String contractDoingCancel(@RequestParam("adContractNo") String adcontractno
 								   ,@RequestParam("adContractEnd") String adcontractend
@@ -62,6 +62,7 @@ public class AdContractController {
 		adrefunddao.insertAdRefund(adrefund);
 		return "redirect:/adContractList";
 	}
+	/*진행중인 광고 파기*/
 	@RequestMapping(value="/contractBadCancel",method = RequestMethod.GET)
 	public String contractBadCancel(@RequestParam("adContractNo") String adcontractno
 								   ,@RequestParam("adContractEnd") String adcontractend
@@ -98,7 +99,7 @@ public class AdContractController {
 	}
 	
 	
-	
+	/*광고 계약 수정*/
 	@RequestMapping(value="/adContractUpdate",method = RequestMethod.POST)
 	public String adContractUpdate(AdContractDto adcontract){
 		System.out.println("계약 수정 요청");
@@ -106,7 +107,7 @@ public class AdContractController {
 		return "redirect:/adContractList";
 	}
 	
-	
+	/*광고 계약 수정 화면*/
 	@RequestMapping(value="/adContractUpdate",method = RequestMethod.GET)
 	public String adContractUpdateForm(Model model
 								      ,@RequestParam("adContractNo") String adcontractno){
@@ -117,7 +118,6 @@ public class AdContractController {
 		return "ad/contract/ad_contract_update";
 	}
 	/*광고리스트 요청*/
-
 	@RequestMapping(value="/adContractList",method = RequestMethod.GET)
 	public String adContractList(Model model, HttpSession session) {
 		System.out.println("광고 계약 현황 리스트 요청");

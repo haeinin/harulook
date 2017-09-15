@@ -21,7 +21,7 @@ import com.ksmart.harulook.adrefundpay.service.AdRefundPayDto;
 public class AdRefundController {
 	@Autowired
 	private AdRefundInterface adrefunddao;
-	
+	/*광고 환불 리스트 조회*/
 	@RequestMapping(value="/selectRefund", method = RequestMethod.GET)
 	public String getRefundList(Model model, HttpSession session){
 		String SLEVEL = (String)session.getAttribute("level");
@@ -36,13 +36,14 @@ public class AdRefundController {
 		System.out.println(adrefundlist);
 		return "ad/refund/ad_refund_list";
 	}
-	
+	/*광고 환불 정보 입력*/
 	@RequestMapping(value="/insertRefundValue", method = RequestMethod.GET)
 	public String insertRefundValueForm(Model model
 								   ,@RequestParam("refundNo") String refundNo){
 		model.addAttribute("refundNo", refundNo);
 		return "ad/refund_pay/ad_refund_pay";
 	}
+	/*환불 승인*/
 	@RequestMapping(value="/approveRefund", method = RequestMethod.GET)
 	public String approveRefund(Model model
 							  ,@RequestParam("refundNo") String refundNo){
