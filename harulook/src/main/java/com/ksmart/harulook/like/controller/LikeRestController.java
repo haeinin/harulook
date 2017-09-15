@@ -1,5 +1,11 @@
 package com.ksmart.harulook.like.controller;
 
+import java.awt.Image;
+import java.net.URI;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.swing.ImageIcon;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,4 +49,26 @@ public class LikeRestController {
 		System.out.println("likeToggle : "+likeToggle);
 		return likeToggle;
 	}
+	
+	@RequestMapping(value = "/getSize", method = RequestMethod.POST)
+	public float getSize(@RequestParam(value="imgroot", required=true) String imgroot, HttpServletRequest request){
+	    // 이미지 읽기
+		String root = request.getSession().getServletContext().getRealPath("/");
+
+	    // 이미지 파일 위치
+	    String filename = root+imgroot;
+	
+	 
+	    // 이미지 읽기
+	    Image img = new ImageIcon(filename).getImage();
+	 
+	    float Widthsize = img.getWidth(null);	//가로사이즈
+	    float Heightsize = img.getHeight(null);	//세로사이즈
+
+	    float size=(Heightsize/Widthsize)*588; //비율계산
+
+		return size;
+	}
+
+	
 }

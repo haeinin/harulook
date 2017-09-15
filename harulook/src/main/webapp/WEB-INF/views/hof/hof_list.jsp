@@ -47,9 +47,13 @@ margin:50px;
 margin-top:100px;
 margin-bottom:100px;
 }
+
+.scroll {
+   
+   overflow-y: auto;
+}
 </style>
 <script type="text/javascript">
-
 /*  게시물 클릭  */
 function showDetail(data) {
 	$('.sns-photo-box').click(function(){
@@ -62,8 +66,9 @@ function showDetail(data) {
 		
 		console.log('index : ',index);
 		console.log('data[',index,'].snsBoardNo : ',boardNo,'');
-		
-		
+	
+		var imgname;
+
 		var boardDetailRequest = $.ajax({
 			url : './boardDetail',
 			method : 'get',
@@ -72,12 +77,37 @@ function showDetail(data) {
 			success : function(msg) {
 				boardDetail(msg);
 				followCheck(msg);
+				imgname = msg.board.snsBoardImg;
+				
+				var request = $.ajax({
+					url : "./getSize", //호출 경로
+					method : "POST", //전송방식
+					data : {
+						'imgroot' : imgname
+					}, //전송해줄값
+					dataType : "text", //결과값 타입 (리턴)
+					success : function(msg){
+						
+						console.log('와배고프당당당'+msg);
+						var width = msg+"px";
+						$('.scroll').css("max-height", width);
+					}
+					});
+
+				
 			}
 		});
+		
+		
+		
 		$('#snsModal').modal();
-	});
-}
+		
+		
 
+		
+	});
+	
+}
 $(function(){
 	showDetail(null);
 });
@@ -174,29 +204,33 @@ $(function(){
 		        	<!-- 게시물 이미지 영역 -->
 		        	
 		        	<!-- 게시물 내용 영역 -->
+		        	
 			        <div id="contentArea" class="modal-body col-xs-12 col-md-4" style="padding-left: 30px;">
+			        <div class="scroll">
 			        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
 		        		<div id="snsDetailHeader"></div>
-		        		<div >
+		        		
 			        		<div id="snsDetailContent"></div>
 			        		<hr>
 			        	
 				        	<div id="snsDetailLike"></div>
 				        	<hr>
 				        	<div id="snsDetailComment"></div>
-			        	</div>
+			        	
 			        	<c:if test="${sessionScope.id != null}">
 			        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">
 			        	<div id="snsDetailCommentControll">
 			        	</div>
 			        	</c:if>
+			        	
+			        	
 			        	<br>
 			        	<div style="text-align: right; padding-right: 20px;">
 			        		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 			        	</div>
 					</div>
 					<!-- 게시물 내용 영역 -->
-						
+						</div>
 				     </div>
 				</div>
 			</div>

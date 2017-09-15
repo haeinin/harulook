@@ -24,4 +24,6 @@ public class HofController {
 		model.addAttribute("list",list);
 		return "hof/hof_list";
 	}
+	
+	
 }

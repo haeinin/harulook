@@ -61,6 +61,7 @@ function showDetail(data) {	// data: 게시물 필터를 이용한 검색 시 aj
 		
 		console.log('index : ',index);
 		console.log('data[',index,'].snsBoardNo : ',boardNo,'');
+		var imgname;
 		
 		// 게시물 상세보기를 위한 데이터를 요청하는  ajax
 		var boardDetailRequest = $.ajax({
@@ -71,6 +72,23 @@ function showDetail(data) {	// data: 게시물 필터를 이용한 검색 시 aj
 			success : function(msg) {
 				boardDetail(msg);	// 게시물 상세보기 함수 호출
 				followCheck(msg);	// 해당 게시물 등록자와 팔로우 유무 검색 함수
+				
+				imgname = msg.board.snsBoardImg;
+				
+				var request = $.ajax({
+					url : "./getSize", //호출 경로
+					method : "POST", //전송방식
+					data : {
+						'imgroot' : imgname
+					}, //전송해줄값
+					dataType : "text", //결과값 타입 (리턴)
+					success : function(msg){
+						
+						console.log('와배고프당당당'+msg);
+						var width = msg+"px";
+						$('.scroll').css("max-height", width);
+					}
+					});
 			}
 		});
 		$('#snsModal').modal();	// 모달 실행
@@ -238,6 +256,7 @@ $(function(){
 	}); 
 });
 </script>
+
 </head>
 <body>
 <div class="container">
