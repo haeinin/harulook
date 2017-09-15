@@ -75,7 +75,7 @@
 			        <tbody>
 			            <c:forEach var="f" items="${followList}">
 			                <tr>
-				                <td><a type="button" class="followBoard" id="친구의 게시물" value="${f.followId}" href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId='+${f.followId}+'">${f.followId}</A></td>
+				                <td><a type="button" class="followBoard" id="친구의 게시물" value="${f.followId}" href="./boardTagSearch?snsBoardAge=&snsBoardLoc=&snsBoardSize=&snsBoardTall=&snsBoardWeather=&userId=${f.followId}">${f.followId}</A></td>
 						      	<td>${f.followDate}</td>
 						        <td><button type="button" class="btn btn-default deleteButton" value="${f.followId}">삭제하기</button></td>
 		                    </tr>

@@ -14,18 +14,15 @@
 	position: relative;
 	top : 15px;
 }
-
 /* 마이페이지 드롭다운*/
 #mypageDropdown {
 	position: relative;
 }
-
 /* 타이틀 */
 #titleHaruloook {
 	position: relative;
 	top : -5px;
 }
-
 /* 로그아웃 */
 #logout {
 	position: relative;
@@ -71,7 +68,6 @@
 <script type="text/javascript" src="resources/js/modernizr.js"></script>
 
 <script>
-
 //<!--
 //
 // LCC DFS 좌표변환을 위한 기초 자료
@@ -87,18 +83,14 @@ var YO = 136; // 기1준점 Y좌표(GRID)
 //
 // LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도,v1:x, v2:y) )
 //
-
-
 function dfs_xy_conv(code, v1, v2) {
     var DEGRAD = Math.PI / 180.0;
     var RADDEG = 180.0 / Math.PI;
-
     var re = RE / GRID;
     var slat1 = SLAT1 * DEGRAD;
     var slat2 = SLAT2 * DEGRAD;
     var olon = OLON * DEGRAD;
     var olat = OLAT * DEGRAD;
-
     var sn = Math.tan(Math.PI * 0.25 + slat2 * 0.5) / Math.tan(Math.PI * 0.25 + slat1 * 0.5);
     sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn);
     var sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
@@ -129,7 +121,6 @@ function dfs_xy_conv(code, v1, v2) {
         if (sn < 0.0) - ra;
         var alat = Math.pow((re * sf / ra), (1.0 / sn));
         alat = 2.0 * Math.atan(alat) - Math.PI * 0.5;
-
         if (Math.abs(xn) <= 0.0) {
             theta = 0.0;
         }
@@ -147,7 +138,6 @@ function dfs_xy_conv(code, v1, v2) {
     console.log("rs : ",rs);
     return rs;
 }
-
 /**************** 날씨 초단기 실황 api 실행 ***************/
 function currentWeather(allData) {
 	var weatherRequest = $.ajax({
@@ -209,7 +199,6 @@ function currentWeather(allData) {
 	});
 }
 //-->		
-
 $(document).ready(function(){
 	
 	$('#loginbutton').click(function(){	//로그인버튼
@@ -234,7 +223,6 @@ $(document).ready(function(){
 		});	
 		$('#myModal').modal();	//마이페이지모달
        });
-
 	$('#userlistbutton').click(function(){	//일반회원리스트 버튼
 		$('#member_user_list').submit();
        });
@@ -481,7 +469,7 @@ $(document).ready(function(){
 								method="get">
 								<div>
 									<input class="btn btn-default" id="adcontractlistButtonManager"
-										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="광고 검색 및 승인" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="광거 검색 및 승인" />
 								</div>
 							</form>
 							
