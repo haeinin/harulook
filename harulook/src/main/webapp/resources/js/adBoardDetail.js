@@ -12,12 +12,12 @@ function adBoardDetail(msg) {
 	
 	var adDetailContent = '';
 	adDetailContent += '<br> <div style="float: right;">';
-	adDetailContent += '<a href='+msg.adGoods[0].adGoodsLink+'><img id="adGoods1Img" class="img-thumbnail" alt="no image" style="width: 100%; height: 100%;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.adGoods[0].adGoodsImg+'"></a><br><br>';
+	adDetailContent += '<a href='+msg.adGoods[0].adGoodsLink+' target="_blank"><img id="adGoods1Img" class="img-thumbnail" alt="no image" style="width: 100%; height: 100%;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.adGoods[0].adGoodsImg+'"></a><br><br>';
 	/*if(msg.adGoods[1] == null){
 		adDetailContent += '<img id="adGoods2Img" class="img-thumbnail" alt="no image" style="width: 100%; height: 100%;" onError="this.src=\'resources/files/images/defaut.jpg\';" src=""><br>';	
 	}*/
 	if(msg.adGoods[1] != null){
-	adDetailContent += '<a href='+msg.adGoods[1].adGoodsLink+'><img id="adGoods2Img" class="img-thumbnail" alt="no image" style="width: 100%; height: 100%;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.adGoods[1].adGoodsImg+'"></a><br><br>';
+	adDetailContent += '<a href='+msg.adGoods[1].adGoodsLink+' target="_blank"><img id="adGoods2Img" class="img-thumbnail" alt="no image" style="width: 100%; height: 100%;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.adGoods[1].adGoodsImg+'"></a><br><br>';
 	}
 	adDetailContent += '광고 설명 : ' +msg.adBoard.adBoardContent+'<br><br><br>';
 	$('#adDetailContent').html(adDetailContent);

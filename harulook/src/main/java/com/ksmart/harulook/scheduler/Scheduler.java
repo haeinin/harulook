@@ -50,10 +50,14 @@ public class Scheduler {
 	@Scheduled(cron="6 0 0 * * *")
 	public void CooContractScheduler() {
 		try{
+			/*제휴 시작날짜 불러오기*/
 			List<String> startList = partnerdao.selectStartCooContract();
+			/*제휴 종료날짜 불러오기*/
 			List<String> endList = partnerdao.selectEndCooContractList();
+			/*제휴 결제날짜 불러오기*/
 			List<String> overList = partnerdao.selectOverDueList();
 			
+			/*제휴 종료날짜 지난 계약은 제휴 종료상태로 변경*/
 			for(int i =0; i < endList.size(); i++){
 				partnerdao.updateEndCooContract(endList.get(i));
 				
@@ -69,11 +73,13 @@ public class Scheduler {
 				System.out.println("매일 0시 0분 6초 제휴계약 기간만료 상태 변경");
 			}
 			
+			/*제휴 시작날짜 지난계약은 제휴진행 상태로 변경*/
 			for(int i =0; i < startList.size(); i++){
 				partnerdao.updateStartCooContract(startList.get(i));
 				System.out.println("매일 0시 0분 6초 제휴계약 진행 상태 변경");
 			}
 			
+			/*제휴 결제일이 지나도록 결제안된 계약은 제휴정지 상태로 변경*/
 			for(int i =0; i < overList.size(); i++){
 				partnerdao.updateOverDue(overList.get(i));
 				System.out.println("매일 0시 0분 6초 제휴계약 정지 상태 변경");

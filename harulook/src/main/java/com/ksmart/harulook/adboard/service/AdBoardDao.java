@@ -115,9 +115,9 @@ public class AdBoardDao implements AdBoardInterface{
 	 * @see com.ksmart.harulook.adboard.service.AdBoardServiceInterface#selectBoardPlace1WhenCount1()
 	 */
 	@Override
-	public AdBoardDto selectBoardPlace1WhenCount1(){
+	public AdBoardDto selectBoardPlace1WhenCount1(String temp){
 		System.out.println("첫번째 위치 광고 게시물 내용 요청 in Dao");
-		return sqlSessionTemplate.selectOne("com.ksmart.harulook.adboard.service.AdBoardMapper.selectBoardPlace1WhenCount1");
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.adboard.service.AdBoardMapper.selectBoardPlace1WhenCount1", temp);
 	}
 	/*광고 위치가 1이고 현재 온도에 해당하는 광고 게시물의 갯수가 2일때 광고 게시물을 조회 하는 메서드*/
 	/* (non-Javadoc)
@@ -142,9 +142,9 @@ public class AdBoardDao implements AdBoardInterface{
 	 * @see com.ksmart.harulook.adboard.service.AdBoardServiceInterface#selectBoardPlace2WhenCount1()
 	 */
 	@Override
-	public AdBoardDto selectBoardPlace2WhenCount1(){
+	public AdBoardDto selectBoardPlace2WhenCount1(String temp){
 		System.out.println("두번째 위치 광고 게시물 내용 요청 in Dao");
-		return sqlSessionTemplate.selectOne("com.ksmart.harulook.adboard.service.AdBoardMapper.selectBoardPlace2WhenCount1");
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.adboard.service.AdBoardMapper.selectBoardPlace2WhenCount1", temp);
 	}
 	/*광고 위치가 2이고 현재 온도에 해당하는 광고 게시물의 갯수가 2일때 광고 게시물을 조회 하는 메서드*/
 	/* (non-Javadoc)
@@ -169,9 +169,9 @@ public class AdBoardDao implements AdBoardInterface{
 	 * @see com.ksmart.harulook.adboard.service.AdBoardServiceInterface#selectBoardPlace3WhenCount1()
 	 */
 	@Override
-	public AdBoardDto selectBoardPlace3WhenCount1(){
+	public AdBoardDto selectBoardPlace3WhenCount1(String temp){
 		System.out.println("세번째 위치 광고 게시물 내용 요청 in Dao");
-		return sqlSessionTemplate.selectOne("com.ksmart.harulook.adboard.service.AdBoardMapper.selectBoardPlace3WhenCount1");
+		return sqlSessionTemplate.selectOne("com.ksmart.harulook.adboard.service.AdBoardMapper.selectBoardPlace3WhenCount1", temp);
 	}
 	/*광고 위치가 3이고 현재 온도에 해당하는 광고 게시물의 갯수가 2일때 광고 게시물을 조회 하는 메서드*/
 	/* (non-Javadoc)

@@ -37,7 +37,7 @@ public interface AdBoardServiceInterface {
 	AdBoardDto getBoardPlace1WhenCount0();
 
 	/*광고 위치가 1이고 현재 온도에 해당하는 광고 게시물의 갯수가 1일때 광고 게시물을 조회 하는 메서드*/
-	AdBoardDto getBoardPlace1WhenCount1();
+	AdBoardDto getBoardPlace1WhenCount1(String temp);
 
 	/*광고 위치가 1이고 현재 온도에 해당하는 광고 게시물의 갯수가 2일때 광고 게시물을 조회 하는 메서드*/
 	AdBoardDto getBoardPlace1WhenCount2();
@@ -46,7 +46,7 @@ public interface AdBoardServiceInterface {
 	AdBoardDto getBoardPlace2WhenCount0();
 
 	/*광고 위치가 2이고 현재 온도에 해당하는 광고 게시물의 갯수가 1일때 광고 게시물을 조회 하는 메서드*/
-	AdBoardDto getBoardPlace2WhenCount1();
+	AdBoardDto getBoardPlace2WhenCount1(String temp);
 
 	/*광고 위치가 2이고 현재 온도에 해당하는 광고 게시물의 갯수가 2일때 광고 게시물을 조회 하는 메서드*/
 	AdBoardDto getBoardPlace2WhenCount2();
@@ -55,7 +55,7 @@ public interface AdBoardServiceInterface {
 	AdBoardDto getBoardPlace3WhenCount0();
 
 	/*광고 위치가 3이고 현재 온도에 해당하는 광고 게시물의 갯수가 1일때 광고 게시물을 조회 하는 메서드*/
-	AdBoardDto getBoardPlace3WhenCount1();
+	AdBoardDto getBoardPlace3WhenCount1(String temp);
 
 	/*광고 위치가 3이고 현재 온도에 해당하는 광고 게시물의 갯수가 2일때 광고 게시물을 조회 하는 메서드*/
 	AdBoardDto getBoardPlace3WhenCount2();

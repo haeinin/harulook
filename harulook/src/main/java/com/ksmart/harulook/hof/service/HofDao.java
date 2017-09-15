@@ -47,6 +47,7 @@ public class HofDao implements HofInterface {
 	/* (non-Javadoc)
 	 * @see com.ksmart.harulook.hof.service.HofInterface#insertHofPoint(com.ksmart.harulook.hof.service.HofDto)
 	 */
+	/*명예의전당 선정자 포인트 주기*/
 	@Override
 	public int insertHofPoint(HofDto dto){
 		return sqlSessionTemplate.insert("com.ksmart.harulook.hof.service.HofMapper.insertHofPoint",dto);
@@ -57,6 +58,7 @@ public class HofDao implements HofInterface {
 	public void insertHof(){
 		HofDto dto = new HofDto();
 		List<HofRankDto> list = selectBoardLikeRank();
+		/*예뻐요 랭크 수 3위까지 불러오기*/
 		for(int n =0,rank=1; rank<4;n++){
 			
 			String boardNo = list.get(n).getBoardNo();
@@ -65,12 +67,12 @@ public class HofDao implements HofInterface {
 			int result = selectDuplicateHof(boardNo);
 			
 			if(result==0){//명예의전당에 등록된 게시물 아닐때
-				dto.setBoardNo(boardNo);
+				dto.setBoardNo(boardNo); 
 				dto.setHofRank(rank);
 				switch(rank){//등수에 따른 상품
-				case 1 :dto.setPointPolicyNo("point_ex_6");break;
-				case 2 :dto.setPointPolicyNo("point_ex_7");break;
-				case 3 :dto.setPointPolicyNo("point_ex_8");break;
+				case 1 :dto.setPointPolicyNo("point_ex_6");break;//1등
+				case 2 :dto.setPointPolicyNo("point_ex_7");break;//2등
+				case 3 :dto.setPointPolicyNo("point_ex_8");break;//3등
 				default : break;
 				}
 				insertHof(dto);

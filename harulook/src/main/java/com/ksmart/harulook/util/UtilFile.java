@@ -14,9 +14,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class UtilFile {
     String fileName = "";
     
-//  프로젝트 내 지정된 경로에 파일을 저장하는 메소드
-//  DB에는 업로드된 전체 경로명으로만 지정되기 때문에(업로드한 파일 자체는 경로에 저장됨)
-//  fileUpload() 메소드에서 전체 경로를 리턴받아 DB에 경로 그대로 저장   
+/*프로젝트 내 지정된 경로에 파일을 저장하는 메소드
+DB에는 업로드된 전체 경로명으로만 지정되기 때문에(업로드한 파일 자체는 경로에 저장됨)
+fileUpload() 메소드에서 전체 경로를 리턴받아 DB에 경로 그대로 저장  */ 
     public String fileUpload(MultipartHttpServletRequest request,
                                         MultipartFile uploadFile) {
         String path = "";
@@ -40,7 +40,7 @@ public class UtilFile {
             
             File file = new File(path);
             
-//          파일명이 중복으로 존재할 경우
+            /*파일명이 중복으로 존재할 경우*/
             if (fileName != null && !fileName.equals("")) {
                 if (file.exists()) {
 //                    파일명 앞에 업로드 시간 초단위로 붙여 파일명 중복을 방지

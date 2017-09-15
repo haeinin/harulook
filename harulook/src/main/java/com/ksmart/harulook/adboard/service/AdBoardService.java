@@ -63,8 +63,8 @@ public class AdBoardService implements AdBoardServiceInterface {
 	}
 
 	@Override
-	public AdBoardDto getBoardPlace1WhenCount1() {
-		return adboardinterface.selectBoardPlace1WhenCount1();
+	public AdBoardDto getBoardPlace1WhenCount1(String temp) {
+		return adboardinterface.selectBoardPlace1WhenCount1(temp);
 	}
 
 	@Override
@@ -78,8 +78,8 @@ public class AdBoardService implements AdBoardServiceInterface {
 	}
 
 	@Override
-	public AdBoardDto getBoardPlace2WhenCount1() {
-		return adboardinterface.selectBoardPlace2WhenCount1();
+	public AdBoardDto getBoardPlace2WhenCount1(String temp) {
+		return adboardinterface.selectBoardPlace2WhenCount1(temp);
 	}
 
 	@Override
@@ -93,8 +93,8 @@ public class AdBoardService implements AdBoardServiceInterface {
 	}
 
 	@Override
-	public AdBoardDto getBoardPlace3WhenCount1() {
-		return adboardinterface.selectBoardPlace3WhenCount1();
+	public AdBoardDto getBoardPlace3WhenCount1(String temp) {
+		return adboardinterface.selectBoardPlace3WhenCount1(temp);
 	}
 
 	@Override

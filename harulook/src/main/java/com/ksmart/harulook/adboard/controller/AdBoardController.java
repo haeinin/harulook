@@ -188,7 +188,7 @@ public class AdBoardController {
 			adBoardlist[0] = adboarddao.selectBoardPlace1WhenCount0();			
 			break;
 		case "1":
-			adBoardlist[0] = adboarddao.selectBoardPlace1WhenCount1();
+			adBoardlist[0] = adboarddao.selectBoardPlace1WhenCount1(temp);
 			break;
 		case "2":
 			adBoardlist[0] = adboarddao.selectBoardPlace1WhenCount2();	
@@ -199,7 +199,7 @@ public class AdBoardController {
 			adBoardlist[1] = adboarddao.selectBoardPlace2WhenCount0();	
 			break;
 		case "1":
-			adBoardlist[1] = adboarddao.selectBoardPlace2WhenCount1();
+			adBoardlist[1] = adboarddao.selectBoardPlace2WhenCount1(temp);
 			break;
 		case "2":
 			adBoardlist[1] = adboarddao.selectBoardPlace2WhenCount2();
@@ -210,7 +210,7 @@ public class AdBoardController {
 			adBoardlist[2] = adboarddao.selectBoardPlace3WhenCount0();
 			break;
 		case "1":
-			adBoardlist[2] = adboarddao.selectBoardPlace3WhenCount1();
+			adBoardlist[2] = adboarddao.selectBoardPlace3WhenCount1(temp);
 			break;
 		case "2":
 			adBoardlist[2] = adboarddao.selectBoardPlace3WhenCount2();

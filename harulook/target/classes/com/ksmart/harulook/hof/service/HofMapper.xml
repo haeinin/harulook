@@ -88,7 +88,7 @@
 	
 	</select>
 	
-	<!-- 명예의전당 포인트 입력 -->
+	<!-- 명예의전당 포인트 지급 -->
 	<insert id="insertHofPoint" parameterType="com.ksmart.harulook.hof.service.HofDto">
 	INSERT INTO point
 	(user_id, point_date, point_policy_no)

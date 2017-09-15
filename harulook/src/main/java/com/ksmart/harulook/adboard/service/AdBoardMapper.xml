@@ -161,7 +161,9 @@
 	  	FROM ad_board
 	  	JOIN ad_contract
 	  	ON ad_board.ad_contract_no = ad_contract.ad_contract_no
-	  	WHERE ad_contract.ad_contract_place = '1'
+	  	WHERE ad_board.ad_board_temp_min &lt;= #{temp}
+	  	AND ad_board.ad_board_temp_max >= #{temp}
+	  	AND ad_contract.ad_contract_place = '1'
 	  	AND ad_contract.ad_contract_stat = '광고진행중'
 	</select>
 	<select id="selectBoardPlace1WhenCount2" resultMap="AdBoardList">
@@ -208,7 +210,9 @@
 	  	FROM ad_board
 	  	JOIN ad_contract
 	  	ON ad_board.ad_contract_no = ad_contract.ad_contract_no
-	  	WHERE ad_contract.ad_contract_place = '2'
+	  	WHERE ad_board.ad_board_temp_min &lt;= #{temp}
+	  	AND ad_board.ad_board_temp_max >= #{temp}
+	  	AND ad_contract.ad_contract_place = '2'
 	  	AND ad_contract.ad_contract_stat = '광고진행중'
 	</select>
 	<select id="selectBoardPlace2WhenCount2" resultMap="AdBoardList">
@@ -255,7 +259,9 @@
 	    FROM ad_board
 	  	JOIN ad_contract
 	  	ON ad_board.ad_contract_no = ad_contract.ad_contract_no
-	  	WHERE ad_contract.ad_contract_place = '3'
+	  	WHERE ad_board.ad_board_temp_min &lt;= #{temp}
+	  	AND ad_board.ad_board_temp_max >= #{temp}
+	  	AND ad_contract.ad_contract_place = '3'
 	  	AND ad_contract.ad_contract_stat = '광고진행중'
 	</select>
 	<select id="selectBoardPlace3WhenCount2" resultMap="AdBoardList">
