@@ -9,6 +9,8 @@ public class WeatherDongneDto {
 	private String precipitation;	// 강수량
 	private String tempMax;			// 최고 기온
 	private String tempMin;			// 최저 기온
+	private String updateHour;			// 예보 시간예보 시간
+	private String updateDate;			// 예보 날짜
 	public String getRainProbability() {
 		return rainProbability;
 	}
@@ -23,6 +25,18 @@ public class WeatherDongneDto {
 	}
 	public String getTemp1hour() {
 		return temp3hour;
+	}
+	public String getUpdateHour() {
+		return updateHour;
+	}
+	public void setUpdateHour(String updateHour) {
+		this.updateHour = updateHour;
+	}
+	public String getUpdateDate() {
+		return updateDate;
+	}
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
 	}
 	public void setTemp1hour(String temp1hour) {
 		this.temp3hour = temp1hour;
@@ -65,8 +79,8 @@ public class WeatherDongneDto {
 	}
 	@Override
 	public String toString() {
-		return "WeatherDongneDto [temp3hour=" + temp3hour + ", sky=" + sky + ", rainStat=" + rainStat + ", humidity=" + humidity
-				+ ", rainProbability=" + rainProbability + ", precipitation=" + precipitation + ", tempMax=" + tempMax
-				+ ", tempMin=" + tempMin + "]";
+		return "WeatherDongneDto [temp3hour=" + temp3hour + ", sky=" + sky + ", rainStat=" + rainStat + ", humidity="
+				+ humidity + ", rainProbability=" + rainProbability + ", precipitation=" + precipitation + ", tempMax="
+				+ tempMax + ", tempMin=" + tempMin + ", updateHour=" + updateHour + ", updateDate=" + updateDate + "]";
 	}
 }

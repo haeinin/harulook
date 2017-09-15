@@ -55,7 +55,7 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <!-- 유효성검사 -->
 <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> -->
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="<c:url value="resources/css/cartoony-weather.css?ver=1" />"
 	type="text/css">
@@ -342,6 +342,12 @@ $(document).ready(function(){
 	} else if(apiTime == 1) {
 		RequestHour = hour - 2;
 	} 
+	
+	
+	if(RequestHour < 10) {
+		RequestHour = '0'+RequestHour;
+	}
+	RequestHour = RequestHour+'00';
 	console.log('RequestHour : ',RequestHour);
 	
 	if(hour < 10) {
@@ -361,6 +367,11 @@ $(document).ready(function(){
 	console.log('allData : ',allData); 
 	currentWeather(allData);	// 실시간 날씨 api 받아오는 ajax	
 	
+	$('#date').val(date);
+	$('#hour').val(RequestHour);
+	$('#nx').val(nx);
+	$('#ny').val(ny);
+	
 	/* 현재 접속한 아이피로 위치 받아오는 이벤트 */
 	navigator.geolocation.getCurrentPosition(function(position){
 	
@@ -370,10 +381,12 @@ $(document).ready(function(){
 		var rs = dfs_xy_conv("toXY",lat,lng); // 위도경도 값을 xy격자 값으로 변환
 		
 		allData = { 'date': date, 'hour': hour, 'nx': rs.x, 'ny': rs.y};	// api에 입력할 데이터 
-		
+		$('#nx').val(rs.x);
+		$('#ny').val(rs.y);
 		console.log('allData : ',allData);
 		currentWeather(allData);	// 실시간 날씨 api 받아오는 ajax
 		});
+
 });
 </script>
 
@@ -398,6 +411,7 @@ $(document).ready(function(){
 			<%-- 아이디 : <c:out value='${sessionScope.id}'/><br> --%>
 			<%-- 권한 : <c:out value='${sessionScope.level}'/><br> --%>
 			<%-- 닉네임 : <c:out value='${sessionScope.nick}'/><br> --%>
+
 			</div>
 			
 			<div class="col-xs-6">
@@ -409,7 +423,13 @@ $(document).ready(function(){
 			</div>
 				<!-- <img src="./resources/logo.jpg" width="180px" height="50px"
 					class="img-rounded" alt="Cinque Terre"> -->
-			</div>
+			<form action="./forecastWeather" method="get">
+				<input type="hidden" id="date" name="date">
+				<input type="hidden" id="hour" name="hour">
+				<input type="hidden" id="nx" name="nx">
+				<input type="hidden" id="ny" name="ny">
+				<button type="submit"><span class="glyphicon glyphicon-triangle-right"></span></button>
+			</form>
 
 		<div class="col-xs-3">
 			<c:if test="${sessionScope.level == null}">
