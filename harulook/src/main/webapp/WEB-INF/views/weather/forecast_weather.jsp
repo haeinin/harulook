@@ -35,32 +35,37 @@ $(function(){
 	var forecastSky = '';
 	var forecastRain = '';
 	
-	for(var i=1; i<19; i++) {
+	for(var i=1; i<24; i++) {
 		
 		forecastSky = $('#forecastSky').children().eq(i).children().eq(0).val();
 		forecastRain = $('#forecastSky').children().eq(i).children().eq(1).val();
-		console.log('forecastSky : ',forecastSky);
-		console.log('forecastRain : ',forecastRain);
+		
+		var forecastWeater = $('#forecastSky').children().eq(i).children().eq(2).children().eq(0);
+		var forecastSun = forecastWeater.children().eq(0);
+		var forecastCloud = forecastWeater.children().eq(1);
+		var forecastRainStat = forecastWeater.children().eq(2);
+		
 		
 		// 하늘 상태 
+		
 	    switch(forecastSky) {
 	    case '1' :     // 맑음
-	        $('#forecastWeater').attr('class','sunny');
+	    	forecastWeater.attr('class','sunny');
 	        break;
 	    case '2' :     // 구름 조금
-	        $('#forecastWeater').attr('class','partly_cloudy');
-	        $('#forecastSun').attr('class','partly_cloudy__sun');
-	        $('#forecastCloud').attr('class','partly_cloudy__cloud');
+	    	forecastWeater.attr('class','partly_cloudy');
+	    	forecastSun.attr('class','partly_cloudy__sun');
+	    	forecastCloud.attr('class','partly_cloudy__cloud');
 	        break;
 	    case '3' :    // 구름 많음
-	        $('#forecastWeater').attr('class','cloudy');
+	    	forecastWeater.attr('class','cloudy');
 	        break;
 	    case '4' :    // 흐림
-	        $('#forecastWeater').attr('class','rainy');
-	        $('#forecastCloud').attr('class','rainy__cloud');
+	    	forecastWeater.attr('class','rainy');
+	    	forecastCloud.attr('class','rainy__cloud');
 	        break;
 	    default :
-	        $('#forecastWeater').attr('class','');
+	    	forecastWeater.attr('class','');
 	        break;
 	    }
 		
@@ -68,16 +73,16 @@ $(function(){
 		switch(forecastRain) {    
 		case '1' :    // 비
 		    if(data.precipitation > 5) { // 강수량이 5 이상일 때, 폭우 
-		        $('#forecastRain').attr('class','thundery__rain');
+		    	forecastRainStat.attr('class','thundery__rain');
 		    } else {
-		        $('#forecastRain').attr('class','rainy__rain');
+		    	forecastRainStat.attr('class','rainy__rain');
 		    }
 		    break;
 		case '3' :    // 눈 (가져온 날씨 css에 눈 그림이 없어서 폭우 그림으로 대체. 눈 그림은 추후에 추가 예정)
-		    $('#forecastRain').attr('class','thundery__rain');
+		    forecastRainStat.attr('class','thundery__rain');
 		    break;
 		default :    //없음
-		    $('#forecastRain').removeAttr('class');
+			forecastRainStat.removeAttr('class');
 		    break;
 		}
 	}
@@ -92,12 +97,14 @@ $(function(){
 	<!-- 바디 인클루드 -->
 
 	<div class="row">
-		<div class="col-xs-1">
-   		<!-- 좌측 베너 인클루드 -->
+		<!-- 좌측 베너 인클루드 -->
+    	<div class="col-xs-2">
+	    	<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
 
-   		<div class="col-xs-9">
-   		<table class="table table-striped">
+   		<div class="col-xs-8">
+   		<div style="overflow: auto;">
+   		<table class="table">
    			<tr>
    				<th>날짜</th>
    				<c:forEach items="${weatherList}" var="wl">
@@ -105,7 +112,7 @@ $(function(){
    				</c:forEach>
    			</tr>
    			<tr>
-   				<td>시간</td>
+   				<td>시각</td>
    				<c:forEach items="${weatherList}" var="wl">
    					<td>${wl.updateHour}</td>
    				</c:forEach>
@@ -113,35 +120,35 @@ $(function(){
    			<tr>
    				<td>기온</td>
    				<c:forEach items="${weatherList}" var="wl">
-   					<td>${wl.temp3hour}</td>
+   					<td>${wl.temp3hour}℃</td>
    				</c:forEach>
    			</tr>
    			<tr id="forecastSky">
-   				<td>하늘</td>
+   				<td>날씨</td>
    				<c:forEach items="${weatherList}" var="wl">
    					<td>
-   					<input type="hidden" value="${wl.sky}">		
-   					<input type="hidden" value="${wl.rainStat}">	
-   					<div class="weather_body">
-						<div id="forecastWeater">
-							<div id="forecastSun"></div>
-							<div id="forecastCloud"></div>
-							<div id="forecastRain"></div>
+	   					<input type="hidden" value="${wl.sky}">		
+	   					<input type="hidden" value="${wl.rainStat}">	
+	   					<div class="weather_body" style="margin: 0; width: 50px; height: 50px;">
+							<div id="forecastWeater" style="width: 100%; height: 100%;">
+								<div id="forecastSun"></div>
+								<div id="forecastCloud"></div>
+								<div id="forecastRain"></div>
+							</div>
 						</div>
-					</div>
 					</td>
    				</c:forEach>
    			</tr>
    			<tr>
    				<td>습도</td>
    				<c:forEach items="${weatherList}" var="wl">
-   					<td>${wl.humidity}</td>
+   					<td>${wl.humidity}%</td>
    				</c:forEach>
    			</tr>
    			<tr>
    				<td>강수확률</td>
    				<c:forEach items="${weatherList}" var="wl">
-   					<td>${wl.rainProbability}</td>
+   					<td>${wl.rainProbability}%</td>
    				</c:forEach>
    			</tr>
    			<tr>
@@ -157,13 +164,14 @@ $(function(){
    				</c:forEach>
    			</tr>
    		</table>
-
+		</div>
    		</div>
    		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
        	</div>
 	</div>
+	
 	
     <!-- 하단 인클루드 -->
     <c:import url="/WEB-INF/views/module/footer.jsp"></c:import>

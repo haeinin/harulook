@@ -393,7 +393,7 @@ $(document).ready(function(){
 </head>
 <body>
 		<div id="head" class="row">
-			<div class="col-xs-3 ">
+			<div class="col-xs-2 ">
 
 			<!-- 현재 날씨  -->
 			<div class="weather_body">
@@ -413,7 +413,15 @@ $(document).ready(function(){
 			<%-- 닉네임 : <c:out value='${sessionScope.nick}'/><br> --%>
 
 			</div>
-			
+			<div class="col-xs-1">
+				<form action="./forecastWeather" method="get">
+					<input type="hidden" id="date" name="date">
+					<input type="hidden" id="hour" name="hour">
+					<input type="hidden" id="nx" name="nx">
+					<input type="hidden" id="ny" name="ny">
+					<button type="submit" class="btn btn-link"><span class="glyphicon glyphicon-triangle-right"></span></button>
+				</form>
+			</div>
 			<div class="col-xs-6">
 			<div id="titleHaruloook" class="name fancy-font">
 				<h1>
@@ -423,13 +431,7 @@ $(document).ready(function(){
 			</div>
 				<!-- <img src="./resources/logo.jpg" width="180px" height="50px"
 					class="img-rounded" alt="Cinque Terre"> -->
-			<form action="./forecastWeather" method="get">
-				<input type="hidden" id="date" name="date">
-				<input type="hidden" id="hour" name="hour">
-				<input type="hidden" id="nx" name="nx">
-				<input type="hidden" id="ny" name="ny">
-				<button type="submit"><span class="glyphicon glyphicon-triangle-right"></span></button>
-			</form>
+			
 
 		<div class="col-xs-3">
 			<c:if test="${sessionScope.level == null}">
@@ -681,5 +683,6 @@ $(document).ready(function(){
 			</c:if> --%>
 
 		</div>
+	</div>
 </body>
 </html>
