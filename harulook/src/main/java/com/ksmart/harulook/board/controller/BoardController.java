@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.ksmart.harulook.board.service.BoardDao;
 import com.ksmart.harulook.board.service.BoardDto;
-import com.ksmart.harulook.comment.service.CommentDao;
+import com.ksmart.harulook.board.service.BoardInterface;
 import com.ksmart.harulook.comment.service.CommentDto;
+import com.ksmart.harulook.comment.service.CommentInterface;
 import com.ksmart.harulook.follow.service.FollowInterface;
-import com.ksmart.harulook.like.service.LikeDao;
+import com.ksmart.harulook.like.service.LikeInterface;
 import com.ksmart.harulook.member.service.MemberDto;
 import com.ksmart.harulook.member.service.MemberInterface;
 import com.ksmart.harulook.point.service.PointInterface;
@@ -31,13 +31,13 @@ import com.ksmart.harulook.util.UtilFile;
 public class BoardController {
 	
 	@Autowired
-	private BoardDao boardDao;
+	private BoardInterface boardDao;
 	
 	@Autowired
-	private CommentDao commentDao;
+	private CommentInterface commentDao;
 	
 	@Autowired
-	private LikeDao likeDao;
+	private LikeInterface likeDao;
 	
 	@Autowired
     private PointInterface pointDao;

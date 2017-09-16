@@ -5,14 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ksmart.harulook.comment.service.CommentDao;
 import com.ksmart.harulook.comment.service.CommentDto;
+import com.ksmart.harulook.comment.service.CommentInterface;
 
 @Controller
 public class CommentController {
 
 	@Autowired
-	private CommentDao commentDao;
+	private CommentInterface commentDao;
 	
 	/* 댓글 삭제 */
 	@RequestMapping(value="/commentDelete", method = RequestMethod.GET)

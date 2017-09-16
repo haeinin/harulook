@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ksmart.harulook.like.service.LikeDao;
+import com.ksmart.harulook.like.service.LikeInterface;
 import com.ksmart.harulook.like.service.LikeToggleDto;
 
 @RestController
 public class LikeRestController {
 
 	@Autowired
-	private LikeDao likeDao;
+	private LikeInterface likeDao;
 	
 	/* sns게시물의 예뻐요 버튼 클릭 */
 	@RequestMapping(value="/likeBtnClick", method = RequestMethod.POST)

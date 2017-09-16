@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.ksmart.harulook.board.service.BoardDao;
+
 import com.ksmart.harulook.board.service.BoardDto;
-import com.ksmart.harulook.comment.service.CommentDao;
+import com.ksmart.harulook.board.service.BoardInterface;
 import com.ksmart.harulook.comment.service.CommentDto;
-import com.ksmart.harulook.like.service.LikeDao;
+import com.ksmart.harulook.comment.service.CommentInterface;
+import com.ksmart.harulook.like.service.LikeInterface;
 import com.ksmart.harulook.member.service.MemberDto;
 import com.ksmart.harulook.member.service.MemberInterface;
 
@@ -25,13 +26,13 @@ import com.ksmart.harulook.member.service.MemberInterface;
 public class BoardRestController {
 
 	@Autowired
-	private BoardDao boardDao;
+	private BoardInterface boardDao;
 	
 	@Autowired
-	private CommentDao commentDao;
+	private CommentInterface commentDao;
 	
 	@Autowired
-	private LikeDao likeDao;
+	private LikeInterface likeDao;
 	
 	@Autowired
 	private MemberInterface memberDao;
