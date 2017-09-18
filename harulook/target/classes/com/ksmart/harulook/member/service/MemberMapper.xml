@@ -172,15 +172,21 @@
     	</select>
 		
 		<!-- 전체회원리스트쿼리 -->
-     	<select id="userList" parameterType="java.util.Map" resultMap="member">
+     	<!-- <select id="userList" parameterType="java.util.Map" resultMap="member">
 			SELECT user_id
 					,user_nick
 					,user_name
-					,user_point
+					,sum(point_policy.point_policy_value) user_point
 					,user_date
 					,user_bs_name
 					,user_tel 
 			FROM user
+			LEFT JOIN point
+			ON point.user_id = user.user_id
+			LEFT JOIN point_policy
+			ON point.point_policy_no = point_policy.point_policy_no
+			GROUP BY user.user_id
+			
 			WHERE user_level = #{level}
 			<if test="userId != null">
 			AND user_id = #{userId}
@@ -188,22 +194,27 @@
 			ORDER BY user_date DESC 
        		LIMIT #{beginRow}, #{pagePerRow}
 			;
-    	</select>
+    	</select> -->
     	<!-- 전체회원리스트쿼리 페이지없이 -->
      	<select id="allUserList" parameterType="java.util.Map" resultMap="member">
-			SELECT user_id
-					,user_nick
-					,user_name
-					,user_point
-					,user_date
-					,user_bs_name
-					,user_tel 
+			SELECT user.user_id
+					,user.user_nick
+					,user.user_name
+					,sum(point_policy.point_policy_value) user_point
+					,user.user_date
+					,user.user_bs_name
+					,user.user_tel 
 			FROM user
-			WHERE user_level = #{level}
+			LEFT JOIN point
+			ON point.user_id = user.user_id
+			LEFT JOIN point_policy
+			ON point.point_policy_no = point_policy.point_policy_no
+			WHERE user.user_level = #{level}
+			GROUP BY user.user_id
 			<if test="userId != null">
 			AND user_id = #{userId}
 			</if>
-			ORDER BY user_date DESC 
+			ORDER BY user.user_date DESC 
 			;
     	</select>
 
