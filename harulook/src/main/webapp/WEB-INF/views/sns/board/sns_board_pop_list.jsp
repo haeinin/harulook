@@ -229,14 +229,12 @@ $(function(){
 			        <div class="scroll">
 			        	<input type="hidden" id="sessionUserLevel" value="${sessionScope.level}">
 			        	<div id="snsDetailHeader"></div>
-		        		<div id="scrollActive" style="overflow-y: auto;">
 			        		<div id="snsDetailContent"></div>
 			        		<hr>
 			        	
 				        	<div id="snsDetailLike"></div>
 				        	<hr>
 				        	<div id="snsDetailComment"></div>
-			        	</div>
 			        	<hr>
 			        	<c:if test="${sessionScope.id != null}">
 			        	<input type="hidden" id="sessionUserId" value="${sessionScope.id}">

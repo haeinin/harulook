@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="resources/files/images/umbrella.ico">
 <!-- bootstrap을 사용하기 위한 CDN주소 -->
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -39,12 +40,16 @@ $(function(){
 		
 		forecastSky = $('#forecastSky').children().eq(i).children().eq(0).val();
 		forecastRain = $('#forecastSky').children().eq(i).children().eq(1).val();
+		precipitation = $('#forecastSky').children().eq(i).children().eq(2).val();
 		
-		var forecastWeater = $('#forecastSky').children().eq(i).children().eq(2).children().eq(0);
+		var forecastWeater = $('#forecastSky').children().eq(i).children().eq(3).children().eq(0);
 		var forecastSun = forecastWeater.children().eq(0);
 		var forecastCloud = forecastWeater.children().eq(1);
 		var forecastRainStat = forecastWeater.children().eq(2);
 		
+		console.log('forecastSky : ',forecastSky);
+		console.log('forecastRain : ',forecastRain);
+		console.log('precipitation : ',precipitation);
 		
 		// 하늘 상태 
 		
@@ -72,8 +77,8 @@ $(function(){
 		// 강수형태 - 비나 눈
 		switch(forecastRain) {    
 		case '1' :    // 비
-		    if(data.precipitation > 5) { // 강수량이 5 이상일 때, 폭우 
-		    	forecastRainStat.attr('class','thundery__rain');
+			if(precipitation > 5) { // 강수량이 5 이상일 때, 폭우 
+				forecastRainStat.attr('class','thundery__rain');
 		    } else {
 		    	forecastRainStat.attr('class','rainy__rain');
 		    }
@@ -101,8 +106,10 @@ $(function(){
     	<div class="col-xs-1">
 	    	<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
     	</div>
-
+		
    		<div class="col-xs-9">
+   		<div class="col-xs-1"></div>
+   		<div class="col-xs-11">
    		<div style="overflow: auto;">
    		<table class="table">
    			<tr>
@@ -123,6 +130,7 @@ $(function(){
    					<td>
 	   					<input type="hidden" value="${wl.sky}">		
 	   					<input type="hidden" value="${wl.rainStat}">	
+	   					<input type="hidden" value="${wl.precipitation}">
 	   					<div class="weather_body" style="margin: 0; width: 50px; height: 50px;">
 							<div id="forecastWeater" style="width: 100%; height: 100%;">
 								<div id="forecastSun"></div>
@@ -160,6 +168,7 @@ $(function(){
    			</tr>
 
    		</table>
+		</div>
 		</div>
    		</div>
    		<!-- 우측 베너 인클루드 -->

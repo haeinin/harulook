@@ -5,6 +5,7 @@
 <html>
 <head>
 <title>~하루룩~</title>
+<link rel="shortcut icon" href="resources/files/images/umbrella.ico">
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
 
