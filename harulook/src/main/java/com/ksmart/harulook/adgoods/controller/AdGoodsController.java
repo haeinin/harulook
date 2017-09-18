@@ -1,4 +1,4 @@
-package com.ksmart.harulook.adgoods.Controller;
+package com.ksmart.harulook.adgoods.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

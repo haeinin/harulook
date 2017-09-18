@@ -57,15 +57,18 @@ public class LikeRestController {
 		String root = request.getSession().getServletContext().getRealPath("/");
 
 	    // 이미지 파일 위치
-	    String filename = root+imgroot;
+	    String filename = "http://haruloook.cafe24.com/"+imgroot;
 	
 	    // 이미지 읽기
 	    Image img = new ImageIcon(filename).getImage();
+	    System.out.println("경로 : "+filename);
 	 
 	    float Widthsize = img.getWidth(null);	//가로사이즈
 	    float Heightsize = img.getHeight(null);	//세로사이즈
 
 	    float size=(Heightsize/Widthsize)*588; //비율계산
+	    System.out.println("가로 : "+Widthsize);
+	    System.out.println("세로 :"+Heightsize);
 
 		return size;
 	}
