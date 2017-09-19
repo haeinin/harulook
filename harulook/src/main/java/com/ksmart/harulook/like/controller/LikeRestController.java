@@ -58,6 +58,8 @@ public class LikeRestController {
 
 	    // 이미지 파일 위치
 	    String filename = root+imgroot;
+	    System.out.println("루트경로 :"+ root );
+	    System.out.println("원본경로 :"+ imgroot );
 	    System.out.println("이미지경로 :"+ filename );
 	
 	    // 이미지 읽기
@@ -65,9 +67,11 @@ public class LikeRestController {
 	 
 	    float Widthsize = img.getWidth(null);	//가로사이즈
 	    float Heightsize = img.getHeight(null);	//세로사이즈
-
+	    System.out.println("가로 :"+ Widthsize );
+	    System.out.println("세로 :"+ Heightsize );
+	    
 	    float size=(Heightsize/Widthsize)*588; //비율계산
-
+	    System.out.println("사이즈 :"+ size );
 		return size;
 	}
 
