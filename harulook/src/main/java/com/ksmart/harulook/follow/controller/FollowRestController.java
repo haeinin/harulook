@@ -27,8 +27,8 @@ public class FollowRestController {
 		@RequestParam("followId") String followId ) {
 		System.out.println("팔로우 체크");
 		String userId = (String) session.getAttribute("id");
-		System.out.println("FollowController 세션아이디 == " + userId);
-		System.out.println("FollowController 월래는게시판아이디 == " + followId);
+		/*System.out.println("FollowController 세션아이디 == " + userId);
+		System.out.println("FollowController 원래는게시판아이디 == " + followId);*/
 		
 		String checkFollow = null;	//게시판 아이디와 로그인 아이디 중복검사
 		if(userId == null){
