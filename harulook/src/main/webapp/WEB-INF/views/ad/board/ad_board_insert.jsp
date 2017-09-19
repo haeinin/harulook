@@ -5,6 +5,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <title>광고등록</title>
+<link rel="shortcut icon" href="resources/files/images/umbrella.ico">
  <!-- 모달을 쓰기위한 부트스트랩 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- bootstrap을 사용하기 위한 CDN주소 -->

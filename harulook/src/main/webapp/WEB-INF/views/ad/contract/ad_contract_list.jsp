@@ -4,7 +4,8 @@
 <html>
 <head>
 <title>광고계약리스트</title>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="resources/files/images/umbrella.ico">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.css" />
 <link rel="stylesheet" href="<c:url value="resources/css/cartoony-weather.css?ver=2" />" type="text/css">

@@ -181,7 +181,7 @@ public class MemberController {
         model.addAttribute("list", list);
     	System.out.println("MemeberController 셀렉트해서 받아온 일반 회원 리스트 model값 == "+model);
         
-    	return "member/user/member_user_list2";  //아이디중복체크후 화면 그대로
+    	return "member/user/member_user_list";  //아이디중복체크후 화면 그대로
     }
 	
 	
@@ -349,7 +349,7 @@ public class MemberController {
 		}
 		MemberDto businessDetail = memberDao.selectBusinessDetail(userId);
 		model.addAttribute("businessDetail", businessDetail);
-		System.out.println(businessDetail + " == 1280937120398109238102938109381209381093810923089");
+		
 		return "member/business/member_business_update"; //사업자 관리자 수정폼
 	}
 	

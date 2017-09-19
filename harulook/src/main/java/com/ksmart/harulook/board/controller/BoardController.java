@@ -119,7 +119,7 @@ public class BoardController {
 		model.addAttribute("list", list);
 		model.addAttribute("boardSearchCount", boardSearchCount);
 		System.out.println("boardTagSearch --> "+list);
-		return "sns/board/sns_board_list2";
+		return "sns/board/sns_board_search_list";
 	}
 	
 

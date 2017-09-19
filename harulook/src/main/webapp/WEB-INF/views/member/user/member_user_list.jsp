@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="resources/files/images/umbrella.ico">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.css" />
 <link rel="stylesheet" href="<c:url value="resources/css/cartoony-weather.css?ver=2" />" type="text/css">
@@ -424,7 +425,7 @@ $(document).ready(function(){
 
 							<!-- 새관리자 등록하기 -->
 							<form id="newManagerInsert"
-								action="${pageContext.request.contextPath}/member_manager_insert"
+								action="${pageContext.request.contextPath}/memberManagerInsert"
 								method="get">
 								<div>
 									<input class="btn btn-default" id="managerInsertbutton"

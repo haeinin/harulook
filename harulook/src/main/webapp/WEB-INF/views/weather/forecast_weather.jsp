@@ -108,68 +108,67 @@ $(function(){
     	</div>
 		
    		<div class="col-xs-9">
-   		<div class="col-xs-1"></div>
-   		<div class="col-xs-11">
-   		<div style="overflow: auto;">
-   		<table class="table">
-   			<tr>
-   				<th>날짜</th>
-   				<c:forEach items="${weatherList}" var="wl">
-   					<th>${wl.updateDate}</th>
-   				</c:forEach>
-   			</tr>
-   			<tr>
-   				<td>시각</td>
-   				<c:forEach items="${weatherList}" var="wl">
-   					<td>${wl.updateHour}</td>
-   				</c:forEach>
-   			</tr>
-   			<tr id="forecastSky">
-   				<td>날씨</td>
-   				<c:forEach items="${weatherList}" var="wl">
-   					<td>
-	   					<input type="hidden" value="${wl.sky}">		
-	   					<input type="hidden" value="${wl.rainStat}">	
-	   					<input type="hidden" value="${wl.precipitation}">
-	   					<div class="weather_body" style="margin: 0; width: 50px; height: 50px;">
-							<div id="forecastWeater" style="width: 100%; height: 100%;">
-								<div id="forecastSun"></div>
-								<div id="forecastCloud"></div>
-								<div id="forecastRain"></div>
-							</div>
-						</div>
-					</td>
-   				</c:forEach>
-   			</tr>
-   			<tr>
-   				<td>기온</td>
-   				<c:forEach items="${weatherList}" var="wl">
-   					<td>${wl.temp3hour}℃</td>
-   				</c:forEach>
-   			</tr>
-   			<tr>
-   				<td style="display: inline-flex;"><p style="color: blue; float: left">최저</p>/<p style="color: red;">최고</p></td>
-   				<c:forEach items="${weatherList}" var="wl">
-   					<td><p style="color: blue; float: left">${wl.tempMin}</p><p style="color: red;">${wl.tempMax}</p></td>
-   				</c:forEach>
-   			</tr>
-   			
-   			<tr>
-   				<td>습도</td>
-   				<c:forEach items="${weatherList}" var="wl">
-   					<td>${wl.humidity}%</td>
-   				</c:forEach>
-   			</tr>
-   			<tr>
-   				<td>강수확률</td>
-   				<c:forEach items="${weatherList}" var="wl">
-   					<td>${wl.rainProbability}%</td>
-   				</c:forEach>
-   			</tr>
-
-   		</table>
-		</div>
-		</div>
+	   		<div class="col-md-1 col-xs-2"></div>
+	   		<div class="col-md-11 col-xs-10">
+	   		<div style="overflow: auto;">
+		   		<table class="table">
+		   			<tr>
+		   				<th>날짜</th>
+		   				<c:forEach items="${weatherList}" var="wl">
+		   					<th>${wl.updateDate}</th>
+		   				</c:forEach>
+		   			</tr>
+		   			<tr>
+		   				<td>시각</td>
+		   				<c:forEach items="${weatherList}" var="wl">
+		   					<td>${wl.updateHour}</td>
+		   				</c:forEach>
+		   			</tr>
+		   			<tr id="forecastSky">
+		   				<td>날씨</td>
+		   				<c:forEach items="${weatherList}" var="wl">
+		   					<td>
+			   					<input type="hidden" value="${wl.sky}">		
+			   					<input type="hidden" value="${wl.rainStat}">	
+			   					<input type="hidden" value="${wl.precipitation}">
+			   					<div class="weather_body" style="margin: 0; width: 50px; height: 50px;">
+									<div id="forecastWeater" style="width: 100%; height: 100%;">
+										<div id="forecastSun"></div>
+										<div id="forecastCloud"></div>
+										<div id="forecastRain"></div>
+									</div>
+								</div>
+							</td>
+		   				</c:forEach>
+		   			</tr>
+		   			<tr>
+		   				<td>기온</td>
+		   				<c:forEach items="${weatherList}" var="wl">
+		   					<td>${wl.temp3hour}℃</td>
+		   				</c:forEach>
+		   			</tr>
+		   			<tr>
+		   				<td style="display: inline-flex;"><p style="color: blue; float: left">최저</p>/<p style="color: red;">최고</p></td>
+		   				<c:forEach items="${weatherList}" var="wl">
+		   					<td><p style="color: blue; float: left">${wl.tempMin}</p><p style="color: red;">${wl.tempMax}</p></td>
+		   				</c:forEach>
+		   			</tr>
+		   			
+		   			<tr>
+		   				<td>습도</td>
+		   				<c:forEach items="${weatherList}" var="wl">
+		   					<td>${wl.humidity}%</td>
+		   				</c:forEach>
+		   			</tr>
+		   			<tr>
+		   				<td>강수확률</td>
+		   				<c:forEach items="${weatherList}" var="wl">
+		   					<td>${wl.rainProbability}%</td>
+		   				</c:forEach>
+		   			</tr>
+		   		</table>
+			</div>
+			</div>
    		</div>
    		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">

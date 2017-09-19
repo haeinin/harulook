@@ -502,7 +502,7 @@ $(document).ready(function(){
 								method="get">
 								<div>
 									<input class="btn btn-default" id="adcontractlistButtonManager"
-										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="광거 검색 및 승인" />
+										type="button" style="WIDTH: 130pt; HEIGHT: 25pt" value="광고 검색 및 승인" />
 								</div>
 							</form>
 							
