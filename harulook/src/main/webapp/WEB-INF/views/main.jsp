@@ -169,7 +169,7 @@
                     <h4>프로젝트기능</h4>
                   </div>
                   <div class="timeline-body">
-                    <p class="explain">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                    <p class="explain">접속 지역의 현재날씨와 예보를 제공합니다.<br> 사용자 취향에 따라 맞춤 컨텐츠를 공유합니다.<br> 기온에 따른 맞춤 광고로 기대 효과를 높일 수 있습니다.</p>
                   </div>
                 </div>
               </li>
@@ -196,6 +196,8 @@
 					<br>[FrameWork]
 					<br>springframework 4.3.9, MyBatis, bootstrapspring-webmvc 4.3.9,Maven, mybatis 3.4.1, <br>mybatis-spring 1.2.2
 					<br>[API]
+					<br>공공데이터포탈 (신)동네예보정보조회서비스
+					<br>kakao API
                     </p>
                   </div>
                     
@@ -240,7 +242,7 @@
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a href="#">
+                  <a href="https://github.com/haeinin" target="_blank">
                     <i class="fa fa-github"></i>
                   </a>
                 </li>
@@ -263,7 +265,7 @@
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a href="#">
+                  <a href="https://github.com/injun379" target="_blank">
                     <i class="fa fa-github"></i>
                   </a>
                 </li>
@@ -285,7 +287,7 @@
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a href="#">
+                  <a href="https://github.com/kmg880311" target="_blank">
                     <i class="fa fa-github"></i>
                   </a>
                 </li>
@@ -308,7 +310,7 @@
                   </a>
                 </li>
                 <li class="list-inline-item">
-                  <a href="#">
+                  <a href="https://github.com/qkr456whdqls" target="_blank">
                     <i class="fa fa-github"></i>
                   </a>
                 </li>

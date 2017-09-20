@@ -58,7 +58,7 @@ $(document).ready(function(){
 					<div class="image-wrap" style="float: left; margin: 5px; overflow: hidden;">
 					<c:choose>
 						   <c:when test="${b.adBoardNo == null}"><img class="adBoards" style="display: inline-block; width: 100%; min-height: 100%;" alt="no image" onError="this.src='resources/files/images/noAD.png';" src="this.src='resources/files/images/defaut.jpg';"> </c:when>
-						   <c:otherwise><img class="adBoards" style="height: auto; max-width: 100%; max-height: 100%; width: auto;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.adBoardImg}"></c:otherwise>
+						   <c:otherwise><img class="adBoards" style="display: inline-block; width: 100%; min-height: 100%;" alt="no image" onError="this.src='resources/files/images/defaut.jpg';" src="${b.adBoardImg}"></c:otherwise>
 							</c:choose>
 					</div>
 				</div>
@@ -82,8 +82,13 @@ $(document).ready(function(){
 				        <div id="adDetailContent">
 						</div>
 						</div>
+						
 						<!-- 강고 상세 상품 내용 영역 -->
 				     </div>
+				     <div style="text-align: right; padding-right: 20px;">
+		        		<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+		        	</div>
+			        <br>
 				</div>
 			</div>
 		</div>

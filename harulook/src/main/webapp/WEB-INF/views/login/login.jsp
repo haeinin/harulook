@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="shortcut icon" href="resources/files/images/umbrella.ico">+
+<link rel="shortcut icon" href="resources/files/images/umbrella.ico">
 
 <!-- div 바디 높이 크기 지정 -->
 <style type="text/css">

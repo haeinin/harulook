@@ -47,10 +47,6 @@ $(function(){
 		var forecastCloud = forecastWeater.children().eq(1);
 		var forecastRainStat = forecastWeater.children().eq(2);
 		
-		console.log('forecastSky : ',forecastSky);
-		console.log('forecastRain : ',forecastRain);
-		console.log('precipitation : ',precipitation);
-		
 		// 하늘 상태 
 		
 	    switch(forecastSky) {
