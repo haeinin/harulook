@@ -35,7 +35,7 @@
             	</c:if>
 				<c:if test="${sessionScope.id==adContractPlace1.userId}">
             		<td><a href="./contractDoingCancel?adContractNo=${adContractPlace1.adContractNo}&adContractEnd=${adContractPlace1.adContractEnd}">계약 중도 취소 신청</a></td>
-            		<td><button id="place1detail" type="button">상세보기</button></td>
+            		<td><button id="place1detail" type="button" class="btn btn-success">상세보기</button></td>
             	</c:if>
                 </c:if>
                 
@@ -56,7 +56,7 @@
             	</c:if>
 	<c:if test="${sessionScope.id==adContractPlace2.userId}">
             		<td><a href="./contractDoingCancel?adContractNo=${adContractPlace2.adContractNo}&adContractEnd=${adContractPlace2.adContractEnd}">계약 중도 취소 신청</a></td>
-            	    <td><button id="place2detail" type="button">상세보기</button></td>  
+            	    <td><button id="place2detail" type="button" class="btn btn-success">상세보기</button></td>  
             	</c:if>
                 </c:if>
   
@@ -79,7 +79,7 @@
         		</c:if>
         		<c:if test="${sessionScope.id==adContractPlace3.userId}">
         			<td><a href="./contractDoingCancel?adContractNo=${adContractPlace3.adContractNo}&adContractEnd=${adContractPlace3.adContractEnd}">계약 중도 취소 신청</a></td>
-        			<td><button id="place3detail" type="button">상세보기</button></td>
+        			<td><button id="place3detail" type="button" class="btn btn-success">상세보기</button></td>
         		</c:if>
         		</c:if>
 
