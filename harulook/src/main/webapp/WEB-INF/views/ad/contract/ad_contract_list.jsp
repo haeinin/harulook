@@ -17,6 +17,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js?autoload=false"></script>
 <script type="text/javascript" src="resources/js/modernizr.js"></script>
+<script type="text/javascript" src="resources/js/adContractDetail.js"></script>
 <!-- 버튼 위치 조정 -->
 <style type="text/css">
 /* 로그인버튼 */
@@ -347,10 +348,10 @@ function showDetail(data) {
 			success : function(contractData) {
 				console.log(contractData);
 				adContractDetail(contractData);
-				
+				$('#adContractModal').modal();
 			}
 		});
-		$('#adContractModal').modal();
+
 	});
  	/* 광고위치2에 있는 상세복 버튼을 눌렀을 때 상세내용을 AJAX로 불러온다음 모달화면에 출력  */
  	$('#place2detail').click(function(){
@@ -364,10 +365,10 @@ function showDetail(data) {
 			success : function(contractData) {
 				console.log(contractData);
 				adContractDetail(contractData);
+				$('#adContractModal').modal();
 				
 			}
 		});
-		$('#adModal').modal();
 	});
  	/* 광고위치3에 있는 상세복 버튼을 눌렀을 때 상세내용을 AJAX로 불러온다음 모달화면에 출력  */
  	$('#place3detail').click(function(){
@@ -381,10 +382,10 @@ function showDetail(data) {
 			success : function(contractData) {
 				console.log(contractData);
 				adContractDetail(contractData);
+				$('#adContractModal').modal();
 				
 			}
 		});
-		$('#adModal').modal();
 	});
 }
 $(document).ready(function(){
@@ -616,9 +617,10 @@ $(document).ready(function(){
 									action="${pageContext.request.contextPath}/selectRefund"
 									method="get">
 									<div>
-										<input class="btn btn-default" id="reFundButton" type="button"
-											 style="WIDTH: 130pt; HEIGHT: 25pt" value="나의 환불 관리" />
-									</div>
+												<input class="btn btn-default" id="reFundButton"
+													type="button" style="WIDTH: 130pt; HEIGHT: 25pt"
+													value="나의 환불 관리" />
+											</div>
 								</form>
 
 								<!-- 사이트 접속자수 검색 -->

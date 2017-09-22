@@ -58,21 +58,19 @@ jQuery.browser = {};
     	})
     	/****************************/
     	/* 총 합계를 계산해 놓으면 텍스트박스에 NaN이라는 값이 출력되서 날짜를 선택해야 총 합계가 나오게 만듬 */
-    	$('#date').change(function(){
-
-			if($('#date').val() == 'ad_dc_01'){
+    	$('#adDate').change(function(){
+			if($('#adDate').val() == 'ad_dc_01'){
 				period = 3;
-			}else if($('#date').val() == 'ad_dc_02'){
+			}else if($('#adDate').val() == 'ad_dc_02'){
 				period = 7;
-			}else if($('#date').val() == 'ad_dc_03'){
+			}else if($('#adDate').val() == 'ad_dc_03'){
 				period = 30;
 			}
-			
 		/* 기간을 선택했을때 ajax를 이용하여 기간별 할인율을 전송받음*/
 			$.ajax({
     			type : "POST",
     			url : "./getDc",
-    			data : { adCostNo : $('#date').val()},
+    			data : { adCostNo : $('#adDate').val()},
     			success : function(data){
     				console.log("수수료 : " + data);
     				dc = data;
@@ -125,9 +123,9 @@ jQuery.browser = {};
         $("#datepicker").change(function(){
         	if($('#date').val() == 'ad_dc_01'){
 				period = 3;
-			}else if($('#date').val() == 'ad_dc_02'){
+			}else if($('#adDate').val() == 'ad_dc_02'){
 				period = 7;
-			}else if($('#date').val() == 'ad_dc_03'){
+			}else if($('#adDate').val() == 'ad_dc_03'){
 				period = 30;
 			}
         	enddate = new Date($(this).val());
@@ -151,15 +149,14 @@ jQuery.browser = {};
         });
     	/**********************************************/
     	/* 광고 계약 취소 시 환불테이블과 계약 상태를 바꿔줌 */
-
     			
   
 	function calc(){
-		if($('#date').val() == 'ad_dc_01'){
+		if($('#adDate').val() == 'ad_dc_01'){
 			period = 3;
-		}else if($('#date').val() == 'ad_dc_02'){
+		}else if($('#adDate').val() == 'ad_dc_02'){
 			period = 7;
-		}else if($('#date').val() == 'ad_dc_03'){
+		}else if($('#adDate').val() == 'ad_dc_03'){
 			period = 30;
 		}
 		calcprice = $('#pricePerDay').val()*period*(1-$('#dcForPrice').val()/100);
@@ -204,7 +201,7 @@ jQuery.browser = {};
 		        </div>
 		    <div class="form-group">
 		            <label for="date">계약일수</label>
-		            <select id="date" name="adDcNo">
+		            <select id="adDate" name="adDcNo">
 		            <option value=""></option>
 		            <option value="ad_dc_01">3일</option>
 		            <option value="ad_dc_02">7일</option>
