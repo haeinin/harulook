@@ -107,7 +107,7 @@
 			i--;
 			console.log('광고게시물 갯수 : ' + i);
 		})
-		/* 등록버튼을 눌렀을 경우 i에 담겨있는 게시물의 값을 adBoardCount를 아이디로 가지는 input에 옮긴다  그리고 서브밋을 한다. */
+		/* 수정버튼을 눌렀을 경우 i에 담겨있는 게시물의 값을 adBoardCount를 아이디로 가지는 input에 옮긴다  그리고 서브밋을 한다. */
 		$('#ok').click(function() {
 			$('#adBoardCount').val(i);
 
@@ -307,11 +307,11 @@
 							<option value="temp1524">15도~24도</option>
 							<option value="temp2430">24도~30도</option>
 							<option value="temp30">30도 이상</option>
-						</select><br> <br> 대표이미지 등록<br>
+						</select><br> <br> 대표이미지 수정<br>
 						<br> <img id="ad-1adBoardImgView" src="${adboardlist[0].adBoardImg}" alt="your image" width="300px" class="ad-1 img-responsive" />
 							 <input type='file' id="ad-1adBoardImg" class="ad-1" name="adBoardImage" value="${adboardlist[0].adBoardImg}" /><br>
 						<br>
-						<br> 상세상품이미지 등록<br>
+						<br> 상세상품이미지 수정<br>
 						<br> 상세제품1 이미지<br> 
 							 <img id="ad-1adGoods1ImgView" src="${adgoods[0].adGoodsImg}" alt="your image" width="300px" class="ad-1 img-responsive" />
 					    	 <input type='file' id="ad-1adGoods1Img" class="ad-1" name="adGoodsImage" value="${adgoods[0].adGoodsImg}"/><br>
@@ -367,7 +367,7 @@
 							src="${adboardlist[1].adBoardImg}" alt="your image" width="300PX"
 							class="ad-2 img-responsive" /> <input type='file' id="ad-2adBoardImg"
 							class="ad-2" name="adBoardImage" /><br> <br>
-						<br> 상세상품이미지 등록<br>
+						<br> 상세상품이미지 수정<br>
 						<br> 상세제품1 이미지 <br>
 						 	<img id="ad-2adGoods1ImgView" src="${adgoods[2].adGoodsImg}" alt="your image" width="300px" class="ad-2 img-responsive" />
 							<input type='file' id="ad-2adGoods1Img" class="ad-2" name="adGoodsImage" value="${adgoods[2].adGoodsImg}" /><br>
@@ -390,7 +390,7 @@
 					</div>
 					<button id="adAdd" type="button">추가</button>
 					<br> <input type="hidden" id="adBoardCount"	name="adBoardCount" value="${adboardcount}"> <input
-						type="button" id="ok" value="등록">
+						type="button" id="ok" value="수정">
 				</form>
 
 			</div>

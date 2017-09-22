@@ -59,7 +59,6 @@ jQuery.browser = {};
     	/****************************/
     	/* 총 합계를 계산해 놓으면 텍스트박스에 NaN이라는 값이 출력되서 날짜를 선택해야 총 합계가 나오게 만듬 */
     	$('#adDate').change(function(){
-    		alert('왜 안되지');
 			if($('#adDate').val() == 'ad_dc_01'){
 				period = 3;
 			}else if($('#adDate').val() == 'ad_dc_02'){
