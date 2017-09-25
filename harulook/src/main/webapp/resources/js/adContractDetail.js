@@ -8,7 +8,7 @@ function adContractDetail(msg) {
 	$('#adMainImg').width(imgWidth);
 	
 	/* 게시물 상세보기 이미지 */
-	var adMainImg = '';
+	var adMainImg = '<br><br>';
 	adMainImg += '최고온도 : ' +msg.adBoard[0].adBoardTempMax + ' 최저온도 : ' + msg.adBoard[0].adBoardTempMin;
 	adMainImg += '<img id="adMainImg" alt="no image" style="width: 500px; height: 500px;" onError="this.src=\'resources/files/images/defaut.jpg\';" src="'+msg.adBoard[0].adBoardImg+'"><br>';
 	$('#adMainImg').html(adMainImg);
