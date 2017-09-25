@@ -30,6 +30,7 @@
     	</div>
     	<div class="col-xs-1"></div>
 	    <div id="div1" class="col-xs-7">
+	    <h1>광고 환불 목록 </h1>
 			<div id="container">
 				<table id="table"
                data-toggle="table"
