@@ -55,37 +55,47 @@ public class BoardController {
 	public String boardTagSearch(Model model, BoardDto board, HttpServletRequest request
 			, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		log.debug("boardTagSearch 요청");
+		
+		// 체크박스 체크된 항목을 배열로 받아온다.
 		String[] colorValue = request.getParameterValues("colorValue");
 		String[] styleValue = request.getParameterValues("styleValue");
 		String[] situationValue = request.getParameterValues("situationValue");
+		
+		// 배열을 다루기 쉽게 변환할 List 선언
 		List<String> colorValueList = new ArrayList<String>();
 		List<String> styleValueList = new ArrayList<String>();
 		List<String> situationValueList = new ArrayList<String>();
 		
+		// 색상 체크박스에 체크된 항목이 있는 경우, 그 값을 리스트에 추가
 		if(colorValue != null) {
 			Collections.addAll(colorValueList, colorValue);
 		}
+		
+		// 스타일 체크박스에 체크된 항목이 있는 경우, 그 값을 리스트에 추가
 		if(styleValue != null) {
 			Collections.addAll(styleValueList, styleValue);
 		}
+		
+		// 상황별 분류 체크박스에 체크된 항목이 있는 경우, 그 값을 리스트에 추가
 		if(situationValue != null) {
 			Collections.addAll(situationValueList, situationValue);
 		}
 		
+		// 체크박스 배열을 BoardDto에 셋팅
 		board.setColorValue(colorValue);
 		board.setStyleValue(styleValue);
 		board.setSituationValue(situationValue);
 		log.debug("boardTagSearch --> "+board);
 		
-		int popularity = 0;
-		int boardCount = boardDao.selectBoardCount();	
-        int pagePerRow = 9;
-        int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
-        int boardSearchCount = 0;
+		int popularity = 0;		// 게시물 정렬 기준 - 0이면 최신순 정렬, 1이면 인기순 정렬 
+        int pagePerRow = 9;		// 한 번에 보여줄 게시물 수
+        int boardSearchCount = 0;	// 검색 결과 게시물의 수 초기화
 		
 		MemberDto userDetail = new MemberDto();	// 내게시물 보기에서 프로필 사진 보기위함
         int followListCount = 0;
         int followMeListCount = 0;
+        
+        // 아이디 검색 항목이 비었을 경우 null로 처리
 		if(board.getUserId().equals("")) {
 			board.setUserId(null);
 		}else{
@@ -93,24 +103,36 @@ public class BoardController {
 			followListCount = followDao.selectFollowListCount(board.getUserId());	//팔로우수
 			followMeListCount = followDao.selectFollowMeListCount(board.getUserId());	//팔로워수
 		}
+		
+		// 연령대 검색 항목이 비었을 경우 null로 처리
 		if(board.getSnsBoardAge().equals("")) {
 			board.setSnsBoardAge(null);
 		} 
+		
+		// 지역 검색 항목이 비었을 경우 null로 처리
 		if(board.getSnsBoardLoc().equals("")) {
 			board.setSnsBoardLoc(null);
 		} 
+		
+		// 체형 검색 항목이 비었을 경우 null로 처리
 		if(board.getSnsBoardSize().equals("")) {
 			board.setSnsBoardSize(null);
 		}
+		
+		// 키 검색 항목이 비었을 경우 null로 처리
 		if(board.getSnsBoardTall().equals("")) {
 			board.setSnsBoardTall(null);
 		}
+		
+		// 날씨 검색 항목이 비었을 경우 null로 처리
 		if(board.getSnsBoardWeather().equals("")) {
 			board.setSnsBoardWeather(null);
 		}
 		log.debug("boardTagSearch --> "+board);
-		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow, popularity);
-		boardSearchCount = boardDao.selectBoardSearchListCount(board);
+		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow, popularity);	// 검색 조건에 맞는 게시물 조회
+		boardSearchCount = boardDao.selectBoardSearchListCount(board);	// 검색 결과 게시물의 수
+		
+		// view에 뿌려줄 데이터를 모델에 저장
 		model.addAttribute("colorValueList",colorValueList);
 		model.addAttribute("styleValueList",styleValueList);
 		model.addAttribute("situationValueList",situationValueList);
@@ -130,10 +152,12 @@ public class BoardController {
 	public String boardPopularityList(Model model
             , @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		log.debug("boardPopularityList 폼 요청");
-		int boardCount = boardDao.selectBoardCount();
-        int pagePerRow = 6;
+		int boardCount = boardDao.selectBoardCount();	// 전체 게시물 수 조회
+        int pagePerRow = 6;		// 한 페이지에 나올 게시물 수를 6으로 초기화
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
-		List<BoardDto> list = boardDao.selectBoardPopularityList(currentPage, pagePerRow);
+		List<BoardDto> list = boardDao.selectBoardPopularityList(currentPage, pagePerRow); // 인기게시물 목록 조회
+		
+		// view에 뿌려줄 데이터를 모델에 저장
 		model.addAttribute("currentPage", currentPage);
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("lastPage", lastPage);
@@ -148,9 +172,11 @@ public class BoardController {
             , @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		log.debug("boardList 폼 요청");
 		int boardCount = boardDao.selectBoardCount();
-        int pagePerRow = 9;
+        int pagePerRow = 9;		// 한 페이지에 나올 게시물 수를 9으로 초기화
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
-		List<BoardDto> list = boardDao.selectBoardList(currentPage, pagePerRow);
+		List<BoardDto> list = boardDao.selectBoardList(currentPage, pagePerRow);	// 게시물 목록 조회(최신순)
+		
+		// view에 뿌려줄 데이터를 모델에 저장
 		model.addAttribute("currentPage", currentPage);
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("lastPage", lastPage);
@@ -163,12 +189,12 @@ public class BoardController {
 	@RequestMapping(value="/boardDelete", method = RequestMethod.GET)
 	public String boardDelete(String boardNo) {
 		log.debug("sns게시물 삭제 요청");
-		boardDao.deleteBoard(boardNo);
-		commentDao.deleteBoardComment(boardNo);
-		likeDao.deleteboardLike(boardNo);
-		boardDao.deleteSnsColor(boardNo);
-		boardDao.deleteSnsSituation(boardNo);
-		boardDao.deleteSnsStyle(boardNo);
+		boardDao.deleteBoard(boardNo);	// 게시물 삭제
+		commentDao.deleteBoardComment(boardNo);	// 해당 게시물에 등록된 댓글 삭제
+		likeDao.deleteboardLike(boardNo);		// 해당 게시물에 등록된 추천 삭제
+		boardDao.deleteSnsColor(boardNo);		// 해당 게시물에 등록된 색상 삭제
+		boardDao.deleteSnsSituation(boardNo);	// 해당 게시물에 등록된 상황 삭제
+		boardDao.deleteSnsStyle(boardNo);		// 해당 게시물에 등록된 스타일 삭제
 		return "redirect:/home";
 	}
 	
@@ -197,14 +223,15 @@ public class BoardController {
 			board.setSnsBoardWeather(null);
 		}
 		
-		boardDao.deleteSnsColor(board.getSnsBoardNo());
-		boardDao.deleteSnsSituation(board.getSnsBoardNo());
-		boardDao.deleteSnsStyle(board.getSnsBoardNo());
+		boardDao.deleteSnsColor(board.getSnsBoardNo());		// 해당 게시물에 등록된 색상 삭제
+		boardDao.deleteSnsSituation(board.getSnsBoardNo());	// 해당 게시물에 등록된 상황 삭제
+		boardDao.deleteSnsStyle(board.getSnsBoardNo());		// 해당 게시물에 등록된 스타일 삭제
 		
 		String[] colorValue = request.getParameterValues("colorValue");
 		String[] styleValue = request.getParameterValues("styleValue");
 		String[] situationValue = request.getParameterValues("situationValue");
 		
+		// 수정한 게시물의 상황 체크박스에 체크된 값이 있을 경우
 		if(situationValue != null) {
 			String lastSituationNo = boardDao.selectLastSituationNo();
 			log.debug("lastSituationNo : "+lastSituationNo);
@@ -222,6 +249,7 @@ public class BoardController {
 			}
 		}
 		
+		// 수정한 게시물의 스타일 체크박스에 체크된 값이 있을 경우
 		if(styleValue != null) {
 			String lastStyleNo = boardDao.selectLastStyleNo();
 			for(int i = 0; i<styleValue.length; i++) {
@@ -235,6 +263,7 @@ public class BoardController {
 			}
 		}
 		
+		// 수정한 게시물의 색상 체크박스에 체크된 값이 있을 경우
 		if(colorValue != null) {
 			String lastColorNo = boardDao.selectLastColorNo();
 			for(int i = 0; i<colorValue.length; i++) {

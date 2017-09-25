@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+/*로그 인터셉터*/
 public class LoggerInterceptor extends HandlerInterceptorAdapter {
 	protected Logger log = Logger.getLogger(LoggerInterceptor.class);
 	
