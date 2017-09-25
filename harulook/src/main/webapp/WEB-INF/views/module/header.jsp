@@ -350,8 +350,8 @@ $(document).ready(function(){
 	/********************************/
 	
 	var position = sessionStorage.getItem('influx');
-	var nx = '60';
-	var ny = '127';
+	var nx = '71';
+	var ny = '140';
 	
 	var allData = { 'date': date, 'hour': hour, 'nx': nx, 'ny': ny};	// api에 입력할 데이터 
 	console.log(nx, ny);

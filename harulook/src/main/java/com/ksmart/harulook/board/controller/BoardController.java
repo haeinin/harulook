@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ import com.ksmart.harulook.util.UtilFile;
 
 @Controller
 public class BoardController {
+	Logger log = Logger.getLogger(this.getClass());
 	
 	@Autowired
 	private BoardInterface boardDao;
@@ -52,7 +54,7 @@ public class BoardController {
 	@RequestMapping(value="/boardTagSearch", method = RequestMethod.GET)
 	public String boardTagSearch(Model model, BoardDto board, HttpServletRequest request
 			, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		System.out.println("boardTagSearch 요청");
+		log.debug("boardTagSearch 요청");
 		String[] colorValue = request.getParameterValues("colorValue");
 		String[] styleValue = request.getParameterValues("styleValue");
 		String[] situationValue = request.getParameterValues("situationValue");
@@ -73,7 +75,7 @@ public class BoardController {
 		board.setColorValue(colorValue);
 		board.setStyleValue(styleValue);
 		board.setSituationValue(situationValue);
-		System.out.println("boardTagSearch --> "+board);
+		log.debug("boardTagSearch --> "+board);
 		
 		int popularity = 0;
 		int boardCount = boardDao.selectBoardCount();	
@@ -106,7 +108,7 @@ public class BoardController {
 		if(board.getSnsBoardWeather().equals("")) {
 			board.setSnsBoardWeather(null);
 		}
-		System.out.println("boardTagSearch --> "+board);
+		log.debug("boardTagSearch --> "+board);
 		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow, popularity);
 		boardSearchCount = boardDao.selectBoardSearchListCount(board);
 		model.addAttribute("colorValueList",colorValueList);
@@ -118,7 +120,7 @@ public class BoardController {
 		model.addAttribute("board",board);
 		model.addAttribute("list", list);
 		model.addAttribute("boardSearchCount", boardSearchCount);
-		System.out.println("boardTagSearch --> "+list);
+		log.debug("boardTagSearch --> "+list);
 		return "sns/board/sns_board_search_list";
 	}
 	
@@ -127,7 +129,7 @@ public class BoardController {
 	@RequestMapping(value="/boardPopList", method = RequestMethod.GET)
 	public String boardPopularityList(Model model
             , @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		System.out.println("boardPopularityList 폼 요청");
+		log.debug("boardPopularityList 폼 요청");
 		int boardCount = boardDao.selectBoardCount();
         int pagePerRow = 6;
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
@@ -136,7 +138,7 @@ public class BoardController {
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("lastPage", lastPage);
         model.addAttribute("list", list);
-        System.out.println("boardList : "+list);
+        log.debug("boardList : "+list);
 		return "sns/board/sns_board_pop_list";
 	}
 	
@@ -144,7 +146,7 @@ public class BoardController {
 	@RequestMapping(value="/boardList", method = RequestMethod.GET)
 	public String boardList(Model model
             , @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		System.out.println("boardList 폼 요청");
+		log.debug("boardList 폼 요청");
 		int boardCount = boardDao.selectBoardCount();
         int pagePerRow = 9;
         int lastPage = (int)(Math.ceil(boardCount / pagePerRow));
@@ -153,14 +155,14 @@ public class BoardController {
         model.addAttribute("boardCount", boardCount);
         model.addAttribute("lastPage", lastPage);
         model.addAttribute("list", list);
-        System.out.println("boardList : "+list);
+        log.debug("boardList : "+list);
 		return "sns/board/sns_board_list";
 	}
 	
 	/* sns게시물 삭제 처리 요청 */
 	@RequestMapping(value="/boardDelete", method = RequestMethod.GET)
 	public String boardDelete(String boardNo) {
-		System.out.println("sns게시물 삭제 요청");
+		log.debug("sns게시물 삭제 요청");
 		boardDao.deleteBoard(boardNo);
 		commentDao.deleteBoardComment(boardNo);
 		likeDao.deleteboardLike(boardNo);
@@ -173,8 +175,8 @@ public class BoardController {
 	/* sns게시물 수정 처리 요청 */
 	@RequestMapping(value="/boardUpdate", method = RequestMethod.POST)
 	public String boardUpdate(BoardDto board, HttpServletRequest request) {
-		System.out.println("boardUpdate 처리 요청");
-		System.out.println("boardUpdate board : "+board);
+		log.debug("boardUpdate 처리 요청");
+		log.debug("boardUpdate board : "+board);
 		
 		if(board.getSnsBoardGender().equals("")) {
 			board.setSnsBoardGender(null);
@@ -205,7 +207,7 @@ public class BoardController {
 		
 		if(situationValue != null) {
 			String lastSituationNo = boardDao.selectLastSituationNo();
-			System.out.println("lastSituationNo : "+lastSituationNo);
+			log.debug("lastSituationNo : "+lastSituationNo);
 			for(int i = 0; i<situationValue.length; i++) {
 		        int insertSituationNo = 1;	//DB에 등록된 게시물이 없을 때 번호의 초기값
 		        if(lastSituationNo != null) {
@@ -213,9 +215,9 @@ public class BoardController {
 		        }
 		        String snsBoardNo = board.getSnsBoardNo();
 		        String snsSituationNo = "sns_situation_"+insertSituationNo;
-		        System.out.println("snsSituationNo : "+snsSituationNo);
-		        System.out.println("snsBoardNo : "+snsBoardNo);
-		        System.out.println("situationValue["+i+"] : "+situationValue[i]);
+		        log.debug("snsSituationNo : "+snsSituationNo);
+		        log.debug("snsBoardNo : "+snsBoardNo);
+		        log.debug("situationValue["+i+"] : "+situationValue[i]);
 		        boardDao.insertSnsSituation(snsSituationNo, snsBoardNo, situationValue[i]);
 			}
 		}
@@ -254,8 +256,8 @@ public class BoardController {
 	@RequestMapping(value="/boardUpdate", method = RequestMethod.GET)
 	public String boardUpdateForm(Model model
             , @RequestParam(value="boardNo", required=true) String boardNo) {
-		System.out.println("boardUpdate 화면 요청");
-		System.out.println("boardUpdate boardNo : "+boardNo);
+		log.debug("boardUpdate 화면 요청");
+		log.debug("boardUpdate boardNo : "+boardNo);
 		
 		List<String> snsStyle = boardDao.selectBoardStyle(boardNo);
 		List<String> snsColor = boardDao.selectBoardColor(boardNo);
@@ -266,7 +268,7 @@ public class BoardController {
 		model.addAttribute("snsSituation", snsSituation);
 		model.addAttribute("snsStyle", snsStyle);
 		model.addAttribute("board", board);
-		System.out.println("snsStyle : "+snsStyle);
+		log.debug("snsStyle : "+snsStyle);
 		return "sns/board/sns_board_update";
 	}
 	
@@ -274,11 +276,11 @@ public class BoardController {
 	@RequestMapping(value="/oardDetail", method = RequestMethod.GET)
 	public String boardDetail(Model model, HttpSession session
             , @RequestParam(value="boardNo", required=true) String boardNo) {
-		System.out.println("boardDeatil 화면 요청");
+		log.debug("boardDeatil 화면 요청");
 		BoardDto board = boardDao.selectBoardDetail(boardNo);
-		System.out.println("boardNo : "+ boardNo);
+		log.debug("boardNo : "+ boardNo);
 		List<CommentDto> commentList = commentDao.selectCommentList(boardNo);
-		System.out.println("comment : "+ commentList);
+		log.debug("comment : "+ commentList);
 		
 		List<String> snsStyle = boardDao.selectBoardStyle(boardNo);
 		List<String> snsColor = boardDao.selectBoardColor(boardNo);
@@ -299,7 +301,7 @@ public class BoardController {
 		model.addAttribute("likeToggle", likeToggle);
 		model.addAttribute("board", board);
 		model.addAttribute("commentList",commentList);
-		System.out.println("boardDetail : "+ model);
+		log.debug("boardDetail : "+ model);
 		return "sns/board/sns_board_detail";
 	}
 	
@@ -310,9 +312,9 @@ public class BoardController {
     		,HttpServletRequest request
     		,@RequestParam("uploadFile") MultipartFile uploadFile
     		,MultipartHttpServletRequest multipartRequest) {
-    	System.out.println("boardInsert 처리 요청");
+    	log.debug("boardInsert 처리 요청");
     	
-    	System.out.println("RewardController reAddProCtrl uploadFile : " + uploadFile);
+    	log.debug("RewardController reAddProCtrl uploadFile : " + uploadFile);
     	
 //      UtilFile 객체 생성
         UtilFile utilFile = new UtilFile();
@@ -320,7 +322,7 @@ public class BoardController {
 //      파일 업로드 결과값을 path로 받아온다(이미 fileUpload() 메소드에서 해당 경로에 업로드는 끝났음)
         String uploadPath = utilFile.fileUpload(multipartRequest, uploadFile);
         
-        System.out.println("RewardController reAddProCtrl uploadPath : " + uploadPath);
+        log.debug("RewardController reAddProCtrl uploadPath : " + uploadPath);
     	board.setSnsBoardImg(uploadPath);
         
     	String[] colorValue = request.getParameterValues("colorValue");
@@ -348,7 +350,7 @@ public class BoardController {
         
 		if(situationValue != null) {
 			String lastSituationNo = boardDao.selectLastSituationNo();
-			System.out.println("lastSituationNo : "+lastSituationNo);
+			log.debug("lastSituationNo : "+lastSituationNo);
 			for(int i = 0; i<situationValue.length; i++) {
 		        int insertSituationNo = 1;	//DB에 등록된 게시물이 없을 때 번호의 초기값
 		        if(lastSituationNo != null) {
@@ -356,9 +358,9 @@ public class BoardController {
 		        }
 		        String snsBoardNo = board.getSnsBoardNo();
 		        String snsSituationNo = "sns_situation_"+insertSituationNo;
-		        System.out.println("snsSituationNo : "+snsSituationNo);
-		        System.out.println("snsBoardNo : "+snsBoardNo);
-		        System.out.println("situationValue["+i+"] : "+situationValue[i]);
+		        log.debug("snsSituationNo : "+snsSituationNo);
+		        log.debug("snsBoardNo : "+snsBoardNo);
+		        log.debug("situationValue["+i+"] : "+situationValue[i]);
 		        boardDao.insertSnsSituation(snsSituationNo, snsBoardNo, situationValue[i]);
 			}
 		}
@@ -392,12 +394,12 @@ public class BoardController {
         
         String pointPolicyNo = "point_ex_1";	//게시물 등록 포인트 no
         int boardPointCheck = boardDao.selectBoardPointCheck(board.getUserId());	//today 게시물 검색
-        	System.out.println("BoardController 포인트 입력하기 위한 게시물 검색 = " + boardPointCheck);
+        	log.debug("BoardController 포인트 입력하기 위한 게시물 검색 = " + boardPointCheck);
         String pointCehck = pointDao.selectPointCehck(board.getUserId(), pointPolicyNo);	//today 포인트 취득 검색
-        	System.out.println("BoardController 포인트 입력하기 위한 오늘 포인트 검색 = " + pointCehck);
+        	log.debug("BoardController 포인트 입력하기 위한 오늘 포인트 검색 = " + pointCehck);
        
         if(boardPointCheck == 0 && pointCehck == null){	//하루 + 게시물 1 이상 등록하면 포인트 제공 포인트 중복 취득 불가 조건문
-        	System.out.println("BoardController 게시물 등록할때 하루 첫번째 등록 포인트도 같이 등록 ");
+        	log.debug("BoardController 게시물 등록할때 하루 첫번째 등록 포인트도 같이 등록 ");
         	pointDao.insertPointGet(board.getUserId(), pointPolicyNo);	//취득포인트입력
         }	
         return "redirect:/home";
@@ -406,7 +408,7 @@ public class BoardController {
     /* sns게시물 입력 화면 요청 */
 	@RequestMapping(value="/boardInsert", method = RequestMethod.GET)
     public String boardInsert() {
-        System.out.println("boardInsert 폼 요청");
+        log.debug("boardInsert 폼 요청");
         return "sns/board/sns_board_insert";
     }
 }

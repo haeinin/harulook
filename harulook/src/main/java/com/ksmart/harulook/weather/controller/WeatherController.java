@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 @Controller
 public class WeatherController {
+	Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
 	private WeatherService weatherService; 
@@ -48,7 +50,7 @@ public class WeatherController {
     			updateHour = "0"+updateHour;
     		}
     		updateHour = updateHour+"00"; // 시간형식을 맞추기 위해 뒤에 00을 붙인다.
-    		System.out.println("updateHour : "+updateHour+" in forecastWeather");
+    		log.debug("updateHour : "+updateHour+" in forecastWeather");
     		WeatherDongneDto weather = new WeatherDongneDto();
     		
     		// 동네 예보 API로 데이터를 받는 메서드를 호출하여 객체에 셋팅
@@ -56,7 +58,7 @@ public class WeatherController {
 			weather.setUpdateDate("오늘");	// 예보 날짜를 오늘로 셋팅
 			weather.setUpdateHour(updateHour.substring(0, 2)+":00");	// 에보 시각을 보기 쉬운 형태로 변경하여 셋팅(18:00, 21:00, ...)
 			
-			System.out.println("weather : "+weather+" in forecastWeather");
+			log.debug("weather : "+weather+" in forecastWeather");
 			if(weather.getRainProbability() != null) {	// 해당 시간대의 데이터가 있는 경우만 리스트에 추가
 				weatherList.add(weather);				// 오늘 날짜 예보 중 이미 지난 시간대의 예보 데이터는 받지 않는다.
 			}
@@ -72,13 +74,13 @@ public class WeatherController {
     			updateHour = "0"+updateHour;
     		}
     		updateHour = updateHour+"00"; // 시간형식을 맞추기 위해 뒤에 00을 붙인다.
-    		System.out.println("updateHour : "+updateHour+" in forecastWeather");
+    		log.debug("updateHour : "+updateHour+" in forecastWeather");
     		
     		WeatherDongneDto weather = new WeatherDongneDto();
     		
     		// 동네 예보 API로 데이터를 받는 메서드를 호출하여 객체에 셋팅
 			weather = weatherService.getDongneItemList(date, hour, nx, ny, updateHour, tomorrow);
-			System.out.println("weather : "+weather+" in forecastWeather");
+			log.debug("weather : "+weather+" in forecastWeather");
 			weather.setUpdateDate("내일");	// 예보 날짜를 내일로 셋팅
 			weather.setUpdateHour(updateHour.substring(0, 2)+":00");	// 에보 시각을 보기 쉬운 형태로 변경하여 셋팅
 			weatherList.add(weather);	// 리스트에 객체를 추가
@@ -93,19 +95,19 @@ public class WeatherController {
     			updateHour = "0"+updateHour;
     		}
     		updateHour = updateHour+"00"; // 시간형식을 맞추기 위해 뒤에 00을 붙인다.
-    		System.out.println("updateHour : "+updateHour+" in forecastWeather");
+    		log.debug("updateHour : "+updateHour+" in forecastWeather");
     		WeatherDongneDto weather = new WeatherDongneDto();
     		
     		// 동네 예보 API로 데이터를 받는 메서드를 호출하여 객체에 셋팅
 			weather = weatherService.getDongneItemList(date, hour, nx, ny, updateHour, moere);
-			System.out.println("weather : "+weather+" in forecastWeather");
+			log.debug("weather : "+weather+" in forecastWeather");
 			weather.setUpdateDate("모레");	// 예보 날짜를 모레로 셋팅
 			weather.setUpdateHour(updateHour.substring(0, 2)+":00");	// 에보 시각을 보기 쉬운 형태로 변경하여 셋팅
 			weatherList.add(weather);	// 리스트에 객체를 추가
     	}
 		
 		model.addAttribute("weatherList", weatherList);	// 데이터를 저장한 리스트를 모델에 담는다.
-		System.out.println("model : "+model+" in forecastWeather");
+		log.debug("model : "+model+" in forecastWeather");
 		return "weather/forecast_weather";		// 날씨 예보 페이지로 이동
 	}
 }

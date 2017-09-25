@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -23,6 +24,7 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 @Repository
 public class WeatherService {
+	Logger log = Logger.getLogger(this.getClass());
 
 	/* 동네예보 API에서 필요한 데이터만 추출 */
 	public WeatherDongneDto getDongneItemList(
@@ -33,15 +35,15 @@ public class WeatherService {
 			, String updateHour	// 예보 날짜
 			, String updateDate	// 예보 시각
 			) throws IOException, ParserConfigurationException, SAXException, ParseException {
-		System.out.println("date : "+date);
-		System.out.println("hour : "+hour);
-		System.out.println("nx : "+nx);
-		System.out.println("ny : "+ny);
-		System.out.println("updateDate : "+updateDate);
-		System.out.println("updateHour : "+updateHour);
+		log.debug("date : "+date);
+		log.debug("hour : "+hour);
+		log.debug("nx : "+nx);
+		log.debug("ny : "+ny);
+		log.debug("updateDate : "+updateDate);
+		log.debug("updateHour : "+updateHour);
 		
 		String xml = this.dongneXmlDownload(date, hour, nx, ny); // 동네 예보 API 요청
-        System.out.println(xml);
+        log.debug(xml);
         
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
@@ -117,7 +119,7 @@ public class WeatherService {
 	            + URLEncoder.encode("xml","UTF-8")+"&"
 	            + URLEncoder.encode("serviceKey","UTF-8")
 	            +"=U2ZPWtp9VT8Nt8wxB%2FEQGSjuQ2oDzwM2Lmv0mDtUHC0wrm6%2F25ZXZAp7vBkv5zqpoiNGDHTJHSBjxsf3fw9D7g%3D%3D";
-	    System.out.println("host : "+host);
+	    log.debug("host : "+host);
 		StringBuilder urlBuilder = new StringBuilder(host); /*URL*/
 		 
 		URL url = new URL(urlBuilder.toString());
@@ -125,7 +127,7 @@ public class WeatherService {
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Content-type", "application/json");
-		System.out.println("Response code: " + conn.getResponseCode());
+		log.debug("Response code: " + conn.getResponseCode());
 		BufferedReader rd;
 		if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
 		rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -145,10 +147,10 @@ public class WeatherService {
 	
 	public String xmlDownload(String date, String hour, String nx, String ny) throws IOException {
    	 
-		System.out.println("date : "+date);
-		System.out.println("hour : "+hour);
-		System.out.println("nx : "+nx);
-		System.out.println("ny : "+ny);
+		log.debug("date : "+date);
+		log.debug("hour : "+hour);
+		log.debug("nx : "+nx);
+		log.debug("ny : "+ny);
 		
 	    String host = "http://newsky2.kma.go.kr/service/SecndSrtpdFrcstInfoService2/ForecastGrib?"
 	            +URLEncoder.encode("base_date","UTF-8")+"="
@@ -175,7 +177,7 @@ public class WeatherService {
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Content-type", "application/json");
-		System.out.println("Response code: " + conn.getResponseCode());
+		log.debug("Response code: " + conn.getResponseCode());
 		BufferedReader rd;
 		if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
 		rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -189,7 +191,7 @@ public class WeatherService {
 		}
 		rd.close();
 		conn.disconnect();
-		 System.out.println("xmlDownload : "+sb.toString());
+		 log.debug("xmlDownload : "+sb.toString());
 		return sb.toString();
 	 
 	    }
@@ -226,7 +228,7 @@ public class WeatherService {
 		        continue;
 		    }
 		}
-		System.out.println("getItemList : "+weather);
+		log.debug("getItemList : "+weather);
 		return weather;
 	}
 }

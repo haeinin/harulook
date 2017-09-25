@@ -6,12 +6,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Component
 public class UtilFile {
+	Logger log = Logger.getLogger(this.getClass());
+	
     String fileName = "";
     
 /*프로젝트 내 지정된 경로에 파일을 저장하는 메소드
@@ -35,8 +38,8 @@ fileUpload() 메소드에서 전체 경로를 리턴받아 DB에 경로 그대�
             //path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/resources/files/";
             dbpath = "resources/files/";
 
-            System.out.println("UtilFile fileUpload fileName : " + fileName);
-            System.out.println("UtilFile fileUpload uploadPath : " + path);
+            log.debug("UtilFile fileUpload fileName : " + fileName);
+            log.debug("UtilFile fileUpload uploadPath : " + path);
             
             File file = new File(path);
             
@@ -50,12 +53,12 @@ fileUpload() 메소드에서 전체 경로를 리턴받아 DB에 경로 그대�
                 }
             }
             
-            System.out.println("UtilFile fileUpload final fileName : " + fileName);
-            System.out.println("UtilFile fileUpload file : " + file);
+            log.debug("UtilFile fileUpload final fileName : " + fileName);
+            log.debug("UtilFile fileUpload file : " + file);
             
             out = new FileOutputStream(file);
             
-            System.out.println("UtilFile fileUpload out : " + out);
+            log.debug("UtilFile fileUpload out : " + out);
             
             out.write(bytes);
         } catch (Exception e) {
@@ -81,7 +84,7 @@ private String getSaveLocation(MultipartHttpServletRequest request) {
     String uploadPath = request.getSession().getServletContext().getRealPath("/");
     String attachPath = "resources/files/";
    
-    System.out.println("UtilFile getSaveLocation path : " + uploadPath + attachPath);
+    log.debug("UtilFile getSaveLocation path : " + uploadPath + attachPath);
     return uploadPath + attachPath;
 }
 }

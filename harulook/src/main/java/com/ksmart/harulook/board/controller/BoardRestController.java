@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,7 @@ import com.ksmart.harulook.member.service.MemberInterface;
 // RestController를 이용한 ajax 처리
 @RestController
 public class BoardRestController {
+	Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
 	private BoardInterface boardDao;
@@ -43,18 +45,18 @@ public class BoardRestController {
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
 			,BoardDto board
 			,HttpServletRequest request) {
-		System.out.println("boardListMore 요청");
-		System.out.println("currentPage : "+currentPage);
+		log.debug("boardListMore 요청");
+		log.debug("currentPage : "+currentPage);
 		
 		int popularity = 0;
 		String[] colorValue = request.getParameterValues("colorValue");
 		String[] styleValue = request.getParameterValues("styleValue");
 		String[] situationValue = request.getParameterValues("situationValue");
 		
-		System.out.println("board : "+board);
-		System.out.println("colorValue : "+colorValue);
-		System.out.println("styleValue : "+styleValue);
-		System.out.println("situationValue : "+situationValue);
+		log.debug("board : "+board);
+		log.debug("colorValue : "+colorValue);
+		log.debug("styleValue : "+styleValue);
+		log.debug("situationValue : "+situationValue);
 		
 		if(board.getUserId().equals("")) {
 			board.setUserId(null);
@@ -85,7 +87,7 @@ public class BoardRestController {
 		map.put("boardCount", boardCount);
 		map.put("lastPage", lastPage);
 		map.put("list", list);
-        System.out.println("boardList : "+map);
+        log.debug("boardList : "+map);
 		return (HashMap<String, Object>) map;
 	}
 	
@@ -93,11 +95,11 @@ public class BoardRestController {
 	@RequestMapping(value="/boardDetail", method = RequestMethod.GET)
 	public HashMap<String,Object> boardDetail(HttpSession session
             , @RequestParam(value="boardNo", required=true) String boardNo) {
-		System.out.println("boardDeatil 화면 요청");
+		log.debug("boardDeatil 화면 요청");
 		BoardDto board = boardDao.selectBoardDetail(boardNo);
-		System.out.println("boardNo : "+ boardNo);
+		log.debug("boardNo : "+ boardNo);
 		List<CommentDto> commentList = commentDao.selectCommentList(boardNo);
-		System.out.println("comment : "+ commentList);
+		log.debug("comment : "+ commentList);
 		
 		MemberDto userDetail = memberDao.selectUserDetail(board.getUserId());	//프로필 사진 받아오기
 		
@@ -132,7 +134,7 @@ public class BoardRestController {
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
 			,BoardDto board
 			,HttpServletRequest request) {
-		System.out.println("boardPopSearchList 요청");
+		log.debug("boardPopSearchList 요청");
 		
 		int popularity = 1;
 		int boardCount = boardDao.selectBoardCount();
@@ -144,11 +146,11 @@ public class BoardRestController {
 		String[] styleValue = request.getParameterValues("styleValue");
 		String[] situationValue = request.getParameterValues("situationValue");
 		
-		System.out.println("board : "+board);
-		System.out.println("popularity : "+popularity);
-		System.out.println("colorValue : "+colorValue);
-		System.out.println("styleValue : "+styleValue);
-		System.out.println("situationValue : "+situationValue);
+		log.debug("board : "+board);
+		log.debug("popularity : "+popularity);
+		log.debug("colorValue : "+colorValue);
+		log.debug("styleValue : "+styleValue);
+		log.debug("situationValue : "+situationValue);
 		
 		if(board.getUserId().equals("")) {
 			board.setUserId(null);
@@ -168,10 +170,10 @@ public class BoardRestController {
 		if(board.getSnsBoardWeather().equals("")) {
 			board.setSnsBoardWeather(null);
 		}
-		System.out.println("boardPopSearchList --> "+board);
+		log.debug("boardPopSearchList --> "+board);
 		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow, popularity);
 		boardSearchCount = boardDao.selectBoardSearchListCount(board);
-		System.out.println("boardPopSearchList --> "+list);
+		log.debug("boardPopSearchList --> "+list);
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
@@ -185,7 +187,7 @@ public class BoardRestController {
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage
 			,BoardDto board
 			,HttpServletRequest request) {
-		System.out.println("boardSearchList 요청");
+		log.debug("boardSearchList 요청");
 		
 		int popularity = 0;
 		int boardCount = boardDao.selectBoardCount();
@@ -196,11 +198,11 @@ public class BoardRestController {
 		String[] styleValue = request.getParameterValues("styleValue");
 		String[] situationValue = request.getParameterValues("situationValue");
 		
-		System.out.println("board : "+board);
-		System.out.println("popularity : "+popularity);
-		System.out.println("colorValue : "+colorValue);
-		System.out.println("styleValue : "+styleValue);
-		System.out.println("situationValue : "+situationValue);
+		log.debug("board : "+board);
+		log.debug("popularity : "+popularity);
+		log.debug("colorValue : "+colorValue);
+		log.debug("styleValue : "+styleValue);
+		log.debug("situationValue : "+situationValue);
 		
 		if(board.getUserId().equals("")) {
 			board.setUserId(null);
@@ -220,9 +222,9 @@ public class BoardRestController {
 		if(board.getSnsBoardWeather().equals("")) {
 			board.setSnsBoardWeather(null);
 		}
-		System.out.println("boardSearchList --> "+board);
+		log.debug("boardSearchList --> "+board);
 		List<BoardDto> list = boardDao.selectBoardSearchList(board, currentPage, pagePerRow, popularity);
-		System.out.println("boardSearchList --> "+list);
+		log.debug("boardSearchList --> "+list);
 		return list;
 	}
 }

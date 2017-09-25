@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ import com.ksmart.harulook.weather.service.WeatherDto;
 
 @RestController
 public class WeatherRestController {
+	Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
 	private WeatherService weatherService; 
@@ -30,12 +32,12 @@ public class WeatherRestController {
 			,HttpSession session) throws IOException, ParserConfigurationException, SAXException {
 		WeatherDto weather = null;
 		String sessionWeather = "";
-		System.out.println("date : "+date);
-		System.out.println("hour : "+hour);
-		System.out.println("nx : "+nx);
-		System.out.println("ny : "+ny);
+		log.debug("date : "+date);
+		log.debug("hour : "+hour);
+		log.debug("nx : "+nx);
+		log.debug("ny : "+ny);
 		weather = weatherService.getItemList(date, hour, nx, ny);
-		System.out.println("weather : "+weather+" in currentWeather");
+		log.debug("weather : "+weather+" in currentWeather");
 		
 		/* 현재 날씨 상태를 세션에 셋팅(게시물 등록, 맞춤 추천에 사용) */
 		if(weather.getRainStat().equals("1")) {

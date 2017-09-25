@@ -6,6 +6,7 @@ import java.net.URI;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.ImageIcon;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ import com.ksmart.harulook.like.service.LikeToggleDto;
 
 @RestController
 public class LikeRestController {
+	Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
 	private LikeInterface likeDao;
@@ -26,9 +28,9 @@ public class LikeRestController {
 	public LikeToggleDto likeBtnClick(
 			@RequestParam(value="snsBoardNo", required=true) String snsBoardNo
 			,@RequestParam(value="userId", required=true) String userId) {
-		System.out.println("likeBtnClick 요청");
+		log.debug("likeBtnClick 요청");
 		int likeClick = likeDao.selectLikeClick(snsBoardNo, userId);
-		System.out.println("likeClick : "+likeClick);
+		log.debug("likeClick : "+likeClick);
 		if(likeClick != 0) {
 			likeDao.deleteLike(snsBoardNo, userId);
 		} else {
@@ -46,7 +48,7 @@ public class LikeRestController {
 		LikeToggleDto likeToggle = new LikeToggleDto();
 		likeToggle.setLikeClick(likeClick);
 		likeToggle.setSnsLikeCount(snsLikeCount);
-		System.out.println("likeToggle : "+likeToggle);
+		log.debug("likeToggle : "+likeToggle);
 		return likeToggle;
 	}
 	
@@ -58,20 +60,20 @@ public class LikeRestController {
 
 	    // 이미지 파일 위치
 	    String filename = root+imgroot;
-	    System.out.println("루트경로 :"+ root );
-	    System.out.println("원본경로 :"+ imgroot );
-	    System.out.println("이미지경로 :"+ filename );
+	    log.debug("루트경로 :"+ root );
+	    log.debug("원본경로 :"+ imgroot );
+	    log.debug("이미지경로 :"+ filename );
 	
 	    // 이미지 읽기
 	    Image img = new ImageIcon(filename).getImage();
 	 
 	    float Widthsize = img.getWidth(null);	//가로사이즈
 	    float Heightsize = img.getHeight(null);	//세로사이즈
-	    System.out.println("가로 :"+ Widthsize );
-	    System.out.println("세로 :"+ Heightsize );
+	    log.debug("가로 :"+ Widthsize );
+	    log.debug("세로 :"+ Heightsize );
 	    
 	    float size=(Heightsize/Widthsize)*588; //비율계산
-	    System.out.println("사이즈 :"+ size );
+	    log.debug("사이즈 :"+ size );
 		return size;
 	}
 
