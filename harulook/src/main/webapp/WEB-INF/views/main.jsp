@@ -103,7 +103,7 @@
            <div class="col-md-4">
             <span class="fa-stack fa-4x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-sticky-note-o fa-stack-1x fa-inverse"></i>
+              <a href="resources/4팀 프로젝트 완료보고서(날씨기반 패션소셜네트워크시스템).hwp" download><i class="fa fa-sticky-note-o fa-stack-1x fa-inverse"></i></a>
             </span>
             <h4 class="service-heading">하루룩 개발문서</h4>
             <p class="explain">프로젝트 완료 보고서를 다운로드하여<br>개발상세내용을 볼 수 있습니다</p>
