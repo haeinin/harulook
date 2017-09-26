@@ -35,7 +35,7 @@
     	</div>
     	<div class="col-xs-1"></div>
 	    <div id="div1" class="col-xs-7">
-	    <h1>환불 결제 정보2 </h1>
+	    <h1>환불 결제 정보 </h1>
 	    	<form class="well well-sm" action="./insertRefundValue" method="POST">
 		 		환불 번호 : <input type="text" name="refundNo" value="${refundNo}"><br><br>
 		 		환불 받을 계좌 은행 : <input name="refundPayBank" type="text" value="농협"><br><br>

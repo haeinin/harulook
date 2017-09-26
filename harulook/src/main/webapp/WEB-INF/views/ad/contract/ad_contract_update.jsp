@@ -171,27 +171,27 @@ jQuery.browser = {};
     		}else if($('#adPlace').val()==""){
     			alert('광고기간을 선택하세요');
     			$('#adPlace').focus();
-    		}else if($('#date').val()==""){
+    		}else if($('#adDate').val()==""){
     			alert('계약일수를 선택하세요');
-    			$('#date').focus();
+    			$('#adDate').focus();
     		}else if($('#datepicker').val()==""){
     			alert('시작일자를 선택하세요');
     			$('#datepicker').focus();
     		}
-    		if($('#adType').val()!="" && $('#adPlace').val()!="" && $('#date').val()!="" && $('#datepicker').val()!="" ){
+    		if($('#adType').val()!="" && $('#adPlace').val()!="" && $('#adDate').val()!="" && $('#adDatepicker').val()!="" ){
     				$('#contractForm').submit();
     	}
     			
     	})
     	/****************************/
     	/* 총 합계를 계산해 놓으면 텍스트박스에 NaN이라는 값이 출력되서 날짜를 선택해야 총 합계가 나오게 만듬 */
-    	$('#date').change(function(){
+    	$('#adDate').change(function(){
 
-			if($('#date').val() == 'ad_dc_01'){
+			if($('#adDate').val() == 'ad_dc_01'){
 				period = 3;
-			}else if($('#date').val() == 'ad_dc_02'){
+			}else if($('#adDate').val() == 'ad_dc_02'){
 				period = 7;
-			}else if($('#date').val() == 'ad_dc_03'){
+			}else if($('#adDate').val() == 'ad_dc_03'){
 				period = 30;
 			}
 			
@@ -199,7 +199,7 @@ jQuery.browser = {};
 			$.ajax({
     			type : "POST",
     			url : "./getDc",
-    			data : { adCostNo : $('#date').val()},
+    			data : { adCostNo : $('#adDate').val()},
     			success : function(data){
     				console.log("수수료 : " + data);
     				dc = data;
@@ -252,9 +252,9 @@ jQuery.browser = {};
         $("#datepicker").change(function(){
         	if($('#date').val() == 'ad_dc_01'){
 				period = 3;
-			}else if($('#date').val() == 'ad_dc_02'){
+			}else if($('#adDate').val() == 'ad_dc_02'){
 				period = 7;
-			}else if($('#date').val() == 'ad_dc_03'){
+			}else if($('#adDate').val() == 'ad_dc_03'){
 				period = 30;
 			}
         	enddate = new Date($(this).val());
@@ -282,16 +282,31 @@ jQuery.browser = {};
     			
   
 	function calc(){
-		if($('#date').val() == 'ad_dc_01'){
+		if($('#adDate').val() == 'ad_dc_01'){
 			period = 3;
-		}else if($('#date').val() == 'ad_dc_02'){
+		}else if($('#adDate').val() == 'ad_dc_02'){
 			period = 7;
-		}else if($('#date').val() == 'ad_dc_03'){
+		}else if($('#adDate').val() == 'ad_dc_03'){
 			period = 30;
 		}
 		calcprice = $('#pricePerDay').val()*period*(1-$('#dcForPrice').val()/100);
 		console.log('총 계산된 금액 ' + calcprice);
 	};
+	$('#approveCancel').click(function(){
+		var result = confirm("정말로 취소 하시겟습니까?");
+		if(result==true){
+			$.ajax({
+    			type : "GET",
+    			url : "./deleteContract",
+    			data : { adContractNo : '${adcontract.adContractNo}' },
+    			success : function(data){
+    				 location.replace('./adContractList');
+    			}
+    		})
+		}else{
+			location.replace('./adContractList');
+		}
+	});
  	});
    
     	
@@ -346,8 +361,8 @@ jQuery.browser = {};
             </select> 
         </div>
     <div class="form-group">
-            <label for="date">계약일수</label>	
-            <select id="date" name="adDcNo">
+            <label for="adDate">계약일수</label>	
+            <select id="adDate" name="adDcNo">
             <c:if test="${adcontract.adDcNo=='ad_dc_01'}">
             <option value="ad_dc_01" selected="selected">3일</option>
             <option value="ad_dc_02">7일</option>
