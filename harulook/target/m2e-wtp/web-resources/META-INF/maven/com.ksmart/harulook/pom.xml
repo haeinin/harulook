@@ -15,11 +15,19 @@
 	</properties>
 	<dependencies>
 
-	<dependency>
-	    <groupId>org.lazyluke</groupId>
-	    <artifactId>log4jdbc-remix</artifactId>
-	    <version>0.2.7</version>
-	</dependency>
+		<!-- 이미지 자르기 -->
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+	
+		<!-- log4j  -->
+		<dependency>
+		    <groupId>org.lazyluke</groupId>
+		    <artifactId>log4jdbc-remix</artifactId>
+		    <version>0.2.7</version>
+		</dependency>
 
 
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->

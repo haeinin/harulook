@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class BoardDao implements BoardInterface {
+	Logger log = Logger.getLogger(this.getClass());
 	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
@@ -77,7 +79,7 @@ public class BoardDao implements BoardInterface {
         map.put("pagePerRow", pagePerRow);
         map.put("popularity", popularity);
         map.put("board", board);
-        System.out.println("map : "+map+" in selectBoardSearchList()");
+        log.debug("map : "+map+" in selectBoardSearchList()");
 		return sqlSessionTemplate.selectList("com.ksmart.harulook.board.service.BoardMapper.boardSearchList", map);
 	}
 	

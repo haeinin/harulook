@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,8 @@ import com.ksmart.harulook.follow.service.FollowInterface;
 
 @Controller
 public class FollowController {
-
+	Logger log = Logger.getLogger(this.getClass());
+	
 	@Autowired
     private FollowInterface followDao;
 	
@@ -28,9 +30,9 @@ public class FollowController {
 			HttpSession session,
 			HttpServletRequest request,
 			@RequestParam("followId") String followId ) {
-		System.out.println("FollowMeController 팔로우 아이디= " + followId);
+		log.debug("FollowMeController 팔로우 아이디= " + followId);
         String userId = (String) session.getAttribute("id");
-        System.out.println("FollowMeController 세션 아이디= " + userId);
+        log.debug("FollowMeController 세션 아이디= " + userId);
         followDao.deleteFollow(followId, userId);	
         	
         return "follow/follow_me_list";  
@@ -42,9 +44,9 @@ public class FollowController {
 			HttpSession session,
 			HttpServletRequest request,
 			@RequestParam("followId") String followId ) {
-		System.out.println("FollowController 팔로우 아이디= " + followId);
+		log.debug("FollowController 팔로우 아이디= " + followId);
         String userId = (String) session.getAttribute("id");
-        System.out.println("FollowController 세션 아이디= " + userId);
+        log.debug("FollowController 세션 아이디= " + userId);
         followDao.deleteFollow(userId, followId);	
         	
         return "follow/follow_list";  
@@ -56,7 +58,7 @@ public class FollowController {
 			HttpSession session,
 			HttpServletRequest request,
 			@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		System.out.println("팔로우 미 리스트");
+		log.debug("팔로우 미 리스트");
 		String userId = (String) session.getAttribute("id");
 		int followListCount = followDao.selectFollowMeListCount(userId);
 		int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
@@ -68,7 +70,7 @@ public class FollowController {
         model.addAttribute("lastPage", lastPage);
 		
 		model.addAttribute("followMeList", followMeList);
-		System.out.println("FollowMeController model == " + model);
+		log.debug("FollowMeController model == " + model);
 		return "follow/follow_me_list"; //방문자 리스트
 	}
 	
@@ -78,7 +80,7 @@ public class FollowController {
 				HttpSession session,
 				HttpServletRequest request,
 				@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		System.out.println("팔로우 리스트");
+		log.debug("팔로우 리스트");
 		String userId = (String) session.getAttribute("id");
 		int followListCount = followDao.selectFollowListCount(userId);
 		int pagePerRow = 10;	// 한페이지에 보여줄 갯수 10개
@@ -90,7 +92,7 @@ public class FollowController {
         model.addAttribute("lastPage", lastPage);
 		
 		model.addAttribute("followList", followList);
-		System.out.println("FollowController model == " + model);
+		log.debug("FollowController model == " + model);
 		return "follow/follow_list"; //방문자 리스트
 	}
 	
@@ -103,10 +105,10 @@ public class FollowController {
 			HttpServletRequest request,
 			@RequestParam("followId") String followId ) {
 		String userId = (String) session.getAttribute("id");
-		System.out.println("세션아이디 == "+ userId);
+		log.debug("세션아이디 == "+ userId);
         String followNo = followDao.selectFollowNo();	//팔로우번호 마지막 +1 입력
-        System.out.println("팔로우넘버 == "+ followNo);
-        System.out.println("팔로우아이디 == "+ followId);
+        log.debug("팔로우넘버 == "+ followNo);
+        log.debug("팔로우아이디 == "+ followId);
     	String checkFollow = followDao.selectFollowCheck(userId, followId);	//	친구등록 중복 방지 셀렉트
 	    if(checkFollow != null){	//팔로우 이미 된상태이면 추가입력불가
 	    	return "home"; 

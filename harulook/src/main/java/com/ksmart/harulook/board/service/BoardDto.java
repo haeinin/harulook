@@ -52,12 +52,10 @@ public class BoardDto {
 		this.snsCommentCount = snsCommentCount;
 	}
 	public String getSnsBoardNo() {
-		System.out.println(snsBoardNo);
 		return snsBoardNo;
 	}
 	public void setSnsBoardNo(String snsBoardNO) {
 		this.snsBoardNo = snsBoardNO;
-		System.out.println(snsBoardNo);
 	}
 	public String getSnsBoardImg() {
 		return snsBoardImg;

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import com.ksmart.harulook.mall.service.MallVisitorDto;
 
 @Controller
 public class MallController {
+	Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
 	private MallInterface dao;
@@ -29,7 +31,7 @@ public class MallController {
 	public String mallDetail(Model model, @RequestParam(value = "mallProNo", required = true) String mallProNo) {
 		MallDto dto = dao.selectMallPro(mallProNo);
 		model.addAttribute("dto", dto);
-		System.out.println("controller : " + mallProNo);
+		log.debug("controller : " + mallProNo);
 		return "mall/mall_detail";
 
 	}
@@ -46,15 +48,15 @@ public class MallController {
 				,HttpSession session
 				,Model model) {
 		String id = (String) session.getAttribute("id");
-		System.out.println("id=>"+id);
+		log.debug("id=>"+id);
 		
 		if(id == null){
-			System.out.println("if문실행");
-			System.out.println(dto.getMallProNo());
+			log.debug("if문실행");
+			log.debug(dto.getMallProNo());
 			dao.insertMallSaleNon(dto);
 			
 		}else{
-			System.out.println("else문실행");
+			log.debug("else문실행");
 			dto.toString();
 			dto.setUserId(id);
 			dto.toString();
@@ -64,7 +66,7 @@ public class MallController {
 		model.addAttribute("getDto",getDto);
 		
 		
-		System.out.println("model=>"+model.toString());
+		log.debug("model=>"+model.toString());
 		return "mall/mall_sale";
 	}
 	
@@ -74,7 +76,7 @@ public class MallController {
 	public String mallOrderList(HttpSession session,Model model) {
 
 		String id = (String) session.getAttribute("id");
-		System.out.println("id=>"+id);
+		log.debug("id=>"+id);
 		
 		List<MallSaleDto> list = dao.selectMallBuyList(id);
 		model.addAttribute("list",list);
@@ -93,7 +95,7 @@ public class MallController {
 									,HttpSession session
 									,@RequestParam("ip") String ip ) {
 		
-        System.out.println("컨트롤러:방문자 IP => " + ip);
+        log.debug("컨트롤러:방문자 IP => " + ip);
         
         /*제휴계약번호 자동입력*/
 		String lastMallVisitor = dao.selectLastMallVisitor();

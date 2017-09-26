@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,7 @@ import com.ksmart.harulook.partner.service.PartnerStatsDto;
 
 @RestController
 public class PartnerRestController {
+	Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
 	private PartnerInterface partnerDao;
@@ -27,7 +29,7 @@ public class PartnerRestController {
 		//String cooContractNo = (String) session.getAttribute("setNo");
 		Gson gson = new Gson();
 		List<PartnerStatsDto> list= partnerDao.selectMonthlyVisitor(cooContractNo);
-		System.out.println(list.toString());
+		log.debug(list.toString());
 		return gson.toJson(list);
 
 	}
@@ -37,7 +39,7 @@ public class PartnerRestController {
 		String cooContractNo = (String) session.getAttribute("setNo");
 		Gson gson = new Gson();
 		List<PartnerStatsDto> list= partnerDao.selectMonthlyInflux(cooContractNo);
-		System.out.println(list.toString());
+		log.debug(list.toString());
 		return gson.toJson(list);
 
 	}
@@ -48,7 +50,7 @@ public class PartnerRestController {
 		String cooContractNo = (String) session.getAttribute("setNo");
 		Gson gson = new Gson();
 		List<PartnerStatsDto> list= partnerDao.selectWeeklyVisitor(cooContractNo);
-		System.out.println("그래프"+list.toString());
+		log.debug("그래프"+list.toString());
 		return gson.toJson(list);
 
 	}
@@ -58,7 +60,7 @@ public class PartnerRestController {
 		String cooContractNo = (String) session.getAttribute("setNo");
 		Gson gson = new Gson();
 		List<PartnerStatsDto> list= partnerDao.selectWeeklyInflux(cooContractNo);
-		System.out.println("그래프"+list.toString());
+		log.debug("그래프"+list.toString());
 		return gson.toJson(list);
 
 	}
@@ -69,14 +71,14 @@ public class PartnerRestController {
 		String cooContractNo = (String) session.getAttribute("setNo");
 		Gson gson = new Gson();
 		HashMap<String,String> map = new HashMap<String,String>();
-		System.out.println("cooContractNo==>"+cooContractNo);
-		System.out.println("month==>"+month);
+		log.debug("cooContractNo==>"+cooContractNo);
+		log.debug("month==>"+month);
 		
 		map.put("cooContractNo",cooContractNo);
 		map.put("month", month);
 		List<PartnerStatsDto> list= partnerDao.selectDailyVisitor(map);
 		
-		System.out.println("list==>"+list);
+		log.debug("list==>"+list);
 		
 		return gson.toJson(list);
 

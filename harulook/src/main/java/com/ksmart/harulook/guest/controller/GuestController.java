@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import com.ksmart.harulook.guest.service.GuestInterface;
 
 @Controller
 public class GuestController {
+	Logger log = Logger.getLogger(this.getClass());
 	
 	@Autowired
     private GuestInterface guestDao;
@@ -28,11 +30,11 @@ public class GuestController {
 			HttpSession session,
 			@RequestParam("ip") String ip,
 			@RequestParam("apiAdd") String apiAdd ) {
-        System.out.println("GuestController 아이피= " + ip);
+        log.debug("GuestController 아이피= " + ip);
         String guestSelectIp = guestDao.selectGuest(ip);	//	게스트 중복 방지 셀렉트
     	
         session.setAttribute("apiAdd", apiAdd);	//지역 이름 세션 저장
-        System.out.println("GuestController 세션에 저장된 지역 이름 = " + session.getAttribute("apiAdd"));
+        log.debug("GuestController 세션에 저장된 지역 이름 = " + session.getAttribute("apiAdd"));
         if(guestSelectIp != null) {	// 게시트가 중복이면 입력 불가능
         	return "home";
 		}else if(guestSelectIp == null) {	//	게스트가 첫방문이면 입력
@@ -50,16 +52,16 @@ public class GuestController {
 	/*방문자 조회수 리스트*/
 	@RequestMapping(value="/guestList", method = RequestMethod.GET)
 	public String guestList(Model model) {
-		System.out.println("방문자 리스트 폼");
+		log.debug("방문자 리스트 폼");
 		List<GuestDto> monthlyGuest = guestDao.selectMonthlyGuest();	//월간
 		List<GuestDto> weeklyGuest = guestDao.selectWeeklyGuest();	//주간
 		List<GuestDto> dailyGuest = guestDao.selectdailyGuest();	//일일
-		System.out.println("GuestController dailyGuest == " + dailyGuest);
+		log.debug("GuestController dailyGuest == " + dailyGuest);
 		
 		model.addAttribute("monthlyGuest", monthlyGuest);
 		model.addAttribute("weeklyGuest", weeklyGuest);
 		model.addAttribute("dailyGuest", dailyGuest);
-		System.out.println("GuestController model == " + model);
+		log.debug("GuestController model == " + model);
 		return "guest/guest_list"; //방문자 리스트
 	}
 }

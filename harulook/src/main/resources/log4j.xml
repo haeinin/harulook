@@ -9,11 +9,16 @@
         </layout>  
     </appender>
      
-    <appender name="console-infolog" class="org.apache.log4j.ConsoleAppender">
+<!--     <appender name="console-infolog" class="org.apache.log4j.ConsoleAppender">
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d %5p %m%n" />
         </layout>  
-    </appender>
+    </appender> -->
+    
+    <!-- Application Loggers -->
+    <logger name="com.ksmart.harulook">
+        <level value="debug" />
+    </logger>
      
     <!-- Application Loggers -->
     <logger name="first" additivity="false">
@@ -21,7 +26,6 @@
         <appender-ref ref="console"/>
     </logger>
      
-    <!-- Query Loggers -->
     <logger name="jdbc.sqlonly" additivity="false"> 
         <level value="INFO"/> 
         <appender-ref ref="console-infolog"/> 
@@ -31,6 +35,7 @@
         <level value="INFO"/> 
         <appender-ref ref="console"/> 
     </logger> 
+ 
  
     <!-- Root Logger -->
     <root>

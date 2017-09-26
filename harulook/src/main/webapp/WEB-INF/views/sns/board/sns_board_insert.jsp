@@ -18,6 +18,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- 색상 카테고리 아이콘 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="resources/css/imgareaselect-default.css" />
+<script type="text/javascript" src="resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="resources/js/jquery.imgareaselect.pack.js"></script>
 <title>~하루룩~</title>
 <script type="text/javascript">
 
@@ -45,14 +48,71 @@ function readURL(input, id) {
 
 		reader.onload = function(e) {
 			$("#" + id).attr('src', e.target.result);
+			$('#preview img').attr('src', e.target.result);
 		}
-
+		
 		reader.readAsDataURL(input.files[0]);
 	}
 }
 
+function preview(img, selection) {
+    if (!selection.width || !selection.height)
+        return;
+    
+	var squareWidth;
+    
+    if($('#snsBoardImgView').width()< $('#snsBoardImgView').height()) {
+    	squareWidth = $('#snsBoardImgView').width();
+    } else {
+    	squareWidth = $('#snsBoardImgView').height();
+    }
+    
+    $('.frame').css({
+    	width: squareWidth+'px',
+    	height: squareWidth+'px'
+    })
+    
+    $('#preview').css({
+    	width: squareWidth+'px',
+    	height: squareWidth+'px'
+    })
+    
+    var scaleX = squareWidth / selection.width;
+    var scaleY = squareWidth / selection.height;
+    
+
+    $('#preview img').css({
+        width: Math.round(scaleX * $('#snsBoardImgView').width()),
+        height: Math.round(scaleY * $('#snsBoardImgView').height()),
+        marginLeft: -Math.round(scaleX * selection.x1),
+        marginTop: -Math.round(scaleY * selection.y1)
+    });
+
+    $('#x1').val(selection.x1);
+    $('#y1').val(selection.y1);
+    $('#x2').val(selection.x2);
+    $('#y2').val(selection.y2);
+    $('#w').val(selection.width);
+    $('#h').val(selection.height);    
+}
+
 $(function(){
 	
+	var squareWidth;
+    
+    if($('#snsBoardImgView').width()< $('#snsBoardImgView').height()) {
+    	squareWidth = $('#snsBoardImgView').width();
+    	console.log(' squareWidth : ',squareWidth,'px');
+    } else {
+    	squareWidth = $('#snsBoardImgView').height();
+    	console.log(' squareWidth : ',squareWidth,'px');
+    }
+    
+    $('#preview img').css({
+    	width: squareWidth+'px',
+    	height: squareWidth+'px'
+    })
+    
 	//이미지 파일 입력 여부 검사
 	$('#snsBoardImg').change(function(){
 		if($('#snsBoardImg').val() == '') { 
@@ -117,6 +177,10 @@ $(function(){
 		}else if(!$('#snsBoardLoc').val()){	//지역
 			alert('지역을 입력해주세요');
 			$('#snsBoardLoc').focus();
+			return false;
+		}else if($('#x1').val()== '-'){	//날씨 입력 안했을때
+			alert('업로드할 이미지 영역을 선택해주세요.');
+			$('#snsBoardImgView').focus();
 			return false;
 		}else{
 			$('#insertForm').submit();
@@ -211,6 +275,14 @@ $(function(){
 		$('#circleBeige').attr('class','fa fa-circle');
 		$('#circlePink').attr('class','fa fa-circle');
 	});
+	
+	$('#snsBoardImgView').imgAreaSelect({ 
+		aspectRatio: '1:1', 
+		handles: true,
+        fadeSpeed: 200, 
+        onSelectChange: preview, 
+        x1: 0, y1: 0, x2: 100, y2: 100
+    });
 });
 </script>
 </head>
@@ -235,10 +307,20 @@ $(function(){
 		            <label class="col-xs-2 control-label" for="uploadFile">사진 </label>
 			        <div class="col-xs-7">
 			            <img id="snsBoardImgView" class="img-responsive" src="#" alt="your image" />
+			            <div class="frame" style="margin: 0 1em; width: 100px; height: 100px;">
+					      <div id="preview" style="width: 100px; height: 100px; overflow: hidden;">
+					        <img id="previewImg" src="" style="width: 100px; height: 100px;" />
+					      </div>
+					    </div>
 			            <input class="form-control" name="uploadFile" id="snsBoardImg" type="file"/>
 			            <span id="imgFail" >사진을 올려주세요.</span>
 		            </div>
 		        </div>
+		        
+			    <input type="hidden" id="x1" name="imgX1" value="-" />
+			    <input type="hidden" id="y1" name="imgY1" value="-" />
+			    <input type="hidden" id="w" name="ImgWidth" value="-"/>
+			    <input type="hidden" id="h" name="ImgHeight" value="-" />
 		        <div class="form-group">
 		            <label class="col-xs-2 control-label" for="snsBoardContent">내용 </label>
 		            <div class="col-xs-7">

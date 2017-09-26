@@ -1,5 +1,6 @@
 package com.ksmart.harulook.comment.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import com.ksmart.harulook.comment.service.CommentInterface;
 
 @Controller
 public class CommentController {
+	Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
 	private CommentInterface commentDao;
@@ -17,7 +19,7 @@ public class CommentController {
 	/* 댓글 삭제 */
 	@RequestMapping(value="/commentDelete", method = RequestMethod.GET)
 	public String commentDelete(String snsCommentNo, String snsBoardNo) {
-		System.out.println("commentDelete 요청");
+		log.debug("commentDelete 요청");
 		commentDao.deleteComment(snsCommentNo);
 		return "redirect:/home";
 	}
@@ -25,7 +27,7 @@ public class CommentController {
 	/* sns게시글 댓글 등록 */
 	@RequestMapping(value="/commentInsert", method = RequestMethod.POST)
     public String CommentInsert(CommentDto comment) {
-        System.out.println("commentInsert 요청");
+        log.debug("commentInsert 요청");
         
         /******** sns_comment_no의 끝 숫자 자동 입력 *****************/
         String lastCommentNo = commentDao.selectLastCommentNo();
@@ -36,7 +38,7 @@ public class CommentController {
         comment.setSnsCommentNo("sns_comment_"+insertCommentNo);
         /*************************************************/
         
-        System.out.println("comment : "+ comment);
+        log.debug("comment : "+ comment);
         commentDao.insertComment(comment);
         return "redirect:/boardDetail?boardNo="+comment.getSnsBoardNo();
     }

@@ -8,6 +8,7 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ import com.ksmart.harulook.util.UtilFile;
 
 @Controller
 public class PartnerController {
+	Logger log = Logger.getLogger(this.getClass());
 
 	@Autowired
 	private PartnerInterface partnerDao;
@@ -44,7 +46,7 @@ public class PartnerController {
 		dto.setUserId(id);
 		/*제휴계약번호 자동입력*/
 		String lastCooContractNo = partnerDao.selectLastCooContractNo();
-		System.out.println("컨트롤러"+lastCooContractNo);
+		log.debug("컨트롤러"+lastCooContractNo);
 		int setNo = 1;
 		if(lastCooContractNo != null){
 			setNo = Integer.parseInt(lastCooContractNo)+1;
@@ -57,21 +59,21 @@ public class PartnerController {
 			cooContractCode = getRandomCode();
 		}
 		/*이미지파일 업로드*/
-		System.out.println("1번 : " + uploadFile);
+		log.debug("1번 : " + uploadFile);
 		UtilFile util = new UtilFile();
 		String uploadPath = util.fileUpload(multipartRequest, uploadFile);
 		dto.setCooContractImg(uploadPath.substring(61));
-		System.out.println("2번 : " + uploadFile);
+		log.debug("2번 : " + uploadFile);
 		/*---------------------*/
 		dto.setCooContractCode(cooContractCode);
 		partnerDao.insertCooContract(dto);
-		System.out.println("제휴계약신청완료");
+		log.debug("제휴계약신청완료");
 		return "redirect:/partnerContractList";
 	}
 	/*제휴계약신청 폼 요청*/
 	@RequestMapping(value = "/partnerContractInsert", method = RequestMethod.GET)
 	public String partnerContractInsert() {
-		System.out.println("제휴계약 신청 폼 요청");
+		log.debug("제휴계약 신청 폼 요청");
 		return "partner/contract/partner_contract_insert";
 	}
 	/*제휴계약신청 폼 요청(신규)*/
@@ -83,7 +85,7 @@ public class PartnerController {
 	/*제휴계약신청 승인하기*/
 	@RequestMapping(value = "/partnerContractAdmit", method = RequestMethod.GET)
 	public String cooContractAdmit(PartnerDto dto){
-		System.out.println("제휴계약신청 승인하기");
+		log.debug("제휴계약신청 승인하기");
 		partnerDao.updateCooContractAdmit(dto);
 		return "redirect:/partnerContractAllList";
 	}
@@ -92,7 +94,7 @@ public class PartnerController {
 	public String partnerContractAllList(Model model) {
 		List<PartnerDto> list = partnerDao.selectCooContractList();
 		model.addAttribute("list",list);
-		System.out.println("제휴계약컨트롤러 리스트보기");
+		log.debug("제휴계약컨트롤러 리스트보기");
 		return "partner/contract/partner_contract_list";
 	}
 	/*제휴계약 목록보기(개인)*/
@@ -102,7 +104,7 @@ public class PartnerController {
 		String id = (String) session.getAttribute("id");
 		List<PartnerDto> list = partnerDao.selectCooContractList(id);
 		model.addAttribute("list",list);
-		System.out.println("제휴계약컨트롤러 리스트보기");
+		log.debug("제휴계약컨트롤러 리스트보기");
 		return "partner/contract/partner_contract_list";
 	}
 	/*제휴계약 상세보기*/
@@ -112,10 +114,10 @@ public class PartnerController {
 		PartnerDto dto = partnerDao.selectCooContractDetail(cooContractNo);
         model.addAttribute("dto", dto);
         String userId=dto.getUserId();
-        System.out.println("userId 상세보기"+userId);
+        log.debug("userId 상세보기"+userId);
         MemberDto Mdto = partnerDao.selectCooContractCompany(userId);
         model.addAttribute("Mdto", Mdto);
-        System.out.println("제휴계약컨트롤러 상세보기");
+        log.debug("제휴계약컨트롤러 상세보기");
         return "partner/contract/partner_contract_detail";
     }
 
@@ -123,7 +125,7 @@ public class PartnerController {
 	@RequestMapping(value = "/partnerContractUpdate", method = RequestMethod.POST)
 	public String partnerContractUpdate(PartnerDto dto) {
 		partnerDao.updateCooContract(dto);
-		System.out.println("제휴계약 수정처리");
+		log.debug("제휴계약 수정처리");
 		return "redirect:/partnerContractDetail?cooContractNo="+dto.getCooContractNo();
 
 	}
@@ -134,7 +136,7 @@ public class PartnerController {
 										,@RequestParam(value="cooContractNo",required=true) String cooContractNo){
 		PartnerDto dto = partnerDao.selectCooContractDetail(cooContractNo);
 		model.addAttribute("dto", dto);
-		System.out.println("제휴계약 수정 폼 요청");
+		log.debug("제휴계약 수정 폼 요청");
 		return "partner/contract/partner_contract_update";
 	}
 	/*결제예정 제휴수수료 보기*/
@@ -144,7 +146,7 @@ public class PartnerController {
 		String cooContractNo = (String) session.getAttribute("setNo");
 		List<PartnerBillDto> list = partnerDao.selectCooContractBill(cooContractNo);
 		model.addAttribute("list",list);
-		System.out.println("제휴결제예정수수료보기");
+		log.debug("제휴결제예정수수료보기");
 		return "partner/pay/partner_bill_list";
 	}
 	/*제휴정지계약 전용 페이지*/
@@ -153,20 +155,20 @@ public class PartnerController {
 								,HttpSession session
 								,String setNo){
 		session.setAttribute("setNo", setNo);
-		System.out.println("setNo======================>"+setNo);
+		log.debug("setNo======================>"+setNo);
 		String cooContractNo = (String) session.getAttribute("setNo");
-		System.out.println("세션======================>"+cooContractNo);
+		log.debug("세션======================>"+cooContractNo);
 		List<PartnerBillDto> list = partnerDao.selectCooContractBill(cooContractNo);
 		model.addAttribute("list",list);
-		System.out.println("미납자 페이지");
+		log.debug("미납자 페이지");
 		return "partner/pay/partner_overdue";
 	}
 	
 	/*제휴수수료결제처리*/
 	@RequestMapping(value = "/partnerContractPay", method = RequestMethod.POST)
 	public String partnerContractPay(PartnerBillDto dto){
-		System.out.println("제휴결제처리(insert-update-delete)");
-		System.out.println(dto.toString());
+		log.debug("제휴결제처리(insert-update-delete)");
+		log.debug(dto.toString());
 		partnerDao.insertCooContractPay(dto);
 		partnerDao.updateCooContractPayStat(dto);
 		partnerDao.updateCooContractRelieve(dto);
@@ -182,7 +184,7 @@ public class PartnerController {
 		String cooContractNo = (String) session.getAttribute("setNo");
 		List<PartnerPayDto> list = partnerDao.selectCooContractPayList(cooContractNo);
 		model.addAttribute("list",list);
-		System.out.println("제휴결제내역보기");
+		log.debug("제휴결제내역보기");
 
 		return "partner/pay/partner_pay_list";
 	}
@@ -245,7 +247,7 @@ public class PartnerController {
 		List<PartnerStatsDto> list= partnerDao.selectWeeklyVisitor(cooContractNo);
 		model.addAttribute("list",list);
 		model.addAttribute("cooContractNo",cooContractNo);
-		System.out.println("table"+list.toString());
+		log.debug("table"+list.toString());
 		return "partner/statistics/partner_statistics_weekly";
 
 	}
@@ -269,20 +271,20 @@ public class PartnerController {
 		
 		for (int i = 0; i < proList.size(); i++) {
 			String mallProNo = proList.get(i);
-			System.out.println("mallPro=" + mallProNo);
+			log.debug("mallPro=" + mallProNo);
 			HashMap<String, Integer> map = partnerDao.selectBuyCount(mallProNo);
 			float total = map.get("total");
 			float influx = map.get("influx");
 			int rate = 0;
 			if (total != 0 && influx != 0) {
-				System.out.println("if문실행");
+				log.debug("if문실행");
 				rate = (int)((influx / total) * 100);
 
-				System.out.println("map의 rate값=" + rate);
+				log.debug("map의 rate값=" + rate);
 			}
 			map.put("rate", rate);
-			System.out.println("map의 total값=" + map.get("total"));
-			System.out.println("map의 influx값=" + map.get("influx"));
+			log.debug("map의 total값=" + map.get("total"));
+			log.debug("map의 influx값=" + map.get("influx"));
 			m.add(map);
 
 		}
