@@ -317,10 +317,8 @@ $(function(){
 		            </div>
 		        </div>
 		        
-			    <input type="hidden" id="x1" name="ImgX1" value="-" />
-			    <input type="hidden" id="y1" name="ImgY1" value="-" />
-			    <input type="hidden" id="x2" name="ImgX2" value="-" />
-			    <input type="hidden" id="y2" name="ImgY2" value="-" />
+			    <input type="hidden" id="x1" name="imgX1" value="-" />
+			    <input type="hidden" id="y1" name="imgY1" value="-" />
 			    <input type="hidden" id="w" name="ImgWidth" value="-"/>
 			    <input type="hidden" id="h" name="ImgHeight" value="-" />
 		        <div class="form-group">

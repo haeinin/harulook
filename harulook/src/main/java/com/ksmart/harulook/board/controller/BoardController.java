@@ -314,24 +314,18 @@ public class BoardController {
     		,MultipartHttpServletRequest multipartRequest) throws Exception {
     	log.debug("boardInsert 처리 요청");
     	
-    	String imgX1 = request.getParameter("ImgX1");
-    	String imgY1 = request.getParameter("ImgY1");
-    	String imgX2 = request.getParameter("ImgX2");
-    	String imgY2 = request.getParameter("ImgY2");
+    	String imgX1 = request.getParameter("imgX1");
+    	String imgY1 = request.getParameter("imgY1");
     	String imgWidth = request.getParameter("ImgWidth");
     	String imgHeight = request.getParameter("ImgHeight");
     	
     	int intX1 = Integer.parseInt(imgX1);
     	int intY1 = Integer.parseInt(imgY1);
-    	int intX2 = Integer.parseInt(imgX2);
-    	int intY2 = Integer.parseInt(imgY2);
     	int intWidth = Integer.parseInt(imgWidth);
     	int intHeight = Integer.parseInt(imgHeight);
     	
     	log.debug("uploadFile ImgX1 : " + imgX1);
     	log.debug("uploadFile ImgY1 : " + imgY1);
-    	log.debug("uploadFile ImgX2 : " + imgX2);
-    	log.debug("uploadFile ImgY2 : " + imgY2);
     	log.debug("uploadFile ImgWidth : " + imgWidth);
     	log.debug("uploadFile ImgHeight : " + imgHeight);
     	
@@ -341,7 +335,7 @@ public class BoardController {
         UtilFile utilFile = new UtilFile();
         
 //      파일 업로드 결과값을 path로 받아온다(이미 fileUpload() 메소드에서 해당 경로에 업로드는 끝났음)
-        String uploadPath = utilFile.imgFileUpload(multipartRequest, uploadFile, intX1, intY1, intX2, intY2, intWidth, intHeight);
+        String uploadPath = utilFile.imgFileUpload(multipartRequest, uploadFile, intX1, intY1, intWidth, intHeight);
         
         log.debug("RewardController reAddProCtrl uploadPath : " + uploadPath);
     	board.setSnsBoardImg(uploadPath);

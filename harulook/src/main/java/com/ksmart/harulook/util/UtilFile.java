@@ -38,7 +38,7 @@ fileUpload() 메소드에서 전체 경로를 리턴받아 DB에 경로 그대�
             //배포할때에
             //path = getSaveLocation(request);
             //로컬에서 테스트할때에
-            path = "C:/Users/인준/git/harulook/harulook/src/main/webapp/resources/files/";
+            path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/resources/files/";
             dbpath = "resources/files/";
 
             log.debug("UtilFile fileUpload fileName : " + fileName);
@@ -82,8 +82,9 @@ fileUpload() 메소드에서 전체 경로를 리턴받아 DB에 경로 그대�
         return dbpath + fileName;
    }
     
+    /* 이미지 편집 후 업로드하는 메서드 */
     public String imgFileUpload(MultipartHttpServletRequest request,
-            MultipartFile uploadFile, int x1, int y1, int x2, int y2, int imgWidth, int imgHeight) {
+            MultipartFile uploadFile, int x1, int y1, int imgWidth, int imgHeight) {
 		String path = "";
 		String dbpath = "";
 		String fileName = "";
@@ -96,7 +97,7 @@ fileUpload() 메소드에서 전체 경로를 리턴받아 DB에 경로 그대�
 		//배포할때에
 		//path = getSaveLocation(request);
 		//로컬에서 테스트할때에
-		path = "C:/Users/인준/git/harulook/harulook/src/main/webapp/resources/files/";
+		path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/resources/files/";
 		dbpath = "resources/files/";
 		
 		log.debug("UtilFile fileUpload fileName : " + fileName);
@@ -106,8 +107,6 @@ fileUpload() 메소드에서 전체 경로를 리턴받아 DB에 경로 그대�
 		
 		log.debug("UtilFile fileUpload x1 : " + x1);
 		log.debug("UtilFile fileUpload y1 : " + y1);
-		log.debug("UtilFile fileUpload x2 : " + x2);
-		log.debug("UtilFile fileUpload y2 : " + y2);
 		log.debug("UtilFile fileUpload imgWidth : " + imgWidth);
 		log.debug("UtilFile fileUpload imgHeight : " + imgHeight);
 		
