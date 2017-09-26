@@ -36,9 +36,9 @@ fileUpload() 메소드에서 전체 경로를 리턴받아 DB에 경로 그대�
             fileName = uploadFile.getOriginalFilename();
             byte[] bytes = uploadFile.getBytes();
             //배포할때에
-            //path = getSaveLocation(request);
+            path = getSaveLocation(request);
             //로컬에서 테스트할때에
-            path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/resources/files/";
+            //path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/resources/files/";
             dbpath = "resources/files/";
 
             log.debug("UtilFile fileUpload fileName : " + fileName);
@@ -95,9 +95,9 @@ fileUpload() 메소드에서 전체 경로를 리턴받아 DB에 경로 그대�
 		try {
 		fileName = uploadFile.getOriginalFilename();
 		//배포할때에
-		//path = getSaveLocation(request);
+		path = getSaveLocation(request);
 		//로컬에서 테스트할때에
-		path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/resources/files/";
+		//path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/resources/files/";
 		dbpath = "resources/files/";
 		
 		log.debug("UtilFile fileUpload fileName : " + fileName);
@@ -125,7 +125,7 @@ fileUpload() 메소드에서 전체 경로를 리턴받아 DB에 경로 그대�
 		}
 		}
 		
-		ImageIO.write(resizedImage, "jpeg", file);
+		ImageIO.write(resizedImage, "png", file);
 		
 		log.debug("UtilFile fileUpload final fileName : " + fileName);
 		log.debug("UtilFile fileUpload file : " + file);
