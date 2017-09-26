@@ -62,13 +62,18 @@
   
 </head>
 <body>
-
+	<div class="row">
 	<!-- 해더인클루드 -->
-	<c:import url="../../module/header.jsp"></c:import>	
+	<c:import url="../../module/header.jsp"></c:import>
+	</div>	
 	<!-- 바디 인클루드 -->
     <div class="row">
+    <!-- 좌측 베너 인클루드 -->
+    	<div class="col-xs-1">
+    		<c:import url="/WEB-INF/views/module/left.jsp"></c:import>
+    	</div>
 	    <div class="col-xs-1"></div>
-	    <div id="div1" class="col-xs-9">
+	    <div id="div1" class="col-xs-7">
 			 <div align="center">
 			 <form action="./adPayInsert" action="post" id="payInsert" method="POST">
 	          	<table border="1" width="70%" align="center">
@@ -91,7 +96,7 @@
 	          <button type="button" class="btn btn-default" data-dismiss="payModal">닫기</button>
 			  </div>
 	    </div>
-	    
+	    <div class="col-xs-1"></div>
 		<!-- 우측 베너 인클루드 -->
         <div class="col-xs-2">
     		<c:import url="/WEB-INF/views/module/right.jsp"></c:import>
