@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,7 @@ import com.ksmart.harulook.adgoods.service.AdGoodsInterface;
 
 @Controller
 public class AdBoardController {
+	Logger log = Logger.getLogger(this.getClass());
 	@Autowired
 	private AdBoardInterface adboarddao;
 	@Autowired
@@ -39,7 +42,7 @@ public class AdBoardController {
 		int k=0;
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		int adBoardCount = Integer.parseInt(request.getParameter("adBoardCount"));
-		System.out.println("광고 게시물 입력 요청");
+		log.debug("광고 게시물 입력 요청");
 		String adGoodsCount[] = request.getParameterValues("adGoodsCount");
 		String minTemp[] = request.getParameterValues("adBoardTempMin");
 		String maxTemp[] = request.getParameterValues("adBoardTempMax");
@@ -49,23 +52,23 @@ public class AdBoardController {
 		if(adGoodsCount[1].equals(null)){
 			adGoodsCount[1] = "0";
 		}
-		System.out.println("게시물의 갯수 : " + adBoardCount);
-		System.out.println("첫번째/두번째 광고게시물 번호 : " + adBoardNo[0] + "/" + adBoardNo[1]);
-		System.out.println("첫번째/두번째/세번째/네번째 광고 광고 번호 : " + adGoodsNo[0] + "/" + adGoodsNo[1] + "/" + adGoodsNo[2] + "/" + adGoodsNo[3]);
-		System.out.println("첫번째 광고 게시물의 최저온도/최고온도 : " + minTemp[0] +"/"+maxTemp[0]);
-		System.out.println("두번째 광고 게시물의 최저온도/최고온도 : " + minTemp[1] +"/"+maxTemp[1]);
-		System.out.println("첫번째 광고 게시물의 광고의 갯수 : " + adGoodsCount[0]);
-		System.out.println("두번째 광고 게시물의 광고의 갯수 : " + adGoodsCount[1]);
-		System.out.println("첫번째 광고 게시물의 내용 : " +  content[0]);
-		System.out.println("두번째 광고 게시물의 내용 : " +  content[1]);
+		log.debug("게시물의 갯수 : " + adBoardCount);
+		log.debug("첫번째/두번째 광고게시물 번호 : " + adBoardNo[0] + "/" + adBoardNo[1]);
+		log.debug("첫번째/두번째/세번째/네번째 광고 광고 번호 : " + adGoodsNo[0] + "/" + adGoodsNo[1] + "/" + adGoodsNo[2] + "/" + adGoodsNo[3]);
+		log.debug("첫번째 광고 게시물의 최저온도/최고온도 : " + minTemp[0] +"/"+maxTemp[0]);
+		log.debug("두번째 광고 게시물의 최저온도/최고온도 : " + minTemp[1] +"/"+maxTemp[1]);
+		log.debug("첫번째 광고 게시물의 광고의 갯수 : " + adGoodsCount[0]);
+		log.debug("두번째 광고 게시물의 광고의 갯수 : " + adGoodsCount[1]);
+		log.debug("첫번째 광고 게시물의 내용 : " +  content[0]);
+		log.debug("두번째 광고 게시물의 내용 : " +  content[1]);
 		String[] links = request.getParameterValues("adGoodsLink");
 		List<MultipartFile> adGoodsImages = multipartRequest.getFiles("adGoodsImage");
 		List<MultipartFile> adBoardImages = multipartRequest.getFiles("adBoardImage");
-		System.out.println("첫번쨰 광고 게시물 상품 갯수 : " + adGoodsCount[0]);
-		System.out.println("두번째 광고 게시물 상품 갯수 : " + adGoodsCount[1]);
-		System.out.println("adBoardImage : " + adBoardImages);
-		System.out.println("adGoodsImage : " + adGoodsImages);
-		System.out.println("adGoodsLink : " + request.getParameterValues("adGoodsLink"));
+		log.debug("첫번쨰 광고 게시물 상품 갯수 : " + adGoodsCount[0]);
+		log.debug("두번째 광고 게시물 상품 갯수 : " + adGoodsCount[1]);
+		log.debug("adBoardImage : " + adBoardImages);
+		log.debug("adGoodsImage : " + adGoodsImages);
+		log.debug("adGoodsLink : " + request.getParameterValues("adGoodsLink"));
 		for(int i = 0; i<adBoardNo.length; i++){
 			adboarddao.deleteAdBoard(adBoardNo[i]);
 		}
@@ -79,7 +82,7 @@ public class AdBoardController {
 			if(lastboardno != null){
 				initBoardno = Integer.parseInt(lastboardno) + initBoardno;
 			}
-			System.out.println("입력될 BoardNo : " + "ad_board_" + initBoardno);
+			log.debug("입력될 BoardNo : " + "ad_board_" + initBoardno);
 			adboard.setAdBoardNo("ad_board_" + initBoardno);
 			adboard.setAdBoardImg(utilfile.fileUpload(multipartRequest, adBoardImages.get(i)));
 			adboard.setAdContractNo(adcontractno);
@@ -93,10 +96,10 @@ public class AdBoardController {
 				if(lastgoodsno != null ){
 					initGoodsno = Integer.parseInt(lastgoodsno) + initGoodsno;
 				}
-				System.out.println("입력되는 정보 ");
-				System.out.println("goods_no : " + "ad_goods_"+initGoodsno);
-				System.out.println("goods_link : " + links[j]);
-				System.out.println("goods_img : "+ adGoodsImages.get(j));
+				log.debug("입력되는 정보 ");
+				log.debug("goods_no : " + "ad_goods_"+initGoodsno);
+				log.debug("goods_link : " + links[j]);
+				log.debug("goods_img : "+ adGoodsImages.get(j));
 				adgoods.setAdGoodsNo("ad_goods_"+initGoodsno);
 				adgoods.setAdGoodsLink(links[j]);
 				adgoods.setAdGoodsImg(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j)));
@@ -104,8 +107,8 @@ public class AdBoardController {
 				adboard.setAdBoardGoods1(adgoods.getAdGoodsNo());
 				if(Integer.parseInt(adGoodsCount[i])==1){
 					adboard.setAdBoardGoods2(null);
-					System.out.println("한개 건너뜀");
-					System.out.println("i : " + i + " j :" + j + "k : " + k);
+					log.debug("한개 건너뜀");
+					log.debug("i : " + i + " j :" + j + "k : " + k);
 					k=k+1;
 					break;
 				}else{
@@ -114,16 +117,16 @@ public class AdBoardController {
 					adgoods.setAdGoodsImg(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j+1)));
 					adgoodsdao.insertAdGoods(adgoods);
 					adboard.setAdBoardGoods2(adgoods.getAdGoodsNo());
-					System.out.println("i : " + i + " j :" + j + "k : " + k);
+					log.debug("i : " + i + " j :" + j + "k : " + k);
 					break;
 				}
 			}
 			k = k + Integer.parseInt(adGoodsCount[i]);
-			System.out.println(adboard.toString());
+			log.debug(adboard.toString());
 			adboarddao.insertAdBoard(adboard);
 		}
 		
-		System.out.println(adBoardImages.get(0));
+		log.debug(adBoardImages.get(0));
 		return "redirect:/adContractList";
 	}
 	
@@ -135,10 +138,10 @@ public class AdBoardController {
 		session.setAttribute("adContractNo", adcontractno);
 		int k = 0;
 		int adboardcount = 0;
-		System.out.println("광고 게시물 수정 화면 요청");
-		System.out.println("adContractNo : " + adcontractno);
+		log.debug("광고 게시물 수정 화면 요청");
+		log.debug("adContractNo : " + adcontractno);
 		List<AdBoardDto> adboard = adboarddao.selectAdBoardByContractId(adcontractno);
-		System.out.println("게시물 갯수 : " + adboard.size());
+		log.debug("게시물 갯수 : " + adboard.size());
 		adboardcount = adboard.size();
 		AdBoardDto[] adboardlist = new AdBoardDto[adboardcount];
 		String[] goodsno = new String[adboardlist.length*2];
@@ -149,7 +152,7 @@ public class AdBoardController {
 		}
 		for(int j=0; j<adboardcount; j++){
 				goodsno[k] = adboardlist[j].getAdBoardGoods1();
-				System.out.println(k);
+				log.debug(k);
 					if(adboardlist[j].getAdBoardGoods2()!=null){
 						goodsno[k+1] = adboardlist[j].getAdBoardGoods2();
 						k=k+2;
@@ -168,16 +171,16 @@ public class AdBoardController {
 		model.addAttribute("adgoods", adgoods);
 		model.addAttribute("adboardcount", adboardcount);
 		model.addAttribute("goodscount", goodscount);
-		System.out.println(model.toString());
+		log.debug(model.toString());
 		return "ad/board/ad_board_update";	
 	}
 	
 	@RequestMapping(value="/adBoardList",method = RequestMethod.GET)
 	public String selectAdBoardList(Model model
 								   ,HttpSession session) {
-		System.out.println("광고 게시물 목록 요청");
+		log.debug("광고 게시물 목록 요청");
 		String temp = (String)session.getAttribute("sessionTemp");
-		System.out.println("세션에 담겨있는 온도 : " + temp);
+		log.debug("세션에 담겨있는 온도 : " + temp);
 		String[] correctAdBoardCount = new String[3];
 		correctAdBoardCount[0] = adboarddao.selectPlace1TempCount(temp);
 		correctAdBoardCount[1] = adboarddao.selectPlace2TempCount(temp);
@@ -216,20 +219,20 @@ public class AdBoardController {
 			adBoardlist[2] = adboarddao.selectBoardPlace3WhenCount2();
 			break;
 		}
-		System.out.println("첫번째 위치에 해당하는 광고게시물의 갯수 : " + correctAdBoardCount[0]);
-		System.out.println("두번째 위치에 해당하는 광고게시물의 갯수 : " + correctAdBoardCount[1]);
-		System.out.println("세번째 위치에 해당하는 광고게시물의 갯수 : " + correctAdBoardCount[2]);	
+		log.debug("첫번째 위치에 해당하는 광고게시물의 갯수 : " + correctAdBoardCount[0]);
+		log.debug("두번째 위치에 해당하는 광고게시물의 갯수 : " + correctAdBoardCount[1]);
+		log.debug("세번째 위치에 해당하는 광고게시물의 갯수 : " + correctAdBoardCount[2]);	
 		model.addAttribute("adboardlist", adBoardlist);
-		System.out.println(model);
+		log.debug(model);
 		return "ad/board/ad_board_list";	
 	}
 	
 	@RequestMapping(value="/insertAdBoard",method = RequestMethod.GET)
 	public String insertAdBoardView(@RequestParam("adContractNo") String adcontractno
 								 ,HttpSession session) {
-		System.out.println("adContractNo : " + adcontractno);
+		log.debug("adContractNo : " + adcontractno);
 		session.setAttribute("adContractNo", adcontractno);
-		System.out.println("광고 게시물 입력 폼 요청");
+		log.debug("광고 게시물 입력 폼 요청");
 		return "ad/board/ad_board_insert";	
 	}
 	@RequestMapping(value="/insertAdBoard",method = RequestMethod.POST)
@@ -239,7 +242,7 @@ public class AdBoardController {
 		String adcontractno = (String) session.getAttribute("adContractNo");
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		int adBoardCount = Integer.parseInt(request.getParameter("adBoardCount"));
-		System.out.println("광고 게시물 입력 요청");
+		log.debug("광고 게시물 입력 요청");
 		String adGoodsCount[] = request.getParameterValues("adGoodsCount");
 		String minTemp[] = request.getParameterValues("adBoardTempMin");
 		String maxTemp[] = request.getParameterValues("adBoardTempMax");
@@ -250,18 +253,18 @@ public class AdBoardController {
 		if(adGoodsCount[1].equals(null)){
 			adGoodsCount[1] = "0";
 		}
-		System.out.println("게시물의 갯수 : " + adBoardCount);
-		System.out.println("첫번째 광고 게시물의 최저온도/최고온도 : " + minTemp[0] +"/"+maxTemp[0]);
-		System.out.println("두번째 광고 게시물의 최저온도/최고온도 : " + minTemp[1] +"/"+maxTemp[1]);
-		System.out.println("첫번째 광고 게시물의 광고의 갯수 : " + adGoodsCount[0]);
-		System.out.println("두번째 광고 게시물의 광고의 갯수 : " + adGoodsCount[1]);
-		System.out.println("첫번째 광고 게시물의 내용 : " +  content[0]);
-		System.out.println("두번째 광고 게시물의 내용 : " +  content[1]);
-		System.out.println("첫번쨰 광고 게시물 상품 갯수 : " + adGoodsCount[0]);
-		System.out.println("두번째 광고 게시물 상품 갯수 : " + adGoodsCount[1]);
-		System.out.println("adBoardImage : " + adBoardImages);
-		System.out.println("adGoodsImage : " + adGoodsImages);
-		System.out.println("adGoodsLink : " + links);
+		log.debug("게시물의 갯수 : " + adBoardCount);
+		log.debug("첫번째 광고 게시물의 최저온도/최고온도 : " + minTemp[0] +"/"+maxTemp[0]);
+		log.debug("두번째 광고 게시물의 최저온도/최고온도 : " + minTemp[1] +"/"+maxTemp[1]);
+		log.debug("첫번째 광고 게시물의 광고의 갯수 : " + adGoodsCount[0]);
+		log.debug("두번째 광고 게시물의 광고의 갯수 : " + adGoodsCount[1]);
+		log.debug("첫번째 광고 게시물의 내용 : " +  content[0]);
+		log.debug("두번째 광고 게시물의 내용 : " +  content[1]);
+		log.debug("첫번쨰 광고 게시물 상품 갯수 : " + adGoodsCount[0]);
+		log.debug("두번째 광고 게시물 상품 갯수 : " + adGoodsCount[1]);
+		log.debug("adBoardImage : " + adBoardImages);
+		log.debug("adGoodsImage : " + adGoodsImages);
+		log.debug("adGoodsLink : " + links);
 		for(int i = 0; i < adBoardCount; i++){
 			int initBoardno = 1;
 			AdBoardDto adboard = new AdBoardDto();
@@ -269,7 +272,7 @@ public class AdBoardController {
 			if(lastboardno != null){
 				initBoardno = Integer.parseInt(lastboardno) + initBoardno;
 			}
-			System.out.println("입력될 BoardNo : " + "ad_board_" + initBoardno);
+			log.debug("입력될 BoardNo : " + "ad_board_" + initBoardno);
 			adboard.setAdBoardNo("ad_board_" + initBoardno);
 			adboard.setAdBoardImg(utilfile.fileUpload(multipartRequest, adBoardImages.get(i)));
 			adboard.setAdContractNo(adcontractno);
@@ -283,10 +286,10 @@ public class AdBoardController {
 				if(lastgoodsno != null ){
 					initGoodsno = Integer.parseInt(lastgoodsno) + initGoodsno;
 				}
-				System.out.println("입력되는 정보 ");
-				System.out.println("goods_no : " + "ad_goods_"+initGoodsno);
-				System.out.println("goods_link : " + links[j]);
-				System.out.println("goods_img : "+ adGoodsImages.get(j));
+				log.debug("입력되는 정보 ");
+				log.debug("goods_no : " + "ad_goods_"+initGoodsno);
+				log.debug("goods_link : " + links[j]);
+				log.debug("goods_img : "+ adGoodsImages.get(j));
 				adgoods.setAdGoodsNo("ad_goods_"+initGoodsno);
 				adgoods.setAdGoodsLink(links[j]);
 				adgoods.setAdGoodsImg(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j)));
@@ -294,8 +297,8 @@ public class AdBoardController {
 				adboard.setAdBoardGoods1(adgoods.getAdGoodsNo());
 				if(Integer.parseInt(adGoodsCount[i])==1){
 					adboard.setAdBoardGoods2(null);
-					System.out.println("한개 건너뜀");
-					System.out.println("i : " + i + " j :" + j + "k : " + k);
+					log.debug("한개 건너뜀");
+					log.debug("i : " + i + " j :" + j + "k : " + k);
 					k=k+1;
 					break;
 				}else{
@@ -304,12 +307,12 @@ public class AdBoardController {
 				adgoods.setAdGoodsImg(utilfile.fileUpload(multipartRequest, adGoodsImages.get(j+1)));
 				adgoodsdao.insertAdGoods(adgoods);
 				adboard.setAdBoardGoods2(adgoods.getAdGoodsNo());
-				System.out.println("i : " + i + " j :" + j + "k : " + k);
+				log.debug("i : " + i + " j :" + j + "k : " + k);
 				break;
 				}
 			}
 			k = k + Integer.parseInt(adGoodsCount[i]);
-			System.out.println(adboard.toString());
+			log.debug(adboard.toString());
 			adboarddao.insertAdBoard(adboard);
 		}
 		adcontractdao.updateContractStatAdWait(adcontractno);

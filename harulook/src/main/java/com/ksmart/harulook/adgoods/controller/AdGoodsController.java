@@ -2,6 +2,7 @@ package com.ksmart.harulook.adgoods.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import com.ksmart.harulook.util.UtilFile;
 
 @Controller
 public class AdGoodsController {
+	Logger log = Logger.getLogger(this.getClass());
 	@Autowired
 	private AdGoodsInterface adgoodsdao;
 	@Autowired
@@ -33,9 +35,9 @@ public class AdGoodsController {
 		adgoods.setAdGoodsNo(adgoodsno);
 		adgoods.setAdGoodsImg(adgoodsimage);
 		adgoods.setAdGoodsLink(adgoodslink);
-		System.out.println("adgoodsno : " + adgoodsno);
-		System.out.println("adgoodsimage : " + adgoodsimage);
-		System.out.println("adgoodslink : " + adgoodslink);
+		log.debug("adgoodsno : " + adgoodsno);
+		log.debug("adgoodsimage : " + adgoodsimage);
+		log.debug("adgoodslink : " + adgoodslink);
 		adgoodsdao.updateAdGoods(adgoods);
 		return "redirect:/adBoardList";
 	}
@@ -45,8 +47,8 @@ public class AdGoodsController {
 									,@RequestParam("adBoardGoodsNo") String adGoodsNo){
 		AdGoodsDto adgoods = adgoodsdao.selectAdGoods(adGoodsNo);
 		model.addAttribute("adgoods", adgoods);
-		System.out.println(model);
-		System.out.println("수정화면");
+		log.debug(model);
+		log.debug("수정화면");
 		return "ad/goods/ad_goods_update";
 	}
 	@RequestMapping(value="/selectAdBoardGoods", method = RequestMethod.GET)
@@ -54,7 +56,7 @@ public class AdGoodsController {
 									,@RequestParam("adBoardGoodsNo") String adGoodsNo){
 		AdGoodsDto adgoods = adgoodsdao.selectAdGoods(adGoodsNo);
 		model.addAttribute("adgoods", adgoods);
-		System.out.println(model);
+		log.debug(model);
 		return "ad/goods/ad_goods_detail";
 	}
 	

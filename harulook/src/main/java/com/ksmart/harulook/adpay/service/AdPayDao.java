@@ -1,5 +1,6 @@
 package com.ksmart.harulook.adpay.service;
 
+import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.ksmart.harulook.adpay.service.AdPayDto;
 @Repository
 public class AdPayDao implements AdPayInterface {
+	Logger log = Logger.getLogger(this.getClass());
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
@@ -22,8 +24,8 @@ public class AdPayDao implements AdPayInterface {
 	 * @see com.ksmart.harulook.adpay.service.AdPayInterface#insertAdPay(com.ksmart.harulook.adpay.service.AdPayDto)
 	 */
 	public int insertAdPay(AdPayDto adpay) {
-		 System.out.println("in DAO");	
-		 System.out.println(adpay);
+		 log.debug("in DAO");	
+		 log.debug(adpay);
         return sqlSessionTemplate.insert("com.ksmart.harulook.adcontract.service.AdContractMapper.insertAdPay", adpay);	    
         }
 	

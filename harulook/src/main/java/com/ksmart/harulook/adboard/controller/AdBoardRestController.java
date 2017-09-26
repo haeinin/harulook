@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,7 @@ import com.ksmart.harulook.adgoods.service.AdGoodsInterface;
 
 @RestController
 public class AdBoardRestController {
+	Logger log = Logger.getLogger(this.getClass());
 	@Autowired
 	AdBoardInterface adBoardDao;
 	@Autowired
@@ -27,17 +29,17 @@ public class AdBoardRestController {
 	@RequestMapping(value="/adBoardDetail", method = RequestMethod.GET)
 	public Map<String, Object> adBoardDetail(HttpSession session
             , @RequestParam(value="adBoardNo", required=true) String adBoardNo) {
-		System.out.println("adBoardDeatil 화면 요청");
-		System.out.println("광고 게시물 번호 : " + adBoardNo);
+		log.debug("adBoardDeatil 화면 요청");
+		log.debug("광고 게시물 번호 : " + adBoardNo);
 		AdBoardDto adBoard = adBoardDao.selectBoardDetail(adBoardNo);
 		AdGoodsDto[] adGoods = new AdGoodsDto[2];
 			adGoods[0] = adGoodsDao.selectAdGoods(adBoard.getAdBoardGoods1());
 			adGoods[1] = adGoodsDao.selectAdGoods(adBoard.getAdBoardGoods2());
-			System.out.println(adBoard);
+			log.debug(adBoard);
 			Map<String, Object> adBoardDetail = new HashMap<String, Object>();
 			adBoardDetail.put("adBoard", adBoard);
 			adBoardDetail.put("adGoods", adGoods);
-			System.out.println(adBoardDetail);
+			log.debug(adBoardDetail);
 			return adBoardDetail;		
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import com.ksmart.harulook.adrefundpay.service.AdRefundPayDao;
 import com.ksmart.harulook.adrefundpay.service.AdRefundPayDto;
 @Controller
 public class AdRefundController {
+	Logger log = Logger.getLogger(this.getClass());
 	@Autowired
 	private AdRefundInterface adrefunddao;
 	
@@ -33,7 +35,7 @@ public class AdRefundController {
 			adrefundlist = adrefunddao.selectAdRefundList(SID);
 		}
 		model.addAttribute("adrefundlist", adrefundlist);
-		System.out.println(adrefundlist);
+		log.debug(adrefundlist);
 		return "ad/refund/ad_refund_list";
 	}
 	
@@ -46,7 +48,7 @@ public class AdRefundController {
 	@RequestMapping(value="/approveRefund", method = RequestMethod.GET)
 	public String approveRefund(Model model
 							  ,@RequestParam("refundNo") String refundNo){
-		System.out.println("환불번호 : " + refundNo);
+		log.debug("환불번호 : " + refundNo);
 		model.addAttribute("refundNo", refundNo);
 		adrefunddao.updateAdContractStatApproveRefund(refundNo);
 		return "redirect:/selectRefund";
