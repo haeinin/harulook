@@ -55,7 +55,8 @@ function readURL(input, id) {
 	}
 }
 
-function preview(img, selection) {
+// 선택한 영역 이미지 자르기
+/* function preview(img, selection) {
     if (!selection.width || !selection.height)
         return;
     
@@ -94,10 +95,10 @@ function preview(img, selection) {
     $('#y2').val(selection.y2);
     $('#w').val(selection.width);
     $('#h').val(selection.height);    
-}
+} */
 
 $(function(){
-	
+/* 	
 	var squareWidth;
     
     if($('#snsBoardImgView').width()< $('#snsBoardImgView').height()) {
@@ -112,7 +113,8 @@ $(function(){
     	width: squareWidth+'px',
     	height: squareWidth+'px'
     })
-    
+     */
+     
 	//이미지 파일 입력 여부 검사
 	$('#snsBoardImg').change(function(){
 		if($('#snsBoardImg').val() == '') { 
@@ -124,7 +126,7 @@ $(function(){
 			var id = $(this).attr('id');
 			id = id + "View";
 			console.log(id);
-			console.log(' squareWidth : ',squareWidth,'px');
+		//	console.log(' squareWidth : ',squareWidth,'px');
 			readURL(this, id);
 		}
 	});
@@ -179,11 +181,13 @@ $(function(){
 			alert('지역을 입력해주세요');
 			$('#snsBoardLoc').focus();
 			return false;
-		}else if($('#x1').val()== '-'){	//날씨 입력 안했을때
+		}
+/* 		else if($('#x1').val()== '-'){	
 			alert('업로드할 이미지 영역을 선택해주세요.');
 			$('#snsBoardImgView').focus();
 			return false;
-		}else{
+		} */
+		else{
 			$('#insertForm').submit();
 		}
 		
@@ -277,13 +281,13 @@ $(function(){
 		$('#circlePink').attr('class','fa fa-circle');
 	});
 	
-	$('#snsBoardImgView').imgAreaSelect({ 
+/* 	$('#snsBoardImgView').imgAreaSelect({ 
 		aspectRatio: '1:1', 
 		handles: true,
         fadeSpeed: 200, 
         onSelectChange: preview, 
         x1: 0, y1: 0, x2: squareWidth, y2: squareWidth
-    });
+    }); */
 });
 </script>
 </head>
@@ -308,11 +312,11 @@ $(function(){
 		            <label class="col-xs-2 control-label" for="uploadFile">사진 </label>
 			        <div class="col-xs-7">
 			            <img id="snsBoardImgView" class="img-responsive" src="#" alt="your image" />
-			            <div class="frame" style="margin: 0 1em; width: 100px; height: 100px;">
+<!-- 			            <div class="frame" style="margin: 0 1em; width: 100px; height: 100px;">
 					      <div id="preview" style="width: 100px; height: 100px; overflow: hidden;">
 					        <img id="previewImg" src="" style="width: 100px; height: 100px;" />
 					      </div>
-					    </div>
+					    </div> -->
 			            <input class="form-control" name="uploadFile" id="snsBoardImg" type="file"/>
 			            <span id="imgFail" >사진을 올려주세요.</span>
 		            </div>

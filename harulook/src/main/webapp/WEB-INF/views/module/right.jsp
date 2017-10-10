@@ -47,23 +47,23 @@ $.ajax({
 </script>
 </head>
 <body>
-	<div class="row" style="height: 40px;"></div>
-	<div class="row" style="height: 400px;">
+	<!-- <div class="row" style="height: 40px;"></div> -->
+<%-- 	<div class="row" style="height: 400px;">
 		<div id="add">
 			<a href="${pageContext.request.contextPath}/beautifulCloset" target="_blank">
 			<img src="resources/beaneo2.png" >
 			</a>
 		</div>
 
-	</div>
-	<div class="row" style="height: 100px;">
+	</div> --%>
+	<div class="row" style="height: 350px;">
 	<div id="add">
-	<a id="partner1"><img id="i" width="50px"></a>
+	<a id="partner1"><img id="i"></a>
 	</div>
 	</div>
 	<div class="row" style="height: 350px;">
 	<div id="add">
-	<a id="partner2"><img id="j" width="50px"></a>
+	<a id="partner2"><img id="j"></a>
 	</div>
 	
 </div>

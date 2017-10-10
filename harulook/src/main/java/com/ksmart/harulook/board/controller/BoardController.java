@@ -314,7 +314,8 @@ public class BoardController {
     		,MultipartHttpServletRequest multipartRequest) throws Exception {
     	log.debug("boardInsert 처리 요청");
     	
-    	String imgX1 = request.getParameter("imgX1");
+/* 		이미지 자를 때 필요한 데이터
+ *    	String imgX1 = request.getParameter("imgX1");
     	String imgY1 = request.getParameter("imgY1");
     	String imgWidth = request.getParameter("ImgWidth");
     	String imgHeight = request.getParameter("ImgHeight");
@@ -327,7 +328,7 @@ public class BoardController {
     	log.debug("uploadFile ImgX1 : " + imgX1);
     	log.debug("uploadFile ImgY1 : " + imgY1);
     	log.debug("uploadFile ImgWidth : " + imgWidth);
-    	log.debug("uploadFile ImgHeight : " + imgHeight);
+    	log.debug("uploadFile ImgHeight : " + imgHeight);*/
     	
     	log.debug("RewardController reAddProCtrl uploadFile : " + uploadFile);
     	
@@ -335,8 +336,11 @@ public class BoardController {
         UtilFile utilFile = new UtilFile();
         
 //      파일 업로드 결과값을 path로 받아온다(이미 fileUpload() 메소드에서 해당 경로에 업로드는 끝났음)
-        String uploadPath = utilFile.imgFileUpload(multipartRequest, uploadFile, intX1, intY1, intWidth, intHeight);
+        String uploadPath = utilFile.fileUpload(multipartRequest, uploadFile);
         
+// 		이미지 자르기 메서드 호출
+//      String uploadPath = utilFile.imgFileUpload(multipartRequest, uploadFile, intX1, intY1, intWidth, intHeight);
+
         log.debug("RewardController reAddProCtrl uploadPath : " + uploadPath);
     	board.setSnsBoardImg(uploadPath);
         
