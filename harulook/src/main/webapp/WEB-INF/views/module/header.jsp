@@ -302,16 +302,19 @@ $(document).ready(function(){
 	/* 오늘 날짜를 날씨 api의 입력 양식에 맞게 변환 */
     var d = new Date();
 	var year = d.getFullYear();
-	var month = d.getMonth() + 1;
+	var month = d.getMonth() + 1 + '';
 	if(month < 10) {
 		month = '0'+month;
 	}
+	console.log(year);
 	console.log(month);
-	var day = d.getDate();
+	
+	var day = d.getDate() + '';
 	if(day < 10) {
 		day = '0'+day;
-	}
+	} 
 	var date = year+month+day+'';
+	console.log(day);
 	console.log(date);
 	/********************************/
 	
@@ -350,8 +353,8 @@ $(document).ready(function(){
 	/********************************/
 	
 	var position = sessionStorage.getItem('influx');
-	var nx = '71';
-	var ny = '140';
+	var nx = '60';
+	var ny = '127';
 	
 	var allData = { 'date': date, 'hour': hour, 'nx': nx, 'ny': ny};	// api에 입력할 데이터 
 	console.log(nx, ny);

@@ -124,6 +124,7 @@ $(function(){
 			var id = $(this).attr('id');
 			id = id + "View";
 			console.log(id);
+			console.log(' squareWidth : ',squareWidth,'px');
 			readURL(this, id);
 		}
 	});
@@ -281,7 +282,7 @@ $(function(){
 		handles: true,
         fadeSpeed: 200, 
         onSelectChange: preview, 
-        x1: 0, y1: 0, x2: 100, y2: 100
+        x1: 0, y1: 0, x2: squareWidth, y2: squareWidth
     });
 });
 </script>
