@@ -161,14 +161,18 @@ public class BoardController {
 	
 	/* sns게시물 삭제 처리 요청 */
 	@RequestMapping(value="/boardDelete", method = RequestMethod.GET)
-	public String boardDelete(String boardNo) {
+	public String boardDelete(String boardNo, HttpSession session) {
 		log.debug("sns게시물 삭제 요청");
+		UtilFile utilFile = new UtilFile();
+		BoardDto board = boardDao.selectBoardDetail(boardNo);
 		boardDao.deleteBoard(boardNo);
 		commentDao.deleteBoardComment(boardNo);
 		likeDao.deleteboardLike(boardNo);
 		boardDao.deleteSnsColor(boardNo);
 		boardDao.deleteSnsSituation(boardNo);
 		boardDao.deleteSnsStyle(boardNo);
+		String fileName = board.getSnsBoardImg();
+		utilFile.deleteFile(fileName, session);
 		return "redirect:/home";
 	}
 	
@@ -313,6 +317,7 @@ public class BoardController {
     		,@RequestParam("uploadFile") MultipartFile uploadFile
     		,MultipartHttpServletRequest multipartRequest) throws Exception {
     	log.debug("boardInsert 처리 요청");
+    	log.debug("multipartRequest : "+multipartRequest);
     	
 /* 		이미지 자를 때 필요한 데이터
  *    	String imgX1 = request.getParameter("imgX1");

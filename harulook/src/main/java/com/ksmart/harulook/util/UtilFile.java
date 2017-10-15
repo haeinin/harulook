@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.imgscalr.Scalr;
@@ -19,6 +21,24 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class UtilFile {
 	Logger log = Logger.getLogger(this.getClass());
     String fileName = "";
+    
+    /* 업로드 파일 삭제 */
+    public void deleteFile(String fileName, HttpSession session) {
+    	ServletContext servletContext = session.getServletContext();
+    	String path = "";
+    	//배포할때에
+        path = servletContext.getRealPath("/");
+        //로컬에서 테스트할때에
+        //path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/";
+        path += fileName;
+        log.debug("UtilFile deleteFile fileName : " + fileName);
+        log.debug("UtilFile deleteFile deletePath : " + path);
+        File file = new File(path);
+		if(file.exists() == true){
+			file.delete();
+			log.debug("파일 삭제 !");
+		}
+    }
     
 /*프로젝트 내 지정된 경로에 파일을 저장하는 메소드
 DB에는 업로드된 전체 경로명으로만 지정되기 때문에(업로드한 파일 자체는 경로에 저장됨)

@@ -313,9 +313,7 @@ $(document).ready(function(){
 	if(day < 10) {
 		day = '0'+day;
 	} 
-	var date = year+month+day+'';
-	console.log(day);
-	console.log(date);
+	
 	/********************************/
 	
 	/* 현재 시간을 날씨api 입력 양식에 맞게 변환 */
@@ -325,9 +323,13 @@ $(document).ready(function(){
 		if(hour > 0) {
 			hour = hour - 1;
 		} else {
+			day -= 1;
 			hour = 23;
 		}
 	}
+	var date = year+month+day+'';
+	console.log(day);
+	console.log(date);
 	
 	var RequestHour = hour;
 	var apiTime = hour % 3;
