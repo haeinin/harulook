@@ -22,20 +22,20 @@ public class UtilFile {
 	Logger log = Logger.getLogger(this.getClass());
     String fileName = "";
     
-    /* 업로드 파일 삭제 */
+    /* 업로드 파일 삭제 메서드 */
     public void deleteFile(String fileName, HttpSession session) {
-    	ServletContext servletContext = session.getServletContext();
+    	ServletContext servletContext = session.getServletContext();	
     	String path = "";
     	//배포할때에
-        path = servletContext.getRealPath("/");
+        path = servletContext.getRealPath("/");	// 배포 시 업로드 폴더 경로
         //로컬에서 테스트할때에
         //path = "C:/Users/Administrator/git/harulook/harulook/src/main/webapp/";
-        path += fileName;
+        path += fileName;	// 업로드 폴더 경로에 선택한 파일이름 추가
         log.debug("UtilFile deleteFile fileName : " + fileName);
         log.debug("UtilFile deleteFile deletePath : " + path);
-        File file = new File(path);
-		if(file.exists() == true){
-			file.delete();
+        File file = new File(path);		// 완성된 경로의 파일 객체 생성
+		if(file.exists() == true){		
+			file.delete();				// 해당 경로의 파일이 존재하면 파일 삭제
 			log.debug("파일 삭제 !");
 		}
     }

@@ -164,15 +164,15 @@ public class BoardController {
 	public String boardDelete(String boardNo, HttpSession session) {
 		log.debug("sns게시물 삭제 요청");
 		UtilFile utilFile = new UtilFile();
-		BoardDto board = boardDao.selectBoardDetail(boardNo);
+		BoardDto board = boardDao.selectBoardDetail(boardNo);	// 업로드된 이미지 파일 이름 조회
 		boardDao.deleteBoard(boardNo);
 		commentDao.deleteBoardComment(boardNo);
 		likeDao.deleteboardLike(boardNo);
 		boardDao.deleteSnsColor(boardNo);
 		boardDao.deleteSnsSituation(boardNo);
 		boardDao.deleteSnsStyle(boardNo);
-		String fileName = board.getSnsBoardImg();
-		utilFile.deleteFile(fileName, session);
+		String fileName = board.getSnsBoardImg();	// 업로드된 게시물 이미지 파일 이름 저장
+		utilFile.deleteFile(fileName, session);		// 업로드된 게시물 이미지 파일 삭제 메서드 호출
 		return "redirect:/home";
 	}
 	
